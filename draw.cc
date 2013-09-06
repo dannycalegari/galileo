@@ -220,16 +220,11 @@ void world::draw_graphics(){
 		draw_square(400,400,5,0xFFC0CB);	// draw avatar square pink
 	} else {
 		// local map
-	for(j=5;j>=-5;j--){
-		for(i=-5;i<=5;i++){
+		for(j=5;j>=-5;j--){
+			for(i=-5;i<=5;i++){
 				if((-1 < P.x+i) && (P.x+i < 1000) && (-1 < P.y+j) && (P.y+j < 800)){	// in range?
 					draw_geographical_square(i,j);
-				};			
-			};
-		};
-	for(j=5;j>=-5;j--){
-		for(i=-5;i<=5;i++){
-				if((-1 < P.x+i) && (P.x+i < 1000) && (-1 < P.y+j) && (P.y+j < 800)){
+
 					h=world_map[P.x+i][P.y+j]*16;
 
 					k=flora_fauna_map[P.x+i][P.y+j];
