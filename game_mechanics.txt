@@ -46,21 +46,20 @@ flora/fauna map; loaded from flora_fauna.map, 800x800 grid of flora/fauna types
 201:	Pope Urban
 
 
-party initial statistics
+party statistics
 
-last_command = "loaded"
-gender = "male"
-moves = 0
-edit_mode = false
-view_mode = false
-P.x = 300	
-P.y = 400
-P.embarked = false
-P.has_axe = false
-P.has_bow = false
-P.has_net = false
-P.has_sword = false
-P.has_grapple = false
-P.has_bucket = false
-P.food = 100
-P.health = 100	
+x,y		location
+food
+health
+max_health
+gold
+wood
+
+skills/items:
+index			skill				item
+0				sailing				embarked
+1				woodcutting			axe
+2				hunting				bow
+3				fishing				net
+4				climbing			grapple
+5				milking				bucket
