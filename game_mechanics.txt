@@ -1,0 +1,47 @@
+Galileo game mechanics
+
+geographical map; loaded from europe.map, 800x800 grid of geographical types
+
+0:	water
+1:	low-lying grass
+2:	grassland
+3:	scrub
+4:	mountain
+
+outside map; loaded from flora_fauna.map, 800x800 grid of flora/fauna types
+
+-1:	nothing
+0:	tree
+1:	fruit tree
+2:	deer
+3:	fish
+4:	bear
+5:  avatar
+6:	city code; location determines specific city
+7:	cow
+8:	farmer
+9:	robber
+10:	merchant
+11:	lumberjack
+12:	npc code; location determines specific npc
+13: boat
+
+100+ specific cities
+
+100:	Cambridge			289 457
+101:	London				283 440
+102:	Amsterdam			342 441
+103:	Paris				296 383
+104:	Venice				409 297
+105:	Rome				408 231
+106:	Zurich				372 336
+107:	Athens				568 154
+108:	Constantinople		645 218
+109:	Madrid				175 254
+110:	Gibraltar			121 182
+
+200+ specific npcs
+
+200:	Galileo
+201:	Pope Urban
+
