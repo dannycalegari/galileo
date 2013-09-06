@@ -5,6 +5,14 @@
 struct party_state{	// data file for party
 	int x,y;	// global party location
 	bool embarked;
+	bool has_axe;
+	bool has_bow;
+	bool has_net;
+	bool has_sword;
+	bool has_grapple;
+	bool has_bucket;
+	int food;	// out of 100
+	int health;	// out of 100
 };
 
 
@@ -30,30 +38,35 @@ struct npc{
 
 class world{
 	public:
+		// party data
+		
+		string last_command;
+		string gender;
+		int moves;
 		bool edit_mode;
 		bool view_mode;
 		party_state P;
-		string gender;
+
+		// world data
 		
 		int world_map[1000][800];
 		int flora_fauna_map[1000][800];
-		string last_command;
 		
 		int flora_fauna_count[5];
 		void count_flora_fauna();
 
 		vector<item> items;
 		vector<npc> npcs;
-		int moves;
 	
 		void initialize();
 		void save_state();
-		
-		// geography layer
-		
+				
 		void read_map(ifstream &input_file, int type);
 		void write_map(ofstream &output_file, int type);
-		
+		void read_party(ifstream &input_file);
+
+		// geography layer
+
 		void draw_geographical_square(int i, int j);
 		void adjust_mountain_heights();
 
@@ -98,8 +111,12 @@ void world::attempt_move(int x, int y){
 		P.y=Y;
 	} else {
 		if(world_map[X][Y]>=4){	// mountain
-			// unless mountaineering skill
-			last_command="obstructed by mountain";
+			// unless mountaineering skill and grapple
+			if(P.has_grapple){
+			
+			} else {
+				last_command="blocked";
+			};
 		} else if (world_map[X][Y]==0){		// water
 			if(P.embarked==true){	// sailing on a boat
 			//	flora_fauna_map[P.x][P.y]=-1;
@@ -111,7 +128,7 @@ void world::attempt_move(int x, int y){
 					P.x=X;
 					P.y=Y;
 				} else {	
-					last_command="obstructed by water";
+					last_command="blocked";
 				};
 			};
 		} else {	// ordinary move
@@ -119,7 +136,7 @@ void world::attempt_move(int x, int y){
 				P.x=X;
 				P.y=Y;
 			} else {
-				last_command="can't sail onto land";
+				last_command="blocked";
 			};
 		};
 	};

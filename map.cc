@@ -1,31 +1,5 @@
 /* map.cc map commands */
 
-void world::read_map(ifstream &input_file, int type){
-	int i,j;
-	for(i=0;i<1000;i++){
-		for(j=0;j<800;j++){
-			if(type==0){
-				input_file >> world_map[i][j];
-			} else {
-				input_file >> flora_fauna_map[i][j];
-			};
-		};
-	};
-};
-
-void world::write_map(ofstream &output_file, int type){
-	int i,j;
-	for(i=0;i<1000;i++){
-		for(j=0;j<800;j++){
-			if(type==0){
-				output_file << world_map[i][j] << "\n";
-			} else {
-				output_file << flora_fauna_map[i][j] << "\n";
-			};
-		};
-	};
-};
-
 void world::clear_flora_fauna(){
 	int i,j;
 	for(i=0;i<1000;i++){

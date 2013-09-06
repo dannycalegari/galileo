@@ -45,3 +45,22 @@ flora/fauna map; loaded from flora_fauna.map, 800x800 grid of flora/fauna types
 200:	Galileo
 201:	Pope Urban
 
+
+party initial statistics
+
+last_command = "loaded"
+gender = "male"
+moves = 0
+edit_mode = false
+view_mode = false
+P.x = 300	
+P.y = 400
+P.embarked = false
+P.has_axe = false
+P.has_bow = false
+P.has_net = false
+P.has_sword = false
+P.has_grapple = false
+P.has_bucket = false
+P.food = 100
+P.health = 100	

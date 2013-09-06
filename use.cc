@@ -9,19 +9,35 @@ void world::use_object(int x, int y){
 			last_command="[u]se nothing";
 			break;
 		case 0:	// tree
-			last_command="chop down tree";
+			if(P.has_axe){
+				last_command="chop down tree";
+			} else {
+				last_command="how?";
+			};
 			break;
 		case 1: // fruit tree
 			last_command="pick fruit";
 			break;
 		case 2:	// hunt deer
-			last_command="hunt deer";
+			if(P.has_bow){
+				last_command="hunt deer";
+			} else {
+				last_command="how?";
+			};
 			break;
 		case 3: // fish
-			last_command="fish";
+			if(P.has_net){
+				last_command="fish";
+			} else {
+				last_command="how?";
+			};
 			break;
 		case 7: // cow
-			last_command="milk cow";
+			if(P.has_bucket){
+				last_command="milk cow";
+			} else {
+				last_command="how?";
+			};
 			break;
 		default:
 			break;
