@@ -6,9 +6,9 @@ geographical map; loaded from europe.map, 800x800 grid of geographical types
 1:	low-lying grass
 2:	grassland
 3:	scrub
-4:	mountain
+4-6:  mountain
 
-outside map; loaded from flora_fauna.map, 800x800 grid of flora/fauna types
+flora/fauna map; loaded from flora_fauna.map, 800x800 grid of flora/fauna types
 
 -1:	nothing
 0:	tree

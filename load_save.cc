@@ -2,10 +2,8 @@
 
 
 void world::initialize(){
-	P.x=300;
-	P.y=400;	// initial party location
-	
 	ifstream input_file;
+	
 	input_file.open("europe.map");
 	read_map(input_file, 0);
 	input_file.close();
@@ -13,10 +11,12 @@ void world::initialize(){
 	read_map(input_file, 1);
 	input_file.close();
 	count_flora_fauna();
-	//	adjust_mountain_heights();	// random adjustment
-	
+
+	// default party characteristics
 	last_command="";	// initialize memory of last command
-	gender="male";	// default gender; should make this loadable
+	gender="male";		// default gender
+	P.x=300;			// initial party location	
+	P.y=400;
 	P.embarked=false;	// default embarked state
 		
 	moves=0;

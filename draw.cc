@@ -231,8 +231,11 @@ void world::draw_graphics(){
 					if(k>=0 && k<100){
 						draw_sprite(k,400+(i*tile_size),400-(j*tile_size),h);
 					};
-					if(k>=100){
+					if(k>=100 && k<200){
 						draw_sprite(6,400+(i*tile_size),400-(j*tile_size),h);	// city; need to make these specific
+					};
+					if(k>=200 && k<300{
+						draw_sprite(12,400+(i*tile_size),400-(j*tile_size),h);	// npc; need to make these specific			
 					};
 					if(i==0 && j==0){
 						h=world_map[P.x][P.y]*16;
