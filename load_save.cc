@@ -57,19 +57,12 @@ void world::write_map(ofstream &output_file, int type){
 
 void world::read_party(ifstream &input_file){
 	input_file >> last_command;
-	cout << last_command << "\n";
 	input_file >> gender;
-	cout << gender << "\n";
 	input_file >> moves;
-	cout << moves << "\n";
 	input_file >> edit_mode;
-	cout << edit_mode << "\n";
 	input_file >> view_mode;
-	cout << view_mode << "\n";
 	input_file >> P.x;
-	cout << P.x << "\n";
 	input_file >> P.y;
-	cout << P.y << "\n";
 	input_file >> P.embarked;
 	input_file >> P.has_axe;
 	input_file >> P.has_bow;
@@ -79,4 +72,23 @@ void world::read_party(ifstream &input_file){
 	input_file >> P.has_bucket;
 	input_file >> P.food;
 	input_file >> P.health;
+};
+
+void world::write_party(ofstream &output_file){
+	output_file << last_command << "\n";
+	output_file << gender << "\n";
+	output_file << moves << "\n";
+	output_file << edit_mode << "\n";
+	output_file << view_mode << "\n";
+	output_file << P.x << "\n";
+	output_file << P.y << "\n";
+	output_file << P.embarked << "\n";
+	output_file << P.has_axe << "\n";
+	output_file << P.has_bow << "\n";
+	output_file << P.has_net << "\n";
+	output_file << P.has_sword << "\n";
+	output_file << P.has_grapple << "\n";
+	output_file << P.has_bucket << "\n";
+	output_file << P.food << "\n";
+	output_file << P.health << "\n";
 };

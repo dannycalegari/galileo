@@ -303,4 +303,12 @@ void world::draw_info(){
 	T << last_command;
 	p.y=300;
 	draw_text(p,T,0xFFAAAA);
+	T.str("");
+	T << "food " << P.food;
+	p.y=320;
+	draw_text(p,T,0xFFAAAA);
+	T.str("");
+	T << "health " << P.health;
+	p.y=340;
+	draw_text(p,T,0xFFAAAA);
 };

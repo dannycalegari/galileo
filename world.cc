@@ -64,6 +64,7 @@ class world{
 		void read_map(ifstream &input_file, int type);
 		void write_map(ofstream &output_file, int type);
 		void read_party(ifstream &input_file);
+		void write_party(ofstream &output_file);
 
 		// geography layer
 
