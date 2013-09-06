@@ -1,18 +1,20 @@
 /* world.cc basic world class and declaration of functions */
 
 #define MAX_SPRITE_NUM 14
+#define MAX_SKILL_NUM 6
 
 struct party_state{	// data file for party
 	int x,y;	// global party location
-	bool embarked;
-	bool has_axe;
-	bool has_bow;
-	bool has_net;
-	bool has_sword;
-	bool has_grapple;
-	bool has_bucket;
-	int food;	// out of 100
-	int health;	// out of 100
+	
+	int food;	
+	int health;
+	int max_health;
+	int gold; 
+	int wood;	
+	
+	// skills
+	bool skill_item[MAX_SKILL_NUM];		// has item to use skill
+	int skill[MAX_SKILL_NUM];			// proficiency in skill; out of 100
 };
 
 
@@ -24,13 +26,13 @@ struct item{
 struct npc{
 	int x,y;	// coordinates 
 	int id;		//
-		// skills; out of 10
-	int fighting;
-	int hunting;
-	int fishing;
+		// skills; out of 100
+	int sword;
+	int bow;
+	int net;
 	int farming;
-	int woodcutting;
-		// attributes; out of 10
+	int axe;
+		// attributes; out of 100
 	int health;
 	int food;
 	int wood;
@@ -70,9 +72,9 @@ class world{
 
 		void draw_geographical_square(int i, int j);
 		void adjust_mountain_heights();
-
 		
 		// flora_fauna layer
+		
 		void clear_flora_fauna();
 		void plant_trees();
 		
@@ -89,11 +91,13 @@ class world{
 		void draw_info();
 		
 		// game commands
+		
 		void select_direction_interface(int &select_direction_x, int &select_direction_y);
 		void use_object(int x, int y);
 		void talk(int x, int y);
 		void attack(int x, int y);
 		void attempt_move(int x, int y);
+		bool test_of_skill(int i);
 		
 		void user_interface();
 
@@ -112,16 +116,21 @@ void world::attempt_move(int x, int y){
 		P.y=Y;
 	} else {
 		if(world_map[X][Y]>=4){	// mountain
-			// unless mountaineering skill and grapple
-			if(P.has_grapple){
-			
-			} else {
+			if(world_map[X][Y]>=5){
 				last_command="blocked";
+			} else {
+			// unless mountaineering skill and grapple
+				if(test_of_skill(4)==true){	// if have grapple and pass mountaineering test
+					P.x=X;
+					P.y=Y;
+				} else {
+					last_command="stumble";
+				};
 			};
 		} else if (world_map[X][Y]==0){		// water
-			if(P.embarked==true){	// sailing on a boat
-			//	flora_fauna_map[P.x][P.y]=-1;
-			//	flora_fauna_map[X][Y]=13;
+			if(test_of_skill(0)==true){		// if embarked
+	//			if(P.embarked==true){	// sailing on a boat
+					//	test of sailing
 				P.x=X;
 				P.y=Y;
 			} else {
@@ -133,7 +142,7 @@ void world::attempt_move(int x, int y){
 				};
 			};
 		} else {	// ordinary move
-			if(P.embarked==false){
+			if(P.skill_item[0]==false){	// if not embarked
 				P.x=X;
 				P.y=Y;
 			} else {

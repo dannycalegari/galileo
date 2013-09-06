@@ -2,6 +2,7 @@
 
 
 long determine_color(int h){	// h = sum of altitudes of vertices
+	// interpolates colors for smoother graphics in geography layer
 	long c;
 	int r,g,b;
 	if(h==0){
@@ -79,7 +80,7 @@ void world::draw_geographical_square(int i, int j){	// i,j in [-5,5] is location
 	};
 	
 	for(b=1;b>=0;b--){
-		for(a=0;a<2;a++){
+		for(a=1;a>=0;a--){
 			if((a+b)%2==0){
 				q[0].x=365+(i*70)+(a*35);
 				q[0].y=435-(j*70)-(b*35);
@@ -221,7 +222,7 @@ void world::draw_graphics(){
 	} else {
 		// local map
 		for(j=5;j>=-5;j--){
-			for(i=-5;i<=5;i++){
+			for(i=5;i>=-5;i--){
 				if((-1 < P.x+i) && (P.x+i < 1000) && (-1 < P.y+j) && (P.y+j < 800)){	// in range?
 					draw_geographical_square(i,j);
 
@@ -242,7 +243,7 @@ void world::draw_graphics(){
 						if(world_map[P.x][P.y]>=4){
 							h=world_map[P.x][P.y]*20;
 						};
-						if(P.embarked==false){
+						if(P.skill_item[0]==false){		// if not embarked
 							draw_sprite(5,400,400,h);	// draw avatar
 						} else {
 							draw_sprite(13,400,400,h);	// draw boat
@@ -259,6 +260,7 @@ void world::draw_graphics(){
 void world::draw_info(){
 	stringstream T;
 	point p;
+	int i;
 
 	erase_writing_field();
 	
@@ -304,11 +306,26 @@ void world::draw_info(){
 	p.y=300;
 	draw_text(p,T,0xFFAAAA);
 	T.str("");
-	T << "food " << P.food;
+	T << "health " << P.health;
 	p.y=320;
 	draw_text(p,T,0xFFAAAA);
 	T.str("");
-	T << "health " << P.health;
+	T << "food " << P.food;
 	p.y=340;
 	draw_text(p,T,0xFFAAAA);
+	T.str("");
+	T << "wood " << P.wood;
+	p.y=360;
+	draw_text(p,T,0xFFAAAA);
+	T.str("");
+	T << "gold " << P.gold;
+	p.y=380;
+	draw_text(p,T,0xFFAAAA);
+	
+	for(i=0;i<MAX_SKILL_NUM;i++){
+		T.str("");
+		T << "skill " << i << " " << P.skill[i];
+		p.y=410+(20*i);
+		draw_text(p,T,0xFFAAAA);
+	};
 };

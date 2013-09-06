@@ -63,15 +63,17 @@ void world::read_party(ifstream &input_file){
 	input_file >> view_mode;
 	input_file >> P.x;
 	input_file >> P.y;
-	input_file >> P.embarked;
-	input_file >> P.has_axe;
-	input_file >> P.has_bow;
-	input_file >> P.has_net;
-	input_file >> P.has_sword;
-	input_file >> P.has_grapple;
-	input_file >> P.has_bucket;
 	input_file >> P.food;
 	input_file >> P.health;
+	input_file >> P.wood;
+	input_file >> P.gold;
+	
+	int i;
+	for(i=0;i<MAX_SKILL_NUM;i++){
+		input_file >> P.skill_item[i];
+		input_file >> P.skill[i];
+		if(input_file.eof()) break;
+	};
 };
 
 void world::write_party(ofstream &output_file){
@@ -82,13 +84,13 @@ void world::write_party(ofstream &output_file){
 	output_file << view_mode << "\n";
 	output_file << P.x << "\n";
 	output_file << P.y << "\n";
-	output_file << P.embarked << "\n";
-	output_file << P.has_axe << "\n";
-	output_file << P.has_bow << "\n";
-	output_file << P.has_net << "\n";
-	output_file << P.has_sword << "\n";
-	output_file << P.has_grapple << "\n";
-	output_file << P.has_bucket << "\n";
 	output_file << P.food << "\n";
 	output_file << P.health << "\n";
+	output_file << P.wood << "\n";
+	output_file << P.gold << "\n";
+	
+	int i;
+	for(i=0;i<MAX_SKILL_NUM;i++){
+		output_file << P.skill_item[i] << " " << P.skill[i] << "\n";
+	};
 };

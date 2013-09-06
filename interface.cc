@@ -93,21 +93,21 @@ void world::user_interface(){
 					
 				} else {				// GAME MODE
 					if(XLookupKeysym(&report.xkey, 0) == XK_b){	// board boat toggle
-						if(P.embarked==false){
+						if(P.skill_item[0]==false){		// in not embarked
 							if(flora_fauna_map[P.x][P.y]==13 && world_map[P.x][P.y]==0){	// if on a boat on water
-								P.embarked=true;
+								P.skill_item[0]=true;	// embark
 								flora_fauna_map[P.x][P.y]=-1;	// remove boat from map
 								last_command="[b]oard boat";
 							};
 						} else {
-							P.embarked=false;
+							P.skill_item[0]=false;	// disembark
 							flora_fauna_map[P.x][P.y]=13;	// put boat back on map
 							last_command="exit [b]oat";
 						};
 						draw();
 					};
 					if(XLookupKeysym(&report.xkey, 0) == XK_u){
-						last_command="[u]se object; which direction? ";
+						last_command="[u]se; which direction? ";
 						draw_info();
 						select_direction_interface(x,y);
 						use_object(x,y);

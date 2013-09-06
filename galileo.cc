@@ -36,6 +36,7 @@ using namespace std;
 #include "graphics.cc"
 #include "world.cc"
 #include "load_save.cc"
+#include "skill.cc"
 #include "use.cc"
 #include "talk.cc"
 #include "combat.cc"
