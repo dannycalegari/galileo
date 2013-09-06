@@ -4,6 +4,7 @@ void world::load_sprites(){
 	int i;
 	string S[MAX_SPRITE_NUM];
 	char T[40];
+	string R;
 	GC local_gc;
 	XImage *local_img;
 	XImage *local_clp;
@@ -29,7 +30,8 @@ void world::load_sprites(){
 	
 	
 	for(i=0;i<14;i++){
-		strcpy(T,S[i].c_str());
+		R="xpm_files/"+S[i];
+		strcpy(T,R.c_str());
 		if (XpmReadFileToImage(display, T, &local_img, &local_clp, NULL)) {
 			cout << "problem reading image " << i << "\n";
 			exit (1);

@@ -234,7 +234,7 @@ void world::draw_graphics(){
 					if(k>=100 && k<200){
 						draw_sprite(6,400+(i*tile_size),400-(j*tile_size),h);	// city; need to make these specific
 					};
-					if(k>=200 && k<300{
+					if(k>=200 && k<300){
 						draw_sprite(12,400+(i*tile_size),400-(j*tile_size),h);	// npc; need to make these specific			
 					};
 					if(i==0 && j==0){
