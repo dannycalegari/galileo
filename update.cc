@@ -44,9 +44,6 @@ point world::towards_avatar(int i, int j){
 void world::update_map(){	// only update region centered on avatar, for speed
 	int i,j,k;
 	int x,y;
-	int a,b,aa,bb;
-	bool close_to_prey;
-	bool ate_prey;
 	point p;
 	
 	moves++;
@@ -58,7 +55,7 @@ void world::update_map(){	// only update region centered on avatar, for speed
 		After all moves have taken place, 100 is added back to the index.
 	*/
 	
-	for(i=P.x-9;i<=P.x+9;i++){
+	for(i=P.x-9;i<=P.x+9;i++){		// could we update a bigger window?
 		for(j=P.y-9;j<=P.y+9;j++){
 			if(0<i && i<999 && 0<j && j<799){	// if in range
 			
@@ -75,10 +72,9 @@ void world::update_map(){	// only update region centered on avatar, for speed
 						p=towards_avatar(i,j);	// direction of avatar
 						x=i-p.x;
 						y=j-p.y;
-					} else	if(k>50){	// random move
+					} else {	// random move
 						x=i+(rand()%3-1);
 						y=j+(rand()%3-1);
-						cout << "i " << i << " j " << j << " x " << x << " y " << y << "\n";
 					};
 					if(world_map[x][y]>0 && world_map[x][y]<4 && flora_fauna_map[x][y]==-1){	// move
 						flora_fauna_map[x][y]=2-100;	// code for moved deer
@@ -98,62 +94,21 @@ void world::update_map(){	// only update region centered on avatar, for speed
 					};
 					break;
 				case 4:		// bear
-					close_to_prey=false;
-					ate_prey=false;
-					for(a=i-5;a<=i+5;a++){
-						for(b=j-5;b<=j+5;b++){
-							if(close_to_prey==false){
-								if(flora_fauna_map[a][b]==2){
-									close_to_prey=true;
-									if(a<i){
-										aa=-1;
-									};
-									if(a>i){
-										aa=1;
-									};
-									if(a==i){
-										aa=0;
-									};
-									if(b<j){
-										bb=-1;
-									};
-									if(b>j){
-										bb=1;
-									};
-									if(b==j){
-										bb=0;
-									};
-								};
-							};
-						};
-					};
-					
-					if(close_to_prey && rand()%3<2){
-						x=i+aa;
-						y=j+bb;
-					} else {
+						k=rand()%100;
+					if(k<50){	// move towards avatar
+						p=towards_avatar(i,j);	// direction of avatar
+						x=i+p.x;
+						y=j+p.y;
+					} else	{	// random move
 						x=i+(rand()%3-1);
 						y=j+(rand()%3-1);
+						cout << "i " << i << " j " << j << " x " << x << " y " << y << "\n";
 					};
-					if(world_map[x][y]>0 && flora_fauna_map[x][y]==2){
-						flora_fauna_map[x][y]=-1;	// eat deer
-						ate_prey=true;
+					if(world_map[x][y]>0 && world_map[x][y]<4 && flora_fauna_map[x][y]==-1){	// move
+						flora_fauna_map[x][y]=4-100;	// code for moved bear
+						flora_fauna_map[i][j]=-1;
 					};
-					if(ate_prey==true){
-						if(rand()%5==0){
-							x=i+(rand()%3-1);
-							y=j+(rand()%3-1);
-							if(world_map[x][y]>0 && world_map[x][y]<4 && flora_fauna_map[x][y]==-1){
-								flora_fauna_map[x][y]=4-100;	// new moved bear
-							};							
-						};
-					} else {
-						if(world_map[x][y]>0 && world_map[x][y]<4 && flora_fauna_map[x][y]==-1){
-							flora_fauna_map[i][j]=-1;
-							flora_fauna_map[x][y]=4-100;	// move randomly or towards prey
-						};
-					};
-				
+					break;
 				default:
 					break;
 			};
@@ -162,8 +117,9 @@ void world::update_map(){	// only update region centered on avatar, for speed
 		};
 	};
 	
-	for(i=P.x-9;i<=P.x+9;i++){	// forget move status by adding back 100
-		for(j=P.y-9;j<=P.y+9;j++){
+	for(i=P.x-9-3;i<=P.x+9+3;i++){	// forget move status by adding back 100; 
+		// examine wider square since something might have moved into it
+		for(j=P.y-9-3;j<=P.y+9+3;j++){
 			if(0<i && i<999 && 0<j && j<799){	// if in range
 				if(flora_fauna_map[i][j]<-90){
 					flora_fauna_map[i][j]=flora_fauna_map[i][j]+100;

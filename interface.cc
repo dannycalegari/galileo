@@ -20,21 +20,25 @@ void world::user_interface(){
 				if(XLookupKeysym(&report.xkey, 0) == XK_Right){
 					last_command="move right";
 					attempt_move(1,0);
+					update_map();
 					draw();
 				};
 				if(XLookupKeysym(&report.xkey, 0) == XK_Left){
 					last_command="move left";
 					attempt_move(-1,0);
+					update_map();
 					draw();
 				};
 				if(XLookupKeysym(&report.xkey, 0) == XK_Up){
 					last_command="move up";
 					attempt_move(0,1);
+					update_map();
 					draw();
 				};
 				if(XLookupKeysym(&report.xkey, 0) == XK_Down){
 					last_command="move down";
 					attempt_move(0,-1);
+					update_map();
 					draw();
 				};
 				
