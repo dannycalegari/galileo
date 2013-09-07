@@ -1,6 +1,6 @@
 /* world.cc basic world class and declaration of functions */
 
-#define MAX_SPRITE_NUM 14
+#define MAX_SPRITE_NUM 16
 #define MAX_SKILL_NUM 6
 
 struct party_state{	// data file for party

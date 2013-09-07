@@ -221,10 +221,17 @@ void world::draw_graphics(){
 		draw_square(400,400,5,0xFFC0CB);	// draw avatar square pink
 	} else {
 		// local map
+
+		
 		for(j=5;j>=-5;j--){
 			for(i=5;i>=-5;i--){
-				if((-1 < P.x+i) && (P.x+i < 1000) && (-1 < P.y+j) && (P.y+j < 800)){	// in range?
+				if((-1 < P.x+i) && (P.x+i < 1000) && (-1 < P.y+j) && (P.y+j < 800)){
 					draw_geographical_square(i,j);
+				};
+			};
+			for(i=5;i>=-5;i--){
+				if((-1 < P.x+i) && (P.x+i < 1000) && (-1 < P.y+j) && (P.y+j < 800)){	// in range?
+			//		draw_geographical_square(i,j);
 
 					h=world_map[P.x+i][P.y+j]*16;
 
@@ -233,7 +240,13 @@ void world::draw_graphics(){
 						draw_sprite(k,400+(i*tile_size),400-(j*tile_size),h);
 					};
 					if(k>=100 && k<200){
-						draw_sprite(6,400+(i*tile_size),400-(j*tile_size),h);	// city; need to make these specific
+						if(k==101){
+							draw_sprite(15,400+(i*tile_size),400-(j*tile_size),h);	// London
+						} else	if(k==103){
+							draw_sprite(14,400+(i*tile_size),400-(j*tile_size),h);	// Paris
+						} else {
+							draw_sprite(6,400+(i*tile_size),400-(j*tile_size),h);	// generic city; need to make these specific
+						};
 					};
 					if(k>=200 && k<300){
 						draw_sprite(12,400+(i*tile_size),400-(j*tile_size),h);	// npc; need to make these specific			

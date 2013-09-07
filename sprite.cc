@@ -27,9 +27,10 @@ void world::load_sprites(){
 	S[11]="lumberjack.xpm";
 	S[12]="npc.xpm";	// generic npc sprite
 	S[13]="boat.xpm";
+	S[14]="paris.xpm";
+	S[15]="london.xpm";
 	
-	
-	for(i=0;i<14;i++){
+	for(i=0;i<16;i++){
 		R="xpm_files/"+S[i];
 		strcpy(T,R.c_str());
 		if (XpmReadFileToImage(display, T, &local_img, &local_clp, NULL)) {
