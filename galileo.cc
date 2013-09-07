@@ -32,7 +32,8 @@ using namespace std;
 
 // global constants
 
-#include "points.cc"
+struct point{ int x,y; };
+
 #include "graphics.cc"
 #include "world.cc"
 #include "load_save.cc"

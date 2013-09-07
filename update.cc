@@ -16,17 +16,51 @@ void world::count_flora_fauna(){
 	};
 };
 
-void world::update_map(){
+point world::towards_avatar(int i, int j){
+	point p;
+	int x,y;
+	
+	x=P.x-i;
+	y=P.y-j;
+	
+	if(x>0){
+		p.x=1;
+	} else if(x<0){
+		p.x=-1;
+	} else {
+		p.x=0;
+	};
+	
+	if(y>0){
+		p.y=1;
+	} else if(y<0){
+		p.y=-1;
+	} else {
+		p.y=0;
+	};
+	return(p);
+};
+
+void world::update_map(){	// only update region centered on avatar, for speed
 	int i,j,k;
 	int x,y;
 	int a,b,aa,bb;
 	bool close_to_prey;
 	bool ate_prey;
+	point p;
 	
 	moves++;
 	
-	for(i=10;i<990;i++){
-		for(j=10;j<790;j++){
+	/* 
+		Since each animal can only move once per turn, if it moves, it is given
+		code index-100 on the flora/fauna map; thus it won't be moved again.
+		
+		After all moves have taken place, 100 is added back to the index.
+	*/
+	
+	for(i=P.x-9;i<=P.x+9;i++){
+		for(j=P.y-9;j<=P.y+9;j++){
+			if(0<i && i<999 && 0<j && j<799){	// if in range
 			
 			switch(flora_fauna_map[i][j])	{
 				case -1:		// empty
@@ -37,14 +71,18 @@ void world::update_map(){
 					break;		
 				case 2:		// deer
 					k=rand()%100;
-					if(k>50){
+					if(k<50){	// move away from avatar
+						p=towards_avatar(i,j);	// direction of avatar
+						x=i-p.x;
+						y=j-p.y;
+					} else	if(k>50){	// random move
 						x=i+(rand()%3-1);
 						y=j+(rand()%3-1);
-						if(world_map[x][y]>0 && world_map[x][y]<4 && flora_fauna_map[x][y]==-1){
-							flora_fauna_map[x][y]=2;
-							flora_fauna_map[i][j]=-1;
-							// random move
-						};
+						cout << "i " << i << " j " << j << " x " << x << " y " << y << "\n";
+					};
+					if(world_map[x][y]>0 && world_map[x][y]<4 && flora_fauna_map[x][y]==-1){	// move
+						flora_fauna_map[x][y]=2-100;	// code for moved deer
+						flora_fauna_map[i][j]=-1;
 					};
 					break;
 				case 3:		// fish
@@ -53,7 +91,7 @@ void world::update_map(){
 						x=i+(rand()%3-1);
 						y=j+(rand()%3-1);
 						if(world_map[x][y]==0 && flora_fauna_map[x][y]==-1){
-							flora_fauna_map[x][y]=3;
+							flora_fauna_map[x][y]=3-100;	// code for moved fish
 							flora_fauna_map[i][j]=-1;
 							// random move
 						};
@@ -106,18 +144,30 @@ void world::update_map(){
 							x=i+(rand()%3-1);
 							y=j+(rand()%3-1);
 							if(world_map[x][y]>0 && world_map[x][y]<4 && flora_fauna_map[x][y]==-1){
-								flora_fauna_map[x][y]=4;	// new bear
+								flora_fauna_map[x][y]=4-100;	// new moved bear
 							};							
 						};
 					} else {
 						if(world_map[x][y]>0 && world_map[x][y]<4 && flora_fauna_map[x][y]==-1){
 							flora_fauna_map[i][j]=-1;
-							flora_fauna_map[x][y]=4;	// move randomly or towards prey
+							flora_fauna_map[x][y]=4-100;	// move randomly or towards prey
 						};
 					};
 				
 				default:
 					break;
+			};
+			
+			};
+		};
+	};
+	
+	for(i=P.x-9;i<=P.x+9;i++){	// forget move status by adding back 100
+		for(j=P.y-9;j<=P.y+9;j++){
+			if(0<i && i<999 && 0<j && j<799){	// if in range
+				if(flora_fauna_map[i][j]<-90){
+					flora_fauna_map[i][j]=flora_fauna_map[i][j]+100;
+				};
 			};
 		};
 	};

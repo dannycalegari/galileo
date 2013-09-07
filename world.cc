@@ -85,6 +85,7 @@ class world{
 		void load_sprites();
 		void draw_sprite(int i, int x, int y, int h);
 		
+		point towards_avatar(int i, int j);
 		void update_map();
 		void draw();
 		void draw_graphics();
