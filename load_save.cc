@@ -43,11 +43,11 @@ void world::test_map(){
 void world::save_state(){
 	ofstream output_file;
 	
-	output_file.open("europe.map");
+	output_file.open("europe_geo.map");
 	write_map(output_file, 0);
 	output_file.close();
 	
-	output_file.open("flora_fauna.map");
+	output_file.open("europe_ff.map");
 	write_map(output_file, 1);
 	output_file.close();
 };
@@ -81,15 +81,49 @@ void world::read_map(ifstream &input_file, int type){
 };
 
 void world::write_map(ofstream &output_file, int type){
-	int i,j;
-	for(i=0;i<1000;i++){
-		for(j=0;j<800;j++){
-			if(type==0){
-				output_file << world_map[i][j] << "\n";
+	int i,j,k;
+	int rows, cols;
+	switch(type){
+		case 0:	
+			rows=world_map[0].size();
+			cols=world_map.size();
+			break;
+		case 1:
+			rows=flora_fauna_map[0].size();
+			cols=flora_fauna_map.size();
+			break;
+		case 2:
+			rows=wall_map[0].size();
+			cols=wall_map.size();
+			break;			
+	};
+	output_file << cols << " " << rows << "\n";
+	for(i=0;i<cols;i++){
+		for(j=0;j<rows;j++){
+			switch(type){
+				case 0:
+					k=world_map[i][j];
+					break;
+				case 1:
+					k=flora_fauna_map[i][j];
+					break;
+				case 2:
+					k=wall_map[i][j];
+					break;
+				default:
+					break;
+			};
+			if(k<0){
+				output_file << k << "  ";
+			} else if(k<10){
+				output_file << k << "   ";
+			} else if(k<100){
+				output_file << k << "  ";
 			} else {
-				output_file << flora_fauna_map[i][j] << "\n";
+				output_file << k << " ";
 			};
 		};
+		output_file << "\n";
 	};
 };
 
