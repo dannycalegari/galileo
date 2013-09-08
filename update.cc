@@ -102,7 +102,6 @@ void world::update_map(){	// only update region centered on avatar, for speed
 					} else	{	// random move
 						x=i+(rand()%3-1);
 						y=j+(rand()%3-1);
-						cout << "i " << i << " j " << j << " x " << x << " y " << y << "\n";
 					};
 					if(world_map[x][y]>0 && world_map[x][y]<4 && flora_fauna_map[x][y]==-1){	// move
 						flora_fauna_map[x][y]=4-100;	// code for moved bear
