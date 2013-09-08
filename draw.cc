@@ -61,6 +61,104 @@ long shadow(long c){
 	return(d);
 };
 
+void world::draw_wall(int i, int j){	
+	// i,j in [-5,5] is location relative to P.x,P.y
+	int k;
+	int a,b;
+	vector<int> r,s;
+	vector<long> d;
+	int x,y;
+	int height[3][3];
+	int wall_height;
+	long c;
+	XPoint q[4];
+	
+	x=P.x;
+	y=P.y;
+	k=wall_map[x+i][y+j];	// k is type of wall
+	for(a=-1;a<2;a++){
+		for(b=-1;b<2;b++){
+			height[a+1][b+1]=world_map[x+i][y+j]+world_map[x+i+a][y+j]+world_map[x+i][y+j+b]+world_map[x+i+a][y+j+b];
+			if(a==0 && b==0 && world_map[x+i][y+j]>=4){	// mountain tile
+				height[1][1]=world_map[x+i][y+j]*5;
+			};
+		};
+	};
+
+	r.clear();
+	s.clear();	
+	d.clear();
+	
+	switch(k){
+		case 0:		// EW wall
+			wall_height=50;
+			r.push_back(2);
+			s.push_back(1);
+			d.push_back(0xAAAAFF);
+			r.push_back(1);
+			s.push_back(1);
+			d.push_back(0xAAAAFF);
+			r.push_back(0);
+			s.push_back(1);
+			break;
+		case 1:		// NS wall
+			wall_height=50;
+			r.push_back(1);
+			s.push_back(2);
+			d.push_back(0x9999EE);
+			r.push_back(1);
+			s.push_back(1);
+			d.push_back(0x9999EE);
+			r.push_back(1);
+			s.push_back(0);
+			break;
+		case 2:		// corner
+			wall_height=80;
+			r.push_back(2);
+			s.push_back(1);
+			d.push_back(0x555599);
+			r.push_back(1);
+			s.push_back(2);
+			d.push_back(0x222266);
+			r.push_back(0);
+			s.push_back(1);
+			d.push_back(0xDDDDFF);
+			r.push_back(1);
+			s.push_back(0);
+			d.push_back(0x7777CC);
+			r.push_back(2);
+			s.push_back(1);
+			break;
+			
+		default:
+			break;
+	};
+	if(r.size()>=1){
+	for(a=0;a<(int) r.size()-1;a++){
+		q[0].x=365+(i*70)+r[a]*35;
+		q[0].y=435-(j*70)-s[a]*35;
+		q[0]=affine_transform(q[0]);
+		q[0].y=q[0].y-height[r[a]][s[a]]*4;
+		q[1].x=365+(i*70)+r[a]*35;
+		q[1].y=435-(j*70)-s[a]*35;
+		q[1]=affine_transform(q[1]);
+		q[1].y=q[1].y-height[r[a]][s[a]]*4-wall_height;				
+		q[2].x=365+(i*70)+r[a+1]*35;
+		q[2].y=435-(j*70)-s[a+1]*35;
+		q[2]=affine_transform(q[2]);
+		q[2].y=q[2].y-height[r[a+1]][s[a+1]]*4-wall_height;
+		q[3].x=365+(i*70)+r[a+1]*35;
+		q[3].y=435-(j*70)-s[a+1]*35;
+		q[3]=affine_transform(q[3]);
+		q[3].y=q[3].y-height[r[a+1]][s[a+1]]*4;				
+		c=d[a];
+   		XSetForeground(display, gc, c);
+		XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
+		XFillPolygon(display, win, gc, q, 4, Convex, CoordModeOrigin);
+	};
+	};
+};
+
 void world::draw_geographical_square(int i, int j){	// i,j in [-5,5] is location relative to P.x,P.y
 	int a,b;
 	int x,y;
@@ -210,7 +308,7 @@ void world::draw_graphics(){
 		// draw overview map with 5x5 pixels just colored squares
 	for(j=-80;j<80;j++){
 		for(i=-80;i<80;i++){
-				if((-1 < P.x+i) && (P.x+i < 1000) && (-1 < P.y+j) && (P.y+j < 800)){
+				if((-1 < P.x+i) && (P.x+i < (int) world_map.size()) && (-1 < P.y+j) && (P.y+j < (int) world_map[0].size())){
 					draw_square(5*(80+i),5*(80-j),5,color_code(world_map[P.x+i][P.y+j]));
 					if(flora_fauna_map[P.x+i][P.y+j]>=100){	// city
 						draw_square(5*(80+i),5*(80-j),5,0xFF0000);
@@ -225,12 +323,15 @@ void world::draw_graphics(){
 		
 		for(j=5;j>=-5;j--){
 			for(i=5;i>=-5;i--){
-				if((-1 < P.x+i) && (P.x+i < 1000) && (-1 < P.y+j) && (P.y+j < 800)){
+				if((-1 < P.x+i) && (P.x+i < (int) world_map.size()) && (-1 < P.y+j) && (P.y+j < (int) world_map[0].size())){
 					draw_geographical_square(i,j);
+					if(0 < (int) wall_map.size()){
+						draw_wall(i,j);
+					};
 				};
 			};
 			for(i=5;i>=-5;i--){
-				if((-1 < P.x+i) && (P.x+i < 1000) && (-1 < P.y+j) && (P.y+j < 800)){	// in range?
+				if((-1 < P.x+i) && (P.x+i < (int) world_map.size()) && (-1 < P.y+j) && (P.y+j < (int) world_map[0].size())){	// in range?
 			//		draw_geographical_square(i,j);
 
 					h=world_map[P.x+i][P.y+j]*16;

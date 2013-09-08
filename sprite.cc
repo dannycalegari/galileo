@@ -49,8 +49,8 @@ void world::load_sprites(){
 
 void world::draw_sprite(int i, int x, int y, int h){	// sprite type i, sprite origin x,y height h
 	XPoint p;
-	p.x=x;
-	p.y=y-35;
+	p.x=x+17;	// need to work this out better
+	p.y=y-51;
 	p=affine_transform(p);
 	p.y=p.y-h;
     XSetClipMask(display, gc, pix[i]);

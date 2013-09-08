@@ -52,7 +52,7 @@ struct point{ int x,y; };
 int main(int argc, char *argv[]){ 
 
 	setup_graphics();
-	usleep(100000);
+//	usleep(100000);
 	XFlush(display);
 
 	

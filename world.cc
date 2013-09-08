@@ -51,8 +51,11 @@ class world{
 
 		// world data
 		
-		int world_map[1000][800];
-		int flora_fauna_map[1000][800];
+//		int world_map[1000][800];
+		vector<vector<int> > world_map;
+//		int flora_fauna_map[1000][800];
+		vector<vector<int> > flora_fauna_map;
+		vector<vector<int> > wall_map;
 		
 		int flora_fauna_count[5];
 		void count_flora_fauna();
@@ -67,10 +70,13 @@ class world{
 		void write_map(ofstream &output_file, int type);
 		void read_party(ifstream &input_file);
 		void write_party(ofstream &output_file);
+		
+		void test_map();
 
-		// geography layer
+		// geography and wall layers
 
 		void draw_geographical_square(int i, int j);
+		void draw_wall(int i, int j);
 		void adjust_mountain_heights();
 		
 		// flora_fauna layer

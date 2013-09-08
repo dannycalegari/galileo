@@ -145,6 +145,11 @@ void world::user_interface(){
 					save_state();
 				};
 				
+				if(XLookupKeysym(&report.xkey, 0) == XK_z){	// load test map
+					last_command="load test map";
+					test_map();
+					draw();
+				};
 				
 				if(XLookupKeysym(&report.xkey, 0) == XK_q){ // quit       
 					last_command="[q]uit";
