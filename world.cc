@@ -51,9 +51,7 @@ class world{
 
 		// world data
 		
-//		int world_map[1000][800];
 		vector<vector<int> > world_map;
-//		int flora_fauna_map[1000][800];
 		vector<vector<int> > flora_fauna_map;
 		vector<vector<int> > wall_map;
 		
@@ -116,8 +114,9 @@ void world::attempt_move(int x, int y){
 	X=P.x+x;
 	Y=P.y+y;
 
-	if(X<10 || X>990 || Y<10 || Y>790){
-			last_command="out of range!";
+	if(X<1 || X> (int) world_map.size()-2 || Y<1 || Y> (int) world_map[0].size()-2){	
+		// exit city or combat map; or if in europe,
+		last_command="out of range!";
 	} else if(edit_mode){
 		P.x=X;
 		P.y=Y;

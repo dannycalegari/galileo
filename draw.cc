@@ -1,66 +1,5 @@
 /* draw.cc draws the screen */
 
-
-long determine_color(int h){	// h = sum of altitudes of vertices
-	// interpolates colors for smoother graphics in geography layer
-	long c;
-	int r,g,b;
-	if(h==0){
-		r=0;
-		g=40;
-		b=255;
-	} else {
-		if(0<h && h<=12){
-			r=0;
-			g=(160*h)/12+(40*(12-h))/12;
-			b=(255*(12-h))/12;
-		};
-		if(12<h && h<=24){
-			r=0;
-			g=((200*(h-12))+(160*(24-h)))/12;
-			b=0;
-		};
-		if(24<h && h<=36){
-			r=(160*(h-24))/12;
-			g=((200*(36-h))+(128*(h-24)))/12;
-			b=(48*(h-24))/12;
-		};
-		if(36<h && h<=48){
-			r=((187*(h-36))+(160*(48-h)))/12;
-			g=((187*(h-36))+(128*(48-h)))/12;
-			b=((187*(h-36))+(48*(48-h)))/12;
-		};
-		if(48<h){
-			r=255;
-			g=255;
-			b=255;
-		};
-	};
-	c=(256*256*r)+(256*g)+b;
-	return(c);
-		/*
-				l=0x0000FF;	// water				0
-				l=0x00A000; // low-lying grass		3
-				l=0x00FF00; // grassland			6
-				l=0xA08030; // scrub				9
-				l=0xBBBBBB; // mountain				12
-		*/
-};
-
-long shadow(long c){
-	int r,g,b;
-	long d;
-	b = c%256;
-	g = (c/256)%256;
-	r = (c/(256*256))%256;
-	
-	r=r*0.7;
-	g=g*0.7;
-	b=b*0.7;
-	d=(256*256*r)+(256*g)+b;
-	return(d);
-};
-
 void world::draw_wall(int i, int j){	
 	// i,j in [-5,5] is location relative to P.x,P.y
 	int k;
@@ -134,30 +73,92 @@ void world::draw_wall(int i, int j){
 			break;
 	};
 	if(r.size()>=1){
-	for(a=0;a<(int) r.size()-1;a++){
-		q[0].x=365+(i*70)+r[a]*35;
-		q[0].y=435-(j*70)-s[a]*35;
-		q[0]=affine_transform(q[0]);
-		q[0].y=q[0].y-height[r[a]][s[a]]*4;
-		q[1].x=365+(i*70)+r[a]*35;
-		q[1].y=435-(j*70)-s[a]*35;
-		q[1]=affine_transform(q[1]);
-		q[1].y=q[1].y-height[r[a]][s[a]]*4-wall_height;				
-		q[2].x=365+(i*70)+r[a+1]*35;
-		q[2].y=435-(j*70)-s[a+1]*35;
-		q[2]=affine_transform(q[2]);
-		q[2].y=q[2].y-height[r[a+1]][s[a+1]]*4-wall_height;
-		q[3].x=365+(i*70)+r[a+1]*35;
-		q[3].y=435-(j*70)-s[a+1]*35;
-		q[3]=affine_transform(q[3]);
-		q[3].y=q[3].y-height[r[a+1]][s[a+1]]*4;				
-		c=d[a];
-   		XSetForeground(display, gc, c);
-		XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
-		XFillPolygon(display, win, gc, q, 4, Convex, CoordModeOrigin);
-	};
+		for(a=0;a<(int) r.size()-1;a++){
+			q[0].x=365+(i*70)+r[a]*35;
+			q[0].y=435-(j*70)-s[a]*35;
+			q[0]=affine_transform(q[0]);
+			q[0].y=q[0].y-height[r[a]][s[a]]*4;
+			q[1].x=365+(i*70)+r[a]*35;
+			q[1].y=435-(j*70)-s[a]*35;
+			q[1]=affine_transform(q[1]);
+			q[1].y=q[1].y-height[r[a]][s[a]]*4-wall_height;				
+			q[2].x=365+(i*70)+r[a+1]*35;
+			q[2].y=435-(j*70)-s[a+1]*35;
+			q[2]=affine_transform(q[2]);
+			q[2].y=q[2].y-height[r[a+1]][s[a+1]]*4-wall_height;
+			q[3].x=365+(i*70)+r[a+1]*35;
+			q[3].y=435-(j*70)-s[a+1]*35;
+			q[3]=affine_transform(q[3]);
+			q[3].y=q[3].y-height[r[a+1]][s[a+1]]*4;				
+			c=d[a];
+   			XSetForeground(display, gc, c);
+			XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
+			XFillPolygon(display, win, gc, q, 4, Convex, CoordModeOrigin);
+		};
 	};
 };
+
+
+long determine_color(int h){	// h = sum of altitudes of vertices
+	// interpolates colors for smoother graphics in geography layer
+	long c;
+	int r,g,b;
+	if(h==0){
+		r=0;
+		g=40;
+		b=255;
+	} else {
+		if(0<h && h<=12){
+			r=0;
+			g=(160*h)/12+(40*(12-h))/12;
+			b=(255*(12-h))/12;
+		};
+		if(12<h && h<=24){
+			r=0;
+			g=((200*(h-12))+(160*(24-h)))/12;
+			b=0;
+		};
+		if(24<h && h<=36){
+			r=(160*(h-24))/12;
+			g=((200*(36-h))+(128*(h-24)))/12;
+			b=(48*(h-24))/12;
+		};
+		if(36<h && h<=48){
+			r=((187*(h-36))+(160*(48-h)))/12;
+			g=((187*(h-36))+(128*(48-h)))/12;
+			b=((187*(h-36))+(48*(48-h)))/12;
+		};
+		if(48<h){
+			r=255;
+			g=255;
+			b=255;
+		};
+	};
+	c=(256*256*r)+(256*g)+b;
+	return(c);
+		/*
+				l=0x0000FF;	// water				0
+				l=0x00A000; // low-lying grass		3
+				l=0x00FF00; // grassland			6
+				l=0xA08030; // scrub				9
+				l=0xBBBBBB; // mountain				12
+		*/
+};
+
+long shadow(long c){
+	int r,g,b;
+	long d;
+	b = c%256;
+	g = (c/256)%256;
+	r = (c/(256*256))%256;
+	
+	r=r*0.7;
+	g=g*0.7;
+	b=b*0.7;
+	d=(256*256*r)+(256*g)+b;
+	return(d);
+};
+
 
 void world::draw_geographical_square(int i, int j){	// i,j in [-5,5] is location relative to P.x,P.y
 	int a,b;
@@ -323,16 +324,20 @@ void world::draw_graphics(){
 		
 		for(j=5;j>=-5;j--){
 			for(i=5;i>=-5;i--){
-				if((-1 < P.x+i) && (P.x+i < (int) world_map.size()) && (-1 < P.y+j) && (P.y+j < (int) world_map[0].size())){
-					draw_geographical_square(i,j);
-					if(0 < (int) wall_map.size()){
-						draw_wall(i,j);
+				if((0 < P.x+i) && (P.x+i < (int) world_map.size()-1) && (0 < P.y+j) && (P.y+j < (int) world_map[0].size()-1)){
+					
+					draw_geographical_square(i,j);	// draw geography layer
+					
+					if(0 < (int) wall_map.size()){	// if map has a wall layer
+						if(wall_map[P.x+i][P.y+j]>-1){
+							draw_wall(i,j);				// draw wall layer
+						};
 					};
+					
 				};
 			};
 			for(i=5;i>=-5;i--){
-				if((-1 < P.x+i) && (P.x+i < (int) world_map.size()) && (-1 < P.y+j) && (P.y+j < (int) world_map[0].size())){	// in range?
-			//		draw_geographical_square(i,j);
+				if((0 < P.x+i) && (P.x+i < (int) world_map.size()-1) && (0 < P.y+j) && (P.y+j < (int) world_map[0].size()-1)){
 
 					h=world_map[P.x+i][P.y+j]*16;
 
