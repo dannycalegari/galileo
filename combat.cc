@@ -30,3 +30,24 @@ void world::attack(int x, int y){
 			break;
 	};
 };
+
+void world::exit_combat(){
+	ifstream input_file;
+
+	P.x=saved_coordinates.x;
+	P.y=saved_coordinates.y;
+	
+	input_file.open("europe_geo.map");
+	world_map.clear();	// initialize
+	read_map(input_file, 0);
+	input_file.close();
+	input_file.open("europe_ff.map");
+	flora_fauna_map.clear();	// initialize
+	read_map(input_file, 1);
+	input_file.close();
+	count_flora_fauna();
+	wall_map.clear();	// initialize	
+	
+	map_name="europe";
+	in_combat=false;
+};

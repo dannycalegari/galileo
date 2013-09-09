@@ -495,9 +495,13 @@ void world::draw_info(){
 	int i;
 
 	erase_writing_field();
-	
-	T << "coordinates " << P.x << " " << P.y;
 	p.x=1100;
+
+	T << "map: " << map_name;
+	p.y=20;	
+	draw_text(p,T,0xAAFFAA);
+	T.str("");
+	T << "coordinates " << P.x << " " << P.y;
 	p.y=50;
 	draw_text(p,T,0xFFFFFF);
 	T.str("");

@@ -49,6 +49,10 @@ class world{
 		bool edit_mode;
 		bool view_mode;
 		party_state P;
+		point saved_coordinates;
+		string map_name;
+		bool in_city;
+		bool in_combat;
 
 		// world data
 		
@@ -71,8 +75,9 @@ class world{
 		void read_party(ifstream &input_file);
 		void write_party(ofstream &output_file);
 		
-		void test_map();
-
+		void enter_city(string S);
+		void exit_city();
+		
 		// geography and wall layers
 
 		void draw_geographical_square(int i, int j);
@@ -103,6 +108,8 @@ class world{
 		void use_object(int x, int y);
 		void talk(int x, int y);
 		void attack(int x, int y);
+		void exit_combat();
+		
 		void attempt_move(int x, int y);
 		bool test_of_skill(int i);
 		
@@ -118,7 +125,13 @@ void world::attempt_move(int x, int y){
 
 	if(X<1 || X> (int) world_map.size()-2 || Y<1 || Y> (int) world_map[0].size()-2){	
 		// exit city or combat map; or if in europe,
-		last_command="out of range!";
+		if(in_city){
+			exit_city();
+		} else if(in_combat){
+			exit_combat();
+		} else {
+			last_command="out of range!";
+		};
 	} else if(edit_mode){
 		P.x=X;
 		P.y=Y;

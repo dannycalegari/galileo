@@ -56,7 +56,7 @@ void world::user_interface(){
 					};
 					draw();
 				};
-				if(XLookupKeysym(&report.xkey, 0) == XK_e){ // toggle edit mode
+				if(XLookupKeysym(&report.xkey, 0) == XK_Escape){ // toggle edit mode
 					if(edit_mode==false){
 						edit_mode=true;
 						last_command="[e]dit mode on";
@@ -160,9 +160,37 @@ void world::user_interface(){
 					save_maps("paris_geo.map", "paris_ff.map", "paris_wall.map");
 				};
 				
-				if(XLookupKeysym(&report.xkey, 0) == XK_z){	// load test map
-					last_command="load test map";
-					test_map();
+				if(XLookupKeysym(&report.xkey, 0) == XK_e){	// enter city
+					last_command="[e]nter city";
+					if(flora_fauna_map[P.x][P.y]>=100){	// if on a city
+						switch(flora_fauna_map[P.x][P.y]){
+							case 100:	// Cambridge
+								break;
+							case 101:	// London
+								break;
+							case 102:	// Amsterdam
+								break;
+							case 103:	// Paris
+								enter_city("paris");
+								break;
+							case 104:
+								break;
+							case 105:
+								break;
+							case 106:
+								break;
+							case 107:
+								break;
+							case 108:
+								break;
+							case 109:
+								break;
+							case 110:
+								break;
+							default:
+								break;
+						};
+					};
 					draw();
 				};
 				

@@ -18,26 +18,59 @@ void world::initialize(){
 	input_file.open("party.txt");
 	read_party(input_file);
 	input_file.close();
+	
+	map_name="europe";
+	in_city=false;
+	in_combat=false;
 };
 
-void world::test_map(){
+void world::enter_city(string S){	// S is name of city
 	ifstream input_file;
+	string T;
+	map_name=S;
 	
-	input_file.open("paris_geo.map");
+	T=S+"_geo.map";
+	input_file.open(T.c_str());
 	world_map.clear();	// initialize
 	read_map(input_file, 0);
 	input_file.close();
-	input_file.open("paris_ff.map");
+	T=S+"_ff.map";
+	input_file.open(T.c_str());
 	flora_fauna_map.clear();	// initialize
 	read_map(input_file, 1);
 	input_file.close();
 	count_flora_fauna();
-	input_file.open("paris_wall.map");
+	T=S+"_wall.map";
+	input_file.open(T.c_str());
 	wall_map.clear();	// initialize
 	read_map(input_file, 2);
 	input_file.close();
-	P.x=6;
+	saved_coordinates.x=P.x;
+	saved_coordinates.y=P.y;
+	P.x=6;	// should be city-specific
 	P.y=6;
+	in_city=true;
+};
+
+void world::exit_city(){
+	ifstream input_file;
+
+	P.x=saved_coordinates.x;
+	P.y=saved_coordinates.y;
+	
+	input_file.open("europe_geo.map");
+	world_map.clear();	// initialize
+	read_map(input_file, 0);
+	input_file.close();
+	input_file.open("europe_ff.map");
+	flora_fauna_map.clear();	// initialize
+	read_map(input_file, 1);
+	input_file.close();
+	count_flora_fauna();
+	wall_map.clear();	// initialize	
+
+	map_name="europe";
+	in_city=false;
 };
 
 void world::save_state(){
