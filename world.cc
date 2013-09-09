@@ -2,6 +2,7 @@
 
 #define MAX_SPRITE_NUM 16
 #define MAX_SKILL_NUM 6
+#define MAX_WALL_NUM 7
 
 struct party_state{	// data file for party
 	int x,y;	// global party location
@@ -63,7 +64,8 @@ class world{
 	
 		void initialize();
 		void save_state();
-				
+		void save_maps(string geo_map_name, string ff_map_name, string wall_map_name);
+
 		void read_map(ifstream &input_file, int type);
 		void write_map(ofstream &output_file, int type);
 		void read_party(ifstream &input_file);

@@ -68,7 +68,50 @@ void world::draw_wall(int i, int j){
 			r.push_back(2);
 			s.push_back(1);
 			break;
-			
+		case 3:		// NE diagonal
+			wall_height=50;
+			r.push_back(2);
+			s.push_back(2);
+			d.push_back(0x7777CC);
+			r.push_back(1);
+			s.push_back(1);
+			d.push_back(0x7777CC);
+			r.push_back(0);
+			s.push_back(0);
+			break;
+		case 4:		// NW diagonal
+			wall_height=50;
+			r.push_back(2);
+			s.push_back(0);
+			d.push_back(0xDDDDFF);
+			r.push_back(1);
+			s.push_back(1);
+			d.push_back(0xDDDDFF);
+			r.push_back(0);
+			s.push_back(2);
+			break;
+		case 5:		// NE W
+			wall_height=50;
+			r.push_back(2);
+			s.push_back(2);
+			d.push_back(0x7777CC);
+			r.push_back(1);
+			s.push_back(1);
+			d.push_back(0xAAAAFF);
+			r.push_back(0);
+			s.push_back(1);
+			break;		
+		case 6:		// NE S
+			wall_height=50;
+			r.push_back(2);
+			s.push_back(2);
+			d.push_back(0x7777CC);
+			r.push_back(1);
+			s.push_back(1);
+			d.push_back(0x9999EE);
+			r.push_back(1);
+			s.push_back(0);
+			break;				
 		default:
 			break;
 	};
@@ -313,6 +356,11 @@ void world::draw_graphics(){
 					draw_square(5*(80+i),5*(80-j),5,color_code(world_map[P.x+i][P.y+j]));
 					if(flora_fauna_map[P.x+i][P.y+j]>=100){	// city
 						draw_square(5*(80+i),5*(80-j),5,0xFF0000);
+					};
+					if(wall_map.size()>0){	// if there is a wall map
+						if(wall_map[P.x+i][P.y+j]>-1){	// wall
+							draw_square(5*(80+i),5*(80-j),3,0x000000);
+						};
 					};
 				};
 			};

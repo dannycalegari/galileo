@@ -23,16 +23,16 @@ void world::initialize(){
 void world::test_map(){
 	ifstream input_file;
 	
-	input_file.open("test_geo.map");
+	input_file.open("paris_geo.map");
 	world_map.clear();	// initialize
 	read_map(input_file, 0);
 	input_file.close();
-	input_file.open("test_ff.map");
+	input_file.open("paris_ff.map");
 	flora_fauna_map.clear();	// initialize
 	read_map(input_file, 1);
 	input_file.close();
 	count_flora_fauna();
-	input_file.open("test_wall.map");
+	input_file.open("paris_wall.map");
 	wall_map.clear();	// initialize
 	read_map(input_file, 2);
 	input_file.close();
@@ -49,6 +49,22 @@ void world::save_state(){
 	
 	output_file.open("europe_ff.map");
 	write_map(output_file, 1);
+	output_file.close();
+};
+
+void world::save_maps(string geo_map_name, string ff_map_name, string wall_map_name){
+	ofstream output_file;
+	
+	output_file.open(geo_map_name.c_str());
+	write_map(output_file, 0);
+	output_file.close();
+	
+	output_file.open(ff_map_name.c_str());
+	write_map(output_file, 1);
+	output_file.close();
+	
+	output_file.open(wall_map_name.c_str());
+	write_map(output_file, 2);
 	output_file.close();
 };
 

@@ -95,6 +95,15 @@ void world::user_interface(){
 						draw();
 					};
 					
+					if(XLookupKeysym(&report.xkey, 0) == XK_2){	// add object to wall layer
+						wall_map[P.x][P.y]=(wall_map[P.x][P.y]+1) % MAX_WALL_NUM;
+						draw();
+					};
+					if(XLookupKeysym(&report.xkey, 0) == XK_1){	// clear wall layer
+						wall_map[P.x][P.y]=-1;
+						draw();
+					};					
+					
 				} else {				// GAME MODE
 					if(XLookupKeysym(&report.xkey, 0) == XK_b){	// board boat toggle
 						if(P.skill_item[0]==false){		// in not embarked
@@ -138,11 +147,17 @@ void world::user_interface(){
 					update_map();
 					draw();
 				};
-				
+			/*	don't want to do this accidentally
 				if(XLookupKeysym(&report.xkey, 0) == XK_s){	// save state
 					last_command="[s]ave game";
 					draw();
 					save_state();
+				};
+			*/	
+				if(XLookupKeysym(&report.xkey, 0) == XK_l){	// Paris map save state
+					last_command="[s]ave Paris map";
+					draw();
+					save_maps("paris_geo.map", "paris_ff.map", "paris_wall.map");
 				};
 				
 				if(XLookupKeysym(&report.xkey, 0) == XK_z){	// load test map
