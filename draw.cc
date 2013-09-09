@@ -111,7 +111,72 @@ void world::draw_wall(int i, int j){
 			d.push_back(0x9999EE);
 			r.push_back(1);
 			s.push_back(0);
-			break;				
+			break;			
+		case 7:		// NW E
+			wall_height=50;
+			r.push_back(0);
+			s.push_back(2);
+			d.push_back(0xDDDDFF);
+			r.push_back(1);
+			s.push_back(1);
+			d.push_back(0xAAAAFF);
+			r.push_back(2);
+			s.push_back(1);
+			break;	
+		case 8:		// NW S
+			wall_height=50;
+			r.push_back(0);
+			s.push_back(2);
+			d.push_back(0xDDDDFF);
+			r.push_back(1);
+			s.push_back(1);
+			d.push_back(0x9999EE);
+			r.push_back(1);
+			s.push_back(0);
+			break;	
+		case 9:		// SE W
+			wall_height=50;
+			r.push_back(2);
+			s.push_back(0);
+			d.push_back(0xDDDDFF);
+			r.push_back(1);
+			s.push_back(1);
+			d.push_back(0xAAAAFF);
+			r.push_back(0);
+			s.push_back(1);
+			break;
+		case 10:	// SE N
+			wall_height=50;
+			r.push_back(1);
+			s.push_back(2);
+			d.push_back(0x9999EE);
+			r.push_back(1);
+			s.push_back(1);
+			d.push_back(0xDDDDFF);
+			r.push_back(2);
+			s.push_back(0);
+			break;
+		case 11:	// SW E
+			wall_height=50;
+			r.push_back(0);
+			s.push_back(0);
+			d.push_back(0x7777CC);
+			r.push_back(1);
+			s.push_back(1);
+			d.push_back(0xAAAAFF);
+			r.push_back(2);
+			s.push_back(1);
+			break;		
+		case 12:	// SW N
+			wall_height=50;
+			r.push_back(1);
+			s.push_back(2);	
+			d.push_back(0x9999EE);
+			r.push_back(1);
+			s.push_back(1);
+			d.push_back(0x7777CC);
+			r.push_back(0);
+			s.push_back(0);	
 		default:
 			break;
 	};

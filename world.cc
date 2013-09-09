@@ -2,7 +2,7 @@
 
 #define MAX_SPRITE_NUM 16
 #define MAX_SKILL_NUM 6
-#define MAX_WALL_NUM 7
+#define MAX_WALL_NUM 13
 
 struct party_state{	// data file for party
 	int x,y;	// global party location
