@@ -68,7 +68,8 @@ class world{
 	
 		void initialize();
 		void save_state();
-		void save_maps(string geo_map_name, string ff_map_name, string wall_map_name);
+		void save_current_map();
+//		void save_maps(string geo_map_name, string ff_map_name, string wall_map_name);
 
 		void read_map(ifstream &input_file, int type);
 		void write_map(ofstream &output_file, int type);

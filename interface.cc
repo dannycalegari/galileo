@@ -102,7 +102,13 @@ void world::user_interface(){
 					if(XLookupKeysym(&report.xkey, 0) == XK_1){	// clear wall layer
 						wall_map[P.x][P.y]=-1;
 						draw();
-					};					
+					};	
+					
+					if(XLookupKeysym(&report.xkey, 0) == XK_l){	// save current map
+						last_command="[s]ave current map: "+map_name;
+						draw();
+						save_current_map();
+					};
 					
 				} else {				// GAME MODE
 					if(XLookupKeysym(&report.xkey, 0) == XK_b){	// board boat toggle
@@ -154,11 +160,7 @@ void world::user_interface(){
 					save_state();
 				};
 			*/	
-				if(XLookupKeysym(&report.xkey, 0) == XK_l){	// Paris map save state
-					last_command="[s]ave Paris map";
-					draw();
-					save_maps("paris_geo.map", "paris_ff.map", "paris_wall.map");
-				};
+
 				
 				if(XLookupKeysym(&report.xkey, 0) == XK_e){	// enter city
 					last_command="[e]nter city";
@@ -167,6 +169,7 @@ void world::user_interface(){
 							case 100:	// Cambridge
 								break;
 							case 101:	// London
+								enter_city("london");
 								break;
 							case 102:	// Amsterdam
 								break;

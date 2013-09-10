@@ -85,18 +85,22 @@ void world::save_state(){
 	output_file.close();
 };
 
-void world::save_maps(string geo_map_name, string ff_map_name, string wall_map_name){
+void world::save_current_map(){
 	ofstream output_file;
+	string T;
 	
-	output_file.open(geo_map_name.c_str());
+	T="map_files/"+map_name+"_geo.map";
+	output_file.open(T.c_str());
 	write_map(output_file, 0);
 	output_file.close();
 	
-	output_file.open(ff_map_name.c_str());
+	T="map_files/"+map_name+"_ff.map";
+	output_file.open(T.c_str());
 	write_map(output_file, 1);
 	output_file.close();
 	
-	output_file.open(wall_map_name.c_str());
+	T="map_files/"+map_name+"_wall.map";
+	output_file.open(T.c_str());
 	write_map(output_file, 2);
 	output_file.close();
 };
@@ -142,8 +146,12 @@ void world::write_map(ofstream &output_file, int type){
 			cols=flora_fauna_map.size();
 			break;
 		case 2:
-			rows=wall_map[0].size();
 			cols=wall_map.size();
+			if(cols==0){	// special case: might have no wall map (eg europe)
+				rows=0;
+			} else {
+				rows=wall_map[0].size();
+			};
 			break;			
 	};
 	output_file << cols << " " << rows << "\n";
