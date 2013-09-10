@@ -4,11 +4,11 @@
 void world::initialize(){
 	ifstream input_file;
 	
-	input_file.open("europe_geo.map");
+	input_file.open("map_files/europe_geo.map");
 	world_map.clear();	// initialize
 	read_map(input_file, 0);
 	input_file.close();
-	input_file.open("europe_ff.map");
+	input_file.open("map_files/europe_ff.map");
 	flora_fauna_map.clear();	// initialize
 	read_map(input_file, 1);
 	input_file.close();
@@ -29,18 +29,18 @@ void world::enter_city(string S){	// S is name of city
 	string T;
 	map_name=S;
 	
-	T=S+"_geo.map";
+	T="map_files/"+S+"_geo.map";
 	input_file.open(T.c_str());
 	world_map.clear();	// initialize
 	read_map(input_file, 0);
 	input_file.close();
-	T=S+"_ff.map";
+	T="map_files/"+S+"_ff.map";
 	input_file.open(T.c_str());
 	flora_fauna_map.clear();	// initialize
 	read_map(input_file, 1);
 	input_file.close();
 	count_flora_fauna();
-	T=S+"_wall.map";
+	T="map_files/"+S+"_wall.map";
 	input_file.open(T.c_str());
 	wall_map.clear();	// initialize
 	read_map(input_file, 2);
@@ -58,11 +58,11 @@ void world::exit_city(){
 	P.x=saved_coordinates.x;
 	P.y=saved_coordinates.y;
 	
-	input_file.open("europe_geo.map");
+	input_file.open("map_files/europe_geo.map");
 	world_map.clear();	// initialize
 	read_map(input_file, 0);
 	input_file.close();
-	input_file.open("europe_ff.map");
+	input_file.open("map_files/europe_ff.map");
 	flora_fauna_map.clear();	// initialize
 	read_map(input_file, 1);
 	input_file.close();
