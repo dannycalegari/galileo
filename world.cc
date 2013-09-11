@@ -109,6 +109,8 @@ class world{
 		
 		vector<string > message;
 		void add_new_message(string S);
+		void modify_last_line(string S);
+		string get_line_of_text();
 		void draw_info();
 		
 		// game commands

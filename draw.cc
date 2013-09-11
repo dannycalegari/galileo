@@ -554,7 +554,11 @@ void world::draw_info(){
 		T.str("");
 		T << message[i];
 		p.y=p.y+20;
-		draw_text(p,T,0xAAAAFF);
+		if(message[i][0]=='>'){
+			draw_text(p,T,0xFFD700);
+		} else {
+			draw_text(p,T,0xAAAAFF);
+		};
 	};
 	
 
