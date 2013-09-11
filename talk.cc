@@ -6,22 +6,22 @@ void world::talk(int x, int y){
 	c=flora_fauna_map[P.x+x][P.y+y];
 	switch(c){
 		case -1:
-			last_command="[t]alk to nothing";
+			add_new_message("[t]alk to nothing");
 			break;
 		case 8:
-			last_command="talk to farmer";
+			add_new_message("talk to farmer");
 			break;
 		case 9:
-			last_command="talk to robber";
+			add_new_message("talk to robber");
 			break;
 		case 10:
-			last_command="talk to merchant";
+			add_new_message("talk to merchant");
 			break;
 		case 11:
-			last_command="talk to lumberjack";
+			add_new_message("talk to lumberjack");
 			break;
 		case 12:
-			last_command="talk to npc";
+			add_new_message("talk to npc");
 			break;
 		default:
 			break;

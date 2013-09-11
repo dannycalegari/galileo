@@ -495,73 +495,60 @@ void world::draw_info(){
 	int i;
 
 	erase_writing_field();
-	p.x=1100;
+	p.x=1150;
 
 	T << "map: " << map_name;
-	p.y=20;	
+	p.y=50;	
 	draw_text(p,T,0xAAFFAA);
 	T.str("");
 	T << "coordinates " << P.x << " " << P.y;
-	p.y=50;
-	draw_text(p,T,0xFFFFFF);
-	T.str("");
-	T << "view mode " << view_mode;
-	p.y=70;
-	draw_text(p,T,0xFFFFFF);
-	T.str("");
-	T << "edit mode " << edit_mode;
 	p.y=90;
 	draw_text(p,T,0xFFFFFF);
 	T.str("");
-	T << "moves " << moves;
+	T << "view mode " << view_mode;
 	p.y=110;
-	draw_text(p,T,0xFFFFFF);	
+	draw_text(p,T,0xFFFFFF);
 	T.str("");
-	T << "trees " << flora_fauna_count[0];
+	T << "edit mode " << edit_mode;
 	p.y=130;
-	draw_text(p,T,0xFFFFFF);	
+	draw_text(p,T,0xFFFFFF);
 	T.str("");
-	T << "fruit trees " << flora_fauna_count[1];
+	T << "moves " << moves;
 	p.y=150;
-	draw_text(p,T,0xFFFFFF);
-	T.str("");
-	T << "deer " << flora_fauna_count[2];
-	p.y=170;
-	draw_text(p,T,0xFFFFFF);
-	T.str("");
-	T << "fish " << flora_fauna_count[3];
-	p.y=190;
-	draw_text(p,T,0xFFFFFF);
-	T.str("");
-	T << "bears " << flora_fauna_count[4];
-	p.y=210;
-	draw_text(p,T,0xFFFFFF);
+	draw_text(p,T,0xFFFFFF);	
+	
 	
 	T.str("");
-	T << last_command;
-	p.y=300;
-	draw_text(p,T,0xFFAAAA);
-	T.str("");
 	T << "health " << P.health;
-	p.y=320;
+	p.y=180;
 	draw_text(p,T,0xFFAAAA);
 	T.str("");
 	T << "food " << P.food;
-	p.y=340;
+	p.y=200;
 	draw_text(p,T,0xFFAAAA);
 	T.str("");
 	T << "wood " << P.wood;
-	p.y=360;
+	p.y=220;
 	draw_text(p,T,0xFFAAAA);
 	T.str("");
 	T << "gold " << P.gold;
-	p.y=380;
+	p.y=240;
 	draw_text(p,T,0xFFAAAA);
 	
 	for(i=0;i<MAX_SKILL_NUM;i++){
 		T.str("");
-		T << "skill " << i << " " << P.skill[i];
-		p.y=410+(20*i);
+		T << "skill " << i << " " << P.skill_item[i] << " " << P.skill[i];
+		p.y=290+(20*i);
 		draw_text(p,T,0xFFAAAA);
 	};
+	
+	p.y=420;
+	for(i=0;i<(int) message.size();i++){
+		T.str("");
+		T << message[i];
+		p.y=p.y+20;
+		draw_text(p,T,0xAAAAFF);
+	};
+	
+
 };

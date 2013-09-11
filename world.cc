@@ -3,6 +3,7 @@
 #define MAX_SPRITE_NUM 16
 #define MAX_SKILL_NUM 6
 #define MAX_WALL_NUM 13
+#define MAX_MESSAGE_NUM 8
 
 struct party_state{	// data file for party
 	int x,y;	// global party location
@@ -42,6 +43,8 @@ struct npc{
 class world{
 	public:
 		// party data
+		
+		
 		
 		string last_command;
 		string gender;
@@ -101,6 +104,11 @@ class world{
 		void update_map();
 		void draw();
 		void draw_graphics();
+		
+		// info
+		
+		vector<string > message;
+		void add_new_message(string S);
 		void draw_info();
 		
 		// game commands
@@ -131,7 +139,7 @@ void world::attempt_move(int x, int y){
 		} else if(in_combat){
 			exit_combat();
 		} else {
-			last_command="out of range!";
+			add_new_message("out of range!");
 		};
 	} else if(edit_mode){
 		P.x=X;
@@ -139,14 +147,14 @@ void world::attempt_move(int x, int y){
 	} else {
 		if(world_map[X][Y]>=4){	// mountain
 			if(world_map[X][Y]>=5){
-				last_command="blocked";
+				add_new_message("blocked");
 			} else {
 			// unless mountaineering skill and grapple
 				if(test_of_skill(4)==true){	// if have grapple and pass mountaineering test
 					P.x=X;
 					P.y=Y;
 				} else {
-					last_command="stumble";
+					add_new_message("stumble");
 				};
 			};
 		} else if (world_map[X][Y]==0){		// water
@@ -160,7 +168,7 @@ void world::attempt_move(int x, int y){
 					P.x=X;
 					P.y=Y;
 				} else {	
-					last_command="blocked";
+					add_new_message("blocked");
 				};
 			};
 		} else {	// ordinary move
@@ -168,7 +176,7 @@ void world::attempt_move(int x, int y){
 				P.x=X;
 				P.y=Y;
 			} else {
-				last_command="blocked";
+				add_new_message("blocked");
 			};
 		};
 	};

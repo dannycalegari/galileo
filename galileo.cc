@@ -36,6 +36,7 @@ struct point{ int x,y; };
 
 #include "graphics.cc"
 #include "world.cc"
+#include "info.cc"
 #include "load_save.cc"
 #include "skill.cc"
 #include "use.cc"

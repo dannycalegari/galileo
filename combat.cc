@@ -6,10 +6,10 @@ void world::attack(int x, int y){
 	c=flora_fauna_map[P.x+x][P.y+y];
 	switch(c){
 		case -1:
-			last_command="[a]ttack nothing";
+			add_new_message("[a]ttack nothing");
 			break;
 		case 4:
-			last_command="attack bear";
+			add_new_message("attack bear");
 			break;
 		case 8:
 			last_command="attack farmer";

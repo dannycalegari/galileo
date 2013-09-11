@@ -18,25 +18,25 @@ void world::user_interface(){
 				// move RLUD
 				
 				if(XLookupKeysym(&report.xkey, 0) == XK_Right){
-					last_command="move right";
+					add_new_message("move right");
 					attempt_move(1,0);
 					update_map();
 					draw();
 				};
 				if(XLookupKeysym(&report.xkey, 0) == XK_Left){
-					last_command="move left";
+					add_new_message("move left");					
 					attempt_move(-1,0);
 					update_map();
 					draw();
 				};
 				if(XLookupKeysym(&report.xkey, 0) == XK_Up){
-					last_command="move up";
+					add_new_message("move up");
 					attempt_move(0,1);
 					update_map();
 					draw();
 				};
 				if(XLookupKeysym(&report.xkey, 0) == XK_Down){
-					last_command="move down";
+					add_new_message("move down");
 					attempt_move(0,-1);
 					update_map();
 					draw();
@@ -47,11 +47,11 @@ void world::user_interface(){
 				if(XLookupKeysym(&report.xkey, 0) == XK_v){	// toggle view mode
 					if(view_mode==false){
 						view_mode=true;
-						last_command="over[v]iew mode on";
+						add_new_message("[v]iew mode on");
 						erase_field();
 					} else {
 						view_mode=false;
-						last_command="over[v]iew mode off";
+						add_new_message("[v]iew mode off");
 						erase_field();
 					};
 					draw();
@@ -59,11 +59,11 @@ void world::user_interface(){
 				if(XLookupKeysym(&report.xkey, 0) == XK_Escape){ // toggle edit mode
 					if(edit_mode==false){
 						edit_mode=true;
-						last_command="[e]dit mode on";
+						add_new_message("[e]dit mode on");
 						erase_field();
 					} else {
 						edit_mode=false;
-						last_command="[e]dit mode off";
+						add_new_message("[e]dit mode off");
 						erase_field();
 					};
 					draw();				
@@ -105,7 +105,7 @@ void world::user_interface(){
 					};	
 					
 					if(XLookupKeysym(&report.xkey, 0) == XK_l){	// save current map
-						last_command="[s]ave current map: "+map_name;
+						add_new_message("[s]ave current map: "+map_name);
 						draw();
 						save_current_map();
 					};
@@ -116,31 +116,31 @@ void world::user_interface(){
 							if(flora_fauna_map[P.x][P.y]==13 && world_map[P.x][P.y]==0){	// if on a boat on water
 								P.skill_item[0]=true;	// embark
 								flora_fauna_map[P.x][P.y]=-1;	// remove boat from map
-								last_command="[b]oard boat";
+								add_new_message("[b]oard boat");
 							};
 						} else {
 							P.skill_item[0]=false;	// disembark
 							flora_fauna_map[P.x][P.y]=13;	// put boat back on map
-							last_command="exit [b]oat";
+							add_new_message("exit [b]oat");
 						};
 						draw();
 					};
 					if(XLookupKeysym(&report.xkey, 0) == XK_u){
-						last_command="[u]se; which direction? ";
+						add_new_message("[u]se; which direction? ");
 						draw_info();
 						select_direction_interface(x,y);
 						use_object(x,y);
 						draw();
 					};
 					if(XLookupKeysym(&report.xkey, 0) == XK_t){
-						last_command="[t]alk; which direction? ";
+						add_new_message("[t]alk; which direction? ");
 						draw_info();
 						select_direction_interface(x,y);
 						talk(x,y);
 						draw();
 					};
 					if(XLookupKeysym(&report.xkey, 0) == XK_a){
-						last_command="[a]ttack; which direction? ";
+						add_new_message("[a]ttack; which direction? ");
 						draw_info();
 						select_direction_interface(x,y);
 						attack(x,y);
@@ -149,21 +149,14 @@ void world::user_interface(){
 				};
 
 				if(XLookupKeysym(&report.xkey, 0) == XK_space){ // update state
-					last_command="pass";
+					add_new_message("pass");
 					update_map();
 					draw();
 				};
-			/*	don't want to do this accidentally
-				if(XLookupKeysym(&report.xkey, 0) == XK_s){	// save state
-					last_command="[s]ave game";
-					draw();
-					save_state();
-				};
-			*/	
 
 				
 				if(XLookupKeysym(&report.xkey, 0) == XK_e){	// enter city
-					last_command="[e]nter city";
+					add_new_message("[e]nter city");
 					if(flora_fauna_map[P.x][P.y]>=100){	// if on a city
 						switch(flora_fauna_map[P.x][P.y]){
 							case 100:	// Cambridge
@@ -198,7 +191,7 @@ void world::user_interface(){
 				};
 				
 				if(XLookupKeysym(&report.xkey, 0) == XK_q){ // quit       
-					last_command="[q]uit";
+					add_new_message("[q]uit");
                     finished=true;
                     XCloseDisplay(display);
                     exit(0);

@@ -22,6 +22,7 @@ void world::initialize(){
 	map_name="europe";
 	in_city=false;
 	in_combat=false;
+	message.clear();
 };
 
 void world::enter_city(string S){	// S is name of city
@@ -50,6 +51,7 @@ void world::enter_city(string S){	// S is name of city
 	P.x=6;	// should be city-specific
 	P.y=6;
 	in_city=true;
+	add_new_message("entering "+S);
 };
 
 void world::exit_city(){
@@ -68,7 +70,7 @@ void world::exit_city(){
 	input_file.close();
 	count_flora_fauna();
 	wall_map.clear();	// initialize	
-
+	add_new_message("leaving "+map_name);
 	map_name="europe";
 	in_city=false;
 };

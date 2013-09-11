@@ -17,17 +17,17 @@ bool world::test_of_skill(int i){	// attempt skill index i
 			if(rand()%1000 > 900+P.skill[i]){	// attempt to improve
 				P.skill[i]++;
 			};
-			last_command="success";
+			add_new_message("success");
 			return(true);
 		} else {
-			last_command="failed";
+			add_new_message("failed");
 			return(false);
 		};
 	} else {
 		if(i==0 || i==4){	// attempting to sail or mountain climb
-			last_command="blocked";
+			add_new_message("blocked");
 		} else {
-			last_command="how?";
+			add_new_message("how?");
 		};
 		return(false);
 	};
