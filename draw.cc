@@ -268,15 +268,20 @@ long shadow(long c){
 };
 
 
-void world::draw_geographical_square(int i, int j){	// i,j in [-5,5] is location relative to P.x,P.y
+void world::draw_geographical_square(int i, int j){	// i,j in [-5,5] is location relative to x,y
 	int a,b;
 	int x,y;
 	int height[3][3];
 	long c;
 	XPoint q[3];
 	
-	x=P.x;
-	y=P.y;
+	if(in_combat==true){
+		x=6;
+		y=6;
+	} else {
+		x=P.x;
+		y=P.y;
+	};
 	for(a=-1;a<2;a++){
 		for(b=-1;b<2;b++){
 			height[a+1][b+1]=world_map[x+i][y+j]+world_map[x+i+a][y+j]+world_map[x+i][y+j+b]+world_map[x+i+a][y+j+b];
@@ -406,43 +411,56 @@ void world::draw(){
 void world::draw_graphics(){
 	int i,j,k;
 	int h;
+	int x,y;
 	
 	int tile_size;
 	tile_size=70;	// should make this some global variable?
 
 	erase_graphics_field();
+	if(in_combat==true){
+		x=6;
+		y=6;
+	} else {
+		x=P.x;
+		y=P.y;
+	};
 	
 	if(view_mode==true){
 		// view mode map
 		// draw overview map with 5x5 pixels just colored squares
 	for(j=-80;j<80;j++){
 		for(i=-80;i<80;i++){
-				if((-1 < P.x+i) && (P.x+i < (int) world_map.size()) && (-1 < P.y+j) && (P.y+j < (int) world_map[0].size())){
-					draw_square(5*(80+i),5*(80-j),5,color_code(world_map[P.x+i][P.y+j]));
-					if(flora_fauna_map[P.x+i][P.y+j]>=100){	// city
+				if((-1 < x+i) && (x+i < (int) world_map.size()) && (-1 < y+j) && (y+j < (int) world_map[0].size())){
+					draw_square(5*(80+i),5*(80-j),5,color_code(world_map[x+i][y+j]));
+					if(flora_fauna_map[x+i][y+j]>=100){	// city
 						draw_square(5*(80+i),5*(80-j),5,0xFF0000);
 					};
 					if(wall_map.size()>0){	// if there is a wall map
-						if(wall_map[P.x+i][P.y+j]>-1){	// wall
+						if(wall_map[x+i][y+j]>-1){	// wall
 							draw_square(5*(80+i),5*(80-j),3,0x000000);
 						};
 					};
 				};
 			};
 		};
-		draw_square(400,400,5,0xFFC0CB);	// draw avatar square pink
+		if(in_combat==true){
+			// draw avatar square in combat
+			draw_square(400+(P.x-6)*5,400-(P.y-6)*5,5,0xFFC0CB);
+		} else {
+			draw_square(400,400,5,0xFFC0CB);	// draw avatar square pink
+		};
 	} else {
 		// local map
 
 		
 		for(j=5;j>=-5;j--){
 			for(i=5;i>=-5;i--){
-				if((0 < P.x+i) && (P.x+i < (int) world_map.size()-1) && (0 < P.y+j) && (P.y+j < (int) world_map[0].size()-1)){
+				if((0 < x+i) && (x+i < (int) world_map.size()-1) && (0 < y+j) && (y+j < (int) world_map[0].size()-1)){
 					
 					draw_geographical_square(i,j);	// draw geography layer
 					
 					if(0 < (int) wall_map.size()){	// if map has a wall layer
-						if(wall_map[P.x+i][P.y+j]>-1){
+						if(wall_map[x+i][y+j]>-1){
 							draw_wall(i,j);				// draw wall layer
 						};
 					};
@@ -450,11 +468,11 @@ void world::draw_graphics(){
 				};
 			};
 			for(i=5;i>=-5;i--){
-				if((0 < P.x+i) && (P.x+i < (int) world_map.size()-1) && (0 < P.y+j) && (P.y+j < (int) world_map[0].size()-1)){
+				if((0 < x+i) && (x+i < (int) world_map.size()-1) && (0 < y+j) && (y+j < (int) world_map[0].size()-1)){
 
-					h=world_map[P.x+i][P.y+j]*16;
+					h=world_map[x+i][y+j]*16;
 
-					k=flora_fauna_map[P.x+i][P.y+j];
+					k=flora_fauna_map[x+i][y+j];
 					if(k>=0 && k<100){
 						draw_sprite(k,400+(i*tile_size),400-(j*tile_size),h);
 					};
@@ -477,15 +495,29 @@ void world::draw_graphics(){
 					if(k>=200 && k<300){
 						draw_sprite(12,400+(i*tile_size),400-(j*tile_size),h);	// npc; need to make these specific			
 					};
-					if(i==0 && j==0){
-						h=world_map[P.x][P.y]*16;
-						if(world_map[P.x][P.y]>=4){
-							h=world_map[P.x][P.y]*20;
+					if(in_combat==true){
+						if(i==P.x-6 && j==P.y-6){
+							h=world_map[P.x][P.y]*16;
+							if(world_map[P.x][P.y]>=4){
+								h=world_map[P.x][P.y]*20;
+							};
+							if(P.skill_item[0]==false){		// if not embarked
+								draw_sprite(5,400+(i*tile_size),400-(j*tile_size),h);	// draw avatar
+							} else {
+								draw_sprite(13,400+(i*tile_size),400-(j*tile_size),h);	// draw boat
+							};						
 						};
-						if(P.skill_item[0]==false){		// if not embarked
-							draw_sprite(5,400,400,h);	// draw avatar
-						} else {
-							draw_sprite(13,400,400,h);	// draw boat
+					} else {
+						if(i==0 && j==0){
+							h=world_map[P.x][P.y]*16;
+							if(world_map[P.x][P.y]>=4){
+								h=world_map[P.x][P.y]*20;
+							};
+							if(P.skill_item[0]==false){		// if not embarked
+								draw_sprite(5,400,400,h);	// draw avatar
+							} else {
+								draw_sprite(13,400,400,h);	// draw boat
+							};
 						};
 					};
 				};			

@@ -102,6 +102,8 @@ class world{
 		void draw_sprite(int i, int x, int y, int h);
 		
 		point towards_avatar(int i, int j);
+		bool is_adjacent_to_avatar(int i, int j);
+
 		void update_map();
 		void draw();
 		void draw_graphics();
@@ -120,6 +122,7 @@ class world{
 		void use_object(int x, int y);
 		void talk(int x, int y);
 		void attack(int x, int y);
+		void enter_combat();
 		void exit_combat();
 		
 		void attempt_move(int x, int y);

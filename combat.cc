@@ -10,6 +10,7 @@ void world::attack(int x, int y){
 			break;
 		case 4:
 			add_new_message("attack bear");
+			enter_combat();
 			break;
 		case 8:
 			last_command="attack farmer";
@@ -31,17 +32,43 @@ void world::attack(int x, int y){
 	};
 };
 
+void world::enter_combat(){
+	ifstream input_file;
+	
+	saved_coordinates.x=P.x;	// save external coordinates
+	saved_coordinates.y=P.y;
+	map_name="combat";
+	
+	input_file.open("map_files/combat_geo.map");
+	world_map.clear();	// initialize
+	read_map(input_file, 0);
+	input_file.close();
+	input_file.open("map_files/combat_ff.map");
+	flora_fauna_map.clear();	// initialize
+	read_map(input_file, 1);
+	input_file.close();
+	input_file.open("map_files/combat_wall.map");
+	wall_map.clear();	// initialize
+	read_map(input_file, 2);
+	input_file.close();	
+	P.x=6;	// should be city-specific
+	P.y=3;
+	in_combat=true;
+	add_new_message("combat with");
+	draw_info();
+};
+
 void world::exit_combat(){
 	ifstream input_file;
 
 	P.x=saved_coordinates.x;
 	P.y=saved_coordinates.y;
 	
-	input_file.open("europe_geo.map");
+	input_file.open("map_files/europe_geo.map");
 	world_map.clear();	// initialize
 	read_map(input_file, 0);
 	input_file.close();
-	input_file.open("europe_ff.map");
+	input_file.open("map_files/europe_ff.map");
 	flora_fauna_map.clear();	// initialize
 	read_map(input_file, 1);
 	input_file.close();
