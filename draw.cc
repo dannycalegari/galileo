@@ -496,6 +496,12 @@ void world::draw_graphics(){
 						draw_sprite(12,400+(i*tile_size),400-(j*tile_size),h);	// npc; need to make these specific			
 					};
 					if(in_combat==true){
+						if(occupied_by_enemy(i+6,j+6)>-1){
+							k=occupied_by_enemy(i+6,j+6);
+							h=world_map[x+i][y+j]*16;
+							draw_sprite(k,400+(i*tile_size),400-(j*tile_size),h);
+						};
+					
 						if(i==P.x-6 && j==P.y-6){
 							h=world_map[P.x][P.y]*16;
 							if(world_map[P.x][P.y]>=4){
@@ -521,7 +527,7 @@ void world::draw_graphics(){
 						};
 					};
 				};			
-			};
+			};	
 		};		
 	};
 	
@@ -601,6 +607,14 @@ void world::draw_info(){
 		} else {
 			draw_text(p,T,0xAAAAFF);
 		};
+	};
+	
+	p.y=p.y+20;
+	for(i=0;i<(int) monsters.size();i++){		// only for debug purposes
+		T.str("");
+		T << "monster " << i << " health " << monsters[i].health;
+		p.y=p.y+20;
+		draw_text(p,T,0xFFFFFF);
 	};
 
 };

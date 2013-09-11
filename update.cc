@@ -59,7 +59,7 @@ bool world::is_adjacent_to_avatar(int i, int j){
 };
 
 void world::update_map(){	// only update region centered on avatar, for speed
-	int i,j,k;
+	int i,j,k,l;
 	int x,y;
 	point p;
 	
@@ -128,7 +128,7 @@ void world::update_map(){	// only update region centered on avatar, for speed
 						break;
 					case 4:		// bear
 						if(is_adjacent_to_avatar(i,j)){
-							enter_combat();
+							enter_combat(4);
 						} else {
 							k=rand()%100;
 							if(k<90){	// move towards avatar
@@ -165,5 +165,29 @@ void world::update_map(){	// only update region centered on avatar, for speed
 			};
 		};
 	};
-
+	
+	if(in_combat){	// move monsters!
+		for(l=0;l<(int) monsters.size();l++){
+			if(monsters[l].ranged_attack==true || is_adjacent_to_avatar(monsters[l].x,monsters[l].y)==true){	// ranged attack, or adjacent?
+				// attack!
+				add_new_message("monster swipes!");
+			} else {	// move towards avatar!			
+				p=towards_avatar(monsters[l].x,monsters[l].y);
+				if(p.x!=0){
+					x=monsters[l].x+p.x;
+					y=monsters[l].y;
+				} else if(p.y!=0){
+					x=monsters[l].x;
+					y=monsters[l].y+p.y;
+				} else {
+					x=monsters[l].x;
+					y=monsters[l].y;				
+				};
+				if(can_move_into_square(1,x,y)==true){	// do move!
+					monsters[l].x=x;
+					monsters[l].y=y;
+				};
+			};
+		};
+	};
 };

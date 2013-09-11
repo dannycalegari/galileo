@@ -125,11 +125,13 @@ void world::user_interface(){
 								P.skill_item[0]=true;	// embark
 								flora_fauna_map[P.x][P.y]=-1;	// remove boat from map
 								add_new_message("[b]oard boat");
+								update_map();
 							};
 						} else {
 							P.skill_item[0]=false;	// disembark
 							flora_fauna_map[P.x][P.y]=13;	// put boat back on map
 							add_new_message("exit [b]oat");
+							update_map();
 						};
 						draw();
 					};
@@ -138,6 +140,7 @@ void world::user_interface(){
 						draw_info();
 						select_direction_interface(x,y);
 						use_object(x,y);
+						update_map();
 						draw();
 					};
 					if(XLookupKeysym(&report.xkey, 0) == XK_t){
@@ -145,6 +148,7 @@ void world::user_interface(){
 						draw_info();
 						select_direction_interface(x,y);
 						talk(x,y);
+						update_map();
 						draw();
 					};
 					if(XLookupKeysym(&report.xkey, 0) == XK_a){
@@ -152,6 +156,7 @@ void world::user_interface(){
 						draw_info();
 						select_direction_interface(x,y);
 						attack(x,y);
+						update_map();
 						draw();
 					};
 				};

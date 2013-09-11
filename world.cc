@@ -41,11 +41,18 @@ struct npc{
 	int wood;
 };
 
+struct monster{
+	int x,y;	// coordinates
+	int id;
+	int health;
+	bool ranged_attack;
+	int strength;
+	int dexterity;
+};
+
 class world{
 	public:
 		// party data
-		
-		
 		
 		string last_command;
 		string gender;
@@ -56,7 +63,6 @@ class world{
 		point saved_coordinates;
 		string map_name;
 		bool in_city;
-		bool in_combat;
 
 		// world data
 		
@@ -67,6 +73,7 @@ class world{
 		int flora_fauna_count[5];
 		void count_flora_fauna();
 
+		vector<monster> monsters;
 		vector<item> items;
 		vector<npc> npcs;
 	
@@ -121,12 +128,24 @@ class world{
 		void select_direction_interface(int &select_direction_x, int &select_direction_y);
 		void use_object(int x, int y);
 		void talk(int x, int y);
+		
+		// combat
+
+		bool in_combat;
 		void attack(int x, int y);
-		void enter_combat();
+		void enter_combat(int type);
 		void exit_combat();
+		void update_combat_map();
+		int occupied_by_enemy(int x, int y);
+		int number_of_enemy(int x, int y);
+
+		
+		// move
 		
 		void attempt_move(int x, int y);
 		bool can_move_into_square(int w, int x, int y);
+		
+		
 		bool test_of_skill(int i);
 		
 		void user_interface();

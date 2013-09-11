@@ -22,6 +22,7 @@ void world::initialize(){
 	map_name="europe";
 	in_city=false;
 	in_combat=false;
+	monsters.clear();	// no monsters
 	message.clear();
 };
 
