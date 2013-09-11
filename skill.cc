@@ -1,14 +1,14 @@
 /* skill.cc		function to test and train skills */
 
 /*
-	index			skill				item
+	index			skill				item				failure
 	
-	0				sailing				embarked
-	1				woodcutting			axe
-	2				hunting				bow
-	3				fishing				net
-	4				climbing			grapple
-	5				milking				bucket
+	0				sailing				embarked			stalled
+	1				woodcutting			axe					mishit
+	2				hunting				bow					missed
+	3				fishing				net					missed
+	4				climbing			grapple				stumbled
+	5				milking				bucket				spilled
 */
 
 bool world::test_of_skill(int i){	// attempt skill index i
@@ -17,10 +17,10 @@ bool world::test_of_skill(int i){	// attempt skill index i
 			if(rand()%1000 > 900+P.skill[i]){	// attempt to improve
 				P.skill[i]++;
 			};
-			add_new_message("success");
+		//	add_new_message("success");
 			return(true);
 		} else {
-			add_new_message("failed");
+		//	add_new_message("failed");
 			return(false);
 		};
 	} else {

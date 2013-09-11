@@ -4,7 +4,7 @@ string world::get_line_of_text(){
 	string S;
 	KeySym k;
 	char c;
-	S=">";	// initialize string
+	S="> ";	// initialize string
 	add_new_message(S);	
 	draw_info();
 	bool line_finished;

@@ -18,7 +18,7 @@ void world::user_interface(){
 				// move RLUD
 				
 				if(XLookupKeysym(&report.xkey, 0) == XK_Right){
-					add_new_message("move right");
+					add_new_message("east");
 					attempt_move(1,0);
 					if(edit_mode==false){
 						update_map();
@@ -26,7 +26,7 @@ void world::user_interface(){
 					draw();
 				};
 				if(XLookupKeysym(&report.xkey, 0) == XK_Left){
-					add_new_message("move left");					
+					add_new_message("west");					
 					attempt_move(-1,0);
 					if(edit_mode==false){
 						update_map();
@@ -34,7 +34,7 @@ void world::user_interface(){
 					draw();
 				};
 				if(XLookupKeysym(&report.xkey, 0) == XK_Up){
-					add_new_message("move up");
+					add_new_message("north");
 					attempt_move(0,1);
 					if(edit_mode==false){
 						update_map();
@@ -42,7 +42,7 @@ void world::user_interface(){
 					draw();
 				};
 				if(XLookupKeysym(&report.xkey, 0) == XK_Down){
-					add_new_message("move down");
+					add_new_message("south");
 					attempt_move(0,-1);
 					if(edit_mode==false){
 						update_map();

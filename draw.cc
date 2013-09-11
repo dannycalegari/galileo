@@ -508,15 +508,25 @@ void world::draw_info(){
 	p.y=50;	
 	draw_text(p,T,0xAAFFAA);
 	T.str("");
-	T << "coordinates " << P.x << " " << P.y;
+	T << "location " << P.x << " " << P.y;
 	p.y=90;
 	draw_text(p,T,0xFFFFFF);
 	T.str("");
-	T << "view mode " << view_mode;
+	T << "view mode ";
+	if(view_mode){
+		T << "on";
+	} else {
+		T << "off";
+	};
 	p.y=110;
 	draw_text(p,T,0xFFFFFF);
 	T.str("");
-	T << "edit mode " << edit_mode;
+	T << "edit mode ";
+	if(edit_mode){
+		T << "on";
+	} else {
+		T << "off";
+	};
 	p.y=130;
 	draw_text(p,T,0xFFFFFF);
 	T.str("");
@@ -534,11 +544,11 @@ void world::draw_info(){
 	p.y=200;
 	draw_text(p,T,0xFFAAAA);
 	T.str("");
-	T << "wood " << P.wood;
+	T << "gold " << P.gold;
 	p.y=220;
 	draw_text(p,T,0xFFAAAA);
 	T.str("");
-	T << "gold " << P.gold;
+	T << "wood " << P.wood;
 	p.y=240;
 	draw_text(p,T,0xFFAAAA);
 	
@@ -560,6 +570,5 @@ void world::draw_info(){
 			draw_text(p,T,0xAAAAFF);
 		};
 	};
-	
 
 };
