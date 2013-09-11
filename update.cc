@@ -55,9 +55,9 @@ void world::update_map(){	// only update region centered on avatar, for speed
 		After all moves have taken place, 100 is added back to the index.
 	*/
 	
-	for(i=P.x-9;i<=P.x+9;i++){		// could we update a bigger window?
-		for(j=P.y-9;j<=P.y+9;j++){
-			if(0<i && i<999 && 0<j && j<799){	// if in range
+	for(i=P.x-UPDATE_WINDOW;i<=P.x+UPDATE_WINDOW;i++){		// could we update a bigger window?
+		for(j=P.y-UPDATE_WINDOW;j<=P.y+UPDATE_WINDOW;j++){
+			if(0<i && i<(int) world_map.size()-1 && 0<j && j<(int) world_map[0].size()-1){	// if in range
 			
 			switch(flora_fauna_map[i][j])	{
 				case -1:		// empty
@@ -116,10 +116,10 @@ void world::update_map(){	// only update region centered on avatar, for speed
 		};
 	};
 	
-	for(i=P.x-9-3;i<=P.x+9+3;i++){	// forget move status by adding back 100; 
+	for(i=P.x-UPDATE_WINDOW-3;i<=P.x+UPDATE_WINDOW+3;i++){	// forget move status by adding back 100; 
 		// examine wider square since something might have moved into it
-		for(j=P.y-9-3;j<=P.y+9+3;j++){
-			if(0<i && i<999 && 0<j && j<799){	// if in range
+		for(j=P.y-UPDATE_WINDOW-3;j<=P.y+UPDATE_WINDOW+3;j++){
+			if(0<=i && i<(int) world_map.size() && 0<=j && j<(int) world_map[0].size()){	// if in range
 				if(flora_fauna_map[i][j]<-90){
 					flora_fauna_map[i][j]=flora_fauna_map[i][j]+100;
 				};

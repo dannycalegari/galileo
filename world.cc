@@ -4,6 +4,7 @@
 #define MAX_SKILL_NUM 6
 #define MAX_WALL_NUM 13
 #define MAX_MESSAGE_NUM 8
+#define UPDATE_WINDOW 9
 
 struct party_state{	// data file for party
 	int x,y;	// global party location
@@ -122,64 +123,10 @@ class world{
 		void exit_combat();
 		
 		void attempt_move(int x, int y);
+		bool can_move_into_square(int w, int x, int y);
 		bool test_of_skill(int i);
 		
 		void user_interface();
 
 };
 
-
-void world::attempt_move(int x, int y){
-	int X,Y;
-	X=P.x+x;
-	Y=P.y+y;
-
-	if(X<1 || X> (int) world_map.size()-2 || Y<1 || Y> (int) world_map[0].size()-2){	
-		// exit city or combat map; or if in europe,
-		if(in_city){
-			exit_city();
-		} else if(in_combat){
-			exit_combat();
-		} else {
-			add_new_message("out of range!");
-		};
-	} else if(edit_mode){
-		P.x=X;
-		P.y=Y;
-	} else {
-		if(world_map[X][Y]>=4){	// mountain
-			if(world_map[X][Y]>=5){
-				add_new_message("blocked");
-			} else {
-			// unless mountaineering skill and grapple
-				if(test_of_skill(4)==true){	// if have grapple and pass mountaineering test
-					P.x=X;
-					P.y=Y;
-				} else {
-					add_new_message("stumble");
-				};
-			};
-		} else if (world_map[X][Y]==0){		// water
-			if(test_of_skill(0)==true){		// if embarked
-	//			if(P.embarked==true){	// sailing on a boat
-					//	test of sailing
-				P.x=X;
-				P.y=Y;
-			} else {
-				if(flora_fauna_map[X][Y]==13){	// if moving onto a boat
-					P.x=X;
-					P.y=Y;
-				} else {	
-					add_new_message("blocked");
-				};
-			};
-		} else {	// ordinary move
-			if(P.skill_item[0]==false){	// if not embarked
-				P.x=X;
-				P.y=Y;
-			} else {
-				add_new_message("blocked");
-			};
-		};
-	};
-};

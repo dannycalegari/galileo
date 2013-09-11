@@ -38,6 +38,7 @@ struct point{ int x,y; };
 #include "world.cc"
 #include "info.cc"
 #include "load_save.cc"
+#include "move.cc"
 #include "skill.cc"
 #include "use.cc"
 #include "talk.cc"
