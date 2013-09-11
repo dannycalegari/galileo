@@ -1,6 +1,6 @@
 /* world.cc basic world class and declaration of functions */
 
-#define MAX_SPRITE_NUM 17
+#define MAX_SPRITE_NUM 18
 #define MAX_SKILL_NUM 6
 #define MAX_WALL_NUM 13
 #define MAX_MESSAGE_NUM 8
@@ -137,8 +137,7 @@ class world{
 		void exit_combat();
 		void update_combat_map();
 		int occupied_by_enemy(int x, int y);
-		int number_of_enemy(int x, int y);
-
+		int enemy_in_direction(int x, int y);
 		
 		// move
 		

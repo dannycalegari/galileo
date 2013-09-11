@@ -28,7 +28,7 @@ monster make_new_monster(int type){
 			M.y = 9;
 			M.id = 9;
 			M.health = 100;
-			M.ranged_attack = false;
+			M.ranged_attack = true;
 			M.strength = 20;
 			M.dexterity = 30;
 			break;
@@ -38,28 +38,38 @@ monster make_new_monster(int type){
 	return(M);
 };
 
-int world::occupied_by_enemy(int x, int y){
+int world::occupied_by_enemy(int x, int y){	// is there a monster in location x,y, and if so, which monster?
 	int i;
 	int occupied;
 	occupied=-1;
 	for(i=0;i<(int) monsters.size();i++){
 		if(monsters[i].x==x && monsters[i].y==y){
-			occupied=monsters[i].id;
+			occupied=i;
 		};	
 	};
 	return(occupied);
 };
 
-int world::number_of_enemy(int x, int y){
-	int i;
-	int num;
-	num=-1;
-	for(i=0;i<(int) monsters.size();i++){
-		if(monsters[i].x==x && monsters[i].y==y){
-			num=i;
-		};	
+int world::enemy_in_direction(int x, int y){ // is there a monster in direction x,y, and if so, which kind?
+	int i,j;
+	int occupied;
+	occupied=-1;
+	i=P.x;
+	j=P.y;
+	bool in_range;
+	in_range=true;
+	while(in_range){
+		i=i+x;
+		j=j+y;
+		occupied=occupied_by_enemy(i,j);
+		if(occupied>-1){
+			in_range=false;
+		};
+		if(i<1 || i>(int) world_map.size() || j<1 || j>(int) world_map[0].size()){
+			in_range=false;
+		};
 	};
-	return(num);
+	return(occupied);
 };
 
 void world::attack(int x, int y){
@@ -69,6 +79,9 @@ void world::attack(int x, int y){
 		if(occupied_by_enemy(P.x+x,P.y+y)>-1){	// is enemy there?
 			// attack!
 			add_new_message("swipe!");
+		} else if(P.skill_item[2]==true && enemy_in_direction(x,y)>-1){	// bow attack?
+			// bow attack!
+			add_new_message("arrow fired!");
 		} else {
 			add_new_message("missed!");
 		};
@@ -123,7 +136,7 @@ void world::enter_combat(int type){	// type is code of opponent
 	wall_map.clear();	// initialize
 	read_map(input_file, 2);
 	input_file.close();	
-	P.x=6;	// should be city-specific
+	P.x=6;	// should be specific to combat map
 	P.y=3;
 	in_combat=true;
 	add_new_message("combat with "+type);	// should add name of opponent here

@@ -30,8 +30,9 @@ void world::load_sprites(){
 	S[14]="paris.xpm";
 	S[15]="london.xpm";
 	S[16]="amsterdam.xpm";
+	S[17]="arrow.xpm";
 	
-	for(i=0;i<17;i++){
+	for(i=0;i<18;i++){
 		R="xpm_files/"+S[i];
 		strcpy(T,R.c_str());
 		if (XpmReadFileToImage(display, T, &local_img, &local_clp, NULL)) {

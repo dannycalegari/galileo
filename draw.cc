@@ -497,7 +497,7 @@ void world::draw_graphics(){
 					};
 					if(in_combat==true){
 						if(occupied_by_enemy(i+6,j+6)>-1){
-							k=occupied_by_enemy(i+6,j+6);
+							k=monsters[occupied_by_enemy(i+6,j+6)].id;
 							h=world_map[x+i][y+j]*16;
 							draw_sprite(k,400+(i*tile_size),400-(j*tile_size),h);
 						};
