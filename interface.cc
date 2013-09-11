@@ -20,25 +20,33 @@ void world::user_interface(){
 				if(XLookupKeysym(&report.xkey, 0) == XK_Right){
 					add_new_message("move right");
 					attempt_move(1,0);
-					update_map();
+					if(edit_mode==false){
+						update_map();
+					};
 					draw();
 				};
 				if(XLookupKeysym(&report.xkey, 0) == XK_Left){
 					add_new_message("move left");					
 					attempt_move(-1,0);
-					update_map();
+					if(edit_mode==false){
+						update_map();
+					};
 					draw();
 				};
 				if(XLookupKeysym(&report.xkey, 0) == XK_Up){
 					add_new_message("move up");
 					attempt_move(0,1);
-					update_map();
+					if(edit_mode==false){
+						update_map();
+					};
 					draw();
 				};
 				if(XLookupKeysym(&report.xkey, 0) == XK_Down){
 					add_new_message("move down");
 					attempt_move(0,-1);
-					update_map();
+					if(edit_mode==false){
+						update_map();
+					};
 					draw();
 				};
 				
@@ -104,7 +112,7 @@ void world::user_interface(){
 						draw();
 					};	
 					
-					if(XLookupKeysym(&report.xkey, 0) == XK_l){	// save current map
+					if(XLookupKeysym(&report.xkey, 0) == XK_s){	// save current map
 						add_new_message("[s]ave current map: "+map_name);
 						draw();
 						save_current_map();
@@ -165,6 +173,7 @@ void world::user_interface(){
 								enter_city("london");
 								break;
 							case 102:	// Amsterdam
+								enter_city("amsterdam");
 								break;
 							case 103:	// Paris
 								enter_city("paris");

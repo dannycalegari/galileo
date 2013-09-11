@@ -459,12 +459,19 @@ void world::draw_graphics(){
 						draw_sprite(k,400+(i*tile_size),400-(j*tile_size),h);
 					};
 					if(k>=100 && k<200){
-						if(k==101){
-							draw_sprite(15,400+(i*tile_size),400-(j*tile_size),h);	// London
-						} else	if(k==103){
-							draw_sprite(14,400+(i*tile_size),400-(j*tile_size),h);	// Paris
-						} else {
-							draw_sprite(6,400+(i*tile_size),400-(j*tile_size),h);	// generic city; need to make these specific
+						switch(k){
+							case 101:
+								draw_sprite(15,400+(i*tile_size),400-(j*tile_size),h);	// London
+								break;
+							case 102:
+								draw_sprite(16,400+(i*tile_size),400-(j*tile_size),h);	// Amsterdam
+								break;
+							case 103:
+								draw_sprite(14,400+(i*tile_size),400-(j*tile_size),h);	// Paris
+								break;
+							default:
+								draw_sprite(6,400+(i*tile_size),400-(j*tile_size),h);	// generic city; need to make these specific
+								break;
 						};
 					};
 					if(k>=200 && k<300){

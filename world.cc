@@ -1,6 +1,6 @@
 /* world.cc basic world class and declaration of functions */
 
-#define MAX_SPRITE_NUM 16
+#define MAX_SPRITE_NUM 17
 #define MAX_SKILL_NUM 6
 #define MAX_WALL_NUM 13
 #define MAX_MESSAGE_NUM 8
