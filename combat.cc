@@ -38,19 +38,28 @@ monster make_new_monster(int type){
 	return(M);
 };
 
-int world::occupied_by_enemy(int x, int y){	// is there a monster in location x,y, and if so, which monster?
+int world::occupied_by_special(int x, int y){	
+	// is there a monster/npc in location x,y, and if so, which monster/npc?
 	int i;
 	int occupied;
 	occupied=-1;
-	for(i=0;i<(int) monsters.size();i++){
-		if(monsters[i].x==x && monsters[i].y==y){
-			occupied=i;
+	if(in_combat==true){
+		for(i=0;i<(int) monsters.size();i++){
+			if(monsters[i].x==x && monsters[i].y==y){
+				occupied=i;
+			};	
+		};
+	} else {
+		for(i=0;i<(int) npcs.size();i++){
+			if(npcs[i].x==x && npcs[i].y==y){
+				occupied=i;
+			};	
 		};	
 	};
 	return(occupied);
 };
 
-int world::enemy_in_direction(int x, int y){ // is there a monster in direction x,y, and if so, which kind?
+int world::special_in_direction(int x, int y){ // is there a monster/npc in direction x,y, and if so, which kind?
 	int i,j;
 	int occupied;
 	occupied=-1;
@@ -61,7 +70,7 @@ int world::enemy_in_direction(int x, int y){ // is there a monster in direction 
 	while(in_range){
 		i=i+x;
 		j=j+y;
-		occupied=occupied_by_enemy(i,j);
+		occupied=occupied_by_special(i,j);
 		if(occupied>-1){
 			in_range=false;
 		};
@@ -76,10 +85,10 @@ void world::attack(int x, int y){
 	// attack monster/person in flora/fauna layer in relative location x,y
 
 	if(in_combat==true){
-		if(occupied_by_enemy(P.x+x,P.y+y)>-1){	// is enemy there?
+		if(occupied_by_special(P.x+x,P.y+y)>-1){	// is enemy there?
 			// attack!
 			add_new_message("swipe!");
-		} else if(P.skill_item[2]==true && enemy_in_direction(x,y)>-1){	// bow attack?
+		} else if(P.skill_item[2]==true && special_in_direction(x,y)>-1){	// bow attack?
 			// bow attack!
 			add_new_message("arrow fired!");
 		} else {
@@ -139,7 +148,7 @@ void world::enter_combat(int type){	// type is code of opponent
 	P.x=6;	// should be specific to combat map
 	P.y=3;
 	in_combat=true;
-	add_new_message("combat with "+type);	// should add name of opponent here
+	add_new_message("combat with ");	// should add name of opponent here
 	M=make_new_monster(type);
 	monsters.push_back(M);
 	draw_info();

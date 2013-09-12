@@ -15,44 +15,32 @@ bool world::can_move_into_square(int w, int x, int y){	 // can move into square;
 				} else {
 					can_move=false;
 				};
-			} else {
-				if (world_map[x][y]==0){	// moving onto water?
-					if(flora_fauna_map[x][y]==13){	// moving onto boat?
-						can_move=true;
-					} else {
-						can_move=false;
-					};
-				} else {	// moving onto land
-					if (world_map[x][y]>4){	// high mountain
-						can_move=false;
-					} else {
-						if (world_map[x][y]==4){	// low mountain
-							if(P.skill_item[4]==true){	// have grapple?
-								can_move=true;
-							} else {
-								can_move=false;
-							};
-						} else {
-							if((int) wall_map.size()>0){	// is there a wall layer?
-								if(wall_map[x][y]>-1){	// is there a wall?
-									can_move=false;
-								} else {
-									if(in_combat==true){	// in combat
-										if(occupied_by_enemy(x,y)>-1){	// occupied by enemy?
-											can_move=false;
-										} else {
-											can_move=true;
-										};
-									} else {
-										can_move=true;
-									};
-								};
-							} else {
-								can_move=true;
-							};
-						};
-					};
+			} else if (world_map[x][y]==0){	// moving onto water?
+				if(flora_fauna_map[x][y]==13){	// moving onto boat?
+					can_move=true;
+				} else {
+					can_move=false;
 				};
+			} else if (world_map[x][y]>4){	// high mountain
+				can_move=false;
+			} else if (world_map[x][y]==4){	// low mountain
+				if(P.skill_item[4]==true){	// have grapple?
+					can_move=true;
+				} else {
+					can_move=false;
+				};
+			} else if((int) wall_map.size()>0){	// is there a wall layer?
+				if(wall_map[x][y]>-1){	// is there a wall?
+					can_move=false;
+				} else if(occupied_by_special(x,y)>-1){	// occupied by monster/npc
+					can_move=false;
+				} else {
+					can_move=true;
+				};
+			} else if(occupied_by_special(x,y)>-1){	// occupied by monster/npc
+				can_move=false;
+			} else {
+				can_move=true;
 			};
 			break;
 		case 1:		// animal/npc
@@ -63,24 +51,18 @@ bool world::can_move_into_square(int w, int x, int y){	 // can move into square;
 					can_move=false;
 				} else if(flora_fauna_map[x][y]!=-1){	// occupied
 					can_move=false;				
-				} else {
-					if(wall_map.size()>0){	// is there a wall layer?
-						if(wall_map[x][y]>-1){	// is there a wall?
-							can_move=false;
-						} else {
-							if(in_combat==true){	// in combat
-								if(occupied_by_enemy(x,y)>-1){	// occupied by enemy?
-									can_move=false;
-								} else {
-									can_move=true;
-								};
-							} else {
-								can_move=true;
-							};
-						};
+				} else if((int) wall_map.size()>0){	// is there a wall layer?
+					if(wall_map[x][y]>-1){	// is there a wall?
+						can_move=false;
+					} else if(occupied_by_special(x,y)>-1){	// occupied by monster/npc
+						can_move=false;
 					} else {
 						can_move=true;
 					};
+				} else if(occupied_by_special(x,y)>-1){	// occupied by monster/npc
+					can_move=false;
+				} else {
+					can_move=true;
 				};
 			};
 			break;
@@ -105,16 +87,16 @@ bool world::can_move_into_square(int w, int x, int y){	 // can move into square;
 					can_move=false;
 				} else if(flora_fauna_map[x][y]!=-1){	// occupied
 					can_move=false;				
-				} else {
-					if(wall_map.size()>0){	// is there a wall layer?
-						if(wall_map[x][y]>-1){	// is there a wall?
-							can_move=false;
-						} else {
-							can_move=true;
-						};
+				} else if(wall_map.size()>0){	// is there a wall layer?
+					if(wall_map[x][y]>-1){	// is there a wall?
+						can_move=false;
+					} else if(occupied_by_special(x,y)>-1){	// occupied by monster/npc
+						can_move=false;
 					} else {
 						can_move=true;
 					};
+				} else {
+					can_move=true;
 				};
 			};
 			break;		

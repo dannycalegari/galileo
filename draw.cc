@@ -11,9 +11,13 @@ void world::draw_wall(int i, int j){
 	int wall_height;
 	long c;
 	XPoint q[4];
-	
-	x=P.x;
-	y=P.y;
+	if(in_combat==true){
+		x=6;
+		y=6;
+	} else {
+		x=P.x;
+		y=P.y;
+	};
 	k=wall_map[x+i][y+j];	// k is type of wall
 	for(a=-1;a<2;a++){
 		for(b=-1;b<2;b++){
@@ -496,13 +500,13 @@ void world::draw_graphics(){
 						draw_sprite(12,400+(i*tile_size),400-(j*tile_size),h);	// npc; need to make these specific			
 					};
 					if(in_combat==true){
-						if(occupied_by_enemy(i+6,j+6)>-1){
-							k=monsters[occupied_by_enemy(i+6,j+6)].id;
+						if(occupied_by_special(i+6,j+6)>-1){	// draw monsters
+							k=monsters[occupied_by_special(i+6,j+6)].id;
 							h=world_map[x+i][y+j]*16;
 							draw_sprite(k,400+(i*tile_size),400-(j*tile_size),h);
 						};
 					
-						if(i==P.x-6 && j==P.y-6){
+						if(i==P.x-6 && j==P.y-6){	// draw avatar
 							h=world_map[P.x][P.y]*16;
 							if(world_map[P.x][P.y]>=4){
 								h=world_map[P.x][P.y]*20;
@@ -514,7 +518,13 @@ void world::draw_graphics(){
 							};						
 						};
 					} else {
-						if(i==0 && j==0){
+						if(occupied_by_special(i+x,j+y)>-1){	// draw npcs
+							k=npcs[occupied_by_special(i+6,j+6)].id;
+							h=world_map[x+i][y+j]*16;
+							draw_sprite(k,400+(i*tile_size),400-(j*tile_size),h);						
+						};
+					
+						if(i==0 && j==0){	// draw avatar
 							h=world_map[P.x][P.y]*16;
 							if(world_map[P.x][P.y]>=4){
 								h=world_map[P.x][P.y]*20;

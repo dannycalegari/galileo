@@ -74,7 +74,6 @@ class world{
 		void count_flora_fauna();
 
 		vector<monster> monsters;
-		vector<item> items;
 		vector<npc> npcs;
 	
 		void initialize();
@@ -136,8 +135,11 @@ class world{
 		void enter_combat(int type);
 		void exit_combat();
 		void update_combat_map();
-		int occupied_by_enemy(int x, int y);
-		int enemy_in_direction(int x, int y);
+		
+		// npc
+		
+		int occupied_by_special(int x, int y);		// also used in combat
+		int special_in_direction(int x, int y);
 		
 		// move
 		
