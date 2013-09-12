@@ -14,7 +14,7 @@ struct monster{
 monster make_new_monster(int type){
 	monster M;
 	switch(type){
-		case 4:
+		case 4:		// bear
 			M.x = 6;
 			M.y = 9;
 			M.id = 4;
@@ -23,7 +23,7 @@ monster make_new_monster(int type){
 			M.strength = 40;
 			M.dexterity = 20;
 			break;
-		case 9:
+		case 9:		// robber
 			M.x = 6;
 			M.y = 9;
 			M.id = 9;
