@@ -1,11 +1,5 @@
 /* world.cc basic world class and declaration of functions */
 
-#define MAX_SPRITE_NUM 18
-#define MAX_SKILL_NUM 6
-#define MAX_WALL_NUM 13
-#define MAX_MESSAGE_NUM 8
-#define UPDATE_WINDOW 9
-
 struct party_state{	// data file for party
 	int x,y;	// global party location
 	
@@ -26,9 +20,15 @@ struct item{
 	int type;
 };
 
+struct conversation_item{
+	string prompt;
+	string reply;
+};
+
 struct npc{
 	int x,y;	// coordinates 
 	int id;		//
+	int cx,cy;	// center of gravity
 		// skills; out of 100
 	int sword;
 	int bow;
@@ -39,6 +39,8 @@ struct npc{
 	int health;
 	int food;
 	int wood;
+	
+	vector<conversation_item > talk_list;	// canned responses for conversation
 };
 
 struct monster{
@@ -135,12 +137,18 @@ class world{
 		void enter_combat(int type);
 		void exit_combat();
 		void update_combat_map();
+		monster make_new_monster(int type, int x, int y);
+
 		
 		// npc
 		
 		int occupied_by_special(int x, int y);		// also used in combat
-		int special_in_direction(int x, int y);
-		
+		int special_in_direction(int x, int y);		// also used in combat
+		void conversation_with_npc(int c);
+		string get_response(int c, string S);		// response of npc[c] to string S
+		npc make_new_npc(int type, int x, int y);
+
+
 		// move
 		
 		void attempt_move(int x, int y);

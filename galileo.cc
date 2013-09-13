@@ -32,6 +32,13 @@ using namespace std;
 
 // global constants
 
+#define MAX_SPRITE_NUM 18
+#define MAX_SKILL_NUM 6
+#define MAX_WALL_NUM 13
+#define MAX_MESSAGE_NUM 10
+#define UPDATE_WINDOW 9
+#define MAX_TEXT_WIDTH 30
+
 struct point{ int x,y; };
 
 #include "graphics.cc"
@@ -48,6 +55,7 @@ struct point{ int x,y; };
 #include "map.cc"
 #include "interface.cc"
 #include "update.cc"
+#include "npc.cc"
 
 
 

@@ -11,12 +11,12 @@ struct monster{
 };
 */
 
-monster make_new_monster(int type){
+monster world::make_new_monster(int type, int x, int y){
 	monster M;
+	M.x = x;
+	M.y = y;
 	switch(type){
 		case 4:		// bear
-			M.x = 6;
-			M.y = 9;
 			M.id = 4;
 			M.health = 100;
 			M.ranged_attack = false;
@@ -24,8 +24,6 @@ monster make_new_monster(int type){
 			M.dexterity = 20;
 			break;
 		case 9:		// robber
-			M.x = 6;
-			M.y = 9;
 			M.id = 9;
 			M.health = 100;
 			M.ranged_attack = true;
@@ -149,7 +147,7 @@ void world::enter_combat(int type){	// type is code of opponent
 	P.y=3;
 	in_combat=true;
 	add_new_message("combat with ");	// should add name of opponent here
-	M=make_new_monster(type);
+	M=make_new_monster(type,6,9);	// 6,9 is default initial location for one monster
 	monsters.push_back(M);
 	draw_info();
 };

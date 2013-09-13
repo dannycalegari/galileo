@@ -137,11 +137,18 @@ void draw_letter(point p, char C, long col){
 	XDrawString(display,win,gc,p.x,p.y,S.c_str(),strlen(S.c_str()));
 };
 
-void draw_text(point p, stringstream &T, long col){
-    string S;
+void draw_text(point &p, string S, long col){
+    string U,V;
     XSetForeground(display, gc, col);
-    S=T.str();
-	XDrawString(display,win,gc,p.x,p.y,S.c_str(),strlen(S.c_str()));
+    if(S.size()<MAX_TEXT_WIDTH){
+		XDrawString(display,win,gc,p.x,p.y,S.c_str(),strlen(S.c_str()));
+    } else {
+    	U=S.substr(0,MAX_TEXT_WIDTH);
+    	V=S.substr(MAX_TEXT_WIDTH,S.size()-MAX_TEXT_WIDTH);
+		XDrawString(display,win,gc,p.x,p.y,U.c_str(),strlen(U.c_str()));
+		p.y=p.y+20;
+		draw_text(p,V,col);
+    };
 };
 
 void draw_square(int i, int j, int w, long col){

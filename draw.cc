@@ -519,7 +519,7 @@ void world::draw_graphics(){
 						};
 					} else {
 						if(occupied_by_special(i+x,j+y)>-1){	// draw npcs
-							k=npcs[occupied_by_special(i+6,j+6)].id;
+							k=npcs[occupied_by_special(i+x,j+y)].id;
 							h=world_map[x+i][y+j]*16;
 							draw_sprite(k,400+(i*tile_size),400-(j*tile_size),h);						
 						};
@@ -554,11 +554,11 @@ void world::draw_info(){
 
 	T << "map: " << map_name;
 	p.y=50;	
-	draw_text(p,T,0xAAFFAA);
+	draw_text(p,T.str(),0xAAFFAA);
 	T.str("");
 	T << "location " << P.x << " " << P.y;
 	p.y=90;
-	draw_text(p,T,0xFFFFFF);
+	draw_text(p,T.str(),0xFFFFFF);
 	T.str("");
 	T << "view mode ";
 	if(view_mode){
@@ -567,7 +567,7 @@ void world::draw_info(){
 		T << "off";
 	};
 	p.y=110;
-	draw_text(p,T,0xFFFFFF);
+	draw_text(p,T.str(),0xFFFFFF);
 	T.str("");
 	T << "edit mode ";
 	if(edit_mode){
@@ -576,35 +576,35 @@ void world::draw_info(){
 		T << "off";
 	};
 	p.y=130;
-	draw_text(p,T,0xFFFFFF);
+	draw_text(p,T.str(),0xFFFFFF);
 	T.str("");
 	T << "moves " << moves;
 	p.y=150;
-	draw_text(p,T,0xFFFFFF);	
+	draw_text(p,T.str(),0xFFFFFF);	
 	
 	
 	T.str("");
 	T << "health " << P.health;
 	p.y=180;
-	draw_text(p,T,0xFFAAAA);
+	draw_text(p,T.str(),0xFFAAAA);
 	T.str("");
 	T << "food " << P.food;
 	p.y=200;
-	draw_text(p,T,0xFFAAAA);
+	draw_text(p,T.str(),0xFFAAAA);
 	T.str("");
 	T << "gold " << P.gold;
 	p.y=220;
-	draw_text(p,T,0xFFAAAA);
+	draw_text(p,T.str(),0xFFAAAA);
 	T.str("");
 	T << "wood " << P.wood;
 	p.y=240;
-	draw_text(p,T,0xFFAAAA);
+	draw_text(p,T.str(),0xFFAAAA);
 	
 	for(i=0;i<MAX_SKILL_NUM;i++){
 		T.str("");
 		T << "skill " << i << " " << P.skill_item[i] << " " << P.skill[i];
 		p.y=290+(20*i);
-		draw_text(p,T,0xFFAAAA);
+		draw_text(p,T.str(),0xFFAAAA);
 	};
 	
 	p.y=420;
@@ -613,9 +613,11 @@ void world::draw_info(){
 		T << message[i];
 		p.y=p.y+20;
 		if(message[i][0]=='>'){
-			draw_text(p,T,0xFFD700);
+			draw_text(p,T.str(),0xFFD700);
+		} else if(message[i][0]==':'){
+			draw_text(p,T.str(),0xFFF9F0);
 		} else {
-			draw_text(p,T,0xAAAAFF);
+			draw_text(p,T.str(),0xAAAAFF);
 		};
 	};
 	
@@ -624,7 +626,7 @@ void world::draw_info(){
 		T.str("");
 		T << "monster " << i << " health " << monsters[i].health;
 		p.y=p.y+20;
-		draw_text(p,T,0xFFFFFF);
+		draw_text(p,T.str(),0xFFFFFF);
 	};
 
 };

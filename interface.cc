@@ -4,6 +4,7 @@ void world::user_interface(){
 	bool finished;
 	point p;
 	int x,y;
+	npc N;
 
 	finished=false;
 	
@@ -118,6 +119,11 @@ void world::user_interface(){
 						save_current_map();
 					};
 					
+					if(XLookupKeysym(&report.xkey, 0) == XK_n){	// add generic npc (test)
+						N = make_new_npc(8,P.x,P.y);
+						npcs.push_back(N);
+						draw();
+					};
 				} else {				// GAME MODE
 					if(XLookupKeysym(&report.xkey, 0) == XK_b){	// board boat toggle
 						if(P.skill_item[0]==false){		// in not embarked

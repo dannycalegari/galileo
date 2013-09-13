@@ -23,6 +23,7 @@ void world::initialize(){
 	in_city=false;
 	in_combat=false;
 	monsters.clear();	// no monsters
+	npcs.clear();	// no npcs
 	message.clear();
 };
 
