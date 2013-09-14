@@ -62,9 +62,8 @@ struct point{ int x,y; };
 int main(int argc, char *argv[]){ 
 
 	setup_graphics();
-//	usleep(100000);
 	XFlush(display);
-
+  	XSetInputFocus(display, win, RevertToNone, CurrentTime);	// doesn't seem to work?
 	
 	world W;
 	
