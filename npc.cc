@@ -85,6 +85,12 @@ npc world::make_new_npc(int type, int x, int y){
 			C.prompt="merchant";
 			C.reply="there's lots of commerce in Venice";
 			N.talk_list.push_back(C);
+			C.prompt="money";
+			C.reply="it makes the world go round";
+			N.talk_list.push_back(C);
+			C.prompt="buy";
+			C.reply="I don't have my wares with me";
+			N.talk_list.push_back(C);
 			C.prompt="bye";
 			C.reply="bye!";
 			N.talk_list.push_back(C);		
