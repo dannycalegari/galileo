@@ -31,10 +31,13 @@ npc world::make_new_npc(int type, int x, int y){
 	npc N;
 	conversation_item C;
 
-	N.x=x;
+	N.x=x;	// initial location
 	N.y=y;
-	N.cx=x;
+	N.cx=x;	// center of gravity
 	N.cy=y;
+	N.hx=1;	// initial heading
+	N.hy=0;
+	N.d=20;	// maximum distance from center of gravity
 	N.talk_list.clear();	// initialize
 			
 	switch(type){

@@ -61,7 +61,7 @@ bool world::is_adjacent_to_avatar(int i, int j){
 };
 
 void world::update_map(){	// only update region centered on avatar, for speed
-	int i,j,k,l;
+	int i,j,k,l,m;
 	int x,y;
 	point p;
 	
@@ -194,6 +194,29 @@ void world::update_map(){	// only update region centered on avatar, for speed
 					monsters[l].x=x;
 					monsters[l].y=y;
 				};
+			};
+		};
+	} else {	// move npcs; npcs have a "heading" which makes their movement look purposefull
+		for(l=0;l<(int) npcs.size();l++){
+			if(rand()%5==0){
+				m=npcs[l].hx;				// turn heading left
+				npcs[l].hx=npcs[l].hy;
+				npcs[l].hy=-1*m;
+			};
+			x=npcs[l].x+npcs[l].hx;	// move in heading direction
+			y=npcs[l].y+npcs[l].hy;	// move in heading direction
+			if(can_move_into_square(1,x,y)==true){	// square is free
+				if(abs(x-npcs[l].cx)+abs(y-npcs[l].cy)>npcs[l].d){	// too far from center of gravity
+					npcs[l].hx=-1*npcs[l].hx;	// about face
+					npcs[l].hy=-1*npcs[l].hy;
+				} else {
+					npcs[l].x=x;
+					npcs[l].y=y;
+				};
+			} else {
+				m=npcs[l].hx;				// turn heading right
+				npcs[l].hx=-1*npcs[l].hy;
+				npcs[l].hy=m;
 			};
 		};
 	};

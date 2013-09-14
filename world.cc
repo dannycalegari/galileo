@@ -31,6 +31,8 @@ struct npc{
 	int x,y;	// coordinates 
 	int id;		//
 	int cx,cy;	// center of gravity
+	int hx,hy;	// heading direction
+	int d;		// maximum L_1 distance from center of gravity
 		// skills; out of 100
 	int sword;
 	int bow;
