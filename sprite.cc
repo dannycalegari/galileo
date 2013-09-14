@@ -9,55 +9,84 @@ void world::load_sprites(){
 	XImage *local_img;
 	XImage *local_clp;
 
+	for(i=0;i<MAX_SPRITE_NUM;i++){	// initialize
+		S[i]="";
+	};
+	
 	S[0]="tree.xpm";
 	S[1]="fruit_tree.xpm";
-	S[2]="deer.xpm";
-	S[3]="fish.xpm";
-	S[4]="bear.xpm";
-	if(gender=="female"){
-		S[5]="female_avatar.xpm";
-	} else {
-		S[5]="male_avatar.xpm";
-	};
-	S[6]="castle.xpm";	// generic castle sprite
-	S[7]="cow.xpm";
-	S[8]="farmer.xpm";
-	S[9]="robber.xpm";
-	S[10]="merchant.xpm";
-	S[11]="lumberjack.xpm";
-	S[12]="npc.xpm";	// generic npc sprite
-	S[13]="boat.xpm";
-	S[14]="paris.xpm";
-	S[15]="london.xpm";
-	S[16]="amsterdam.xpm";
-	S[17]="arrow.xpm";
+	S[2]="palm_tree.xpm";
+	S[3]="pine_tree.xpm";
 	
-	for(i=0;i<18;i++){
-		R="xpm_files/"+S[i];
-		strcpy(T,R.c_str());
-		if (XpmReadFileToImage(display, T, &local_img, &local_clp, NULL)) {
-			cout << "problem reading image " << i << "\n";
-			exit (1);
-		} else {
-		};
-		clp[i]=local_clp;
-		img[i]=local_img;
+	S[10]="cow.xpm";
+	S[11]="boar.xpm";
+	S[12]="goat.xpm";
+	S[13]="deer.xpm";
+	S[14]="fish.xpm";
+	
+	S[20]="bear.xpm";
+	S[21]="wolf.xpm";
+	
+//	S[30]="cambridge.xpm";
+	S[31]="london.xpm";
+	S[32]="amsterdam.xpm";
+	S[33]="paris.xpm";
+//	S[34]="venice.xpm";
+//	S[35]="rome.xpm";
+//	S[36]="zurich.xpm";
+//	S[37]="athens.xpm";
+//	S[38]="constantinople.xpm";
+//	S[39]="madrid.xpm";
+//	S[40]="gibraltar.xpm";
+	S[41]="castle.xpm";
+	
+	S[50]="farmer.xpm";
+	S[51]="merchant.xpm";
+	S[52]="woodcutter.xpm";
+	S[53]="robber.xpm";
+	S[54]="npc.xpm";
+	
+	S[60]="boat.xpm";
+	S[61]="arrow.xpm";
+	
+	if(gender=="female"){
+		S[99]="female_avatar.xpm";
+	} else {
+		S[99]="male_avatar.xpm";
+	};
 
-		pix[i] = XCreatePixmap(display, win, (clp[i])->width, (clp[i])->height, (clp[i])->depth);
- 		local_gc = XCreateGC (display, pix[i], 0, NULL);
-		XPutImage(display, pix[i], local_gc, clp[i], 0, 0, 0, 0, clp[i]->width, clp[i]->height);
+	for(i=0;i<MAX_SPRITE_NUM;i++){
+		if(S[i]!=""){	// only read sprites for nonempty codes
+			R="xpm_files/"+S[i];
+			strcpy(T,R.c_str());
+			if (XpmReadFileToImage(display, T, &local_img, &local_clp, NULL)) {
+				cout << "problem reading image " << i << "\n";
+				exit (1);
+			} else {
+				clp[i]=local_clp;
+				img[i]=local_img;
+
+				pix[i] = XCreatePixmap(display, win, (clp[i])->width, (clp[i])->height, (clp[i])->depth);
+ 				local_gc = XCreateGC (display, pix[i], 0, NULL);
+				XPutImage(display, pix[i], local_gc, clp[i], 0, 0, 0, 0, clp[i]->width, clp[i]->height);
+			};
+		} else {
+			img[i]=NULL;
+		};
 	};
 };
 
 void world::draw_sprite(int i, int x, int y, int h){	// sprite type i, sprite origin x,y height h
 	XPoint p;
-	p.x=x+17;	// need to work this out better
-	p.y=y-51;
-	p=affine_transform(p);
-	p.y=p.y-h;
-    XSetClipMask(display, gc, pix[i]);
-    XSetClipOrigin(display, gc, p.x-(img[i]->width)/2, p.y-(img[i]->height)/2);
-    XPutImage(display, win, gc, img[i], 0, 0, p.x-(img[i]->width)/2, p.y-(img[i]->height)/2, img[i]->width, img[i]->height);
-    XSetClipMask(display, gc, None);
+	if(img[i]!=NULL){
+		p.x=x+17;	// need to work this out better
+		p.y=y-51;
+		p=affine_transform(p);
+		p.y=p.y-h;
+	    XSetClipMask(display, gc, pix[i]);
+	    XSetClipOrigin(display, gc, p.x-(img[i]->width)/2, p.y-(img[i]->height)/2);
+	    XPutImage(display, win, gc, img[i], 0, 0, p.x-(img[i]->width)/2, p.y-(img[i]->height)/2, img[i]->width, img[i]->height);
+	    XSetClipMask(display, gc, None);
+	};
 };
 

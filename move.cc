@@ -16,7 +16,7 @@ bool world::can_move_into_square(int w, int x, int y){	 // can move into square;
 					can_move=false;
 				};
 			} else if (world_map[x][y]==0){	// moving onto water?
-				if(flora_fauna_map[x][y]==13){	// moving onto boat?
+				if(flora_fauna_map[x][y]==60){	// moving onto boat?
 					can_move=true;
 				} else {
 					can_move=false;

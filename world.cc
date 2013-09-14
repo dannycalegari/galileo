@@ -22,7 +22,9 @@ struct item{
 
 struct conversation_item{
 	string prompt;
-	string reply;
+	string reply;	
+	// a reply has two components: a verbal part, and a nonverbal part; they are
+	// separated by a semicolon. So for example, a response could be: hello!;smile
 };
 
 struct npc{
@@ -72,7 +74,7 @@ class world{
 		vector<vector<int> > flora_fauna_map;
 		vector<vector<int> > wall_map;
 		
-		int flora_fauna_count[5];
+		int flora_fauna_count[MAX_SPRITE_NUM];
 		void count_flora_fauna();
 
 		vector<monster> monsters;

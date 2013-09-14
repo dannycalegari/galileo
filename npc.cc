@@ -3,7 +3,9 @@
 /*
 struct conversation_item{
 	string prompt;
-	string reply;
+	string reply;	
+	// a reply has two components: a verbal part, and a nonverbal part; they are
+	// separated by a semicolon. So for example, a response could be: hello!;smile
 };
 
 struct npc{
@@ -36,8 +38,8 @@ npc world::make_new_npc(int type, int x, int y){
 	N.talk_list.clear();	// initialize
 			
 	switch(type){
-		case 8:	// generic farmer npc
-			N.id=8;
+		case 50:	// generic farmer npc
+			N.id=50;
 			C.prompt="initial";
 			C.reply="hello!";
 			N.talk_list.push_back(C);
@@ -47,7 +49,7 @@ npc world::make_new_npc(int type, int x, int y){
 			C.prompt="rain";
 			C.reply="good for the farmers";
 			N.talk_list.push_back(C);
-			C.prompt="farmer";
+			C.prompt="farm";
 			C.reply="I sow and harvest wheat";
 			N.talk_list.push_back(C);
 			C.prompt="wheat";
@@ -63,11 +65,11 @@ npc world::make_new_npc(int type, int x, int y){
 			C.reply="I'm a farmer";
 			N.talk_list.push_back(C);
 			C.prompt="bye";
-			C.reply="bye!";
+			C.reply="bye!;exit";
 			N.talk_list.push_back(C);			
 			break;
-		case 10: // generic merchant npc
-			N.id=10;
+		case 51: // generic merchant npc
+			N.id=51;
 			C.prompt="initial";
 			C.reply="hello!";
 			N.talk_list.push_back(C);

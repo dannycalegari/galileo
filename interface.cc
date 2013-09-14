@@ -96,7 +96,11 @@ void world::user_interface(){
 				// in edit mode: add to flora_fauna_map
 				
 					if(XLookupKeysym(&report.xkey, 0) == XK_i){	// add object to flora/fauna layer
-						flora_fauna_map[P.x][P.y]=(flora_fauna_map[P.x][P.y]+1) % MAX_SPRITE_NUM;
+						flora_fauna_map[P.x][P.y]=(flora_fauna_map[P.x][P.y]+1) % MAX_SPRITE_NUM;;
+
+						while(img[flora_fauna_map[P.x][P.y]]==NULL){
+							flora_fauna_map[P.x][P.y]=(flora_fauna_map[P.x][P.y]+1) % MAX_SPRITE_NUM;;
+						};
 						draw();
 					};
 					if(XLookupKeysym(&report.xkey, 0) == XK_o){	// clear flora/fauna layer
@@ -120,14 +124,14 @@ void world::user_interface(){
 					};
 					
 					if(XLookupKeysym(&report.xkey, 0) == XK_n){	// add generic npc (test)
-						N = make_new_npc(8,P.x,P.y);
+						N = make_new_npc(50,P.x,P.y);
 						npcs.push_back(N);
 						draw();
 					};
 				} else {				// GAME MODE
 					if(XLookupKeysym(&report.xkey, 0) == XK_b){	// board boat toggle
 						if(P.skill_item[0]==false){		// in not embarked
-							if(flora_fauna_map[P.x][P.y]==13 && world_map[P.x][P.y]==0){	// if on a boat on water
+							if(flora_fauna_map[P.x][P.y]==60 && world_map[P.x][P.y]==0){	// if on a boat on water
 								P.skill_item[0]=true;	// embark
 								flora_fauna_map[P.x][P.y]=-1;	// remove boat from map
 								add_new_message("[b]oard boat");
@@ -135,7 +139,7 @@ void world::user_interface(){
 							};
 						} else {
 							P.skill_item[0]=false;	// disembark
-							flora_fauna_map[P.x][P.y]=13;	// put boat back on map
+							flora_fauna_map[P.x][P.y]=60;	// put boat back on map
 							add_new_message("exit [b]oat");
 							update_map();
 						};

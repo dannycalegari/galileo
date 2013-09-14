@@ -1,20 +1,22 @@
 /* update.cc 	animals, predators, fish and npcs move	*/
 
+
 void world::count_flora_fauna(){
 	int i,j,c;
-	for(i=0;i<5;i++){	// initialize count
+	for(i=0;i<100;i++){	// initialize count
 		flora_fauna_count[i]=0;
 	};
 	
-	for(i=10;i<990;i++){
-		for(j=10;j<790;j++){
+	for(i=1;i<(int) world_map.size()-1;i++){
+		for(j=1;j<(int) world_map[0].size()-1;j++){
 			c=flora_fauna_map[i][j];
-			if(c>=0 && c<5){
+			if(c>=0 && c<100){
 				flora_fauna_count[c]++;
 			};
 		};
 	};
 };
+
 
 point world::towards_avatar(int i, int j){
 	point p;
@@ -82,19 +84,23 @@ void world::update_map(){	// only update region centered on avatar, for speed
 				switch(flora_fauna_map[i][j])	{
 					case -1:		// empty
 						break;
-					case 0:		// tree
-						break;
-					case 1:		// fruit tree
-						break;		
-					case 2:		// deer
+
+					case 11:	// boar
+					case 12:	// goat
+					case 13:	// deer
+						if(flora_fauna_map[i][j]==12){
+							l=3;	// move type of goat
+						} else {
+							l=1;	// move type of boar/deer
+						};
 						p=towards_avatar(i,j);	// direction of avatar
 						if(p.x!=0){
 							x=i-p.x;
 						} else if(p.y!=0){
 							y=j-p.y;
 						};
-						if(can_move_into_square(1,x,y)==true){	// can we move?
-							flora_fauna_map[x][y]=2-100;	// code for moved deer
+						if(can_move_into_square(l,x,y)==true){	// can we move?
+							flora_fauna_map[x][y]=flora_fauna_map[i][j]-100;	// code for moved animal
 							flora_fauna_map[i][j]=-1;
 						} else {	// random move if trapped
 							if(rand()%2==0){
@@ -104,13 +110,13 @@ void world::update_map(){	// only update region centered on avatar, for speed
 								x=i;
 								y=j+(rand()%3)-1;
 							};
-							if(can_move_into_square(1,x,y)==true){	// can we move?
-								flora_fauna_map[x][y]=2-100;	// code for moved deer
+							if(can_move_into_square(l,x,y)==true){	// can we move?
+								flora_fauna_map[x][y]=flora_fauna_map[i][j]-100;	// code for moved animal
 								flora_fauna_map[i][j]=-1;
 							};
 						};
 						break;
-					case 3:		// fish
+					case 14:		// fish
 						k=rand()%100;
 						if(k>50){
 							p.x=(rand()%3-1);
@@ -121,14 +127,15 @@ void world::update_map(){	// only update region centered on avatar, for speed
 								y=j+p.y;
 							};
 							if(can_move_into_square(2,x,y)==true){		// can we move?
-								flora_fauna_map[x][y]=3-100;	// code for moved fish
+								flora_fauna_map[x][y]=flora_fauna_map[i][j]-100;	// code for moved fish
 								flora_fauna_map[i][j]=-1;
 							};
 						};
 						break;
-					case 4:		// bear
+					case 20:	// bear
+					case 21:	// wolf
 						if(is_adjacent_to_avatar(i,j)){
-							enter_combat(4);
+							enter_combat(flora_fauna_map[i][j]);
 						} else {
 							k=rand()%100;
 							if(k<90){	// move towards avatar
@@ -143,7 +150,7 @@ void world::update_map(){	// only update region centered on avatar, for speed
 								y=j+p.y;
 							};
 							if(can_move_into_square(1,x,y)==true){
-								flora_fauna_map[x][y]=4-100;	// code for moved bear
+								flora_fauna_map[x][y]=flora_fauna_map[i][j]-100;	// code for moved animal
 								flora_fauna_map[i][j]=-1;				
 							};
 						};
@@ -159,7 +166,7 @@ void world::update_map(){	// only update region centered on avatar, for speed
 		// examine wider square since something might have moved into it
 		for(j=P.y-UPDATE_WINDOW-3;j<=P.y+UPDATE_WINDOW+3;j++){
 			if(0<=i && i<(int) world_map.size() && 0<=j && j<(int) world_map[0].size()){	// if in range
-				if(flora_fauna_map[i][j]<-90){
+				if(flora_fauna_map[i][j]<-1){	// code of moved animal
 					flora_fauna_map[i][j]=flora_fauna_map[i][j]+100;
 				};
 			};

@@ -483,16 +483,16 @@ void world::draw_graphics(){
 					if(k>=100 && k<200){
 						switch(k){
 							case 101:
-								draw_sprite(15,400+(i*tile_size),400-(j*tile_size),h);	// London
+								draw_sprite(31,400+(i*tile_size),400-(j*tile_size),h);	// London
 								break;
 							case 102:
-								draw_sprite(16,400+(i*tile_size),400-(j*tile_size),h);	// Amsterdam
+								draw_sprite(32,400+(i*tile_size),400-(j*tile_size),h);	// Amsterdam
 								break;
 							case 103:
-								draw_sprite(14,400+(i*tile_size),400-(j*tile_size),h);	// Paris
+								draw_sprite(33,400+(i*tile_size),400-(j*tile_size),h);	// Paris
 								break;
 							default:
-								draw_sprite(6,400+(i*tile_size),400-(j*tile_size),h);	// generic city; need to make these specific
+								draw_sprite(41,400+(i*tile_size),400-(j*tile_size),h);	// generic city; need to make these specific
 								break;
 						};
 					};
@@ -512,9 +512,9 @@ void world::draw_graphics(){
 								h=world_map[P.x][P.y]*20;
 							};
 							if(P.skill_item[0]==false){		// if not embarked
-								draw_sprite(5,400+(i*tile_size),400-(j*tile_size),h);	// draw avatar
+								draw_sprite(99,400+(i*tile_size),400-(j*tile_size),h);	// draw avatar
 							} else {
-								draw_sprite(13,400+(i*tile_size),400-(j*tile_size),h);	// draw boat
+								draw_sprite(60,400+(i*tile_size),400-(j*tile_size),h);	// draw boat
 							};						
 						};
 					} else {
@@ -530,9 +530,9 @@ void world::draw_graphics(){
 								h=world_map[P.x][P.y]*20;
 							};
 							if(P.skill_item[0]==false){		// if not embarked
-								draw_sprite(5,400,400,h);	// draw avatar
+								draw_sprite(99,400,400,h);	// draw avatar
 							} else {
-								draw_sprite(13,400,400,h);	// draw boat
+								draw_sprite(60,400,400,h);	// draw boat
 							};
 						};
 					};
@@ -613,11 +613,11 @@ void world::draw_info(){
 		T << message[i];
 		p.y=p.y+20;
 		if(message[i][0]=='>'){
-			draw_text(p,T.str(),0xFFD700);
+			draw_text(p,message[i].substr(2,message[i].size()-2),0xFFD700);
 		} else if(message[i][0]==':'){
-			draw_text(p,T.str(),0xFFF9F0);
+			draw_text(p,message[i].substr(2,message[i].size()-2),0xFFF9F0);
 		} else {
-			draw_text(p,T.str(),0xAAAAFF);
+			draw_text(p,message[i],0xAAAAFF);
 		};
 	};
 	

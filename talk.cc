@@ -45,23 +45,25 @@ void world::talk(int x, int y){
 	int c;
 	string S;
 	c=occupied_by_special(P.x+x,P.y+y);
-	if(c>-1){
+	if(c>-1){	// real npc with scripted (canned) responses
 		conversation_with_npc(c);
-	} else {
+	} else {	// generic npc type
 		c=flora_fauna_map[P.x+x][P.y+y];
 		switch(c){
-			case 8:
+			case 50:
 				add_new_message(": nice weather we're having");	// farmer
 				break;
-			case 9:
-				add_new_message(": your money or your life");	// robber
-				break;
-			case 10:
+			case 51:
 				add_new_message("talk to merchant");
 				break;
-			case 11:
-				add_new_message("talk to lumberjack");
+			case 52:
+				add_new_message("talk to woodcutter");
 				break;
+			case 53:
+				add_new_message(": your money or your life");	// robber
+				break;
+			case 54:
+				add_new_message(": too busy to talk");	// generic npc
 			default:
 				add_new_message("not here");
 				break;
@@ -90,13 +92,24 @@ string world::get_response(int c, string S){
 };
 
 void world::conversation_with_npc(int c){
-	string S,T;
+	string S,T,U;
+	size_t pos;
 	bool conversation_over;
 	S="initial";
 	conversation_over=false;
 	while(conversation_over==false){
 		T=get_response(c,S);	// response of npc[c] to string S
+		pos = T.find(';',0);	// does response have verbal and nonverbal component?
+		if(pos!=string::npos){
+			U=T.substr(pos+1,T.size()-pos-1);	// U is nonverbal response
+			T=T.substr(0,pos);					// T is verbal response
+		} else {
+			U="";								// no nonverbal response
+		};
 		add_new_message(": "+T);
+		if(U.size()>0){
+			// analyze nonverbal response
+		};
 		draw_info();
 		if(T=="bye!"){
 			conversation_over=true;

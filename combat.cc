@@ -16,15 +16,29 @@ monster world::make_new_monster(int type, int x, int y){
 	M.x = x;
 	M.y = y;
 	switch(type){
-		case 4:		// bear
-			M.id = 4;
+		case 11:		// boar
+			M.id = 11;
+			M.health = 100;
+			M.ranged_attack = false;
+			M.strength = 20;
+			M.dexterity = 40;
+			break;
+		case 20:		// bear
+			M.id = 20;
 			M.health = 100;
 			M.ranged_attack = false;
 			M.strength = 40;
 			M.dexterity = 20;
 			break;
-		case 9:		// robber
-			M.id = 9;
+		case 21:		// wolf
+			M.id = 21;
+			M.health = 100;
+			M.ranged_attack = false;
+			M.strength = 30;
+			M.dexterity = 30;
+			break;		
+		case 53:		// robber
+			M.id = 53;
 			M.health = 100;
 			M.ranged_attack = true;
 			M.strength = 20;
@@ -97,25 +111,17 @@ void world::attack(int x, int y){
 			case -1:
 				add_new_message("[a]ttack nothing");
 				break;
-			case 4:
-				add_new_message("attack bear");
-				enter_combat(4);
-				break;
-			case 8:
-				last_command="attack farmer";
-				break;
-			case 9:
-				last_command="attack robber";
-				enter_combat(9);
-				break;
-			case 10:
-				last_command="attack merchant";
-				break;
 			case 11:
-				last_command="attack lumberjack";
+				add_new_message("attack boar");
+				enter_combat(11);
 				break;
-			case 12:
-				last_command="attack npc";
+			case 20:
+				add_new_message("attack bear");
+				enter_combat(20);
+				break;
+			case 53:
+				last_command="attack robber";
+				enter_combat(53);
 				break;
 			default:
 				break;
