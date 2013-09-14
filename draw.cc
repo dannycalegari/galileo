@@ -211,28 +211,33 @@ void world::draw_wall(int i, int j){
 };
 
 
-long determine_color(int h){	// h = sum of altitudes of vertices
+long determine_color(int k){	// k = sum of altitudes of vertices
 	// interpolates colors for smoother graphics in geography layer
 	long c;
 	int r,g,b;
+	int h;
+	h=k;
+	if(h==0){	
+		h=h+rand()%3;	// random perturbation of color of flat water tile (waves)
+	};
 	if(h==0){
 		r=0;
 		g=40;
-		b=255;
+		b=155;
 	} else {
 		if(0<h && h<=12){
 			r=0;
-			g=(160*h)/12+(40*(12-h))/12;
-			b=(255*(12-h))/12;
+			g=(112*h)/12+(40*(12-h))/12;
+			b=(155*(12-h))/12;
 		};
 		if(12<h && h<=24){
 			r=0;
-			g=((200*(h-12))+(160*(24-h)))/12;
+			g=((155*(h-12))+(112*(24-h)))/12;
 			b=0;
 		};
 		if(24<h && h<=36){
 			r=(160*(h-24))/12;
-			g=((200*(36-h))+(128*(h-24)))/12;
+			g=((155*(36-h))+(128*(h-24)))/12;
 			b=(48*(h-24))/12;
 		};
 		if(36<h && h<=48){
@@ -249,11 +254,15 @@ long determine_color(int h){	// h = sum of altitudes of vertices
 	c=(256*256*r)+(256*g)+b;
 	return(c);
 		/*
-				l=0x0000FF;	// water				0
-				l=0x00A000; // low-lying grass		3
-				l=0x00FF00; // grassland			6
-				l=0xA08030; // scrub				9
-				l=0xBBBBBB; // mountain				12
+				0x00009B									  0   0 155
+				0x007000									  0 112   0
+				0x009B00									  0 155   0
+				
+				l=0x0000FF;	// water				0		  0   0 255
+				l=0x00A000; // low-lying grass		3		  0	160   0
+				l=0x00FF00; // grassland			6		  0 200   0
+				l=0xA08030; // scrub				9		160 128  48
+				l=0xBBBBBB; // mountain				12		187 187 187
 		*/
 };
 
@@ -416,6 +425,8 @@ void world::draw_graphics(){
 	int i,j,k;
 	int h;
 	int x,y;
+	XPoint p;
+	point q;
 	
 	int tile_size;
 	tile_size=70;	// should make this some global variable?
@@ -432,8 +443,8 @@ void world::draw_graphics(){
 	if(view_mode==true){
 		// view mode map
 		// draw overview map with 5x5 pixels just colored squares
-	for(j=-80;j<80;j++){
-		for(i=-80;i<80;i++){
+		for(j=-80;j<80;j++){
+			for(i=-80;i<80;i++){
 				if((-1 < x+i) && (x+i < (int) world_map.size()) && (-1 < y+j) && (y+j < (int) world_map[0].size())){
 					draw_square(5*(80+i),5*(80-j),5,color_code(world_map[x+i][y+j]));
 					if(flora_fauna_map[x+i][y+j]>=100){	// city
@@ -542,6 +553,19 @@ void world::draw_graphics(){
 				};			
 			};	
 		};		
+		for(i=0;i<(int) popup_message.size();i++){
+			h=world_map[i][j]*16;
+				if(world_map[i][j]>=4){
+					h=world_map[i][j]*20;
+				};
+			p.x=400+(popup_message[i].x*tile_size)+40;
+			p.y=400-(popup_message[i].y*tile_size)-120-h;
+			p=affine_transform(p);
+			q.x=p.x;	// translate XPoint to point
+			q.y=p.y;
+			draw_text(q,popup_message[i].S,0xFFFFFF);
+		};
+		popup_message.clear();	// popup messages only last one move
 	};
 	
 

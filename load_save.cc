@@ -25,6 +25,7 @@ void world::initialize(){
 	monsters.clear();	// no monsters
 	npcs.clear();	// no npcs
 	message.clear();
+	popup_message.clear();
 };
 
 void world::enter_city(string S){	// S is name of city

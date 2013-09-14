@@ -56,6 +56,11 @@ struct monster{
 	int dexterity;
 };
 
+struct balloon_speech{	// speech item that pops up near npc/fauna/monster on graphic screen
+	int x,y;	// coordinates
+	string S;
+};
+
 class world{
 	public:
 		// party data
@@ -122,9 +127,11 @@ class world{
 		
 		// info
 		
+		vector<balloon_speech > popup_message;
 		vector<string > message;
 		void add_new_message(string S);
 		void modify_last_line(string S);
+		void add_popup_message(int i, int j, string S);
 		string get_line_of_text();
 		void draw_info();
 		
@@ -143,7 +150,6 @@ class world{
 		void update_combat_map();
 		monster make_new_monster(int type, int x, int y);
 
-		
 		// npc
 		
 		int occupied_by_special(int x, int y);		// also used in combat

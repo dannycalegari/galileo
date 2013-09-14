@@ -9,6 +9,14 @@ void world::add_new_message(string S){
 	message.push_back(S);
 };
 
+void world::add_popup_message(int i, int j, string S){
+	balloon_speech B;
+	B.x=i;
+	B.y=j;
+	B.S=S;
+	popup_message.push_back(B);
+};
+
 void world::modify_last_line(string S){
 	int i;
 	i=message.size();

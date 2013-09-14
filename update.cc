@@ -94,11 +94,19 @@ void world::update_map(){	// only update region centered on avatar, for speed
 							l=1;	// move type of boar/deer
 						};
 						p=towards_avatar(i,j);	// direction of avatar
-						if(p.x!=0){
-							x=i-p.x;
-						} else if(p.y!=0){
-							y=j-p.y;
-						};
+							if(p.x!=0 && p.y!=0){
+								if(rand()%2==0){
+									x=i-p.x;
+								} else {
+									y=j-p.y;
+								};
+							} else { 
+								if(p.x!=0){
+									x=i-p.x;
+								} else if(p.y!=0){
+									y=j-p.y;
+								};
+							};
 						if(can_move_into_square(l,x,y)==true){	// can we move?
 							flora_fauna_map[x][y]=flora_fauna_map[i][j]-100;	// code for moved animal
 							flora_fauna_map[i][j]=-1;
@@ -121,10 +129,18 @@ void world::update_map(){	// only update region centered on avatar, for speed
 						if(k>50){
 							p.x=(rand()%3-1);
 							p.y=(rand()%3-1);
-							if(p.x!=0){
-								x=i+p.x;
-							} else if(p.y!=0){
-								y=j+p.y;
+							if(p.x!=0 && p.y!=0){
+								if(rand()%2==0){
+									x=i+p.x;
+								} else {
+									y=j+p.y;
+								};
+							} else {
+								if(p.x!=0){
+									x=i+p.x;
+								} else if(p.y!=0){
+									y=j+p.y;
+								};
 							};
 							if(can_move_into_square(2,x,y)==true){		// can we move?
 								flora_fauna_map[x][y]=flora_fauna_map[i][j]-100;	// code for moved fish
@@ -134,6 +150,7 @@ void world::update_map(){	// only update region centered on avatar, for speed
 						break;
 					case 20:	// bear
 					case 21:	// wolf
+						
 						if(is_adjacent_to_avatar(i,j)){
 							enter_combat(flora_fauna_map[i][j]);
 						} else {
@@ -144,14 +161,26 @@ void world::update_map(){	// only update region centered on avatar, for speed
 								p.x=(rand()%3-1);
 								p.y=(rand()%3-1);
 							};
-							if(p.x!=0){
-								x=i+p.x;
-							} else if(p.y!=0){
-								y=j+p.y;
+							if(p.x!=0 && p.y!=0){
+								if(rand()%2==0){
+									x=i+p.x;
+								} else {
+									y=j+p.y;
+								};
+							} else {
+								if(p.x!=0){
+									x=i+p.x;
+								} else if(p.y!=0){
+									y=j+p.y;
+								};
 							};
 							if(can_move_into_square(1,x,y)==true){
 								flora_fauna_map[x][y]=flora_fauna_map[i][j]-100;	// code for moved animal
 								flora_fauna_map[i][j]=-1;				
+							} else {
+								if(k<10){
+									add_popup_message(i-P.x,j-P.y,"grrr!");
+								};
 							};
 						};
 						break;
