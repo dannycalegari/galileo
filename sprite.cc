@@ -31,7 +31,7 @@ void world::load_sprites(){
 	S[31]="london.xpm";
 	S[32]="amsterdam.xpm";
 	S[33]="paris.xpm";
-//	S[34]="venice.xpm";
+	S[34]="venice.xpm";
 //	S[35]="rome.xpm";
 //	S[36]="zurich.xpm";
 //	S[37]="athens.xpm";

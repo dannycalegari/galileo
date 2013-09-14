@@ -491,6 +491,9 @@ void world::draw_graphics(){
 							case 103:
 								draw_sprite(33,400+(i*tile_size),400-(j*tile_size),h);	// Paris
 								break;
+							case 104:
+								draw_sprite(34,400+(i*tile_size),400-(j*tile_size),h);	// Venice
+								break;							
 							default:
 								draw_sprite(41,400+(i*tile_size),400-(j*tile_size),h);	// generic city; need to make these specific
 								break;
