@@ -109,12 +109,16 @@ void world::user_interface(){
 					};
 					
 					if(XLookupKeysym(&report.xkey, 0) == XK_2){	// add object to wall layer
-						wall_map[P.x][P.y]=(wall_map[P.x][P.y]+1) % MAX_WALL_NUM;
-						draw();
+						if(wall_map.size()>0){	// if there is a wall layer
+							wall_map[P.x][P.y]=(wall_map[P.x][P.y]+1) % MAX_WALL_NUM;
+							draw();
+						};
 					};
 					if(XLookupKeysym(&report.xkey, 0) == XK_1){	// clear wall layer
-						wall_map[P.x][P.y]=-1;
-						draw();
+						if(wall_map.size()>0){	// if there is a wall layer
+							wall_map[P.x][P.y]=-1;
+							draw();
+						};
 					};	
 					
 					if(XLookupKeysym(&report.xkey, 0) == XK_s){	// save current map
