@@ -64,6 +64,7 @@ using namespace std;
 #include "interface.cc"
 #include "update.cc"
 #include "npc.cc"
+#include "spawn.cc"
 
 
 
