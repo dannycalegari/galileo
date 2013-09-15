@@ -224,7 +224,7 @@ void world::add_random_flora_fauna(int i, int j){
 				break;
 		};
 	} else if(can_add_person==true){
-		k=rand()%5;
+		k=rand()%4;
 		if(k<2){
 			flora_fauna_map[i][j]=50;	// farmer
 		} else {
