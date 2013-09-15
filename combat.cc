@@ -120,7 +120,7 @@ void world::attack(int x, int y){
 				enter_combat(20);
 				break;
 			case 53:
-				last_command="attack robber";
+				add_new_message("attack robber");
 				enter_combat(53);
 				break;
 			default:

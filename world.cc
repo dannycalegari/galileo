@@ -66,7 +66,6 @@ class world{
 	public:
 		// party data
 		
-		string last_command;
 		string gender;
 		int moves;
 		bool edit_mode;

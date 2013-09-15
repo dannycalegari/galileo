@@ -192,7 +192,6 @@ void world::write_map(ofstream &output_file, int type){
 };
 
 void world::read_party(ifstream &input_file){
-	input_file >> last_command;
 	input_file >> gender;
 	input_file >> moves;
 	input_file >> edit_mode;
@@ -213,7 +212,6 @@ void world::read_party(ifstream &input_file){
 };
 
 void world::write_party(ofstream &output_file){
-	output_file << last_command << "\n";
 	output_file << gender << "\n";
 	output_file << moves << "\n";
 	output_file << edit_mode << "\n";
