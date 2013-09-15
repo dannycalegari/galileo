@@ -424,11 +424,6 @@ long color_code(int i){	// color scheme for overview map
 	return(l);
 };
 
-void world::draw(){
-	draw_graphics();
-	draw_info();
-};
-
 void world::draw_graphics(){
 	int i,j,k;
 	int h;
@@ -619,6 +614,77 @@ void world::draw_info(){
 	
 	
 	T.str("");
+	T << "H: " << P.health << " F: " << P.food << " G: " << P.gold << " W: " << P.wood;
+	p.y=180;
+	draw_text(p,T.str(),0xFFAAAA);
+	
+	draw_line(1150,200,1350,200,0x0000FF);
+	
+	p.y=220;
+	for(i=0;i<(int) message.size();i++){
+		T.str("");
+		T << message[i];
+		p.y=p.y+20;
+		if(message[i][0]=='>'){
+			draw_text(p,message[i].substr(2,message[i].size()-2),0xFFD700);
+		} else if(message[i][0]==':'){
+			draw_text(p,message[i].substr(2,message[i].size()-2),0xFFF9F0);
+		} else {
+			draw_text(p,message[i],0xAAAAFF);
+		};
+	};
+	
+	/*
+	p.y=p.y+20;
+	for(i=0;i<(int) monsters.size();i++){		// only for debug purposes
+		T.str("");
+		T << "monster " << i << " health " << monsters[i].health;
+		p.y=p.y+20;
+		draw_text(p,T.str(),0xFFFFFF);
+	};
+	*/
+};
+
+void world::draw_inventory(){
+	stringstream T;
+	point p;
+	int i;
+
+	erase_writing_field();
+	p.x=1150;
+
+	T << "map: " << map_name;
+	p.y=50;	
+	draw_text(p,T.str(),0xAAFFAA);
+	T.str("");
+	T << "location " << P.x << " " << P.y;
+	p.y=90;
+	draw_text(p,T.str(),0xFFFFFF);
+	T.str("");
+	T << "view mode ";
+	if(view_mode){
+		T << "on";
+	} else {
+		T << "off";
+	};
+	p.y=110;
+	draw_text(p,T.str(),0xFFFFFF);
+	T.str("");
+	T << "edit mode ";
+	if(edit_mode){
+		T << "on";
+	} else {
+		T << "off";
+	};
+	p.y=130;
+	draw_text(p,T.str(),0xFFFFFF);
+	T.str("");
+	T << "moves " << moves;
+	p.y=150;
+	draw_text(p,T.str(),0xFFFFFF);	
+	
+	
+	T.str("");
 	T << "health " << P.health;
 	p.y=180;
 	draw_text(p,T.str(),0xFFAAAA);
@@ -637,31 +703,13 @@ void world::draw_info(){
 	
 	for(i=0;i<MAX_SKILL_NUM;i++){
 		T.str("");
-		T << "skill " << i << " " << P.skill_item[i] << " " << P.skill[i];
+		T << "skill " << i << " item " << P.skill_item[i] << " ability " << P.skill[i];
 		p.y=290+(20*i);
 		draw_text(p,T.str(),0xFFAAAA);
 	};
-	
-	p.y=420;
-	for(i=0;i<(int) message.size();i++){
-		T.str("");
-		T << message[i];
-		p.y=p.y+20;
-		if(message[i][0]=='>'){
-			draw_text(p,message[i].substr(2,message[i].size()-2),0xFFD700);
-		} else if(message[i][0]==':'){
-			draw_text(p,message[i].substr(2,message[i].size()-2),0xFFF9F0);
-		} else {
-			draw_text(p,message[i],0xAAAAFF);
-		};
-	};
-	
-	p.y=p.y+20;
-	for(i=0;i<(int) monsters.size();i++){		// only for debug purposes
-		T.str("");
-		T << "monster " << i << " health " << monsters[i].health;
-		p.y=p.y+20;
-		draw_text(p,T.str(),0xFFFFFF);
-	};
+};
 
+void world::draw(){
+	draw_graphics();
+	draw_info();
 };

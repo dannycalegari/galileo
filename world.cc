@@ -64,7 +64,9 @@ struct balloon_speech{	// speech item that pops up near npc/fauna/monster on gra
 
 class world{
 	public:
+	
 		// party data
+		
 		party_state P;
 
 		// local data
@@ -84,11 +86,6 @@ class world{
 		vector<monster> monsters;				// monster roster (in combat)
 		vector<npc> npcs;						// nongeneric npc roster
 		int flora_fauna_count[MAX_SPRITE_NUM];	// inventory of flora/fauna layer
-		
-		//
-		
-//		int flora_fauna_count[MAX_SPRITE_NUM];
-//		void count_flora_fauna();
 
 		// load/save functions; in load_save.cc
 	
@@ -114,7 +111,7 @@ class world{
 		void add_random_flora_fauna_city(int i, int j);
 		void populate_city_with_random_flora_fauna();
 		
-		// sprites
+		// sprites; in sprite.cc
 		
 		XImage *img[MAX_SPRITE_NUM];		// XImage for sprite
 		XImage *clp[MAX_SPRITE_NUM];		// XImage clip for sprite
@@ -123,56 +120,70 @@ class world{
 		void load_sprites();
 		void draw_sprite(int i, int x, int y, int h);
 
-		void update_map();
-		void draw();
-		void draw_graphics();
-		void draw_geographical_square(int i, int j);
+		// functions to draw on screen; in draw.cc
+		
 		void draw_wall(int i, int j);	
-		// info
+		void draw_geographical_square(int i, int j);
+		void draw_graphics();
+		void draw_info();
+		void draw_inventory();
+		void draw();
+
+		// communicating with message interface; in info.cc
 		
 		vector<balloon_speech > popup_message;
 		vector<string > message;
 		void add_new_message(string S);
-		void modify_last_line(string S);
 		void add_popup_message(int i, int j, string S);
+		void modify_last_line(string S);
+		
+		// conversation; in talk.cc
+		
 		string get_line_of_text();
-		void draw_info();
-		
-		// game commands
-		
-		void select_direction_interface(int &select_direction_x, int &select_direction_y);
-		void use_object(int x, int y);
 		void talk(int x, int y);
+		string get_response(int c, string S);		// response of npc[c] to string S
+		void conversation_with_npc(int c);
+
+		// functions to determine location, direction, pathfinding; direction.cc
 		
-		// combat
+		int occupied_by_special(int x, int y);		// also used in combat
+		int special_in_direction(int x, int y);		// also used in combat	
+		point towards_object(int i, int j, int type);
+		point best_free_direction(int i, int j, point desired_move, int type);
+		point fancy_best_free_direction(int i, int j, point desired_move, int type, int range);
+		
+		// movement; in move.cc
+
+		bool can_move_into_square(int w, int x, int y);
+		void attempt_move(int x, int y);
+		
+		// combat; in combat.cc
 
 		bool in_combat;
+		monster make_new_monster(int type, int x, int y);
 		void attack(int x, int y);
 		void enter_combat(int type);
 		void exit_combat();
-		void update_combat_map();
-		monster make_new_monster(int type, int x, int y);
+	//	void update_combat_map();
 
-		// npc
+		// npc; in npc.cc
 		
-		int occupied_by_special(int x, int y);		// also used in combat
-		int special_in_direction(int x, int y);		// also used in combat
-		void conversation_with_npc(int c);
-		string get_response(int c, string S);		// response of npc[c] to string S
 		npc make_new_npc(int type, int x, int y);
-		void achieve_goal(int l, int goal, point desired_move);
 		int update_goal(int type, int goal);
+		void achieve_goal(int l, int goal, point desired_move);
 
-		// move
-		
-		void attempt_move(int x, int y);
-		bool can_move_into_square(int w, int x, int y);
-		point best_free_direction(int i, int j, point desired_move, int type);
-		point fancy_best_free_direction(int i, int j, point desired_move, int type, int range);
-		point towards_object(int i, int j, int type);
-		
+		// use object; in use.cc
+
+		void use_object(int x, int y);
 		bool test_of_skill(int i);
 		
+		// update state of world; in update.cc
+		
+		void update_map();
+		
+		// get keypress; in interface.cc
+
+		void select_direction_interface(int &select_direction_x, int &select_direction_y);
 		void user_interface();
 
 };

@@ -44,29 +44,33 @@ void world::talk(int x, int y){
 	// talk to npc in relative location x,y
 	int c;
 	string S;
-	c=occupied_by_special(P.x+x,P.y+y);
-	if(c>-1){	// real npc with scripted (canned) responses
-		conversation_with_npc(c);
-	} else {	// generic npc type
-		c=flora_fauna_map[P.x+x][P.y+y];
-		switch(c){
-			case 50:
-				add_new_message(": nice weather we're having");	// farmer
-				break;
-			case 51:
-				add_new_message("talk to merchant");
-				break;
-			case 52:
-				add_new_message("talk to woodcutter");
-				break;
-			case 53:
-				add_new_message(": your money or your life");	// robber
-				break;
-			case 54:
-				add_new_message(": too busy to talk");	// generic npc
-			default:
-				add_new_message("not here");
-				break;
+	if(in_combat==true){
+		add_new_message("not in combat");
+	} else {
+		c=occupied_by_special(P.x+x,P.y+y);
+		if(c>-1){	// real npc with scripted (canned) responses
+			conversation_with_npc(c);
+		} else {	// generic npc type
+			c=flora_fauna_map[P.x+x][P.y+y];
+			switch(c){
+				case 50:
+					add_new_message(": Nice weather we're having");	// farmer
+					break;
+				case 51:
+					add_new_message(": I'm too busy to talk to you"); // merchant
+					break;
+				case 52:
+					add_new_message(": Lovely trees"); // woodcutter
+					break;
+				case 53:
+					add_new_message(": Your money or your life!");	// robber
+					break;
+				case 54:
+					add_new_message(": Too busy to talk");	// generic npc
+				default:
+					add_new_message("not here");
+					break;
+			};
 		};
 	};
 };

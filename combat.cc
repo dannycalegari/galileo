@@ -50,49 +50,6 @@ monster world::make_new_monster(int type, int x, int y){
 	return(M);
 };
 
-int world::occupied_by_special(int x, int y){	
-	// is there a monster/npc in location x,y, and if so, which monster/npc?
-	int i;
-	int occupied;
-	occupied=-1;
-	if(in_combat==true){
-		for(i=0;i<(int) monsters.size();i++){
-			if(monsters[i].x==x && monsters[i].y==y){
-				occupied=i;
-			};	
-		};
-	} else {
-		for(i=0;i<(int) npcs.size();i++){
-			if(npcs[i].x==x && npcs[i].y==y){
-				occupied=i;
-			};	
-		};	
-	};
-	return(occupied);
-};
-
-int world::special_in_direction(int x, int y){ // is there a monster/npc in direction x,y, and if so, which kind?
-	int i,j;
-	int occupied;
-	occupied=-1;
-	i=P.x;
-	j=P.y;
-	bool in_range;
-	in_range=true;
-	while(in_range){
-		i=i+x;
-		j=j+y;
-		occupied=occupied_by_special(i,j);
-		if(occupied>-1){
-			in_range=false;
-		};
-		if(i<1 || i>(int) world_map.size() || j<1 || j>(int) world_map[0].size()){
-			in_range=false;
-		};
-	};
-	return(occupied);
-};
-
 void world::attack(int x, int y){
 	// attack monster/person in flora/fauna layer in relative location x,y
 

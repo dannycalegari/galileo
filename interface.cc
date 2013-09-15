@@ -237,6 +237,11 @@ void world::user_interface(){
                     exit(0);
                     break;
                 };
+                
+                if(XLookupKeysym(&report.xkey, 0) == XK_i){	// inventory
+                	add_new_message("[i]nventory");
+                	draw_inventory();
+                };
             default:
             	break;
         };
