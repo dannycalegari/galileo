@@ -42,6 +42,12 @@ void world::update_map(){	// only update region centered on avatar, for speed
 				switch(flora_fauna_map[i][j])	{
 					case -1:		// empty
 						break;					
+					case 4:		// sapling
+						k=rand()%1000;
+						if(k==0){
+							flora_fauna_map[i][j]=0;	// grows into tree
+						};
+						break;
 					case 11:	// boar
 					case 12:	// goat
 					case 13:	// deer
@@ -179,11 +185,10 @@ void world::update_map(){	// only update region centered on avatar, for speed
 			} else {
 				desired_move=towards_object(npcs[l].x,npcs[l].y,npcs[l].goal);
 				if(norm(desired_move)==1){	// adjacent to goal
-					if(npcs[l].goal==99){	// goal is avatar
-						conversation_with_npc(l);
-					};
+					achieve_goal(l, npcs[l].goal, desired_move);	// achieve goal
+					npcs[l].goal=update_goal(npcs[l].id, npcs[l].goal);	// update goal
 				} else {	// move towards goal
-					p=best_free_direction(npcs[l].x,npcs[l].y,desired_move,1);
+					p=fancy_best_free_direction(npcs[l].x,npcs[l].y,desired_move,1,npcs[l].d);	// must be within center of gravity
 					if(norm(p)==1){
 						assert(can_move_into_square(1,npcs[l].x+p.x,npcs[l].y+p.y));
 						npcs[l].x=npcs[l].x+p.x;	// move!

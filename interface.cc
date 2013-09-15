@@ -5,7 +5,7 @@ void world::user_interface(){
 	point p;
 	int x,y;
 	npc N;
-
+	int type;
 	finished=false;
 	
 	while(finished==false){
@@ -128,7 +128,9 @@ void world::user_interface(){
 					};
 					
 					if(XLookupKeysym(&report.xkey, 0) == XK_n){	// add generic npc (test)
-						N = make_new_npc(51,P.x,P.y);
+						cout << "which npc type to add? ";
+						cin >> type;
+						N = make_new_npc(type,P.x,P.y);
 						npcs.push_back(N);
 						draw();
 					};

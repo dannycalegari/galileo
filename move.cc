@@ -160,23 +160,33 @@ void world::attempt_move(int x, int y){	// avatar attempts to move to relative l
 
 
 point world::towards_object(int i, int j, int type){
-	// returns relative coordinates of nearest type in flora/fauna map if 
-	// there is one within UPDATE_WINDOW, or 0,0 if none
+	// returns relative coordinates of nearest type in flora/fauna map
+	// or npc roster if there is one within UPDATE_WINDOW, or 0,0 if none
 	point p;
-	int closest,a,b;
+	int closest,a,b,c;
 
 	if(type==99){
 		p=new_point(P.x,P.y)-new_point(i,j);
 	} else {
 		p=new_point(0,0);
 		closest=(2*UPDATE_WINDOW)+1;
-		for(a=-UPDATE_WINDOW;a<=UPDATE_WINDOW;a++){
+		for(a=-UPDATE_WINDOW;a<=UPDATE_WINDOW;a++){		// look for type in flora/fauna map
 			for(b=-UPDATE_WINDOW;b<=UPDATE_WINDOW;b++){
 				if(i+a>0 && i+a < (int) world_map.size() && j+b >0 && j+b < (int) world_map.size()){
 					if(flora_fauna_map[i+a][j+b]==type && norm(a,b)<closest){
 						p=new_point(a,b);
 						closest = norm(a,b);
 					};
+				};
+			};
+		};
+		for(c=0;c<(int) npcs.size();c++){		// look for type in npc roster
+			if(npcs[c].id==type){	// is this who we're looking for?
+				a=npcs[c].x-i;
+				b=npcs[c].y-j;
+				if(norm(a,b)<closest){
+					p=new_point(a,b);
+					closest = norm(a,b);
 				};
 			};
 		};
@@ -253,7 +263,7 @@ point world::fancy_best_free_direction(int i, int j, point desired_move, int typ
 	} else {
 		dist[range+desired_move.x][range+desired_move.y]=0;
 		count=0;
-		while(count<=range){
+		while(count<=range*2){
 			count++;
 			for(a=1;a<2*range;a++){
 				for(b=1;b<2*range;b++){

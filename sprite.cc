@@ -17,6 +17,7 @@ void world::load_sprites(){
 	S[1]="fruit_tree.xpm";
 	S[2]="palm_tree.xpm";
 	S[3]="pine_tree.xpm";
+	S[4]="sapling.xpm";
 	
 	S[10]="cow.xpm";
 	S[11]="boar.xpm";

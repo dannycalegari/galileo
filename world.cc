@@ -159,7 +159,8 @@ class world{
 		void conversation_with_npc(int c);
 		string get_response(int c, string S);		// response of npc[c] to string S
 		npc make_new_npc(int type, int x, int y);
-
+		void achieve_goal(int l, int goal, point desired_move);
+		int update_goal(int type, int goal);
 
 		// move
 		
