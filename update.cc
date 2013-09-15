@@ -1,6 +1,5 @@
 /* update.cc 	animals, predators, fish and npcs move	*/
 
-
 void world::count_flora_fauna(){
 	int i,j,c;
 	for(i=0;i<100;i++){	// initialize count
@@ -17,53 +16,12 @@ void world::count_flora_fauna(){
 	};
 };
 
-
-point world::towards_avatar(int i, int j){
-	point p;
-	int x,y;
-	
-	x=P.x-i;
-	y=P.y-j;
-	
-	if(x>0){
-		p.x=1;
-	} else if(x<0){
-		p.x=-1;
-	} else {
-		p.x=0;
-	};
-	
-	if(y>0){
-		p.y=1;
-	} else if(y<0){
-		p.y=-1;
-	} else {
-		p.y=0;
-	};
-	return(p);
-};
-
-bool world::is_adjacent_to_avatar(int i, int j){
-	int x,y;
-	x=P.x-i;
-	y=P.y-j;
-	if(x<0){
-		x=-x;
-	};
-	if(y<0){
-		y=-y;
-	};
-	if(x+y<2){
-		return(true);
-	} else {
-		return(false);
-	};
-};
-
 void world::update_map(){	// only update region centered on avatar, for speed
 	int i,j,k,l,m;
 	int x,y;
 	point p;
+	point desired_move;
+	stringstream T;
 	
 	moves++;
 	
@@ -83,8 +41,7 @@ void world::update_map(){	// only update region centered on avatar, for speed
 				
 				switch(flora_fauna_map[i][j])	{
 					case -1:		// empty
-						break;
-
+						break;					
 					case 11:	// boar
 					case 12:	// goat
 					case 13:	// deer
@@ -93,97 +50,66 @@ void world::update_map(){	// only update region centered on avatar, for speed
 						} else {
 							l=1;	// move type of boar/deer
 						};
-						p=towards_avatar(i,j);	// direction of avatar
-							if(p.x!=0 && p.y!=0){
-								if(rand()%2==0){
-									x=i-p.x;
-								} else {
-									y=j-p.y;
-								};
-							} else { 
-								if(p.x!=0){
-									x=i-p.x;
-								} else if(p.y!=0){
-									y=j-p.y;
-								};
-							};
-						if(can_move_into_square(l,x,y)==true){	// can we move?
-							flora_fauna_map[x][y]=flora_fauna_map[i][j]-100;	// code for moved animal
+						desired_move=-towards_object(i,j,99);	// move away from avatar
+						p=best_free_direction(i, j, desired_move, l);
+						if(norm(p)==1){
+							assert(can_move_into_square(l,i+p.x,j+p.y));
+							flora_fauna_map[i+p.x][j+p.y]=flora_fauna_map[i][j]-100;	// code for moved animal
 							flora_fauna_map[i][j]=-1;
-						} else {	// random move if trapped
-							if(rand()%2==0){
-								x=i+(rand()%3)-1;
-								y=j;
-							} else {
-								x=i;
-								y=j+(rand()%3)-1;
-							};
-							if(can_move_into_square(l,x,y)==true){	// can we move?
-								flora_fauna_map[x][y]=flora_fauna_map[i][j]-100;	// code for moved animal
-								flora_fauna_map[i][j]=-1;
-							};
+						} else {
+							assert(norm(p)==0);
 						};
 						break;
+					case 10:		// cow
 					case 14:		// fish
+						if(flora_fauna_map[i][j]==14){
+							l=2;	// move type of fish
+						} else {
+							l=1;	// move type of cow
+						};
 						k=rand()%100;
 						if(k>50){
-							p.x=(rand()%3-1);
-							p.y=(rand()%3-1);
-							if(p.x!=0 && p.y!=0){
-								if(rand()%2==0){
-									x=i+p.x;
-								} else {
-									y=j+p.y;
-								};
-							} else {
-								if(p.x!=0){
-									x=i+p.x;
-								} else if(p.y!=0){
-									y=j+p.y;
-								};
-							};
-							if(can_move_into_square(2,x,y)==true){		// can we move?
-								flora_fauna_map[x][y]=flora_fauna_map[i][j]-100;	// code for moved fish
-								flora_fauna_map[i][j]=-1;
-							};
+							p=rand_point();	// random move half the time
+						} else {
+							p=new_point(0,0);	// stay still otherwise
+						};
+						if(can_move_into_square(l,i+p.x,j+p.y)==true){		// can we move?
+							flora_fauna_map[i+p.x][j+p.y]=flora_fauna_map[i][j]-100;	// code for moved fish
+							flora_fauna_map[i][j]=-1;
+						};
+						break;
+					case 15:		// dog
+						desired_move=towards_object(i,j,99);	// move away from avatar
+						p=best_free_direction(i, j, desired_move, 1);
+						if(norm(p)==1){
+							assert(can_move_into_square(1,i+p.x,j+p.y));
+							flora_fauna_map[i+p.x][j+p.y]=flora_fauna_map[i][j]-100;	// code for moved animal
+							flora_fauna_map[i][j]=-1;
+						} else {
+							assert(norm(p)==0);
+						};
+						if(rand()%10==0){
+							add_popup_message(i+p.x-P.x,j+p.y-P.y,"woof!");
 						};
 						break;
 					case 20:	// bear
 					case 21:	// wolf
-						
-						if(is_adjacent_to_avatar(i,j)){
+						desired_move=towards_object(i,j,99);	// move towards avatar
+						if(norm(desired_move)==1){	// if adjacent
 							enter_combat(flora_fauna_map[i][j]);
 						} else {
-							k=rand()%100;
-							if(k<90){	// move towards avatar
-								p=towards_avatar(i,j);	// direction of avatar
-							} else	{	// random move
-								p.x=(rand()%3-1);
-								p.y=(rand()%3-1);
-							};
-							if(p.x!=0 && p.y!=0){
-								if(rand()%2==0){
-									x=i+p.x;
-								} else {
-									y=j+p.y;
-								};
+							p=best_free_direction(i,j,desired_move,1);
+							if(norm(p)==1){
+								assert(can_move_into_square(1,i+p.x,j+p.y));
+								flora_fauna_map[i+p.x][j+p.y]=flora_fauna_map[i][j]-100;	// code for moved animal
+								flora_fauna_map[i][j]=-1;
 							} else {
-								if(p.x!=0){
-									x=i+p.x;
-								} else if(p.y!=0){
-									y=j+p.y;
-								};
-							};
-							if(can_move_into_square(1,x,y)==true){
-								flora_fauna_map[x][y]=flora_fauna_map[i][j]-100;	// code for moved animal
-								flora_fauna_map[i][j]=-1;				
-							} else {
-								if(k<10){
-									add_popup_message(i-P.x,j-P.y,"grrr!");
-								};
+								assert(norm(p)==0);
+							};				
+							if(rand()%10==0){
+								add_popup_message(i+p.x-P.x,j+p.y-P.y,"grrr!");
 							};
 						};
-						break;
 					default:
 						break;
 				};
@@ -204,49 +130,66 @@ void world::update_map(){	// only update region centered on avatar, for speed
 	
 	if(in_combat){	// move monsters!
 		for(l=0;l<(int) monsters.size();l++){
-			if(monsters[l].ranged_attack==true || is_adjacent_to_avatar(monsters[l].x,monsters[l].y)==true){	// ranged attack, or adjacent?
+			if(monsters[l].ranged_attack==true || norm(towards_object(monsters[l].x,monsters[l].y,99))==1){
+				// ranged attack, or adjacent?
+	//		is_adjacent_to_avatar(monsters[l].x,monsters[l].y)==true){
 				// attack!
 				add_new_message("monster swipes!");
-			} else {	// move towards avatar!			
-				p=towards_avatar(monsters[l].x,monsters[l].y);
-				if(p.x!=0){
-					x=monsters[l].x+p.x;
-					y=monsters[l].y;
-				} else if(p.y!=0){
-					x=monsters[l].x;
-					y=monsters[l].y+p.y;
+			} else {	// move towards avatar!		
+				desired_move=towards_object(monsters[l].x,monsters[l].y,99);
+				p=best_free_direction(monsters[l].x, monsters[l].y, desired_move, 1);
+				if(norm(p)==1){
+					assert(can_move_into_square(1,monsters[l].x+p.x,monsters[l].y+p.y));
+					monsters[l].x=monsters[l].x+p.x;	// move!
+					monsters[l].y=monsters[l].y+p.y;
 				} else {
-					x=monsters[l].x;
-					y=monsters[l].y;				
-				};
-				if(can_move_into_square(1,x,y)==true){	// do move!
-					monsters[l].x=x;
-					monsters[l].y=y;
-				};
+					assert(norm(p)==0);
+				};	
 			};
 		};
-	} else {	// move npcs; npcs have a "heading" which makes their movement look purposefull
+	} else {	// move npcs; goalless npcs have a "heading" which makes their movement look purposeful
 		for(l=0;l<(int) npcs.size();l++){
-			if(rand()%5==0){
-				m=npcs[l].hx;				// turn heading left
-				npcs[l].hx=npcs[l].hy;
-				npcs[l].hy=-1*m;
-			};
-			x=npcs[l].x+npcs[l].hx;	// move in heading direction
-			y=npcs[l].y+npcs[l].hy;	// move in heading direction
-			if(can_move_into_square(1,x,y)==true){	// square is free
-				if(abs(x-npcs[l].cx)+abs(y-npcs[l].cy)>npcs[l].d){	// too far from center of gravity
-					npcs[l].hx=-1*npcs[l].hx;	// about face
-					npcs[l].hy=-1*npcs[l].hy;
+			if(npcs[l].goal==-1 || norm(towards_object(npcs[l].x,npcs[l].y,npcs[l].goal))==0){	// no goal or no goal nearby
+				if(rand()%5==0){
+					m=npcs[l].hx;				// turn heading left
+					npcs[l].hx=npcs[l].hy;
+					npcs[l].hy=-1*m;
+				};
+				x=npcs[l].x+npcs[l].hx;	// move in heading direction
+				y=npcs[l].y+npcs[l].hy;	// move in heading direction
+				if(can_move_into_square(1,x,y)==true){	// square is free
+					if(norm(new_point(x,y)-new_point(npcs[l].cx,npcs[l].cy))>npcs[l].d){
+						// too far from center of gravity
+		//			abs(x-npcs[l].cx)+abs(y-npcs[l].cy)>npcs[l].d){
+						npcs[l].hx=-1*npcs[l].hx;	// about face
+						npcs[l].hy=-1*npcs[l].hy;
+					} else {
+						npcs[l].x=x;
+						npcs[l].y=y;
+					};
 				} else {
-					npcs[l].x=x;
-					npcs[l].y=y;
+					m=npcs[l].hx;				// turn heading right
+					npcs[l].hx=-1*npcs[l].hy;
+					npcs[l].hy=m;
 				};
 			} else {
-				m=npcs[l].hx;				// turn heading right
-				npcs[l].hx=-1*npcs[l].hy;
-				npcs[l].hy=m;
+				desired_move=towards_object(npcs[l].x,npcs[l].y,npcs[l].goal);
+				if(norm(desired_move)==1){	// adjacent to goal
+				
+				} else {	// move towards goal
+					p=best_free_direction(npcs[l].x,npcs[l].y,desired_move,1);
+					if(norm(p)==1){
+						assert(can_move_into_square(1,npcs[l].x+p.x,npcs[l].y+p.y));
+						npcs[l].x=npcs[l].x+p.x;	// move!
+						npcs[l].y=npcs[l].y+p.y;
+					} else {
+						assert(norm(p)==0);
+					};
+				};
 			};
+			T.str("");
+			T << npcs[l].goal;
+			add_popup_message(npcs[l].x-P.x,npcs[l].y-P.y,T.str());
 		};
 	};
 };

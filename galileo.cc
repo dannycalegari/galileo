@@ -18,10 +18,19 @@
 #include <fstream>
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h> 
 #include <string>
 #include <math.h>
 #include <vector>
 #include <complex>
+
+// X11 libraries to include
+
+#include <X11/Xlib.h>
+#include <X11/Xutil.h>
+#include <X11/Xos.h>
+#include <X11/Xatom.h>
+#include <X11/xpm.h>
 
 using namespace std;
 
@@ -39,8 +48,7 @@ using namespace std;
 #define UPDATE_WINDOW 9
 #define MAX_TEXT_WIDTH 30
 
-struct point{ int x,y; };
-
+#include "point.cc"
 #include "graphics.cc"
 #include "world.cc"
 #include "info.cc"

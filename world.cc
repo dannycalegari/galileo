@@ -33,6 +33,7 @@ struct npc{
 	int cx,cy;	// center of gravity
 	int hx,hy;	// heading direction
 	int d;		// maximum L_1 distance from center of gravity
+	int goal;	// sprite number of object npc wants to move towards; -1=none
 		// skills; out of 100
 	int sword;
 	int bow;
@@ -117,9 +118,6 @@ class world{
 		
 		void load_sprites();
 		void draw_sprite(int i, int x, int y, int h);
-		
-		point towards_avatar(int i, int j);
-		bool is_adjacent_to_avatar(int i, int j);
 
 		void update_map();
 		void draw();
@@ -163,7 +161,8 @@ class world{
 		
 		void attempt_move(int x, int y);
 		bool can_move_into_square(int w, int x, int y);
-		
+		point best_free_direction(int i, int j, point desired_move, int type);
+		point towards_object(int i, int j, int type);
 		
 		bool test_of_skill(int i);
 		

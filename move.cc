@@ -106,7 +106,7 @@ bool world::can_move_into_square(int w, int x, int y){	 // can move into square;
 	return(can_move);
 };
 
-void world::attempt_move(int x, int y){
+void world::attempt_move(int x, int y){	// avatar attempts to move to relative location x,y
 	int X,Y;
 	X=P.x+x;
 	Y=P.y+y;
@@ -153,4 +153,79 @@ void world::attempt_move(int x, int y){
 			add_new_message("blocked");
 		};
 	};
+};
+
+
+point world::towards_object(int i, int j, int type){
+	// returns relative coordinates of nearest type in flora/fauna map if 
+	// there is one within UPDATE_WINDOW, or 0,0 if none
+	point p;
+	int closest,a,b;
+
+	if(type==99){
+		p=new_point(P.x,P.y)-new_point(i,j);
+	} else {
+		p=new_point(0,0);
+		closest=(2*UPDATE_WINDOW)+1;
+		for(a=-UPDATE_WINDOW;a<=UPDATE_WINDOW;a++){
+			for(b=-UPDATE_WINDOW;b<=UPDATE_WINDOW;b++){
+				if(i+a>0 && i+a < (int) world_map.size() && j+b >0 && j+b < (int) world_map.size()){
+					if(flora_fauna_map[i+a][j+b]==type && norm(a,b)<closest){
+						p=new_point(a,b);
+						closest = norm(a,b);
+					};
+				};
+			};
+		};
+	};
+	return(p);
+};
+
+
+point world::best_free_direction(int i, int j, point desired_move, int type){
+	// person at (i,j) of type wants to move towards (i,j)+desired_move; this function
+	// returns the best 1-step move available, or (0,0) if none.
+	point p[4];
+	point q;
+	point desired_direction;
+	int a;
+	
+	if(rand()%2==0){	// randomize initial order in case of tiebrakers
+		p[0]=new_point(1,0);
+		p[1]=new_point(-1,0);
+		p[2]=new_point(0,1);
+		p[3]=new_point(0,-1);
+	} else {
+		p[0]=new_point(0,-1);	
+		p[1]=new_point(0,1);
+		p[2]=new_point(-1,0);
+		p[3]=new_point(1,0);
+	};
+	
+	desired_direction=sign(desired_move);	// desired direction
+	// bubble sort p[0] to p[3] by how close they are to desired direction
+	a=0;
+	while(a<3){
+		if(l2norm(p[a]-desired_direction)>l2norm(p[a+1]-desired_direction)){
+			q=p[a];
+			p[a]=p[a+1];
+			p[a+1]=q;
+			if(a>0){
+				a--;
+			};
+		} else {
+			a++;
+		};
+	};
+	
+	// test sorted points to find first free one
+	a=0;
+	while(a<4){
+		if(can_move_into_square(type, i+p[a].x, j+p[a].y)){
+			return(p[a]);
+		} else {
+			a++;
+		};
+	};
+	return(new_point(0,0));
 };

@@ -10,12 +10,6 @@
  * Danny Calegari 12/17/2000                           *
  *******************************************************/
 
-#include <X11/Xlib.h>
-#include <X11/Xutil.h>
-#include <X11/Xos.h>
-#include <X11/Xatom.h>
-#include <X11/xpm.h>
-
 Display *display;
 int screen_num;
 unsigned int display_width, display_height;

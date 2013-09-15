@@ -55,6 +55,7 @@ void world::enter_city(string S){	// S is name of city
 	P.y=6;
 	in_city=true;
 	add_new_message("entering "+S);
+	npcs.clear();	// no npcs; actually should load list of npcs
 };
 
 void world::exit_city(){
@@ -76,6 +77,7 @@ void world::exit_city(){
 	add_new_message("leaving "+map_name);
 	map_name="europe";
 	in_city=false;
+	npcs.clear();	// no npcs; actually should load list of npcs
 };
 
 void world::save_state(){

@@ -23,6 +23,7 @@ void world::load_sprites(){
 	S[12]="goat.xpm";
 	S[13]="deer.xpm";
 	S[14]="fish.xpm";
+	S[15]="dog.xpm";
 	
 	S[20]="bear.xpm";
 	S[21]="wolf.xpm";

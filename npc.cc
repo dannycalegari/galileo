@@ -43,6 +43,7 @@ npc world::make_new_npc(int type, int x, int y){
 	switch(type){
 		case 50:	// generic farmer npc
 			N.id=50;
+			N.goal=10;
 			C.prompt="initial";
 			C.reply="hello!";
 			N.talk_list.push_back(C);
@@ -73,6 +74,7 @@ npc world::make_new_npc(int type, int x, int y){
 			break;
 		case 51: // generic merchant npc
 			N.id=51;
+			N.goal=51;
 			C.prompt="initial";
 			C.reply="hello!";
 			N.talk_list.push_back(C);
