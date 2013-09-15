@@ -110,6 +110,8 @@ class world{
 		void populate_city_with_random_buildings();
 		void add_random_flora_fauna_city(int i, int j);
 		void populate_city_with_random_flora_fauna();
+		void spawn_random_flora_fauna();	// not in combat or city
+
 		
 		// sprites; in sprite.cc
 		

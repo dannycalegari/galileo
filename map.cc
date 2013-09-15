@@ -361,4 +361,64 @@ void world::populate_city_with_random_flora_fauna(){
 	};
 };
 
+void world::spawn_random_flora_fauna(){
+	int i,j,k;
+	i=P.x+(rand()%21)-10;
+	j=P.y+(rand()%21)-10;
+	cout.flush();
+	if(i>0 && i<(int) world_map.size()-1 && j>0 && j<(int) world_map.size() && 
+			in_combat==false && in_city==false){	// in range, not in combat or city
+		if(flora_fauna_map[i][j]==-1 && occupied_by_special(i,j)==-1 && norm(towards_object(i,j,99))>3){
+			switch(world_map[i][j]){
+				case 0:
+					k=rand()%10;
+					if(k<2){
+						flora_fauna_map[i][j]=14;	// new fish
+					};
+					break;
+				case 1:
+					k=rand()%10;
+					if(k<2){
+						flora_fauna_map[i][j]=11;	// new boar
+					} else if(k<6){
+						flora_fauna_map[i][j]=13;	// new deer
+					};
+					break;
+				case 2:
+					k=rand()%20;
+					if(k<6){
+						flora_fauna_map[i][j]=11;	// new boar
+					} else if(k<12){
+						flora_fauna_map[i][j]=13;	// new deer
+					} else if(k<13){
+						flora_fauna_map[i][j]=21;	// new wolf
+					} else if(k<14){
+						flora_fauna_map[i][j]=53;	// new robber
+					};
+					break;
+				case 3:
+					k=rand()%20;
+					if(k<1){
+						flora_fauna_map[i][j]=11;	// new boar
+					} else if(k<2){
+						flora_fauna_map[i][j]=21;	// new wolf
+					} else if(k<3){
+						flora_fauna_map[i][j]=20;	// new bear
+					} else if(k<4){
+						flora_fauna_map[i][j]=53;	// new robber
+					} else if(k<5){
+						flora_fauna_map[i][j]=12;	// new goat
+					};
+					break;
+				case 4:
+					k=rand()%10;
+					if(k==0){
+						flora_fauna_map[i][j]=12;	// new goat
+					};
+					break;
+			};
+		};
+	};
+};
+
 

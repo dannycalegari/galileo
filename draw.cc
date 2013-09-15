@@ -453,6 +453,9 @@ void world::draw_graphics(){
 					if(flora_fauna_map[x+i][y+j]>=100){	// city
 						draw_square(5*(80+i),5*(80-j),5,0xFF0000);
 					};
+					if(flora_fauna_map[x+i][y+j]>9){	// ff
+						draw_square(5*(80+i),5*(80-j),2,0x000000);	
+					};
 					if(wall_map.size()>0){	// if there is a wall map
 						if(wall_map[x+i][y+j]>-1){	// wall
 							draw_square(5*(80+i),5*(80-j),3,0x000000);

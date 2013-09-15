@@ -16,6 +16,10 @@ void world::update_map(){	// only update region centered on avatar, for speed
 		After all moves have taken place, 100 is added back to the index.
 	*/
 	
+	if(rand()%SPAWN_RATE==0 && in_combat==false && in_city==false){	
+		spawn_random_flora_fauna();
+	};
+	
 	for(i=P.x-UPDATE_WINDOW;i<=P.x+UPDATE_WINDOW;i++){		// could we update a bigger window?
 		for(j=P.y-UPDATE_WINDOW;j<=P.y+UPDATE_WINDOW;j++){
 			if(0<i && i<(int) world_map.size()-1 && 0<j && j<(int) world_map[0].size()-1){	// if in range
@@ -88,6 +92,7 @@ void world::update_map(){	// only update region centered on avatar, for speed
 						break;
 					case 20:	// bear
 					case 21:	// wolf
+					case 53:	// robber
 						desired_move=towards_object(i,j,99);	// move towards avatar
 						if(norm(desired_move)==1){	// if adjacent
 							enter_combat(flora_fauna_map[i][j]);

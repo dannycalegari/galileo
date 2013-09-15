@@ -45,8 +45,9 @@ using namespace std;
 #define MAX_SKILL_NUM 6
 #define MAX_WALL_NUM 13
 #define MAX_MESSAGE_NUM 10
-#define UPDATE_WINDOW 9
+#define UPDATE_WINDOW 39
 #define MAX_TEXT_WIDTH 30
+#define SPAWN_RATE 10
 
 #include "point.cc"
 #include "graphics.cc"
