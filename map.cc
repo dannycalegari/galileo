@@ -1,14 +1,5 @@
 /* map.cc map commands */
 
-void world::clear_flora_fauna(){
-	int i,j;
-	for(i=0;i<1000;i++){
-		for(j=0;j<800;j++){
-			flora_fauna_map[i][j]=-1;
-		};
-	};
-};
-
 void world::plant_trees(){
 	int i,j,k,ii,jj,kk;
 	

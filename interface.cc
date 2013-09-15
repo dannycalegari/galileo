@@ -128,10 +128,20 @@ void world::user_interface(){
 					};
 					
 					if(XLookupKeysym(&report.xkey, 0) == XK_n){	// add generic npc (test)
-						N = make_new_npc(50,P.x,P.y);
+						N = make_new_npc(51,P.x,P.y);
 						npcs.push_back(N);
 						draw();
 					};
+					
+					if(XLookupKeysym(&report.xkey, 0) == XK_b){	// add random buildings (test)
+						populate_city_with_random_buildings();
+						draw();
+					};
+					if(XLookupKeysym(&report.xkey, 0) == XK_f){	// add random flora/fauna (test)
+						populate_city_with_random_flora_fauna();
+						draw();
+					};					
+					
 				} else {				// GAME MODE
 					if(XLookupKeysym(&report.xkey, 0) == XK_b){	// board boat toggle
 						if(P.skill_item[0]==false){		// in not embarked

@@ -77,15 +77,15 @@ class world{
 
 		// world data
 		
-		vector<vector<int> > world_map;
-		vector<vector<int> > flora_fauna_map;
-		vector<vector<int> > wall_map;
+		vector<vector<int> > world_map;			// geography layer
+		vector<vector<int> > flora_fauna_map;	// generic animals/trees/npcs
+		vector<vector<int> > wall_map;			// buildings
 		
 		int flora_fauna_count[MAX_SPRITE_NUM];
 		void count_flora_fauna();
 
-		vector<monster> monsters;
-		vector<npc> npcs;
+		vector<monster> monsters;				// monster roster (in combat)
+		vector<npc> npcs;						// nongeneric npc roster
 	
 		void initialize();
 		void save_state();
@@ -100,16 +100,21 @@ class world{
 		void enter_city(string S);
 		void exit_city();
 		
-		// geography and wall layers
+		// map layers
 
 		void draw_geographical_square(int i, int j);
 		void draw_wall(int i, int j);
 		void adjust_mountain_heights();
-		
-		// flora_fauna layer
-		
 		void clear_flora_fauna();
+		void clear_wall();
+		void add_random_building(int i, int j, int size);
+		void populate_city_with_random_buildings();
+		void add_random_flora_fauna(int i, int j);
+		void populate_city_with_random_flora_fauna();
+
 		void plant_trees();
+		
+		// sprites
 		
 		XImage *img[MAX_SPRITE_NUM];		// XImage for sprite
 		XImage *clp[MAX_SPRITE_NUM];		// XImage clip for sprite

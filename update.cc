@@ -62,6 +62,8 @@ void world::update_map(){	// only update region centered on avatar, for speed
 						break;
 					case 10:		// cow
 					case 14:		// fish
+					case 50:		// generic farmer
+					case 51:		// generic merchant
 						if(flora_fauna_map[i][j]==14){
 							l=2;	// move type of fish
 						} else {
@@ -177,7 +179,9 @@ void world::update_map(){	// only update region centered on avatar, for speed
 			} else {
 				desired_move=towards_object(npcs[l].x,npcs[l].y,npcs[l].goal);
 				if(norm(desired_move)==1){	// adjacent to goal
-				
+					if(npcs[l].goal==99){	// goal is avatar
+						conversation_with_npc(l);
+					};
 				} else {	// move towards goal
 					p=best_free_direction(npcs[l].x,npcs[l].y,desired_move,1);
 					if(norm(p)==1){

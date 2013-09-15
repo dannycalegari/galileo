@@ -74,7 +74,7 @@ npc world::make_new_npc(int type, int x, int y){
 			break;
 		case 51: // generic merchant npc
 			N.id=51;
-			N.goal=51;
+			N.goal=99;	//	avatar
 			C.prompt="initial";
 			C.reply="hello!";
 			N.talk_list.push_back(C);
@@ -85,7 +85,7 @@ npc world::make_new_npc(int type, int x, int y){
 			C.reply="merchant";
 			N.talk_list.push_back(C);
 			C.prompt="merchant";
-			C.reply="there's lots of commerce in Venice";
+			C.reply="there's lots of commerce in   Venice";
 			N.talk_list.push_back(C);
 			C.prompt="money";
 			C.reply="it makes the world go round";
