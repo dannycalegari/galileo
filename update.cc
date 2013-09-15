@@ -170,7 +170,6 @@ void world::update_map(){	// only update region centered on avatar, for speed
 				if(can_move_into_square(1,x,y)==true){	// square is free
 					if(norm(new_point(x,y)-new_point(npcs[l].cx,npcs[l].cy))>npcs[l].d){
 						// too far from center of gravity
-		//			abs(x-npcs[l].cx)+abs(y-npcs[l].cy)>npcs[l].d){
 						npcs[l].hx=-1*npcs[l].hx;	// about face
 						npcs[l].hy=-1*npcs[l].hy;
 					} else {
@@ -188,7 +187,7 @@ void world::update_map(){	// only update region centered on avatar, for speed
 					achieve_goal(l, npcs[l].goal, desired_move);	// achieve goal
 					npcs[l].goal=update_goal(npcs[l].id, npcs[l].goal);	// update goal
 				} else {	// move towards goal
-					p=fancy_best_free_direction(npcs[l].x,npcs[l].y,desired_move,1,npcs[l].d);	// must be within center of gravity
+					p=fancy_best_free_direction(npcs[l].x,npcs[l].y,desired_move,1,npcs[l].d);	// pathfinding
 					if(norm(p)==1){
 						assert(can_move_into_square(1,npcs[l].x+p.x,npcs[l].y+p.y));
 						npcs[l].x=npcs[l].x+p.x;	// move!
