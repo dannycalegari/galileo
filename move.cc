@@ -5,6 +5,9 @@ bool world::can_move_into_square(int w, int x, int y){	 // can move into square;
 	// w=0 avatar, w=1 animal/npc, w=2 fish/pirate ship, w=3 goat/mountaineer
 	
 	bool can_move;
+	if(x<0 || x>=(int) world_map.size() || y<0 || y>=(int) world_map[0].size()){	// out of range check
+		return(false);
+	};
 	
 //	can_move=true;	// default
 	switch(w){
@@ -181,7 +184,6 @@ point world::towards_object(int i, int j, int type){
 	return(p);
 };
 
-
 point world::best_free_direction(int i, int j, point desired_move, int type){
 	// person at (i,j) of type wants to move towards (i,j)+desired_move; this function
 	// returns the best 1-step move available, or (0,0) if none.
@@ -228,4 +230,67 @@ point world::best_free_direction(int i, int j, point desired_move, int type){
 		};
 	};
 	return(new_point(0,0));
+};
+
+point world::fancy_best_free_direction(int i, int j, point desired_move, int type, int range){
+	int dist[2*range+1][2*range+1];	
+	int a,b;
+	int x,y,z,w;
+	int count;
+	for(a=0;a<2*range+1;a++){	// initialize
+		for(b=0;b<2*range+1;b++){
+			if(can_move_into_square(type, i+a-range, j+b-range)){
+				dist[a][b]=100;	
+			} else {
+				dist[a][b]=400;
+			};
+		};
+	};
+	if(norm(desired_move)<=1){	// adjacent or on top
+		return(new_point(0,0));	// already there
+	} else if(abs(desired_move.x)>range || abs(desired_move.y)>range){
+		return(new_point(0,0));	// out of range
+	} else {
+		dist[range+desired_move.x][range+desired_move.y]=0;
+		count=0;
+		while(count<=range){
+			count++;
+			for(a=1;a<2*range;a++){
+				for(b=1;b<2*range;b++){
+					if((a==range && b==range) || dist[a][b]==100){
+						x=dist[a+1][b];
+						y=dist[a-1][b];
+						z=dist[a][b-1];
+						w=dist[a][b+1];
+						if(x<=y && x<=z && x<=w && x<100){
+							dist[a][b]=x+1;
+						} else if(y<=z && y<=w && y<100) {
+							dist[a][b]=y+1;
+						} else if(z<=w && z<100){
+							dist[a][b]=z+1;
+						} else if(w<100){
+							dist[a][b]=w+1;
+						};
+					};
+				};
+			};
+		};
+		if(dist[range][range]>=100){
+			return(new_point(0,0));
+		} else {
+			x=dist[range+1][range];
+			y=dist[range-1][range];
+			z=dist[range][range-1];
+			w=dist[range][range+1];
+			if(x<=y && x<=z && x<=w){
+				return(new_point(1,0));
+			} else if(y<=z && y<=w) {
+				return(new_point(-1,0));
+			} else if(z<=w){
+				return(new_point(0,-1));
+			} else {
+				return(new_point(0,1));
+			};
+		};
+	};
 };

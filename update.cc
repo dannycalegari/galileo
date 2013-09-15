@@ -79,8 +79,10 @@ void world::update_map(){	// only update region centered on avatar, for speed
 						};
 						break;
 					case 15:		// dog
-						desired_move=towards_object(i,j,99);	// move away from avatar
-						p=best_free_direction(i, j, desired_move, 1);
+						desired_move=towards_object(i,j,99);	// move towards avatar
+				//		p=best_free_direction(i, j, desired_move, 1);
+						p=fancy_best_free_direction(i, j, desired_move, 1, 20);	// rudimentary pathfinding
+
 						if(norm(p)==1){
 							assert(can_move_into_square(1,i+p.x,j+p.y));
 							flora_fauna_map[i+p.x][j+p.y]=flora_fauna_map[i][j]-100;	// code for moved animal

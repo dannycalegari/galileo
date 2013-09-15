@@ -161,6 +161,7 @@ class world{
 		void attempt_move(int x, int y);
 		bool can_move_into_square(int w, int x, int y);
 		point best_free_direction(int i, int j, point desired_move, int type);
+		point fancy_best_free_direction(int i, int j, point desired_move, int type, int range);
 		point towards_object(int i, int j, int type);
 		
 		bool test_of_skill(int i);
