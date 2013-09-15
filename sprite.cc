@@ -51,7 +51,7 @@ void world::load_sprites(){
 	S[60]="boat.xpm";
 	S[61]="arrow.xpm";
 	
-	if(gender=="female"){
+	if(P.gender=="female"){
 		S[99]="female_avatar.xpm";
 	} else {
 		S[99]="male_avatar.xpm";

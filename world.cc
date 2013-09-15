@@ -2,7 +2,7 @@
 
 struct party_state{	// data file for party
 	int x,y;	// global party location
-	
+	string gender;	
 	int food;	
 	int health;
 	int max_health;
@@ -65,12 +65,13 @@ struct balloon_speech{	// speech item that pops up near npc/fauna/monster on gra
 class world{
 	public:
 		// party data
+		party_state P;
+
+		// local data
 		
-		string gender;
 		int moves;
 		bool edit_mode;
 		bool view_mode;
-		party_state P;
 		point saved_coordinates;
 		string map_name;
 		bool in_city;
@@ -80,39 +81,38 @@ class world{
 		vector<vector<int> > world_map;			// geography layer
 		vector<vector<int> > flora_fauna_map;	// generic animals/trees/npcs
 		vector<vector<int> > wall_map;			// buildings
-		
-		int flora_fauna_count[MAX_SPRITE_NUM];
-		void count_flora_fauna();
-
 		vector<monster> monsters;				// monster roster (in combat)
 		vector<npc> npcs;						// nongeneric npc roster
+		int flora_fauna_count[MAX_SPRITE_NUM];	// inventory of flora/fauna layer
+		
+		//
+		
+//		int flora_fauna_count[MAX_SPRITE_NUM];
+//		void count_flora_fauna();
+
+		// load/save functions; in load_save.cc
 	
 		void initialize();
+		void enter_city(string S);
+		void exit_city();
 		void save_state();
 		void save_current_map();
-//		void save_maps(string geo_map_name, string ff_map_name, string wall_map_name);
-
 		void read_map(ifstream &input_file, int type);
 		void write_map(ofstream &output_file, int type);
 		void read_party(ifstream &input_file);
 		void write_party(ofstream &output_file);
 		
-		void enter_city(string S);
-		void exit_city();
-		
-		// map layers
+		// functions on map layers; in map.cc
 
-		void draw_geographical_square(int i, int j);
-		void draw_wall(int i, int j);
+		void count_flora_fauna();
+		void plant_trees();	// should be folded into add_random_flora_fauna
 		void adjust_mountain_heights();
 		void clear_flora_fauna();
 		void clear_wall();
 		void add_random_building(int i, int j, int size);
 		void populate_city_with_random_buildings();
-		void add_random_flora_fauna(int i, int j);
+		void add_random_flora_fauna_city(int i, int j);
 		void populate_city_with_random_flora_fauna();
-
-		void plant_trees();
 		
 		// sprites
 		
@@ -126,7 +126,8 @@ class world{
 		void update_map();
 		void draw();
 		void draw_graphics();
-		
+		void draw_geographical_square(int i, int j);
+		void draw_wall(int i, int j);	
 		// info
 		
 		vector<balloon_speech > popup_message;

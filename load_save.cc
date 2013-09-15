@@ -12,7 +12,7 @@ void world::initialize(){
 	flora_fauna_map.clear();	// initialize
 	read_map(input_file, 1);
 	input_file.close();
-	count_flora_fauna();
+//	count_flora_fauna();
 	wall_map.clear();	// initialize
 
 	input_file.open("party.txt");
@@ -43,7 +43,7 @@ void world::enter_city(string S){	// S is name of city
 	flora_fauna_map.clear();	// initialize
 	read_map(input_file, 1);
 	input_file.close();
-	count_flora_fauna();
+//	count_flora_fauna();
 	T="map_files/"+S+"_wall.map";
 	input_file.open(T.c_str());
 	wall_map.clear();	// initialize
@@ -72,7 +72,7 @@ void world::exit_city(){
 	flora_fauna_map.clear();	// initialize
 	read_map(input_file, 1);
 	input_file.close();
-	count_flora_fauna();
+//	count_flora_fauna();
 	wall_map.clear();	// initialize	
 	add_new_message("leaving "+map_name);
 	map_name="europe";
@@ -192,7 +192,7 @@ void world::write_map(ofstream &output_file, int type){
 };
 
 void world::read_party(ifstream &input_file){
-	input_file >> gender;
+	input_file >> P.gender;
 	input_file >> moves;
 	input_file >> edit_mode;
 	input_file >> view_mode;
@@ -212,7 +212,7 @@ void world::read_party(ifstream &input_file){
 };
 
 void world::write_party(ofstream &output_file){
-	output_file << gender << "\n";
+	output_file << P.gender << "\n";
 	output_file << moves << "\n";
 	output_file << edit_mode << "\n";
 	output_file << view_mode << "\n";

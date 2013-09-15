@@ -172,7 +172,7 @@ void world::exit_combat(){
 	flora_fauna_map.clear();	// initialize
 	read_map(input_file, 1);
 	input_file.close();
-	count_flora_fauna();
+//	count_flora_fauna();
 	wall_map.clear();	// initialize	
 	
 	map_name="europe";

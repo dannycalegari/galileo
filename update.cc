@@ -1,21 +1,5 @@
 /* update.cc 	animals, predators, fish and npcs move	*/
 
-void world::count_flora_fauna(){
-	int i,j,c;
-	for(i=0;i<100;i++){	// initialize count
-		flora_fauna_count[i]=0;
-	};
-	
-	for(i=1;i<(int) world_map.size()-1;i++){
-		for(j=1;j<(int) world_map[0].size()-1;j++){
-			c=flora_fauna_map[i][j];
-			if(c>=0 && c<100){
-				flora_fauna_count[c]++;
-			};
-		};
-	};
-};
-
 void world::update_map(){	// only update region centered on avatar, for speed
 	int i,j,k,l,m;
 	int x,y;
