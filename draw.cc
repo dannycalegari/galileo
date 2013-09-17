@@ -560,12 +560,12 @@ void world::draw_graphics(){
 			};	
 		};		
 		for(i=0;i<(int) popup_message.size();i++){
-			h=world_map[i][j]*16;
-				if(world_map[i][j]>=4){
-					h=world_map[i][j]*20;
-				};
-			p.x=400+(popup_message[i].x*tile_size)+40;
-			p.y=400-(popup_message[i].y*tile_size)-120-h;
+			h=world_map[popup_message[i].x+x][popup_message[i].y+y]*16;
+			if(world_map[popup_message[i].x+x][popup_message[i].y+y]>=4){
+				h=world_map[popup_message[i].x+x][popup_message[i].y+y]*20;
+			};
+			p.x=400+(popup_message[i].x*tile_size)+50;
+			p.y=400-(popup_message[i].y*tile_size)-90-h;
 			p=affine_transform(p);
 			q.x=p.x;	// translate XPoint to point
 			q.y=p.y;
@@ -637,15 +637,13 @@ void world::draw_info(){
 		};
 	};
 	
-	/*
 	p.y=p.y+20;
-	for(i=0;i<(int) monsters.size();i++){		// only for debug purposes
+	for(i=0;i<(int) npcs.size();i++){		// only for debug purposes
 		T.str("");
-		T << "monster " << i << " health " << monsters[i].health;
+		T << "npc " << i << " " << npcs[i].cx << " " << npcs[i].cy << "  " << npcs[i].x << " " << npcs[i].y << "  " << npcs[i].d << " " << norm(new_point(npcs[i].x,npcs[i].y)-new_point(npcs[i].cx,npcs[i].cy)) << " goal " << npcs[i].goal;
 		p.y=p.y+20;
 		draw_text(p,T.str(),0xFFFFFF);
 	};
-	*/
 };
 
 void world::draw_inventory(){

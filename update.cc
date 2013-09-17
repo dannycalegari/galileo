@@ -6,6 +6,7 @@ void world::update_map(){	// only update region centered on avatar, for speed
 	point p;
 	point desired_move;
 	stringstream T;
+	bool accessible_goal;
 	
 	moves++;
 	
@@ -148,7 +149,35 @@ void world::update_map(){	// only update region centered on avatar, for speed
 		};
 	} else {	// move npcs; goalless npcs have a "heading" which makes their movement look purposeful
 		for(l=0;l<(int) npcs.size();l++){
-			if(npcs[l].goal==-1 || norm(towards_object(npcs[l].x,npcs[l].y,npcs[l].goal))==0){	// no goal or no goal nearby
+			desired_move=new_point(0,0);
+			accessible_goal=false;
+
+			if(npcs[l].goal==100){	// goal 100 special case
+				desired_move=towards_object(npcs[l].x,npcs[l].y,100,110);
+			} else if (npcs[l].goal>-1){
+				desired_move=towards_object(npcs[l].x,npcs[l].y,npcs[l].goal);
+			};
+			if(norm(desired_move+new_point(npcs[l].x,npcs[l].y)-new_point(npcs[l].cx,npcs[l].cy))>npcs[l].d){	// is goal too far away?
+				accessible_goal=false;
+			} else if(norm(desired_move)>0){	// nearby goal
+				accessible_goal=true;
+				if(norm(desired_move)==1){	// adjacent to goal
+					achieve_goal(l, npcs[l].goal, desired_move);	// achieve goal
+					npcs[l].goal=update_goal(npcs[l].id, npcs[l].goal);	// update goal
+				} else {	// move towards goal
+					p=fancy_best_free_direction(npcs[l].x,npcs[l].y,desired_move,1,20);	// pathfinding
+					if(norm(p)==1){
+						assert(can_move_into_square(1,npcs[l].x+p.x,npcs[l].y+p.y));
+						npcs[l].x=npcs[l].x+p.x;	// move!
+						npcs[l].y=npcs[l].y+p.y;
+					} else {
+						assert(norm(p)==0);
+						accessible_goal=false;
+					};
+				};
+			};
+			
+			if(accessible_goal==false){	// no goal or no accessible goal
 				if(rand()%5==0){
 					m=npcs[l].hx;				// turn heading left
 					npcs[l].hx=npcs[l].hy;
@@ -170,25 +199,13 @@ void world::update_map(){	// only update region centered on avatar, for speed
 					npcs[l].hx=-1*npcs[l].hy;
 					npcs[l].hy=m;
 				};
-			} else {
-				desired_move=towards_object(npcs[l].x,npcs[l].y,npcs[l].goal);
-				if(norm(desired_move)==1){	// adjacent to goal
-					achieve_goal(l, npcs[l].goal, desired_move);	// achieve goal
-					npcs[l].goal=update_goal(npcs[l].id, npcs[l].goal);	// update goal
-				} else {	// move towards goal
-					p=fancy_best_free_direction(npcs[l].x,npcs[l].y,desired_move,1,npcs[l].d);	// pathfinding
-					if(norm(p)==1){
-						assert(can_move_into_square(1,npcs[l].x+p.x,npcs[l].y+p.y));
-						npcs[l].x=npcs[l].x+p.x;	// move!
-						npcs[l].y=npcs[l].y+p.y;
-					} else {
-						assert(norm(p)==0);
-					};
-				};
 			};
 			T.str("");
 			T << npcs[l].goal;
 			add_popup_message(npcs[l].x-P.x,npcs[l].y-P.y,T.str());
+			if(npcs[l].x==0 && npcs[l].y==0){	// npc "dead"
+				remove_npc(l);
+			};
 		};
 	};
 };

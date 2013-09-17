@@ -46,10 +46,14 @@ void world::load_sprites(){
 	S[51]="merchant.xpm";
 	S[52]="woodcutter.xpm";
 	S[53]="robber.xpm";
-	S[54]="npc.xpm";
+	S[54]="knight.xpm";
+	S[55]="cook.xpm";
+	S[56]="monk.xpm";
+	S[57]="musician.xpm";
 	
 	S[60]="boat.xpm";
 	S[61]="arrow.xpm";
+	S[62]="crucifix.xpm";
 	
 	if(P.gender=="female"){
 		S[99]="female_avatar.xpm";

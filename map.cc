@@ -1,19 +1,35 @@
 /* map.cc map commands */
 
-void world::count_flora_fauna(){
-	int i,j,c;
-	for(i=0;i<100;i++){	// initialize count
-		flora_fauna_count[i]=0;
-	};
+int world::count_geography(int x, int y, int range, int type){
+	int i,j,count;
 	
-	for(i=1;i<(int) world_map.size()-1;i++){
-		for(j=1;j<(int) world_map[0].size()-1;j++){
-			c=flora_fauna_map[i][j];
-			if(c>=0 && c<100){
-				flora_fauna_count[c]++;
+	count=0;
+	for(i=x-range;i<=x+range;i++){
+		for(j=y-range;j<=y+range;j++){
+			if(i>0 && i< (int) world_map.size() && j>0 && j< (int) world_map[0].size()){
+				if(world_map[i][j]==type){
+					count++;
+				};
 			};
 		};
 	};
+	return(count);
+};
+
+int world::count_flora_fauna(int x, int y, int range, int type){
+	int i,j,count;
+	
+	count=0;
+	for(i=x-range;i<=x+range;i++){
+		for(j=y-range;j<=y+range;j++){
+			if(i>0 && i< (int) flora_fauna_map.size() && j>0 && j< (int) flora_fauna_map[0].size()){
+				if(flora_fauna_map[i][j]==type){
+					count++;
+				};
+			};
+		};
+	};
+	return(count);
 };
 
 void world::plant_trees(){

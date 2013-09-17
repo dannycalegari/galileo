@@ -27,6 +27,13 @@ struct conversation_item{
 	// separated by a semicolon. So for example, a response could be: hello!;smile
 };
 
+conversation_item new_conversation_item(string P, string R){
+	conversation_item C;
+	C.prompt=P;
+	C.reply=R;
+	return(C);
+};
+
 struct npc{
 	int x,y;	// coordinates 
 	int id;		//
@@ -101,7 +108,8 @@ class world{
 		
 		// functions on map layers; in map.cc
 
-		void count_flora_fauna();
+		int count_geography(int x, int y, int range, int type);
+		int count_flora_fauna(int x, int y, int range, int type);
 		void plant_trees();	// should be folded into add_random_flora_fauna
 		void adjust_mountain_heights();
 		void clear_flora_fauna();
@@ -112,7 +120,6 @@ class world{
 		void populate_city_with_random_flora_fauna();
 		void spawn_random_flora_fauna();	// not in combat or city
 
-		
 		// sprites; in sprite.cc
 		
 		XImage *img[MAX_SPRITE_NUM];		// XImage for sprite
@@ -150,7 +157,8 @@ class world{
 		
 		int occupied_by_special(int x, int y);		// also used in combat
 		int special_in_direction(int x, int y);		// also used in combat	
-		point towards_object(int i, int j, int type);
+		point towards_object(int i, int j, int type);	// find nearest object of type
+		point towards_object(int i, int j, int type_lower, int type_upper);	// find object in type range
 		point best_free_direction(int i, int j, point desired_move, int type);
 		point fancy_best_free_direction(int i, int j, point desired_move, int type, int range);
 		
@@ -170,7 +178,8 @@ class world{
 
 		// npc; in npc.cc
 		
-		npc make_new_npc(int type, int x, int y);
+		npc make_new_npc(int type, int x, int y);	// returns new npc of desired kind and location
+		void remove_npc(int i);
 		int update_goal(int type, int goal);
 		void achieve_goal(int l, int goal, point desired_move);
 
