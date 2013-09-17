@@ -99,10 +99,12 @@ class world{
 		void initialize();
 		void enter_city(string S);
 		void exit_city();
-		void save_state();
+//		void save_state();
 		void save_current_map();
 		void read_map(ifstream &input_file, int type);
 		void write_map(ofstream &output_file, int type);
+		void read_npc_file(ifstream &input_file);
+		void write_npc_file(ofstream &output_file);
 		void read_party(ifstream &input_file);
 		void write_party(ofstream &output_file);
 		

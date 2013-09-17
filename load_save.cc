@@ -14,6 +14,10 @@ void world::initialize(){
 	input_file.close();
 //	count_flora_fauna();
 	wall_map.clear();	// initialize
+	
+	input_file.open("npc_files/europe.npc");
+	read_npc_file(input_file);
+	input_file.close();
 
 	input_file.open("party.txt");
 	read_party(input_file);
@@ -23,7 +27,7 @@ void world::initialize(){
 	in_city=false;
 	in_combat=false;
 	monsters.clear();	// no monsters
-	npcs.clear();	// no npcs
+//	npcs.clear();	// no npcs
 	message.clear();
 	popup_message.clear();
 };
@@ -80,6 +84,7 @@ void world::exit_city(){
 	npcs.clear();	// no npcs; actually should load list of npcs
 };
 
+/*
 void world::save_state(){
 	ofstream output_file;
 	
@@ -91,6 +96,7 @@ void world::save_state(){
 	write_map(output_file, 1);
 	output_file.close();
 };
+*/
 
 void world::save_current_map(){
 	ofstream output_file;
@@ -110,7 +116,56 @@ void world::save_current_map(){
 	output_file.open(T.c_str());
 	write_map(output_file, 2);
 	output_file.close();
+	
+	T="npc_files/"+map_name+".npc";
+	output_file.open(T.c_str());
+	write_npc_file(output_file);
+	output_file.close();
 };
+
+void world::write_npc_file(ofstream &output_file){
+	int number_of_npcs,i,number_of_conversation_items,j;
+	number_of_npcs=(int) npcs.size();
+	output_file << number_of_npcs << "\n";	// number of npcs
+	for(i=0;i<number_of_npcs;i++){	// for each npc
+		output_file << npcs[i].id << "\n";
+		output_file << npcs[i].cx << " " << npcs[i].cy << " " << npcs[i].x << " " << npcs[i].y << " "
+			<< npcs[i].hx << " " << npcs[i].hy << " " << npcs[i].d << "\n";
+		output_file << npcs[i].goal << "\n";
+		number_of_conversation_items=(int) npcs[i].talk_list.size();
+		output_file << number_of_conversation_items << "\n";
+		for(j=0;j<number_of_conversation_items;j++){
+			output_file << npcs[i].talk_list[j].prompt << "\n";
+			output_file << npcs[i].talk_list[j].reply << "\n";
+		};
+	};
+};
+
+void world::read_npc_file(ifstream &input_file){
+	int number_of_npcs,i,number_of_conversation_items,j;
+	npc N;
+	conversation_item C;
+	string S,R;
+	npcs.clear();	// initialize npc roster
+	
+	input_file >> number_of_npcs;	// number of npcs
+	for(i=0;i<number_of_npcs;i++){	// for each npc
+		input_file >> N.id;
+		input_file >> N.cx >> N.cy >> N.x >> N.y >> N.hx >> N.hy >> N.d;
+		input_file >> N.goal;
+		input_file >> number_of_conversation_items;
+		getline(input_file,S);	// clear buffer
+		N.talk_list.clear();
+		for(j=0;j<number_of_conversation_items;j++){
+			getline(input_file,S);
+			getline(input_file,R);
+			C=new_conversation_item(S,R);
+			N.talk_list.push_back(C);
+		};
+		npcs.push_back(N);
+	};
+};
+
 
 void world::read_map(ifstream &input_file, int type){
 	int i,j,k;

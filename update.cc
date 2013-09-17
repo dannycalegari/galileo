@@ -148,7 +148,8 @@ void world::update_map(){	// only update region centered on avatar, for speed
 			};
 		};
 	} else {	// move npcs; goalless npcs have a "heading" which makes their movement look purposeful
-		for(l=0;l<(int) npcs.size();l++){
+		l=0;
+		while(l<(int) npcs.size()){
 			desired_move=new_point(0,0);
 			accessible_goal=false;
 
@@ -205,7 +206,9 @@ void world::update_map(){	// only update region centered on avatar, for speed
 			add_popup_message(npcs[l].x-P.x,npcs[l].y-P.y,T.str());
 			if(npcs[l].x==0 && npcs[l].y==0){	// npc "dead"
 				remove_npc(l);
+				l--;
 			};
+			l++;
 		};
 	};
 };

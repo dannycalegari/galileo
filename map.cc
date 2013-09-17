@@ -334,7 +334,8 @@ void world::add_random_flora_fauna_city(int i, int j){
 				} else if(k==6){
 					flora_fauna_map[i][j]=10;	// cow
 				} else if(k==7){
-					flora_fauna_map[i][j]=50;	// farmer
+					npcs.push_back(make_new_npc(50,i,j));	// farmer
+			//		flora_fauna_map[i][j]=50;	// farmer
 				};
 				break;
 			case 2:
@@ -344,7 +345,7 @@ void world::add_random_flora_fauna_city(int i, int j){
 				} else if (k<7) {
 					flora_fauna_map[i][j]=10;	// cow
 				} else if (k==7) {
-					flora_fauna_map[i][j]=50;	// farmer
+					npcs.push_back(make_new_npc(50,i,j));	// farmer
 				};
 				break;
 			case 3:
@@ -357,11 +358,17 @@ void world::add_random_flora_fauna_city(int i, int j){
 				break;
 		};
 	} else if(can_add_person==true){
-		k=rand()%4;
+		k=rand()%10;
 		if(k<2){
-			flora_fauna_map[i][j]=50;	// farmer
-		} else {
-			flora_fauna_map[i][j]=51;	// merchant
+			npcs.push_back(make_new_npc(50,i,j));	// farmer
+		} else if(k<4){
+			npcs.push_back(make_new_npc(55,i,j));	// cook
+		} else if(k<6){
+			npcs.push_back(make_new_npc(56,i,j));	// monk
+		} else if(k<8){
+			npcs.push_back(make_new_npc(57,i,j));	// musician
+		} else if(k<10){
+			npcs.push_back(make_new_npc(51,i,j));	// merchant
 		};
 	};
 

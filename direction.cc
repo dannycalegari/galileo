@@ -83,15 +83,13 @@ point world::towards_object(int i, int j, int type_lower, int type_upper){
 	// or npc roster if there is one within UPDATE_WINDOW, or 0,0 if none
 	point p;
 	int closest,a,b,c;
-	cout << "looking for something in range " << type_lower << " to " << type_upper << "\n";
 
 	p=new_point(0,0);
 	closest=(2*UPDATE_WINDOW)+1;
 	for(a=-UPDATE_WINDOW;a<=UPDATE_WINDOW;a++){		// look for type in flora/fauna map
 		for(b=-UPDATE_WINDOW;b<=UPDATE_WINDOW;b++){
-			if(i+a>0 && i+a < (int) world_map.size() && j+b >0 && j+b < (int) world_map.size()){
+			if(i+a>0 && i+a < (int) world_map.size()-1 && j+b >0 && j+b < (int) world_map.size()-1){
 				if(type_lower <= flora_fauna_map[i+a][j+b] && flora_fauna_map[i+a][j+b]<=type_upper && norm(a,b)<closest){
-					cout << "found " << flora_fauna_map[i+a][j+b] << " at " << i+a << " " << j+b << "\n";
 					p=new_point(a,b);
 					closest = norm(a,b);
 				};

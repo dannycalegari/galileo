@@ -5,7 +5,7 @@ bool world::can_move_into_square(int w, int x, int y){	 // can move into square;
 	// w=0 avatar, w=1 animal/npc, w=2 fish/pirate ship, w=3 goat/mountaineer
 	
 	bool can_move;
-	if(x<0 || x>=(int) world_map.size() || y<0 || y>=(int) world_map[0].size()){	// out of range check
+	if(x<1 || x>=(int) world_map.size()-1 || y<1 || y>=(int) world_map[0].size()-1){	// out of range check
 		return(false);
 	};
 	
