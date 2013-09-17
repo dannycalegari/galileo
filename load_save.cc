@@ -76,27 +76,12 @@ void world::exit_city(){
 	flora_fauna_map.clear();	// initialize
 	read_map(input_file, 1);
 	input_file.close();
-//	count_flora_fauna();
 	wall_map.clear();	// initialize	
 	add_new_message("leaving "+map_name);
 	map_name="europe";
 	in_city=false;
 	npcs.clear();	// no npcs; actually should load list of npcs
 };
-
-/*
-void world::save_state(){
-	ofstream output_file;
-	
-	output_file.open("europe_geo.map");
-	write_map(output_file, 0);
-	output_file.close();
-	
-	output_file.open("europe_ff.map");
-	write_map(output_file, 1);
-	output_file.close();
-};
-*/
 
 void world::save_current_map(){
 	ofstream output_file;

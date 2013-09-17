@@ -233,6 +233,7 @@ void world::achieve_goal(int l, int goal, point desired_move){
 				};
 			};
 			break;
+		/*
 		case 100:	// reach generic city
 			if(npcs[l].id==52){	// if woodcutter
 				// remove npc if tree density is too low
@@ -246,6 +247,7 @@ void world::achieve_goal(int l, int goal, point desired_move){
 				};
 			};
 			break;
+			*/
 		default:
 			break;
 	};

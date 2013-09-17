@@ -110,6 +110,7 @@ class world{
 		
 		// functions on map layers; in map.cc
 
+		bool is_in_range(int x, int y, int type);
 		int count_geography(int x, int y, int range, int type);
 		int count_flora_fauna(int x, int y, int range, int type);
 		void plant_trees();	// should be folded into add_random_flora_fauna
@@ -132,7 +133,7 @@ class world{
 		void draw_sprite(int i, int x, int y, int h);
 
 		// functions to draw on screen; in draw.cc
-		
+		int center_height(int i, int j);
 		void draw_wall(int i, int j);	
 		void draw_geographical_square(int i, int j);
 		void draw_graphics();

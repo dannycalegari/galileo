@@ -55,7 +55,6 @@ using namespace std;
 #include "info.cc"
 #include "load_save.cc"
 #include "move.cc"
-#include "skill.cc"
 #include "use.cc"
 #include "talk.cc"
 #include "combat.cc"

@@ -1,12 +1,45 @@
 /* map.cc map commands */
 
+bool world::is_in_range(int x, int y, int type){
+	bool in_range;
+	switch(type){
+		case 0:
+			if(0<x && x<(int) world_map.size()-1 && 0<y && y<(int) world_map[0].size()-1){
+				in_range=true;
+			} else {
+				in_range=false;
+			};
+			break;
+		case 1:
+			if(0<x && x<(int) flora_fauna_map.size()-1 && 0<y && y<(int) flora_fauna_map[0].size()-1){
+				in_range=true;
+			} else {
+				in_range=false;
+			};
+			break;			
+		case 2:
+			if(wall_map.size()==0){
+				in_range=false;
+			} else if(0<x && x<(int) wall_map.size()-1 && 0<y && y<(int) wall_map[0].size()-1){
+				in_range=true;
+			} else {
+				in_range=false;
+			};
+			break;
+		default:
+			in_range=false;
+			break;
+	};
+	return(in_range);
+};
+
 int world::count_geography(int x, int y, int range, int type){
 	int i,j,count;
 	
 	count=0;
 	for(i=x-range;i<=x+range;i++){
 		for(j=y-range;j<=y+range;j++){
-			if(i>0 && i< (int) world_map.size() && j>0 && j< (int) world_map[0].size()){
+			if(is_in_range(i,j,0)){
 				if(world_map[i][j]==type){
 					count++;
 				};
@@ -22,7 +55,7 @@ int world::count_flora_fauna(int x, int y, int range, int type){
 	count=0;
 	for(i=x-range;i<=x+range;i++){
 		for(j=y-range;j<=y+range;j++){
-			if(i>0 && i< (int) flora_fauna_map.size() && j>0 && j< (int) flora_fauna_map[0].size()){
+			if(is_in_range(i,j,1)){
 				if(flora_fauna_map[i][j]==type){
 					count++;
 				};
@@ -166,27 +199,22 @@ void world::add_random_building(int i, int j, int size){
 		can_build=false;
 	};
 	
-	if(wall_map.size()==0){	// is there a wall layer?
-		can_build=false;
-	} else {
-		if(i-size<=1 || i+size >= (int) wall_map.size()-1 || j-size<=1 || j+size >= (int) wall_map[0].size()-1){	
-			// is wall layer big enough to accomodate building site?
-			can_build=false;
-		} else {	
-			for(a=i-size;a<=i+size;a++){
-				for(b=j-size;b<=j+size;b++){
-					if(wall_map[a][b]!=-1){		// is building site empty?
-						can_build=false;
-					};
-					if(world_map[a][b]<=0 || world_map[a][b]>=4){	// is there land and no mountain?
-						can_build=false;
-					};
+	if(is_in_range(i-size,j-size,2) && is_in_range(i+size,j+size,2)){	// is in range?
+		for(a=i-size;a<=i+size;a++){
+			for(b=j-size;b<=j+size;b++){
+				if(wall_map[a][b]!=-1){		// is building site empty?
+					can_build=false;
+				};
+				if(world_map[a][b]<=0 || world_map[a][b]>=4){	// is there land and no mountain?
+					can_build=false;
 				};
 			};
-			if(world_map[i][j]<2){		// center must be elevated
-				can_build=false;
-			};
 		};
+		if(world_map[i][j]<2){		// center must be elevated
+			can_build=false;
+		};
+	} else {
+		can_build=false;
 	};
 	if(can_build==true){
 		// build!
@@ -299,14 +327,14 @@ void world::add_random_flora_fauna_city(int i, int j){
 	int a,b;
 	can_add=true;
 	can_add_person=true;
-	if(i<=0 || i>=(int) flora_fauna_map.size()-1 || j<=0 || j>=(int) flora_fauna_map[0].size()-1){
+	if(is_in_range(i,j,1)==false){
 		can_add=false;
 		can_add_person=false;
 	};
 	if(0< (int) wall_map.size()){	// not too close to building!
 		for(a=-2;a<=2;a++){
 			for(b=-2;b<=2;b++){
-				if(i+a>0 && i+a<(int) flora_fauna_map.size()-1 && j+b>0 && j+b<(int) flora_fauna_map[0].size()-1){
+				if(is_in_range(i+a,j+b,1)){
 					if(wall_map[i+a][j+b]!=-1){
 						can_add=false;
 						if(a==0 && b==0){
@@ -335,7 +363,6 @@ void world::add_random_flora_fauna_city(int i, int j){
 					flora_fauna_map[i][j]=10;	// cow
 				} else if(k==7){
 					npcs.push_back(make_new_npc(50,i,j));	// farmer
-			//		flora_fauna_map[i][j]=50;	// farmer
 				};
 				break;
 			case 2:
@@ -389,8 +416,7 @@ void world::spawn_random_flora_fauna(){
 	i=P.x+(rand()%21)-10;
 	j=P.y+(rand()%21)-10;
 	cout.flush();
-	if(i>0 && i<(int) world_map.size()-1 && j>0 && j<(int) world_map.size() && 
-			in_combat==false && in_city==false){	// in range, not in combat or city
+	if(is_in_range(i,j,0) && in_combat==false && in_city==false){	// in range, not in combat or city
 		if(flora_fauna_map[i][j]==-1 && occupied_by_special(i,j)==-1 && norm(towards_object(i,j,99))>3){
 			switch(world_map[i][j]){
 				case 0:

@@ -1,5 +1,17 @@
 /* draw.cc draws the screen */
 
+int world::center_height(int i, int j){
+	int h;
+	if(is_in_range(i,j,0)==false){
+		h=0;
+	} else if(world_map[i][j]>=4){
+		h=world_map[i][j]*20;
+	} else {
+		h=world_map[i][j]*16;
+	};
+	return(h);
+};
+
 void world::draw_wall(int i, int j){	
 	// i,j in [-5,5] is location relative to P.x,P.y
 	int k;
@@ -448,7 +460,7 @@ void world::draw_graphics(){
 		// draw overview map with 5x5 pixels just colored squares
 		for(j=-80;j<80;j++){
 			for(i=-80;i<80;i++){
-				if((-1 < x+i) && (x+i < (int) world_map.size()) && (-1 < y+j) && (y+j < (int) world_map[0].size())){
+				if(is_in_range(x+i,j+y,0)){
 					draw_square(5*(80+i),5*(80-j),5,color_code(world_map[x+i][y+j]));
 					if(flora_fauna_map[x+i][y+j]>=100){	// city
 						draw_square(5*(80+i),5*(80-j),5,0xFF0000);
@@ -476,10 +488,8 @@ void world::draw_graphics(){
 		
 		for(j=5;j>=-5;j--){
 			for(i=5;i>=-5;i--){
-				if((0 < x+i) && (x+i < (int) world_map.size()-1) && (0 < y+j) && (y+j < (int) world_map[0].size()-1)){
-					
+				if(is_in_range(x+i,y+j,0)){
 					draw_geographical_square(i,j);	// draw geography layer
-					
 					if(0 < (int) wall_map.size()){	// if map has a wall layer
 						if(wall_map[x+i][y+j]>-1){
 							draw_wall(i,j);				// draw wall layer
@@ -489,10 +499,8 @@ void world::draw_graphics(){
 				};
 			};
 			for(i=5;i>=-5;i--){
-				if((0 < x+i) && (x+i < (int) world_map.size()-1) && (0 < y+j) && (y+j < (int) world_map[0].size()-1)){
-
-					h=world_map[x+i][y+j]*16;
-
+				if(is_in_range(x+i,y+j,0)){
+					h=center_height(x+i,y+j);
 					k=flora_fauna_map[x+i][y+j];
 					if(k>=0 && k<100){
 						draw_sprite(k,400+(i*tile_size),400-(j*tile_size),h);
@@ -522,15 +530,12 @@ void world::draw_graphics(){
 					if(in_combat==true){
 						if(occupied_by_special(i+6,j+6)>-1){	// draw monsters
 							k=monsters[occupied_by_special(i+6,j+6)].id;
-							h=world_map[x+i][y+j]*16;
+							h=center_height(x+i,y+j);
 							draw_sprite(k,400+(i*tile_size),400-(j*tile_size),h);
 						};
 					
 						if(i==P.x-6 && j==P.y-6){	// draw avatar
-							h=world_map[P.x][P.y]*16;
-							if(world_map[P.x][P.y]>=4){
-								h=world_map[P.x][P.y]*20;
-							};
+							h=center_height(x+i,y+j);
 							if(P.skill_item[0]==false){		// if not embarked
 								draw_sprite(99,400+(i*tile_size),400-(j*tile_size),h);	// draw avatar
 							} else {
@@ -540,15 +545,12 @@ void world::draw_graphics(){
 					} else {
 						if(occupied_by_special(i+x,j+y)>-1){	// draw npcs
 							k=npcs[occupied_by_special(i+x,j+y)].id;
-							h=world_map[x+i][y+j]*16;
+							h=center_height(x+i,y+j);
 							draw_sprite(k,400+(i*tile_size),400-(j*tile_size),h);						
 						};
 					
 						if(i==0 && j==0){	// draw avatar
-							h=world_map[P.x][P.y]*16;
-							if(world_map[P.x][P.y]>=4){
-								h=world_map[P.x][P.y]*20;
-							};
+							h=center_height(P.x,P.y);
 							if(P.skill_item[0]==false){		// if not embarked
 								draw_sprite(99,400,400,h);	// draw avatar
 							} else {
@@ -560,10 +562,7 @@ void world::draw_graphics(){
 			};	
 		};		
 		for(i=0;i<(int) popup_message.size();i++){
-			h=world_map[popup_message[i].x+x][popup_message[i].y+y]*16;
-			if(world_map[popup_message[i].x+x][popup_message[i].y+y]>=4){
-				h=world_map[popup_message[i].x+x][popup_message[i].y+y]*20;
-			};
+			h=center_height(popup_message[i].x+x,popup_message[i].y+y);
 			p.x=400+(popup_message[i].x*tile_size)+50;
 			p.y=400-(popup_message[i].y*tile_size)-90-h;
 			p=affine_transform(p);
@@ -573,8 +572,6 @@ void world::draw_graphics(){
 		};
 		popup_message.clear();	// popup messages only last one move
 	};
-	
-
 };
 
 void world::draw_info(){

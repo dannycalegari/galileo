@@ -5,7 +5,7 @@ bool world::can_move_into_square(int w, int x, int y){	 // can move into square;
 	// w=0 avatar, w=1 animal/npc, w=2 fish/pirate ship, w=3 goat/mountaineer
 	
 	bool can_move;
-	if(x<1 || x>=(int) world_map.size()-1 || y<1 || y>=(int) world_map[0].size()-1){	// out of range check
+	if(is_in_range(x,y,0)==false){	// out of range check
 		return(false);
 	};
 	
@@ -115,8 +115,7 @@ void world::attempt_move(int x, int y){	// avatar attempts to move to relative l
 	Y=P.y+y;
 	bool can_move;
 
-	if(X<1 || X> (int) world_map.size()-2 || Y<1 || Y> (int) world_map[0].size()-2){	
-		// exit city or combat map; or if in europe,
+	if(is_in_range(X,Y,0)==false){	// exit city or combat map; or if in europe,
 		if(in_city){
 			exit_city();
 		} else if(in_combat){

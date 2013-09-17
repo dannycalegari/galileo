@@ -23,7 +23,7 @@ void world::update_map(){	// only update region centered on avatar, for speed
 	
 	for(i=P.x-UPDATE_WINDOW;i<=P.x+UPDATE_WINDOW;i++){		// could we update a bigger window?
 		for(j=P.y-UPDATE_WINDOW;j<=P.y+UPDATE_WINDOW;j++){
-			if(0<i && i<(int) world_map.size()-1 && 0<j && j<(int) world_map[0].size()-1){	// if in range
+			if(is_in_range(i,j,0)){		// if in range
 			
 				x=i;	// default is to stay still
 				y=j;
