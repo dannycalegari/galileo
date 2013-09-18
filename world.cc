@@ -88,6 +88,7 @@ class world{
 		point saved_coordinates;
 		string map_name;
 		bool in_city;
+		bool in_combat;
 
 		// world data
 		
@@ -103,7 +104,6 @@ class world{
 		void initialize();
 		void enter_city(string S);
 		void exit_city();
-//		void save_state();
 		void save_current_map();
 		void read_map(ifstream &input_file, int type);
 		void write_map(ofstream &output_file, int type);
@@ -178,7 +178,6 @@ class world{
 		
 		// combat; in combat.cc
 
-		bool in_combat;
 		monster make_new_monster(int type, int x, int y);
 		void attack(int x, int y);
 		void enter_combat(int type);

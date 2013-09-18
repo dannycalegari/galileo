@@ -132,7 +132,6 @@ void world::update_map(){	// only update region centered on avatar, for speed
 		for(l=0;l<(int) monsters.size();l++){
 			if(monsters[l].ranged_attack==true || norm(towards_object(monsters[l].x,monsters[l].y,99))==1){
 				// ranged attack, or adjacent?
-	//		is_adjacent_to_avatar(monsters[l].x,monsters[l].y)==true){
 				// attack!
 				add_new_message("monster swipes!");
 			} else {	// move towards avatar!		
