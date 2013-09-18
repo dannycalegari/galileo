@@ -8,10 +8,13 @@ struct party_state{	// data file for party
 	int max_health;
 	int gold; 
 	int wood;	
+	vector<string > item_list;
 	
-	// skills
-	bool skill_item[MAX_SKILL_NUM];		// has item to use skill
-	int skill[MAX_SKILL_NUM];			// proficiency in skill; out of 100
+	// skills out of 100
+	
+	int dexterity;
+	int strength;
+	int intelligence;
 };
 
 
@@ -81,6 +84,7 @@ class world{
 		int moves;
 		bool edit_mode;
 		bool view_mode;
+		bool embarked;
 		point saved_coordinates;
 		string map_name;
 		bool in_city;
@@ -133,6 +137,7 @@ class world{
 		void draw_sprite(int i, int x, int y, int h);
 
 		// functions to draw on screen; in draw.cc
+		
 		int center_height(int i, int j);
 		void draw_wall(int i, int j);	
 		void draw_geographical_square(int i, int j);
@@ -152,6 +157,7 @@ class world{
 		// conversation; in talk.cc
 		
 		string get_line_of_text();
+		string get_line_of_text(string R);
 		void talk(int x, int y);
 		string get_response(int c, string S);		// response of npc[c] to string S
 		void conversation_with_npc(int c);
@@ -177,7 +183,6 @@ class world{
 		void attack(int x, int y);
 		void enter_combat(int type);
 		void exit_combat();
-	//	void update_combat_map();
 
 		// npc; in npc.cc
 		
@@ -188,8 +193,12 @@ class world{
 
 		// use object; in use.cc
 
+		bool have_object(string S);
+		bool directional_use(string S);
+		void use_dialog();
+		void use_object(string S);					// three versions of this function
+		void use_object(string S, int x, int y);
 		void use_object(int x, int y);
-		bool test_of_skill(int i);
 		
 		// update state of world; in update.cc
 		
@@ -197,8 +206,8 @@ class world{
 		
 		// get keypress; in interface.cc
 
-		void select_direction_interface(int &select_direction_x, int &select_direction_y);
 		void user_interface();
+		KeySym select_direction_interface(int &select_direction_x, int &select_direction_y);
 
 };
 

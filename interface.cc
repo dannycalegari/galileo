@@ -146,15 +146,15 @@ void world::user_interface(){
 					
 				} else {				// GAME MODE
 					if(XLookupKeysym(&report.xkey, 0) == XK_b){	// board boat toggle
-						if(P.skill_item[0]==false){		// in not embarked
+						if(embarked==false){		// in not embarked
 							if(flora_fauna_map[P.x][P.y]==60 && world_map[P.x][P.y]==0){	// if on a boat on water
-								P.skill_item[0]=true;	// embark
+								embarked=true;	// embark
 								flora_fauna_map[P.x][P.y]=-1;	// remove boat from map
 								add_new_message("[b]oard boat");
 								update_map();
 							};
 						} else {
-							P.skill_item[0]=false;	// disembark
+							embarked=false;	// disembark
 							flora_fauna_map[P.x][P.y]=60;	// put boat back on map
 							add_new_message("exit [b]oat");
 							update_map();
@@ -162,11 +162,8 @@ void world::user_interface(){
 						draw();
 					};
 					if(XLookupKeysym(&report.xkey, 0) == XK_u){
-						add_new_message("[u]se; which direction? ");
-						draw_info();
-						select_direction_interface(x,y);
-						use_object(x,y);
-						update_map();
+						use_dialog();
+						update_map();	// does map update?
 						draw();
 					};
 					if(XLookupKeysym(&report.xkey, 0) == XK_t){
@@ -248,7 +245,7 @@ void world::user_interface(){
     };
 };
 
-void world::select_direction_interface(int &select_direction_x, int &select_direction_y){
+KeySym world::select_direction_interface(int &select_direction_x, int &select_direction_y){
 	bool finished;
 	point p;
 
@@ -290,4 +287,5 @@ void world::select_direction_interface(int &select_direction_x, int &select_dire
             	break;
         };
     };
+    return(XLookupKeysym(&report.xkey, 0));
 };

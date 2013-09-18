@@ -57,7 +57,7 @@ void world::attack(int x, int y){
 		if(occupied_by_special(P.x+x,P.y+y)>-1){	// is enemy there?
 			// attack!
 			add_new_message("swipe!");
-		} else if(P.skill_item[2]==true && special_in_direction(x,y)>-1){	// bow attack?
+		} else if(have_object("bow") && special_in_direction(x,y)>-1){	// bow attack?
 			// bow attack!
 			add_new_message("arrow fired!");
 		} else {

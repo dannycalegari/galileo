@@ -12,7 +12,7 @@ bool world::can_move_into_square(int w, int x, int y){	 // can move into square;
 //	can_move=true;	// default
 	switch(w){
 		case 0:		// avatar
-			if(P.skill_item[0]==true){	// embarked?
+			if(embarked){	// embarked?
 				if (world_map[x][y]==0){	// moving onto water?
 					can_move=true;
 				} else {
@@ -27,7 +27,7 @@ bool world::can_move_into_square(int w, int x, int y){	 // can move into square;
 			} else if (world_map[x][y]>4){	// high mountain
 				can_move=false;
 			} else if (world_map[x][y]==4){	// low mountain
-				if(P.skill_item[4]==true){	// have grapple?
+				if(have_object("grapple")){	// have grapple?
 					can_move=true;
 				} else {
 					can_move=false;
@@ -130,18 +130,18 @@ void world::attempt_move(int x, int y){	// avatar attempts to move to relative l
 		can_move=can_move_into_square(0,X,Y);
 		cout.flush();
 		if(can_move){
-			if(world_map[X][Y]==0){	// moving onto boat
-				if(P.skill_item[0]==false){	// not embarked
+			if(world_map[X][Y]==0){	// moving onto water
+				if(embarked==false){	// not embarked
 					P.x=X;
 					P.y=Y;
-				} else 	if(test_of_skill(0)==true){
+				} else if(rand()%20<P.dexterity){
 					P.x=X;
 					P.y=Y;				
 				} else {
 					add_new_message("capsize");
 				};
 			} else if(world_map[X][Y]==4){ // mountaineering
-				if(test_of_skill(4)==true){
+				if(rand()%60<P.dexterity){
 					P.x=X;
 					P.y=Y;
 				} else {

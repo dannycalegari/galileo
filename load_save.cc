@@ -232,6 +232,9 @@ void world::write_map(ofstream &output_file, int type){
 };
 
 void world::read_party(ifstream &input_file){
+	int number_of_items,i;
+	string S;
+	
 	input_file >> P.gender;
 	input_file >> moves;
 	input_file >> edit_mode;
@@ -242,16 +245,22 @@ void world::read_party(ifstream &input_file){
 	input_file >> P.health;
 	input_file >> P.wood;
 	input_file >> P.gold;
+	input_file >> P.dexterity;
+	input_file >> P.strength;
+	input_file >> P.intelligence;
 	
-	int i;
-	for(i=0;i<MAX_SKILL_NUM;i++){
-		input_file >> P.skill_item[i];
-		input_file >> P.skill[i];
-		if(input_file.eof()) break;
+	P.item_list.clear();	// initialize
+	input_file >> number_of_items;
+	
+	for(i=0;i<number_of_items;i++){
+		input_file >> S;
+		P.item_list.push_back(S);
 	};
 };
 
 void world::write_party(ofstream &output_file){
+	int number_of_items,i;
+
 	output_file << P.gender << "\n";
 	output_file << moves << "\n";
 	output_file << edit_mode << "\n";
@@ -262,9 +271,13 @@ void world::write_party(ofstream &output_file){
 	output_file << P.health << "\n";
 	output_file << P.wood << "\n";
 	output_file << P.gold << "\n";
+	output_file << P.dexterity << "\n";
+	output_file << P.strength << "\n";
+	output_file << P.intelligence << "\n";
 	
-	int i;
-	for(i=0;i<MAX_SKILL_NUM;i++){
-		output_file << P.skill_item[i] << " " << P.skill[i] << "\n";
+	number_of_items=P.item_list.size();
+	output_file << number_of_items << "\n";
+	for(i=0;i<number_of_items;i++){
+		output_file << P.item_list[i] << "\n";
 	};
 };

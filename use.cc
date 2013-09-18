@@ -1,5 +1,119 @@
 /* use.cc	use objects in game mode */
 
+bool world::have_object(string S){	// test if object is in inventory
+	int i;
+	bool have_object;
+	have_object=false;
+	for(i=0;i<(int) P.item_list.size();i++){
+		if(P.item_list[i]==S){	// need exact match
+			have_object=true;
+		};
+	};
+	return(have_object);
+};
+
+bool world::directional_use(string S){	// test if object is used in a direction
+	bool directional;
+	directional=false;
+	if(S=="bow" || S=="axe" || S=="bucket" || S=="telescope" || S=="net"){
+		directional=true;
+	};
+	return(directional);
+};
+
+void world::use_dialog(){	// interface to use object
+	int x,y;
+	string S,R;
+	char c;
+	KeySym k;
+	
+	add_new_message("use what?");
+	draw_info();
+	k=select_direction_interface(x,y);
+	if(norm(new_point(x,y))==0){
+		R="";
+		if(k >= 0x041 && k <= 0x05a){	// upper case
+			k=k+0x020;
+		} else if(k >=  0x061 && k <= 0x07a){
+			c=char('a'+(int) (k-97));
+			R=R+c;
+		};
+		S=get_line_of_text(R);	// need to strip off initial "> "
+		S=S.substr(2,S.length()-2);
+		if(have_object(S)){
+			if(directional_use(S)){
+				add_new_message("use in what direction?");
+				draw_info();
+				select_direction_interface(x,y);
+				// use object S in direction x,y
+				use_object(S,x,y);
+			} else {
+				// use object S
+				use_object(S);
+			};
+		} else {
+			add_new_message("you don't have "+S);
+		};
+	} else {
+		// use object in direction x,y
+		use_object(x,y);
+	};
+};
+
+void world::use_object(string S){
+	if(S=="seed"){	// plant sapling
+		if(flora_fauna_map[P.x][P.y]==-1 && (world_map[P.x][P.y]==1 || world_map[P.x][P.y]==2)){
+			flora_fauna_map[P.x][P.y]=4;	// sapling planted
+			add_new_message("seed planted");
+		};
+	};
+};
+
+void world::use_object(string S, int x, int y){
+	if(S=="bow"){	// use bow to hunt
+		if(flora_fauna_map[P.x+x][P.y+y]>=11 && flora_fauna_map[P.x+x][P.y+y]<=13){
+			// boar, goat, deer
+			if(rand()%100<P.dexterity){
+				add_new_message("animal killed");
+				flora_fauna_map[P.x+x][P.y+y]=-1;
+				P.food=P.food+100;
+			} else {
+				add_new_message("missed");
+			};
+		} else {
+			add_new_message("not here");
+		};
+	} else if(S=="axe"){	// use axe for firewood
+		if(flora_fauna_map[P.x+x][P.y+y]==0){	// tree
+			P.wood=P.wood+10;
+			add_new_message("collected firewood");
+			if(rand()%100<10){
+				flora_fauna_map[P.x+x][P.y+y]=-1;	// tree felled
+				add_new_message("tree felled");
+			};	
+		} else {
+			add_new_message("not here");
+		};
+	} else if(S=="bucket"){		// use bucket to milk cow
+		if(flora_fauna_map[P.x+x][P.y+y]==10){	// cow
+			if(rand()%50<P.dexterity){
+				add_new_message("cow milked");
+				P.food=P.food+10;
+			};
+		};
+	} else if(S=="net"){	// use net to catch fish
+		if(flora_fauna_map[P.x+x][P.y+y]==14){	// fish
+			if(rand()%75<P.dexterity){
+				add_new_message("fish caught");
+				flora_fauna_map[P.x+x][P.y+y]=-1;
+				P.food=P.food+40;
+			};
+		};
+	} else if(S=="telescope"){
+	
+	};
+};
+
 void world::use_object(int x, int y){	
 	// interact with object in flora/fauna layer in relative location x,y
 	int c;
@@ -8,76 +122,15 @@ void world::use_object(int x, int y){
 		case -1:
 			add_new_message("[u]se nothing");
 			break;
-		case 0:	// tree
-			if(test_of_skill(1)==true){	// have axe and pass woodcutting test
-				flora_fauna_map[P.x+x][P.y+y]=-1;	// tree is chopped down
-				add_new_message("tree felled");
-				P.wood=P.wood+100;
-			};
-			break;
-		case 1: // fruit tree
+		case 1:
 			add_new_message("fruit picked");
 			P.food++;
 			break;
-		
-		case 10: // cow
-			if(test_of_skill(5)==true){	// have bucket
-				add_new_message("cow milked");
-				P.food=P.food+10;
-			} else {
-			};
+		case 2:
+			add_new_message("coconut picked");
+			P.food=P.food+3;
 			break;
-		case 13:	// hunt deer
-			if(test_of_skill(2)==true){	// have bow and pass hunting test
-				flora_fauna_map[P.x+x][P.y+y]=-1;	// deer is killed
-				add_new_message("deer killed");
-				P.food=P.food+100;
-			} else {
-			};
-			break;
-		case 14: // fish
-			if(test_of_skill(3)==true){ // have net and pass fishing test
-				flora_fauna_map[P.x+x][P.y+y]=-1;	// fish is killed
-				add_new_message("fish caught");
-				P.food=P.food+100;
-			} else {
-			};
-			break;
-
 		default:
 			break;
-	};
-};
-
-/*
-	index			skill				item				failure
-	
-	0				sailing				embarked			stalled
-	1				woodcutting			axe					mishit
-	2				hunting				bow					missed
-	3				fishing				net					missed
-	4				climbing			grapple				stumbled
-	5				milking				bucket				spilled
-*/
-
-bool world::test_of_skill(int i){	// attempt skill index i
-	if(P.skill_item[i]==true){	// do you own the requisite item?
-		if(rand()%100 < P.skill[i]){
-			if(rand()%1000 > 900+P.skill[i]){	// attempt to improve
-				P.skill[i]++;
-			};
-		//	add_new_message("success");
-			return(true);
-		} else {
-		//	add_new_message("failed");
-			return(false);
-		};
-	} else {
-		if(i==0 || i==4){	// attempting to sail or mountain climb
-			add_new_message("blocked");
-		} else {
-			add_new_message("how?");
-		};
-		return(false);
 	};
 };

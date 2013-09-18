@@ -536,7 +536,7 @@ void world::draw_graphics(){
 					
 						if(i==P.x-6 && j==P.y-6){	// draw avatar
 							h=center_height(x+i,y+j);
-							if(P.skill_item[0]==false){		// if not embarked
+							if(embarked==false){		// if not embarked
 								draw_sprite(99,400+(i*tile_size),400-(j*tile_size),h);	// draw avatar
 							} else {
 								draw_sprite(60,400+(i*tile_size),400-(j*tile_size),h);	// draw boat
@@ -551,7 +551,7 @@ void world::draw_graphics(){
 					
 						if(i==0 && j==0){	// draw avatar
 							h=center_height(P.x,P.y);
-							if(P.skill_item[0]==false){		// if not embarked
+							if(embarked==false){		// if not embarked
 								draw_sprite(99,400,400,h);	// draw avatar
 							} else {
 								draw_sprite(60,400,400,h);	// draw boat
@@ -617,10 +617,15 @@ void world::draw_info(){
 	T << "H: " << P.health << " F: " << P.food << " G: " << P.gold << " W: " << P.wood;
 	p.y=180;
 	draw_text(p,T.str(),0xFFAAAA);
+	T.str("");
+	T << "D:  " << P.dexterity << "  S:  " << P.strength << "  I:  " << P.intelligence;
+	p.y=200;
+	draw_text(p,T.str(),0xFFAAAA);
 	
-	draw_line(1150,200,1350,200,0x0000FF);
 	
-	p.y=220;
+	draw_line(1150,220,1350,220,0x0000FF);
+	
+	p.y=240;
 	for(i=0;i<(int) message.size();i++){
 		T.str("");
 		T << message[i];
@@ -633,14 +638,7 @@ void world::draw_info(){
 			draw_text(p,message[i],0xAAAAFF);
 		};
 	};
-	
-	p.y=p.y+20;
-	for(i=0;i<(int) npcs.size();i++){		// only for debug purposes
-		T.str("");
-		T << "npc " << i << " " << npcs[i].cx << " " << npcs[i].cy << "  " << npcs[i].x << " " << npcs[i].y << "  " << npcs[i].d << " " << norm(new_point(npcs[i].x,npcs[i].y)-new_point(npcs[i].cx,npcs[i].cy)) << " goal " << npcs[i].goal;
-		p.y=p.y+20;
-		draw_text(p,T.str(),0xFFFFFF);
-	};
+
 };
 
 void world::draw_inventory(){
@@ -683,25 +681,17 @@ void world::draw_inventory(){
 	
 	
 	T.str("");
-	T << "health " << P.health;
+	T << "H: " << P.health << " F: " << P.food << " G: " << P.gold << " W: " << P.wood;
 	p.y=180;
 	draw_text(p,T.str(),0xFFAAAA);
 	T.str("");
-	T << "food " << P.food;
+	T << "D:  " << P.dexterity << "  S:  " << P.strength << "  I:  " << P.intelligence;
 	p.y=200;
 	draw_text(p,T.str(),0xFFAAAA);
-	T.str("");
-	T << "gold " << P.gold;
-	p.y=220;
-	draw_text(p,T.str(),0xFFAAAA);
-	T.str("");
-	T << "wood " << P.wood;
-	p.y=240;
-	draw_text(p,T.str(),0xFFAAAA);
 	
-	for(i=0;i<MAX_SKILL_NUM;i++){
+	for(i=0;i<(int) P.item_list.size();i++){
 		T.str("");
-		T << "skill " << i << " item " << P.skill_item[i] << " ability " << P.skill[i];
+		T << P.item_list[i];
 		p.y=290+(20*i);
 		draw_text(p,T.str(),0xFFAAAA);
 	};
