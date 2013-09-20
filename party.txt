@@ -11,10 +11,12 @@ male
 99
 99
 99
-6
+8
 axe
 bow
 grapple
 bucket
 telescope
 seed
+net
+saddle

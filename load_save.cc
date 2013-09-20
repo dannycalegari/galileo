@@ -26,6 +26,8 @@ void world::initialize(){
 	map_name="europe";
 	in_city=false;
 	in_combat=false;
+	embarked=false;
+	riding=false;
 	monsters.clear();	// no monsters
 //	npcs.clear();	// no npcs
 	message.clear();

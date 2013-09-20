@@ -65,61 +65,68 @@ int world::count_flora_fauna(int x, int y, int range, int type){
 	return(count);
 };
 
-void world::plant_trees(){
+void world::plant_trees(){	// seed world randomly with trees and fish
 	int i,j,k,ii,jj,kk;
 	
-	for(i=0;i<1000;i++){
-		for(j=0;j<800;j++){
-			// trees; must be in grass or scrub, but prefer grass
-			if(world_map[i][j]==1 || world_map[i][j]==2){
-				k=rand()%20;	
-				if(k==0){
-					flora_fauna_map[i][j]=0;
-				};
-			};
-			if(world_map[i][j]==3){
-				k=rand()%50;
-				if(k==0){
-					flora_fauna_map[i][j]=0;
-				};
-			};
-			
-			// fruit trees; must be in low-lying grass
-			if(world_map[i][j]==1){
-				k=rand()%35;
-				if(k==0){
-					flora_fauna_map[i][j]=1;
-				};
-			};
-			
-			// deer; must be in high grass or scrub
-			if(world_map[i][j]==2 || world_map[i][j]==3){
-				k=rand()%100;
-				if(k==0){
-					flora_fauna_map[i][j]=2;
-				};
-			};
-			
-			// fish; must be in water near land
-			if(world_map[i][j]==0){
-				kk=0;
-				for(ii=i-3;ii<=i+3;ii++){
-					for(jj=j-3;jj<=j+3;jj++){
-						kk=kk+world_map[ii][jj];
+	for(i=0;i<(int) world_map.size();i++){
+		for(j=0;j<(int) world_map[0].size();j++){
+			switch(world_map[i][j]){
+				case 0:	// water
+					kk=0;
+					for(ii=i-3;ii<=i+3;ii++){
+						for(jj=j-3;jj<=j+3;jj++){
+							if(is_in_range(ii,jj,0)){
+								kk=kk+world_map[ii][jj];
+							};
+						};
 					};
-				};
-				k=rand()%50;
-				if(k==0 && kk>0){
-					flora_fauna_map[i][j]=3;
-				};
-			};
-			
-			// bear; must be in scrub
-			if(world_map[i][j]==3){
-				k=rand()%250;
-				if(k==0){
-					flora_fauna_map[i][j]=4;
-				};
+					k=rand()%50;
+					if(k==0 && kk>0){
+						flora_fauna_map[i][j]=14;	// fish
+					};
+					break;
+				case 1: // low-lying grass
+					k=rand()%100;
+					if(k<2){	// plant a tree
+						kk=j+(rand()%300);
+						if(kk<300){	// tropical
+							flora_fauna_map[i][j]=2;	// palm tree
+						} else if(kk<600){	// temperate	
+							flora_fauna_map[i][j]=0;	// tree
+						} else {	// arctic
+							flora_fauna_map[i][j]=3;	// pine tree
+						};
+					} else if(k<3 && j>100 & j<600){	// plant a fruit tree
+						flora_fauna_map[i][j]=1;	// fruit tree					
+					};
+					break;
+				case 2:	// grass
+					k=rand()%100;
+					if(k<2){	// plant a tree
+						kk=j+(rand()%200);
+						if(kk<300){	// tropical
+							flora_fauna_map[i][j]=2;	// palm tree
+						} else if(kk<600){	// temperate	
+							flora_fauna_map[i][j]=0;	// tree
+						} else {	// arctic
+							flora_fauna_map[i][j]=3;	// pine tree
+						};
+					};
+					break;
+				case 3:	// scrub
+					k=rand()%100;
+					if(k==0){
+						kk=j+(rand()%200);
+						if(kk<300){	// tropical
+							flora_fauna_map[i][j]=2;	// palm tree
+						} else if(kk<600){	// temperate	
+							flora_fauna_map[i][j]=0;	// tree
+						} else {	// arctic
+							flora_fauna_map[i][j]=3;	// pine tree
+						};					
+					};
+				default:
+					break;
 			};
 		};
 	};
@@ -422,47 +429,73 @@ void world::spawn_random_flora_fauna(){
 				case 0:
 					k=rand()%10;
 					if(k<2){
-						flora_fauna_map[i][j]=14;	// new fish
+						if(count_geography(i,j,30,14)<20){
+							flora_fauna_map[i][j]=14;	// new fish
+						};
 					};
 					break;
 				case 1:
 					k=rand()%10;
 					if(k<2){
-						flora_fauna_map[i][j]=11;	// new boar
+						if(count_geography(i,j,30,11)<5){
+							flora_fauna_map[i][j]=11;	// new boar
+						};
 					} else if(k<6){
-						flora_fauna_map[i][j]=13;	// new deer
+						if(count_geography(i,j,30,13)<5){
+							flora_fauna_map[i][j]=13;	// new deer
+						};
 					};
 					break;
 				case 2:
 					k=rand()%20;
 					if(k<6){
-						flora_fauna_map[i][j]=11;	// new boar
+						if(count_geography(i,j,30,11)<5){
+							flora_fauna_map[i][j]=11;	// new boar
+						};
 					} else if(k<12){
-						flora_fauna_map[i][j]=13;	// new deer
+						if(count_geography(i,j,30,13)<5){
+							flora_fauna_map[i][j]=13;	// new deer
+						};
 					} else if(k<13){
-						flora_fauna_map[i][j]=21;	// new wolf
+						if(count_geography(i,j,30,21)<3){
+							flora_fauna_map[i][j]=21;	// new wolf
+						};
 					} else if(k<14){
-						flora_fauna_map[i][j]=53;	// new robber
+						if(count_geography(i,j,30,21)<2){
+							flora_fauna_map[i][j]=53;	// new robber
+						};
 					};
 					break;
 				case 3:
 					k=rand()%20;
 					if(k<1){
-						flora_fauna_map[i][j]=11;	// new boar
+						if(count_geography(i,j,30,11)<5){
+							flora_fauna_map[i][j]=11;	// new boar
+						};
 					} else if(k<2){
-						flora_fauna_map[i][j]=21;	// new wolf
+						if(count_geography(i,j,30,21)<3){
+							flora_fauna_map[i][j]=21;	// new wolf
+						};
 					} else if(k<3){
-						flora_fauna_map[i][j]=20;	// new bear
+						if(count_geography(i,j,30,20)<3){
+							flora_fauna_map[i][j]=20;	// new bear
+						};
 					} else if(k<4){
-						flora_fauna_map[i][j]=53;	// new robber
+						if(count_geography(i,j,30,21)<2){
+							flora_fauna_map[i][j]=53;	// new robber
+						};
 					} else if(k<5){
-						flora_fauna_map[i][j]=12;	// new goat
+						if(count_geography(i,j,30,12)<5){
+							flora_fauna_map[i][j]=12;	// new goat
+						};
 					};
 					break;
 				case 4:
 					k=rand()%10;
 					if(k==0){
-						flora_fauna_map[i][j]=12;	// new goat
+						if(count_geography(i,j,30,12)<5){
+							flora_fauna_map[i][j]=12;	// new goat
+						};
 					};
 					break;
 			};

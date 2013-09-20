@@ -17,6 +17,12 @@ void world::update_map(){	// only update region centered on avatar, for speed
 		After all moves have taken place, 100 is added back to the index.
 	*/
 	
+	if(riding){	// twice as fast!
+		if(moves%2==1){
+			return;
+		};
+	};
+	
 	if(rand()%SPAWN_RATE==0 && in_combat==false && in_city==false){	
 		spawn_random_flora_fauna();
 	};
@@ -40,10 +46,11 @@ void world::update_map(){	// only update region centered on avatar, for speed
 					case 11:	// boar
 					case 12:	// goat
 					case 13:	// deer
+					case 16:	// horse
 						if(flora_fauna_map[i][j]==12){
 							l=3;	// move type of goat
 						} else {
-							l=1;	// move type of boar/deer
+							l=1;	// move type of boar/deer/horse
 						};
 						desired_move=-towards_object(i,j,99);	// move away from avatar
 						p=best_free_direction(i, j, desired_move, l);

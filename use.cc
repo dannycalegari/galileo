@@ -15,7 +15,7 @@ bool world::have_object(string S){	// test if object is in inventory
 bool world::directional_use(string S){	// test if object is used in a direction
 	bool directional;
 	directional=false;
-	if(S=="bow" || S=="axe" || S=="bucket" || S=="telescope" || S=="net"){
+	if(S=="bow" || S=="axe" || S=="bucket" || S=="telescope" || S=="net" || S=="saddle"){
 		directional=true;
 	};
 	return(directional);
@@ -111,6 +111,16 @@ void world::use_object(string S, int x, int y){
 		};
 	} else if(S=="telescope"){
 	
+	} else if(S=="saddle"){		// use saddle on horse
+		if(flora_fauna_map[P.x+x][P.y+y]==16){	// horse
+			if(rand()%100<P.dexterity){
+				add_new_message("horse saddled");
+				flora_fauna_map[P.x+x][P.y+y]=-1;
+				riding=true;
+				P.x=P.x+x;
+				P.y=P.y+y;
+			};
+		};
 	};
 };
 

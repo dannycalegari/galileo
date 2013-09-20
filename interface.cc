@@ -80,6 +80,17 @@ void world::user_interface(){
 				
 				if(edit_mode==true){	// EDIT MODE
 				
+				// in edit mode: clear/plant trees
+				
+					if(XLookupKeysym(&report.xkey, 0) == XK_g){	// clear flora/fauna layer
+						clear_flora_fauna();
+						draw();
+					};
+					if(XLookupKeysym(&report.xkey, 0) == XK_h){	// plant trees
+						plant_trees();
+						draw();
+					};
+					
 				// in edit mode: raise/lower geography
 				
 					if(XLookupKeysym(&report.xkey, 0) == XK_equal){ // raise geography
@@ -146,18 +157,35 @@ void world::user_interface(){
 					
 				} else {				// GAME MODE
 					if(XLookupKeysym(&report.xkey, 0) == XK_b){	// board boat toggle
-						if(embarked==false){		// in not embarked
-							if(flora_fauna_map[P.x][P.y]==60 && world_map[P.x][P.y]==0){	// if on a boat on water
-								embarked=true;	// embark
-								flora_fauna_map[P.x][P.y]=-1;	// remove boat from map
-								add_new_message("[b]oard boat");
+						if(riding==true){
+							if(flora_fauna_map[P.x][P.y]!=-1){
+								add_new_message("not here");
+							} else {
+								riding=false;	// dismount
+								flora_fauna_map[P.x][P.y]=16;	// put horse back on map
+								add_new_message("[b]ridle off");
 								update_map();
 							};
+						} else if(embarked==false){		// in not embarked
+							if(flora_fauna_map[P.x][P.y]==60 && world_map[P.x][P.y]==0){	// if on a boat on water
+								if(riding==true){
+									add_new_message("horses not allowed on boats!");
+								} else {
+									embarked=true;	// embark
+									flora_fauna_map[P.x][P.y]=-1;	// remove boat from map
+									add_new_message("[b]oard boat");
+									update_map();
+								};
+							};
 						} else {
-							embarked=false;	// disembark
-							flora_fauna_map[P.x][P.y]=60;	// put boat back on map
-							add_new_message("exit [b]oat");
-							update_map();
+							if(flora_fauna_map[P.x][P.y]!=-1){
+								add_new_message("not here");
+							} else {
+								embarked=false;	// disembark
+								flora_fauna_map[P.x][P.y]=60;	// put boat back on map
+								add_new_message("exit [b]oat");
+								update_map();
+							};
 						};
 						draw();
 					};

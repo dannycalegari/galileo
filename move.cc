@@ -27,10 +27,14 @@ bool world::can_move_into_square(int w, int x, int y){	 // can move into square;
 			} else if (world_map[x][y]>4){	// high mountain
 				can_move=false;
 			} else if (world_map[x][y]==4){	// low mountain
-				if(have_object("grapple")){	// have grapple?
-					can_move=true;
-				} else {
+				if(riding || embarked){	// can't climb mountains on horseback or in a boat
 					can_move=false;
+				} else {
+					if(have_object("grapple")){	// have grapple?
+						can_move=true;
+					} else {
+						can_move=false;
+					};
 				};
 			} else if((int) wall_map.size()>0){	// is there a wall layer?
 				if(wall_map[x][y]>-1){	// is there a wall?

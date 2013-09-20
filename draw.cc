@@ -536,10 +536,12 @@ void world::draw_graphics(){
 					
 						if(i==P.x-6 && j==P.y-6){	// draw avatar
 							h=center_height(x+i,y+j);
-							if(embarked==false){		// if not embarked
-								draw_sprite(99,400+(i*tile_size),400-(j*tile_size),h);	// draw avatar
-							} else {
+							if(embarked==true){		// if not embarked
 								draw_sprite(60,400+(i*tile_size),400-(j*tile_size),h);	// draw boat
+							} else if(riding==true){
+								draw_sprite(16,400+(i*tile_size),400-(j*tile_size),h);	// draw horse
+							} else {
+								draw_sprite(99,400+(i*tile_size),400-(j*tile_size),h);	// draw avatar
 							};						
 						};
 					} else {
@@ -551,10 +553,12 @@ void world::draw_graphics(){
 					
 						if(i==0 && j==0){	// draw avatar
 							h=center_height(P.x,P.y);
-							if(embarked==false){		// if not embarked
-								draw_sprite(99,400,400,h);	// draw avatar
-							} else {
+							if(embarked==true){		// if not embarked
 								draw_sprite(60,400,400,h);	// draw boat
+							} else if(riding==true){
+								draw_sprite(16,400,400,h);	// draw horse
+							} else {
+								draw_sprite(99,400,400,h);	// draw avatar
 							};
 						};
 					};

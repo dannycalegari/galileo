@@ -18,6 +18,7 @@ void world::load_sprites(){
 	S[2]="palm_tree.xpm";
 	S[3]="pine_tree.xpm";
 	S[4]="sapling.xpm";
+	S[5]="flowers.xpm";
 	
 	S[10]="cow.xpm";
 	S[11]="boar.xpm";
@@ -25,6 +26,7 @@ void world::load_sprites(){
 	S[13]="deer.xpm";
 	S[14]="fish.xpm";
 	S[15]="dog.xpm";
+	S[16]="horse.xpm";
 	
 	S[20]="bear.xpm";
 	S[21]="wolf.xpm";

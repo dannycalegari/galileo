@@ -85,6 +85,7 @@ class world{
 		bool edit_mode;
 		bool view_mode;
 		bool embarked;
+		bool riding;
 		point saved_coordinates;
 		string map_name;
 		bool in_city;
