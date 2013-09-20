@@ -461,7 +461,7 @@ void world::spawn_random_flora_fauna(){
 							flora_fauna_map[i][j]=21;	// new wolf
 						};
 					} else if(k<14){
-						if(count_geography(i,j,30,21)<2){
+						if(count_geography(i,j,30,53)<2){
 							flora_fauna_map[i][j]=53;	// new robber
 						};
 					};
@@ -481,7 +481,7 @@ void world::spawn_random_flora_fauna(){
 							flora_fauna_map[i][j]=20;	// new bear
 						};
 					} else if(k<4){
-						if(count_geography(i,j,30,21)<2){
+						if(count_geography(i,j,30,53)<2){
 							flora_fauna_map[i][j]=53;	// new robber
 						};
 					} else if(k<5){
