@@ -64,6 +64,7 @@ using namespace std;
 #include "interface.cc"
 #include "update.cc"
 #include "npc.cc"
+#include "goal.cc"
 #include "direction.cc"
 
 int main(int argc, char *argv[]){ 

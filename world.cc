@@ -188,6 +188,9 @@ class world{
 		
 		npc make_new_npc(int type, int x, int y);	// returns new npc of desired kind and location
 		void remove_npc(int i);
+		
+		// goal functions; in goal.cc
+		
 		int update_goal(int type, int goal);
 		void achieve_goal(int l, int goal, point desired_move);
 
@@ -200,7 +203,7 @@ class world{
 		void use_object(string S, int x, int y);
 		void use_object(int x, int y);
 		void add_new_object(string S);
-		void remove_object(string S);	// not yet implemented
+		void remove_object(string S);
 
 		
 		// update state of world; in update.cc

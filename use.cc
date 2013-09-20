@@ -157,7 +157,7 @@ void world::use_object(int x, int y){
 void world::add_new_object(string S){
 	int i;
 	bool already_have;
-	already_have==false;
+	already_have=false;
 	for(i=0;i<(int) P.item_list.size();i++){	// do I already have the object?
 		if(S==P.item_list[i]){
 			already_have=true;
@@ -168,6 +168,17 @@ void world::add_new_object(string S){
 	};
 };
 
-void world::remove_object(string S){	// not yet implemented
-
+void world::remove_object(string S){
+	int i,j;
+	bool have_object;
+	have_object=false;
+	for(i=0;i<(int) P.item_list.size();i++){
+		if(S==P.item_list[i]){
+			have_object=true;
+			j=i;
+		};
+	};
+	if(have_object){
+		P.item_list.erase(P.item_list.begin()+j);
+	};
 };
