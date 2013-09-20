@@ -44,13 +44,24 @@ npc world::make_new_npc(int type, int x, int y){
 	N.talk_list.clear();	// initialize
 			
 	switch(type){
-		case 50:	// generic farmer npc
+		case 49:	// generic scholar npc
+			N.id=49;
+			N.goal=51;	// initial goal is merchant
+			N.talk_list.push_back(new_conversation_item("initial", "hello!"));
+			N.talk_list.push_back(new_conversation_item("name", "Martin"));
+			N.talk_list.push_back(new_conversation_item("job", "scholar"));
+			N.talk_list.push_back(new_conversation_item("read", "I read many books"));
+			N.talk_list.push_back(new_conversation_item("book", "I hear there is a new book by an Italian called Galileo"));
+			N.talk_list.push_back(new_conversation_item("bye", "bye!;exit"));		
+			break;			
+		case 50:	// generic milkmaid npc
 			N.id=50;
 			N.goal=10;	// initial goal is cow
 			N.talk_list.push_back(new_conversation_item("initial", "hello!"));
 			N.talk_list.push_back(new_conversation_item("name", "Jane"));
-			N.talk_list.push_back(new_conversation_item("job", "farmer"));
+			N.talk_list.push_back(new_conversation_item("job", "milkmaid"));
 			N.talk_list.push_back(new_conversation_item("rain", "good for the farmers"));
+			N.talk_list.push_back(new_conversation_item("cow", "they like flowers"));
 			N.talk_list.push_back(new_conversation_item("farm", "I milk cows"));
 			N.talk_list.push_back(new_conversation_item("milk", "used for cheese"));
 			N.talk_list.push_back(new_conversation_item("cheese", "try a Stilton in London"));
@@ -58,7 +69,7 @@ npc world::make_new_npc(int type, int x, int y){
 			break;
 		case 51: // generic merchant npc
 			N.id=51;
-			N.goal=50;	// initial goal is farmer
+			N.goal=50;	// initial goal is milkmaid
 			N.talk_list.push_back(new_conversation_item("initial", "hello!"));
 			N.talk_list.push_back(new_conversation_item("name", "Antonio"));
 			N.talk_list.push_back(new_conversation_item("job", "merchant"));
@@ -133,7 +144,33 @@ npc world::make_new_npc(int type, int x, int y){
 			N.talk_list.push_back(new_conversation_item("note", "let's take this allegro"));
 			N.talk_list.push_back(new_conversation_item("concert", "I played for the pope in Rome"));
 			N.talk_list.push_back(new_conversation_item("bye", "bye!;exit"));
-			break;				
+			break;	
+		case 58:	// generic farmer npc
+			N.id=58;
+			N.goal=51;	// initial goal is merchant
+			N.talk_list.push_back(new_conversation_item("initial", "hello!"));
+			N.talk_list.push_back(new_conversation_item("name", "Watt"));
+			N.talk_list.push_back(new_conversation_item("what", "wat ho!"));
+			N.talk_list.push_back(new_conversation_item("rain", "good for the farmers"));
+			N.talk_list.push_back(new_conversation_item("farm", "I harvest wheat"));
+			N.talk_list.push_back(new_conversation_item("wheat", "used for bread"));
+			N.talk_list.push_back(new_conversation_item("bread", "talk to a cook"));
+			N.talk_list.push_back(new_conversation_item("bye", "bye!;exit"));	
+			break;		
+		case 59:	// generic shepherd npc
+			N.id=59;
+			N.goal=17;	// initial goal is sheep
+			N.talk_list.push_back(new_conversation_item("initial", "hello!"));
+			N.talk_list.push_back(new_conversation_item("name", "Seana"));
+			N.talk_list.push_back(new_conversation_item("job", "shepherd"));
+			N.talk_list.push_back(new_conversation_item("weather", "looks like rain"));
+			N.talk_list.push_back(new_conversation_item("rain", "good for the farmers"));
+			N.talk_list.push_back(new_conversation_item("sheep", "all we like sheep"));
+			N.talk_list.push_back(new_conversation_item("farm", "I tend sheep"));
+			N.talk_list.push_back(new_conversation_item("wool", "used for clothes"));
+			N.talk_list.push_back(new_conversation_item("clothes", "good for cold weather"));
+			N.talk_list.push_back(new_conversation_item("bye", "bye!;exit"));		
+			break;
 		default:
 			break;
 	};
@@ -165,7 +202,7 @@ int world::update_goal(int type, int goal){
 	int new_goal;
 	
 	switch(type){
-		case 50:	// farmer
+		case 50:	// milkmaid
 			switch(goal){
 				case 51:	// reach merchant
 					new_goal=10;	// new goal is cow
@@ -180,14 +217,14 @@ int world::update_goal(int type, int goal){
 			break;
 		case 51:	// merchant
 			switch(goal){
-				case 50:	// reach farmer
+				case 50:	// reach milkmaid
 					new_goal=52;	// new goal is woodcutter
 					break;
 				case 52:	// reach woodcutter
 					new_goal=99;	// new goal is avatar
 					break;
 				case 99:	// reach avatar
-					new_goal=50;	// new goal is farmer
+					new_goal=50;	// new goal is milkmaid
 					break;
 				default:
 					new_goal=-1;

@@ -63,8 +63,9 @@ void world::update_map(){	// only update region centered on avatar, for speed
 						};
 						break;
 					case 10:		// cow
+					case 17:		// sheep
 					case 14:		// fish
-					case 50:		// generic farmer
+					case 50:		// generic milkmaid
 					case 51:		// generic merchant
 						if(flora_fauna_map[i][j]==14){
 							l=2;	// move type of fish

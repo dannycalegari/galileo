@@ -94,7 +94,7 @@ void world::talk(int x, int y){
 			c=flora_fauna_map[P.x+x][P.y+y];
 			switch(c){
 				case 50:
-					add_new_message(": Nice weather we're having");	// farmer
+					add_new_message(": Nice weather we're having");	// milkmaid
 					break;
 				case 51:
 					add_new_message(": I'm too busy to talk to you"); // merchant

@@ -369,7 +369,7 @@ void world::add_random_flora_fauna_city(int i, int j){
 				} else if(k==6){
 					flora_fauna_map[i][j]=10;	// cow
 				} else if(k==7){
-					npcs.push_back(make_new_npc(50,i,j));	// farmer
+					npcs.push_back(make_new_npc(50,i,j));	// milkmaid
 				};
 				break;
 			case 2:
@@ -379,7 +379,7 @@ void world::add_random_flora_fauna_city(int i, int j){
 				} else if (k<7) {
 					flora_fauna_map[i][j]=10;	// cow
 				} else if (k==7) {
-					npcs.push_back(make_new_npc(50,i,j));	// farmer
+					npcs.push_back(make_new_npc(50,i,j));	// milkmaid
 				};
 				break;
 			case 3:
@@ -394,7 +394,7 @@ void world::add_random_flora_fauna_city(int i, int j){
 	} else if(can_add_person==true){
 		k=rand()%10;
 		if(k<2){
-			npcs.push_back(make_new_npc(50,i,j));	// farmer
+			npcs.push_back(make_new_npc(50,i,j));	// milkmaid
 		} else if(k<4){
 			npcs.push_back(make_new_npc(55,i,j));	// cook
 		} else if(k<6){

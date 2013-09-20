@@ -27,6 +27,7 @@ void world::load_sprites(){
 	S[14]="fish.xpm";
 	S[15]="dog.xpm";
 	S[16]="horse.xpm";
+	S[17]="sheep.xpm";
 	
 	S[20]="bear.xpm";
 	S[21]="wolf.xpm";
@@ -44,7 +45,8 @@ void world::load_sprites(){
 //	S[40]="gibraltar.xpm";
 	S[41]="castle.xpm";
 	
-	S[50]="farmer.xpm";
+	S[49]="scholar.xpm";
+	S[50]="milkmaid.xpm";
 	S[51]="merchant.xpm";
 	S[52]="woodcutter.xpm";
 	S[53]="robber.xpm";
@@ -52,6 +54,8 @@ void world::load_sprites(){
 	S[55]="cook.xpm";
 	S[56]="monk.xpm";
 	S[57]="musician.xpm";
+	S[58]="farmer.xpm";
+	S[59]="shepherd.xpm";
 	
 	S[60]="boat.xpm";
 	S[61]="arrow.xpm";
