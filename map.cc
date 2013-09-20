@@ -464,7 +464,6 @@ void world::spawn_random_flora_fauna(){
 						if(count_geography(i,j,30,53)<2){
 							flora_fauna_map[i][j]=53;	// new robber
 						};
-					};
 					break;
 				case 3:
 					k=rand()%20;
@@ -487,6 +486,11 @@ void world::spawn_random_flora_fauna(){
 					} else if(k<5){
 						if(count_geography(i,j,30,12)<5){
 							flora_fauna_map[i][j]=12;	// new goat
+						};
+					};
+					} else if(k<6){
+						if(count_geography(i,j,30,16)<2){
+							flora_fauna_map[i][j]=16;	// new horse
 						};
 					};
 					break;
