@@ -199,6 +199,9 @@ class world{
 		void use_object(string S);					// three versions of this function
 		void use_object(string S, int x, int y);
 		void use_object(int x, int y);
+		void add_new_object(string S);
+		void remove_object(string S);	// not yet implemented
+
 		
 		// update state of world; in update.cc
 		

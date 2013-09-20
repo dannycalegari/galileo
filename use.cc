@@ -15,7 +15,7 @@ bool world::have_object(string S){	// test if object is in inventory
 bool world::directional_use(string S){	// test if object is used in a direction
 	bool directional;
 	directional=false;
-	if(S=="bow" || S=="axe" || S=="bucket" || S=="telescope" || S=="net" || S=="saddle"){
+	if(S=="bow" || S=="axe" || S=="bucket" || S=="telescope" || S=="net" || S=="saddle" || S=="flower"){
 		directional=true;
 	};
 	return(directional);
@@ -121,6 +121,11 @@ void world::use_object(string S, int x, int y){
 				P.y=P.y+y;
 			};
 		};
+	} else if(S=="flower"){		// use flower on cow
+		if(flora_fauna_map[P.x+x][P.y+y]==10){	// cow
+			add_new_message("cow eats flower");
+			// do something
+		};
 	};
 };
 
@@ -140,7 +145,29 @@ void world::use_object(int x, int y){
 			add_new_message("coconut picked");
 			P.food=P.food+3;
 			break;
+		case 5:
+			add_new_message("flower picked");
+			// add flower as item
+			break;
 		default:
 			break;
 	};
+};
+
+void world::add_new_object(string S){
+	int i;
+	bool already_have;
+	already_have==false;
+	for(i=0;i<(int) P.item_list.size();i++){	// do I already have the object?
+		if(S==P.item_list[i]){
+			already_have=true;
+		};
+	};
+	if(already_have==false){	// if not, then add it to item list
+		P.item_list.push_back(S);
+	};
+};
+
+void world::remove_object(string S){	// not yet implemented
+
 };
