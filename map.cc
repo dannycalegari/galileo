@@ -429,7 +429,7 @@ void world::spawn_random_flora_fauna(){
 				case 0:
 					k=rand()%10;
 					if(k<2){
-						if(count_geography(i,j,30,14)<20){
+						if(count_flora_fauna(i,j,30,14)<20){
 							flora_fauna_map[i][j]=14;	// new fish
 						};
 					};
@@ -437,11 +437,11 @@ void world::spawn_random_flora_fauna(){
 				case 1:
 					k=rand()%10;
 					if(k<2){
-						if(count_geography(i,j,30,11)<5){
+						if(count_flora_fauna(i,j,30,11)<5){
 							flora_fauna_map[i][j]=11;	// new boar
 						};
 					} else if(k<6){
-						if(count_geography(i,j,30,13)<5){
+						if(count_flora_fauna(i,j,30,13)<5){
 							flora_fauna_map[i][j]=13;	// new deer
 						};
 					};
@@ -449,47 +449,47 @@ void world::spawn_random_flora_fauna(){
 				case 2:
 					k=rand()%20;
 					if(k<6){
-						if(count_geography(i,j,30,11)<5){
+						if(count_flora_fauna(i,j,30,11)<5){
 							flora_fauna_map[i][j]=11;	// new boar
 						};
 					} else if(k<12){
-						if(count_geography(i,j,30,13)<5){
+						if(count_flora_fauna(i,j,30,13)<5){
 							flora_fauna_map[i][j]=13;	// new deer
 						};
 					} else if(k<13){
-						if(count_geography(i,j,30,21)<3){
+						if(count_flora_fauna(i,j,30,21)<3){
 							flora_fauna_map[i][j]=21;	// new wolf
 						};
 					} else if(k<14){
-						if(count_geography(i,j,30,53)<2){
+						if(count_flora_fauna(i,j,30,53)<2){
 							flora_fauna_map[i][j]=53;	// new robber
 						};
+					};
 					break;
 				case 3:
 					k=rand()%20;
 					if(k<1){
-						if(count_geography(i,j,30,11)<5){
+						if(count_flora_fauna(i,j,30,11)<5){
 							flora_fauna_map[i][j]=11;	// new boar
 						};
 					} else if(k<2){
-						if(count_geography(i,j,30,21)<3){
+						if(count_flora_fauna(i,j,30,21)<3){
 							flora_fauna_map[i][j]=21;	// new wolf
 						};
 					} else if(k<3){
-						if(count_geography(i,j,30,20)<3){
+						if(count_flora_fauna(i,j,30,20)<3){
 							flora_fauna_map[i][j]=20;	// new bear
 						};
 					} else if(k<4){
-						if(count_geography(i,j,30,53)<2){
+						if(count_flora_fauna(i,j,30,53)<2){
 							flora_fauna_map[i][j]=53;	// new robber
 						};
 					} else if(k<5){
-						if(count_geography(i,j,30,12)<5){
+						if(count_flora_fauna(i,j,30,12)<5){
 							flora_fauna_map[i][j]=12;	// new goat
 						};
-					};
 					} else if(k<6){
-						if(count_geography(i,j,30,16)<2){
+						if(count_flora_fauna(i,j,30,16)<2){
 							flora_fauna_map[i][j]=16;	// new horse
 						};
 					};
@@ -497,10 +497,12 @@ void world::spawn_random_flora_fauna(){
 				case 4:
 					k=rand()%10;
 					if(k==0){
-						if(count_geography(i,j,30,12)<5){
+						if(count_flora_fauna(i,j,30,12)<5){
 							flora_fauna_map[i][j]=12;	// new goat
 						};
 					};
+					break;
+				default:
 					break;
 			};
 		};
