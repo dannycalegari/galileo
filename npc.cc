@@ -60,7 +60,7 @@ npc world::make_new_npc(int type, int x, int y){
 			N.talk_list.push_back(new_conversation_item("job", "merchant"));
 			N.talk_list.push_back(new_conversation_item("merchant", "I trained in Venice"));
 			N.talk_list.push_back(new_conversation_item("money", "it makes the world go round"));
-			N.talk_list.push_back(new_conversation_item("buy", "I don't have my wares with me"));
+			N.talk_list.push_back(new_conversation_item("buy", "what would you like;ba"));
 			N.talk_list.push_back(new_conversation_item("bye", "bye!;exit"));	
 			break;
 		case 52: // generic woodcutter npc
@@ -107,6 +107,7 @@ npc world::make_new_npc(int type, int x, int y){
 			N.talk_list.push_back(new_conversation_item("job", "cook"));
 			N.talk_list.push_back(new_conversation_item("food", "I love to bake bread"));
 			N.talk_list.push_back(new_conversation_item("bread", "the best bread is in Paris"));
+			N.talk_list.push_back(new_conversation_item("buy", "what would you like;bb"));
 			N.talk_list.push_back(new_conversation_item("eat", "I better not, I just ate"));
 			N.talk_list.push_back(new_conversation_item("bye", "bye!;exit"));
 			break;			

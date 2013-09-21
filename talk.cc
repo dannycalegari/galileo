@@ -152,6 +152,7 @@ void world::conversation_with_npc(int c){
 		};
 		add_new_message(": "+T);
 		if(U.size()>0){
+			nonverbal_response(c,U);
 			// analyze nonverbal response
 		};
 		draw_info();
@@ -168,7 +169,8 @@ void world::nonverbal_response(int c,string U){	// npc[c] has response U
 	char d;
 	if(U[0]=='b'){	// buy
 		d=U[1];
-		i=(int) d;
+		i=(int) d - (int) 'a';
 		// commerce routine i
+		cout << "buy routine " << i << "\n";
 	};
 };

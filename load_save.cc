@@ -138,17 +138,24 @@ void world::read_npc_file(ifstream &input_file){
 	input_file >> number_of_npcs;	// number of npcs
 	for(i=0;i<number_of_npcs;i++){	// for each npc
 		input_file >> N.id;
+		cout << N.id << "\n";
 		input_file >> N.x >> N.y;
+		cout << N.x << " " << N.y << "\n";
 		input_file >> N.goal;
-		input_file >> number_of_conversation_items;
+		cout << N.goal << "\n";
+		getline(input_file,S);	// clear buffer
 		getline(input_file,S);	// 
 		N.grumble=S;
-//		getline(input_file,S);	// clear buffer
+		cout << "grumble " << N.grumble << "\n";
+		input_file >> number_of_conversation_items;
+		cout << number_of_conversation_items << "\n";
+		getline(input_file,S);	// clear buffer
 		N.talk_list.clear();
 		for(j=0;j<number_of_conversation_items;j++){
 			getline(input_file,S);
 			getline(input_file,R);
 			C=new_conversation_item(S,R);
+			cout << S << " " << R << "\n";
 			N.talk_list.push_back(C);
 		};
 		npcs.push_back(N);
