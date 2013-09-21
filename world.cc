@@ -151,7 +151,7 @@ class world{
 		string get_response(int c, string S);		// response of npc[c] to string S
 		void conversation_with_npc(int c);
 		void nonverbal_response(int c,string U);	// npc[c] has response U
-
+		void commerce_routine(int i);
 
 		// functions to determine location, direction, pathfinding; direction.cc
 		

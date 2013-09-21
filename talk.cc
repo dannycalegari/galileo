@@ -170,7 +170,65 @@ void world::nonverbal_response(int c,string U){	// npc[c] has response U
 	if(U[0]=='b'){	// buy
 		d=U[1];
 		i=(int) d - (int) 'a';
-		// commerce routine i
-		cout << "buy routine " << i << "\n";
+		commerce_routine(i);
+	};
+};
+
+struct sale_item{
+	string item;
+	int price;
+};
+
+void world::commerce_routine(int i){
+	string S;
+	char c;
+	stringstream T;
+	vector<sale_item> wares;
+	sale_item I;
+	int j,k;
+	switch(i){
+		case 0: // arms dealer
+			wares.clear();
+			I.item="bow";
+			I.price=50;
+			wares.push_back(I);
+			I.item="sword";
+			I.price=70;
+			wares.push_back(I);
+			break;
+		case 1:	// baker
+			wares.clear();
+			I.item="bread";
+			I.price=5;
+			wares.push_back(I);
+			I.item="pie";
+			I.price=10;
+			wares.push_back(I);
+			I.item="cake";
+			I.price=20;
+			wares.push_back(I);
+			break;
+		default:
+			break;
+	};
+	for(j=0;j<(int) wares.size();j++){
+		T.str("");
+		T << ": [" << (char) ((int) 'a'+j) << "] " << wares[j].item << " " << wares[j].price;
+		add_new_message(T.str());
+	};
+	T.str("");
+	T << ": [" << (char) ((int) 'a'+(int) wares.size()) << "] nothing";
+	add_new_message(T.str());
+	S=get_line_of_text();
+	c=S[2];	// strip off initial "> "
+	k=(int) c - (int) 'a';
+	if(0<=k && k<(int) wares.size()){	// if it is on the list
+		if(P.gold>=wares[k].price){	// if P has enough money
+			P.gold=P.gold-wares[k].price;
+			add_new_object(wares[k].item);
+			add_new_message(": here you are");
+		} else {
+			add_new_message(": not enough gold!");
+		};
 	};
 };
