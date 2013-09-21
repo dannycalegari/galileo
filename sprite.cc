@@ -32,18 +32,18 @@ void world::load_sprites(){
 	S[20]="bear.xpm";
 	S[21]="wolf.xpm";
 	
-//	S[30]="cambridge.xpm";
-	S[31]="london.xpm";
-	S[32]="amsterdam.xpm";
-	S[33]="paris.xpm";
-	S[34]="venice.xpm";
-//	S[35]="rome.xpm";
-//	S[36]="zurich.xpm";
-//	S[37]="athens.xpm";
-//	S[38]="constantinople.xpm";
-//	S[39]="madrid.xpm";
-//	S[40]="gibraltar.xpm";
-	S[41]="castle.xpm";
+//	S[30]="cambridge.xpm";		// 100
+	S[31]="london.xpm";			// 101
+	S[32]="amsterdam.xpm";		// 102
+	S[33]="paris.xpm";			// 103
+	S[34]="venice.xpm";			// 104
+//	S[35]="rome.xpm";			// 105
+//	S[36]="zurich.xpm";			// 106
+//	S[37]="athens.xpm";			// 107
+//	S[38]="constantinople.xpm";	// 108
+//	S[39]="madrid.xpm";			// 109
+//	S[40]="gibraltar.xpm";		// 110
+	S[41]="castle.xpm";			// 111
 	
 	S[49]="scholar.xpm";
 	S[50]="milkmaid.xpm";

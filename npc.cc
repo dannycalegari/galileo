@@ -10,22 +10,9 @@ struct conversation_item{
 
 struct npc{
 	int x,y;	// coordinates 
-	int id;		//
-	int cx,cy;	// center of gravity
-	int hx,hy;	// heading direction
-	int d;		// maximum L_1 distance from center of gravity
-	int goal;	// sprite number of object npc wants to move towards; -1=none
-		// skills; out of 100
-	int sword;
-	int bow;
-	int net;
-	int farming;
-	int axe;
-		// attributes; out of 100
-	int health;
-	int food;
-	int wood;
-	
+	int id;		// sprite number of npc appearance
+	int goal;	// flora/fauna number of object npc wants to move towards; -1=none
+	string grumble;		// speech balloon said randomly
 	vector<conversation_item > talk_list;	// canned responses for conversation
 };
 */
@@ -36,16 +23,12 @@ npc world::make_new_npc(int type, int x, int y){
 
 	N.x=x;	// initial location
 	N.y=y;
-	N.cx=x;	// center of gravity
-	N.cy=y;
-	N.hx=1;	// initial heading
-	N.hy=0;
-	N.d=20;	// maximum distance from center of gravity
 	N.talk_list.clear();	// initialize
 			
 	switch(type){
 		case 49:	// generic scholar npc
 			N.id=49;
+			N.grumble="hmm";
 			N.goal=51;	// initial goal is merchant
 			N.talk_list.push_back(new_conversation_item("initial", "hello!"));
 			N.talk_list.push_back(new_conversation_item("name", "Martin"));
@@ -56,6 +39,7 @@ npc world::make_new_npc(int type, int x, int y){
 			break;			
 		case 50:	// generic milkmaid npc
 			N.id=50;
+			N.grumble="la la";
 			N.goal=10;	// initial goal is cow
 			N.talk_list.push_back(new_conversation_item("initial", "hello!"));
 			N.talk_list.push_back(new_conversation_item("name", "Jane"));
@@ -69,6 +53,7 @@ npc world::make_new_npc(int type, int x, int y){
 			break;
 		case 51: // generic merchant npc
 			N.id=51;
+			N.grumble="";
 			N.goal=50;	// initial goal is milkmaid
 			N.talk_list.push_back(new_conversation_item("initial", "hello!"));
 			N.talk_list.push_back(new_conversation_item("name", "Antonio"));
@@ -80,6 +65,7 @@ npc world::make_new_npc(int type, int x, int y){
 			break;
 		case 52: // generic woodcutter npc
 			N.id=52;
+			N.grumble="timber!";
 			N.goal=0;	// initial goal is tree
 			N.talk_list.push_back(new_conversation_item("initial", "hello!"));
 			N.talk_list.push_back(new_conversation_item("name", "Lisa"));
@@ -92,6 +78,7 @@ npc world::make_new_npc(int type, int x, int y){
 			break;
 		case 53: // generic robber npc
 			N.id=53;
+			N.grumble="stand and deliver";
 			N.goal=99;	// initial goal is avatar
 			N.talk_list.push_back(new_conversation_item("initial", "what do you want?"));
 			N.talk_list.push_back(new_conversation_item("name", "Iago"));
@@ -101,6 +88,7 @@ npc world::make_new_npc(int type, int x, int y){
 			break;
 		case 54: // generic knight npc
 			N.id=54;
+			N.grumble="";
 			N.goal=20;	// initial goal is bear
 			N.talk_list.push_back(new_conversation_item("initial", "hello!"));
 			N.talk_list.push_back(new_conversation_item("name", "Sir Donald"));
@@ -112,6 +100,7 @@ npc world::make_new_npc(int type, int x, int y){
 			break;
 		case 55: // generic cook npc
 			N.id=55;
+			N.grumble="";
 			N.goal=51;	// initial goal is merchant
 			N.talk_list.push_back(new_conversation_item("initial", "hello!"));
 			N.talk_list.push_back(new_conversation_item("name", "Pierre"));
@@ -123,6 +112,7 @@ npc world::make_new_npc(int type, int x, int y){
 			break;			
 		case 56: // generic monk npc
 			N.id=56;
+			N.grumble="amen";
 			N.goal=62;	// initial goal is crucifix
 			N.talk_list.push_back(new_conversation_item("initial", "hello!"));
 			N.talk_list.push_back(new_conversation_item("name", "Francis"));
@@ -135,6 +125,7 @@ npc world::make_new_npc(int type, int x, int y){
 			break;		
 		case 57: // generic musician npc
 			N.id=57;
+			N.grumble="do re mi";
 			N.goal=51;	// initial goal is merchant
 			N.talk_list.push_back(new_conversation_item("initial", "hello!"));
 			N.talk_list.push_back(new_conversation_item("name", "Lydia"));
@@ -147,6 +138,7 @@ npc world::make_new_npc(int type, int x, int y){
 			break;	
 		case 58:	// generic farmer npc
 			N.id=58;
+			N.grumble="arrr";
 			N.goal=51;	// initial goal is merchant
 			N.talk_list.push_back(new_conversation_item("initial", "hello!"));
 			N.talk_list.push_back(new_conversation_item("name", "Watt"));
@@ -159,13 +151,14 @@ npc world::make_new_npc(int type, int x, int y){
 			break;		
 		case 59:	// generic shepherd npc
 			N.id=59;
+			N.grumble="";
 			N.goal=17;	// initial goal is sheep
 			N.talk_list.push_back(new_conversation_item("initial", "hello!"));
 			N.talk_list.push_back(new_conversation_item("name", "Seana"));
 			N.talk_list.push_back(new_conversation_item("job", "shepherd"));
 			N.talk_list.push_back(new_conversation_item("weather", "looks like rain"));
 			N.talk_list.push_back(new_conversation_item("rain", "good for the farmers"));
-			N.talk_list.push_back(new_conversation_item("sheep", "all we like sheep"));
+			N.talk_list.push_back(new_conversation_item("sheep", "we all like sheep"));
 			N.talk_list.push_back(new_conversation_item("farm", "I tend sheep"));
 			N.talk_list.push_back(new_conversation_item("wool", "used for clothes"));
 			N.talk_list.push_back(new_conversation_item("clothes", "good for cold weather"));

@@ -1,6 +1,5 @@
 /* goal.cc	goal routines for npcs	*/
 
-
 int world::update_goal(int type, int goal){
 	// when npc of type achieves goal, value of new goal
 	int new_goal;
@@ -41,9 +40,9 @@ int world::update_goal(int type, int goal){
 					new_goal=0;	// new goal is tree
 					break;
 				case 0:	// reach tree
-					new_goal=100;	// new goal is city
+					new_goal=111;	// new goal is city
 					break;
-				case 100: // reach city
+				case 111: // reach city
 					new_goal=0;		// new goal is tree
 					break;
 				default:
@@ -66,12 +65,8 @@ void world::achieve_goal(int l, int goal, point desired_move){
 			break;
 		case 0:		// reach tree
 			if(npcs[l].id==52){	// if woodcutter
-				flora_fauna_map[npcs[l].x+desired_move.x][npcs[l].y+desired_move.y]=-1;	// chop down tree and replace with sapling
-				if(norm(new_point(npcs[l].x,npcs[l].y)-new_point(npcs[l].cx,npcs[l].cy))!=npcs[l].d-1){	// special case to fix bizarre sapling trap
-					flora_fauna_map[npcs[l].x][npcs[l].y]=4;	// plant sapling
-				} else {
-					flora_fauna_map[npcs[l].x+desired_move.x][npcs[l].y+desired_move.y]=4;
-				};
+				flora_fauna_map[npcs[l].x+desired_move.x][npcs[l].y+desired_move.y]=-1;	// chop down tree 
+				flora_fauna_map[npcs[l].x+desired_move.x][npcs[l].y+desired_move.y]=4;	// and replace with sapling
 			};
 			break;
 		/*
@@ -93,3 +88,8 @@ void world::achieve_goal(int l, int goal, point desired_move){
 			break;
 	};
 };
+
+void world::pursue_special_goal(int type, int goal){	// special goals; usually plot related
+
+};
+

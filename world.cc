@@ -39,22 +39,9 @@ conversation_item new_conversation_item(string P, string R){
 
 struct npc{
 	int x,y;	// coordinates 
-	int id;		//
-	int cx,cy;	// center of gravity
-	int hx,hy;	// heading direction
-	int d;		// maximum L_1 distance from center of gravity
-	int goal;	// sprite number of object npc wants to move towards; -1=none
-		// skills; out of 100
-	int sword;
-	int bow;
-	int net;
-	int farming;
-	int axe;
-		// attributes; out of 100
-	int health;
-	int food;
-	int wood;
-	
+	int id;		// sprite number of npc appearance
+	int goal;	// flora/fauna number of object npc wants to move towards; -1=none
+	string grumble;		// speech balloon said randomly
 	vector<conversation_item > talk_list;	// canned responses for conversation
 };
 
@@ -65,6 +52,7 @@ struct monster{
 	bool ranged_attack;
 	int strength;
 	int dexterity;
+	int intelligence;
 };
 
 struct balloon_speech{	// speech item that pops up near npc/fauna/monster on graphic screen
@@ -162,6 +150,8 @@ class world{
 		void talk(int x, int y);
 		string get_response(int c, string S);		// response of npc[c] to string S
 		void conversation_with_npc(int c);
+		void nonverbal_response(int c,string U);	// npc[c] has response U
+
 
 		// functions to determine location, direction, pathfinding; direction.cc
 		
@@ -193,6 +183,7 @@ class world{
 		
 		int update_goal(int type, int goal);
 		void achieve_goal(int l, int goal, point desired_move);
+		void pursue_special_goal(int type, int goal);
 
 		// use object; in use.cc
 

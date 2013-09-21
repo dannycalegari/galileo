@@ -162,3 +162,13 @@ void world::conversation_with_npc(int c){
 		};
 	};
 };
+
+void world::nonverbal_response(int c,string U){	// npc[c] has response U
+	int i;
+	char d;
+	if(U[0]=='b'){	// buy
+		d=U[1];
+		i=(int) d;
+		// commerce routine i
+	};
+};

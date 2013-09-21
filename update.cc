@@ -1,12 +1,11 @@
 /* update.cc 	animals, predators, fish and npcs move	*/
 
 void world::update_map(){	// only update region centered on avatar, for speed
-	int i,j,k,l,m;
+	int i,j,k,l;
 	int x,y;
 	point p;
 	point desired_move;
 	stringstream T;
-	bool accessible_goal;
 	
 	moves++;
 	
@@ -154,63 +153,73 @@ void world::update_map(){	// only update region centered on avatar, for speed
 				};	
 			};
 		};
-	} else {	// move npcs; goalless npcs have a "heading" which makes their movement look purposeful
+	} else {	// move npcs; 
 		l=0;
 		while(l<(int) npcs.size()){
-			desired_move=new_point(0,0);
-			accessible_goal=false;
-
-			if(npcs[l].goal==100){	// goal 100 special case
-				desired_move=towards_object(npcs[l].x,npcs[l].y,100,110);
-			} else if (npcs[l].goal>-1){
-				desired_move=towards_object(npcs[l].x,npcs[l].y,npcs[l].goal);
-			};
-			if(norm(desired_move+new_point(npcs[l].x,npcs[l].y)-new_point(npcs[l].cx,npcs[l].cy))>npcs[l].d){	// is goal too far away?
-				accessible_goal=false;
-			} else if(norm(desired_move)>0){	// nearby goal
-				accessible_goal=true;
+			// npc move governed by goal
+			if(npcs[l].goal==-2){	// no goal; stationary
+				// do nothing
+			} else if(npcs[l].goal==-1){	// no goal; random move
+				p=rand_point();
+				if(can_move_into_square(1,npcs[l].x+p.x,npcs[l].y+p.y)){
+					npcs[l].x=npcs[l].x+p.x;	// move!
+					npcs[l].y=npcs[l].y+p.y;			
+				};
+			} else if(npcs[l].goal>111){	// special goal; no move
+				pursue_special_goal(npcs[l].id,npcs[l].goal);
+			} else {	// motion goal;
+				if (npcs[l].goal>-1 && npcs[l].goal<111){	// specific goal
+					desired_move=towards_object(npcs[l].x,npcs[l].y,npcs[l].goal);
+				} else if (npcs[l].goal==111){	// generic city goal
+					desired_move=towards_object(npcs[l].x,npcs[l].y,100,110);
+				};
 				if(norm(desired_move)==1){	// adjacent to goal
-					achieve_goal(l, npcs[l].goal, desired_move);	// achieve goal
-					npcs[l].goal=update_goal(npcs[l].id, npcs[l].goal);	// update goal
-				} else {	// move towards goal
-					p=fancy_best_free_direction(npcs[l].x,npcs[l].y,desired_move,1,20);	// pathfinding
-					if(norm(p)==1){
-						assert(can_move_into_square(1,npcs[l].x+p.x,npcs[l].y+p.y));
-						npcs[l].x=npcs[l].x+p.x;	// move!
-						npcs[l].y=npcs[l].y+p.y;
+					achieve_goal(l,npcs[l].goal,desired_move);
+					npcs[l].goal=update_goal(npcs[l].id,npcs[l].goal);
+				} else {	// definitely want to try to move
+					if(rand()%4==0){	// might make a random move anyway
+						p=rand_point();
+						if(can_move_into_square(1,npcs[l].x+p.x,npcs[l].y+p.y)){
+							npcs[l].x=npcs[l].x+p.x;	// move!
+							npcs[l].y=npcs[l].y+p.y;			
+						};					
 					} else {
-						assert(norm(p)==0);
-						accessible_goal=false;
+						if(norm(desired_move)>1 && norm(desired_move)<20){	// close to goal
+							p=fancy_best_free_direction(npcs[l].x,npcs[l].y,desired_move,1,20);
+						} else if(norm(desired_move)>=20){
+							p=best_free_direction(npcs[l].x,npcs[l].y,desired_move,1);
+						} else {
+							p=new_point(0,0);
+						};
+						if(norm(p)==1){ 	// deliberate move
+							assert(can_move_into_square(1,npcs[l].x+p.x,npcs[l].y+p.y));
+							npcs[l].x=npcs[l].x+p.x;	// move!
+							npcs[l].y=npcs[l].y+p.y;
+						} else {	// random move
+							p=rand_point();
+							if(can_move_into_square(1,npcs[l].x+p.x,npcs[l].y+p.y)){
+								npcs[l].x=npcs[l].x+p.x;	// move!
+								npcs[l].y=npcs[l].y+p.y;			
+							};
+						};
 					};
 				};
 			};
 			
-			if(accessible_goal==false){	// no goal or no accessible goal
-				if(rand()%5==0){
-					m=npcs[l].hx;				// turn heading left
-					npcs[l].hx=npcs[l].hy;
-					npcs[l].hy=-1*m;
-				};
-				x=npcs[l].x+npcs[l].hx;	// move in heading direction
-				y=npcs[l].y+npcs[l].hy;	// move in heading direction
-				if(can_move_into_square(1,x,y)==true){	// square is free
-					if(norm(new_point(x,y)-new_point(npcs[l].cx,npcs[l].cy))>npcs[l].d){
-						// too far from center of gravity
-						npcs[l].hx=-1*npcs[l].hx;	// about face
-						npcs[l].hy=-1*npcs[l].hy;
-					} else {
-						npcs[l].x=x;
-						npcs[l].y=y;
-					};
-				} else {
-					m=npcs[l].hx;				// turn heading right
-					npcs[l].hx=-1*npcs[l].hy;
-					npcs[l].hy=m;
-				};
+			
+			
+			// npc says something
+			
+			if(edit_mode){
+				T.str("");
+				T << npcs[l].goal;
+				add_popup_message(npcs[l].x-P.x,npcs[l].y-P.y,T.str());
+			} else if(rand()%10==0){
+				T.str("");
+				T << npcs[l].grumble;
+				add_popup_message(npcs[l].x-P.x,npcs[l].y-P.y,T.str());			
 			};
-			T.str("");
-			T << npcs[l].goal;
-			add_popup_message(npcs[l].x-P.x,npcs[l].y-P.y,T.str());
+				
 			if(npcs[l].x==0 && npcs[l].y==0){	// npc "dead"
 				remove_npc(l);
 				l--;
