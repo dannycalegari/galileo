@@ -12,17 +12,32 @@ int world::center_height(int i, int j){
 	return(h);
 };
 
+int world::off_height(int i, int j, int a, int b){	// a is from -1 to 1, b from -1 to 1
+	int h;
+	if(is_in_range(i,j,0)==false){
+		h=0;
+	} else {
+		h=world_map[i][j]+world_map[i+a][j]+world_map[i][j+b]+world_map[i+a][j+b];
+		if(a==0 && b==0 && world_map[i][j]>=4){
+			h=world_map[i][j]*5;
+		};
+	};
+	h=h*4;
+	return(h);
+};
+
 void world::draw_wall(int i, int j){	
 	// i,j in [-5,5] is location relative to P.x,P.y
-	int k;
-	int a,b;
-	vector<int> r,s;
-	vector<long> d;
-	int x,y;
-	int height[3][3];
+	int k,x,y;
+	int n,m,mm,l;
+	long wall_code;
+	long carpet_code[2];
 	int wall_height;
-	long c;
-	XPoint q[20];	// maximum number of vertices of polygon?
+	long wall_color;
+	long carpet_color[2];
+	
+	XPoint q[20];	// maximum number of vertices of polygon
+	XPoint r;
 	if(in_combat==true){
 		x=6;
 		y=6;
@@ -31,325 +46,178 @@ void world::draw_wall(int i, int j){
 		y=P.y;
 	};
 	k=wall_map[x+i][y+j];	// k is type of wall
-	for(a=-1;a<2;a++){
-		for(b=-1;b<2;b++){
-			height[a+1][b+1]=world_map[x+i][y+j]+world_map[x+i+a][y+j]+world_map[x+i][y+j+b]+world_map[x+i+a][y+j+b];
-			if(a==0 && b==0 && world_map[x+i][y+j]>=4){	// mountain tile
-				height[1][1]=world_map[x+i][y+j]*5;
-			};
-		};
-	};
-
-	r.clear();
-	s.clear();	
-	d.clear();
 	
 	switch(k){
 		case 0:		// EW wall
+			carpet_code[0]=9;	// no carpet
+			carpet_code[1]=9;
+			wall_code=9741;
+			wall_color=0xAAAAFF;
 			wall_height=50;
-			r.push_back(2);
-			s.push_back(1);
-			d.push_back(0xAAAAFF);
-			r.push_back(1);
-			s.push_back(1);
-			d.push_back(0xAAAAFF);
-			r.push_back(0);
-			s.push_back(1);
 			break;
 		case 1:		// NS wall
+			carpet_code[0]=9;	// no carpet
+			carpet_code[1]=9;
+			wall_code=9543;
+			wall_color=0x9999EE;
 			wall_height=50;
-			r.push_back(1);
-			s.push_back(2);
-			d.push_back(0x9999EE);
-			r.push_back(1);
-			s.push_back(1);
-			d.push_back(0x9999EE);
-			r.push_back(1);
-			s.push_back(0);
 			break;
 		case 2:		// corner
+			carpet_code[0]=9;
+			carpet_code[1]=9;
+			wall_code=957315;
+			wall_color=0xDDDDFF;
 			wall_height=80;
-			r.push_back(2);
-			s.push_back(1);
-			d.push_back(0x555599);
-			r.push_back(1);
-			s.push_back(2);
-			d.push_back(0x222266);
-			r.push_back(0);
-			s.push_back(1);
-			d.push_back(0xDDDDFF);
-			r.push_back(1);
-			s.push_back(0);
-			d.push_back(0x7777CC);
-			r.push_back(2);
-			s.push_back(1);
 			break;
 		case 3:		// NE diagonal
+			carpet_code[0]=9;
+			carpet_code[1]=9;
+			wall_code=9840;
+			wall_color=0xAAAAFF;
 			wall_height=50;
-			r.push_back(2);
-			s.push_back(2);
-			d.push_back(0x7777CC);
-			r.push_back(1);
-			s.push_back(1);
-			d.push_back(0x7777CC);
-			r.push_back(0);
-			s.push_back(0);
 			break;
 		case 4:		// NW diagonal
+			carpet_code[0]=9;
+			carpet_code[1]=9;
+			wall_code=9642;
+			wall_color=0xAAAAFF;
 			wall_height=50;
-			r.push_back(2);
-			s.push_back(0);
-			d.push_back(0xDDDDFF);
-			r.push_back(1);
-			s.push_back(1);
-			d.push_back(0xDDDDFF);
-			r.push_back(0);
-			s.push_back(2);
 			break;
 		case 5:		// NE W
+			carpet_code[0]=9;
+			carpet_code[1]=9;
+			wall_code=9741;
+			wall_color=0xAAAAFF;
 			wall_height=50;
-			r.push_back(2);
-			s.push_back(2);
-			d.push_back(0x7777CC);
-			r.push_back(1);
-			s.push_back(1);
-			d.push_back(0xAAAAFF);
-			r.push_back(0);
-			s.push_back(1);
 			break;		
 		case 6:		// NE S
+			carpet_code[0]=9;
+			carpet_code[1]=9;
+			wall_code=9743;
+			wall_color=0xAAAAFF;
 			wall_height=50;
-			r.push_back(2);
-			s.push_back(2);
-			d.push_back(0x7777CC);
-			r.push_back(1);
-			s.push_back(1);
-			d.push_back(0x9999EE);
-			r.push_back(1);
-			s.push_back(0);
 			break;			
 		case 7:		// NW E
+			carpet_code[0]=9;
+			carpet_code[1]=9;
+			wall_code=9247;
+			wall_color=0xAAAAFF;
 			wall_height=50;
-			r.push_back(0);
-			s.push_back(2);
-			d.push_back(0xDDDDFF);
-			r.push_back(1);
-			s.push_back(1);
-			d.push_back(0xAAAAFF);
-			r.push_back(2);
-			s.push_back(1);
 			break;	
 		case 8:		// NW S
+			carpet_code[0]=9;
+			carpet_code[1]=9;
+			wall_code=9243;
+			wall_color=0xAAAAFF;
 			wall_height=50;
-			r.push_back(0);
-			s.push_back(2);
-			d.push_back(0xDDDDFF);
-			r.push_back(1);
-			s.push_back(1);
-			d.push_back(0x9999EE);
-			r.push_back(1);
-			s.push_back(0);
 			break;	
 		case 9:		// SE W
+			carpet_code[0]=9;
+			carpet_code[1]=9;
+			wall_code=9641;
+			wall_color=0xAAAAFF;
 			wall_height=50;
-			r.push_back(2);
-			s.push_back(0);
-			d.push_back(0xDDDDFF);
-			r.push_back(1);
-			s.push_back(1);
-			d.push_back(0xAAAAFF);
-			r.push_back(0);
-			s.push_back(1);
 			break;
 		case 10:	// SE N
+			carpet_code[0]=9;
+			carpet_code[1]=9;
+			wall_code=9645;
+			wall_color=0xAAAAFF;
 			wall_height=50;
-			r.push_back(1);
-			s.push_back(2);
-			d.push_back(0x9999EE);
-			r.push_back(1);
-			s.push_back(1);
-			d.push_back(0xDDDDFF);
-			r.push_back(2);
-			s.push_back(0);
 			break;
 		case 11:	// SW E
+			carpet_code[0]=9;
+			carpet_code[1]=9;
+			wall_code=9047;
+			wall_color=0xAAAAFF;
 			wall_height=50;
-			r.push_back(0);
-			s.push_back(0);
-			d.push_back(0x7777CC);
-			r.push_back(1);
-			s.push_back(1);
-			d.push_back(0xAAAAFF);
-			r.push_back(2);
-			s.push_back(1);
 			break;		
 		case 12:	// SW N
+			carpet_code[0]=9;
+			carpet_code[1]=9;
+			wall_code=9540;
+			wall_color=0xAAAAFF;
 			wall_height=50;
-			r.push_back(1);
-			s.push_back(2);	
-			d.push_back(0x9999EE);
-			r.push_back(1);
-			s.push_back(1);
-			d.push_back(0x7777CC);
-			r.push_back(0);
-			s.push_back(0);	
 			break;
 		case 13:	// floor
-			d.push_back(0xAAAAAA);
-			d.push_back(0xFF0000);	// red checker floor
-			r.push_back(0);
-			s.push_back(0);
-			r.push_back(1);
-			s.push_back(0);
-			r.push_back(1);
-			s.push_back(1);
-			r.push_back(1);
-			s.push_back(2);
-			r.push_back(2);
-			s.push_back(2);
-			r.push_back(2);
-			s.push_back(1);
-			r.push_back(1);
-			s.push_back(1);
-			r.push_back(0);
-			s.push_back(1);
+			carpet_color[0]=0xAAAAAA;
+			carpet_color[1]=0xFF0000;
+			carpet_code[0]=903678521;
+			carpet_code[1]=903478541;
+			wall_code=90;
 			break;
 		case 14:	
-			d.push_back(0xBC8F8F);
-			d.push_back(0x800080);	// purple spiral
-			r.push_back(1);
-			s.push_back(1);
-			r.push_back(2);
-			s.push_back(1);
-			r.push_back(2);
-			s.push_back(2);
-			r.push_back(1);
-			s.push_back(1);
-			r.push_back(1);
-			s.push_back(2);
-			r.push_back(0);
-			s.push_back(2);
-			r.push_back(1);
-			s.push_back(1);
-			r.push_back(0);
-			s.push_back(1);
-			r.push_back(0);
-			s.push_back(0);
-			r.push_back(1);
-			s.push_back(1);
-			r.push_back(1);
-			s.push_back(0);
-			r.push_back(2);
-			s.push_back(0);			
+			carpet_color[0]=0xBC8F8F;
+			carpet_color[1]=0x800080;	// purple spiral
+			carpet_code[0]=903678521;
+			carpet_code[1]=9478452410436;
+			wall_code=90;
 			break;
 		case 15:
-			d.push_back(0xFFFACD);
-			d.push_back(0xFFD700);	// gold and chiffon stripes
-			r.push_back(2);
-			s.push_back(0);
-			r.push_back(2);
-			s.push_back(1);
-			r.push_back(1);
-			s.push_back(0);
-			r.push_back(0);
-			s.push_back(0);
-			r.push_back(1);
-			s.push_back(1);
-			r.push_back(2);
-			s.push_back(2);
-			r.push_back(1);
-			s.push_back(2);
-			r.push_back(0);
-			s.push_back(1);
-			r.push_back(0);
-			s.push_back(0);
-			r.push_back(1);
-			s.push_back(0);
+			carpet_color[0]=0xFFFACD;
+			carpet_color[1]=0xFFD700;	// gold and chiffon stripes
+			carpet_code[0]=903678521;
+			carpet_code[1]=96730485103;
+			wall_code=90;
 			break;
 		default:
+			carpet_code[0]=9;	// no carpet
+			carpet_code[1]=9;
+			wall_code=98;
 			break;
 	};
-	if(r.size()>=1 && k>=0 && k<=12){	// crenellated wall
-		for(a=0;a<(int) r.size()-1;a++){
-			q[0].x=365+(i*70)+r[a]*35;
-			q[0].y=435-(j*70)-s[a]*35;
-			q[0]=affine_transform(q[0]);
-			q[0].y=q[0].y-height[r[a]][s[a]]*4;
-			q[1].x=365+(i*70)+r[a]*35;
-			q[1].y=435-(j*70)-s[a]*35;
-			q[1]=affine_transform(q[1]);
-			q[1].y=q[1].y-height[r[a]][s[a]]*4-wall_height;			
-			q[6].x=365+(i*70)+r[a+1]*35;
-			q[6].y=435-(j*70)-s[a+1]*35;
-			q[6]=affine_transform(q[6]);
-			q[6].y=q[6].y-height[r[a+1]][s[a+1]]*4-wall_height;
-			q[2].x=(int) q[1].x*0.6666666+q[6].x*0.3333334;
-			q[2].y=(int) q[1].y*0.6666666+q[6].y*0.3333334;	
-			q[5].x=(int) q[1].x*0.3333334+q[6].x*0.6666666;
-			q[5].y=(int) q[1].y*0.3333334+q[6].y*0.6666666;
-			q[3].x=q[2].x;
-			q[3].y=q[2].y+20;
-			q[4].x=q[5].x;
-			q[4].y=q[5].y+20;
-			q[7].x=365+(i*70)+r[a+1]*35;
-			q[7].y=435-(j*70)-s[a+1]*35;
-			q[7]=affine_transform(q[7]);
-			q[7].y=q[7].y-height[r[a+1]][s[a+1]]*4;				
-			c=d[a];
-   			XSetForeground(display, gc, c);
-			XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
-			XFillPolygon(display, win, gc, q, 8, Nonconvex, CoordModeOrigin);
+	
+	// draw carpet
+	for(l=0;l<2;l++){
+		n=0;
+		while(carpet_code[l]!=9){	
+			m=carpet_code[l]%10;
+			q[n].x=365+(i*70)+(m/3)*35;
+			q[n].y=435-(j*70)-(m%3)*35;
+			q[n]=affine_transform(q[n]);
+			q[n].y=q[n].y-off_height(x+i,y+j,(m/3)-1,(m%3)-1);	
+			carpet_code[l]=carpet_code[l]/10;
+			n++;
 		};
-	} else if(r.size()>=1 && k>12){		// floor tile
-							// base
-		q[0].x=365+(i*70)+0*35;
-		q[0].y=435-(j*70)-0*35;
-		q[0]=affine_transform(q[0]);
-		q[0].y=q[0].y-height[0][0]*4;
-		q[1].x=365+(i*70)+1*35;
-		q[1].y=435-(j*70)-0*35;
-		q[1]=affine_transform(q[1]);
-		q[1].y=q[1].y-height[1][0]*4;
-		q[2].x=365+(i*70)+2*35;
-		q[2].y=435-(j*70)-0*35;
-		q[2]=affine_transform(q[2]);
-		q[2].y=q[2].y-height[2][0]*4;
-		q[3].x=365+(i*70)+2*35;
-		q[3].y=435-(j*70)-1*35;
-		q[3]=affine_transform(q[3]);
-		q[3].y=q[3].y-height[2][1]*4;
-		q[4].x=365+(i*70)+2*35;
-		q[4].y=435-(j*70)-2*35;
-		q[4]=affine_transform(q[4]);
-		q[4].y=q[4].y-height[2][2]*4;
-		q[5].x=365+(i*70)+1*35;
-		q[5].y=435-(j*70)-2*35;
-		q[5]=affine_transform(q[5]);
-		q[5].y=q[5].y-height[1][2]*4;
-		q[6].x=365+(i*70)+0*35;
-		q[6].y=435-(j*70)-2*35;
-		q[6]=affine_transform(q[6]);
-		q[6].y=q[6].y-height[0][2]*4;
-		q[7].x=365+(i*70)+0*35;
-		q[7].y=435-(j*70)-1*35;
-		q[7]=affine_transform(q[7]);
-		q[7].y=q[7].y-height[0][1]*4;
-		c=d[0];
-	   	XSetForeground(display, gc, c);
+		XSetForeground(display, gc, carpet_color[l]);
 		XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
-		XFillPolygon(display, win, gc, q, 8, Complex, CoordModeOrigin);	
-		
-		for(a=0;a<(int) r.size();a++){	// pattern
-			q[a].x=365+(i*70)+r[a]*35;
-			q[a].y=435-(j*70)-s[a]*35;
-			q[a]=affine_transform(q[a]);
-			q[a].y=q[a].y-height[r[a]][s[a]]*4;
-		};
-		c=d[1];
-	   	XSetForeground(display, gc, c);
-		XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
-		XFillPolygon(display, win, gc, q, (int) r.size(), Complex, CoordModeOrigin);	
+		XFillPolygon(display, win, gc, q, n, Nonconvex, CoordModeOrigin);
 	};
+	
+	// draw wall
+	while(wall_code>=99){
+		m=wall_code%10;
+		mm=(wall_code/10)%10;
+		q[0].x=365+(i*70)+(m/3)*35;
+		q[0].y=435-(j*70)-(m%3)*35;
+		q[0]=affine_transform(q[0]);
+		q[0].y=q[0].y-off_height(x+i,y+j,(m/3)-1,(m%3)-1);	
+		q[1].x=365+(i*70)+(mm/3)*35;
+		q[1].y=435-(j*70)-(mm%3)*35;
+		q[1]=affine_transform(q[1]);
+		q[1].y=q[1].y-off_height(x+i,y+j,(mm/3)-1,(mm%3)-1);
+		q[2]=q[1];
+		q[2].y=q[2].y-wall_height;
+		r=q[0];
+		r.y=r.y-wall_height;
+		q[7]=r;
+		
+			q[3].x=(int) q[2].x*0.6666666+q[7].x*0.3333334;	// crenellation; should be customizable
+			q[3].y=(int) q[2].y*0.6666666+q[7].y*0.3333334;	
+			q[6].x=(int) q[2].x*0.3333334+q[7].x*0.6666666;
+			q[6].y=(int) q[2].y*0.3333334+q[7].y*0.6666666;
+			q[4].x=q[3].x;
+			q[4].y=q[3].y+20;
+			q[5].x=q[6].x;
+			q[5].y=q[6].y+20;
+			
+		XSetForeground(display, gc, wall_color);
+		XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
+		XFillPolygon(display, win, gc, q, 8, Nonconvex, CoordModeOrigin);
+		wall_code=wall_code/10;
+	};
+	
+
 };
 
 
