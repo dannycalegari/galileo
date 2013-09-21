@@ -22,7 +22,7 @@ void world::draw_wall(int i, int j){
 	int height[3][3];
 	int wall_height;
 	long c;
-	XPoint q[8];
+	XPoint q[20];	// maximum number of vertices of polygon?
 	if(in_combat==true){
 		x=6;
 		y=6;
@@ -195,7 +195,8 @@ void world::draw_wall(int i, int j){
 			s.push_back(0);	
 			break;
 		case 13:	// floor
-			d.push_back(0xFF0000);	// red floor
+			d.push_back(0xAAAAAA);
+			d.push_back(0xFF0000);	// red checker floor
 			r.push_back(0);
 			s.push_back(0);
 			r.push_back(1);
@@ -212,6 +213,58 @@ void world::draw_wall(int i, int j){
 			s.push_back(1);
 			r.push_back(0);
 			s.push_back(1);
+			break;
+		case 14:	
+			d.push_back(0xBC8F8F);
+			d.push_back(0x800080);	// purple spiral
+			r.push_back(1);
+			s.push_back(1);
+			r.push_back(2);
+			s.push_back(1);
+			r.push_back(2);
+			s.push_back(2);
+			r.push_back(1);
+			s.push_back(1);
+			r.push_back(1);
+			s.push_back(2);
+			r.push_back(0);
+			s.push_back(2);
+			r.push_back(1);
+			s.push_back(1);
+			r.push_back(0);
+			s.push_back(1);
+			r.push_back(0);
+			s.push_back(0);
+			r.push_back(1);
+			s.push_back(1);
+			r.push_back(1);
+			s.push_back(0);
+			r.push_back(2);
+			s.push_back(0);			
+			break;
+		case 15:
+			d.push_back(0xFFFACD);
+			d.push_back(0xFFD700);	// gold and chiffon stripes
+			r.push_back(2);
+			s.push_back(0);
+			r.push_back(2);
+			s.push_back(1);
+			r.push_back(1);
+			s.push_back(0);
+			r.push_back(0);
+			s.push_back(0);
+			r.push_back(1);
+			s.push_back(1);
+			r.push_back(2);
+			s.push_back(2);
+			r.push_back(1);
+			s.push_back(2);
+			r.push_back(0);
+			s.push_back(1);
+			r.push_back(0);
+			s.push_back(0);
+			r.push_back(1);
+			s.push_back(0);
 			break;
 		default:
 			break;
@@ -247,14 +300,52 @@ void world::draw_wall(int i, int j){
 			XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
 			XFillPolygon(display, win, gc, q, 8, Nonconvex, CoordModeOrigin);
 		};
-	} else if(r.size()>=1 && k>12){
-		for(a=0;a<(int) r.size();a++){
+	} else if(r.size()>=1 && k>12){		// floor tile
+							// base
+		q[0].x=365+(i*70)+0*35;
+		q[0].y=435-(j*70)-0*35;
+		q[0]=affine_transform(q[0]);
+		q[0].y=q[0].y-height[0][0]*4;
+		q[1].x=365+(i*70)+1*35;
+		q[1].y=435-(j*70)-0*35;
+		q[1]=affine_transform(q[1]);
+		q[1].y=q[1].y-height[1][0]*4;
+		q[2].x=365+(i*70)+2*35;
+		q[2].y=435-(j*70)-0*35;
+		q[2]=affine_transform(q[2]);
+		q[2].y=q[2].y-height[2][0]*4;
+		q[3].x=365+(i*70)+2*35;
+		q[3].y=435-(j*70)-1*35;
+		q[3]=affine_transform(q[3]);
+		q[3].y=q[3].y-height[2][1]*4;
+		q[4].x=365+(i*70)+2*35;
+		q[4].y=435-(j*70)-2*35;
+		q[4]=affine_transform(q[4]);
+		q[4].y=q[4].y-height[2][2]*4;
+		q[5].x=365+(i*70)+1*35;
+		q[5].y=435-(j*70)-2*35;
+		q[5]=affine_transform(q[5]);
+		q[5].y=q[5].y-height[1][2]*4;
+		q[6].x=365+(i*70)+0*35;
+		q[6].y=435-(j*70)-2*35;
+		q[6]=affine_transform(q[6]);
+		q[6].y=q[6].y-height[0][2]*4;
+		q[7].x=365+(i*70)+0*35;
+		q[7].y=435-(j*70)-1*35;
+		q[7]=affine_transform(q[7]);
+		q[7].y=q[7].y-height[0][1]*4;
+		c=d[0];
+	   	XSetForeground(display, gc, c);
+		XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
+		XFillPolygon(display, win, gc, q, 8, Complex, CoordModeOrigin);	
+		
+		for(a=0;a<(int) r.size();a++){	// pattern
 			q[a].x=365+(i*70)+r[a]*35;
 			q[a].y=435-(j*70)-s[a]*35;
 			q[a]=affine_transform(q[a]);
 			q[a].y=q[a].y-height[r[a]][s[a]]*4;
 		};
-		c=d[0];
+		c=d[1];
 	   	XSetForeground(display, gc, c);
 		XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
 		XFillPolygon(display, win, gc, q, (int) r.size(), Complex, CoordModeOrigin);	
