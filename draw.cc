@@ -26,6 +26,20 @@ int world::off_height(int i, int j, int a, int b){	// a is from -1 to 1, b from 
 	return(h);
 };
 
+long shadow(long c, double e){	// darkens color c by factor e in [0,1]
+	int r,g,b;
+	long d;
+	b = c%256;
+	g = (c/256)%256;
+	r = (c/(256*256))%256;
+	
+	r=r*e;	// e=0.7;
+	g=g*e;
+	b=b*e;
+	d=(256*256*r)+(256*g)+b;
+	return(d);
+};
+
 void world::draw_wall(int i, int j){	
 	// i,j in [-5,5] is location relative to P.x,P.y
 	int k,x,y;
@@ -35,6 +49,7 @@ void world::draw_wall(int i, int j){
 	int wall_height;
 	long wall_color;
 	long carpet_color[2];
+	long color;
 	
 	XPoint q[20];	// maximum number of vertices of polygon
 	XPoint r;
@@ -47,96 +62,85 @@ void world::draw_wall(int i, int j){
 	};
 	k=wall_map[x+i][y+j];	// k is type of wall
 	
+	wall_color=0xAAAAFF;	// can be customized
+	
 	switch(k){
 		case 0:		// EW wall
 			carpet_code[0]=9;	// no carpet
 			carpet_code[1]=9;
 			wall_code=9741;
-			wall_color=0xAAAAFF;
 			wall_height=50;
 			break;
 		case 1:		// NS wall
 			carpet_code[0]=9;	// no carpet
 			carpet_code[1]=9;
 			wall_code=9543;
-			wall_color=0x9999EE;
 			wall_height=50;
 			break;
 		case 2:		// corner
 			carpet_code[0]=9;
 			carpet_code[1]=9;
-			wall_code=957315;
-			wall_color=0xDDDDFF;
+			wall_code=913751;
 			wall_height=80;
 			break;
 		case 3:		// NE diagonal
 			carpet_code[0]=9;
 			carpet_code[1]=9;
 			wall_code=9840;
-			wall_color=0xAAAAFF;
 			wall_height=50;
 			break;
 		case 4:		// NW diagonal
 			carpet_code[0]=9;
 			carpet_code[1]=9;
 			wall_code=9642;
-			wall_color=0xAAAAFF;
 			wall_height=50;
 			break;
 		case 5:		// NE W
 			carpet_code[0]=9;
 			carpet_code[1]=9;
-			wall_code=9741;
-			wall_color=0xAAAAFF;
+			wall_code=9841;
 			wall_height=50;
 			break;		
 		case 6:		// NE S
 			carpet_code[0]=9;
 			carpet_code[1]=9;
 			wall_code=9743;
-			wall_color=0xAAAAFF;
 			wall_height=50;
 			break;			
 		case 7:		// NW E
 			carpet_code[0]=9;
 			carpet_code[1]=9;
 			wall_code=9247;
-			wall_color=0xAAAAFF;
 			wall_height=50;
 			break;	
 		case 8:		// NW S
 			carpet_code[0]=9;
 			carpet_code[1]=9;
 			wall_code=9243;
-			wall_color=0xAAAAFF;
 			wall_height=50;
 			break;	
 		case 9:		// SE W
 			carpet_code[0]=9;
 			carpet_code[1]=9;
 			wall_code=9641;
-			wall_color=0xAAAAFF;
 			wall_height=50;
 			break;
 		case 10:	// SE N
 			carpet_code[0]=9;
 			carpet_code[1]=9;
 			wall_code=9645;
-			wall_color=0xAAAAFF;
 			wall_height=50;
 			break;
 		case 11:	// SW E
 			carpet_code[0]=9;
 			carpet_code[1]=9;
 			wall_code=9047;
-			wall_color=0xAAAAFF;
 			wall_height=50;
 			break;		
 		case 12:	// SW N
 			carpet_code[0]=9;
 			carpet_code[1]=9;
 			wall_code=9540;
-			wall_color=0xAAAAFF;
 			wall_height=50;
 			break;
 		case 13:	// floor
@@ -211,7 +215,23 @@ void world::draw_wall(int i, int j){
 			q[5].x=q[6].x;
 			q[5].y=q[6].y+20;
 			
-		XSetForeground(display, gc, wall_color);
+		switch(abs(m-mm)){ 	// 3 for horizontal, 1 for vertical, 4 for NE, 2 for NW
+			case 1:
+				color=shadow(wall_color,0.7);
+				break;
+			case 2:
+				color=shadow(wall_color,0.9);
+				break;
+			case 3:
+				color=shadow(wall_color,1.0);
+				break;
+			case 4:
+				color=shadow(wall_color,0.6);
+				break;
+			default:
+				break;
+		};
+		XSetForeground(display, gc, color);
 		XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
 		XFillPolygon(display, win, gc, q, 8, Nonconvex, CoordModeOrigin);
 		wall_code=wall_code/10;
@@ -275,21 +295,6 @@ long determine_color(int k){	// k = sum of altitudes of vertices
 				l=0xBBBBBB; // mountain				12		187 187 187
 		*/
 };
-
-long shadow(long c){
-	int r,g,b;
-	long d;
-	b = c%256;
-	g = (c/256)%256;
-	r = (c/(256*256))%256;
-	
-	r=r*0.7;
-	g=g*0.7;
-	b=b*0.7;
-	d=(256*256*r)+(256*g)+b;
-	return(d);
-};
-
 
 void world::draw_geographical_square(int i, int j){	// i,j in [-5,5] is location relative to x,y
 	int a,b;
