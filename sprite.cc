@@ -32,7 +32,7 @@ void world::load_sprites(){
 	S[20]="bear.xpm";
 	S[21]="wolf.xpm";
 	
-//	S[30]="cambridge.xpm";		// 100
+	S[30]="cambridge.xpm";		// 100
 	S[31]="london.xpm";			// 101
 	S[32]="amsterdam.xpm";		// 102
 	S[33]="paris.xpm";			// 103
@@ -60,6 +60,8 @@ void world::load_sprites(){
 	S[60]="boat.xpm";
 	S[61]="arrow.xpm";
 	S[62]="crucifix.xpm";
+	S[63]="bread.xpm";
+	S[64]="wine.xpm";
 	
 	if(P.gender=="female"){
 		S[99]="female_avatar.xpm";

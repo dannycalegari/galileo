@@ -654,18 +654,13 @@ void world::draw_graphics(){
 					};
 					if(k>=100 && k<200){
 						switch(k){
-							case 101:
-								draw_sprite(31,400+(i*tile_size),400-(j*tile_size),h);	// London
+							case 100:	// Cambridge
+							case 101:	// London
+							case 102:	// Amsterdam
+							case 103:	// Paris
+							case 104:	// Venice
+								draw_sprite(k-70,400+(i*tile_size),400-(j*tile_size),h);	
 								break;
-							case 102:
-								draw_sprite(32,400+(i*tile_size),400-(j*tile_size),h);	// Amsterdam
-								break;
-							case 103:
-								draw_sprite(33,400+(i*tile_size),400-(j*tile_size),h);	// Paris
-								break;
-							case 104:
-								draw_sprite(34,400+(i*tile_size),400-(j*tile_size),h);	// Venice
-								break;							
 							default:
 								draw_sprite(41,400+(i*tile_size),400-(j*tile_size),h);	// generic city; need to make these specific
 								break;
