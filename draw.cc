@@ -193,10 +193,30 @@ void world::draw_wall(int i, int j){
 			d.push_back(0x7777CC);
 			r.push_back(0);
 			s.push_back(0);	
+			break;
+		case 13:	// floor
+			d.push_back(0xFF0000);	// red floor
+			r.push_back(0);
+			s.push_back(0);
+			r.push_back(1);
+			s.push_back(0);
+			r.push_back(1);
+			s.push_back(1);
+			r.push_back(1);
+			s.push_back(2);
+			r.push_back(2);
+			s.push_back(2);
+			r.push_back(2);
+			s.push_back(1);
+			r.push_back(1);
+			s.push_back(1);
+			r.push_back(0);
+			s.push_back(1);
+			break;
 		default:
 			break;
 	};
-	if(r.size()>=1){
+	if(r.size()>=1 && k>=0 && k<=12){	// crenellated wall
 		for(a=0;a<(int) r.size()-1;a++){
 			q[0].x=365+(i*70)+r[a]*35;
 			q[0].y=435-(j*70)-s[a]*35;
@@ -227,6 +247,17 @@ void world::draw_wall(int i, int j){
 			XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
 			XFillPolygon(display, win, gc, q, 8, Nonconvex, CoordModeOrigin);
 		};
+	} else if(r.size()>=1 && k>12){
+		for(a=0;a<(int) r.size();a++){
+			q[a].x=365+(i*70)+r[a]*35;
+			q[a].y=435-(j*70)-s[a]*35;
+			q[a]=affine_transform(q[a]);
+			q[a].y=q[a].y-height[r[a]][s[a]]*4;
+		};
+		c=d[0];
+	   	XSetForeground(display, gc, c);
+		XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
+		XFillPolygon(display, win, gc, q, (int) r.size(), Complex, CoordModeOrigin);	
 	};
 };
 
