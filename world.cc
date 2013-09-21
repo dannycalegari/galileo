@@ -130,6 +130,7 @@ class world{
 		int center_height(int i, int j);
 		void draw_wall(int i, int j);	
 		void draw_geographical_square(int i, int j);
+		bool is_visible(int i, int j);
 		void draw_graphics();
 		void draw_info();
 		void draw_inventory();

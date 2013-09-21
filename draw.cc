@@ -436,6 +436,33 @@ long color_code(int i){	// color scheme for overview map
 	return(l);
 };
 
+bool world::is_visible(int i, int j){	// is absolute location i,j visible from P.x,P.y?
+	bool visible;
+	point p;
+	if(is_in_range(i,j,0)==false){
+		visible=false;
+	} else {
+		visible=true;	// default unless obscured
+		if(i==P.x && j==P.y){	// can see self!
+			return(visible);
+		};
+		p=new_point(i,j)+sign(new_point(P.x,P.y)-new_point(i,j));	// step in direction
+
+		while(norm(p-new_point(P.x,P.y))>0){
+			if(flora_fauna_map[p.x][p.y]>=0 && flora_fauna_map[p.x][p.y]<4){	// tree in the way
+				visible=false;
+			};
+			if(0<(int) wall_map.size()){	// wall map
+				if(wall_map[p.x][p.y]>-1){	// wall in the way
+					visible=false;
+				};
+			};
+			p=p+sign(new_point(P.x,P.y)-p);	// step in direction
+		};
+	};
+	return(visible);
+};
+
 void world::draw_graphics(){
 	int i,j,k;
 	int h;
@@ -485,7 +512,6 @@ void world::draw_graphics(){
 	} else {
 		// local map
 
-		
 		for(j=5;j>=-5;j--){
 			for(i=5;i>=-5;i--){
 				if(is_in_range(x+i,y+j,0)){
@@ -494,8 +520,7 @@ void world::draw_graphics(){
 						if(wall_map[x+i][y+j]>-1){
 							draw_wall(i,j);				// draw wall layer
 						};
-					};
-					
+					};				
 				};
 			};
 			for(i=5;i>=-5;i--){
@@ -575,6 +600,7 @@ void world::draw_graphics(){
 			draw_text(q,popup_message[i].S,0xFFFFFF);
 		};
 		popup_message.clear();	// popup messages only last one move
+		
 	};
 };
 
