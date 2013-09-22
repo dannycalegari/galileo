@@ -44,7 +44,7 @@ double theta;	// global function
 
 #define MAX_SPRITE_NUM 100
 #define MAX_SKILL_NUM 6
-#define MAX_WALL_NUM 18
+#define MAX_WALL_NUM 30
 #define MAX_MESSAGE_NUM 10
 #define UPDATE_WINDOW 39
 #define MAX_TEXT_WIDTH 30

@@ -44,12 +44,13 @@ void world::draw_wall(int i, int j){
 	// i,j in [-5,5] is location relative to P.x,P.y
 	int k,x,y;
 	int n,m,mm,l;
-	long wall_code;
+	long wall_code, temp_wall_code;
 	long carpet_code[2];
 	int wall_height;
 	long carpet_color[2];
 	long color;
 	int wall_steps;
+	bool roof;
 	
 	XPoint q[20];	// maximum number of vertices of polygon
 	XPoint r;
@@ -62,121 +63,109 @@ void world::draw_wall(int i, int j){
 	};
 	k=wall_map[x+i][y+j];	// k is type of wall
 	
+//	carpet_color[0]=0xAAAAAA;	// gray floor default
+	carpet_code[0]=9;	// no carpet by default
+//	carpet_code[0]=903678521;
+	carpet_code[1]=9;
+	wall_height=50;
+	roof=false;
+	
 	switch(k){
 		case 0:		// EW wall
-			carpet_code[0]=9;	// no carpet
-			carpet_code[1]=9;
 			wall_code=9741;
-			wall_height=50;
 			break;
 		case 1:		// NS wall
-			carpet_code[0]=9;	// no carpet
-			carpet_code[1]=9;
 			wall_code=9543;
-			wall_height=50;
 			break;
 		case 2:		// corner
-			carpet_code[0]=9;
-			carpet_code[1]=9;
 			wall_code=913751;
 			wall_height=80;
 			break;
 		case 3:		// NE diagonal
-			carpet_code[0]=9;
-			carpet_code[1]=9;
 			wall_code=9840;
-			wall_height=50;
 			break;
 		case 4:		// NW diagonal
-			carpet_code[0]=9;
-			carpet_code[1]=9;
 			wall_code=9642;
-			wall_height=50;
 			break;
 		case 5:		// NE W
-			carpet_code[0]=9;
-			carpet_code[1]=9;
 			wall_code=9841;
-			wall_height=50;
 			break;		
 		case 6:		// NE S
-			carpet_code[0]=9;
-			carpet_code[1]=9;
 			wall_code=9348;
-			wall_height=50;
 			break;			
 		case 7:		// NW E
-			carpet_code[0]=9;
-			carpet_code[1]=9;
 			wall_code=9247;
-			wall_height=50;
 			break;	
 		case 8:		// NW S
-			carpet_code[0]=9;
-			carpet_code[1]=9;
 			wall_code=9243;
-			wall_height=50;
 			break;	
 		case 9:		// SE W
-			carpet_code[0]=9;
-			carpet_code[1]=9;
 			wall_code=9641;
-			wall_height=50;
 			break;
 		case 10:	// SE N
-			carpet_code[0]=9;
-			carpet_code[1]=9;
 			wall_code=9645;
-			wall_height=50;
 			break;
 		case 11:	// SW E
-			carpet_code[0]=9;
-			carpet_code[1]=9;
 			wall_code=9047;
-			wall_height=50;
 			break;		
 		case 12:	// SW N
-			carpet_code[0]=9;
-			carpet_code[1]=9;
 			wall_code=9045;
-			wall_height=50;
 			break;
-		case 13:	// floor
+		case 20:	// tower
+			wall_code=9210367852;
+			wall_height=180;
+			roof=true;
+			break;
+			
+				// floor
+		case 23:
 			carpet_color[0]=0xAAAAAA;	// red checker
 			carpet_color[1]=0xFF0000;
 			carpet_code[0]=903678521;
 			carpet_code[1]=903478541;
 			wall_code=90;
 			break;
-		case 14:	
+		case 24:	
 			carpet_color[0]=0xAAAAAA;	// 0xBC8F8F;
 			carpet_color[1]=0x800080;	// purple spiral
 			carpet_code[0]=903678521;
 			carpet_code[1]=9478452410436;
 			wall_code=90;
 			break;
-		case 15:
+		case 25:
 			carpet_color[0]=0xAAAAFF;
 			carpet_color[1]=0xFFD700;	// gold and chiffon stripes
 			carpet_code[0]=903678521;
 			carpet_code[1]=96730485103;
 			wall_code=90;
 			break;
-		case 16:	// EW interior wall
-			carpet_color[0]=0xAAAAAA;	// red checker
+		case 26:
+			carpet_color[0]=0xAAAAAA;	// mosaic tile 1
 			carpet_color[1]=0xFF0000;
 			carpet_code[0]=903678521;
-			carpet_code[1]=903478541;
-			wall_code=9741;
-			wall_height=50;
+			carpet_code[1]=9145763;
+			wall_code=90;
 			break;
-		case 17:	// NS interior wall
-			carpet_color[0]=0xAAAAAA;	// red checker
+		case 27:
+			carpet_color[0]=0xAAAAAA;	// mosaic tile 2
 			carpet_color[1]=0xFF0000;
 			carpet_code[0]=903678521;
-			carpet_code[1]=903478541;
-			wall_code=9543;
-			wall_height=50;
+			carpet_code[1]=91248743;
+			wall_code=90;
+			break;
+		case 28:
+			carpet_color[0]=0xAAAAAA;	// mosaic tile 3
+			carpet_color[1]=0xFF0000;
+			carpet_code[0]=903678521;
+			carpet_code[1]=901254764;
+			wall_code=90;
+			break;
+		case 29:
+			carpet_color[0]=0xAAAAAA;	// mosaic tile 4
+			carpet_color[1]=0xFF0000;
+			carpet_code[0]=903678521;
+			carpet_code[1]=92574034;
+			wall_code=90;
 			break;
 		default:
 			carpet_code[0]=9;	// no carpet
@@ -203,9 +192,10 @@ void world::draw_wall(int i, int j){
 	};
 	
 	// draw wall
-	while(wall_code>=99){
-		m=wall_code%10;
-		mm=(wall_code/10)%10;
+	temp_wall_code=wall_code;
+	while(temp_wall_code>=99){
+		m=temp_wall_code%10;
+		mm=(temp_wall_code/10)%10;
 		q[0].x=365+(i*70)+(m/3)*35;
 		q[0].y=435-(j*70)-(m%3)*35;
 		q[0]=affine_transform(q[0]);
@@ -252,7 +242,7 @@ void world::draw_wall(int i, int j){
 			q[6].y=(int) q[2].y*0.133333334+r.y*0.86666666;
 			q[7]=r;
 			wall_steps=8;
-		} else if(battlement_style==3){
+		} else if(battlement_style==3){		// stairsteps
 			q[3].x=(int) q[2].x*0.8+r.x*0.2;
 			q[3].y=(int) q[2].y*0.8+r.y*0.2;
 			q[4]=q[3];
@@ -269,6 +259,23 @@ void world::draw_wall(int i, int j){
 			q[9].y=(int) q[2].y*0.2+r.y*0.8-10;
 			q[10]=q[9];
 			q[10].y=q[10].y+10;
+			q[11]=r;
+			wall_steps=12;
+		} else if(battlement_style==4){		// window
+			q[3].x=(int) q[2].x*0.5+r.x*0.5;
+			q[3].y=(int) q[2].y*0.5+r.y*0.5;
+			q[4]=q[3];
+			q[4].y=q[4].y+10;
+			q[5].x=(int) q[2].x*0.7+r.x*0.3;
+			q[5].y=(int) q[2].y*0.7+r.y*0.3+10;
+			q[6]=q[5];
+			q[6].y=q[6].y+20;
+			q[7].x=(int) q[2].x*0.3+r.x*0.7;
+			q[7].y=(int) q[2].y*0.3+r.y*0.7+30;
+			q[8]=q[7];
+			q[8].y=q[8].y-20;
+			q[9]=q[4];
+			q[10]=q[3];
 			q[11]=r;
 			wall_steps=12;
 		};
@@ -295,7 +302,51 @@ void world::draw_wall(int i, int j){
 		XSetForeground(display, gc, trim_color);
 		q[wall_steps]=q[0];
 		XDrawLines(display, win, gc, q, wall_steps+1, CoordModeOrigin);	
-		wall_code=wall_code/10;
+		temp_wall_code=temp_wall_code/10;
+	};
+	
+	// draw roof
+	if(roof){
+		while(wall_code>=99){
+			m=wall_code%10;
+			mm=(wall_code/10)%10;
+			q[0].x=365+(i*70)+(m/3)*35;
+			q[0].y=435-(j*70)-(m%3)*35;
+			q[0]=affine_transform(q[0]);
+			q[0].y=q[0].y-off_height(x+i,y+j,(m/3)-1,(m%3)-1)-wall_height;	
+			q[2].x=365+(i*70)+(mm/3)*35;
+			q[2].y=435-(j*70)-(mm%3)*35;
+			q[2]=affine_transform(q[2]);
+			q[2].y=q[2].y-off_height(x+i,y+j,(mm/3)-1,(mm%3)-1)-wall_height;
+			q[1].x=365+(i*70)+35;
+			q[1].y=435-(j*70)-35;
+			q[1]=affine_transform(q[1]);
+			q[1].y=q[1].y-off_height(x+i,y+j,0,0)-wall_height-50;
+		
+			switch(abs(m-mm)){ 	// 3 for horizontal, 1 for vertical, 4 for NE, 2 for NW
+				case 1:
+					color=shadow(0xE3674C,0.3);
+					break;
+				case 2:
+					color=shadow(0xE3674C,0.3);
+					break;
+				case 3:
+					color=shadow(0xE3674C,0.8);
+					break;
+				case 4:
+					color=shadow(0xE3674C,0.4);
+					break;
+				default:
+					break;
+			};
+			XSetForeground(display, gc, color);
+			XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
+			XFillPolygon(display, win, gc, q, 3, Nonconvex, CoordModeOrigin);
+			XSetForeground(display, gc, trim_color);
+			q[3]=q[0];
+			XDrawLines(display, win, gc, q, 4, CoordModeOrigin);	
+			wall_code=wall_code/10;
+		};
 	};
 };
 
