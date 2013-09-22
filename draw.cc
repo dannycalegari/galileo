@@ -45,9 +45,9 @@ void world::draw_wall(int i, int j){
 	int k,x,y;
 	int n,m,mm,l;
 	long wall_code, temp_wall_code;
-	long carpet_code[2];
+	long carpet_code[6];
 	int wall_height;
-	long carpet_color[2];
+	long carpet_color[6];
 	long color;
 	int wall_steps;
 	bool roof;
@@ -62,11 +62,11 @@ void world::draw_wall(int i, int j){
 		y=P.y;
 	};
 	k=wall_map[x+i][y+j];	// k is type of wall
-	
+	for(n=0;n<6;n++){		// no carpet by default
+		carpet_code[n]=9;
+	};
 //	carpet_color[0]=0xAAAAAA;	// gray floor default
-	carpet_code[0]=9;	// no carpet by default
 //	carpet_code[0]=903678521;
-	carpet_code[1]=9;
 	wall_height=50;
 	roof=false;
 	
@@ -117,7 +117,7 @@ void world::draw_wall(int i, int j){
 			roof=true;
 			break;
 			
-				// floor
+				// floor codes > 20
 		case 23:
 			carpet_color[0]=0xAAAAAA;	// red checker
 			carpet_color[1]=0xFF0000;
@@ -167,6 +167,58 @@ void world::draw_wall(int i, int j){
 			carpet_code[1]=92574034;
 			wall_code=90;
 			break;
+		case 30:
+			carpet_color[0]=0xBBBBBB;	// fancy tile
+			carpet_code[0]=903678521;
+			carpet_color[1]=0x43362D;	// dark brown
+			carpet_code[1]=9150;
+			carpet_color[2]=0x915C18;	// gold/brown
+			carpet_code[2]=9370;
+			carpet_color[3]=0x2F4A43;	// dark green
+			carpet_code[3]=98570;
+			carpet_color[4]=0x5875B9;	// light blue
+			carpet_code[4]=98750;
+			wall_code=90;
+			break;
+		case 31:
+			carpet_color[0]=0xBBBBBB;	// fancy tile
+			carpet_code[0]=903678521;
+			carpet_color[1]=0x43362D;	// dark brown
+			carpet_code[1]=9316;
+			carpet_color[2]=0x915C18;	// gold/brown
+			carpet_code[2]=9756;
+			carpet_color[3]=0x2F4A43;	// dark green
+			carpet_code[3]=92156;
+			carpet_color[4]=0x5875B9;	// light blue
+			carpet_code[4]=92516;
+			wall_code=90;
+			break;
+		case 32:
+			carpet_color[0]=0xBBBBBB;	// fancy tile
+			carpet_code[0]=903678521;
+			carpet_color[1]=0x43362D;	// dark brown
+			carpet_code[1]=9738;
+			carpet_color[2]=0x915C18;	// gold/brown
+			carpet_code[2]=9518;
+			carpet_color[3]=0x2F4A43;	// dark green
+			carpet_code[3]=90318;
+			carpet_color[4]=0x5875B9;	// light blue
+			carpet_code[4]=90138;
+			wall_code=90;
+			break;
+		case 33:
+			carpet_color[0]=0xBBBBBB;	// fancy tile
+			carpet_code[0]=903678521;
+			carpet_color[1]=0x43362D;	// dark brown
+			carpet_code[1]=9572;
+			carpet_color[2]=0x915C18;	// gold/brown
+			carpet_code[2]=9132;
+			carpet_color[3]=0x2F4A43;	// dark green
+			carpet_code[3]=96732;
+			carpet_color[4]=0x5875B9;	// light blue
+			carpet_code[4]=96372;
+			wall_code=90;
+			break;
 		default:
 			carpet_code[0]=9;	// no carpet
 			carpet_code[1]=9;
@@ -175,20 +227,26 @@ void world::draw_wall(int i, int j){
 	};
 	
 	// draw carpet
-	for(l=0;l<2;l++){
-		n=0;
-		while(carpet_code[l]!=9){	
-			m=carpet_code[l]%10;
-			q[n].x=365+(i*70)+(m/3)*35;
-			q[n].y=435-(j*70)-(m%3)*35;
-			q[n]=affine_transform(q[n]);
-			q[n].y=q[n].y-off_height(x+i,y+j,(m/3)-1,(m%3)-1);	
-			carpet_code[l]=carpet_code[l]/10;
-			n++;
+	l=0;
+	while(1){
+		if(carpet_code[l]==9){
+			break;
+		} else {
+			n=0;
+			while(carpet_code[l]!=9){	
+				m=carpet_code[l]%10;
+				q[n].x=365+(i*70)+(m/3)*35;
+				q[n].y=435-(j*70)-(m%3)*35;
+				q[n]=affine_transform(q[n]);
+				q[n].y=q[n].y-off_height(x+i,y+j,(m/3)-1,(m%3)-1);	
+				carpet_code[l]=carpet_code[l]/10;
+				n++;
+			};
+			XSetForeground(display, gc, carpet_color[l]);
+			XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
+			XFillPolygon(display, win, gc, q, n, Complex, CoordModeOrigin);
+			l++;
 		};
-		XSetForeground(display, gc, carpet_color[l]);
-		XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
-		XFillPolygon(display, win, gc, q, n, Nonconvex, CoordModeOrigin);
 	};
 	
 	// draw wall
