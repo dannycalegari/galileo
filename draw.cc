@@ -49,6 +49,7 @@ void world::draw_wall(int i, int j){
 	int wall_height;
 	long carpet_color[2];
 	long color;
+	int wall_steps;
 	
 	XPoint q[20];	// maximum number of vertices of polygon
 	XPoint r;
@@ -228,6 +229,7 @@ void world::draw_wall(int i, int j){
 			q[5].x=q[6].x;
 			q[5].y=q[6].y+20;
 			q[7]=r;
+			wall_steps=8;
 		} else if(battlement_style==1){
 			q[3].x=(int) q[2].x*0.6+r.x*0.4;	// dovetailed
 			q[3].y=(int) q[2].y*0.6+r.y*0.4;
@@ -238,6 +240,37 @@ void world::draw_wall(int i, int j){
 			q[5].x=(int) q[2].x*0.2+r.x*0.8;
 			q[5].y=(int) q[2].y*0.2+r.y*0.8+20;
 			q[7]=r;
+			wall_steps=8;
+		} else if(battlement_style==2){
+			q[3].x=(int) q[2].x*0.86666666+r.x*0.133333334;	// wavy
+			q[3].y=(int) q[2].y*0.86666666+r.y*0.133333334;
+			q[4].x=(int) q[2].x*0.6666666+r.x*0.3333334;	
+			q[4].y=(int) q[2].y*0.6666666+r.y*0.3333334-10;	
+			q[5].x=(int) q[2].x*0.3333334+r.x*0.6666666;	
+			q[5].y=(int) q[2].y*0.3333334+r.y*0.6666666+10;	
+			q[6].x=(int) q[2].x*0.133333334+r.x*0.86666666;
+			q[6].y=(int) q[2].y*0.133333334+r.y*0.86666666;
+			q[7]=r;
+			wall_steps=8;
+		} else if(battlement_style==3){
+			q[3].x=(int) q[2].x*0.8+r.x*0.2;
+			q[3].y=(int) q[2].y*0.8+r.y*0.2;
+			q[4]=q[3];
+			q[4].y=q[4].y-10;
+			q[5].x=(int) q[2].x*0.6+r.x*0.4;
+			q[5].y=(int) q[2].y*0.6+r.y*0.4-10;
+			q[6]=q[5];
+			q[6].y=q[6].y-10;
+			q[7].x=(int) q[2].x*0.4+r.x*0.6;
+			q[7].y=(int) q[2].y*0.4+r.y*0.6-20;
+			q[8]=q[7];
+			q[8].y=q[8].y+10;
+			q[9].x=(int) q[2].x*0.2+r.x*0.8;
+			q[9].y=(int) q[2].y*0.2+r.y*0.8-10;
+			q[10]=q[9];
+			q[10].y=q[10].y+10;
+			q[11]=r;
+			wall_steps=12;
 		};
 
 		switch(abs(m-mm)){ 	// 3 for horizontal, 1 for vertical, 4 for NE, 2 for NW
@@ -256,13 +289,12 @@ void world::draw_wall(int i, int j){
 			default:
 				break;
 		};
-
 		XSetForeground(display, gc, color);
 		XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
-		XFillPolygon(display, win, gc, q, 8, Nonconvex, CoordModeOrigin);
+		XFillPolygon(display, win, gc, q, wall_steps, Nonconvex, CoordModeOrigin);
 		XSetForeground(display, gc, trim_color);
-		q[8]=q[0];
-		XDrawLines(display, win, gc, q, 9, CoordModeOrigin);	
+		q[wall_steps]=q[0];
+		XDrawLines(display, win, gc, q, wall_steps+1, CoordModeOrigin);	
 		wall_code=wall_code/10;
 	};
 };

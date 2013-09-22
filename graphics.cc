@@ -151,13 +151,19 @@ void draw_square(int i, int j, int w, long col){
 };
 
 XPoint affine_transform(XPoint q){	// skew map coordinates for isometric display
-	double theta;
+//	double theta;
 	XPoint p;
 	
-	theta = 0.3;
+//	theta = 0.3;
+	q.x=q.x-400;
+	q.y=q.y-400;
 	p.x = q.x*cos(theta) + q.y*sin(theta);
-	p.x = ((p.x-400.0)*1.1)+450.0;
+	p.x = ((p.x)*1.1)+530.0;
+	
+//	p.x = ((p.x-400.0)*1.1)+450.0;
 	p.y = q.y*cos(theta) - q.x*sin(theta);
-	p.y = ((p.y-400.0)*0.7)+510.0;
+	p.y = ((p.y)*0.7)+420.0;
+
+//	p.y = ((p.y-400.0)*0.7)+510.0;
 	return(p);
 };

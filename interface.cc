@@ -80,6 +80,16 @@ void world::user_interface(){
 				
 				if(edit_mode==true){	// EDIT MODE
 				
+					if(XLookupKeysym(&report.xkey, 0) == XK_Shift_L){	
+						theta=theta-0.1;
+						draw();
+					};
+
+					if(XLookupKeysym(&report.xkey, 0) == XK_Shift_R){	
+						theta=theta+0.1;
+						draw();
+					};	
+				
 				// in edit mode: teleport
 				
 					if(XLookupKeysym(&report.xkey, 0) == XK_t){	// teleport

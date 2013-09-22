@@ -32,6 +32,7 @@ void world::initialize(){
 //	npcs.clear();	// no npcs
 	message.clear();
 	popup_message.clear();
+	theta=0.3;
 };
 
 void world::enter_city(string S){	// S is name of city

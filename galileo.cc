@@ -38,6 +38,7 @@ using namespace std;
 
 #define PI 		3.14159265358979
 #define TWOPI	6.28318530717959
+double theta;	// global function
 
 // global constants
 
