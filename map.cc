@@ -143,7 +143,7 @@ void world::plant_trees(){	// seed world randomly with trees and fish
 	flora_fauna_map[568][154]=107;	// Athens
 	flora_fauna_map[645][218]=108;	// Constantinople
 	flora_fauna_map[175][254]=109;	// Madrid
-	flora_fauna_map[121][182]=110;	// Gibraltar
+	flora_fauna_map[158][194]=110;	// Granada
 
 };
 

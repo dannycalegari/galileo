@@ -693,19 +693,11 @@ void world::draw_graphics(){
 					if(k>=0 && k<100){
 						draw_sprite(k,400+(i*tile_size),400-(j*tile_size),h);
 					};
-					if(k>=100 && k<200){
-						switch(k){
-							case 100:	// Cambridge
-							case 101:	// London
-							case 102:	// Amsterdam
-							case 103:	// Paris
-							case 104:	// Venice
-								draw_sprite(k-70,400+(i*tile_size),400-(j*tile_size),h);	
-								break;
-							default:
-								draw_sprite(41,400+(i*tile_size),400-(j*tile_size),h);	// generic city; need to make these specific
-								break;
-						};
+					if(k>=100 && k<111){
+						draw_sprite(k-70,400+(i*tile_size),400-(j*tile_size),h); // specific city
+					};
+					if(k>=111 && k<200){
+						draw_sprite(41,400+(i*tile_size),400-(j*tile_size),h);	// generic city; need to make these specific
 					};
 					if(k>=200 && k<300){
 						draw_sprite(12,400+(i*tile_size),400-(j*tile_size),h);	// npc; need to make these specific			

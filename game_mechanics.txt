@@ -36,9 +36,9 @@ flora/fauna map; loaded from flora_fauna.map, 800x800 grid of flora/fauna types
 105:	Rome				408 231
 106:	Zurich				372 336
 107:	Athens				568 154
-108:	Constantinople				645 218
+108:	Constantinople		645 218
 109:	Madrid				175 254
-110:	Granada				121 182	// actually at the location of Gibraltar
+110:	Granada				158 194	
 
 200+ specific npcs
 
