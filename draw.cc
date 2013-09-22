@@ -47,7 +47,6 @@ void world::draw_wall(int i, int j){
 	long wall_code;
 	long carpet_code[2];
 	int wall_height;
-	long wall_color;
 	long carpet_color[2];
 	long color;
 	
@@ -61,8 +60,6 @@ void world::draw_wall(int i, int j){
 		y=P.y;
 	};
 	k=wall_map[x+i][y+j];	// k is type of wall
-	
-	wall_color=0xAAAAFF;	// can be customized
 	
 	switch(k){
 		case 0:		// EW wall
@@ -104,7 +101,7 @@ void world::draw_wall(int i, int j){
 		case 6:		// NE S
 			carpet_code[0]=9;
 			carpet_code[1]=9;
-			wall_code=9743;
+			wall_code=9348;
 			wall_height=50;
 			break;			
 		case 7:		// NW E
@@ -140,29 +137,45 @@ void world::draw_wall(int i, int j){
 		case 12:	// SW N
 			carpet_code[0]=9;
 			carpet_code[1]=9;
-			wall_code=9540;
+			wall_code=9045;
 			wall_height=50;
 			break;
 		case 13:	// floor
-			carpet_color[0]=0xAAAAAA;
+			carpet_color[0]=0xAAAAAA;	// red checker
 			carpet_color[1]=0xFF0000;
 			carpet_code[0]=903678521;
 			carpet_code[1]=903478541;
 			wall_code=90;
 			break;
 		case 14:	
-			carpet_color[0]=0xBC8F8F;
+			carpet_color[0]=0xAAAAAA;	// 0xBC8F8F;
 			carpet_color[1]=0x800080;	// purple spiral
 			carpet_code[0]=903678521;
 			carpet_code[1]=9478452410436;
 			wall_code=90;
 			break;
 		case 15:
-			carpet_color[0]=0xFFFACD;
+			carpet_color[0]=0xAAAAFF;
 			carpet_color[1]=0xFFD700;	// gold and chiffon stripes
 			carpet_code[0]=903678521;
 			carpet_code[1]=96730485103;
 			wall_code=90;
+			break;
+		case 16:	// EW interior wall
+			carpet_color[0]=0xAAAAAA;	// red checker
+			carpet_color[1]=0xFF0000;
+			carpet_code[0]=903678521;
+			carpet_code[1]=903478541;
+			wall_code=9741;
+			wall_height=50;
+			break;
+		case 17:	// NS interior wall
+			carpet_color[0]=0xAAAAAA;	// red checker
+			carpet_color[1]=0xFF0000;
+			carpet_code[0]=903678521;
+			carpet_code[1]=903478541;
+			wall_code=9543;
+			wall_height=50;
 			break;
 		default:
 			carpet_code[0]=9;	// no carpet
@@ -204,17 +217,29 @@ void world::draw_wall(int i, int j){
 		q[2].y=q[2].y-wall_height;
 		r=q[0];
 		r.y=r.y-wall_height;
-		q[7]=r;
 		
-			q[3].x=(int) q[2].x*0.6666666+q[7].x*0.3333334;	// crenellation; should be customizable
-			q[3].y=(int) q[2].y*0.6666666+q[7].y*0.3333334;	
-			q[6].x=(int) q[2].x*0.3333334+q[7].x*0.6666666;
-			q[6].y=(int) q[2].y*0.3333334+q[7].y*0.6666666;
+		if(battlement_style==0){
+			q[3].x=(int) q[2].x*0.6666666+r.x*0.3333334;	// embattled; should be customizable
+			q[3].y=(int) q[2].y*0.6666666+r.y*0.3333334;	
+			q[6].x=(int) q[2].x*0.3333334+r.x*0.6666666;
+			q[6].y=(int) q[2].y*0.3333334+r.y*0.6666666;
 			q[4].x=q[3].x;
 			q[4].y=q[3].y+20;
 			q[5].x=q[6].x;
 			q[5].y=q[6].y+20;
-			
+			q[7]=r;
+		} else if(battlement_style==1){
+			q[3].x=(int) q[2].x*0.6+r.x*0.4;	// dovetailed
+			q[3].y=(int) q[2].y*0.6+r.y*0.4;
+			q[6].x=(int) q[2].x*0.4+r.x*0.6;
+			q[6].y=(int) q[2].y*0.4+r.y*0.6;
+			q[4].x=(int) q[2].x*0.8+r.x*0.2;
+			q[4].y=(int) q[2].y*0.8+r.y*0.2+20;
+			q[5].x=(int) q[2].x*0.2+r.x*0.8;
+			q[5].y=(int) q[2].y*0.2+r.y*0.8+20;
+			q[7]=r;
+		};
+
 		switch(abs(m-mm)){ 	// 3 for horizontal, 1 for vertical, 4 for NE, 2 for NW
 			case 1:
 				color=shadow(wall_color,0.7);
@@ -231,13 +256,15 @@ void world::draw_wall(int i, int j){
 			default:
 				break;
 		};
+
 		XSetForeground(display, gc, color);
 		XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
 		XFillPolygon(display, win, gc, q, 8, Nonconvex, CoordModeOrigin);
+		XSetForeground(display, gc, trim_color);
+		q[8]=q[0];
+		XDrawLines(display, win, gc, q, 9, CoordModeOrigin);	
 		wall_code=wall_code/10;
 	};
-	
-
 };
 
 

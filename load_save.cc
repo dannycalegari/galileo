@@ -159,8 +159,17 @@ void world::read_npc_file(ifstream &input_file){
 
 void world::read_map(ifstream &input_file, int type){
 	int i,j,k;
+	int r,g,b;
 	int rows,cols;
 	vector<int> map_row;
+	if(type==2){
+		input_file >> r >> g >> b;
+		wall_color = (long) (256*256*r)+(256*g)+b;
+		input_file >> r >> g >> b;
+		trim_color = (long) (256*256*r)+(256*g)+b;
+		input_file >> battlement_style;
+		cout << "wall color " << wall_color << "\n";
+	};
 	input_file >> cols;
 	input_file >> rows;
 	for(i=0;i<cols;i++){
@@ -204,8 +213,11 @@ void world::write_map(ofstream &output_file, int type){
 			} else {
 				rows=wall_map[0].size();
 			};
+			output_file << wall_color/(256*256) << " " << (wall_color/256)%256 << " " << wall_color % 256 << "\n";
+			output_file << trim_color/(256*256) << " " << (trim_color/256)%256 << " " << trim_color % 256 << "\n";
+			output_file << battlement_style << "\n";
 			break;			
-	};
+		};
 	output_file << cols << " " << rows << "\n";
 	for(i=0;i<cols;i++){
 		for(j=0;j<rows;j++){

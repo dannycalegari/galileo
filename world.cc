@@ -127,6 +127,8 @@ class world{
 
 		// functions to draw on screen; in draw.cc
 		
+		long wall_color, trim_color;	// customizable; different in different cities
+		int battlement_style;			// customizable; different in different cities
 		int center_height(int i, int j);
 		int off_height(int i, int j, int a, int b);	// height in off center locations
 		void draw_wall(int i, int j);	
