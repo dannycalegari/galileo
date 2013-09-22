@@ -42,9 +42,11 @@ void world::load_sprites(){
 	S[37]="athens.xpm";			// 107
 	S[38]="constantinople.xpm";	// 108
 	S[39]="madrid.xpm";			// 109
-	S[40]="granada.xpm";		// 110; actually in the location of gibraltar
+	S[40]="granada.xpm";		// 110
 	S[41]="castle.xpm";			// 111
 	
+	S[47]="guard.xpm";
+	S[48]="cardinal.xpm";
 	S[49]="scholar.xpm";
 	S[50]="milkmaid.xpm";
 	S[51]="merchant.xpm";
