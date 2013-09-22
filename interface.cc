@@ -80,6 +80,15 @@ void world::user_interface(){
 				
 				if(edit_mode==true){	// EDIT MODE
 				
+				// in edit mode: teleport
+				
+					if(XLookupKeysym(&report.xkey, 0) == XK_t){	// teleport
+						cout << "teleport where? ";
+						cin >> x >> y;
+						P.x=x;
+						P.y=y;
+						draw();
+					};
 				// in edit mode: clear/plant trees
 				
 					if(XLookupKeysym(&report.xkey, 0) == XK_g){	// clear flora/fauna layer
