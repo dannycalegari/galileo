@@ -169,7 +169,6 @@ void world::read_map(ifstream &input_file, int type){
 		input_file >> r >> g >> b;
 		trim_color = (long) (256*256*r)+(256*g)+b;
 		input_file >> battlement_style;
-		cout << "wall color " << wall_color << "\n";
 	};
 	input_file >> cols;
 	input_file >> rows;

@@ -253,7 +253,8 @@ void world::user_interface(){
 							case 103:	// Paris
 								enter_city("paris");
 								break;
-							case 104:
+							case 104:	// Venice
+								enter_city("venice");
 								break;
 							case 105:
 								break;
