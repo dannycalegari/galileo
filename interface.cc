@@ -270,7 +270,8 @@ void world::user_interface(){
 								break;
 							case 109:
 								break;
-							case 110:
+							case 110:	// Granada
+								enter_city("granada");
 								break;
 							default:
 								break;
