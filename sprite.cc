@@ -64,6 +64,8 @@ void world::load_sprites(){
 	S[62]="crucifix.xpm";
 	S[63]="bread.xpm";
 	S[64]="wine.xpm";
+	S[65]="statue.xpm";
+	S[66]="chair.xpm";
 	
 	if(P.gender=="female"){
 		S[99]="female_avatar.xpm";
