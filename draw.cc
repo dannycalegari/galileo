@@ -69,6 +69,7 @@ void world::draw_wall(int i, int j){
 //	carpet_code[0]=903678521;
 	wall_height=50;
 	roof=false;
+	wall_code=90;	// no wall by default
 	
 	switch(k){
 		case 0:		// EW wall
@@ -123,49 +124,42 @@ void world::draw_wall(int i, int j){
 			carpet_color[1]=0xFF0000;
 			carpet_code[0]=903678521;
 			carpet_code[1]=903478541;
-			wall_code=90;
 			break;
 		case 24:	
 			carpet_color[0]=0xAAAAAA;	// 0xBC8F8F;
 			carpet_color[1]=0x800080;	// purple spiral
 			carpet_code[0]=903678521;
 			carpet_code[1]=9478452410436;
-			wall_code=90;
 			break;
 		case 25:
 			carpet_color[0]=0xAAAAFF;
 			carpet_color[1]=0xFFD700;	// gold and chiffon stripes
 			carpet_code[0]=903678521;
 			carpet_code[1]=96730485103;
-			wall_code=90;
 			break;
 		case 26:
 			carpet_color[0]=0xAAAAAA;	// mosaic tile 1
 			carpet_color[1]=0xFF0000;
 			carpet_code[0]=903678521;
 			carpet_code[1]=9145763;
-			wall_code=90;
 			break;
 		case 27:
 			carpet_color[0]=0xAAAAAA;	// mosaic tile 2
 			carpet_color[1]=0xFF0000;
 			carpet_code[0]=903678521;
 			carpet_code[1]=91248743;
-			wall_code=90;
 			break;
 		case 28:
 			carpet_color[0]=0xAAAAAA;	// mosaic tile 3
 			carpet_color[1]=0xFF0000;
 			carpet_code[0]=903678521;
 			carpet_code[1]=901254764;
-			wall_code=90;
 			break;
 		case 29:
 			carpet_color[0]=0xAAAAAA;	// mosaic tile 4
 			carpet_color[1]=0xFF0000;
 			carpet_code[0]=903678521;
 			carpet_code[1]=92574034;
-			wall_code=90;
 			break;
 		case 30:
 			carpet_color[0]=0xBBBBBB;	// fancy tile
@@ -178,7 +172,6 @@ void world::draw_wall(int i, int j){
 			carpet_code[3]=98570;
 			carpet_color[4]=0x5875B9;	// light blue
 			carpet_code[4]=98750;
-			wall_code=90;
 			break;
 		case 31:
 			carpet_color[0]=0xBBBBBB;	// fancy tile
@@ -191,7 +184,6 @@ void world::draw_wall(int i, int j){
 			carpet_code[3]=92156;
 			carpet_color[4]=0x5875B9;	// light blue
 			carpet_code[4]=92516;
-			wall_code=90;
 			break;
 		case 32:
 			carpet_color[0]=0xBBBBBB;	// fancy tile
@@ -204,7 +196,6 @@ void world::draw_wall(int i, int j){
 			carpet_code[3]=90318;
 			carpet_color[4]=0x5875B9;	// light blue
 			carpet_code[4]=90138;
-			wall_code=90;
 			break;
 		case 33:
 			carpet_color[0]=0xBBBBBB;	// fancy tile
@@ -217,7 +208,24 @@ void world::draw_wall(int i, int j){
 			carpet_code[3]=96732;
 			carpet_color[4]=0x5875B9;	// light blue
 			carpet_code[4]=96372;
-			wall_code=90;
+			break;
+		case 34:
+			carpet_color[0]=0xBBBBBB;	// fancy tile
+			carpet_code[0]=903678521;
+			carpet_color[1]=0x2F4A43;
+			carpet_code[1]=956183270;
+			break;
+		case 35:
+			carpet_color[0]=0xBBBBBB;	// fancy tile
+			carpet_code[0]=903678521;
+			carpet_color[1]=0x43362D;	// dark brown
+			carpet_code[1]=9143;
+			carpet_color[2]=0x915C18;	// gold/brown
+			carpet_code[2]=9743;
+			carpet_color[3]=0x2F4A43;	// dark green
+			carpet_code[3]=9745;
+			carpet_color[4]=0x5875B9;	// light blue
+			carpet_code[4]=9145;
 			break;
 		default:
 			carpet_code[0]=9;	// no carpet
