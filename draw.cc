@@ -344,6 +344,8 @@ void world::draw_wall(int i, int j){
 			q[10]=q[3];
 			q[11]=r;
 			wall_steps=12;
+		} else if(battlement_style==5){		// columns
+		
 		};
 
 		switch(abs(m-mm)){ 	// 3 for horizontal, 1 for vertical, 4 for NE, 2 for NW
@@ -477,7 +479,7 @@ void world::draw_geographical_square(int i, int j){	// i,j in [-5,5] is location
 	int x,y;
 	int height[3][3];
 	long c;
-	XPoint q[3];
+	XPoint q[5];
 	
 	if(in_combat==true){
 		x=6;
@@ -493,6 +495,70 @@ void world::draw_geographical_square(int i, int j){	// i,j in [-5,5] is location
 				height[1][1]=world_map[x+i][y+j]*5;
 			};
 		};
+	};
+	
+	if(j==5){
+		for(b=-1;b<=1;b++){
+			q[2+b].x=400+(i*70)+(b*35);
+			q[2+b].y=400-(j*70)-(1*35);
+			q[2+b]=affine_transform(q[2+b]);
+			q[2+b].y=q[2+b].y-off_height(x+i,y+j,b,1);
+		};
+		q[0]=q[1];
+		q[0].y=0;
+		q[4]=q[3];
+		q[4].y=0;
+		XSetForeground(display, gc, 0x000000);
+    	XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
+    	XFillPolygon(display, win, gc, q, 5, Nonconvex, CoordModeOrigin);
+	};
+	
+	if(i==5){
+		for(b=-1;b<=1;b++){
+			q[2+b].x=400+(i*70)+(1*35);
+			q[2+b].y=400-(j*70)-(b*35);
+			q[2+b]=affine_transform(q[2+b]);
+			q[2+b].y=q[2+b].y-off_height(x+i,y+j,1,b);
+		};
+		q[0]=q[1];
+		q[0].y=0;
+		q[4]=q[3];
+		q[4].y=0;
+		XSetForeground(display, gc, 0x000000);
+    	XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
+    	XFillPolygon(display, win, gc, q, 5, Nonconvex, CoordModeOrigin);	
+	};
+	
+	if(j==-5){
+		for(b=-1;b<=1;b++){
+			q[2+b].x=400+(i*70)+(b*35);
+			q[2+b].y=400-(j*70)-(-1*35);
+			q[2+b]=affine_transform(q[2+b]);
+			q[2+b].y=q[2+b].y-off_height(x+i,y+j,b,-1);
+		};
+		q[0]=q[1];
+		q[0].y=800;
+		q[4]=q[3];
+		q[4].y=800;
+		XSetForeground(display, gc, 0x000000);
+    	XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
+    	XFillPolygon(display, win, gc, q, 5, Nonconvex, CoordModeOrigin);
+	};
+	
+	if(i==-5){
+		for(b=-1;b<=1;b++){
+			q[2+b].x=400+(i*70)+(-1*35);
+			q[2+b].y=400-(j*70)-(b*35);
+			q[2+b]=affine_transform(q[2+b]);
+			q[2+b].y=q[2+b].y-off_height(x+i,y+j,-1,b);
+		};
+		q[0]=q[1];
+		q[0].y=800;
+		q[4]=q[3];
+		q[4].y=800;
+		XSetForeground(display, gc, 0x000000);
+    	XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
+    	XFillPolygon(display, win, gc, q, 5, Nonconvex, CoordModeOrigin);	
 	};
 	
 	for(b=1;b>=0;b--){
@@ -644,7 +710,7 @@ void world::draw_graphics(){
 	int tile_size;
 	tile_size=70;	// should make this some global variable?
 
-	erase_graphics_field();
+//	erase_graphics_field();
 	if(in_combat==true){
 		x=6;
 		y=6;

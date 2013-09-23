@@ -112,6 +112,7 @@ void world::enter_combat(int type){	// type is code of opponent
 	add_new_message("combat with ");	// should add name of opponent here
 	M=make_new_monster(type,6,9);	// 6,9 is default initial location for one monster
 	monsters.push_back(M);
+	erase_graphics_field();
 	draw_info();
 };
 
@@ -135,4 +136,5 @@ void world::exit_combat(){
 	map_name="europe";
 	in_combat=false;
 	monsters.clear();	// any unkilled monsters disappear
+	erase_graphics_field();
 };
