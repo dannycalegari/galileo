@@ -70,6 +70,7 @@ void world::use_object(string S){
 };
 
 void world::use_object(string S, int x, int y){
+	int l;
 	if(S=="bow"){	// use bow to hunt
 		if(flora_fauna_map[P.x+x][P.y+y]>=11 && flora_fauna_map[P.x+x][P.y+y]<=13){
 			// boar, goat, deer
@@ -125,6 +126,14 @@ void world::use_object(string S, int x, int y){
 		if(flora_fauna_map[P.x+x][P.y+y]==10){	// cow
 			add_new_message("cow eats flower");
 			// do something
+			remove_object("flower");
+		} else if(occupied_by_special(P.x+x, P.y+y)>-1){
+			l=occupied_by_special(P.x+x,P.y+y);
+			if(npcs[l].id==10){	// Daisy the cow
+				add_new_message("Daisy eats flower");
+				remove_object("flower");
+				npcs[l].goal=99;	// Daisy follows avatar
+			};
 		};
 	};
 };

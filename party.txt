@@ -11,7 +11,7 @@ male
 99
 99
 99
-8
+9
 axe
 bow
 grapple
@@ -20,3 +20,4 @@ telescope
 seed
 net
 saddle
+flower
