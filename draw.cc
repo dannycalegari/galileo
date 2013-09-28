@@ -146,7 +146,7 @@ void world::draw_wall(int i, int j){
 			carpet_code[1]=9478452410436;
 			break;
 		case 25:
-			carpet_color[0]=0xAAAAFF;
+			carpet_color[0]=0x6666FF;
 			carpet_color[1]=0xFFD700;	// gold and chiffon stripes
 			carpet_code[0]=903678521;
 			carpet_code[1]=96730485103;

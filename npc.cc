@@ -45,7 +45,7 @@ npc world::make_new_npc(int type, int x, int y){
 			N.id=47;
 			N.sprite=47;
 			N.grumble="move along";
-			N.goal=-1;
+			N.goal=-2;
 			N.talk_list.push_back(new_conversation_item("initial", "good day"));
 			N.talk_list.push_back(new_conversation_item("name", "guard"));
 			N.talk_list.push_back(new_conversation_item("job", "guarding"));

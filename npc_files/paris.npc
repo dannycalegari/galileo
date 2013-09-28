@@ -1,4 +1,4 @@
-23
+27
 46
 46
 70 31
@@ -509,20 +509,86 @@ bye!;exit
 51
 81 112
 -2
-
-7
+hic!
+6
 initial
 hello!
 name
-Antonio
+Thierry Raisin
 job
-merchant
-merchant
-I trained in Venice
-money
-it makes the world go round
+wine merchant
+wine
+in vino veritas
 buy
-what would you like;bd
+what would you like;be
 bye
 bye!;exit
+0
+47
+47
+72 90
+-2
+move along
+5
+initial
+good day
+name
+guard
+job
+guarding
+guard
+yes, that's right
+bye
+don't get into trouble;exit
+0
+47
+47
+72 88
+-2
+move along
+5
+initial
+good day
+name
+guard
+job
+guarding
+guard
+yes, that's right
+bye
+don't get into trouble;exit
+0
+47
+47
+87 76
+-2
+move along
+5
+initial
+good day
+name
+guard
+job
+guarding
+guard
+yes, that's right
+bye
+don't get into trouble;exit
+0
+47
+47
+87 74
+-2
+move along
+5
+initial
+good day
+name
+guard
+job
+guarding
+guard
+yes, that's right
+bye
+don't get into trouble;exit
 0
