@@ -1,10 +1,10 @@
-3
+2
 52
 52
 298 381
 111
 timber!
-9
+12
 initial
 hello!
 name
@@ -19,8 +19,14 @@ city
 it's safer in the cities
 tree
 nature seeks a balance
+plant
+I plant seeds
+cut
+you would need an axe for that
+axe
+I need this one for myself!
 buy
-what would you like;bj
+not for sale, sorry!
 bye
 bye!;exit
 2
@@ -31,19 +37,23 @@ bye!;exit
 300 402
 20
 fie!
-9
+11
 initial
 hello!
 name
-Sir Donald
+Sir Donald Bradman
 job
 I am a knight
 hunt
 I hunt wild animals
 animal
 mostly bears and wolves
+danger
+there's bandits too
+wild
+it's dangerous outside the cities
 cricket
-very noisy, sport
+I used to play a bit
 horse
 just a couple of coconuts, really
 silly
@@ -53,13 +63,3 @@ forsooth!;exit
 2
 20
 21
-10
-10
-301 403
--1
-<ding>
-1
-initial
-moo!;exit
-1
-99
