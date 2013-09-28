@@ -26,6 +26,20 @@ int world::off_height(int i, int j, int a, int b){	// a is from -1 to 1, b from 
 	return(h);
 };
 
+XPoint world::grid_location(int i, int j, int x, int y, int a, int b){
+	// location on the screen of grid point.
+	// i,j is from -5 to 5
+	// x,y is absolute location of i=0,j=0
+	// a,b is from 0 to 2 grid (subdivision of i,j square)
+	
+	XPoint q;
+	q.x=365+(i*70)+(a*35);
+	q.y=435-(j*70)-(b*35);
+	q=affine_transform(q);
+	q.y=q.y-off_height(x+i,y+j,a-1,b-1);
+	return(q);
+};
+
 long shadow(long c, double e){	// darkens color c by factor e in [0,1]
 	int r,g,b;
 	long d;
@@ -243,10 +257,7 @@ void world::draw_wall(int i, int j){
 			n=0;
 			while(carpet_code[l]!=9){	
 				m=carpet_code[l]%10;
-				q[n].x=365+(i*70)+(m/3)*35;
-				q[n].y=435-(j*70)-(m%3)*35;
-				q[n]=affine_transform(q[n]);
-				q[n].y=q[n].y-off_height(x+i,y+j,(m/3)-1,(m%3)-1);	
+				q[n]=grid_location(i, j, x, y, m/3, m%3);
 				carpet_code[l]=carpet_code[l]/10;
 				n++;
 			};
@@ -262,14 +273,8 @@ void world::draw_wall(int i, int j){
 	while(temp_wall_code>=99){
 		m=temp_wall_code%10;
 		mm=(temp_wall_code/10)%10;
-		q[0].x=365+(i*70)+(m/3)*35;
-		q[0].y=435-(j*70)-(m%3)*35;
-		q[0]=affine_transform(q[0]);
-		q[0].y=q[0].y-off_height(x+i,y+j,(m/3)-1,(m%3)-1);	
-		q[1].x=365+(i*70)+(mm/3)*35;
-		q[1].y=435-(j*70)-(mm%3)*35;
-		q[1]=affine_transform(q[1]);
-		q[1].y=q[1].y-off_height(x+i,y+j,(mm/3)-1,(mm%3)-1);
+		q[0]=grid_location(i,j,x,y,m/3,m%3);
+		q[1]=grid_location(i,j,x,y,mm/3,mm%3);
 		q[2]=q[1];
 		q[2].y=q[2].y-wall_height;
 		r=q[0];
@@ -378,18 +383,12 @@ void world::draw_wall(int i, int j){
 		while(wall_code>=99){
 			m=wall_code%10;
 			mm=(wall_code/10)%10;
-			q[0].x=365+(i*70)+(m/3)*35;
-			q[0].y=435-(j*70)-(m%3)*35;
-			q[0]=affine_transform(q[0]);
-			q[0].y=q[0].y-off_height(x+i,y+j,(m/3)-1,(m%3)-1)-wall_height;	
-			q[2].x=365+(i*70)+(mm/3)*35;
-			q[2].y=435-(j*70)-(mm%3)*35;
-			q[2]=affine_transform(q[2]);
-			q[2].y=q[2].y-off_height(x+i,y+j,(mm/3)-1,(mm%3)-1)-wall_height;
-			q[1].x=365+(i*70)+35;
-			q[1].y=435-(j*70)-35;
-			q[1]=affine_transform(q[1]);
-			q[1].y=q[1].y-off_height(x+i,y+j,0,0)-wall_height-50;
+			q[0]=grid_location(i,j,x,y,m/3,m%3);
+			q[1]=grid_location(i,j,x,y,1,1);
+			q[2]=grid_location(i,j,x,y,mm/3,mm%3);
+			q[0].y=q[0].y-wall_height;
+			q[1].y=q[1].y-wall_height-50;
+			q[2].y=q[2].y-wall_height;
 		
 			switch(abs(m-mm)){ 	// 3 for horizontal, 1 for vertical, 4 for NE, 2 for NW
 				case 1:
@@ -477,7 +476,6 @@ long determine_color(int k){	// k = sum of altitudes of vertices
 void world::draw_geographical_square(int i, int j){	// i,j in [-5,5] is location relative to x,y
 	int a,b;
 	int x,y;
-	int height[3][3];
 	long c;
 	XPoint q[5];
 	
@@ -488,53 +486,36 @@ void world::draw_geographical_square(int i, int j){	// i,j in [-5,5] is location
 		x=P.x;
 		y=P.y;
 	};
-	for(a=-1;a<2;a++){
-		for(b=-1;b<2;b++){
-			height[a+1][b+1]=world_map[x+i][y+j]+world_map[x+i+a][y+j]+world_map[x+i][y+j+b]+world_map[x+i+a][y+j+b];
-			if(a==0 && b==0 && world_map[x+i][y+j]>=4){	// mountain tile
-				height[1][1]=world_map[x+i][y+j]*5;
-			};
-		};
-	};
 	
 	if(j==5){
-		for(b=-1;b<=1;b++){
-			q[2+b].x=400+(i*70)+(b*35);
-			q[2+b].y=400-(j*70)-(1*35);
-			q[2+b]=affine_transform(q[2+b]);
-			q[2+b].y=q[2+b].y-off_height(x+i,y+j,b,1);
+		for(b=0;b<=2;b++){
+			q[1+b]=grid_location(i,j,x,y,b,2);
 		};
 		q[0]=q[1];
 		q[0].y=0;
 		q[4]=q[3];
 		q[4].y=0;
 		XSetForeground(display, gc, 0x000000);
-    	XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
+	   	XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
     	XFillPolygon(display, win, gc, q, 5, Nonconvex, CoordModeOrigin);
 	};
 	
 	if(i==5){
-		for(b=-1;b<=1;b++){
-			q[2+b].x=400+(i*70)+(1*35);
-			q[2+b].y=400-(j*70)-(b*35);
-			q[2+b]=affine_transform(q[2+b]);
-			q[2+b].y=q[2+b].y-off_height(x+i,y+j,1,b);
+		for(b=0;b<=2;b++){
+			q[1+b]=grid_location(i,j,x,y,2,b);
 		};
 		q[0]=q[1];
 		q[0].y=0;
 		q[4]=q[3];
 		q[4].y=0;
 		XSetForeground(display, gc, 0x000000);
-    	XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
+	   	XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
     	XFillPolygon(display, win, gc, q, 5, Nonconvex, CoordModeOrigin);	
 	};
 	
 	if(j==-5){
-		for(b=-1;b<=1;b++){
-			q[2+b].x=400+(i*70)+(b*35);
-			q[2+b].y=400-(j*70)-(-1*35);
-			q[2+b]=affine_transform(q[2+b]);
-			q[2+b].y=q[2+b].y-off_height(x+i,y+j,b,-1);
+		for(b=0;b<=2;b++){
+			q[1+b]=grid_location(i,j,x,y,b,0);
 		};
 		q[0]=q[1];
 		q[0].y=800;
@@ -546,101 +527,49 @@ void world::draw_geographical_square(int i, int j){	// i,j in [-5,5] is location
 	};
 	
 	if(i==-5){
-		for(b=-1;b<=1;b++){
-			q[2+b].x=400+(i*70)+(-1*35);
-			q[2+b].y=400-(j*70)-(b*35);
-			q[2+b]=affine_transform(q[2+b]);
-			q[2+b].y=q[2+b].y-off_height(x+i,y+j,-1,b);
+		for(b=0;b<=2;b++){
+			q[1+b]=grid_location(i,j,x,y,0,b);
 		};
 		q[0]=q[1];
 		q[0].y=800;
 		q[4]=q[3];
 		q[4].y=800;
 		XSetForeground(display, gc, 0x000000);
-    	XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
+	   	XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
     	XFillPolygon(display, win, gc, q, 5, Nonconvex, CoordModeOrigin);	
 	};
-	
-	for(b=1;b>=0;b--){
-		for(a=1;a>=0;a--){
-			if((a+b)%2==0){
-				q[0].x=365+(i*70)+(a*35);
-				q[0].y=435-(j*70)-(b*35);
-				q[0]=affine_transform(q[0]);
-				q[0].y=q[0].y-height[a][b]*4;
-				q[1].x=365+(i*70)+(a*35);
-				q[1].y=435-35-(j*70)-(b*35);
-				q[1]=affine_transform(q[1]);
-				q[1].y=q[1].y-height[a][b+1]*4;
-				q[2].x=365+35+(i*70)+(a*35);
-				q[2].y=435-(j*70)-(b*35);
-				q[2]=affine_transform(q[2]);
-				q[2].y=q[2].y-height[a+1][b]*4;
-				c=determine_color(height[a][b]+height[a][b+1]+height[a+1][b]);
-   				if(b==1 && height[1][1]>=20){	// mountain
-   					c=0xAAAAAA;
-   				};
-   				XSetForeground(display, gc, c);
-    			XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
-    			XFillPolygon(display, win, gc, q, 3, Convex, CoordModeOrigin);
-    			
-				q[0].x=365+35+(i*70)+(a*35);
-				q[0].y=435-35-(j*70)-(b*35);
-				q[0]=affine_transform(q[0]);
-				q[0].y=q[0].y-height[a+1][b+1]*4;
-				q[1].x=365+(i*70)+(a*35);
-				q[1].y=435-35-(j*70)-(b*35);
-				q[1]=affine_transform(q[1]);
-				q[1].y=q[1].y-height[a][b+1]*4;
-				q[2].x=365+35+(i*70)+(a*35);
-				q[2].y=435-(j*70)-(b*35);
-				q[2]=affine_transform(q[2]);
-				q[2].y=q[2].y-height[a+1][b]*4;
-				c=determine_color(height[a+1][b+1]+height[a][b+1]+height[a+1][b]);
-   				XSetForeground(display, gc, c);
-    			XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
-    			XFillPolygon(display, win, gc, q, 3, Convex, CoordModeOrigin);
-			} else {
-				q[0].x=365+35+(i*70)+(a*35);
-				q[0].y=435-(j*70)-(b*35);
-				q[0]=affine_transform(q[0]);
-				q[0].y=q[0].y-height[a+1][b]*4;
-				q[1].x=365+35+(i*70)+(a*35);
-				q[1].y=435-35-(j*70)-(b*35);
-				q[1]=affine_transform(q[1]);
-				q[1].y=q[1].y-height[a+1][b+1]*4;
-				q[2].x=365+(i*70)+(a*35);
-				q[2].y=435-(j*70)-(b*35);
-				q[2]=affine_transform(q[2]);
-				q[2].y=q[2].y-height[a][b]*4;
-				c=determine_color(height[a+1][b]+height[a+1][b+1]+height[a][b]);
-   				if(b==1 && height[1][1]>=20){	// mountain
-   					c=0xDDDDDD;
-   				};
-   				XSetForeground(display, gc, c);
-    			XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
-    			XFillPolygon(display, win, gc, q, 3, Convex, CoordModeOrigin);
-    			
-				q[0].x=365+(i*70)+(a*35);
-				q[0].y=435-35-(j*70)-(b*35);
-				q[0]=affine_transform(q[0]);
-				q[0].y=q[0].y-height[a][b+1]*4;
-				q[1].x=365+35+(i*70)+(a*35);
-				q[1].y=435-35-(j*70)-(b*35);
-				q[1]=affine_transform(q[1]);
-				q[1].y=q[1].y-height[a+1][b+1]*4;
-				q[2].x=365+(i*70)+(a*35);
-				q[2].y=435-(j*70)-(b*35);
-				q[2]=affine_transform(q[2]);
-				q[2].y=q[2].y-height[a][b]*4;
-				c=determine_color(height[a][b+1]+height[a+1][b+1]+height[a][b]);
-   				if(b==0 && height[1][1]>=20){	// mountain
-   					c=0xCCCCCC;
-   				};
-   				XSetForeground(display, gc, c);
-    			XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
-    			XFillPolygon(display, win, gc, q, 3, Convex, CoordModeOrigin);			
-			};
+
+	for(b=2;b>=0;b=b-2){
+		for(a=2;a>=0;a=a-2){
+			q[0]=grid_location(i,j,x,y,1,1);
+			q[1]=grid_location(i,j,x,y,a,1);
+			q[2]=grid_location(i,j,x,y,1,b);
+			c=determine_color(off_height(x+i,y+j,0,0)/4+off_height(x+i,y+j,a-1,0)/4+off_height(x+i,y+j,0,b-1)/4);
+ 			if(off_height(x+i,y+j,0,0)>=80){
+ 				if(a==2){
+ 					if(b==2){	// a=2, b=2
+ 						c=0xAAAAAA;
+ 					} else {	// a=2, b=0
+ 					   	c=0xCCCCCC;
+ 					};
+ 				} else {
+ 					if(b==2){	// a=0, b=2
+ 						c=0xDDDDDD;
+ 					} else {	// a=0, b=0
+ 					
+ 					};					
+  				};
+ 			};
+ 			XSetForeground(display, gc, c);
+    		XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
+    		XFillPolygon(display, win, gc, q, 3, Convex, CoordModeOrigin);	
+			q[0]=grid_location(i,j,x,y,a,b);
+			q[2]=grid_location(i,j,x,y,a,1);
+			q[1]=grid_location(i,j,x,y,1,b);
+			c=determine_color(off_height(x+i,y+j,a-1,b-1)/4+off_height(x+i,y+j,a-1,0)/4+off_height(x+i,y+j,0,b-1)/4);
+ 			XSetForeground(display, gc, c);
+    		XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
+    		XFillPolygon(display, win, gc, q, 3, Convex, CoordModeOrigin);	
 		};
 	};
 };

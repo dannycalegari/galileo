@@ -131,6 +131,7 @@ class world{
 		int battlement_style;			// customizable; different in different cities
 		int center_height(int i, int j);
 		int off_height(int i, int j, int a, int b);	// height in off center locations
+		XPoint grid_location(int i, int j, int x, int y, int a, int b);	// grid location on screen
 		void draw_wall(int i, int j);	
 		void draw_geographical_square(int i, int j);
 		bool is_visible(int i, int j);
