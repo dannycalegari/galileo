@@ -228,10 +228,10 @@ void world::commerce_routine(int i){
 	sale_item I;
 	int j,k;
 	switch(i){
-		case 0: // arms dealer
+		case 0: // blacksmith
 			wares.clear();
-			I.item="bow";
-			I.price=50;
+			I.item="horseshoes";
+			I.price=10;
 			wares.push_back(I);
 			I.item="sword";
 			I.price=70;
@@ -258,6 +258,15 @@ void world::commerce_routine(int i){
 			I.price=8;
 			wares.push_back(I);
 			break;		
+		case 3:	// clothes
+			wares.clear();
+			I.item="dress";
+			I.price=100;
+			wares.push_back(I);
+			I.item="cloak";
+			I.price=45;
+			wares.push_back(I);
+			break;
 		case 9: // provisioner
 			add_new_message(": how many rations (1 each)?");
 			j=get_number();

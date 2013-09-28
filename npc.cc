@@ -28,6 +28,30 @@ npc world::make_new_npc(int type, int x, int y){
 	N.goal_list.clear();
 			
 	switch(type){
+		case 46:	// generic blacksmith npc
+			N.id=46;
+			N.sprite=46;
+			N.grumble="<clank>";
+			N.goal=67;	// initial goal is anvil
+			N.talk_list.push_back(new_conversation_item("initial", "hello!"));
+			N.talk_list.push_back(new_conversation_item("name", "Jack"));
+			N.talk_list.push_back(new_conversation_item("job", "blacksmith"));
+			N.talk_list.push_back(new_conversation_item("buy", "what would you like;ba"));
+			N.talk_list.push_back(new_conversation_item("bye", "bye!;exit"));
+			N.goal_list.push_back(67);
+			N.goal_list.push_back(51);
+			break;
+		case 47:	// generic guard npc
+			N.id=47;
+			N.sprite=47;
+			N.grumble="move along";
+			N.goal=-1;
+			N.talk_list.push_back(new_conversation_item("initial", "good day"));
+			N.talk_list.push_back(new_conversation_item("name", "guard"));
+			N.talk_list.push_back(new_conversation_item("job", "guarding"));
+			N.talk_list.push_back(new_conversation_item("guard", "yes, that's right"));
+			N.talk_list.push_back(new_conversation_item("bye", "don't get into trouble;exit"));	
+			break;
 		case 49:	// generic scholar npc
 			N.id=49;
 			N.sprite=49;
@@ -69,7 +93,7 @@ npc world::make_new_npc(int type, int x, int y){
 			N.talk_list.push_back(new_conversation_item("job", "merchant"));
 			N.talk_list.push_back(new_conversation_item("merchant", "I trained in Venice"));
 			N.talk_list.push_back(new_conversation_item("money", "it makes the world go round"));
-			N.talk_list.push_back(new_conversation_item("buy", "what would you like;ba"));
+			N.talk_list.push_back(new_conversation_item("buy", "what would you like;bd"));
 			N.talk_list.push_back(new_conversation_item("bye", "bye!;exit"));	
 			break;
 		case 52: // generic woodcutter npc

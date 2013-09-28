@@ -67,7 +67,6 @@ void world::enter_city(string S){	// S is name of city
 	input_file.open(T.c_str());
 	read_npc_file(input_file);
 	input_file.close();
-	npcs.clear();	// no npcs; actually should load list of npcs
 };
 
 void world::exit_city(){

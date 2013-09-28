@@ -45,6 +45,7 @@ void world::load_sprites(){
 	S[40]="granada.xpm";		// 110
 	S[41]="castle.xpm";			// 111
 	
+	S[46]="blacksmith.xpm";
 	S[47]="guard.xpm";
 	S[48]="cardinal.xpm";
 	S[49]="scholar.xpm";
@@ -66,6 +67,7 @@ void world::load_sprites(){
 	S[64]="wine.xpm";
 	S[65]="statue.xpm";
 	S[66]="chair.xpm";
+	S[67]="anvil.xpm";
 	
 	if(P.gender=="female"){
 		S[99]="female_avatar.xpm";
