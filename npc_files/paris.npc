@@ -1,0 +1,528 @@
+23
+46
+46
+70 31
+67
+<clank>
+5
+initial
+hello!
+name
+Jack
+job
+blacksmith
+buy
+what would you like;ba
+bye
+bye!;exit
+2
+67
+51
+51
+51
+63 32
+-2
+
+7
+initial
+hello!
+name
+Antonio
+job
+merchant
+merchant
+I trained in Venice
+money
+it makes the world go round
+buy
+what would you like;bd
+bye
+bye!;exit
+0
+57
+57
+58 37
+51
+do re mi
+8
+initial
+hello!
+name
+Lydia
+job
+musician
+lute
+broke an E string
+fret
+why worry?
+note
+let's take this allegro
+concert
+I played for the pope in Rome
+bye
+bye!;exit
+2
+51
+55
+50
+50
+45 30
+10
+la la
+9
+initial
+hello!
+name
+Jane
+job
+milkmaid
+rain
+good for the farmers
+cow
+they like flowers
+farm
+I milk cows
+milk
+used for cheese
+cheese
+try a Stilton in London
+bye
+bye!;exit
+2
+10
+51
+56
+56
+70 45
+62
+amen
+8
+initial
+hello!
+name
+Francis
+job
+monk
+wheat
+used for beer
+beer
+nectar of god!
+drink
+why not indeed!
+pray
+give me chastity, but not yet
+bye
+bye!;exit
+2
+62
+55
+51
+51
+71 68
+-2
+
+7
+initial
+hello!
+name
+Antonio
+job
+merchant
+merchant
+I trained in Venice
+money
+it makes the world go round
+buy
+what would you like;bd
+bye
+bye!;exit
+0
+58
+58
+38 55
+-1
+arrr
+8
+initial
+hello!
+name
+Watt
+what
+wat ho!
+rain
+good for the farmers
+farm
+I harvest wheat
+wheat
+used for bread
+bread
+talk to a cook
+bye
+bye!;exit
+0
+50
+50
+33 48
+10
+la la
+9
+initial
+hello!
+name
+Jane
+job
+milkmaid
+rain
+good for the farmers
+cow
+they like flowers
+farm
+I milk cows
+milk
+used for cheese
+cheese
+try a Stilton in London
+bye
+bye!;exit
+2
+10
+51
+50
+50
+106 46
+10
+la la
+9
+initial
+hello!
+name
+Jane
+job
+milkmaid
+rain
+good for the farmers
+cow
+they like flowers
+farm
+I milk cows
+milk
+used for cheese
+cheese
+try a Stilton in London
+bye
+bye!;exit
+2
+10
+51
+50
+50
+99 30
+10
+la la
+9
+initial
+hello!
+name
+Jane
+job
+milkmaid
+rain
+good for the farmers
+cow
+they like flowers
+farm
+I milk cows
+milk
+used for cheese
+cheese
+try a Stilton in London
+bye
+bye!;exit
+2
+10
+51
+51
+51
+82 28
+-2
+
+7
+initial
+hello!
+name
+Antonio
+job
+merchant
+merchant
+I trained in Venice
+money
+it makes the world go round
+buy
+what would you like;bd
+bye
+bye!;exit
+0
+56
+56
+94 72
+62
+amen
+8
+initial
+hello!
+name
+Francis
+job
+monk
+wheat
+used for beer
+beer
+nectar of god!
+drink
+why not indeed!
+pray
+give me chastity, but not yet
+bye
+bye!;exit
+2
+62
+55
+54
+54
+92 81
+20
+
+7
+initial
+hello!
+name
+Sir Donald
+job
+knight
+cricket
+very noisy
+horse
+just a couple of coconuts
+silly
+yes, silly mid-on
+bye
+forsooth!;exit
+2
+20
+21
+49
+49
+95 80
+51
+hmm
+6
+initial
+hello!
+name
+Martin
+job
+scholar
+read
+I read many books
+book
+I hear there is a new book by an Italian called Galileo
+bye
+bye!;exit
+2
+51
+55
+49
+49
+100 69
+51
+hmm
+2
+initial
+who are you again?
+bye
+so you say;exit
+0
+51
+51
+68 93
+-2
+
+7
+initial
+hello!
+name
+Antonio
+job
+merchant
+merchant
+I trained in Venice
+money
+it makes the world go round
+buy
+what would you like;bd
+bye
+bye!;exit
+0
+56
+56
+63 93
+62
+amen
+8
+initial
+hello!
+name
+Francis
+job
+monk
+wheat
+used for beer
+beer
+nectar of god!
+drink
+why not indeed!
+pray
+give me chastity, but not yet
+bye
+bye!;exit
+2
+62
+55
+57
+57
+66 95
+51
+do re mi
+8
+initial
+hello!
+name
+Lydia
+job
+musician
+lute
+broke an E string
+fret
+why worry?
+note
+let's take this allegro
+concert
+I played for the pope in Rome
+bye
+bye!;exit
+2
+51
+55
+55
+55
+86 17
+-2
+
+8
+initial
+hello!
+name
+Pierre
+job
+cook
+food
+I love to bake bread
+bread
+the best bread is in Paris
+buy
+what would you like;bb
+eat
+I better not, I just ate
+bye
+bye!;exit
+0
+55
+55
+89 79
+-2
+
+8
+initial
+hello!
+name
+Pierre
+job
+cook
+food
+I love to bake bread
+bread
+the best bread is in Paris
+buy
+what would you like;bb
+eat
+I better not, I just ate
+bye
+bye!;exit
+0
+55
+55
+68 89
+-2
+
+8
+initial
+hello!
+name
+Pierre
+job
+cook
+food
+I love to bake bread
+bread
+the best bread is in Paris
+buy
+what would you like;bb
+eat
+I better not, I just ate
+bye
+bye!;exit
+0
+55
+55
+79 112
+-2
+
+8
+initial
+hello!
+name
+Pierre
+job
+cook
+food
+I love to bake bread
+bread
+the best bread is in Paris
+buy
+what would you like;bb
+eat
+I better not, I just ate
+bye
+bye!;exit
+0
+51
+51
+81 112
+-2
+
+7
+initial
+hello!
+name
+Antonio
+job
+merchant
+merchant
+I trained in Venice
+money
+it makes the world go round
+buy
+what would you like;bd
+bye
+bye!;exit
+0
