@@ -147,6 +147,7 @@ void world::use_object(int x, int y){
 			break;
 		case 5:
 			add_new_message("flower picked");
+			add_new_object("flower");
 			// add flower as item
 			break;
 		default:

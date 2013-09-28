@@ -39,15 +39,18 @@ conversation_item new_conversation_item(string P, string R){
 
 struct npc{
 	int x,y;	// coordinates 
-	int id;		// sprite number of npc appearance
+	int id;		// universal identifier
+	int sprite;		// sprite number of npc appearance
 	int goal;	// flora/fauna number of object npc wants to move towards; -1=none
 	string grumble;		// speech balloon said randomly
 	vector<conversation_item > talk_list;	// canned responses for conversation
+	vector<int > goal_list;	// cyclic list of goals
 };
 
 struct monster{
 	int x,y;	// coordinates
 	int id;
+	int sprite;
 	int health;
 	bool ranged_attack;
 	int strength;
@@ -151,6 +154,7 @@ class world{
 		// conversation; in talk.cc
 		
 		string get_line_of_text();
+		int get_number();
 		string get_line_of_text(string R);
 		void talk(int x, int y);
 		string get_response(int c, string S);		// response of npc[c] to string S
@@ -186,8 +190,8 @@ class world{
 		
 		// goal functions; in goal.cc
 		
-		int update_goal(int type, int goal);
-		void achieve_goal(int l, int goal, point desired_move);
+		void update_goal(int l);
+		void achieve_goal(int l, point desired_move);
 		void pursue_special_goal(int type, int goal);
 
 		// use object; in use.cc

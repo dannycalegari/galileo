@@ -18,6 +18,7 @@ monster world::make_new_monster(int type, int x, int y){
 	switch(type){
 		case 11:		// boar
 			M.id = 11;
+			M.sprite = 11;
 			M.health = 100;
 			M.ranged_attack = false;
 			M.strength = 20;
@@ -25,6 +26,7 @@ monster world::make_new_monster(int type, int x, int y){
 			break;
 		case 20:		// bear
 			M.id = 20;
+			M.sprite = 20;
 			M.health = 100;
 			M.ranged_attack = false;
 			M.strength = 40;
@@ -32,6 +34,7 @@ monster world::make_new_monster(int type, int x, int y){
 			break;
 		case 21:		// wolf
 			M.id = 21;
+			M.sprite = 21;
 			M.health = 100;
 			M.ranged_attack = false;
 			M.strength = 30;
@@ -39,6 +42,7 @@ monster world::make_new_monster(int type, int x, int y){
 			break;		
 		case 53:		// robber
 			M.id = 53;
+			M.sprite = 53;
 			M.health = 100;
 			M.ranged_attack = true;
 			M.strength = 20;

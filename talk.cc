@@ -33,11 +33,52 @@ string world::get_line_of_text(){
 				} else if(XLookupKeysym(&report.xkey, 0) == XK_Return){
 					line_finished=true;
 				};
+				break;
 			default:
 				break;
 		};
 	};
 	return(S);
+};
+
+int world::get_number(){
+	int n,k;
+	n=0;	// initial value
+	string S;
+	S="> "; // initialize string
+	char c;
+	add_new_message(S);
+	draw_info();
+	bool line_finished;
+	line_finished=false;	// look for end of line character
+	while(line_finished==false){
+		XNextEvent(display, &report);
+		switch(report.type) {
+			case KeyPress:
+				k=XLookupKeysym(&report.xkey, 0);
+				if(k >= 0x030 && k <= 0x039){	// number
+					n=(10*n)+(k-48);
+					c=char('0'+(int) (k-48));
+					S=S+c;
+					modify_last_line(S);
+					draw_info();
+				} else if(k == XK_Delete || k == XK_BackSpace){
+					if(S.size()>1){
+						n=n/10;
+						S.erase(S.size()-1);	// strip off last character;
+						modify_last_line(S);
+						draw_info();
+					//	S.pop_back();	// alternate code; needs C++11 support
+					};
+				} else if(XLookupKeysym(&report.xkey, 0) == XK_Return){
+					line_finished=true;
+				};
+				break;
+			default:
+				break;
+		};
+	};
+	return(n);
 };
 
 string world::get_line_of_text(string R){	// initial prompt
@@ -156,7 +197,7 @@ void world::conversation_with_npc(int c){
 			// analyze nonverbal response
 		};
 		draw_info();
-		if(T=="bye!"){
+		if(U=="exit"){
 			conversation_over=true;
 		} else {
 			S=get_line_of_text();
@@ -208,27 +249,48 @@ void world::commerce_routine(int i){
 			I.price=20;
 			wares.push_back(I);
 			break;
+		case 2:	// dairy
+			wares.clear();
+			I.item="milk";
+			I.price=5;
+			wares.push_back(I);
+			I.item="cheese";
+			I.price=8;
+			wares.push_back(I);
+			break;		
+		case 9: // provisioner
+			add_new_message(": how many rations (1 each)?");
+			j=get_number();
+			if(j>0 && j <=P.gold){
+				P.gold=P.gold-j;
+				P.food=P.food+j;
+			} else if (j>P.gold){
+				add_new_message(": not enough gold!");
+			};
+			break;
 		default:
 			break;
 	};
-	for(j=0;j<(int) wares.size();j++){
+	if(i<9){
+		for(j=0;j<(int) wares.size();j++){
+			T.str("");
+			T << ": [" << (char) ((int) 'a'+j) << "] " << wares[j].item << " " << wares[j].price;
+			add_new_message(T.str());
+		};
 		T.str("");
-		T << ": [" << (char) ((int) 'a'+j) << "] " << wares[j].item << " " << wares[j].price;
+		T << ": [" << (char) ((int) 'a'+(int) wares.size()) << "] nothing";
 		add_new_message(T.str());
-	};
-	T.str("");
-	T << ": [" << (char) ((int) 'a'+(int) wares.size()) << "] nothing";
-	add_new_message(T.str());
-	S=get_line_of_text();
-	c=S[2];	// strip off initial "> "
-	k=(int) c - (int) 'a';
-	if(0<=k && k<(int) wares.size()){	// if it is on the list
-		if(P.gold>=wares[k].price){	// if P has enough money
-			P.gold=P.gold-wares[k].price;
-			add_new_object(wares[k].item);
-			add_new_message(": here you are");
-		} else {
-			add_new_message(": not enough gold!");
+		S=get_line_of_text();
+		c=S[2];	// strip off initial "> "
+		k=(int) c - (int) 'a';
+		if(0<=k && k<(int) wares.size()){	// if it is on the list
+			if(P.gold>=wares[k].price){	// if P has enough money
+				P.gold=P.gold-wares[k].price;
+				add_new_object(wares[k].item);
+				add_new_message(": here you are");
+			} else {
+				add_new_message(": not enough gold!");
+			};
 		};
 	};
 };

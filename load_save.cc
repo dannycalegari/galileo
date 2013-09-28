@@ -62,6 +62,11 @@ void world::enter_city(string S){	// S is name of city
 	P.y=6;
 	in_city=true;
 	add_new_message("entering "+S);
+	
+	T="npc_files/"+S+".npc";
+	input_file.open(T.c_str());
+	read_npc_file(input_file);
+	input_file.close();
 	npcs.clear();	// no npcs; actually should load list of npcs
 };
 
@@ -83,7 +88,10 @@ void world::exit_city(){
 	add_new_message("leaving "+map_name);
 	map_name="europe";
 	in_city=false;
-	npcs.clear();	// no npcs; actually should load list of npcs
+
+	input_file.open("npc_files/europe.npc");
+	read_npc_file(input_file);
+	input_file.close();
 };
 
 void world::save_current_map(){
@@ -112,11 +120,12 @@ void world::save_current_map(){
 };
 
 void world::write_npc_file(ofstream &output_file){
-	int number_of_npcs,i,number_of_conversation_items,j;
+	int number_of_npcs,i,number_of_conversation_items,number_of_goal_items,j;
 	number_of_npcs=(int) npcs.size();
 	output_file << number_of_npcs << "\n";	// number of npcs
 	for(i=0;i<number_of_npcs;i++){	// for each npc
 		output_file << npcs[i].id << "\n";
+		output_file << npcs[i].sprite << "\n";
 		output_file <<  npcs[i].x << " " << npcs[i].y << "\n";
 		output_file << npcs[i].goal << "\n";
 		output_file << npcs[i].grumble << "\n";
@@ -126,11 +135,16 @@ void world::write_npc_file(ofstream &output_file){
 			output_file << npcs[i].talk_list[j].prompt << "\n";
 			output_file << npcs[i].talk_list[j].reply << "\n";
 		};
+		number_of_goal_items=(int) npcs[i].goal_list.size();
+		output_file << number_of_goal_items << "\n";
+		for(j=0;j<number_of_goal_items;j++){
+			output_file << npcs[i].goal_list[j] << "\n";
+		};
 	};
 };
 
 void world::read_npc_file(ifstream &input_file){
-	int number_of_npcs,i,number_of_conversation_items,j;
+	int number_of_npcs,i,number_of_conversation_items,number_of_goal_items,j,k;
 	npc N;
 	conversation_item C;
 	string S,R;
@@ -139,6 +153,7 @@ void world::read_npc_file(ifstream &input_file){
 	input_file >> number_of_npcs;	// number of npcs
 	for(i=0;i<number_of_npcs;i++){	// for each npc
 		input_file >> N.id;
+		input_file >> N.sprite;
 		input_file >> N.x >> N.y;
 		input_file >> N.goal;
 		getline(input_file,S);	// clear buffer
@@ -152,6 +167,12 @@ void world::read_npc_file(ifstream &input_file){
 			getline(input_file,R);
 			C=new_conversation_item(S,R);
 			N.talk_list.push_back(C);
+		};
+		input_file >> number_of_goal_items;
+		N.goal_list.clear();
+		for(j=0;j<number_of_goal_items;j++){
+			input_file >> k;
+			N.goal_list.push_back(k);
 		};
 		npcs.push_back(N);
 	};

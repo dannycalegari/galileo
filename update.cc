@@ -174,8 +174,8 @@ void world::update_map(){	// only update region centered on avatar, for speed
 					desired_move=towards_object(npcs[l].x,npcs[l].y,100,110);
 				};
 				if(norm(desired_move)==1){	// adjacent to goal
-					achieve_goal(l,npcs[l].goal,desired_move);
-					npcs[l].goal=update_goal(npcs[l].id,npcs[l].goal);
+					achieve_goal(l,desired_move);
+					update_goal(l);	// update goal of npcs[l]
 				} else {	// definitely want to try to move
 					if(rand()%4==0){	// might make a random move anyway
 						p=rand_point();
@@ -212,7 +212,7 @@ void world::update_map(){	// only update region centered on avatar, for speed
 			
 			if(edit_mode){
 				T.str("");
-				T << npcs[l].goal;
+				T << npcs[l].id << "," << npcs[l].goal;
 				add_popup_message(npcs[l].x-P.x,npcs[l].y-P.y,T.str());
 			} else if(rand()%10==0){
 				T.str("");

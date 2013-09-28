@@ -1,89 +1,46 @@
 /* goal.cc	goal routines for npcs	*/
 
-int world::update_goal(int type, int goal){
-	// when npc of type achieves goal, value of new goal
-	int new_goal;
+void world::update_goal(int l){
+	// when npc number l achieves goal, value of new goal
+	int i;
+	int number_of_goals;
+	int next_goal;
 	
-	switch(type){
-		case 50:	// milkmaid
-			switch(goal){
-				case 51:	// reach merchant
-					new_goal=10;	// new goal is cow
-					break;
-				case 10:	// reach cow
-					new_goal=51;	// new goal is merchant
-					break;
-				default:
-					new_goal=-1;
-					break;
+	number_of_goals=(int) npcs[l].goal_list.size();
+	if(number_of_goals<1){
+		npcs[l].goal=-1;	// no goal
+	} else {
+		next_goal=-1;
+		for(i=0;i<number_of_goals;i++){
+			if(npcs[l].goal_list[i]==npcs[l].goal){
+				next_goal=i+1;
 			};
-			break;
-		case 51:	// merchant
-			switch(goal){
-				case 50:	// reach milkmaid
-					new_goal=52;	// new goal is woodcutter
-					break;
-				case 52:	// reach woodcutter
-					new_goal=99;	// new goal is avatar
-					break;
-				case 99:	// reach avatar
-					new_goal=50;	// new goal is milkmaid
-					break;
-				default:
-					new_goal=-1;
-					break;
-			};
-			break;
-		case 52:	// woodcutter
-			switch(goal){
-				case 51:	// reach merchant
-					new_goal=0;	// new goal is tree
-					break;
-				case 0:	// reach tree
-					new_goal=111;	// new goal is city
-					break;
-				case 111: // reach city
-					new_goal=0;		// new goal is tree
-					break;
-				default:
-					new_goal=-1;
-					break;
-			};
-			break;
-		default:
-			new_goal=-1;	// no goal
-			break;
+		};
 	};
-	return(new_goal);
+	if(next_goal==-1){
+		npcs[l].goal=-1;
+	} else {
+		npcs[l].goal=npcs[l].goal_list[next_goal % number_of_goals];
+	};
 };
+	
 
-void world::achieve_goal(int l, int goal, point desired_move){
-	// npc with given id achieves goal in relative location desired_move
+void world::achieve_goal(int l, point desired_move){
+	// npc number l achieves goal in relative location desired_move
+	int goal;
+	goal=npcs[l].goal;
 	switch(goal){
 		case 99:	// reach avatar
 			conversation_with_npc(l);
 			break;
 		case 0:		// reach tree
-			if(npcs[l].id==52){	// if woodcutter
-				flora_fauna_map[npcs[l].x+desired_move.x][npcs[l].y+desired_move.y]=-1;	// chop down tree 
-				flora_fauna_map[npcs[l].x+desired_move.x][npcs[l].y+desired_move.y]=4;	// and replace with sapling
-			};
+			flora_fauna_map[npcs[l].x+desired_move.x][npcs[l].y+desired_move.y]=-1;	// chop down tree 
+			flora_fauna_map[npcs[l].x+desired_move.x][npcs[l].y+desired_move.y]=4;	// and replace with sapling
 			break;
-		/*
-		case 100:	// reach generic city
-			if(npcs[l].id==52){	// if woodcutter
-				// remove npc if tree density is too low
-				cout << "reached city \n";
-				cout << count_flora_fauna(npcs[l].x,npcs[l].y,20,0) << " nearby trees \n";
-				cout << count_geography(npcs[l].x,npcs[l].y,20,1) << " nearby low grass \n";
-				cout << count_geography(npcs[l].x,npcs[l].y,20,2) << "nearby grass \n";
-				if(count_flora_fauna(npcs[l].x,npcs[l].y,20,0)*30 < count_geography(npcs[l].x,npcs[l].y,20,1)+count_geography(npcs[l].x,npcs[l].y,20,2)){
-					npcs[l].x=0;
-					npcs[l].y=0;	//	cheap way to "remove" npc
-				};
-			};
+		case 20:	// bear or wolf
+		case 21:
+			flora_fauna_map[npcs[l].x+desired_move.x][npcs[l].y+desired_move.y]=-1;	// kill bear/wolf
 			break;
-			*/
 		default:
 			break;
 	};

@@ -707,7 +707,7 @@ void world::draw_graphics(){
 					};
 					if(in_combat==true){
 						if(occupied_by_special(i+6,j+6)>-1){	// draw monsters
-							k=monsters[occupied_by_special(i+6,j+6)].id;
+							k=monsters[occupied_by_special(i+6,j+6)].sprite;
 							h=center_height(x+i,y+j);
 							draw_sprite(k,400+(i*tile_size),400-(j*tile_size),h);
 						};
@@ -724,7 +724,7 @@ void world::draw_graphics(){
 						};
 					} else {
 						if(occupied_by_special(i+x,j+y)>-1){	// draw npcs
-							k=npcs[occupied_by_special(i+x,j+y)].id;
+							k=npcs[occupied_by_special(i+x,j+y)].sprite;
 							h=center_height(x+i,y+j);
 							draw_sprite(k,400+(i*tile_size),400-(j*tile_size),h);						
 						};

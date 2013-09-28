@@ -21,7 +21,7 @@ int world::occupied_by_special(int x, int y){
 	return(occupied);
 };
 
-int world::special_in_direction(int x, int y){ // is there a monster/npc in direction x,y, and if so, which kind?
+int world::special_in_direction(int x, int y){ // is there a monster/npc in direction x,y, and if so, which one?
 	int i,j;
 	int occupied;
 	occupied=-1;
