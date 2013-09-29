@@ -315,30 +315,54 @@ forsooth!;exit
 95 80
 51
 hmm
-6
+8
 initial
 hello!
 name
-Martin
+Pierre Fermat
 job
-scholar
+mathematician
+math
+I have made a remarkable discovery. I made a note about it in one of my books.
 read
 I read many books
 book
 I hear there is a new book by an Italian called Galileo
+galileo
+Never met him myself, but I believe he is in Venice
 bye
 bye!;exit
 2
 51
 55
-49
-49
+48
+48
 100 69
-51
+-2
 hmm
-2
+12
 initial
 who are you again?
+name
+Cardinal Richelieu, but you may call me "eminence"
+eminence
+yes?
+job
+"advisor" to the king
+cathedral
+not as nice as the palace at Versailles, alas
+god
+as there is one god in heaven, we must have one church on earth
+religion
+these Huguenots must be dealt with
+galileo
+you could ask one of the scholars
+pope
+Urban? A complicated man
+complicated
+he has some naive views about politics
+inquisition
+If you give me six lines written by the hand of the most honest of men, I will find something in them which will hang him.;exit
 bye
 so you say;exit
 0
