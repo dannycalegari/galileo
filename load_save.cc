@@ -12,7 +12,6 @@ void world::initialize(){
 	flora_fauna_map.clear();	// initialize
 	read_map(input_file, 1);
 	input_file.close();
-//	count_flora_fauna();
 	wall_map.clear();	// initialize
 	
 	input_file.open("npc_files/europe.npc");
@@ -29,7 +28,6 @@ void world::initialize(){
 	embarked=false;
 	riding=false;
 	monsters.clear();	// no monsters
-//	npcs.clear();	// no npcs
 	message.clear();
 	popup_message.clear();
 	theta=0.3;
@@ -39,6 +37,9 @@ void world::enter_city(string S){	// S is name of city
 	ifstream input_file;
 	string T;
 	map_name=S;
+	
+	int i;
+	bool found_water_entry;
 	
 	T="map_files/"+S+"_geo.map";
 	input_file.open(T.c_str());
@@ -58,8 +59,7 @@ void world::enter_city(string S){	// S is name of city
 	input_file.close();
 	saved_coordinates.x=P.x;
 	saved_coordinates.y=P.y;
-	P.x=6;	// should be city-specific
-	P.y=6;
+
 	in_city=true;
 	add_new_message("entering "+S);
 	
@@ -67,6 +67,33 @@ void world::enter_city(string S){	// S is name of city
 	input_file.open(T.c_str());
 	read_npc_file(input_file);
 	input_file.close();
+	
+	if(embarked){
+		// enter city at water entry location; city specific
+		found_water_entry=false;
+		for(i=1;i<(int) world_map[0].size()-1;i++){
+			if(world_map[6][i]==0){	// if water tile
+				found_water_entry=true;
+				P.x=6;
+				P.y=i;
+			};
+		};
+		for(i=1;i<(int) world_map.size()-1;i++){
+			if(world_map[i][6]==0){ // if water tile
+				found_water_entry=true;
+				P.x=i;
+				P.y=6;
+			};
+		};
+		if(found_water_entry==false){
+			add_new_message("no water entry!");
+			exit_city();
+		};
+	} else {
+		// enter city at land entry location; city specific
+		P.x=6;	// should be city-specific
+		P.y=6;
+	};
 };
 
 void world::exit_city(){

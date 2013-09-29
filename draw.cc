@@ -487,7 +487,7 @@ void world::draw_geographical_square(int i, int j){	// i,j in [-5,5] is location
 		y=P.y;
 	};
 	
-	if(j==5){
+	if(j==5 || j+P.y==(int) world_map[0].size()-2){
 		for(b=0;b<=2;b++){
 			q[1+b]=grid_location(i,j,x,y,b,2);
 		};
@@ -498,9 +498,13 @@ void world::draw_geographical_square(int i, int j){	// i,j in [-5,5] is location
 		XSetForeground(display, gc, 0x000000);
 	   	XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
     	XFillPolygon(display, win, gc, q, 5, Nonconvex, CoordModeOrigin);
+    	if(i+P.x==1){	// weird erase bug at border of city
+    		q[0]=grid_location(i,j,x,y,0,0);
+    		XClearArea(display,win,0,0,q[0].x,800,false);
+    	};
 	};
 	
-	if(i==5){
+	if(i==5 || i+P.x==(int) world_map.size()-2){
 		for(b=0;b<=2;b++){
 			q[1+b]=grid_location(i,j,x,y,2,b);
 		};
@@ -510,10 +514,14 @@ void world::draw_geographical_square(int i, int j){	// i,j in [-5,5] is location
 		q[4].y=0;
 		XSetForeground(display, gc, 0x000000);
 	   	XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
-    	XFillPolygon(display, win, gc, q, 5, Nonconvex, CoordModeOrigin);	
+    	XFillPolygon(display, win, gc, q, 5, Nonconvex, CoordModeOrigin);
+    	if(j+P.y==1){
+    		q[0]=grid_location(i,j,x,y,2,2);
+    		XClearArea(display,win,q[0].x,0,1100-q[0].x,800,false);    	
+    	};
 	};
 	
-	if(j==-5){
+	if(j==-5 || j+P.y==1){
 		for(b=0;b<=2;b++){
 			q[1+b]=grid_location(i,j,x,y,b,0);
 		};
@@ -524,9 +532,13 @@ void world::draw_geographical_square(int i, int j){	// i,j in [-5,5] is location
 		XSetForeground(display, gc, 0x000000);
     	XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
     	XFillPolygon(display, win, gc, q, 5, Nonconvex, CoordModeOrigin);
+    	if(i+P.x==(int) world_map.size()-2){
+    		q[0]=grid_location(i,j,x,y,2,2);
+    		XClearArea(display,win,q[0].x,0,1100-q[0].x,800,false);      	
+    	};
 	};
 	
-	if(i==-5){
+	if(i==-5 || i+P.x==1){
 		for(b=0;b<=2;b++){
 			q[1+b]=grid_location(i,j,x,y,0,b);
 		};
@@ -537,6 +549,10 @@ void world::draw_geographical_square(int i, int j){	// i,j in [-5,5] is location
 		XSetForeground(display, gc, 0x000000);
 	   	XSetLineAttributes(display, gc, 2, LineSolid, 1, 1);
     	XFillPolygon(display, win, gc, q, 5, Nonconvex, CoordModeOrigin);	
+    	if(j+P.y==(int) world_map[0].size()-2){
+    		q[0]=grid_location(i,j,x,y,0,0);
+    		XClearArea(display,win,0,0,q[0].x,800,false);    	
+    	};
 	};
 
 	for(b=2;b>=0;b=b-2){
@@ -639,7 +655,6 @@ void world::draw_graphics(){
 	int tile_size;
 	tile_size=70;	// should make this some global variable?
 
-//	erase_graphics_field();
 	if(in_combat==true){
 		x=6;
 		y=6;
@@ -649,6 +664,8 @@ void world::draw_graphics(){
 	};
 	
 	if(view_mode==true){
+		erase_graphics_field();
+
 		// view mode map
 		// draw overview map with 5x5 pixels just colored squares
 		for(j=-80;j<80;j++){
