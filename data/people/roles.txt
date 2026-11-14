@@ -473,6 +473,9 @@ role student "a student"
     church,churches,clergy,religion,faith: We must all hear Mass, and they take the names of those who do not. I go. I sleep, but I go.
     job: I am a student. Logic in the morning, and in the evening, the taverns of the rue Saint-Jacques.
     latin: Of course I speak Latin. Everyone at the university does, or pretends to.
+    # Aristotle at the Sorbonne: the Philosopher, until the Latin Dialogue is printed (chapter IV) and read in the colleges
+    aristotle,philosopher if town=Paris and player diodati-translation and player ch4-open: (He looks round before he answers.) The Philosopher, for the examinations. But there is a book going round the colleges, in Latin, from Strasbourg: three gentlemen in a palace in Venice, arguing for four days whether the Earth moves. The masters say Rome has condemned it, and we read it under the desks. Aristotle says a stone thrown straight up falls back where it was thrown, so the Earth stands still. The book says a stone dropped from a ship's mast falls at the foot of the mast, whether the ship sails or not. I used to know where a stone comes down.
+    aristotle,philosopher if town=Paris: The Philosopher! I have three more years of him before my cap. (He shuts his eyes and recites.) "It is clear, then, that the Earth must be at the centre, and unmoved": On the Heavens, the second book. A stone thrown straight up falls back where it was thrown. If the Earth turned under it, it would come down to the west.
   end
 end
 

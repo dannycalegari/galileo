@@ -1,5 +1,6 @@
 # The people of London.
 town London
+country England
 names english
 prison Tower of London | There is no lock-up nearer than the Tower. You spend the night in a cold stone room where, they say, the little princes walk. At daybreak a yeoman warder shows you out: "We are for traitors here, not for thieves. Mend your ways."
 

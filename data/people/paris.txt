@@ -1,5 +1,6 @@
 # The people of Paris. Many lines are from the old Galileo (2013). See roles.txt for how this file works.
 town Paris
+country France
 names french
 prison Grand Châtelet | The watch drags you to the Grand Châtelet. You spend the night on wet straw with two pickpockets and a poet who has written a sonnet against the Cardinal. In the morning the jailer turns you out: the cells are wanted for better criminals.
 
@@ -82,8 +83,11 @@ person martin
     8:00 go landmark Paul if town=London
     18:00 go inn if town=London
   talk
-    latin,lesson if player skill:latin: You read Latin now as well as any bachelor of the Sorbonne. Better than some.
-    latin,lesson: Latin? Every master of arts teaches it, for bread. For five sous I will teach you enough to read a page of Aristotle without weeping.
+    latin,lesson,lessons,teach,learn if player skill:latin: You read Latin now as well as any bachelor of the Sorbonne. Better than some.
+    latin,lesson,lessons,teach,learn: Latin? Every master of arts teaches it, for bread. For five sous I will teach you enough to read a page of Aristotle without weeping. Will you *take* a lesson? {set offered-lesson=now}
+    take,yes,deal,=i will if recent:0.05 offered-lesson and player skill:latin: You read Latin now as well as any bachelor of the Sorbonne. Better than some.
+    take,yes,deal,=i will if recent:0.05 offered-lesson and player money >= 60: (He takes your five sous, sits you down on a bench in the Sorbonne, and drills you all afternoon: amo, amas, amat; motus, motus; quod movetur ab alio movetur.) There. You can read Latin, more or less. {player add money -60} {player learn latin} {pass 240} {unset offered-lesson}
+    take,yes,deal,=i will if recent:0.05 offered-lesson: Five sous, my friend, not less. I have to eat.
     give:money if player gift >= 60 and not player skill:latin: (He takes the money, sits you down on a bench in the Sorbonne, and drills you all afternoon: amo, amas, amat; motus, motus; quod movetur ab alio movetur.) There. You can read Latin, more or less. {take} {player learn latin} {pass 240}
     give:money if not player skill:latin: Five sous, my friend, not less. I have to eat.
     parchment,lendit if not player heard-beadle: Parchment? Ask the old beadle, Bedeau, at the gate of the Sorbonne. He is always complaining about parchment. {player set knows:paris:beadle}
@@ -94,6 +98,12 @@ person martin
     hello if town=London: Ah! You find me in London, among the booksellers of Paul's Churchyard. No Dialogue yet, alas. Chandler says a bale is expected from the Frankfurt fair about Midsummer.
     name: Martin Lebrun, master of arts. {name}
     master,arts,degree,bachelor,university: A master of arts of the University of Paris: six years of Aristotle, a disputation in the Rue du Fouarre, and a cap. It entitles me to teach *Latin* to boys, and to starve in a garret while I wait for a living.
+    # the margin of the Sorbonne's Physics says "Ask Master Lebrun" (books/physics.txt, read-physics): the arrow, and Buridan's impetus
+    arrow,bow,impetus if player read-physics: (He laughs.) You have read the margin of the Sorbonne's Aristotle. Every year some boy writes it, and every year some other boy answers him. The air, says the Philosopher: the bowstring pushes the air, and the air pushes the arrow on. Then why does a ball of iron go farther than a ball of wood the same size, when the air should carry the lighter one better? Buridan, who was Rector here three hundred years ago, said the bow puts something into the arrow, an *impetus*, which the air wears away as it flies. That is what I tell them. The Faculty teaches the air.
+    arrow,bow,impetus: The arrow? The Philosopher says the air carries it on. Buridan, who was Rector here three hundred years ago, said the bow puts an *impetus* into it, which the air wears away as it flies. Ask the Faculty, and they will tell you the air. Ask me, and I will tell you Buridan.
+    margin,margins,note,notes if player read-physics: "Ask Master Lebrun"! (He is pleased.) So they still write it. The margins of that book are three hundred years of students arguing with the Philosopher, and the Philosopher never once answering. Ask me about the *arrow*, then.
+    margin,margins,note,notes: The margins of the Sorbonne's Aristotle, in the library? Better than the text. Three hundred years of students have argued with the Philosopher in them, and he has never once answered.
+    aristotle,philosopher,physics: The Philosopher. He is right about everything he could see with his own eyes, and wrong about most of what he could not, and he never thought to look twice. Do not tell the Faculty I said so. The English Chancellor, Bacon, says we have read Aristotle long enough, and must begin again from experiments.
     book: I hear there is a new book by an Italian called *Galileo*.
     galileo,dialogue: Galileo Galilei of Florence. His new book is a *Dialogue* on the two chief systems of the world, Ptolemy's and *Copernicus*'s. It was printed in Florence this February. Not a copy has reached Paris yet. {player set heard-dialogue}
     copernicus: The Sun at the centre, and the Earth going round it, spinning like a top. A pretty hypothesis; the Church says it may only be a hypothesis.
@@ -350,14 +360,17 @@ person crenet
     no,keep,=not yet if recent:0.05 offered-packet: (He shrugs.) As you like. The ordinary goes on Thursday, with it or without it. {unset offered-packet}
     give:mersenne-packet: (He weighs it in his hand, and reads the addresses.) Aix, Digne, Rome. It goes south with the ordinary on Thursday, in the mail bag, and Rome pays for it, God help them. (He drops it into a sack behind the counter.) And you are a courier now. When the Father has nothing for you, I always have a *packet* for somebody: carry it to the next post house on its road, and the innkeeper there pays you. And if you are in a hurry, I hire *horses*. {take} {player set posted-packet}
     give:mersenne-letters if player grey-took: (He turns them over, and runs a thumb along one of the seals: it has been lifted with a warm knife, and set down again.) Hm. (He looks at the bench by the door, and at you, and drops them into the sack without a word.) {take} {player set posted-letters}
-    give:mersenne-letters if not player grey-asked: (He drops them into the sack for the south.) Your master writes more letters than the Cardinal. (Lower.) And there is a gentleman in grey on the bench by the door, who has been asking for Father Mersenne's courier since the morning. He pays in new silver. I would not drink with him. {take} {player set posted-letters}
+    give:mersenne-letters if not player grey-asked and player hour>=7 and player hour<20: (He drops them into the sack for the south.) Your master writes more letters than the Cardinal. (Lower.) And there is a gentleman in grey on the bench by the door, who has been asking for Father Mersenne's courier since the morning. He pays in new silver. I would not drink with him. {take} {player set posted-letters}
+    # the gentleman in grey is on his bench from 7 to 20 (paris:grey); out of those hours, he has gone home
+    give:mersenne-letters if not player grey-asked: (He drops them into the sack for the south.) Your master writes more letters than the Cardinal. (Lower.) And a gentleman in grey sat on the bench by the door all day, asking for Father Mersenne's courier. He has gone home now, but he will be on his bench again in the morning. He pays in new silver. I would not drink with him. {take} {player set posted-letters}
     give:mersenne-letters: (He drops them into the sack for the south.) Your master writes more letters than the Cardinal. {take} {player set posted-letters}
     # chapter I: a far packet for Stockholm, said aloud the first time you ask for the post
     letters,letter,packet,courier,errand,work,stockholm,sweden,north if player ch1-commission and not player ch2-open and not player heard-degeer-packet: (He pulls a fat packet from under the counter, and blows the dust off it.) There is this one, that nobody will carry: for Monsieur Louis De Geer, the copper merchant, on the quay at Stockholm. By the post to Danzig, and over the sea by the Swedish post ship. Six livres at the other end, his factor writes, and the factor is good for it. Will you *carry* it? {player set heard-degeer-packet} {set offered-degeer=now}
     carry,take,yes,deal,=i will if recent:0.05 offered-degeer: (He puts it in your hands.) De Geer, on the quay at Stockholm, into his own hands. God send you a west wind. {player add has:degeer-packet 1} {player set degeer-packet-taken} {unset offered-degeer}
     no,=not now,=not yet if recent:0.05 offered-degeer: (He puts it back under the counter.) It has waited a month; it can wait. {unset offered-degeer}
     stockholm,sweden,north,de geer,degeer if player heard-degeer-packet and not player degeer-packet-taken and not player ch2-open: The packet for De Geer, at Stockholm? Still under my counter, and still six livres at the other end. Will you *carry* it? {set offered-degeer=now}
-    grey,gentleman,cardinal if player courier-letters: The one on the bench by the door? He drinks one cup all day, and watches who brings letters. I keep the post; I do not choose who drinks in my tavern.
+    grey,gentleman,cardinal if player courier-letters and player hour>=7 and player hour<20: The one on the bench by the door? He drinks one cup all day, and watches who brings letters. I keep the post; I do not choose who drinks in my tavern.
+    grey,gentleman,cardinal if player courier-letters: The one who sits on the bench by the door? Not at this hour: he goes home in the evening, and he is back on it in the morning, over one cup all day, watching who brings letters. I keep the post; I do not choose who drinks in my tavern.
     name: Robert Crenet, master of the Pomme de Pin. {name}
     lydia,music if player helped-lydia: Lydia plays here in the evenings now, with a new string. Good for trade!
     lydia,music,lute: Lydia Morel played here of an evening, the best lute in Paris, until she broke a string. There is not a good string to be had in Paris, she says, and she will not play on a bad one.
@@ -390,7 +403,7 @@ person beadle
     hello if player courier-lendit and not player heard-beadle: (An old man sits with one foot on a stool, wrapped in flannel.) You are Father Mersenne's courier? He said you would come. Do not tread on my foot. It is about the *Lendit*.
     name: Jacques Bedeau, beadle of the University of Paris these thirty years. {name}
     job: I carry the mace before the Rector, and I keep the keys, and I buy the parchment. Every June the University buys its parchment at the *Lendit* fair at Saint-Denis; it has done so since Saint Louis.
-    lendit,fair,parchment if not player heard-beadle: The Lendit fair, at Saint-Denis, in June. In my youth the whole University went in procession, and the students fought the shopkeepers. This year I have the gout. Would you go for me? Three skins of parchment, from the parchment-maker by the market. (He counts ten sous into your hand.) For the skins: they are three sous each, and he will ask four. Bring them, and I will pay you the rest, and well. {player set heard-beadle} {player add money 120}
+    lendit,fair,parchment if not player heard-beadle: The Lendit fair, at Saint-Denis, in June. In my youth the whole University went in procession, and the students fought the shopkeepers. This year I have the gout. Would you go for me? Three skins of parchment, from the parchment-maker by the market. (He counts ten sous into your hand.) For the skins: they are three sous each. Bring them, and I will pay you the rest, and well. {player set heard-beadle} {player add money 120}
     lendit,fair,parchment if not player gave-parchment: Three skins of parchment, from the Lendit at Saint-Denis. The parchment-maker is by the market there.
     give:parchment if player has:parchment >= 3: (He counts them, holds each to the light, and sniffs it.) Good parchment, from good calves. Here is the rest of your money, and a little more for the walk. {player add has:parchment -2} {take} {player add money 60} {player set gave-parchment}
     give:parchment: One skin? I said three. The Rector writes a great deal.

@@ -2353,7 +2353,7 @@ on counter in inn: jug 0.7 cup 0.6 bottle 0.5
 on counter in house: candle 0.3 nails 0.2 strings 0.05 book 0.05
 on stall: apples 0.5 cabbage 0.35 cheese 0.25 loaf 0.2 fish 0.25 onions 0.35
 on table in college: book 0.5 inkpot 0.4 quill 0.4 candle 0.4
-on table in "Sorbonne": sorbonne-physics 1
+art "Sorbonne" row: sorbonne-physics
 on table in "Collegio Romano": rosa-ursina 1
 on table in "Blaeu": old-map 1
 art "Ambulacrum" wall: tulip-bulb tulip-bulb tulip-bulb

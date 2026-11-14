@@ -2483,7 +2483,7 @@ struct Game {
     // (pick), or while a book or a work of art is open (panel 2 or 3, opened by a beat).
     bool saveIsSafe() const {
         return !creating && sceneNow < 0 && !seqMode && !talking && people.talk.who < 0 && stepT >= 1 &&
-               fightWith < 0 && fightBeast < 0 && bandState == 0 && owed.kind < 0 && people.jumpTo < 0 && !cardUp && fadeT < 0 &&
+               fightWith < 0 && fightBeast < 0 && bandState == 0 && owed.kind < 0 && people.jumpTo < 0 && people.cardRequest.empty() && !cardUp && fadeT < 0 &&
                !people.endingRequest && pick == 0 && panel != 2 && panel != 3;
     }
     void rememberHorse() {   // into what is saved
@@ -2652,7 +2652,7 @@ struct Game {
         int i = thingNear(mx, my, dt), p = personNear(mx, my, dp);
         float da;
         int an = animalNear(mx, my, da);
-        if (an >= 0 && (p < 0 || da < dp) && (i < 0 || da < dt)) return animals.label(an) + (animals.list[an].lying ? " (asleep)" : "");
+        if (an >= 0 && (p < 0 || da < dp) && (i < 0 || da < dt)) return animals.label(an) + (animals.list[an].dead ? " (dead)" : animals.list[an].lying ? " (asleep)" : "");
         if (p >= 0 && (i < 0 || dp < dt)) return people.label(people.people[p]);
         if (i >= 0) return items.nameOf(items.things[i].kind, items.things[i].count);
         int X, Y;
@@ -2702,7 +2702,7 @@ struct Game {
             int an = animalNear(mx, my, da);
             if (an >= 0 && (p < 0 || da < dp) && (i < 0 || da < dt)) {
                 const AnimalKind &k = animals.kinds[animals.list[an].kind];
-                return animals.list[an].lying ? "You see " + k.name + ", asleep." : k.look.empty() ? "You see " + k.name + "." : k.look;
+                return animals.list[an].dead ? "You see " + k.name + ", dead." : animals.list[an].lying ? "You see " + k.name + ", asleep." : k.look.empty() ? "You see " + k.name + "." : k.look;
             }
         }
         {
@@ -4060,10 +4060,14 @@ struct Game {
             people.carryX = people.carryY = -1;
             people.carryBeside.clear();
         }
-        std::string cardId = people.cardRequest;
-        people.cardRequest.clear();
+        // a card, or a jump of the calendar, asked for while you talk waits until you leave the conversation, so
+        // that what was said can be read (Mersenne sending you to Florence, then the card of chapter I); the
+        // stand-in prints cards without ending the conversation, and takes them at once
+        bool waitTalk = talking && !testMode && (people.jumpTo >= 0 || !people.cardRequest.empty());
+        std::string cardId = waitTalk ? std::string() : people.cardRequest;
+        if (!waitTalk) people.cardRequest.clear();
         bool cardShown = false;
-        if (people.jumpTo >= 0) {
+        if (people.jumpTo >= 0 && !waitTalk) {
             long to = people.jumpTo;
             std::string page = people.jumpPage;
             people.jumpTo = -1; people.jumpPage.clear();

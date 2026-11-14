@@ -222,6 +222,7 @@ struct Conversation {
     std::string input;
     bool over = false;
     bool pendingGive = false;   // the prompt asked "(Give what?)": your next words are the thing ("letter")
+    bool pendingBuy = false;    // a shop asked "How many?" or "Which will it be?": a number or a ware's name buys
 };
 
 class People {

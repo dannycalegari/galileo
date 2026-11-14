@@ -2,6 +2,7 @@
 names french
 
 town Watt's Farm
+country England
 person watt
   name Watt
   role farmer
@@ -31,6 +32,7 @@ person jane
 end
 
 town the Cottage at La Chapelle
+country France
 # Your father and mother. "know family ..." makes them "your father"
 # and "your mother" once you have chosen who you are, with your skin and hair; to anyone else (an
 # older game, the typed commands) they are a farmer and his wife, and the lines without
@@ -138,6 +140,7 @@ person perrette
 end
 
 town the Bois de Boulogne
+country France
 person lisa
   name Lisa Leftinghorse
   role woodcutter
@@ -150,10 +153,12 @@ person lisa
 end
 
 town Montmartre
+country France
 crowd 4 miner
 
 # the cattle market of Paris, on the road west: where your family's cow is bought
 town Poissy
+country France
 names french
 
 person drover

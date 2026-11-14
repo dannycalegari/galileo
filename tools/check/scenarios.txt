@@ -21,6 +21,7 @@
 # convent of San Matteo), rome_ch4_worse (chapter IV of the worse branch, inside the Villa Medici, 18 July 1634).
 # paris_packet: the prologue's second morning, at the Pomme de Pin with Mersenne's packet for the south (and a post packet).
 # paris_start_fraction is paris_start with the time 600.125.
+# london_street is paris_start with you in the street at London (2795,4410).
 
 scenario new-game
   about the choosing screen, then the nine scenes of the farm start
@@ -40,6 +41,92 @@ scenario mersenne-sum-in-a-sentence
   expect Forty-eight. Your father did not lie about that
   absent Letters, yes: that is the work.
   file-expect ^player courier-tested
+end
+
+scenario sorbonne-student-on-aristotle
+  about a student at the Sorbonne answers "aristotle" with the Philosopher; once the Latin Dialogue is printed (chapter IV), with the book read under the desks
+  fixture paris_sorbonne.txt
+  run ROAD:none WALKTO:student TALK:student SAY:aristotle
+  expect "It is clear, then, that the Earth must be at the centre, and unmoved"
+  absent under the desks
+  run ROAD:none KNOW:diodati-translation=1 KNOW:ch4-open=1 WALKTO:student TALK:student SAY:aristotle
+  expect we read it under the desks
+end
+
+scenario a-shop-of-one-ware-asks-how-many
+  about a shop with one ware asks "How many?", and a number alone then buys that many
+  fixture paris_start.txt
+  run ROAD:none MONEY:2400 TRAVEL:Saint-Denis WALKTO:Calf WALKTO:parchment-maker TALK:parchment-maker SAY:buy SAY:3
+  expect I can sell you skins of parchment at 3 sous each. How many?
+  expect Here you are: three skins of parchment, for 9 sous.
+  absent Which will it be?
+  file-expect ^player has:parchment 3
+end
+
+scenario a-shop-of-several-hears-the-answer
+  about at a shop of several wares, "two cheeses" after "Which will it be?" buys two ("two" is a count, not the Two New Sciences)
+  fixture paris_start.txt
+  run ROAD:none MONEY:2400 WALKTO:merchant TALK:merchant SAY:buy SAY:two_cheeses
+  expect Which will it be?
+  expect Here you are: two cheeses
+  absent I do not sell manuscripts
+end
+
+scenario crenet-speaks-of-the-grey-gentleman-by-the-hour
+  about Crenet, given Mersenne's three letters, says the gentleman in grey is on the bench by day (7 to 20), and has gone home at night
+  fixture paris_start.txt
+  run ROAD:none KNOW:courier-letters=1 KNOW:has:mersenne-letters=1 KNOW:knows:paris:crenet=1 WALKTO:Pomme_de_Pin WALKTO:Crenet TALK:Crenet SAY:give_letters
+  expect And there is a gentleman in grey on the bench by the door
+  absent He has gone home now
+end
+
+scenario crenet-at-night-the-grey-gentleman-gone-home
+  about at 22:00 Crenet says the gentleman in grey has gone home, and will be back on his bench in the morning
+  fixture paris_start.txt
+  run ROAD:none SKIP:720 KNOW:courier-letters=1 KNOW:has:mersenne-letters=1 KNOW:knows:paris:crenet=1 WALKTO:Pomme_de_Pin WALKTO:Crenet TALK:Crenet SAY:give_letters SAY:grey
+  expect He has gone home now, but he will be on his bench again in the morning.
+  expect Not at this hour: he goes home in the evening
+  file-expect ^player posted-letters
+end
+
+scenario the-king-by-country
+  about Paris and London have their countries ("country France", "country England"), so the people's lines for them are said: the King at Saint-Germain; King Charles, and the Church of England
+  fixture paris_start.txt
+  run ROAD:none WALKTO:goodwife#1 TALK:goodwife#1 SAY:king
+  expect The King is at Saint-Germain, they say, or hunting.
+end
+
+scenario the-king-in-london
+  about in London a labourer speaks of King Charles and the Church of England
+  fixture london_street.txt
+  run ROAD:none WALKTO:labourer#1 TALK:labourer#1 SAY:king SAY:church
+  expect King Charles. God save him
+  expect The Church of England
+end
+
+scenario lebrun-teaches-latin-on-yes
+  about Martin Lebrun, asked to teach (learn, teach, lesson, latin), asks "Will you *take* a lesson?", and a yes with five sous is the lesson; with less, "Five sous, my friend"
+  fixture paris_sorbonne.txt
+  run ROAD:none MONEY:24 KNOW:knows:paris:martin=1 WALKTO:Lebrun TALK:Lebrun SAY:teach SAY:take
+  expect Will you *take* a lesson?
+  expect Five sous, my friend, not less.
+  file-absent ^player skill:latin
+  run ROAD:none MONEY:2400 KNOW:knows:paris:martin=1 WALKTO:Lebrun TALK:Lebrun SAY:learn SAY:yes
+  expect (He takes your five sous, sits you down on a bench in the Sorbonne
+  file-expect ^player skill:latin 1
+  file-expect ^player money 2340
+end
+
+scenario lebrun-on-the-arrow-and-the-margin
+  about Martin Lebrun answers aristotle, margin and arrow; once you have read the Sorbonne's Physics ("Ask Master Lebrun"), the margin and the arrow as its answer, with Buridan's impetus
+  fixture paris_sorbonne.txt
+  run ROAD:none KNOW:knows:paris:martin=1 WALKTO:Lebrun TALK:Lebrun SAY:aristotle SAY:margin SAY:arrow
+  expect The English Chancellor, Bacon
+  expect Better than the text.
+  expect Ask me, and I will tell you Buridan.
+  run ROAD:none KNOW:read-physics=1 KNOW:knows:paris:martin=1 WALKTO:Lebrun TALK:Lebrun SAY:margin SAY:arrow
+  expect "Ask Master Lebrun"! (He is pleased.)
+  expect Then why does a ball of iron go farther than a ball of wood the same size
 end
 
 scenario still-scenes-go-back

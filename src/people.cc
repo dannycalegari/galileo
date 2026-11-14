@@ -247,7 +247,7 @@ bool People::loadTown(World &w, const std::string &fn) {
         std::string word;
         ss >> word;
         if (!cur || mode == 0) {
-            if (word == "town") { std::getline(ss, town); town = trim(town); country.clear(); continue; }   // each town its own country (France if none)
+            if (word == "town") { std::getline(ss, town); town = trim(town); country.clear(); continue; }   // each town its own country: none without a "country" line (the herds then take France)
             if (word == "names") { ss >> pool; continue; }
             if (word == "country") { ss >> country; continue; }
             if (word == "prison") { std::string r; std::getline(ss, r); prisons[town] = trim(r); continue; }
@@ -3321,6 +3321,10 @@ bool People::trade(Person &p, const std::string &words, double minutes) {
         say("I do not deal with thieves. Be off with you.");
         return true;
     }
+    // how many: "buy 4 quills", "buy two quills", "buy half a dozen quills"
+    static const std::map<std::string, int> nums = {{"one", 1}, {"two", 2}, {"three", 3}, {"four", 4}, {"five", 5}, {"six", 6},
+                                                    {"seven", 7}, {"eight", 8}, {"nine", 9}, {"ten", 10}, {"eleven", 11},
+                                                    {"twelve", 12}, {"dozen", 12}, {"pair", 2}, {"couple", 2}};
     // a whole word anywhere in what you said before the first four letters of any ("sell
     // physicians certificate": not Aristotle's Physics); with carried, of the kinds a word names,
     // one in your pack first ("sell certificate", holding only Bellarmine's)
@@ -3328,6 +3332,7 @@ bool People::trade(Person &p, const std::string &words, double minutes) {
         for (int pass = 0; pass < 2; pass++) {
             int first = -1;
             for (size_t i = from; i < w.size(); i++) {
+                if (std::isdigit((unsigned char)w[i][0]) || nums.count(w[i]) || w[i] == "half") continue;   // a count, not a thing ("two": not the Two New Sciences)
                 int k = items->match(w[i], pass);
                 if (k < 0) continue;
                 if (first < 0) first = k;
@@ -3357,6 +3362,7 @@ bool People::trade(Person &p, const std::string &words, double minutes) {
         if (k < 0) {
             std::vector<std::string> offers;
             std::vector<std::string> ids;
+            std::vector<int> kinds;
             for (auto &s : p.sells) ids.push_back(s.first);
             for (auto &m : p.mem)   // and anything that has come in besides
                 if (m.first.rfind("stock:", 0) == 0 && std::find(ids.begin(), ids.end(), m.first.substr(6)) == ids.end()) ids.push_back(m.first.substr(6));
@@ -3364,12 +3370,24 @@ bool People::trade(Person &p, const std::string &words, double minutes) {
                 int kk = items->find(id);
                 if (kk < 0 || numOf(p.mem, "stock:" + id) <= 0) continue;
                 offers.push_back(items->kinds[kk].plural + " at " + moneyString(priceIn(p, kk, true, minutes)));
+                kinds.push_back(kk);
             }
             if (offers.empty()) { say("I have nothing left to sell today. Come back tomorrow."); return true; }
-            std::string list;
-            for (size_t i = 0; i < offers.size(); i++) list += (i ? (i + 1 == offers.size() ? " and " : ", ") : "") + offers[i];
-            say("I can sell you " + list + ". Which will it be? (You have " + (numOf(player, "money") ? moneyString(numOf(player, "money")) : std::string("no money")) + ".)");
-            return true;
+            // one thing for sale, and a number ("buy 3"): that many of it
+            bool counted = false;
+            for (size_t i = 1; i < w.size(); i++) if (std::isdigit((unsigned char)w[i][0]) || nums.count(w[i])) counted = true;
+            if (kinds.size() == 1 && counted && verb == "buy") k = kinds[0];
+            else {
+                std::string money = numOf(player, "money") ? moneyString(numOf(player, "money")) : std::string("no money");
+                if (kinds.size() == 1) say("I can sell you " + offers[0] + " each. How many? (You have " + money + ".)");
+                else {
+                    std::string list;
+                    for (size_t i = 0; i < offers.size(); i++) list += (i ? (i + 1 == offers.size() ? " and " : ", ") : "") + offers[i];
+                    say("I can sell you " + list + ". Which will it be? (You have " + money + ".)");
+                }
+                talk.pendingBuy = true;
+                return true;
+            }
         }
         if (verb == "buy") {
             // a word that names more than one thing this shop has ("buy book" at Landini's: a blank
@@ -3407,12 +3425,8 @@ bool People::trade(Person &p, const std::string &words, double minutes) {
             return true;
         }
         if (numOf(p.mem, "stock:" + K.id) <= 0) { say("I have no more " + K.plural + " today. Come back tomorrow."); return true; }
-        // how many: "buy 4 quills", "buy two quills", "buy half a dozen quills"
         long want = 1;
         {
-            static const std::map<std::string, int> nums = {{"two", 2}, {"three", 3}, {"four", 4}, {"five", 5}, {"six", 6},
-                                                            {"seven", 7}, {"eight", 8}, {"nine", 9}, {"ten", 10}, {"eleven", 11},
-                                                            {"twelve", 12}, {"dozen", 12}, {"pair", 2}, {"couple", 2}};
             bool half = false;
             for (size_t i = 1; i < w.size(); i++) {
                 if (w[i] == "half") half = true;
@@ -3597,6 +3611,30 @@ void People::ask(World &w, const std::string &input, double minutes, int youX, i
         std::string first = words.substr(0, words.find(' '));
         static const std::set<std::string> other = {"give", "bye", "buy", "sell", "pay", "no", "nothing", "never", "name", "job"};
         if (!other.count(first)) words = "give " + words;
+    }
+    if (talk.pendingBuy) {   // after "How many?" or "Which will it be?": a number, or a ware of the shop's, buys it
+        talk.pendingBuy = false;
+        std::istringstream ws(words);
+        std::string first, x;
+        ws >> first;
+        static const std::set<std::string> other = {"buy", "sell", "give", "bye", "pay", "bet", "no", "nothing", "never", "name", "job", "wares"};
+        bool buys = false;
+        if (!other.count(first) && items) {
+            std::istringstream all(words);
+            static const std::set<std::string> counts = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
+                                                         "ten", "eleven", "twelve", "dozen", "half", "pair", "couple"};
+            while (!buys && all >> x) {
+                x.erase(std::remove_if(x.begin(), x.end(), [](char c) { return c == '?' || c == '!' || c == '.' || c == ','; }), x.end());
+                if (x.empty()) continue;
+                if (std::isdigit((unsigned char)x[0]) || counts.count(x)) { buys = true; break; }
+                int k = items->match(x);
+                if (k < 0) continue;
+                const std::string &id = items->kinds[k].id;
+                for (auto &s : p.sells) if (s.first == id) buys = true;
+                if (numOf(p.mem, "stock:" + id) > 0) buys = true;
+            }
+        }
+        if (buys) words = "buy " + words;
     }
     if (rideAsk && (p.role == "innkeeper" || p.role == "ostler")) {   // the post ride: a town named
         std::string reply;

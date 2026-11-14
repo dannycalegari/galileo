@@ -100,6 +100,7 @@ person ostler-dordrecht
 end
 
 town the post house at Calais
+country France
 names french
 crowd 1 innkeeper
 person ostler-calais
@@ -352,6 +353,7 @@ person ostler-augsburg
 end
 
 town the post house at Orléans
+country France
 names french
 crowd 1 innkeeper
 person ostler-orleans
@@ -363,6 +365,7 @@ person ostler-orleans
 end
 
 town the post house at Tours
+country France
 names french
 crowd 1 innkeeper
 person ostler-tours
@@ -422,6 +425,7 @@ person ostler-mittenwald
 end
 
 town the post house at Poitiers
+country France
 names french
 crowd 1 innkeeper
 person ostler-poitiers
@@ -457,6 +461,7 @@ person ostler-paks
 end
 
 town the post house at Angoulême
+country France
 names french
 crowd 1 innkeeper
 person ostler-angouleme
@@ -492,6 +497,7 @@ person ostler-szeged
 end
 
 town the post house at Bordeaux
+country France
 names french
 crowd 1 innkeeper
 person ostler-bordeaux
@@ -503,6 +509,7 @@ person ostler-bordeaux
 end
 
 town the post house at Bayonne
+country France
 names french
 crowd 1 innkeeper
 person ostler-bayonne
