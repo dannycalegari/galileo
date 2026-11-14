@@ -23,6 +23,7 @@ struct HudState {
     float health = 1;           // your health, 0..1, shown as a bar while it is not full (or you fight)
     bool showHealth = false;
     bool help = false, map = false;
+    bool testing = false;       // --testing: the help lists the keys for testing (N, ] [, Tab)
     float px = 0, py = 0;   // player, world tiles
     std::vector<HudLabel> labels;
     // a conversation

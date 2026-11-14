@@ -60,6 +60,7 @@ static void usage() {
         "  --quit-after S    close the window after S seconds\n"
         "  --new             start afresh, not from the saved game (saves/autosave.txt)\n"
         "  --no-music        no background music\n"
+        "  --testing         the keys for testing: N the next town, ] [ an hour later / earlier, Tab gallop\n"
         "  --autosave SECS   the window saves the game every SECS real seconds (default 300; 0 = off)\n"
         "  --stats           build the world, check it and print a summary\n");
 }
@@ -86,6 +87,7 @@ struct Options {
     int scene = 0;        // --scene N: show the Nth still scene of data/scenes.txt (pictures, tests)
     std::string sequence; // --sequence ID: the scenes of data/scenes/ID.txt instead (all of them, whatever their conditions)
     bool noMusic = false;
+    bool testing = false; // --testing: the keys N (the next town), ] and [ (the clock), Tab (the gallop)
     std::string save;     // --save FILE: read and write this saved game instead of saves/autosave.txt
     std::string play;     // --play FILE --walk "COMMANDS": play by commands (for testing), the game kept in FILE
     float fps = 60;       // --fps N: at most N pictures a second (0: as many as the screen shows; a cap keeps the machine cool)
@@ -3528,6 +3530,11 @@ struct Game {
         if (++sceneNow >= (int)scenes.size()) endScenes();
         else applyScene();
     }
+    void prevScene() {   // the scene before (the first has none)
+        if (sceneNow <= 0) return;
+        --sceneNow;
+        applyScene();
+    }
     void endScenes(bool skipped = false) {
         sceneNow = -1;
         minutes = sceneKeepMinutes;
@@ -5181,6 +5188,7 @@ struct Game {
             hs.talkInput = people.talk.over ? "(press Return)" : people.talk.input;
         }
         hs.help = help;
+        hs.testing = opt.testing;
         hs.map = showMap;
         if (showMap)   // the towns you have been to: the map names only these
             for (auto it = people.player.lower_bound("been:"); it != people.player.end() && it->first.compare(0, 5, "been:") == 0; ++it)
@@ -5573,6 +5581,7 @@ static void onKey(GLFWwindow *w, int key, int, int action, int mods) {
     if (g.sceneNow >= 0) {   // the still scenes: on, or all skipped
         if (key == GLFW_KEY_ESCAPE) g.endScenes();
         else if (key == GLFW_KEY_SPACE || key == GLFW_KEY_ENTER || key == GLFW_KEY_KP_ENTER || key == GLFW_KEY_RIGHT) g.nextScene();
+        else if (key == GLFW_KEY_LEFT) g.prevScene();
         return;
     }
     if (g.talking) {
@@ -5651,8 +5660,8 @@ static void onKey(GLFWwindow *w, int key, int, int action, int mods) {
         case GLFW_KEY_MINUS: case GLFW_KEY_KP_SUBTRACT: g.zoomT = std::min(150.0f, g.zoomT * 1.2f); break;
         case GLFW_KEY_Z: g.yawT = 22; g.pitchT = 52; g.zoomT = 20; break;
         case GLFW_KEY_V: g.roofsOff = !g.roofsOff; g.say(g.roofsOff ? "Roofs lifted." : "Roofs back on."); break;
-        case GLFW_KEY_RIGHT_BRACKET: g.minutes += 60; break;
-        case GLFW_KEY_LEFT_BRACKET: g.minutes -= 60; if (g.minutes < 0) g.minutes += 1440; break;
+        case GLFW_KEY_RIGHT_BRACKET: if (g.opt.testing) g.minutes += 60; break;
+        case GLFW_KEY_LEFT_BRACKET: if (g.opt.testing) { g.minutes -= 60; if (g.minutes < 0) g.minutes += 1440; } break;
         case GLFW_KEY_T: {
             int who = g.people.adjacentTo(g.tx, g.ty, g.tz, g.facing);
             if (who < 0) { g.say("There is no one beside you to talk to.", 2.0); break; }
@@ -5713,6 +5722,7 @@ static void onKey(GLFWwindow *w, int key, int, int action, int mods) {
                 g.journalPage = 0;
                 break;
             }
+            if (!g.opt.testing) break;
             if (g.boat >= 0) { g.say("Not in a boat."); break; }
             g.gallop = !g.gallop; g.say(g.gallop ? "Galloping." : "Walking."); break;
         case GLFW_KEY_K:
@@ -5721,7 +5731,7 @@ static void onKey(GLFWwindow *w, int key, int, int action, int mods) {
             g.say(g.sounds.on() ? "Sounds on." : "Sounds off.", 2.0);
             break;
         case GLFW_KEY_N: {
-            if (g.world.settlements.empty()) break;
+            if (!g.opt.testing || g.world.settlements.empty()) break;
             // the next town (the post houses on the roads are left out: there are 56 of them)
             for (size_t k = 0; k < g.world.settlements.size(); k++) {
                 g.townCycle = (g.townCycle + 1) % (int)g.world.settlements.size();
@@ -6221,6 +6231,7 @@ int main(int argc, char **argv) {
         else if (a == "--scene") o.scene = std::atoi(next().c_str());
         else if (a == "--sequence") o.sequence = next();
         else if (a == "--no-music") o.noMusic = true;
+        else if (a == "--testing") o.testing = true;
         else if (a == "--bld") o.bld = std::atoi(next().c_str());
         else if (a == "--floor") o.floor = std::atoi(next().c_str());
         else if (a == "--walk") o.walk = next();
@@ -7730,9 +7741,10 @@ int main(int argc, char **argv) {
                     {"SPACE", GLFW_KEY_SPACE}, {"ESCAPE", GLFW_KEY_ESCAPE}};
                 auto k = keys.find(tok.substr(6));
                 if (k == keys.end()) { std::fprintf(stderr, "  (PRESS takes UP DOWN LEFT RIGHT TAB ENTER BACKSPACE SPACE ESCAPE)\n"); continue; }
+                int before = g.sceneNow;
                 onKey(nullptr, k->second, 0, GLFW_PRESS, 0);
                 if (g.creating && !o.play.empty()) printChoosing();
-                if (g.sceneNow >= 0) std::fprintf(stderr, "  [scene %d of %zu] %s\n", g.sceneNow + 1, g.scenes.size(), g.scenes[g.sceneNow].caption.c_str());
+                if (g.sceneNow >= 0) std::fprintf(stderr, "  [%sscene %d of %zu] %s\n", g.sceneNow < before ? "back to " : "", g.sceneNow + 1, g.scenes.size(), g.scenes[g.sceneNow].caption.c_str());
                 continue;
             }
             if (tok == "TURN" || tok == "TURNBACK") {   // the next (or the last) two pages of the open book

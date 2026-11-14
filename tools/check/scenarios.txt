@@ -32,6 +32,27 @@ scenario new-game
   expect Before you is the Porte Saint-Denis, and Paris.
 end
 
+scenario mersenne-sum-in-a-sentence
+  about the answer to Mersenne's sum is heard in a sentence ("I owe the post 48 sous"), not taken for "post"; a wrong number in a sentence gets his "No"
+  fixture paris_start.txt
+  run ROAD:none KNOW:courier-testing=0 KNOW:courier-tested=0 KNOW:courier-ruled=0 KNOW:courier-hired=0 WALKTO:Minims WALKTO:Mersenne TALK:Mersenne SAY:numbers SAY:I_owe_the_post_47_sous SAY:I_owe_the_post_48_sous
+  expect No. Two to Rome at eleven sous
+  expect Forty-eight. Your father did not lie about that
+  absent Letters, yes: that is the work.
+  file-expect ^player courier-tested
+end
+
+scenario still-scenes-go-back
+  about in the still scenes the left key goes back one scene, and on the first does nothing
+  fixture -
+  run PRESS:ENTER PRESS:SPACE PRESS:SPACE PRESS:LEFT PRESS:LEFT PRESS:LEFT PRESS:RIGHT
+  expect [back to scene 2 of 9]
+  expect [back to scene 1 of 9]
+  absent [back to scene 0
+  expect [scene 9 of 9]
+  expect Before you is the Porte Saint-Denis, and Paris.
+end
+
 scenario stockholm-two-step-passage
   about the master of the post ship asks "Will you *sail*?" and sails only on the second word
   fixture stockholm.txt

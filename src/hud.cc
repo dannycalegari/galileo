@@ -174,7 +174,8 @@ bool Hud::draw(const HudState &s, const World &world, int W, int H, float sc, do
         cairo_stroke(cr);
         richText(cr, bx + 35 * u, by + 36 * u, tw, s.caption, fs, 1, 0.96, 0.86);
         char buf[96];
-        std::snprintf(buf, sizeof buf, s.sceneOpening ? "%d of %d.   Click, or Space: on.   Esc: begin at once." : "%d of %d.   Click, or Space: on.   Esc: skip the rest.", s.sceneNo, s.sceneCount);
+        std::snprintf(buf, sizeof buf, "%d of %d.   Click, or Space: on.%s   %s", s.sceneNo, s.sceneCount,
+                      s.sceneNo > 1 ? "   Left: back." : "", s.sceneOpening ? "Esc: begin at once." : "Esc: skip the rest.");
         text(cr, bx + 35 * u, by + bh - 16 * u, buf, 12 * u, false, 0.7, 0.65, 0.55);
         cairo_destroy(cr);
         cairo_surface_flush(surf);
@@ -233,7 +234,8 @@ bool Hud::draw(const HudState &s, const World &world, int W, int H, float sc, do
     }
 
     if (s.help) {
-        const char *lines[] = {
+        static const std::set<std::string> forTesting = {"]  [", "N   ", "Tab "};   // shown only with --testing
+        const char *all[] = {
             "arrows, WASD or keypad   walk (two keys together: diagonal)",
             "U, click a ladder        climb it (also stairs, trapdoors, shafts)",
             "walk into a boat         get in and row; walk onto land to get out",
@@ -268,13 +270,22 @@ bool Hud::draw(const HudState &s, const World &world, int W, int H, float sc, do
             "H                        this help",
             "Esc                      close the map, or quit",
         };
-        int n = sizeof lines / sizeof lines[0];
-        double x0 = W - 560 * u, y0 = 10 * u;
-        cairo_set_source_rgba(cr, 0.08, 0.06, 0.04, 0.7);
-        cairo_rectangle(cr, x0, y0, 550 * u, (24 + n * 20) * u);
-        cairo_fill(cr);
+        std::vector<const char *> lines;
+        for (const char *l : all)
+            if (s.testing || !forTesting.count(std::string(l).substr(0, 4))) lines.push_back(l);
+        int n = (int)lines.size();
         cairo_select_font_face(cr, "Menlo", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
         cairo_set_font_size(cr, 12.5 * u);
+        double widest = 0;   // the panel as wide as its longest line
+        for (const char *l : lines) {
+            cairo_text_extents_t e;
+            cairo_text_extents(cr, l, &e);
+            widest = std::max(widest, e.x_advance);
+        }
+        double pw = widest + 28 * u, x0 = W - pw - 10 * u, y0 = 10 * u;
+        cairo_set_source_rgba(cr, 0.08, 0.06, 0.04, 0.7);
+        cairo_rectangle(cr, x0, y0, pw, (24 + n * 20) * u);
+        cairo_fill(cr);
         cairo_set_source_rgb(cr, 1, 0.95, 0.85);
         for (int i = 0; i < n; i++) {
             cairo_move_to(cr, x0 + 14 * u, y0 + (28 + i * 20) * u);

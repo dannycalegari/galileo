@@ -3000,6 +3000,49 @@ std::string People::fill(const Person &p, const std::string &text, const Person 
     return out;
 }
 
+// The numbers in what was said: each run of digits ("2*11+3*7+5=48": 2, 11, 3, 7, 5, 48; "48.5" stays whole), and
+// numbers in words ("forty-eight"; "forty eight" also as "forty-eight" and each word alone).
+static std::vector<std::string> numbersIn(const std::string &words) {
+    static const std::set<std::string> named = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight",
+        "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen",
+        "nineteen", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety", "hundred", "thousand"};
+    std::vector<std::string> out, run;   // run: number words in a row
+    auto endRun = [&]() {
+        if (run.size() > 1) {
+            std::string dash, space;
+            for (size_t i = 0; i < run.size(); i++) { dash += (i ? "-" : "") + run[i]; space += (i ? " " : "") + run[i]; }
+            out.push_back(dash);
+            out.push_back(space);
+        }
+        for (const std::string &r : run) out.push_back(r);
+        run.clear();
+    };
+    std::istringstream ss(words);
+    std::string wd;
+    while (ss >> wd) {
+        bool digits = false;
+        std::string cur;
+        for (char c : wd + " ") {
+            if (std::isdigit((unsigned char)c) || (c == '.' && !cur.empty())) { cur += c; continue; }
+            while (!cur.empty() && cur.back() == '.') cur.pop_back();
+            if (!cur.empty()) { out.push_back(cur); digits = true; }
+            cur.clear();
+        }
+        if (digits) { endRun(); continue; }
+        std::string bare;
+        for (char c : wd) if (std::isalpha((unsigned char)c) || c == '-') bare += c;
+        bool number = !bare.empty();
+        std::istringstream parts(bare);
+        std::string part;
+        int n = 0;
+        while (std::getline(parts, part, '-')) { n++; if (!named.count(part)) number = false; }
+        if (number && n > 0) run.push_back(bare);
+        else endRun();
+    }
+    endRun();
+    return out;
+}
+
 // keywords match as in Ultima: the first four letters are enough; but a place's name only whole (WHOLE: People::townWords)
 static bool keyMatches(const std::string &word, const std::string &key, const std::set<std::string> *whole = nullptr) {
     if (!key.empty() && key[0] == '=') return word == key.substr(1);   // "=forty-eight": that word only, not "forty-seven"
@@ -3565,6 +3608,27 @@ void People::ask(World &w, const std::string &input, double minutes, int youX, i
     // the whole phrase, then each word
     t = match(p, words, minutes);
     if (t) asked = words;
+    // a number in a sentence ("I owe the post 48 sous") answers a question before the other words do ("post"); keys
+    // that are numbers match only whole. A number that no line answers, while a question waits for one (a "?" line
+    // with a condition: Mersenne's sum), gets that line ("No. ...").
+    if (!t) {
+        std::vector<std::string> nums = numbersIn(words);
+        for (const std::string &n : nums) {
+            for (const std::vector<TalkLine> *lines : p.talkLists()) {
+                for (const TalkLine &l : *lines)
+                    for (const std::string &k : l.keys)
+                        if ((k == n || k == "=" + n) && holds(p, l.cond, minutes)) { t = &l; break; }
+                if (t) break;
+            }
+            if (t) { asked = t->keys[0]; break; }
+        }
+        if (!t && !nums.empty())
+            for (const std::vector<TalkLine> *lines : p.talkLists()) {
+                for (const TalkLine &l : *lines)
+                    if (l.keys[0] == "?" && !l.cond.empty() && holds(p, l.cond, minutes)) { t = &l; break; }
+                if (t) break;
+            }
+    }
     std::string known;
     // a place or a person of the town named in full, in two words or more ("the Porte Saint-Antoine")
     if (!t && knowAnswer(w, p, words, true, youX, youY, minutes, known)) { talk.lines.push_back({true, known}); return; }

@@ -62,10 +62,7 @@ from there; `./galileo --new` starts afresh.
 | =, - or scroll | zoom |
 | Z | reset the view |
 | V | lift all the roofs, and put them back |
-| ], [ | an hour later, earlier |
 | M | the map of Europe |
-| N | travel to the next town |
-| Tab | gallop (fast travel, for testing) |
 | Ctrl+M | music off and on (`--no-music` starts without it) |
 | K | sound effects off and on |
 | P | screenshot, saved in `shots/` |
@@ -76,10 +73,11 @@ from there; `./galileo --new` starts afresh.
 
     ./galileo --help
 
-Useful ones: `--town Rome` (and any other town), `--floor -2 --at 2960,3700` (the quarries under Paris), `--time 21:30`,
-`--zoom 40`, `--bld 39` (start inside building 39; `--stats` lists the buildings), and `--shot picture.png` to render
-one picture without opening a window. `./galileo --stats` builds the world, checks that every street and building of
-each town can be reached on foot, and prints a summary.
+`--testing` turns on the keys for testing: N travels to the next town, ] and [ move the clock an hour later or earlier,
+and Tab gallops (fast travel). Other useful ones: `--town Rome` (and any other town), `--floor -2 --at 2960,3700` (the
+quarries under Paris), `--time 21:30`, `--zoom 40`, `--bld 39` (start inside building 39; `--stats` lists the
+buildings), and `--shot picture.png` to render one picture without opening a window. `./galileo --stats` builds the
+world, checks that every street and building of each town can be reached on foot, and prints a summary.
 
 ## Testing
 
