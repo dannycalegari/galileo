@@ -1,0 +1,105 @@
+# Pisa in 1632.  One character is one tile; north is at the top.
+# Drawn first by tools/draft_towns.py (pisa); the script is the master copy for now.
+# Characters as in paris.map ('g' a mooring post with a boat); the capital letters are landmarks.
+
+style pisa
+ground 1.1
+towerroof flat
+
+legend D cathedral "the Duomo of Pisa"            front=flat norose roof=lead crossing=dome domescale=0.45 dome=C9C2B4 stone=F0ECE2
+legend B rotunda   "the Baptistery of Pisa"       sides=16 roof=dome height=6 stone=F0ECE2 dome=C9C2B4
+legend T tower     "the Leaning Tower"            round lean=5.5 height=12 top=belfry stone=F0ECE2
+legend C gallery   "the Camposanto"               stone=EEE8DA roof=lead
+legend K palace    "the Palazzo della Carovana"   depth=3 storeys=3 roof=tile stone=D6D2C8 floors=1
+legend S church    "Santo Stefano dei Cavalieri"  front=flat roof=tile stone=ECE6D8
+legend U college   "the Palazzo della Sapienza"   depth=3 storeys=2 roof=tile stone=E6D6B6 floors=1
+legend H mansion   "the house of the keeper of the Orto botanico"
+legend F fortress  "the Cittadella Vecchia"       height=6 roofed brick
+legend A hall      "the Medici arsenal"           nocampanile brick roof=tile
+legend I inn       "the Osteria del Cappello"
+legend L halle     "the Logge di Banchi"          nostalls
+legend N fortress  "the Cittadella Nuova"         height=5 roofed brick
+legend P chapel    "Santa Maria della Spina"      plain height=4 stone=F2EEE6
+legend R church    "San Paolo a Ripa d'Arno"      front=flat roof=tile stone=ECE6D8
+legend G mansion   "the house where Galileo was born"
+
+gate 1 "the Porta a Lucca"
+gate 2 "the Porta Nuova"
+gate 3 "the Porta a Mare"
+gate 4 "the Porta Fiorentina"
+gate 5 "the Porta alle Piagge"
+
+map
+                                                ______
+                                                ______
+                                                ____
+                                                ____
+                          ############OO########____                                          t,
+                          ############OO########____                                          ,,
+            ##CCCCCCCCCCCCCCCCCCCC............##1111##############OO##
+            ##CCCCCCCCCCCCCCCCCCCC............##1111##############OO##
+      ######,,CCCCCCCCCCCCCCCCCCCCKKKKKKKKKKKKKK......................####OO                t,
+      ######,,CCCCCCCCCCCCCCCCCCCCKKKKKKKKKKKKKK......................####OO                ,,
+      ##,,,,,,CCCCCCCCCCCCCCCCCCCCKKKKKKKKKKKKKK....hhhh..hhhhhhhhhh........########      t,
+      ##,,,,,,CCCCCCCCCCCCCCCCCCCCKKKKKKKKKKKKKK....hhhh..hhhhhhhhhh........########      ,,
+      ##,,BBBBBBBB................KKKKKKKKKKKKKK......hh..hhhhhhhhhh..hhhh..........##OO
+      ##,,BBBBBBBB................KKKKKKKKKKKKKK......hh..hhhhhhhhhh..hhhh..........##OO
+      ##,,BBBBBBBB,,DDDDDDDDDDDDDDKKKKKKKKKKKKKK............hhhhhhhh..hhhhhhhh..hh....##
+      ##,,BBBBBBBB,,DDDDDDDDDDDDDDKKKKKKKKKKKKKK............hhhhhhhh..hhhhhhhh..hh....##
+    ####,,BBBBBBBB,,DDDDDDDDDDDDDDKKKKKKKKKKKKKKSSSSSSSSSS..hhhhhhhh..hhhhhhhh..hhhh....##
+    ####,,BBBBBBBB,,DDDDDDDDDDDDDDKKKKKKKKKKKKKKSSSSSSSSSS..hhhhhhhh..hhhhhhhh..hhhh....##
+____22..,,BBBBBBBB,,DDDDDDDDDDDDDD,,,,,,::::::::SSSSSSSSSS..hhhhhhhh..hhhhhhhh..hhhhhh..##
+____22..,,BBBBBBBB,,DDDDDDDDDDDDDD,,,,,,::::::::SSSSSSSSSS..hhhhhhhh..hhhhhhhh..hhhhhh..##
+____22..,,,,,,,,,,,,DDDDDDDDDDDDDD,,TTTT::::::::SSSSSSSSSS..hhhhhhhh..hhhhhhhh..hhhhhh..##
+____22..,,,,,,,,,,,,DDDDDDDDDDDDDD,,TTTT::::::::SSSSSSSSSS..hhhhhhhh..hhhhhhhh..hhhhhh..##
+    ##FFFFFFFFFFFF,,,,HHHHHHHHHH,,,,TTTT::::y:::SSSSSSSSSS..hhhhhhhh..hhhhhhhh..hhhhhh..####
+    ##FFFFFFFFFFFF,,,,HHHHHHHHHH,,,,TTTT::::::::SSSSSSSSSS..hhhhhhhh..hhhhhhhh..hhhhhh..####
+t,  ##FFFFFFFFFFFF,,,,HHHHHHHHHH,,,,,,,,::::::::::::......................................55....
+,,  ##FFFFFFFFFFFF,,,,HHHHHHHHHH,,,,,,,,::::::::::::......................................55....
+    ##FFFFFFFFFFFF..hhHHHHHHHHHHhh....UUUUUUUUUUUUUUUU....................................55....
+    ##FFFFFFFFFFFF..hhHHHHHHHHHHhh....UUUUUUUUUUUUUUUU....................................55....
+    ##AAAAAAAAAAAA,,,,,,t,,,,,hhhh....UUUUUUUUUUUUUUUU....::::::IIIIIIIIIIhhhhhhhhhhhhhh..##
+    ##AAAAAAAAAAAA,,,,,,,,,,,,hhhh....UUUUUUUUUUUUUUUU....::::::IIIIIIIIIIhhhhhhhhhhhhhh..##
+    ##AAAAAAAAAAAA,,t,,,,,,,t,hhhh....UUUUUUUUUUUUUUUU....m:::m:IIIIIIIIIIhhhh....hhhhhh..##
+    ##AAAAAAAAAAAA,,,,,,,,,,,,hhhh....UUUUUUUUUUUUUUUU....::::::IIIIIIIIIIhhhh....hhhhhh..##
+    ##AAAAAAAAAAAA,,,,,,,,,,,,hhhhhh..UUUUUUUUUUUUUUUU....::::::IIIIIIIIIIhhhh....hhhhhh..##
+    ##AAAAAAAAAAAA,,,,,,,,,,,,hhhhhh..UUUUUUUUUUUUUUUU....::::::IIIIIIIIIIhhhh....hhhhhh..##
+~~~~~~~~~~~~~~~~~~====............................................................hhhhhh..##
+~~~~~~~~~~~~~~~~~~====............................................................hhhhhh..##
+~~~~~~~~~~~~~~~~~~====~~g~~~~~~~~~~~~~~~......~~~~~~~~~~====~~~~~~~~~~~~~~~~~~====........OO
+~~~~~~~~~~~~~~~~~~====~~~~~~~~~~~~~~~~~~......~~~~~~~~~~====~~~~~~~~~~~~~~~~~~====........OO
+      ~~~~~~~~~~~~====~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~====~~~~~~~~~~~~~~~~~~====~~~~~~~~~~~~~~
+      ~~~~~~~~~~~~====~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~====~~~~~~~~~~~~~~~~~~====~~~~~~~~~~~~~~
+      ##....................~~~~~~~~~~~~g~~~~~~~~~~~~~~~==..................~~====~~~~~~~~~~~~~~
+      ##....................~~~~~~~~~~~~~~~~~~~~~~~~~~~~==..................~~====~~~~~~~~~~~~~~
+      ##................PPPPPPPPPP..................::::::LLLLLL..hhhhhh..hh..NNNNNNNNNNNN~~~~~~
+      ##................PPPPPPPPPP..................::::::LLLLLL..hhhhhh..hh..NNNNNNNNNNNN~~~~~~
+  t,  ##....RRRRRRRRRR..PPPPPPPPPP..hhhhhhhh..hhhhhh::::::LLLLLL..hhhhhh..hh..NNNNNNNNNNNN
+  ,,  ##....RRRRRRRRRR..PPPPPPPPPP..hhhhhhhh..hhhhhh::::::LLLLLL..hhhhhh..hh..NNNNNNNNNNNN
+      ##....RRRRRRRRRR..PPPPPPPPPP..GGGGGGGGGGhhhhhh::::::::::::..hhhhhh..hh..NNNNNNNNNNNN
+      ##....RRRRRRRRRR..PPPPPPPPPP..GGGGGGGGGGhhhhhh::::::::::::..hhhhhh..hh..NNNNNNNNNNNN
+        ##..RRRRRRRRRR..............GGGGGGGGGGhhhhhhhhhh....hhhhhhhhhhhh..hh..NNNNNNNNNNNN
+        ##..RRRRRRRRRR..............GGGGGGGGGGhhhhhhhhhh....hhhhhhhhhhhh..hh..NNNNNNNNNNNN
+        33....................hhhhhhGGGGGGGGGGhhhhhhhhhh....hhhhhhhhhhhh..hh..NNNNNNNNNNNN
+        33....................hhhhhhGGGGGGGGGGhhhhhhhhhh....hhhhhhhhhhhh..hh..NNNNNNNNNNNN
+  ______33............................................................hh..hh..NNNN##NNNNNN
+  ______33............................................................hh..hh..NNNN##NNNNNN
+________####......hhhhhhhhhh......................................................44......
+________####......hhhhhhhhhh......................................................44......
+______  t,  ####......hhhhhhhhhh..hhhhhhhhhhhh..hhhhhhhh....hhhhhhhh..............44......______
+______  ,,  ####......hhhhhhhhhh..hhhhhhhhhhhh..hhhhhhhh....hhhhhhhh..............44......______
+                ####....hhhhhhhh..hhhhhhhhhhhh..hhhhhhhh....hhhhhhhhhh..........####      ______
+                ####....hhhhhhhh..hhhhhhhhhhhh..hhhhhhhh....hhhhhhhhhh..........####      ______
+                t,  ##..................hhhhhh..hhhhhhhh................##OO####              __
+                ,,  ##..................hhhhhh..hhhhhhhh................##OO####              __
+                      ############OO##....................##########OO##
+                      ############OO##....................##########OO##
+                                      ##########OO########..
+                                      ##########OO########..
+                                                        ....
+                                                        ....
+                                                      t,              t,
+                                                      ,,              ,,
+                    t,        t,
+                    ,,        ,,
+end

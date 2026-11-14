@@ -1,0 +1,108 @@
+# The people of Vienna.
+# June 1632: the Emperor Ferdinand II holds his court at the Hofburg, with his Jesuit confessor,
+# William Lamormaini, at his elbow; the Empress Eleonora of Mantua has brought Italian music with
+# her; Sebastian Tengnagel keeps the Imperial Library and its Turkish and Arabic manuscripts.
+town Vienna
+names german
+prison Schranne | They lock you in the cellars of the Schranne, the town court on the Hoher Markt. A clerk asks your name, your religion, and whether you have read any Lutheran books. In the morning they let you go.
+country Empire
+
+person lamormaini
+  name Father William Lamormaini
+  title the Emperor's confessor
+  role jesuit
+  near University of Vienna
+  work landmark University of Vienna
+  talk
+    name: William Lamormaini, of the Society of Jesus, from Luxembourg: rector of the college, and confessor to His Majesty. {name}
+    job: I hear the Emperor's confession every week, and every day I remind him that a Catholic prince must give back to God what the heretics took. He listens. He is a very good man.
+    edict,restitution,church: Three years ago His Majesty commanded the Protestants to give back every church and abbey they had taken since the Peace of Passau. The Protestants answered by inviting the King of Sweden. God tries those He loves.
+    sweden,gustavus,king: The King of Sweden is a scourge, sent for our sins. Scourges break. I do not say when.
+  end
+end
+
+person valentini
+  name Giovanni Valentini
+  title the Emperor's Kapellmeister
+  role musician
+  look coat #3A1E2A legs #2A1E22 hat hat #1E1A1E
+  near Hofburg
+  work landmark Hofburg
+  talk
+    name: Giovanni Valentini, of Venice, Kapellmeister to His Imperial Majesty. {name}
+    job: I direct the Emperor's chapel: forty singers and players, Italians most of them, for the masses, the vespers and the Empress's entertainments. I write masses for twenty voices, and sonatas for anything that has strings.
+    empress,eleonora,mantua,opera: Her Majesty the Empress Eleonora is a Gonzaga of Mantua, where they have had music dramas since Monteverdi's Orfeo. She brought Mantua to Vienna with her. The Viennese are learning to sit still for three hours. Slowly.
+    monteverdi,venice: Signor Monteverdi is master of music at Saint Mark's, and a priest now, since the plague took so many. He is the greatest of us. He writes for the voice as if it were the soul.
+  end
+end
+
+person tengnagel
+  name Sebastian Tengnagel
+  title the Imperial Librarian
+  role scholar
+  near Hofburg
+  talk
+    give:dialogue if has:dialogue >= 1: The Library has one already. One is all a library needs; that is the whole idea of a library.
+    give:dialogue: (He writes the title in a great book.) The Imperial Library thanks you. Whatever they do with it in Rome, here it will be kept, and catalogued, and dusted, until the end of the world. I am a Catholic, and a librarian: we keep books. Burning them is for amateurs. {take}
+    name: Sebastian Tengnagel, of Gelderland, Imperial Librarian. {name}
+    job: I keep the Emperor's library, and I buy for it every Turkish, Arabic and Persian book I can find. I read them too. It is the only way to know what the Turks think of us.
+    dioscurides,herbal,busbecq,manuscript: Old Busbecq, the Emperor Ferdinand's ambassador to the Sultan, found a Dioscurides in Constantinople, written for a princess eleven hundred years ago, with every plant painted, and the Emperor Maximilian bought it. It is the most beautiful book in the world, and it is mine. That is, it is the Emperor's. It lies open in the Hofburg; go and look.
+    arabic,turkish,persian if player skill:arabic: You read Arabic? Then you are the first visitor this year with whom I can talk properly. Sit. No, sit: I have a Persian poem that will take all afternoon.
+    arabic,turkish,persian: I taught myself Arabic and Turkish from grammars and from prisoners of war. The prisoners were better.
+  end
+end
+
+person drover
+  name Ferenc Nagy
+  title an ox drover from Hungary
+  role merchant
+  look coat #4A3A2A legs #3A2E22 hat hat #2A221A
+  near Red Hedgehog
+  lodges
+  work square
+  money 4800
+  talk
+    name: Nagy Ferenc, of Debrecen. Ferenc Nagy, as you say it here. {name}
+    job: I drive grey oxen from the Great Plain to Vienna, two thousand at a time, and sell them at the Ochsengries outside the walls. Half the beef in Germany walks here from Hungary.
+    hungary,turks,plain: The Turks hold Buda, the Emperor holds Pressburg, and Transylvania holds its breath. The oxen do not mind who holds what.
+  end
+end
+
+person vintner
+  name Anna Pichler
+  title a vintner's widow
+  role goodwife
+  sex f
+  near Schottenstift
+  talk
+    name: Anna Pichler, widow, of the vineyards at Grinzing. {name}
+    job: I grow wine on the hills, and when it is new I hang a pine bough over my door, and the Viennese come out and drink it under the trees. The Emperor drinks it too. He does not come out.
+    wine,heurige,vineyard: New wine is the best wine. Old wine is for people who cannot wait for next year.
+  end
+end
+
+crowd 2 goodwife
+crowd 2 labourer work square
+crowd 2 guard
+crowd 1 merchant
+crowd 1 student
+crowd 1 priest
+crowd 1 innkeeper
+crowd 1 changer
+crowd 1 herdsman
+
+person postclerk
+  name Matthias Kröpfl
+  title a clerk of the Imperial post
+  role scholar
+  look coat #2E2A3A legs #24202E hat hat #18141E
+  near Red Hedgehog
+  work landmark Red Hedgehog
+  talk
+    name: Kröpfl, Matthias, clerk of His Majesty's post, at your service, and at the Red Hedgehog's, most evenings. {name}
+    job: The letters from Italy come over the Alps to me, and go on to whoever they are for. Some of them go on by way of the Emperor's confessor first. Nobody asks me what I see.
+    arellano,letter,spanish,rome,confessor,lamormaini if player ch3-open and not player ch3-over and not player proof-commission: (He looks into his beer.) A Spanish secretary in Rome writes every fortnight to Father Lamormaini. For twenty livres a man might read one, here, at this table, and give it back before I finish my beer.
+    give:money if player gift >= 4800 and player ch3-open and not player proof-commission: (He takes a letter from inside his coat, opens it with a hot knife, and turns it to you.) "...the paper of the year sixteen, signed by the Florentine, which I have had made at small cost, will be found in time for the second hearing..." (He folds it, and seals it again with the same seal.) There. It was never opened. {take} {player set proof-commission}
+    give:money: What is this for? I am a clerk, not a beggar.
+  end
+end

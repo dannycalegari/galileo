@@ -1,0 +1,140 @@
+# The people of Zirndorf, a village of the Margrave of Ansbach west of Nuremberg, and of the camp
+# on the ridge above it, by the ruin of the Alte Veste.
+# The Imperial army is "away" (its schedules) until you have come here to look for it, sent by
+# Robert Monro in Nuremberg (events.txt wallenstein-comes); its tents, gabions and guns stand from
+# then until it leaves (the map's "camp"). Albrecht von Wallenstein, Duke of Friedland, the
+# Emperor's general again since April; his astrologer Giovanni Battista Senno, who lets slip the
+# rumour that sends the King of Sweden up the hill (events.txt alte-veste).
+town Zirndorf
+names german
+country Empire
+
+person pastor
+  name Pastor Johann Lederer
+  title the pastor of Zirndorf
+  role priest
+  look coat #1E1E22 legs #1E1E22 hat squarecap #1E1E22 robe
+  near St Rochus
+  work landmark St Rochus
+  talk
+    name: Johann Lederer, pastor of Zirndorf, of the Lutheran faith, under the Margrave of Ansbach. {name}
+    job: I baptise them, I marry them, and this summer I bury them. Half my parish has run to Nuremberg, behind the walls; the other half is hiding in the woods with the cows.
+    alte,veste,castle,ruin: The Alte Veste? An old castle of the burgraves on the ridge, burned three hundred years ago. The children play in it. There is nothing up there but nettles and a good view of Nuremberg, which is why every army that comes wants it.
+    wallenstein,duke,army,camp if player event:wallenstein-comes: They came up the road from the east with their banners and their carts, more of them than the whole of Franconia, and cut down my woods for their huts in a single day. They took my church bell for their guns. God forgive them; I cannot.
+    wallenstein,duke,army,camp: Everyone says the Duke of Friedland is coming from Bohemia, with the whole Imperial army. Everyone says he will sit down on a hill and wait. I pray it is not our hill.
+  end
+end
+
+person wallenstein
+  name Albrecht von Wallenstein
+  title the Duke of Friedland, the Emperor's general
+  role prince
+  look coat #1A1A1E legs #1A1A1E hat hat #8A1A1A
+  near farm by the Alte Veste
+  work landmark farm by the Alte Veste
+  schedule
+    0:00 away
+    0:00 work if player event:wallenstein-comes and player not event:siege-ends
+  talk
+    # the Duke's offer, once you have seen his guns in the ruin and before you go to Monro: thirty
+    # livres to carry the astrologer's lie, sworn; paid after the storming (nuremberg.txt monro; ending.txt "the other side")
+    hello if player sold-north and player event:assault-over and not player paid-by-duke: (He counts it out himself, thirty livres in gold, and pushes it across the table without a word.) The King of Sweden came up my hill. Go quietly. {player add money 7200} {player set paid-by-duke}
+    hello if player saw-north-guns and not player sold-north and not player refused-duke and not player storming-set and not player event:siege-ends: (He does not look up from his foot.) You have been in my ruin. (Now he looks at you, as if you were a horse he had decided to buy.) Good: then you know what the King of Sweden does not. Go back to your Scot and tell him what my astrologer told you, and swear that you saw it yourself; and when the King has come up my hill, there will be thirty livres for you here. Well? {set offered-sale=now}
+    yes,=i will,deal,agreed,swear,take if recent:0.05 offered-sale: (He nods, once, and looks back at his foot.) Go quietly. {unset offered-sale} {player set sold-north}
+    no,=never,refuse,=i will not if recent:0.05 offered-sale: (He shrugs.) Then tell him what you like. He will come up my hill all the same; they always do. Go quietly, before I change my mind about letting you go at all. {unset offered-sale} {player set refused-duke}
+    hello: (He sits with one foot wrapped in flannel on a stool, and looks at you as if you were a horse he might buy.) Speak quietly. I have forbidden every dog in the camp to bark, and every cock to crow.
+    name: Albrecht von Wallenstein, Duke of Friedland and of Mecklenburg, general of the Emperor's armies, for the second time. {name}
+    job: I raise armies, and I pay them, and I do not lose them. The King of Sweden wants a battle. I shall not give him one. I shall sit on this hill until his men have eaten their horses, and then their boots.
+    gout,foot: The gout. The doctors bleed me, the astrologer tells me it will pass when Saturn leaves the house of health. Saturn is taking his time.
+    stars,horoscope,kepler,astrology,astrologer: Kepler cast my nativity, twenty-four years ago, without knowing whose it was: restless, contemptuous of law, greedy of power, many enemies, and lucky. He was right in every word. He died two years ago in Regensburg, poor; I owed him money. Senno does my stars now. He is a cheerful man, which in an astrologer is a fault.
+    king,sweden,gustavus,swedes: A great soldier and a poor gambler. He will attack me, because he cannot bear to wait. They never can.
+    nuremberg,siege: Nuremberg has fifty thousand mouths inside its walls and its lines, and nothing coming in but what my Croats let through. Which is nothing.
+    senno,report,rumour,north,ruin,guns if player warned-monro and player event:assault-over: (He looks at you as at a horse that has kicked him.) You went into my ruin, and then to your Scot. It made no difference: the King came up my hill all the same. They always do.
+    senno,report,rumour,north if player event:assault-over: (He almost smiles.) My astrologer tells me you were most helpful. I do not ask how. Go back to the King of Sweden and tell him the Duke of Friedland sends his compliments, and has kept his guns.
+    bye: Go quietly.
+  end
+end
+
+person senno
+  name Giovanni Battista Senno
+  title the Duke's astrologer
+  role scholar
+  look coat #2A2A4A legs #2A2A3A hat hat #1E1E3A
+  near farm by the Alte Veste
+  work landmark farm by the Alte Veste
+  schedule
+    0:00 away
+    0:00 work if player event:wallenstein-comes and player not event:siege-ends
+  talk
+    # once you have told Monro of Wallenstein, the astrologer is the Duke's bait: his greeting is the lie
+    hello if player reported-wallenstein and not player heard-weak-north and not player storming-set and not player event:siege-ends: (A round, cheerful man in a dark gown, with a glass in his hand, who seems very pleased to see you.) A stranger! Come, sit: the Duke's wine is better than his temper. (He fills a cup for you, and leans close.) Shall I tell you what the stars say? That the King of Sweden will come up this hill before the month is out. And shall I tell you what the stars do not say, but I do? The Duke has drawn his guns off the north end of the ridge, by the old castle, to the south side, where he thinks the attack will come. There is nothing by the ruin but a few Croats and the nettles. (He puts a finger to his lips.) You did not hear it from me. {player set heard-weak-north}
+    name: Giovanni Battista Senno, of Genoa, mathematician and astrologer to the Duke of Friedland. {name}
+    job: I read the heavens for the Duke, which is the safest place to read them: nobody can say they have been misquoted.
+    stars,horoscope,astrology,heavens if not player heard-weak-north: (He lowers his voice, and his breath smells of the Duke's wine.) Shall I tell you what the stars say? That the King of Sweden will come up this hill before the month is out. And shall I tell you what the stars do not say, but I do? The Duke has drawn his guns off the north end of the ridge, by the old castle, to the south side, where he thinks the attack will come. There is nothing by the ruin but a few Croats and the nettles. You did not hear it from me. {player set heard-weak-north}
+    stars,horoscope,astrology,heavens,north,guns,weak if player event:assault-over and player gave-false-report: (He beams.) The stars were right, were they not? The King came up the hill. And the Duke was very pleased with somebody. With you, perhaps; with me, certainly.
+    stars,horoscope,astrology,heavens,north,guns,weak: I have told you too much already. It is the wine.
+    galileo,padua: I studied at Padua, where they still talk of Galileo's lectures on the new star of 1604: the heavens can change, he said. The Duke pays me to say what they will change into.
+  end
+end
+
+person sutler
+  name Anna Gruberin
+  title a sutler of the camp
+  role merchant
+  sex f
+  look coat #6A3A2A legs #4A2A1E hat coif #E8E2D2 dress apron #8A7A5A
+  near farm by the Alte Veste
+  work camp
+  sells loaf 6 cheese 4
+  schedule
+    0:00 away
+    0:00 work if player event:wallenstein-comes and player not event:siege-ends
+  talk
+    name: Anna Gruberin, of Linz, sutler to Colonel Holk's regiment, God help me. {name}
+    job: I follow the army with my cart: bread, cheese, beer, needles, tobacco, and whatever the soldiers bring back from the villages, which I do not ask about. Bread is dear in the camp, and dearer in Nuremberg, they say.
+    bread,price,hunger: Dear? Go and price it in Nuremberg. Here at least there is some.
+  end
+end
+
+# A child of the village, who used to play in the ruin (the pastor: "The children play in it"), and knows what the
+# soldiers have put there: a quieter clue to the Duke's guns, beside Monro's question
+person gretl
+  name Gretl Rumpf
+  title a farmer's child
+  role farmer
+  sex f
+  look coat #7A5A3A legs #4A3A2A hat coif #E8E2D2 dress child
+  near St Rochus
+  schedule
+    7:00 wander
+    19:00 home
+    20:00 sleep
+  talk
+    hello if player event:wallenstein-comes and not player event:siege-ends: (A small girl with a goose under her arm.) We cannot play in the castle any more. The soldiers have put their big guns in it, under branches, and a Croat threw a stone at my brother. (She considers you.) Are you a soldier? You do not look like one. {player set heard-gretl-guns}
+    hello: (A small girl with a goose under her arm looks you up and down.) Have you come to see the castle? Everybody comes to see the castle. There is nothing in it but nettles. I am the queen of it.
+    name: Gretl. Gretl Rumpf. (She holds up the goose.) And this is Liese. {name}
+    job: I mind the geese. There is only Liese left; the soldiers took the others.
+    goose,liese: (She holds the goose tighter.) Nobody is having Liese.
+    castle,alte,veste,ruin,guns,soldiers,croat,croats if player event:wallenstein-comes and not player event:siege-ends: The big guns are in the castle, under branches, so that the Swedes will not see them. My brother saw them. That is why the Croat threw the stone. {player set heard-gretl-guns}
+    castle,alte,veste,ruin: It is my castle. Hans says it is his, but he is only the king of it, and the queen is in charge.
+  end
+end
+
+# Murdo Ross, the wounded Scot under the wall of the Alte Veste, is a man of Monro's: nuremberg.txt murdo.
+
+# the Croats stripping the fallen by the ruin, on the day of the storming, if you warned Monro (roles.txt looter)
+crowd 2 looter
+# the Imperial army (roles.txt "soldiers"): away until it comes; posted round its camp
+crowd 8 imperial work camp
+crowd 4 imperialpike work camp
+# the King of Sweden's storming party, here only on the day of the assault (events.txt alte-veste):
+# they march in along the road from Nuremberg, and go for the camp
+crowd 10 assault work camp
+# Monro's Scots, at the north end under the ruin, from first light (from the march, if you came with them) until the
+# retreat at ten, and the Duke's men who hold the ruin against them, their dead replaced out of the camp (roles.txt
+# scotstorm, imperialreserve, imperialreserve2)
+crowd 12 scotstorm
+crowd 4 imperialreserve
+crowd 2 imperialreserve2
+crowd 3 farmer
+crowd 2 goodwife

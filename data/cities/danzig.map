@@ -1,0 +1,78 @@
+# Danzig in 1632.  One character is one tile; north is at the top.
+# Drawn first by tools/draft_towns.py (danzig); the script is the master copy for now.
+# Characters as in paris.map ('g' a mooring post with a boat); the capital letters are landmarks.
+
+style dutchtown
+ground 1.0
+towerroof cone
+
+legend M church    "St Mary's of Danzig"          brick westtower roof=tile
+legend R hall      "the Main Town hall"           nocampanile brick roof=slate
+legend Q tower     "the tower of the Danzig town hall"  height=12 top=spire brick
+legend A hall      "the Artus Court"              nocampanile roof=slate stone=E2DAC6 floors=1
+legend K tower     "the Crane"                    height=7 top=pyramid brick
+legend P tower     "the Stockturm"                height=8 top=spire brick
+legend I inn       "the Salmon"
+
+gate 1 "the Upland gate"
+gate 2 "the Green Gate"
+gate 3 "the Leege gate"
+
+map
+~~~~              t,
+~~~~              ,,
+~~~~
+~~~~
+~~~~                                                                ~~
+~~~~                                                                ~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~                ~~~~~~~~~~                ~~~~~~
+~~~~                ~~~~~~~~~~                ~~~~~~
+~~~~  ########OO####..........####OO########KK~~~~~~hhhhhhhh....hhhhhh
+~~~~  ########OO####..........####OO########KK~~~~~~hhhhhhhh....hhhhhh
+~~~~  OO..MMMMMMMMMMMM....................##KK~~~~~~hhhhhhhh....hhhhhh
+~~~~  OO..MMMMMMMMMMMM....................##KK~~~~~~hhhhhhhh....hhhhhh
+~~~~  ##..MMMMMMMMMMMM......hhhhhhhhhhhh..##..g~~~~~hhhhhhhh....hhhhhh
+~~~~  ##..MMMMMMMMMMMM......hhhhhhhhhhhh..##..~~~~~~hhhhhhhh....hhhhhh
+~~~~  ##..MMMMMMMMMMMM......hhhhhhhhhhhh..OO..~~~~~~hhhhhhhh..........
+~~~~  ##..MMMMMMMMMMMM......hhhhhhhhhhhh..OO..~~~~~~hhhhhhhh..........
+~~~~  ##..MMMMMMMMMMMM....................##..~~~~~~hhhhhhhh....hhhhhh
+~~~~  ##..MMMMMMMMMMMM....................##..~~~~~~hhhhhhhh....hhhhhh
+~~~~  ##..MMMMMMMMMMMMQQ....AAAAAAAAAA....##..g~~~~~............hhhhhh
+~~~~  ##..MMMMMMMMMMMMQQ....AAAAAAAAAA....##..~~~~~~............hhhhhh
+~~~~  ##......RRRRRRRRRR....AAAAAAAAAA....##..~~~~~~hhhhhhhh....hhhhhh
+~~~~  ##......RRRRRRRRRR....AAAAAAAAAA....##..~~~~~~hhhhhhhh....hhhhhh
+~~~~  ##..hh..RRRRRRRRRR....AAAAAAAAAA....##..~~~~~~hhhhhhhh....hhhhhh
+~~~~  ##..hh..RRRRRRRRRR....AAAAAAAAAA....##..~~~~~~hhhhhhhh....hhhhhh
+~~~~  ##..hh..............m:::::::::::::::##..g~~~~~hhhhhhhh....hhhhhh
+~~~~  ##..hh..............::::::::::::::::##..~~~~~~hhhhhhhh....hhhhhh
+~~~~  11..................::m:::::::::::::22..======............hhhhhh
+~~~~  11..................::::::::::::::::22..======............hhhhhh
+~~~~  11..................::::::::::::::::22..======............hhhhhh
+~~~~  11..................::::::::::::::::22..======............hhhhhh
+~~~~  ##PPPP..hhhhhhhhhh....IIIIIIIIII....##..g~~~~~hhhhhhhh..........
+~~~~  ##PPPP..hhhhhhhhhh....IIIIIIIIII....##..~~~~~~hhhhhhhh..........
+~~~~  ##PPPP..hhhhhhhhhh....IIIIIIIIII....##..~~~~  hhhhhhhh....hhhhhh
+~~~~  ##PPPP..hhhhhhhhhh....IIIIIIIIII....##..~~~~  hhhhhhhh....hhhhhh
+~~~~  ##......hhhhhhhhhh....IIIIIIIIII....##..~~~~  hhhhhhhh....hhhhhh
+~~~~  ##......hhhhhhhhhh....IIIIIIIIII....##..~~~~  hhhhhhhh....hhhhhh
+~~~~    OO..................IIIIIIIIII....##..~~~~  hhhhhhhh....hhhhhh
+~~~~    OO..................IIIIIIIIII....##..~~~~  hhhhhhhh....hhhhhh
+~~~~    ..##..............................##..~~~~  ............hhhhhh
+~~~~    ..##..............................##..~~~~  ............hhhhhh
+            ##............................##..~~~~  hhhhhhhh....hhhhhh
+            ##............................##..~~~~  hhhhhhhh....hhhhhh
+              ####OO##############3333######..~~~~  hhhhhhhh....hhhhhh
+              ####OO##############3333######..~~~~  hhhhhhhh....hhhhhh
+                  t,    ....                  ~~~~  hhhhhhhh....hhhhhh
+                  ,,    ....                  ~~~~  hhhhhhhh....hhhhhh
+                        ....                  ~~~~  hhhhhhhh....hhhhhh
+                        ....                  ~~~~  hhhhhhhh....hhhhhh
+                                                            ....
+                                                            ....
+end

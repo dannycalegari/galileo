@@ -1,0 +1,204 @@
+# The people of Constantinople.
+# June 1632: Sultan Murad IV, twenty years old, has just taken the government into his own hands
+# after the soldiers' revolt of May, and is said to walk the streets at night in disguise. The
+# Patriarch Cyril Lucaris, a friend of the Protestant ambassadors, is hated by the Jesuits; the
+# French ambassador Marcheville quarrels with everyone; Evliya, the son of the palace goldsmith,
+# is twenty-one and dreams of travelling; Katip, a clerk of the army, of maps.
+town Constantinople
+names ottoman
+prison Yedikule | The janissaries march you through the city to Yedikule, the Castle of the Seven Towers, where the Sultan keeps the ambassadors of the countries he is at war with. Your cell has been an ambassador's: there are Latin verses scratched on the wall, and a Venetian's calendar of four years. In the morning a clerk cannot find your name in any book, and lets you go.
+country Ottoman
+
+person evliya
+  name Evliya Çelebi
+  title a young man of the palace
+  role scholar
+  look coat #6A2A2A legs #E8E2D2 hat coif #F2EEE6
+  near Ayasofya
+  work landmark Ayasofya
+  schedule
+    6:00 work
+    12:00 eat
+    13:00 wander
+    17:00 go landmark coffeehouse
+    20:00 home
+    22:30 sleep
+  talk
+    name: Evliya, son of Derviş Mehmed Zilli, the chief goldsmith of the palace. They call me Evliya Çelebi. {name}
+    job: I recite the Koran in Ayasofya, and I am learning everything else: music, calligraphy, the names of all the cities in the world. One day I shall see them.
+    dream,travel,travels: Two years ago I dreamt that I was in the mosque of Ahi Çelebi, and the Prophet himself came in, with all his companions. I meant to say "shafaat, ya Rasulallah", your intercession, O Messenger of God, and I stammered, and said "siyahat", travel. And he smiled and granted it. So I must travel; it would be rude not to.
+    turkish,lesson,learn,language if player skill:turkish: You speak like a man of Istanbul now. Well: like a man of Istanbul with a cold.
+    turkish,lesson,learn,language: You want Turkish? Tell me about the cities of the Franks, every street of them, and I will teach you all the Turkish you can carry. And five akçe for my trouble, which is to say a sou.
+    give:money if player gift >= 12 and not player skill:turkish: (He listens to you describe your travels for an hour, asking the height of every steeple and the price of every loaf, writing it all down; then he teaches you until dark.) Now you can bargain in the Bazaar without being robbed. Not much without being robbed. {take} {player learn turkish}
+    paris,london,france,franks: Is it true that in the city of the French the river runs through the middle, with houses on the bridges, and the women walk in the street without veils? I shall see it. I shall see everything, and write it all down, in ten books.
+    coffee,kahve: The coffeehouses are the schools of the wise, my father says, and my mother says they are the schools of idlers. Both are right. Come to the one at Tahtakale in the evening.
+  end
+end
+
+person katip
+  name Mustafa, called Katip Çelebi
+  title a clerk of the army
+  role scholar
+  near Suleymaniye
+  work landmark Suleymaniye
+  talk
+    give:dialogue if has:dialogue >= 1: I have one already. I read it with a Venetian dragoman, slowly.
+    give:dialogue: (He turns the pages, and stops at the drawing of the world with the Sun in the middle.) The Franks' astronomer, who says the Earth turns. They have put him in prison for it, they say, as our ulema would. (He wraps it in silk.) One day I shall put it into Turkish, with the atlas. {take}
+    give:atlas: (He opens it on the floor and kneels over it, turning the great pages very carefully.) The whole world! The Franks have measured all of it, every coast, while we copy the books of Ptolemy. One day I shall put this into Turkish, I swear it, so that our captains know where they are going. Take this: it is all I have, and it is not enough. {take} {player add money 7200} {player set gave-atlas}
+    name: Mustafa, son of Abdullah. They call me Katip Çelebi, the clerk, because I am one. {name}
+    job: I copy the accounts of the Anatolian army, and in the evenings I read in the medrese of the Süleymaniye: geography, history, the books of every people. I am making a list of every book ever written.
+    maps,map,atlas,geography if not player gave-atlas: Our geographers copy Ptolemy, who died fourteen hundred years ago. The Franks, they say, have new maps of the whole world, printed at Amsterdam by a man called Blaeu, with the coasts of the New World on them. I would give anything to see one. {player set knows:amsterdam:blaeu}
+    maps,map,atlas,geography: I have begun the translation already. A world in Turkish, with Blaeu's coasts. It will take me twenty years. {player set knows:amsterdam:blaeu}
+    books,list: Every book ever written, with its author and its date, in Arabic, Persian and Turkish. Nine thousand so far. Do not tell me how many the Franks have.
+  end
+end
+
+person lucaris
+  name Cyril Lucaris
+  title the Patriarch of Constantinople
+  role priest
+  look coat #141418 legs #141418 hat hat #141418 robe
+  near Patriarchate
+  work landmark Patriarchate
+  talk
+    forgery,forged,forgeries,false,letters,hand,signature if player gave-lucaris-letter and not player skill:forgeries: (He smiles, without much pleasure.) Forgeries? My enemies have made letters in my name for ten years, to the Sultan, to the Cossacks, to anyone who would hang me. I have learnt to read them. Sit: a true hand runs; a false one walks. Look where the pen was lifted, and where the ink is dull for no reason, and what paper it is on. (All evening, over letters he keeps in a box: true ones and false ones, side by side.) Now you will see what I see. {player learn forgeries}
+    forgery,forged,forgeries,false,letters if not player gave-lucaris-letter: Forgeries are a subject I know too well, and do not discuss with strangers.
+    name: Cyril, by the mercy of God Archbishop of Constantinople, New Rome, and Ecumenical Patriarch. {name}
+    job: I keep the Orthodox faith alive under the Sultan, and I try to keep it alive under the Jesuits, which is harder.
+    jesuits,enemies: The Jesuits of Galata hate me, because I read Calvin and correspond with the Dutch. They had my printing press broken up by the janissaries four years ago: they told the Grand Vizier I was printing sedition. I was printing the catechism.
+    press,printing,printer: A Greek press, brought from London by a monk of ours. The janissaries smashed it in an afternoon. Ask the Dutch if they could send me another; their Elzevirs at Leiden print in every tongue.
+    codex,bible,london,king: I sent the oldest Bible in the world to the King of England, four years ago: a book written in Alexandria twelve hundred years ago, in capitals, on vellum. Better in London than burned here.
+    letter,haga,dutch if not player carried-lucaris-letter: Would you carry a letter for me, to the Dutch ambassador at Pera, Cornelis Haga? It should not go by my own people: some of them are paid by the Jesuits. {player add has:lucaris-letter 1} {player set carried-lucaris-letter}
+    letter,haga,dutch: Into Haga's own hands, and nobody else's.
+  end
+end
+
+person haga
+  name Cornelis Haga
+  title the Dutch ambassador
+  role mathematician
+  near Dutch ambassador
+  work landmark Dutch ambassador
+  talk
+    give:lucaris-letter: From the Patriarch. (He reads it twice and burns it in the candle.) He is a brave old man, and his enemies are patient. Tell nobody you carried this. The States General are in your debt, which is to say I am: here. {take} {player add money 1440} {player set gave-lucaris-letter}
+    name: Cornelis Haga, Ambassador of the States General of the United Provinces to the Sublime Porte, these twenty years. {name}
+    job: I keep our merchants out of prison and our ships out of the hands of the Barbary corsairs, and I drink a great deal of kahve with viziers who may be dead next week.
+    sultan,murad: The Sultan is twenty and has just had seventeen of his ministers' heads off. He walks the city at night in disguise, they say, looking for men who smoke tobacco. I do not smoke in the street.
+    lucaris,patriarch: Lucaris is the bravest man in this city, and the cleverest, and if the Jesuits have their way he will not die in his bed.
+  end
+end
+
+person marcheville
+  name Henri de Gournay, comte de Marcheville
+  title the ambassador of France
+  role mathematician
+  look coat #2A3A6A legs #1E2434 hat hat #14141A
+  near Palais de France
+  work landmark Palais de France
+  talk
+    name: Henri de Gournay, comte de Marcheville, Ambassador of the Most Christian King. {name}
+    job: I represent the King of France to a Sultan who keeps me waiting, a Grand Vizier who insults me, and a Venetian bailo who laughs at me. I have complained to all three.
+    france,king,paris: You are from France? Then you understand that a French ambassador cannot be made to sit lower than the Venetian's dragoman. I have written to the Cardinal about it. Four times.
+    jesuits: The Jesuits of Galata are under the protection of the King of France, which is to say of me, and I protect them, whatever the Dutch say about the Patriarch.
+  end
+end
+
+person dragoman
+  name Gian Rinaldo Carli
+  title the bailo's dragoman
+  role merchant
+  near Venetian bailo
+  work landmark Venetian bailo
+  money 4800
+  talk
+    name: Gian Rinaldo Carli, dragoman, that is interpreter, to the bailo of the Most Serene Republic. {name}
+    job: I translate the bailo's compliments into Turkish, and the Grand Vizier's threats into Italian, and I soften both. Venice lives by trade with the Sultan, and trade lives by the soft word.
+    trade,goods,market: The Bazaar sells silk from Bursa, mohair from Angora, carpets from Ushak and kahve from Mocha, all cheaper than anywhere in Christendom. And the Turks want our broadcloth and our glass, and pay in silver. Mind the customs at the Galata landing.
+  end
+end
+
+person kahveci
+  name Hasan Usta
+  title the keeper of a coffeehouse
+  role innkeeper
+  near coffeehouse
+  work landmark coffeehouse
+  sells kahve 30 coffee-beans 3
+  talk
+    name: Hasan, master of this house. {name}
+    job: I roast the beans, I grind them, I boil them, I pour, and I listen to everybody insult the government. The government listens too: that one in the corner is the Sultan's.
+    coffee,kahve,beans: Kahve from Mocha, by way of Cairo: black as the night of separation, sweet as the reunion, as the poet says. A cup for half an akçe. The green beans too, for the Franks who think they can grow it.
+    sultan,murad,ban,forbid: They say the Sultan will close the coffeehouses, and forbid tobacco, and hang the smokers. They said that under his uncle too. People will drink kahve on the day of judgement.
+  end
+end
+
+person bazaar
+  name Yakub Ağa
+  title a silk merchant of the Grand Bazaar
+  role merchant
+  near Grand Bazaar
+  work landmark Grand Bazaar
+  money 9600
+  talk
+    give:glass-crate: (He prises up the lid with the point of his dagger and lifts the glass out of the straw piece by piece, holding each to the light, counting aloud.) Forty-two goblets, six lamps, one mirror. All whole. Mehmed wrote that you were honest; he did not write that you were careful. Eight livres, and a coffee. {take} {player add money 1920} {player set delivered-glass}
+    mehmed,venice,partner,crate,glass if player carrying-glass: You come from Mehmed? Then you have my glass. Give it here, gently.
+    mehmed,venice,partner: Mehmed Çelebi, my partner in Venice, in the house the Venetians give us Turks. He sends me glass, I send him silk, and we both complain of the Venetians.
+    name: Yakub, merchant of the Bedesten. {name}
+    job: Silk from Bursa, the finest in the world, and Ushak carpets, and mohair. The Franks pay with English cloth and Spanish silver, and both are welcome.
+    silk,bursa: Bursa silk: the worms are fed on mulberry leaves picked at dawn. Your Florentines weave it into damask and sell it back to us at four times the price. We do not mind: we sell them the next bale.
+  end
+end
+
+person dervish
+  name Ahmed Dede
+  title a Mevlevi dervish
+  role friar
+  look coat #E8E2D2 legs #E8E2D2 hat coif #B8A27A robe
+  near Galata Tower
+  talk
+    name: Ahmed. Dede, the brothers call me: grandfather. {name}
+    job: I am a dervish of the Mevlevi, the order of the great Rumi, at the lodge in Galata. On Fridays we turn, to the reed flute, as the planets turn about the Sun.
+    turn,dance,sema,planets: We turn, one hand to heaven and one to the earth, round and round, and the whole hall turns about the master, as the planets turn about the Sun. Or about the Earth: the astronomers here are still arguing.
+    galileo,sun,earth: A Frank who says the Earth goes round the Sun? We have known for four hundred years that everything turns. It is good of him to have noticed.
+  end
+end
+
+person kayikci
+  name Ali Reis
+  title a caique man
+  role waterman
+  near Yeni Cami
+  talk
+    name: Ali, caique man of Eminönü. {name}
+    job: I row people across the Horn to Galata, and over the Bosphorus to Üsküdar, all day, against the current. The Bosphorus runs from the Black Sea to the Marmara like a river.
+    galata,pera: Galata is the Franks' town, with their churches and taverns and ambassadors; Pera is the hill above it. The Muslims go there to drink wine where their neighbours cannot see them.
+  end
+end
+
+# the art subplot: mastic of Chios, the Sultan's resin, for a varnish
+person sakizci
+  name Ibrahim
+  known A seller of mastic and perfumes in the Grand Bazaar, who swears that every tear of his mastic comes from the Sultan's own trees on Chios.
+  title a mastic seller
+  role merchant
+  sex m
+  near Grand Bazaar
+  work landmark Grand Bazaar
+  sells mastic 3
+  talk
+    name: Ibrahim, seller of mastic and attar of roses, in the Bedesten. {name}
+    job: Mastic from Chios, attar of roses from Edirne, ambergris, aloes wood. The ladies of the palace chew the mastic for their breath; the doctors put it in everything; the Franks make varnish of it, God knows why.
+    mastic,chios,resin,varnish,sakiz: The tears of a little tree that grows only in the south of Chios, and nowhere else in the world. The harvest is the Sultan's, by law; what comes to the Bazaar comes by ways it is better not to ask about. Three livres the bag.
+    bahuche,paris,painter,queen,louvre if player bq-asked: A Frankish woman wants mastic for a painted queen? Then tell her it is the best varnish there is, and the dearest.
+  end
+end
+
+crowd 3 goodwife
+crowd 4 labourer
+crowd 3 merchant
+crowd 3 guard
+crowd 2 waterman
+crowd 2 merchant
+crowd 1 beggar
+crowd 1 herdsman
+crowd 1 changer

@@ -1,0 +1,104 @@
+# The people of Zurich.
+# June 1632: Zurich is Protestant, the first canton of the Confederation, and neutral in the war,
+# though its heart is with the King of Sweden. Johann Jakob Breitinger has been Antistes, the head
+# of its church, since 1613. Silk came with the Protestant refugees from Locarno, eighty years ago.
+town Zurich
+names german
+prison Wellenberg | They row you out to the Wellenberg, the prison tower in the middle of the Limmat, and lock you in a room with a window onto the water. All night the river talks to the walls. In the morning they row you back.
+country Switzerland
+
+person breitinger
+  name Johann Jakob Breitinger
+  title the Antistes of Zurich
+  role priest
+  look coat #141414 legs #141414 hat cap #141414 robe
+  near Grossmünster
+  work landmark Grossmünster
+  talk
+    name: Johann Jakob Breitinger, pastor of the Grossmünster and Antistes of the church of Zurich. {name}
+    job: I preach where Zwingli preached, from the same pulpit, and I see to it that the city keeps the Sabbath, does not dance, and does not go to the play. The young people think me very hard. I was young once, and I was hard then too.
+    zwingli,reformation: Master Huldrych Zwingli preached the Gospel here in 1519, from the Grossmünster pulpit, and Zurich listened. He died at Kappel with a sword in his hand, fighting the Catholic cantons. We do not go to war about it any more. We pray about it.
+    dort,synod,dordrecht: I went to the Synod of Dort, thirteen years ago, to help the Dutch decide about predestination. We decided. The Remonstrants did not agree, and were put out of their pulpits. That is how synods go.
+    sweden,gustavus,king,war: The King of Sweden is the shield of the Protestant faith, and he has asked the Confederation to join him. The Council says no: if the cantons take sides in this war, the Confederation will split down the middle, Catholic against Protestant. So I pray for the King every Sunday, by name, and say nothing else.
+    theatre,play,plays,dance: The play teaches young people to lie, beautifully. The dance teaches them the rest. Zurich has neither, and is the better for it.
+  end
+end
+
+person printer
+  name Ulrich Meyer
+  title a printer of the old Froschauer press
+  role printer
+  near St Peter
+  talk
+    give:dialogue if player gave-diodati-letter and not player diodati-translation: For Bernegger, at Strasbourg? Two days down the Rhine, and I have a cousin who carries for him. (He wraps it in a proof sheet of the Psalms.) Tell Monsieur Diodati it is done. {take} {player set diodati-translation} {player set knows:paris:diodati}
+    name: Ulrich Meyer, journeyman of the old Froschauer press. {name}
+    job: Master Christoph Froschauer printed Zwingli's Bible here, the whole Scripture in German, before Luther had finished his. We print Bibles still, and sermons, and almanacs, and the city's laws against dancing.
+    gessner,animals,history,unicorn: Conrad Gessner, the doctor of Zurich, wrote the History of the Animals, and we printed it: five great volumes, every beast in the world, with woodcuts, the rhinoceros, the sea monk, the unicorn. He was not sure about the unicorn. He put it in anyway.
+    bible,zwingli: The Zurich Bible of 1531, with two hundred pictures. Luther said that the Swiss had stolen his translation. The Swiss said that Luther could not read Hebrew.
+  end
+end
+
+person orelli
+  name Bernardino Orelli
+  title a silk merchant
+  role merchant
+  look coat #3A2A3A legs #2A2228 hat hat #1E1A1E
+  near Fraumünster
+  work landmark Fraumünster
+  money 7200
+  talk
+    name: Bernardino Orelli, merchant in silk and crape. My family came from Locarno. {name}
+    job: My grandfather was put out of Locarno with the Protestants, eighty years ago, when the Catholic cantons would not have us, and Zurich took us in, with our looms. Now Zurich weaves silk and crape and sells it at Frankfurt and Lyons, and the Zurich families have forgiven us for being foreigners. Nearly.
+    silk,crape,flor,velvet: Crape, flor, the light black silk for mourning: half of Germany is in mourning this year, God help them, and they buy it from Zurich.
+    locarno,refugees: We came over the Gotthard in winter, two hundred of us, with the children on the mules. Zurich gave us the Fraumünster to preach in, in Italian. We still sing the psalms in Italian, on Sundays, and our children laugh at us.
+  end
+end
+
+person boatman
+  name Bastian Wyss
+  title a boatman of the lake
+  role waterman
+  near Wellenberg
+  talk
+    name: Bastian Wyss. I row on the lake, as my father did. {name}
+    job: I carry wine and cheese and stone down the lake to the town, and pilgrims up it, to Our Lady of Einsiedeln, which is Catholic, so I do not go in. They pay the same as Protestants. A little better, coming back.
+    lake,glarus,rapperswil: The lake is forty miles of water, and at the far end are the mountains, white all summer. On a still morning you can see them upside down in it.
+    wellenberg,tower,prison: The Wellenberg, in the river, there: the town's prison. Nobody has ever escaped from it. Nobody has ever learned to swim in the Limmat, either.
+  end
+end
+
+person captain
+  name Hauptmann Jörg Schwarz
+  title a captain of mercenaries
+  role knight
+  look coat #6A1A1A legs #2A2A2A hat hat #1E1E1E
+  near Rathaus of Zurich
+  work square
+  talk
+    name: Jörg Schwarz, captain, late of the King of France's Swiss. {name}
+    job: I raise companies of Swiss for whoever pays: the King of France, Venice, the Dutch, sometimes the Spaniard, and then my Protestant cousins and my Catholic cousins meet on the field and are very polite about it.
+    pay,money,soldiers,enlist: Four crowns a month, bread, and a pike. The French pay late, but they pay; the Emperor never pays. A Swiss without pay goes home. That is why the Kings like us: we never change sides in the middle of a battle. Only at the end of the month.
+  end
+end
+
+person warder
+  name Rudolf Huber
+  title the keeper of the Wellenberg
+  role warder
+  near Wellenberg
+  work landmark Wellenberg
+  talk
+    name: Rudolf Huber, keeper of the Wellenberg. {name}
+    job: I keep the tower in the river: debtors, drunkards, a man who danced at a wedding. The river is the wall, and I am the door.
+  end
+end
+
+crowd 2 goodwife
+crowd 2 labourer work square
+crowd 1 merchant
+crowd 1 guard
+crowd 1 student
+crowd 1 scholar
+crowd 1 innkeeper
+crowd 1 changer
+crowd 1 herdsman

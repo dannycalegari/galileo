@@ -1,0 +1,19 @@
+# Written for the game in the manner of the letters of the time, not a translation: our own
+# words, with the facts of the day.
+book letter-1638
+language english
+title Galileo to Elia Diodati, January 1638; and Arcetri, that spring
+
+page
+Most Illustrious Signor Elia, //
+
+Alas, your friend and servant Galileo has been for a month totally and incurably blind: so that this heaven, this earth, this universe, which I by marvellous observations and clear demonstrations had made a hundred, a thousand times wider than the learned of all past ages believed, is now shrunk for me into so small a space that it is no bigger than what my own body fills. //
+
+Arcetri, the second of January 1638
+
+page
+[Spring 1638. He sits in the sun by the wall of Il Gioiello, with a blanket over his knees, and you put the book into his hands: Discorsi e dimostrazioni matematiche intorno a due nuove scienze, Leiden, Elzevir, 1638.]
+
+[He cannot see it. He turns it over, and feels the boards, and the edges of the pages, and holds it to his face to smell the ink. "Is the paper good?" he asks. You tell him it is. "Read me the title," he says, and you do, and he laughs, and then for a while he says nothing at all.]
+
+[A young Englishman from Cambridge has come up the lane with a letter of introduction, a poet, he says, with long hair and a good deal of Italian. His name is John Milton. Galileo makes him sit, and talks to him about Jupiter's moons until it is dark, which for Galileo it always is now.]

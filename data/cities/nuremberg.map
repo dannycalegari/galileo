@@ -1,0 +1,97 @@
+# Nuremberg in 1632.  One character is one tile; north is at the top.
+# Drawn first by tools/draft_towns.py (nuremberg); the script is the master copy for now.
+# Characters as in paris.map; the capital letters are landmarks; and the King of Sweden's lines:
+# 'e' a rampart of earth, 'u' a gun, 'n' a tent.
+
+style german
+ground 1.1
+towerroof cone
+
+legend K fortress  "the Kaiserburg"               height=6 stone=B8805A
+legend S church    "St Sebaldus"                  towers roof=slate stone=B87A5A
+legend L church    "St Lorenz"                    towers roof=slate stone=B87A5A
+legend R hall      "the Rathaus of Nuremberg"     nocampanile roof=slate stone=D8C4A4 floors=2
+legend H hall      "the hospital of the Holy Ghost"  nocampanile roof=tile stone=C9A07A floors=1
+legend D mansion   "Albrecht Dürer's house"
+legend M mansion   "an instrument maker's workshop"  sign=dividers
+legend I inn       "the Golden Goose"
+
+gate 1 "the Laufer gate"
+gate 2 "the Frauentor"
+gate 3 "the Spittlertor"
+gate 4 "the Tiergärtner gate"
+
+map
+                    ____
+                    ____
+                    ______              t,                                    t,
+                    ______              ,,                                    ,,
+          t,          ____        eeeeeeeeeeeeeeeeeeeeee
+          ,,          ____        eeeeeeeeeeeeeeeeeeeeee
+                      ____t,eeeeeet,        u;          eeeeee
+                      ____,,eeeeee,,        ;;          eeeeee
+                      ____ee  u;n                 n   u;      eeee  t,                  t,
+                      ____ee  ;;                      ;;      eeee  ,,                  ,,
+                    ee______n                             n     t,eeee
+                    ee______                                    ,,eeee
+      t,        eeee  t,____    KKKKKKKKKKKKKKKK######            n   eeee
+      ,,        eeee  ,,____    KKKKKKKKKKKKKKKK######                eeee
+              ee        ____  ##KKKKKKKKKKKKKKKK......##OO##        u;    ee
+              ee        ____  ##KKKKKKKKKKKKKKKK......##OO##        ;;    ee
+            ee  u;      ##4444##KKKKKKKKKKKKKKKK..hh........####      n     ee
+            ee  ;;      ##4444##KKKKKKKKKKKKKKKK..hh........####            ee
+          ee            DDDDDDDDDD................hhhh..MMMMMMMMMM      n     ee
+          ee            DDDDDDDDDD................hhhh..MMMMMMMMMM            ee
+          ee          ##DDDDDDDDDDSSSSSSSS......hhhhhh..MMMMMMMMMM##  t,      ee
+          ee          ##DDDDDDDDDDSSSSSSSS......hhhhhh..MMMMMMMMMM##  ,,      ee
+        ee          ##..DDDDDDDDDDSSSSSSSS......hhhhhh..MMMMMMMMMM..##          ee
+        ee          ##..DDDDDDDDDDSSSSSSSS......hhhhhh..MMMMMMMMMM..##          ee
+      ee    n t,  ##....DDDDDDDDDDSSSSSSSS......hhhhhh..MMMMMMMMMM....####    n   ee
+      ee      ,,  ##....DDDDDDDDDDSSSSSSSS......hhhhhh..MMMMMMMMMM....####        ee
+      ee      ..OO......................................................11....____________
+      ee      ..OO......................................................11....____________
+      ee  n   ..##....IIIIIIIIII..RRRRRRRRRR..::::::m:::................11....____________
+      ee      ..##....IIIIIIIIII..RRRRRRRRRR..::::::::::................11....____________
+    ee  u;    ##......IIIIIIIIII..RRRRRRRRRR..::::f:::::..........hhhh..####  n     ee
+    ee  ;;    ##......IIIIIIIIII..RRRRRRRRRR..::::::::::..........hhhh..####        ee
+    eet,      ##..hh..IIIIIIIIII..RRRRRRRRRR..::::::m:HHHHHHHHHH..hhhhhh..##        ee
+    ee,,      ##..hh..IIIIIIIIII..RRRRRRRRRR..::::::::HHHHHHHHHH..hhhhhh..##        ee
+    ee        ##..hh..IIIIIIIIII..RRRRRRRRRR....hhhh..HHHHHHHHHH..........##      t,ee
+    ee        ##..hh..IIIIIIIIII..RRRRRRRRRR....hhhh..HHHHHHHHHH..........##      ,,ee
+    ee        OO..hh............................hhhh..HHHHHHHHHH....hhhh..##        ee
+    ee        OO..hh............................hhhh..HHHHHHHHHH....hhhh..##        ee
+    eeu;      ##..hhhhhh....hhhhhhhhhhhh~~~~====~~~~~~~~~~~~~~~~====~~~~~~~~~~~~~~~~~~~~~~
+    ee;;      ##..hhhhhh....hhhhhhhhhhhh~~~~====~~~~~~~~~~~~~~~~====~~~~~~~~~~~~~~~~~~~~~~
+    ee        ~~~~~~~~~~====~~~~~~~~~~~~~~~~====~~~~~~~~~~~~~~~~====hhhh..##        ee
+    ee        ~~~~~~~~~~====~~~~~~~~~~~~~~~~====~~~~~~~~~~~~~~~~====hhhh..##        ee
+~~~~~~~~~~~~~~~~~~~~~~~~====~~~~~~~~~~~~~~hh................hhhh....hh....##  n     ee
+~~~~~~~~~~~~~~~~~~~~~~~~====~~~~~~~~~~~~~~hh................hhhh....hh....##        ee
+~~~~~~~~~~~~~~~~....hhhh....hhhhhhhhhhhhhhhh....LLLLLLLLLL..hhhh....hh..OO        ee
+~~~~~~~~~~~~~~~~....hhhh....hhhhhhhhhhhhhhhh....LLLLLLLLLL..hhhh....hh..OO        ee
+      ee  n     ##..........hhhhhhhhhhhhhhhh....LLLLLLLLLL..hhhh........##        ee
+      ee        ##..........hhhhhhhhhhhhhhhh....LLLLLLLLLL..hhhh........##        ee
+      ee          ####......hhhhhhhhhhhhhhhh....LLLLLLLLLL..hhhh......##          ee
+      ee          ####......hhhhhhhhhhhhhhhh....LLLLLLLLLL..hhhh......##          ee
+______________......33..............................................##........  ee
+______________......33..............................................##........  ee
+______________......33............................................##..........ee
+______________......33............................................##..........ee
+          ee        ##  ##......hhhhhhhhhhhh....hhhhhhhhhh......OOt,          ee
+          ee        ##  ##......hhhhhhhhhhhh....hhhhhhhhhh......OO,,          ee
+            ee            ####........hhhhhh....hhhh........####    t,      eet,
+            ee            ####........hhhhhh....hhhh........####    ,,      ee,,
+              ee              ##OO##..................######              ee
+              ee              ##OO##..................######              ee
+                eeee                OO######2222######          u;    eeee
+                eeee                OO######2222######          ;;    eeee
+                    eeee  u;                ....              n   eeee
+                    eeee  ;;                ....                  eeee
+                        eeee                ____              eeee                  t,
+                        eeee                ____              eeee                  ,,
+                            eeeeee      u;  ____  u;    eeeeee
+                            eeeeee      ;;  ____  ;;    eeeeee
+                    t,            eeeeeeeeee____eeeeeeee
+                    ,,            eeeeeeeeee____eeeeeeee
+                                            ____
+                                            ____
+end

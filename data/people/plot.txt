@@ -1,0 +1,54 @@
+# People of the central plot who live outside the towns.
+#
+# THE BANDOLERO OF THE SIERRA MORENA (chapter III). At the Venta de Cardenas, in the pass over the
+# Sierra Morena where Don Quixote met his madmen and his galley slaves, a Morisco bandit who knew
+# Andres Morales in the days of the Lead Books. Won over, he gets the boy Juanico out of Don
+# Rodrigo's house at Seville by night: the third way to free him (Pacheco's note, or money, are
+# the others).
+
+names spanish
+
+town the venta at Cárdenas
+person bandolero
+  name Hamete
+  title a bandolero of the sierra
+  role labourer
+  sex m
+  look coat #4A3A2A legs #2E241A hat hat #1A1410
+  work road
+  talk
+    hello: (A man with a carbine steps out from behind the stable, and looks at your horse and your purse and your face, in that order.) A traveller. Over the pass alone? Brave, or a fool. Which?
+    name: Hamete, they call me here: el de la sierra. My grandfather was Ahmad, of the Alpujarras, before the King's men taught us Castilian names. {name}
+    job: I relieve merchants of the weight of their purses, on the way down to Seville. Not poor men. I was a poor man; it is a bad thing to be robbed of nothing.
+    morales,andres,granadino,juanico,lead,books,boy if player ch3-open and not player ch3-over and not player juanico-free and not player bandolero-help: (He lowers the carbine.) Andres el Granadino? We cut the letters of the lead books together, when we were boys and thought we could save our people with lies. (He spits.) His boy, kept by an Arellano in Seville, to make him lie again? Tomorrow night the boy will be on the road to his mother in Granada, and Don Rodrigo will be looking for him until Easter. Go on, traveller. {player set bandolero-help=now} {player set knows:rome:morales} {player set knows:seville:rodrigo}
+    morales,andres,granadino,juanico,boy if player bandolero-help: The boy is free, or will be by morning. I do not fail at walls.
+    sierra,morena,pass: The Sierra Morena: the pass of the wolves, the old men call it, and the road the King's officers ride fastest on. The Moriscos who would not go to Africa came up here. Some of us are still here.
+  end
+end
+
+# ARELLANO'S MEN (chapter V). At the post house at Bologna, at the foot of the Apennines, on the
+# road north from Florence: a captain of banditi paid by Spain to take a certain manuscript, if
+# Don Luis de Arellano was never exposed. The legend of Ariosto (the bandits of the Garfagnana let
+# the poet go when they learnt who he was) gives him a way to let you pass; or you can sell him the
+# manuscript (the other side).
+
+names italian
+
+town the post house at Bologna
+person capitano
+  name Cencio Bracci
+  title a captain of banditi
+  role labourer
+  sex m
+  look coat #3A2E22 legs #2A2018 hat hat #1A140E
+  work road
+  talk
+    hello if player has:manuscript and not player arellano-exposed and not player capitano-met: (Four men with carbines are drinking in the yard, and one of them gets up and wipes his mouth.) A traveller from Florence, in a hurry. A Spanish gentleman pays very well for a certain manuscript, in an old man's hand. You would not have such a thing? {player set capitano-met}
+    hello: (A man with a scarred face and very good boots, drinking alone.) Sit, or go on; the road is free today.
+    name: Cencio Bracci, of the mountains. Captain Cencio, to my men. {name}
+    job: I keep this road, for whoever pays me to keep it. This year it is a Spaniard.
+    give:manuscript: (He weighs it in his hand, and grins.) Forty livres, from the Spaniard, and my thanks. You were wise. {take} {player add money 9600} {player set sold-route}
+    galileo,ariosto,poet,book,manuscript if player has:manuscript: (He looks at you, and then at the bundle under your arm.) Galileo's? (He takes his hat off.) My father was a turner at Padua. He made the tubes for the man's spyglasses, and was paid on time, which nobody else ever did for him. (To his men.) This one we never saw. (To you.) Go on. And go by night past Pianoro. {player set capitano-pass}
+    ariosto: When the poet Ariosto governed the Garfagnana, the bandits stopped him on the road, and when they learnt who he was they begged his pardon and gave him an escort. We are not all animals in the mountains.
+  end
+end

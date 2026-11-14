@@ -1,0 +1,14 @@
+# The abjuration of 22 June 1633 (its Italian is public domain): our own English of its central
+# sentences, shortened.
+book sentence-1633-06
+language english
+title The abjuration, Santa Maria sopra Minerva, 22 June 1633
+
+page
+I, Galileo, son of the late Vincenzo Galilei, Florentine, aged seventy years, arraigned personally before this tribunal, and kneeling before you, Most Eminent and Reverend Lord Cardinals, Inquisitors General against heretical depravity throughout the whole Christian Republic, having before my eyes and touching with my hands the Holy Gospels, swear that I have always believed, do believe, and by God's help will believe in future, all that is held, preached and taught by the Holy Catholic and Apostolic Church.
+
+But whereas I wrote and printed a book in which I discuss the new doctrine already condemned, and bring arguments of great force in its favour, I have been pronounced vehemently suspected of heresy, that is, of having held and believed that the Sun is the centre of the world and immovable, and that the Earth is not the centre and moves.
+
+Therefore, with a sincere heart and unfeigned faith, I abjure, curse and detest the said errors and heresies. //
+
+[He reads it on his knees, in the white robe of a penitent, in a clear voice that shakes only once. Seven of the ten cardinals sign the sentence. Three do not: Borgia, Zacchia, and the Pope's own nephew, Francesco Barberini. From the back of the church you watch him get up, slowly, with a friar's arm under his.]

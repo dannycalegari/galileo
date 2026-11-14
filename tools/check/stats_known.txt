@@ -1,0 +1,11 @@
+# Problems that ./galileo --stats reports and that are known and not yet fixed. tools/check.py shows
+# each of these as a WARN; any other problem line is a FAIL. One substring per line; a --stats line
+# that contains it is "known". Remove a line when the problem is fixed.
+#
+# Florence's river: the water leaving the map at (4039,2655) does not reach the sea (an old warning)
+RIVER leaving the map at (4039,2655) DOES NOT REACH THE SEA
+# the Alte Veste (a fortress outside Zirndorf) has no room inside
+NO ROOM INSIDE: the Alte Veste
+# the patache exists only once bought from Pedro de Ojeda at Seville ({buyship ... patache}), so none
+# is placed in the world beforehand; --stats lists every fixed kind that is not placed
+art patache            NOT PLACED

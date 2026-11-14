@@ -1,0 +1,92 @@
+# The people of Sarajevo.
+# June 1632: Sarajevo is the greatest town of Ottoman Bosnia, an open town with no walls, built
+# round the bazaar and the foundations of Gazi Husrev-beg, governor of Bosnia a hundred years
+# ago. The Ragusan merchants have their quarter, the Latinluk, and their bridge; the Jews from
+# Spain have their courtyard. Hasan Aga, a merchant of the town, is at Ragusa with his caravan.
+town Sarajevo
+names bosnian
+prison kadı's court | They take you before the kadı, who listens to everyone, writes it all in his register, and sends you to sit in the cellar of his court overnight. In the morning they let you go.
+country Ottoman
+
+person mutevelli
+  name Mehmed Efendi
+  title the steward of Gazi Husrev-beg's foundation
+  role scholar
+  look coat #2A4A3A legs #1E2A22 hat turban #F2EEE6 robe
+  near Gazi Husrev-beg
+  work landmark Gazi Husrev-beg
+  talk
+    name: Mehmed Efendi, mütevelli of the vakıf of Gazi Husrev-beg, God have mercy on him. {name}
+    job: I keep the foundation of Gazi Husrev-beg, governor of Bosnia a hundred years ago: the mosque, the medrese, the bezistan, the han, the baths, the kitchen that feeds the poor every day, and the library. The rents of the shops pay for it all, and I collect the rents. Everyone in the bazaar loves me except on the first of the month.
+    husrev,gazi,beg,foundation,vakif: Gazi Husrev-beg was the grandson of Sultan Bayezid by his daughter, and he fought the Hungarians for forty years, and built all this from the spoils, and gave it to God. He lies in his türbe by the mosque. Go and say a prayer for him; he paid for your road.
+    library,books,manuscripts: The library of the medrese has a thousand books: the Koran and its commentaries, law, medicine, astronomy, poetry in Arabic, Persian and Turkish. The students copy them, and the copies go all over Bosnia.
+  end
+end
+
+person hatidza
+  name Hatidža Hanuma
+  title the wife of Hasan Ağa
+  role goodwife
+  sex f
+  look coat #6A2A3A legs #3A2A2A hat coif #F2EEE6 dress
+  near Morića Han
+  talk
+    name: Hatidža, the wife of Hasan Ağa, the merchant. {name}
+    job: I keep his house and his books while he is away with the caravan. He went down to Ragusa in the spring, with forty horses of wax and hides. He should be back by now.
+    hasan,husband,ragusa,lazaretto if player told-hatidza: He will be home before the snow, God willing, with salt and cloth, and complaining about the Ragusans.
+    hasan,husband,ragusa,lazaretto if player met-hasan: You have seen him? At Ragusa, in the Lazaretto, waiting out his forty days? God be praised, he is alive. Those Ragusans and their forty days! Here, take this, for the good news. {player add money 240} {player set told-hatidza}
+    hasan,husband,ragusa,lazaretto: Hasan Ağa, my husband, a big man with a grey beard and a loud voice. If you go down to Ragusa, look for him at the Lazaretto. They make everyone from our side of the mountains wait there forty days, for fear of the plague.
+  end
+end
+
+person ragusan
+  name Ser Marin Bona
+  title a Ragusan merchant
+  role merchant
+  look coat #2A2A3A legs #1E1E2A hat hat #141414
+  near Morića Han
+  work square
+  money 7200
+  talk
+    name: Marin Bona, of Ragusa, merchant, of the Latin quarter. {name}
+    job: The Republic keeps a colony of merchants here, in the Latinluk, by the river: we buy the wax, the hides, the wool and the silver of Bosnia, and sell the salt of Ston and the cloth of Italy. The bridge by our quarter is the Latin bridge, after us.
+    ragusa,republic,salt: The Turks pay us in silver and leave us alone, and we pay the Sultan his tribute and are left alone. It is a beautiful arrangement, and I pray every night that nobody changes it.
+  end
+end
+
+person physician
+  name Samuel Atijas
+  title a physician
+  role physician
+  look coat #2A2A3A legs #1E1E2A hat hat #3A2A1E robe
+  near courtyard of the Jews
+  work landmark courtyard of the Jews
+  talk
+    name: Samuel Atijas, physician, of the community of the Sephardim. {name}
+    job: I treat the Muslims, the Christians and the Jews of Sarajevo alike, and they all pay me alike, which is to say late. My grandfather's grandfather was a physician in Toledo, until the year Granada fell and the Catholic Kings drove us out of Spain.
+    spain,toledo,granada,expulsion,ladino: We still speak Spanish, the old Spanish of Toledo, among ourselves, and the old songs. My grandmother kept the key of our house in Toledo, a great iron key. Someday, she said. Someday.
+    courtyard,synagogue,avlija: The Pasha Siyavuş gave us this courtyard, fifty years ago: forty rooms round a court, and the synagogue. We have the Sultan's protection, and the kadı's justice. It is more than the Christians gave us.
+  end
+end
+
+person coppersmith
+  name Ibro Kujundžić
+  title a coppersmith
+  role blacksmith
+  near Bezistan
+  talk
+    name: Ibro, coppersmith, of the street of the coppersmiths. {name}
+    job: I beat copper into pots and trays and coffee pots, and the whole street beats with me, from dawn till the afternoon prayer. You cannot hear yourself think in our street. That is why the thinkers live up the hill.
+    copper,pots,tray: The copper comes from the mines of Bosnia. The patterns come from my father, and his father. The tin inside is so that you do not poison yourself. Always ask for the tin.
+  end
+end
+
+crowd 3 goodwife
+crowd 3 labourer work square
+crowd 2 merchant
+crowd 1 guard work square
+crowd 1 student
+crowd 1 beggar
+crowd 1 innkeeper
+crowd 1 changer
+crowd 1 herdsman

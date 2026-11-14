@@ -1,0 +1,18 @@
+# The King of Sweden's post ship, Stockholm to Danzig (stockholm.txt danzigship; see
+# passage-danzig-stockholm.txt).
+
+scene
+  id passage-stockholm-danzig-1
+  in Stockholm
+  time 07:00
+  look 90,50 yaw 205 pitch 50 zoom 6
+  caption The post ship for Danzig lies at the Skeppsbron, under the castle. Two livres, and you are aboard; the recruits on the quay watch you go.
+end
+
+scene
+  id passage-stockholm-danzig-2
+  in Danzig
+  time 10:00
+  look 46,27 yaw 205 pitch 62 zoom 6
+  caption Three days at sea, out through the skerries and down the long Baltic, to the sandspit of Hela, and the river, and the Crane of Danzig standing over its quay.
+end

@@ -1,0 +1,1448 @@
+# Professions: what people of each trade wear, where they work, their day, and what
+# they say. A person in a town file names a role and adds to it.
+#
+#   role ID "how they are called before you know their name"
+#   sex m | f | x        (x: either; women then wear a dress and a coif)
+#   look coat #hex legs #hex hat KIND #hex apron #hex dress robe halberd lute
+#        (hat kinds: none hat cap coif helmet squarecap hood biretta)
+#   work KIND            where they work: forge shop bakery inn church altar college
+#                        theatre fortress gate market square quay field woods road mine
+#                        landmark NAME (a building whose name contains NAME), none
+#   sign EMBLEM          the sign hung over the door of their workshop (forge, shop, bakery):
+#                        anvil pretzel scales book goblet palette (inns get a tankard and a lantern)
+#   says TEXT            muttered now and then
+#   sells ITEM N ...     a shopkeeper: what they sell (items.txt) and how many a day; you
+#                        say "buy" (what they have, and the prices), "buy bread", "sell
+#                        horseshoe" (they buy what they sell, at half price). A person's own
+#                        "sells" replaces the role's.
+#   money DENIERS        what they have to start with (12 deniers to the sou, 20 sous to the livre)
+#   watch                of the watch: when someone cries "Thief!" the nearest of the watch in
+#                        that town runs after you (main.cc, Game::theft); caught, you give the
+#                        thing back and pay a fine (twice its price, five sous at least), or
+#                        spend the night in the town's prison (a town file's "prison" line)
+#   schedule             lines "HH:MM [sharp] ACTIVITY [PLACE] [if CONDITION]"; activities:
+#                        sleep home eat work wander patrol go PLACE travel TOWN
+#                        (go home-of ID: in that person's house, as one hidden there)
+#                        Each person is up to 25 minutes early or late each day;
+#                        "sharp" means on the minute, for everyone (a crowd on purpose)
+#   talk ... end         lines "KEYWORDS [if CONDITION]: TEXT {EFFECTS}"
+#   (in a town file, "crowd N ROLE" adds N people of a role; "crowd N ROLE work KIND ..."
+#   gives them another place of work, as "crowd 8 swissguard work landmark Vatican")
+#   (conversations between people, which you may overhear, are in chats.txt)
+#   (in a town file, "guarded PLACE ... end" keeps a floor, such as Duke Humfrey's Library in the
+#   Bodleian, for those with leave: "by ID" its guard, "pass if CONDITIONS" who may pass him,
+#   "key ITEM" a key that opens it at any time, "stop TEXT {EFFECTS}" what he says when he turns
+#   you back, "shut TEXT" what you find while he is away: then it is locked. Leaving is always
+#   allowed. Code: main.cc, Game::mayEnter.)
+#
+# Gifts: "give strings", "give 2 sous". The answer is the line with the keyword
+# give:ITEM (give:money for money, give:? for anything); the effect "take" means they keep
+# it (it goes into their memory as has:ITEM). Without such a line they decline.
+# Talk: the first line (own lines first, then the role's, then everyone's) whose
+# keyword matches and whose condition holds is the answer. Keywords match on their
+# first four letters, as in Ultima. Special keywords: hello (when you begin), bye,
+# and ? (anything else). *word* is shown highlighted. $name $first $role $town are
+# filled in.
+# Conditions: words joined by "and": KEY, not KEY, KEY >= 3, player KEY, met, asleep,
+#   morning afternoon evening night, recent KEY (KEY holds a time, from "set KEY=now",
+#   within the last three days), recent:N KEY (within the last N days). Every person remembers by themselves: met,
+#   talks (how often you have spoken), last (when), asked:TOPIC. What is whose (main.cc):
+#   whoever sees you carry off a thing remembers saw-thief and knows-thief (times); a
+#   thing taken unseen leaves its keepers with robbed (its name) and robbed-at; you
+#   remember thief:TOWN, wanted:TOWN (a day), thefts, arrests. "pay" (or "give ITEM")
+#   to its keeper settles a thing taken in front of them; shopkeepers will not trade
+#   with a recent thief.
+# Effects, in braces: set KEY, set KEY=VALUE, unset KEY, add KEY N, learn SKILL,
+#   player set KEY (and so on, for what you remember), name (you now know their
+#   name), travel TOWN, bye, play PIECE (set KEY=now stores the time; $[KEY] in a text is
+#   what they remember under KEY) (they play a piece of data/music.txt, and
+#   stay where they are until it ends; it is heard from where they stand).
+
+role everyone "someone"
+  talk
+    hello if asleep: (Snoring.) {bye}
+    hello if recent saw-thief: (Glaring at you.) You! I saw you take what was not yours. Thief! I have nothing to say to you. {bye}
+    hello if robbed: (Looking about.) Someone has been in here, and $[robbed] is gone! If I catch the thief... {unset robbed}
+    hello if recent knows-thief and not met: (Looking you up and down.) You are the stranger they are all talking about. Keep your hands where I can see them.
+    hello if met and talks >= 4: Ah, my friend! Good to see you again.
+    hello if met: You again! Good day.
+    hello: Good day to you, stranger.
+    name if asked:name: I told you already: $name.
+    name: $name. {name}
+    job: I am $role.
+    thank,thanks,merci,grateful: (A small nod.) It is nothing.
+    bye if met: Until the next time, then.
+    bye: Farewell.
+    poissy,cattle if town=Paris: Poissy? On the road west, towards Rouen, out by the gate on the west side and past the Bois de Boulogne: the cattle market, where the butchers of Paris buy their beef.
+    galileo if town=Florence: Signor Galileo? He lives up at *Arcetri*, by the convent where his daughters are nuns. The Grand Duke's own philosopher.
+    # after her death
+    celeste,maria,daughter,daughters,virginia,nun,nuns,matteo if town=Florence and player celeste-dead: Signor Galileo's daughter Suor Maria Celeste died at San Matteo, in the spring of 1634; Suor Arcangela, the younger, is there still.
+    celeste,maria,daughter,daughters,virginia,nun,nuns,matteo if town=Florence: Signor Galileo's daughters are nuns at San Matteo, at *Arcetri*: Suor Maria Celeste and Suor Arcangela. Go out by the Porta Romana and up the lane among the olives; the convent is just below his villa. {player set knows:arcetri:celeste}
+    arcetri,gioiello if town=Florence: Arcetri is a village on the hill south of the river. Go out by the Porta Romana, and take the lane to the left, up among the olives. His house is called Il Gioiello, the jewel.
+    arcetri,gioiello if town=Arcetri: You are standing in it: the convent of San Matteo, a few villas, olives and vines. The old gentleman's house is Il Gioiello.
+    galileo if town=Pisa: Signor Galileo? He was born here, in the Ammannati house on the south bank, and taught at the Studio when he was young and poor. They say he dropped balls off the campanile. They say a great many things.
+    galileo if town=Padua: Signor Galileo taught at the Bo for eighteen years, and the students fought for places at his lectures. His old house is in the Borgo dei Vignali, near the Santo.
+    tower,leaning,campanile if town=Pisa: Our campanile leans, and has leaned for four hundred years, and will lean when we are all in the Camposanto. Foreigners come to stare at it. We do not see it any more.
+    gioco,ponte,bridge if town=Pisa and gioco-won: Mezzogiorno won the bridge this year. Or lost it, depending on which bank you ask.
+    gioco,ponte,bridge if town=Pisa: The Gioco del Ponte, on the last Sunday of June: the north bank against the south, in armour, on the Ponte di Mezzo. Half the city fights and the other half shouts.
+    luminara,lights if town=Pisa and luminara: The Luminara! Did you see it? Every palace on the Lungarno lit with little lamps, and the river full of them.
+    luminara,lights if town=Pisa: On the eve of San Ranieri, the sixteenth, the Lungarno is lit with little lamps in glasses, thousands of them. You must see it.
+    santo,anthony if town=Padua: Il Santo, the Saint: Saint Anthony, whose tongue is in the treasury. Everyone in Padua has asked him for something, and most of us have got it.
+    orto,garden if town=Padua: The Orto botanico, behind the Santo: the oldest garden of its kind in the world. Pisa says hers is. Pisa is wrong.
+    orto,garden if town=Pisa: The Grand Duke's garden of simples, the oldest in the world. Padua says hers is. Padua is wrong.
+    bo,university if town=Padua: The Bo, the University: they call it after the inn of the Ox that was there before. The students still drink like oxen.
+    galileo if town=Arcetri: The old gentleman at Il Gioiello? He walks among his olive trees with his eyes half shut, and talks to himself.
+    galileo if town=Rome: The Florentine with the spyglass? His book has come from Florence, and the Jesuits are buying every copy, to burn or to study, nobody knows which.
+    galileo if country=Italy: The Florentine with the spyglass? His new book is all the talk, they say, and not all of it kind.
+    galileo if country=Netherlands: The Italian? It was a spectacle-maker of Middelburg who made the first spyglass, you know. The Italian only pointed it at the sky.
+    galileo if country=Switzerland: An Italian, in the Pope's country, who says the Earth moves? Then I do not suppose they will let him say it for long.
+    galileo if country=Empire and date<1633-01-01: The Italian star-gazer? We had Kepler: the Emperor's mathematician, who died at Regensburg a year and a half ago, owed twelve thousand florins by the Emperor. He never got them.
+    galileo if country=Empire and date<1634-01-01: The Italian star-gazer? We had Kepler: the Emperor's mathematician, who died at Regensburg two years ago and more, owed twelve thousand florins by the Emperor. He never got them.
+    galileo if country=Empire: The Italian star-gazer? We had Kepler: the Emperor's mathematician, who died at Regensburg in the winter of the year thirty, owed twelve thousand florins by the Emperor. He never got them.
+    galileo if country=Bohemia: The Italian with the spyglass? Kepler looked through one of his, here in Prague, at the moons of Jupiter, and wrote him a letter about it. Tycho is buried in the Týn church, and Kepler is dead too. They all die, the astronomers.
+    galileo if country=Poland: An Italian who says the Earth goes round the Sun? Copernicus said it first, ninety years ago, and he studied at Cracow. The Italians always take the credit.
+    galileo if knows-dialogue: Galileo? Yes, the book you told me of, where the Earth goes round the Sun. Who would have thought it!
+    galileo,dialogue if player heard-dialogue: An Italian's book, saying that the Earth moves round the Sun? You don't say! I shall tell my neighbours. {set knows-dialogue}
+    galileo: Who?
+    printing,print,coster,gutenberg if town=Haarlem: Printing was invented here, in Haarlem, by Laurens Coster, a hundred years before anyone. One Christmas Eve his apprentice ran off to Mainz with the type, and the Germans have taken the credit ever since.
+    sea,land,islands if country=Netherlands: My grandfather said that all this was sea once, with a few little islands in it, and one night the land came up out of the water, all at once, with the cows already on it. He was a great liar, my grandfather.
+    weather if country=Netherlands: Wind from the west, rain coming. It is always rain coming.
+    weather if country=Italy: Hot. The rich have gone to their villas, and we stay and sweat.
+    weather: Fine for June. A little rain would do the gardens good.
+    king if country=England: King Charles. God save him, and keep him out of mischief.
+    king if town=Florence: We have no king: we have the Grand Duke, Ferdinando, God keep him. He is young, but he stayed in the city through the plague.
+    king if town=Arcetri: The Grand Duke, Ferdinando. He came to see the old gentleman once, with his whole court, and they broke the gate.
+    king if town=Rome: The Holy Father is our king: Urban VIII, of the Barberini. You see his bees everywhere.
+    king if town=Venice: Kings! We have the Doge, Francesco Erizzo, and the Senate. No king will ever rule Venice.
+    king if country=Netherlands: We have no king, God be thanked: the States General, and the Stadholder, Prince Frederick Henry, at The Hague.
+    king if country=Spain: King Philip, the fourth of the name, God keep him. He hunts, and loves the play; the Count-Duke of Olivares does the governing, and the taxes.
+    king if country=Ottoman: The Padishah, Sultan Murad, the fourth of the name. Last month he had the Grand Vizier killed before his eyes and took the government into his own hands. He is twenty years old, and nobody dares look at him.
+    king if country=Ragusa: We have no king: we have the Rector, for a month, and the Senate, for ever. The Sultan is our protector, the Pope our friend, and the King of Spain our friend as well, when he remembers.
+    king if country=Switzerland: We have no king, and want none. The Confederation is thirteen cantons, and Zurich is the first of them; here the Burgomaster and the Council govern, and the guilds elect the Council.
+    king,sweden if town=Nuremberg and player event:siege-ends: The King of Sweden marched away south when the siege was over, and Wallenstein after him. Pray they do not come back.
+    king,sweden if town=Nuremberg and player ch1-commission: The King of Sweden? He is on his lines all day and half the night, outside the Spittlertor, digging with his soldiers; but he sees nobody, they say, until he knows where Wallenstein means to come. His Scots officer in the market square would know more.
+    king if town=Nuremberg: We are a free city of the Empire. The Emperor is our lord, in Vienna, and the King of Sweden our friend, here, with forty thousand men. We pray to keep them both.
+    king if country=Empire: The Emperor Ferdinand, the second of the name, God keep him: a pious man, who hears two masses a day and has been at war for fourteen years.
+    king if country=Bohemia: The King of Bohemia is the Emperor Ferdinand. The other one, the Winter King, ran away after the White Mountain, and lives in Holland on his wife's relations. Do not say his name too loudly.
+    king if country=Poland: King Sigismund died at the end of April, God rest him, after forty-five years. The Diet meets in the autumn to elect a new one: Prince Władysław, his son, everyone says.
+    king if town=Pisa: The Grand Duke, Ferdinando, in Florence. Pisa was a republic once; now it has his arsenal, his Knights of Saint Stephen, and his university.
+    king if town=Padua: We belong to Venice: the Doge and the Senate, and their Podestà in the palace.
+    king if country=Italy: Here the Holy Father is king, through his Legate, and the Legate through his tax-farmers.
+    king if country=Sweden and player ch2-over: The King fell at Lützen in November, in the fog, at the head of his horse. The Queen is Christina, six years old; the Chancellor and the Council govern for her, and the war goes on.
+    king if country=Sweden: King Gustav Adolf, God keep him. He has been in Germany two years with the army, beating the Emperor's generals one after another, and the Council governs here and pays for it.
+    king if country=France: The King is at Saint-Germain, they say, or hunting. The Cardinal does the governing.
+    king: The King? There are more kings in Europe than honest men, and none of them asks my advice.
+    pope if town=Rome: Urban, the Barberini Pope. His nephews have the best of everything. Read what *Pasquino* says of them.
+    pasquino if town=Rome and player recent pasted-verse: Have you seen the new verse on Pasquino? About the Barberini bees, and the Earth that moves, and the bees going round with it! The sbirri tore it down at dawn, but everyone had copied it already. His Holiness is furious, they say.
+    pasquino if town=Rome: The old broken statue at the corner of the Orsini palace, by the Piazza Navona. Every morning there is a new verse stuck to him, and every afternoon the police take it down. When the bronze was stripped from the Pantheon for Signor Bernini's canopy, Pasquino said: "What the barbarians did not do, the Barberini did."
+    bees if town=Rome: The Barberini bees. On every new fountain and gate and palace in Rome. They say the city is becoming a hive.
+    pope if country=Italy: Urban VIII. A Florentine, of the Barberini, and a poet. He has been Pope nine years and looks good for twenty more.
+    paris if country=Italy: Paris? Beyond the Alps. The French are no friends of Spain, which makes them friends of somebody.
+    paris if country=Netherlands: Paris? The French pay subsidies for our war with Spain, so we do not ask too many questions.
+    paris: The finest city in the world, they say. I have never seen another.
+    # the way to England from Holland and the Baltic: the Calais packet, as Paris and Saint-Denis say
+    london,england,english,oxford,cambridge,dover,calais,=channel,=crossing if country=Netherlands: London? Across the North Sea, if you have a ship; the English want our herring and our trade, and they shall have neither. A traveller without one goes by the post road south to Calais, where the packet boat crosses to Dover on every tide: five sous.
+    london,england,english,oxford,cambridge,dover,calais,=channel,=crossing if country=Poland: England? The English ships come for our grain and go home full, and they carry no passengers but their own. The way for you is the long road west, to Calais at the end of the French post road, and the packet boat to Dover: five sous a crossing.
+    london,england,english,oxford,cambridge,dover,calais,=channel,=crossing if country=Sweden: England? Their ships come for our iron and our tar, and take nobody home with them. Go back by Danzig, and the long road west to Calais: the packet boat crosses from there to Dover, five sous a passage.
+    london,england,english,oxford,cambridge,dover,calais,=channel,=crossing if town=Paris: England? By the post road north, through Saint-Denis, to Calais at the end of it: the packet boat sails from there for Dover on every tide, five sous a passage. From Dover the road goes on to London, and Oxford is beyond London.
+    london,england,english,oxford,cambridge,dover,calais,=channel,=crossing if town=Saint-Denis: England? On north, up this road, to Calais at the end of it: the packet boat sails from there for Dover on every tide, five sous a passage.
+    london: London? Full of English, I suppose.
+    stockholm,sweden,swedes,swedish if town=Danzig: Stockholm? The King of Sweden's post ship sails from the quay below the Crane: two livres, three days if the wind serves.
+    stockholm,sweden,swedes,swedish if town=Stockholm: You are in it. For Danzig, there is the King's post ship at the quay.
+    stockholm,sweden,swedes,swedish: Stockholm? Over the Baltic, and no road goes there. They say the King of Sweden's post ship sails for it from Danzig.
+    plague if town=Venice: A third of us died, two summers ago and last autumn. The Doge has vowed a church to the Virgin, the Salute, at the mouth of the Grand Canal. They began it last year.
+    galileo if town=Venice: Signor Galileo? He taught at Padua when I was young. He showed the Senate his spyglass from the top of the Campanile, and they could see the ships at sea two hours before they came in.
+    gondola if town=Venice: Take one at the posts, if you can row, or call a gondolier at a traghetto. Mind you stand at the back, and face forward.
+    plague if country=Italy: It came two summers ago, from the north, with the soldiers. Milan lost half its people, Venice a third. God spare us another.
+    church,churches,clergy,religion,faith if town=Rome: The Church is Rome, and Rome is the Church. The Holy Father is our bishop and our king, the sbirri arrest you for the Holy Office, and the cardinals' carriages run you down in the street. Keep your head down and your rosary out.
+    church,churches,clergy,religion,faith if town=Venice: We are good Catholics in Venice, but Venetians first. When the Pope laid the whole city under interdict, the Senate ordered the priests to say Mass anyway, and they did. The Jesuits we threw out, and they have not come back.
+    church,churches,clergy,religion,faith if country=Italy: The Church is everywhere: friars in every street, the Inquisitor at Santa Croce, and the Index of the books nobody may read. Say your prayers, pay your dues, and do not talk about the stars in the tavern.
+    church,churches,clergy,religion,faith if country=Spain: Here the Church and the King are one. The Holy Office watches the New Christians, the foreigners and the books, and when there is an auto de fe in the square, the whole town goes to watch.
+    church,churches,clergy,religion,faith if country=England: The Church of England, by law established, with the King at its head. Bishop Laud of London wants the altars railed and the surplices clean, and the Puritans say it is popery come again. Miss church on Sunday, and you pay twelve pence.
+    church,churches,clergy,religion,faith if country=Netherlands: The Reformed Church is the public church, and the predikants preach very long. But nobody is forced into it: the Catholics hear Mass in attics, the Mennonites meet in their houses, and the Jews in their synagogue. It is good for trade.
+    church,churches,clergy,religion,faith if country=Switzerland: Our church is Zwingli's: no images, no organs, no Mass. The Council and the ministers between them see to it that we go to the sermon and keep away from the dancing.
+    church,churches,clergy,religion,faith if town=Nuremberg: We are Lutherans here, and have been for a hundred years: the Mass went out with my great-grandfather. That is why the King of Sweden is our friend, and the Emperor is not.
+    church,churches,clergy,religion,faith if town=Zirndorf: The pastor preaches every Sunday on the wrath of God, and these days nobody argues with him.
+    church,churches,clergy,religion,faith if country=Bohemia: Since the White Mountain there is one church in Bohemia, the Emperor's. The Protestants were given the choice: turn Catholic, or sell up and go. Many went. Some are coming back now, with the Saxons, and want their houses.
+    church,churches,clergy,religion,faith if country=Empire: The Emperor is the Church's own son: two Masses a day, and the Jesuits at his ear. In his own lands the Lutherans have been told to convert or leave. That is half of what the war is about. The other half is money.
+    church,churches,clergy,religion,faith if town=Danzig: We are Lutherans in Danzig, under a Catholic king, and both sides like it that way. He has our tolls, and we keep our pastors.
+    church,churches,clergy,religion,faith if country=Poland: Poland is the country without stakes: Catholics, Lutherans, Calvinists, Arians, Orthodox and Jews, all under one king. But the Jesuits grow stronger every year, and the Arians had better watch out.
+    church,churches,clergy,religion,faith if country=Sweden: The Church of Sweden is Lutheran, and the King is its sword. The priest comes round to hear every household say its catechism, and woe to the one who stumbles.
+    church,churches,clergy,religion,faith if country=Ragusa: We are Catholics, and loyal to the Pope; and we pay tribute to the Sultan, who does not mind. The Rector goes to the cathedral every Sunday with the whole Senate behind him.
+    church,churches,clergy,religion,faith if country=Ottoman: Which church? Here the muezzins call five times a day; the Greeks have their Patriarch, the Armenians theirs, the Jews their rabbis, and no Christian may ring a bell. Each people keeps its own law, and pays the Sultan for the privilege.
+    church,churches,clergy,religion,faith: The Church? The curé christens you, marries you and buries you, and takes the tithe from every sheaf in between. He knows who comes to Mass and who does not; so does the bishop; and so, they say, does the Cardinal.
+    yes,no,yeah,aye,sure,certainly,indeed,nope,=of course: ($He waits for you to say more.)
+    ?: I know nothing about that.
+  end
+end
+
+role blacksmith "a smith"
+  sex m
+  look coat #5A3A28 legs #3A3A3A hat cap #3A2E26 apron #2E2A26
+  work forge
+  sign anvil
+  says <clank>
+  schedule
+    5:30 home
+    6:00 work
+    12:00 eat
+    13:00 work
+    19:30 go inn
+    21:30 home
+    22:00 sleep
+  sells horseshoe 6 nails 8 knife 2 shears 2 pail 2 fowling-piece 1 shot 12 rod 2
+  money 300
+  talk
+    fowling,piece,gun,shot,powder,hunt,hunting: A fowling piece, for birds and rabbits and whatever else is in the hedge: a gentleman's gun, and a gentleman's price. The shot I make myself: a charge of powder and a ball, wrapped in a twist of paper. Mind where you shoot it: the deer near the King's towns are the King's, and his keepers have good ears.
+    rod,rods,fishing,fish,hooks,line: A rod and line, and a few hooks of my own make. Sit by the river at dawn or towards evening, when they feed: in the middle of the day they are cleverer than you.
+    job: I am a smith. Horseshoes, hinges, nails: anything of *iron*.
+    iron: The best iron comes from Sweden now, they say. I make do with what comes up the Seine.
+    work,forge: Hot work, and the fire must never die.
+  end
+end
+
+role merchant "a merchant"
+  sex m
+  look coat #2E3E5E legs #26262E hat hat #1A1A22
+  work shop
+  sign scales
+  says Fine cloth! Spices!
+  schedule
+    6:30 home
+    7:30 work
+    12:30 eat
+    13:30 work
+    18:30 go inn
+    21:00 home
+    22:30 sleep
+  sells cheese 2 onions 4 apples 4
+  money 4800
+  talk
+    job: I am a merchant: cloth, spices, whatever sells.
+    money: It makes the world go round.
+  end
+end
+
+role musician "a musician"
+  sex x
+  look coat #6A2E5E legs #3A2A3A hat hat #2A1A2A lute
+  work square
+  says do re mi
+  schedule
+    9:00 home
+    11:00 wander
+    14:00 work
+    18:00 go inn
+    23:00 home
+    23:30 sleep
+  talk
+    job: I am a musician. The lute, mostly.
+    note: Let's take this allegro.
+    fret: Why worry?
+  end
+end
+
+role herdsman "a herdsman"
+  sex m
+  look coat #6E5E40 legs #4A4030 hat hat #5A4A30 apron #D8D0BC
+  work market
+  says hup
+  sells milk 6 egg 8 cheese 2
+  schedule
+    5:00 work
+    12:00 eat
+    13:00 work
+    19:00 home
+    21:00 sleep
+  talk
+    give:wolf-pelt: (He spits on it, and turns it over to look at the teeth.) A wolf! The parish pays a bounty on every one, and I pay it for them: here, ten sous, and God bless you. One fewer at my lambs. {take} {player add money 120} {player add wolves-killed 1}
+    give:bear-pelt: (He takes a step back, and then laughs at himself.) A bear! There is a bounty on bears too, two livres, and I would pay it out of my own purse to see that thing. {take} {player add money 480} {player add bears-killed 1}
+    wolf,wolves,bounty,bounties,beast,beasts: Wolves take a sheep or two every winter, and a child sometimes, in a bad year. The parish pays ten sous a head for a dead wolf: bring me the pelt, and I pay it. They hunt at night, in the woods and the hills, and they keep off a man with company, or on a horse.
+    job: I keep the town's beasts: the cows and the sheep out on the pasture beyond the walls, and the hens in the gardens. I sell the milk and the eggs here. If you want *work*, there is milking, and eggs to collect.
+    work,milking,eggs,hire,help if player farmhand: You know the work: milk, eggs, fleeces, here to me, and I pay you for them.
+    work,milking,eggs,hire,help: Can you milk? You will learn. Take a pail out to my cows, milk them, and bring me the milk: two deniers a measure. A denier an egg from the hens. And two sous for a fleece, if you have shears and the sheep will stand for it. Nobody will shout at you now: I tell them you are mine. {farmhand}
+    pail,shears: The smith sells them. A pail you will want; shears only for the sheep.
+    give:milk if player farmhand: (He tips it into his churn.) Good and fresh. Two deniers. {take} {player add money 2}
+    give:egg if player farmhand: One more for the basket. A denier. {take} {player add money 1}
+    give:wool if player farmhand: A good fleece, in one piece. Two sous. {take} {player add money 24}
+    give:milk: Whose milk is that? Not from my cows, I hope. I do not buy from strangers.
+    give:egg: Whose hens laid that? I do not buy from strangers.
+    give:wool: Whose sheep was that on? I do not buy from strangers.
+  end
+
+role milkmaid "a milkmaid"
+  sex f
+  look coat #8A7A5E legs #6A5A4A hat coif #EFECE4 apron #E8E4DA dress
+  work field
+  says la la
+  schedule
+    4:30 work
+    11:00 eat
+    12:00 work
+    18:00 home
+    20:30 sleep
+  talk
+    job: I am a milkmaid. I milk cows.
+    cow: They like flowers.
+    farm: I milk cows, morning and evening.
+    milk: Used for cheese.
+    rain: Good for the farmers.
+  end
+end
+
+role farmer "a farmer"
+  sex m
+  look coat #6A5A3A legs #4A4030 hat hat #6A5A3A
+  work field
+  says arrr
+  schedule
+    5:00 work
+    12:00 eat
+    13:00 work
+    19:00 home
+    21:00 sleep
+  talk
+    job: I farm. Wheat, mostly, and oats for the horses of Paris.
+    work,milking,eggs,hire,help if player farmhand: You know the work: milk, eggs, fleeces, to me, and I pay you for them.
+    work,milking,eggs,hire,help: Work? There is always milking, and eggs to find. Bring me the milk from our cows, two deniers a measure, and a denier an egg; two sous a fleece, if you can shear. You need a pail, and shears for the sheep. Nobody will shout at you: I tell them you are ours. {farmhand}
+    give:milk if player farmhand: Good and fresh. Two deniers. {take} {player add money 2}
+    give:egg if player farmhand: A denier. {take} {player add money 1}
+    give:wool if player farmhand: A good fleece. Two sous. {take} {player add money 24}
+    give:milk: Whose milk is that? Not from our cows, I hope.
+    give:egg: Whose hens laid that? Not ours, I hope.
+    farm: I harvest wheat.
+    wheat: Used for bread.
+    bread: Talk to a cook.
+    rain: Good for the farmers.
+  end
+end
+
+role woodcutter "a woodcutter"
+  sex x
+  look coat #3E4A2A legs #3A3020 hat cap #4A3A20
+  work woods
+  says timber!
+  schedule
+    5:30 work
+    12:00 eat
+    13:00 work
+    19:00 home
+    21:00 sleep
+  talk
+    job: I am a woodcutter.
+    wood: For building.
+    build: The cities have buildings.
+    city: It's safer in the cities.
+    tree: Nature seeks a balance.
+    plant: I plant seeds.
+    cut: You would need an *axe* for that.
+    axe: I need this one for myself!
+    buy: Not for sale, sorry!
+  end
+end
+
+role miner "a quarryman"
+  sex m
+  look coat #8A8478 legs #5A564E hat cap #A8A296
+  work mine
+  says (cough)
+  schedule
+    5:00 work
+    12:00 eat
+    13:00 work
+    18:30 go inn
+    21:00 home
+    21:30 sleep
+  talk
+    job: I cut gypsum in the quarries under the hill. Burnt and ground, it makes the plaster of every wall in Paris.
+    gypsum,plaster: Plaster of Paris, they call it, as far away as London.
+    quarry,quarries: The galleries go further than anyone remembers. Do not go down without a light.
+  end
+end
+
+role monk "a monk"
+  sex m
+  look coat #2A2420 legs #2A2420 hat hood #2A2420 robe
+  work church
+  says amen
+  schedule
+    4:00 go church
+    6:00 work
+    12:00 eat
+    13:00 work
+    18:00 go church
+    20:00 home
+    20:30 sleep
+  talk
+    give:fish if fasting: (Two hands take it, and a face lights up.) A fish, on a fast day! God reward you. (A coin is pressed into your hand: two sous.) {take} {player add money 24} {player add fish-given 1}
+    give:fish: (Taken gratefully.) It will keep until Friday. God reward you. (A sou is pressed into your hand.) {take} {player add money 12} {player add fish-given 1}
+    fish,fasting,friday,lent: We eat fish on Fridays and through Lent, like all Christians, and more fast days besides. The fishwives know it, and put their prices up. A good soul who brings a fish to the door is blessed, and paid.
+    church,churches,clergy,religion,faith: The Church prays for the world, day and night, so that the world need not. Obey, pay your tithe, and leave the thinking to those who have taken vows.
+    job: I am a monk, of the order of Saint Benedict.
+    pray: Give me chastity, but not yet.
+    wheat: Used for beer.
+    beer: Nectar of God!
+    drink: Why not indeed!
+  end
+end
+
+role friar "a friar"
+  sex m
+  look coat #3A3A3A legs #3A3A3A hat hood #3A3A3A robe
+  work none
+  says Deo gratias.
+  schedule
+    5:00 go church
+    8:00 work
+    12:00 eat
+    14:00 wander
+    18:00 go church
+    20:00 home
+    21:00 sleep
+  talk
+    give:fish if fasting: (Two hands take it, and a face lights up.) A fish, on a fast day! God reward you. (A coin is pressed into your hand: two sous.) {take} {player add money 24} {player add fish-given 1}
+    give:fish: (Taken gratefully.) It will keep until Friday. God reward you. (A sou is pressed into your hand.) {take} {player add money 12} {player add fish-given 1}
+    fish,fasting,friday,lent: We eat fish on Fridays and through Lent, like all Christians, and more fast days besides. The fishwives know it, and put their prices up. A good soul who brings a fish to the door is blessed, and paid.
+    church,churches,clergy,religion,faith: We friars are the Church's feet: we go where the bishops will not. We preach in the squares, we hear the confessions of the poor, and we watch for heresy, wherever it hides.
+    job: I am a friar of the Minims, the least of the brothers.
+  end
+end
+
+role priest "a priest"
+  sex m
+  look coat #1A1A1E legs #1A1A1E hat biretta #141418 robe
+  work altar
+  says Dominus vobiscum.
+  schedule
+    5:30 work
+    12:00 eat
+    13:00 work
+    19:00 home
+    21:30 sleep
+  talk
+    church,churches,clergy,religion,faith if country=England: The Church of England is the true Church, and the King is its supreme governor. It is the duty of every subject to conform. Those who will not, Papists or Puritans, are rebels, whatever they call themselves.
+    church,churches,clergy,religion,faith if country=Switzerland: The church of Zurich is ruled by the Word of God, and the Word of God is preached by us. The Council punishes the drunkard and the adulterer; we tell it whom to punish.
+    church,churches,clergy,religion,faith if town=Zirndorf: The Church of the Augsburg Confession. We are saved by faith alone, and the war is God's judgement on our sins. Come to the sermon, and repent.
+    church,churches,clergy,religion,faith if country=Ottoman: We are the Orthodox, the Church of the seven Councils, older than Rome. We keep the faith under the Turk as our fathers did, and we obey the Patriarch, when the Sultan leaves us one.
+    church,churches,clergy,religion,faith: The Church is the mother of us all, and a mother must be obeyed. What you may read, what you may eat on a Friday, whom you may marry: these are not questions for you. Leave them to us, and sleep easy.
+    job: I am a priest of this parish.
+    god: As there is one God in heaven, there is one Church on earth.
+    mass: Every morning at six. You would be welcome.
+  end
+end
+
+role scholar "a scholar"
+  sex m
+  look coat #1E1E24 legs #1E1E24 hat squarecap #141418 robe
+  work college
+  says hmm
+  schedule
+    6:00 home
+    7:00 work
+    12:00 eat
+    13:00 work
+    18:00 go inn
+    21:00 home
+    22:00 sleep
+  talk
+    church,churches,clergy,religion,faith if country=Ottoman: The ulema say what the holy law permits, and the kadi judges by it. Even the Sultan is under the law, in principle.
+    church,churches,clergy,religion,faith: The theologians decide what is heresy, and Aristotle decides what is philosophy, and between them there is nothing left to argue about. It is a great relief.
+    job: I am a scholar.
+    read: I read many books.
+  end
+end
+
+role student "a student"
+  sex m
+  look coat #2A2A36 legs #2A2A36 hat squarecap #1A1A22 robe
+  work college
+  says Ego sum, tu es...
+  schedule
+    7:00 work
+    12:00 wander
+    14:00 work
+    18:00 go inn
+    22:00 wander
+    23:30 home
+    23:45 sleep
+  talk
+    church,churches,clergy,religion,faith if country=England: Chapel every morning at six, in a surplice, and the dean takes the names of those who are not there. I am always there. I am not always awake.
+    church,churches,clergy,religion,faith if country=Netherlands: The predikants preach for two hours, and the professors of theology quarrel about predestination for two more. I came here for the medicine.
+    church,churches,clergy,religion,faith if country=Switzerland: The sermon every morning, and the Council fines us for dancing. Zurich is a very serious town.
+    church,churches,clergy,religion,faith if country=Ottoman: In the medrese we learn the Koran, the traditions and the law, and after that, if God wills, logic.
+    church,churches,clergy,religion,faith: We must all hear Mass, and they take the names of those who do not. I go. I sleep, but I go.
+    job: I am a student. Logic in the morning, and in the evening, the taverns of the rue Saint-Jacques.
+    latin: Of course I speak Latin. Everyone at the university does, or pretends to.
+  end
+end
+
+role guard "a guard"
+  sex m
+  look coat #6E1E1E legs #3A3A42 hat helmet #9AA0A6 halberd
+  work gate
+  says move along
+  watch
+  schedule
+    6:00 work
+    13:00 eat
+    14:00 work
+    21:00 home
+    22:00 sleep
+  talk
+    hello: Good day.
+    name: Guard.
+    job: Guarding.
+    guard: Yes, that's right.
+    bye: Don't get into trouble.
+  end
+end
+
+role watchman "a watchman"
+  sex m
+  look coat #3A3428 legs #2A2A2A hat hat #2A2620 halberd
+  work none
+  says All's well!
+  watch
+  schedule
+    8:00 sleep
+    16:00 home
+    19:00 patrol
+  talk
+    job: I am of the watch. All night I walk the streets, so honest people may sleep.
+    night: Mind the gutters, and those who lie in wait in them.
+  end
+end
+
+role cook "a cook"
+  sex m
+  look coat #E8E2D4 legs #4A4A4A hat cap #F2EEE4 apron #F2EEE6
+  work bakery
+  sign pretzel
+  says Fresh bread!
+  schedule
+    3:30 work
+    11:00 eat
+    12:00 work
+    17:00 home
+    19:00 sleep
+  sells loaf 10
+  money 200
+  talk
+    job: I am a cook, and a baker.
+    food: I love to bake bread.
+    bread: The best bread is in Paris.
+    eat: I better not, I just ate.
+  end
+end
+
+role innkeeper "the innkeeper"
+  sex m
+  look coat #6A4A2E legs #3A3226 hat none apron #E6E0D2
+  work inn
+  says Wine! Who wants wine?
+  schedule
+    7:00 work
+    15:00 eat
+    16:00 work
+    23:30 home
+    23:45 sleep
+  sells bottle 8 loaf 4 cheese 1 venison 0 fish 0
+  money 400
+  talk
+    escort,guard,guards,company,protection,brigands,robbers,bandits,highwaymen,safe,danger,dangerous: The roads? Travel by day, in company, with no more in your purse than you need: a merchant carries a bill of exchange from a money-changer, and a robber cannot spend that. Or I have a man who will walk with you for a day with his sword, for ten sous. Will you *take* him? {set offered-escort=now}
+    take,yes,deal,=i will if recent:0.05 offered-escort: (He calls into the kitchen, and a big man with a sword comes out, wiping his mouth.) {escort 120}
+    bill,bills,exchange: A money-changer draws them, at his table by the market: your coin stays with him, and his correspondent pays you in the next town.
+    venison,deer,haunch: Venison? I will buy a haunch from anyone, and I do not ask where it came from. Near the King's towns you had better not tell me.
+    take,yes if recent:0.05 offered-bed and player money>=24: (You pay, and climb to a bed under the roof.) {sleep}
+    take,yes if recent:0.05 offered-bed: Two sous, friend, and you have not got them. Come back when you have.
+    stay,wait,word,until,keep if recent:0.05 offered-bed and player money>=24: (You pay for the first night, and settle in to wait.) {staytillword}
+    stay,wait,word,until,keep if recent:0.05 offered-bed: Two sous, friend, and you have not got them. Come back when you have.
+    bed,room,sleep,night,rest if evening: A bed for the night is two sous, and the sheets are nearly clean. Will you *take* it? Or, if you are waiting for word from somebody, keep the bed until it comes, at two sous a night: will you *stay*? {set offered-bed=now} {unset offered-post}
+    bed,room,sleep,night,rest if night: A bed for what is left of the night is two sous, and the sheets are nearly clean. Will you *take* it? Or, if you are waiting for word from somebody, keep the bed until it comes, at two sous a night: will you *stay*? {set offered-bed=now} {unset offered-post}
+    bed,room,sleep,night,rest: At this hour? You may lie down for a couple of hours, for two sous; the beds are made for the night, but nobody minds. Will you *take* it? {set offered-bed=now} {unset offered-post}
+    hire,yes,take,=i will if recent:0.05 offered-horse: (He sends the boy for a saddle.) {hire 36}
+    horse,horses,hire: A post horse is three sous, to the next inn on your road: you hand him in there, and he comes back with the next rider going the other way. Will you *hire* one? Or there is a horse of your *own*, if you would rather. {set offered-horse=now}
+    # the post in two steps: "post" offers a packet, and "yes" takes it
+    carry,take,yes,deal,=i will if recent:0.05 offered-post: (He finds a packet in the sack behind the counter.) {unset offered-post} {postjob}
+    letters,letter,post,packet,courier,errand: There is always a packet for somebody. Carry it to the inn in good time and you are paid at the other end, by the innkeeper there; late, and he pays you half. Will you *carry* one? {set offered-post=now} {unset offered-bed} {unset offered-own}
+    give:post-packet: (He turns the packet over, and looks at the seal.) {postdeliver}
+    take,yes,deal,=i will if recent:0.05 offered-own: (He spits in his hand, and you shake on it.) {buyhorse 2880}
+    own,keep,purchase: A horse of your own? Twelve livres, and I throw in the saddle. Mind you stable him at night, at an inn, or he goes hungry, and a horse left alone on the road is soon somebody else's horse. Will you *take* him? {set offered-own=now}
+    ride if recent:0.05 offered-ride-at: {postride}
+    # the post ride as a ticket (Game::rideOffer names the town and gives the fare; Game::postRide takes the ride)
+    ride,riding,journey,travel,trip: The post can take you to any town on the roads. Name the town, and I will tell you the fare. {set offered-ride=now} {unset offered-ride-at} {unset offered-bed} {unset offered-post} {unset offered-own} {unset offered-horse} {unset offered-escort}
+    yes,take,=i will if recent:0.05 offered-ride-at: {postride}
+    job: I keep this inn. Bed and board, wine and gossip.
+    gossip,news: Ask anyone at my tables; they talk of nothing else.
+  end
+end
+
+role changer "a money-changer"
+  sex m
+  look coat #2E2A3A legs #2A2626 hat hat #1E1C24 robe
+  work market
+  says Change! Good weight and honest coin!
+  schedule
+    7:00 work
+    12:00 eat
+    13:00 work
+    18:00 home
+    22:00 sleep
+  talk
+    job: I change money: your foreign coin for the coin of this place, three in the hundred, weighed on an honest scale and tried on the touchstone. Foreign coin is taken a tenth below its worth by any shopkeeper who takes it at all, so you lose less with me.
+    # two steps: he says what he will do, and asks
+    change,yes,take,=i will if recent:0.05 offered-change: (He holds out his hand for your purse, and empties it onto the cloth.) {change} {unset offered-change}
+    no,keep,=not now if recent:0.05 offered-change: As you like. Anyone here but me will take your foreign coin a tenth below its worth. {unset offered-change}
+    change,exchange,money,changer,rate: (He looks at your purse.) Your foreign coin for the coin of this place, at three in the hundred, weighed on an honest scale. Will you *change*? {set offered-change=now}
+    coin,coins,purse: Every country has its own, and every prince clips his a little more each year. Show me your purse and I will make it all of one kind: the kind they take here.
+    clipped,clipping,false,debased,touchstone,scales,scale: A clipped coin is worth its silver and no more, and a false one is worth a beating. I weigh everything that comes over this table.
+    reales if town=Seville: Reales? This is Seville: the silver fleet comes up the river, and the whole town is paid in reales. Take them east and they are worth more.
+    reales if town=Granada: Reales are all we have, here. The Genoese take them away to the east.
+    reales,real,spanish if town=Constantinople: Spanish silver! I pay fifteen in the hundred over its worth for it, and so does every sarraf at the Bedesten: the Sultan's akçe are thinner every year, and the reales are not.
+    reales,real,spanish if town=Venice: Spanish reales go east on every galley to Alexandria and Aleppo. I pay a little over their worth for them, and the Levant pays more.
+    reales,real,spanish if town=Ragusa: Reales are what our ships carry to the Levant. I pay well for them.
+    silver,reales,real,pieces,eight,spanish,levant,indies: The Spanish piece of eight is the best coin in the world, and the silver of the Indies all flows one way, to the east. In Constantinople, in Ragusa, in Venice, they pay more for a real than it is worth in Seville.
+    bank,banker,bill,bills,letter,exchange,paper,robbers,road: A bill of exchange: you leave your coin with me, all but a livre for the road, and I write a letter to my correspondent, and any changer in another town pays it to you there, less two in the hundred. A robber cannot spend a bill: it is only paper with my name on it. Shall I *draw* one? {set offered-bill=now}
+    draw,yes,write,=i will if recent:0.05 offered-bill: (He dips his pen.) {billdraw}
+    give:bill-of-exchange: (He reads the bill, and the signature twice, and nods.) {billcash}
+    cash,pay,paid: (He holds out his hand for the bill.) {billcash}
+    wisselbank if town=Amsterdam: The Wisselbank in the town hall keeps the merchants' money in its books, in bank guilders that are worth more than the coin. Coin is for the likes of you and me.
+    pont,bridge if town=Paris: The Pont au Change, where the changers have had their tables since Saint Louis: houses and shops on both sides, so you do not know you are on a bridge until you look down.
+  end
+end
+
+role ostler "the ostler"
+  sex m
+  look coat #5A4632 legs #3A3226 hat cap #4A3A2A apron #8A7A5A
+  work road
+  says Whoa, there!
+  schedule
+    5:00 work
+    12:00 eat
+    13:00 work
+    20:30 home
+    21:00 sleep
+  talk
+    escort,guard,guards,company,protection,brigands,robbers,bandits,highwaymen,road,safe,danger,dangerous,wolves: (He scratches his neck.) There are men on the roads who never paid for a horse in their lives, and they like a lonely traveller best, after dark best of all. My cousin will ride with you to the next post house and a day beyond, with his sword, for ten sous: they leave a man alone who has company. Will you *take* him? {set offered-escort=now}
+    take,yes,deal,hire,=i will if recent:0.05 offered-escort: (He whistles, and a big man with a sword comes out of the stables, chewing.) {escort 120}
+    ride if recent:0.05 offered-ride-at: {postride}
+    # the post ride as a ticket (Game::rideOffer names the town and gives the fare; Game::postRide takes the ride)
+    ride,riding,journey,travel,trip: The post can take you to any town on the roads. Name the town, and I will tell you the fare. {set offered-ride=now} {unset offered-ride-at} {unset offered-bed} {unset offered-post} {unset offered-own} {unset offered-horse} {unset offered-escort}
+    yes,take,=i will if recent:0.05 offered-ride-at: {postride}
+    job: I see to the post horses: water, oats, a rub-down, and a fresh horse saddled for the next rider. The innkeeper takes the money; I take the kicks.
+    horse,horses,hire: The innkeeper hires them out, three sous to the next post house, and sells them too. I only feed them, and get them back lame.
+    post,courier,letters,packet: The post riders change horses here and are gone again before the dust settles. If you carry a packet yourself, you are paid at the other end.
+    stable,stables,feed,oats,night: A horse of yours spends the night in our stable for three sous, with oats. Out on the road at night he goes hungry, and somebody else may want him more than you do.
+    forest,forests,river,rivers,bridge,bridges,safe: Keep to the road. The forests are thick, and the rivers have bridges only where the road crosses them.
+  end
+end
+
+role labourer "a labourer"
+  sex x
+  look coat #7A6A52 legs #4A4234 hat cap #5A4E3C
+  work quay
+  says Heave!
+  schedule
+    5:30 work
+    12:00 eat
+    13:00 work
+    19:00 go inn
+    21:00 home
+    21:30 sleep
+  talk
+    job: I carry what needs carrying, at the quays mostly. Wood, wine, stone.
+    work: It doesn't pay much, but it pays.
+  end
+end
+
+role washerwoman "a washerwoman"
+  sex f
+  look coat #6A7A8A legs #5A6070 hat coif #EEECE6 apron #E8E6DE dress
+  work quay
+  says Scrub, scrub.
+  schedule
+    6:00 work
+    12:00 eat
+    13:00 work
+    18:00 home
+    21:00 sleep
+  talk
+    job: I wash linen in the river, for those who can pay.
+    river: Cold, even in June.
+  end
+end
+
+role goodwife "a goodwife"
+  sex f
+  look coat #7A3E3A legs #4A2E2E hat coif #EEEAE0 apron #E2DED2 dress
+  work market
+  says Too dear, too dear!
+  schedule
+    6:00 home
+    8:00 go market
+    11:00 home
+    14:00 wander
+    17:00 home
+    21:30 sleep
+  talk
+    job: I keep house, and keep my husband from the tavern, when I can.
+    market: Everything is too dear this year.
+  end
+end
+
+role apprentice "an apprentice"
+  sex m
+  look coat #5A6A3A legs #3A3A2A hat cap #3A4A2A
+  work market
+  says Hey!
+  schedule
+    6:00 work
+    12:00 wander
+    13:00 work
+    19:00 wander
+    21:00 home
+    21:30 sleep
+  talk
+    job: I am an apprentice. Seven years of fetching and carrying before I am a master.
+  end
+end
+
+role beggar "a beggar"
+  sex x
+  look coat #5A5248 legs #4A4238 hat none
+  work church
+  says Alms, for the love of God!
+  schedule
+    7:00 work
+    13:00 wander
+    16:00 work
+    20:00 wander
+    23:00 sleep
+  talk
+    church,churches,clergy,religion,faith if country=Netherlands: The deacons give out bread and peat on Saturdays, if you can show you are a member, and sober. I am a member.
+    church,churches,clergy,religion,faith if country=England: The parish gives a few pence to its own poor, and whips the rest out of the parish. I am from here. Always from here.
+    church,churches,clergy,religion,faith if country=Ottoman: The imarets feed us, the soup kitchens of the mosques: bread and a bowl of soup every day, for the poor and the students and the travellers. God bless the founders.
+    church,churches,clergy,religion,faith: The Church feeds us at the convent gates, God bless it, on Fridays and feast days. The rest of the week we pray for a feast day.
+    job: I beg. A sou, for the love of God?
+    alms,sou: A sou, for the love of God! (Say: give a sou.)
+    give:money: God bless you, and your children, and theirs! {take} {add blessed 1}
+    give:loaf: Bread! God reward you. {take} {add blessed 1}
+  end
+end
+
+role cardinal "a cardinal"
+  sex m
+  look coat #9A1818 legs #9A1818 hat biretta #9A1818 robe
+  work none
+  says Hmph.
+  schedule
+    7:00 home
+    9:00 work
+    12:30 eat
+    15:00 work
+    19:00 home
+    22:00 sleep
+  talk
+    church,churches,clergy,religion,faith: The Church is a monarchy, the oldest in the world, and the Holy Father is its king. We cardinals are its senate. It does not ask the opinion of the people, nor of the philosophers.
+    job if town=Rome: I sit in the Sacred College, and advise the Holy Father, when he wishes to be advised. These days he does not.
+    job: "Advisor" to the King.
+    borgia if town=Rome: Cardinal Borgia stood up in consistory in March and read out a protest from the King of Spain: the Holy Father does too little against the Swede. His Holiness has not forgiven it.
+    swede,sweden if town=Rome: The King of Sweden is in Bavaria, burning Catholic towns, and France pays him. The Spaniards say the Pope prays for the wrong side.
+  end
+end
+
+role mathematician "a gentleman"
+  sex m
+  look coat #2A2A2A legs #2A2A2A hat hat #1A1A1A
+  work none
+  says hmm
+  schedule
+    6:00 home
+    8:00 work
+    12:00 eat
+    14:00 work
+    18:00 wander
+    21:00 home
+    22:00 sleep
+  talk
+    job: I am a magistrate, in truth. Mathematics is my pleasure.
+  end
+end
+
+role knight "a knight"
+  sex m
+  look coat #4A5A7A legs #3A3A4A hat helmet #A8AEB4
+  work road
+  says fie!
+  schedule
+    6:00 work
+    20:00 home
+    21:00 sleep
+  talk
+    job: I am a knight.
+  end
+end
+
+role warder "a yeoman warder"
+  sex m
+  look coat #8A1414 legs #8A1414 hat hat #141414 halberd
+  work fortress
+  says Mind your step.
+  schedule
+    6:00 work
+    13:00 eat
+    14:00 work
+    20:00 home
+    21:30 sleep
+  talk
+    job: I am a yeoman warder of the Tower. I keep the King's prisoners, and his lions.
+    lions,lion: The King's lions are kept by the Lion Tower, at the gate. Mind your fingers.
+    prisoner,prisoners: Fewer than in the old days. Sir Walter Raleigh lived here for thirteen years.
+  end
+end
+
+role actor "a player"
+  sex m
+  look coat #7A3A6A legs #3A2A4A hat hat #2A1A3A
+  work theatre
+  says To be, or not to be...
+  schedule
+    9:00 home
+    11:00 go inn
+    13:00 work
+    17:30 go inn
+    23:00 home
+    23:30 sleep
+  talk
+    job: I am a player, of the King's Men. We play here at the Globe in summer, at the Blackfriars in winter.
+    play,plays: This afternoon, a tragedy. Every afternoon, a tragedy; the comedies are the actors.
+    shakespeare: Master Shakespeare is sixteen years dead, God rest him. We still play his Hamlet, and it still fills the house.
+  end
+end
+
+role bookseller "a bookseller"
+  sex m
+  look coat #3A3226 legs #2A2620 hat hat #1E1A16
+  work landmark Paul
+  says Books! New books!
+  schedule
+    7:00 work
+    12:30 eat
+    13:30 work
+    19:00 home
+    22:00 sleep
+  sells book 4
+  money 800
+  talk
+    job: I sell books, here in Paul's Churchyard, where every bookseller in London has his stall.
+    book,books: Sermons, almanacks, plays, travels. Everything England reads is sold within a stone's throw of this church.
+  end
+end
+
+role physician "a physician"
+  sex m
+  look coat #1E1E1E legs #1E1E1E hat hat #121212 robe
+  work landmark Bartholomew
+  says hmm
+  schedule
+    7:00 work
+    12:00 eat
+    13:00 work
+    18:00 home
+    22:30 sleep
+  talk
+    job: I am a physician.
+  end
+end
+
+role waterman "a waterman"
+  sex m
+  look coat #3A4A5A legs #2A3038 hat cap #2A3A4A
+  work quay
+  says Oars! Oars!
+  schedule
+    5:30 work
+    12:00 eat
+    13:00 work
+    20:00 go inn
+    22:00 home
+    22:30 sleep
+  sells rod 2
+  talk
+    row,rowing,oars,lesson if player skill:rowing >= 2: You row like a waterman's son now. Do not go shooting the bridge.
+    row,rowing,oars,lesson: Pull with your back, not your arms; feather the blade; and never fight the tide. For sixpence I will show you, out on the river.
+    give:money if player gift >= 6 and not player skill:rowing >= 2: (He takes you out in his wherry for an hour, and shouts at you.) Better. Your arms will ache tomorrow. {take} {player learn rowing}
+    job: I row people across the river, or up to Westminster. Faster than the bridge, and cleaner.
+    bridge: Shooting the bridge at ebb tide? Only fools and watermen. Wise men walk round.
+  end
+end
+
+# ---------------------------------------------------------------- Italy and the Netherlands
+
+role philosopher "an old gentleman"
+  sex m
+  look coat #2A2420 legs #2A2420 hat cap #1A1614 robe
+  work none
+  says Eppur...
+  schedule
+    7:00 home
+    10:00 wander
+    12:00 eat
+    14:00 home
+    21:30 sleep
+  talk
+    job: I think, and I write it down.
+  end
+end
+
+role nun "a nun"
+  sex f
+  look coat #2A2622 legs #2A2622 hat hood #F2EEE6 dress robe
+  work church
+  says Ave Maria, gratia plena...
+  schedule
+    5:00 work
+    12:00 eat
+    13:00 work
+    19:00 home
+    20:30 sleep
+  talk
+    give:fish if fasting: (Two hands take it, and a face lights up.) A fish, on a fast day! God reward you. (A coin is pressed into your hand: two sous.) {take} {player add money 24} {player add fish-given 1}
+    give:fish: (Taken gratefully.) It will keep until Friday. God reward you. (A sou is pressed into your hand.) {take} {player add money 12} {player add fish-given 1}
+    virginia,galilei,daughter,daughters,celeste if town=Arcetri and player celeste-dead: (She crosses herself.) Suor Maria Celeste is with God, since the second of April. Pray for her, and for her father. {player set knows:arcetri:celeste}
+    virginia,galilei,daughter,daughters if town=Arcetri: Virginia Galilei? That was her name in the world. Here she is Suor Maria Celeste, Signor Galileo's eldest: she keeps our apothecary. Ask for Suor Maria Celeste. {player set knows:arcetri:celeste}
+    fish,fasting,friday,lent: We eat fish on Fridays and through Lent, like all Christians, and more fast days besides. The fishwives know it, and put their prices up. A good soul who brings a fish to the door is blessed, and paid.
+    church,churches,clergy,religion,faith: We pray for all of you behind this wall. The Church is a great ship, and we are below decks, at the oars.
+    job: I serve God in this house, and pray for the world outside it.
+  end
+end
+
+role dominican "a Dominican friar"
+  sex m
+  look coat #F0ECE2 legs #F0ECE2 hat hood #1A1A1A robe
+  work church
+  says Laudare, benedicere, praedicare.
+  schedule
+    5:00 go church
+    8:00 work
+    12:00 eat
+    14:00 wander
+    18:00 go church
+    20:00 home
+    21:00 sleep
+  talk
+    church,churches,clergy,religion,faith: The Church guards the faith as a shepherd guards his sheep: a crook for the strays, and a dog for the wolves. The Holy Office is the dog.
+    job: I am a friar of the Order of Preachers. We preach, and we guard the faith.
+    galileo: Joshua bade the Sun stand still, not the Earth. Scripture is plain, for those who will read it.
+    copernicus: A hypothesis, for computing the calendar. Whoever teaches it as true had better look to his soul.
+  end
+end
+
+role goldsmith "a goldsmith"
+  sex m
+  look coat #5A3E22 legs #3A2A1A hat cap #2A2016 apron #8A6A3A
+  work landmark Ponte Vecchio
+  says Gold! Silver! Fine work!
+  schedule
+    7:00 work
+    12:00 eat
+    13:00 work
+    19:00 home
+    22:00 sleep
+  sells knife 2
+  money 900
+  talk
+    job: I work gold and silver, here on the Ponte Vecchio. The Grand Duke Ferdinando's grandfather put out the butchers and gave the bridge to us.
+    gold,silver: Rings, chains, a cup for a christening. Show me your purse and I will show you my work.
+  end
+end
+
+role printer "a printer"
+  sex m
+  look coat #2E2A24 legs #2E2A24 hat cap #1E1A16 apron #CFC6B2
+  work shop
+  sign book
+  says Fresh from the press!
+  schedule
+    6:30 work
+    12:00 eat
+    13:00 work
+    19:00 home
+    22:00 sleep
+  sells book 3
+  money 700
+  talk
+    job: I set type and pull sheets, from dawn until the light goes.
+    press,type: Lead letters, back to front, in a stick; ink on the forme; paper; the platen; pull. Two hundred and fifty sheets an hour, with a good pressman.
+  end
+end
+
+role prince "a prince"
+  sex m
+  look coat #3A1A3E legs #1E1A22 hat hat #141018 dress
+  work palace
+  says ...
+  schedule
+    8:00 home
+    10:00 work
+    13:00 eat
+    15:00 work
+    19:00 home
+    23:00 sleep
+  talk
+    job: I govern, or try to.
+  end
+end
+
+role gondolier "a gondolier"
+  sex m
+  look coat #E8E4DA legs #1A1A20 hat hat #1A1A1A
+  work quay
+  says Gondola! Gondola!
+  schedule
+    6:00 work
+    12:30 eat
+    13:30 work
+    20:00 go inn
+    22:00 home
+    23:00 sleep
+  talk
+    job: I row a gondola. A soldo to Rialto, two to San Marco, and I sing for nothing.
+    gondola,boat: Take one of the boats at the posts, if you know how to row; I won't tell. Or pay me and sit like a senator.
+  end
+end
+
+role glassblower "a glassblower"
+  sex m
+  look coat #6A4A32 legs #3A2A1E hat cap #2A1E16 apron #4A3A2A
+  work forge
+  sign goblet
+  says Mind the furnace!
+  schedule
+    6:00 work
+    12:00 eat
+    13:00 work
+    19:00 home
+    22:00 sleep
+  talk
+    job: I blow glass, as my father did, and his. We may not leave the Republic, on pain of death: the secret of the glass belongs to Venice.
+    glass,murano: All the furnaces were moved to Murano three hundred years ago, for fear of fire. And so that we could be watched.
+  end
+end
+
+role painter "a painter"
+  sex m
+  look coat #4A3A2E legs #2A221C hat hat #1E1814
+  work shop
+  sign palette
+  says Hold still!
+  schedule
+    8:00 work
+    12:00 eat
+    13:00 work
+    18:00 go inn
+    21:00 home
+    23:00 sleep
+  talk
+    job: I paint: portraits, mostly, of merchants who want to look like lords.
+    paint,colours: Lead white, ochre, vermilion, ultramarine for the rich. The light does the rest.
+  end
+end
+
+role sailor "a sailor"
+  sex m
+  look coat #3A4A5E legs #E2DED2 hat cap #3A3A44
+  work quay
+  says Heave!
+  schedule
+    6:00 work
+    12:00 eat
+    13:00 work
+    19:00 go inn
+    22:00 home
+    23:00 sleep
+  sells rod 2
+  talk
+    # a passage: the post ships' masters
+    passage,ship,boat,sail,voyage,stockholm,sweden if town=Danzig: For Stockholm? The Swede below the Crane carries passengers, with the King's post: two livres.
+    passage,ship,boat,sail,voyage,danzig,poland if town=Stockholm: For Danzig? Mats Andersson's post ship, on the quay below Storkyrkan: two livres.
+    job: I sail with the ships: to the Baltic for grain, to the Indies for pepper, if God and the Company will.
+    ships,sea: The Indies are six months out and six back, and one man in three does not come home.
+  end
+end
+
+role swissguard "a Swiss guard"
+  sex m
+  look coat #C8A030 legs #2A3A7A hat helmet #9AA0A6 halberd
+  work palace
+  says Halt!
+  schedule
+    6:00 work
+    13:00 eat
+    14:00 work
+    21:00 home
+    22:00 sleep
+  watch
+  talk
+    job: I guard the Holy Father. We have done it since Pope Julius, and we died for it at the Sack.
+  end
+end
+
+role jesuit "a Jesuit"
+  sex m
+  look coat #1C1A1E legs #1C1A1E hat biretta #1C1A1E robe
+  work landmark Collegio Romano
+  says Ad maiorem Dei gloriam.
+  schedule
+    5:00 go church
+    7:00 work
+    12:00 eat
+    13:30 work
+    18:00 go church
+    20:00 home
+    21:00 sleep
+  talk
+    church,churches,clergy,religion,faith: The Church is an army, and we are its light horse. We teach your sons, confess your kings and answer the heretics book for book. Obedience is the whole of it: perinde ac cadaver, like a corpse in the hands of its bearer.
+    job: I teach at the Roman College: grammar to the boys, and mathematics, if the Rector allows.
+    galileo: A clever man, and a proud one. He mocked our Father Grassi over the comets, and now he mocks Father *Scheiner*. Pride goes before a fall.
+    scheiner: Father Scheiner has watched the spots on the Sun for twenty years. He saw them before the Florentine, whatever the Florentine says.
+    grassi: Father Grassi wrote on the comets of 1618, and the Florentine answered him with *The Assayer*, and every wit in Rome laughed. We have not forgotten.
+    assayer: Il Saggiatore. A book of insults, dedicated to the Pope. The Pope liked it, then.
+  end
+end
+
+role pilgrim "a pilgrim"
+  sex x
+  look coat #6E5A3E legs #4A3E2E hat hat #4A3E2E
+  work none
+  says Which way to the Seven Churches?
+  schedule
+    6:00 go church
+    9:00 wander
+    12:00 eat
+    14:00 go church
+    17:00 wander
+    20:00 go inn
+    22:00 sleep
+  talk
+    church,churches,clergy,religion,faith: I trust the Church as a child trusts its mother. The road is hard, but at the end there is the indulgence, and everything is forgiven.
+    job: I walked from Burgundy to see the tombs of the Apostles. Two months on the road, and my shoes are worn through.
+    churches,seven: The seven churches: St Peter's, St Paul's outside the walls, the Lateran, Santa Maria Maggiore, Santa Croce, San Lorenzo and San Sebastiano, all in one day, on foot. Then your sins are forgiven.
+    catacombs: Out on the Appian Way, under San Sebastiano and San Callisto: miles of galleries, full of the bones of the martyrs. A friar takes you down with a candle.
+  end
+end
+
+# ---------------------------------------------------------------- soldiers
+# "fight HP SKILL DAMAGE ARMOUR": a soldier, who fights (people.h, Person; main.cc, Game::fight);
+# "faction NAME" his side; "hostile NAME ...": the sides he attacks on sight ("player": you).
+# They lie where they fall for two hours; a day later a recruit stands in each one's place.
+# "names POOL": names from that pool of names.txt, not the town's.
+
+role musketeer "a Swedish musketeer"
+  sex m
+  look coat #3A5A9A legs #2A2A3A hat hat #2A2A2A musket
+  work gate
+  says Who goes there?
+  fight 16 2 5 1
+  faction swedish
+  hostile imperial
+  names swedish
+  schedule
+    0:00 work
+    12:00 eat
+    13:00 work
+  talk
+    hello: (He looks you over, his hand on the coil of match at his belt.) Friend, or the Duke of Friedland's?
+    name: Musketeer of the Blue Regiment. My name is no business of yours, friend.
+    job: I stand at the gate, and when the Croats come I fire, and when they come close I turn my musket round and use it as a club. The King says that a musketeer who fires three times while a pikeman counts to sixty wins the war.
+    croats,croat,wallenstein,imperials: The Croats ride ahead of Wallenstein's army, light horse, in red, with sabres. They take what they find on the roads, and whom. Do not go out of the gates alone.
+    pay,money: Four rix-dollars a month, when it comes, which it does not.
+    bye: Keep inside the walls.
+  end
+end
+
+role croat "a Croat horseman"
+  sex m
+  look coat #8A2420 legs #3A2A5A hat cap #2A1E1A sabre
+  work road
+  says Hej!
+  fight 14 3 6 0
+  faction imperial
+  hostile swedish player
+  names croatian
+  schedule
+    0:00 work
+  talk
+    hello: (He grins, and puts his hand to his sabre.)
+    name: (He laughs.)
+    job: (He points at your purse.)
+    bye: (He watches you go.)
+  end
+end
+
+# Croats stripping the fallen under the wall of the Alte Veste, from the retreat at ten on the day of the storming, for
+# the two days and a half that Murdo Ross may lie there (nuremberg.txt murdo).
+# A short fight, a little weaker than the road's brigands, so that Monro's rapier and one of his lessons win about nine
+# times in ten. They fight only you.
+role looter "a Croat"
+  sex m
+  look coat #8A2420 legs #3A2A5A hat cap #2A1E1A sabre
+  work landmark the Alte Veste
+  says Hej!
+  fight 10 1 4 0
+  faction looters
+  hostile player
+  names croatian
+  schedule
+    0:00 away
+    always work if player event:assault-over and player recent:2.5 assault-at
+  talk
+    hello: (He looks up from a dead man's boots, and comes for you with his knife.)
+    name: (He laughs.)
+    bye: (He watches you go.)
+  end
+end
+
+role pikeman "a Swedish pikeman"
+  sex m
+  look coat #3A5A9A legs #2A2A3A hat helmet #9AA0A6 pike
+  work earthwork
+  says Stand!
+  fight 18 2 6 2
+  faction swedish
+  hostile imperial
+  names swedish
+  schedule
+    0:00 work
+    12:00 eat
+    13:00 work
+  talk
+    hello: (He leans on a pike three times his height.) Keep back from the edge of the rampart, friend; the Croats have good eyes.
+    name: Pikeman, of the King's brigades.
+    job: We dug these lines in a fortnight, ditch and rampart all round the city, and now we stand behind them. A pike is sixteen feet of ash with a point on the end; in a battle the musketeers fire from behind us, and we keep the horse off them.
+    wallenstein,camp,imperials: The Duke of Friedland will not attack us here. He will sit on his hill and wait for us to starve. We are already hungry.
+    bye: God keep you.
+  end
+end
+
+# The Emperor's foot (this and the next, and the reserve at the Alte Veste) wear grey coats and the red sash, the
+# Imperial field sign, so that on the hill they are told from the Scots' buff at a glance.
+role imperial "an Imperial musketeer"
+  sex m
+  look coat #7E8084 legs #4A3A2A hat hat #3A2A1E musket sash #A81E1E
+  work camp
+  says Halt! Wer da?
+  fight 15 2 5 1
+  faction imperial
+  hostile swedish
+  names german
+  schedule
+    0:00 away
+    0:00 work if player event:wallenstein-comes and player not event:siege-ends
+  talk
+    hello: (He looks you up and down.) A stranger in the camp? Sell something, or move along.
+    name: Musketeer of Colonel Holk's regiment.
+    job: I dig, I stand guard, and I wait for the Swedes to starve. The Duke says we shall not fight. We shall not eat either, at this rate.
+    swedes,king,gustavus: The Lion of the North, they call him. Let him come up the hill. We have eighty guns in these woods.
+    bye: Move along.
+  end
+end
+
+role imperialpike "an Imperial pikeman"
+  sex m
+  look coat #74767A legs #4A3A2A hat helmet #9AA0A6 pike sash #A81E1E
+  work camp
+  says Wer da?
+  fight 18 2 6 2
+  faction imperial
+  hostile swedish
+  names german
+  schedule
+    0:00 away
+    0:00 work if player event:wallenstein-comes and player not event:siege-ends
+  talk
+    hello: (He does not move.) Go round.
+    job: I hold the line of the gabions. Nobody comes over it.
+    bye: Go round.
+  end
+end
+
+# Monro's Scots, of Mackay's regiment. "scot": at the muster in the square
+# at Nuremberg, from eight the evening after you told Monro until the march at three (Murdo Ross is one: nuremberg.txt
+# murdo). "scotstorm": on the hill at the north end, under the ruin of the Alte Veste, from first light until the retreat
+# at ten (from the march, if you marched with them: events.txt the-march), against the Duke's men.
+role scot "a Scots musketeer"
+  sex m
+  look coat #B8945A legs #3A3A3A hat hat #2A2A2A musket
+  work square
+  says We march at three.
+  fight 16 2 5 1
+  faction swedish
+  hostile imperial
+  names scottish
+  schedule
+    0:00 away
+    always work if player muster-on
+  talk
+    hello: (He is sitting on his pack with his musket across his knees, and does not get up.) You will be Monro's stranger. He is going down the file; he will find you.
+    name: Mackay, like half the regiment.
+    job: Musketeer, of Mackay's. Tomorrow, of the Alte Veste, God willing.
+    hill,tomorrow,battle,attack,assault,storm,alte,veste,castle: Up the hill at first light. The King says it is a morning's work.
+    bye: Sleep, if you can.
+  end
+end
+
+role scotstorm "a Scots musketeer"
+  sex m
+  look coat #B8945A legs #3A3A3A hat hat #2A2A2A musket
+  work landmark the Alte Veste
+  says Up! Up!
+  fight 16 2 5 1
+  faction swedish
+  hostile imperial
+  recruits 30
+  names scottish
+  schedule
+    0:00 away
+    always work if player marched and player storming-set and player not event:assault-over
+    always work if player event:alte-veste and player not event:assault-over
+  talk
+    hello: (He is loading as fast as he can, and does not look at you.) Keep your head down!
+    bye: Up! Up!
+  end
+end
+
+# the Duke's men who hold the ruin of the Alte Veste while the storming lasts (events.txt alte-veste), against Monro's
+# Scots: each one who falls is replaced twenty minutes later by another out of the camp, so that the hill cannot be taken:
+# an honest battle played out on the hill, with soldiers of both sides fighting.
+role imperialreserve "an Imperial musketeer"
+  sex m
+  look coat #7E8084 legs #4A3A2A hat hat #3A2A1E musket sash #A81E1E
+  work landmark the Alte Veste
+  says Halt! Wer da?
+  fight 15 2 5 1
+  faction imperial
+  hostile swedish
+  recruits 20
+  names german
+  schedule
+    0:00 away
+    always work if player event:alte-veste and player not event:assault-over
+  talk
+    hello: (He does not stop to talk.)
+    bye: (He is gone.)
+  end
+end
+
+role imperialreserve2 "an Imperial pikeman"
+  sex m
+  look coat #74767A legs #4A3A2A hat helmet #9AA0A6 pike sash #A81E1E
+  work landmark the Alte Veste
+  says Wer da?
+  fight 18 2 6 2
+  faction imperial
+  hostile swedish
+  recruits 20
+  names german
+  schedule
+    0:00 away
+    always work if player event:alte-veste and player not event:assault-over
+  talk
+    hello: (He does not stop to talk.)
+    bye: (He is gone.)
+  end
+end
+
+role assault "a Swedish musketeer"
+  sex m
+  look coat #3A5A9A legs #2A2A3A hat hat #2A2A2A musket
+  work camp
+  says Up the hill!
+  fight 16 2 5 1
+  faction swedish
+  hostile imperial
+  names swedish
+  schedule
+    0:00 away
+    0:00 work if player event:alte-veste and player not event:assault-over
+  talk
+    hello: Up the hill! For God and the King!
+    bye: Up the hill!
+  end
+end
+
+role recruit "a recruit"
+  sex m
+  look coat #6A6A5A legs #4A4A3A hat cap #4A4A3A
+  work quay
+  says When does the ship sail?
+  names swedish
+  schedule
+    0:00 work
+    12:00 eat
+    13:00 work
+  talk
+    hello: (A boy of eighteen in a peasant's coat, holding a pike as if it might bite him.)
+    name: (He tells you a name, and the name of his parish, which you have never heard of.)
+    job: The parish chose me. One man in ten. My mother cried, and my father said it was God's will, and the pastor gave me a Bible. Now I am waiting for the ship to Germany.
+    germany,war,king: They say the King is at a town called Nuremberg, and that there is a Croat behind every tree. They say the sickness kills more than the Croats. I have never been further than the market at Uppsala.
+    bye: Pray for us.
+  end
+end
+
+# ---------------------------------------------------------------- the roads (main.cc, Game::wildStep)
+# Not in any town: the game keeps a band of four brigands, a hired escort and a gamekeeper (People::
+# makeWild), away until it puts them on a road near you. A brigand's "land" is the country you meet
+# him in (France where none is given).
+
+role brigand "a brigand"
+  sex m
+  look coat #4A3E30 legs #3A3226 hat hat #2A241E sabre
+  says Hsst!
+  fight 12 2 5 0
+  faction brigands
+  hostile escort
+  talk
+    hello if land=Spain: (A man with a blunderbuss and a kerchief over his face steps into the road, and more behind him.) ¡Alto! The purse, friend, and quickly. *Pay*, and you go on with your life; refuse, and you stay here with us.
+    hello if land=Italy: (Men in long cloaks come down out of the rocks, one with a gun.) Fermo! The road is ours today, and the toll is your purse. *Pay* it, and go with God; or not, and go to Him sooner.
+    hello if land=Empire: (Men in the rags of some regiment's coats, a musket among them, come out of the trees.) Halt! Soldiers' wages, friend: nobody has paid us since Breitenfeld. Your purse. *Pay*, and walk on; or we take it off you.
+    hello if land=Bohemia: (Men in the rags of soldiers' coats, a musket among them, come out of the trees.) Halt! Nobody has paid us since the White Mountain, so you will. Your purse. *Pay*, and walk on; or we take it off you.
+    hello if land=Ottoman: (Men with long knives in their sashes come up out of a ravine.) Hajduks, traveller: the Sultan's tax-farmers take from us, and we take from you. The purse. *Pay*, and go; or not.
+    hello if land=England: (A man with a pistol and a mask steps out from under the hedge.) Stand and deliver! Your purse, and no tricks. *Pay*, and you may ride on; refuse, and you will not.
+    hello if land=Poland: (Men on foot with axes and a gun step out of the forest.) Stój! Your purse, stranger, and your life is your own. *Pay*, or not, as you like.
+    hello: (Men with cudgels and a rusty sword step out of the trees onto the road.) Your purse, traveller, or your throat. *Pay*, and you may go on; refuse, and we take it anyway.
+    pay,purse,money,give,yes,take,here,mercy,please,all,deliver,coin: (He holds out his hand.) {robbed}
+    poor,nothing,beggar,empty,none: Then turn out your pockets, and we will see. {robbed}
+    no,never,refuse,fight,draw,die,devil,away: (He grins, and spits.) As you like. {bandfight}
+    bill,letter,paper,exchange: Paper? (He laughs.) We cannot eat paper. Coin.
+    name: (He laughs.) Nobody's. Your purse.
+    job: (He points at your purse.)
+  end
+end
+
+role escort "a hired sword"
+  sex m
+  look coat #5A4A36 legs #3A3226 hat hat #2E2A24 sword
+  says Hm.
+  fight 18 3 6 1
+  faction escort
+  hostile brigands
+  talk
+    hello: (He nods, and looks past you at the road.) I am here. Walk on.
+    name: Never mind my name. I am paid by the day.
+    job: I walk beside travellers with my sword, and the gentlemen of the road look for somebody else.
+    brigands,robbers,bandits,road: They count us from the trees, and decide we are not worth it. Usually.
+  end
+end
+
+role gamekeeper "a gamekeeper"
+  sex m
+  look coat #3A4A2A legs #2E3424 hat hat #26301E
+  says ...
+  fight 16 3 5 1
+  talk
+    hello: (A man in green with a gun on his shoulder and a dog at his heel looks you up and down.) These are the King's woods, and the King's deer. Mind you remember it.
+    deer,hunt,hunting,shoot,venison: The deer are the King's, and the woods round his towns are his, for leagues. A man who kills a deer here pays for it with his purse, or his liberty.
+    name: The King's keeper. That is name enough.
+  end
+end

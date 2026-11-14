@@ -1,0 +1,18 @@
+# The King of Sweden's post ship, Danzig to Stockholm (danzig.txt swedeship); the ship at Danzig
+# is items.txt's harbour pinnace below the Crane, and at Stockholm the galleon at the Skeppsbron.
+
+scene
+  id passage-danzig-stockholm-1
+  in Danzig
+  time 08:00
+  look 46,27 yaw 205 pitch 62 zoom 6
+  caption The King of Sweden's post ship lies below the Crane, low in the water with letters and coin for Stockholm. Two livres, and you are aboard; the master says three days, if the wind serves.
+end
+
+scene
+  id passage-danzig-stockholm-2
+  in Stockholm
+  time 09:00
+  look 90,50 yaw 205 pitch 50 zoom 6
+  caption Three days at sea: out past Hela, up the long grey Baltic, and in among the skerries, a thousand rocky islands, until the three crowns on the castle's spire shine over the water, and the ship comes in to the Skeppsbron.
+end

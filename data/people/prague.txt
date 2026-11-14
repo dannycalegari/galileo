@@ -1,0 +1,139 @@
+# The people of Prague.
+# June 1632: the Saxons took Prague last November, with the Protestant exiles behind them; last
+# month Wallenstein, the Emperor's generalissimo again, took it back, and the exiles ran again.
+# Kepler and Tycho both served the Emperor Rudolf here; Tycho lies in the Týn church. Georg
+# Baresch owns a book nobody can read.
+town Prague
+names czech
+prison Old Town hall | They lock you in the cellars of the Old Town hall. Eleven years ago this month, on the square above, they cut off the heads of twenty-seven lords of the Protestant rising, and twelve of the heads hung on the bridge tower for ten years, until the Saxons came last winter and buried them. In the morning they let you go.
+country Bohemia
+
+person marci
+  name Jan Marek Marci
+  title a physician and professor
+  role physician
+  near Carolinum
+  work landmark Carolinum
+  talk
+    give:dialogue if has:dialogue >= 1: I have one already, and the Jesuits of the Clementinum would like to borrow it. They will not.
+    give:dialogue: Galileo's Dialogue! In Prague, where Kepler and Tycho worked, and nobody has a copy. (He puts it on the shelf behind him, between Kepler and Tycho.) There. It is in good company. {take}
+    name: Jan Marek Marci, of Kronland, doctor of medicine, professor of the University. {name}
+    job: I teach medicine at the Carolinum, I physic half the Old Town, and in the evenings I knock ivory balls together on a table, which my colleagues think is beneath a physician.
+    balls,ivory,motion,collision,impact: When one ivory ball strikes another as large at rest, the first stops dead and the second goes on with all its motion. Strike two with one, and they share it. There is a proportion in it, and I mean to find it, and write it down.
+    galileo,falling,fall: Galileo has a new book, they say. I have not seen it. I am working on falling bodies myself, and I would rather not know yet whether he has beaten me.
+    book,cipher,baresch,manuscript: My friend Georg Baresch has a book that nobody can read. Go and see him, if you know any strange languages. He will show it to anybody, and then he will sigh.
+  end
+end
+
+person baresch
+  name Georg Baresch
+  title an alchemist
+  role scholar
+  look coat #3A2A3A legs #2A222A hat hat #1E1A1E
+  near Týn
+  talk
+    name: Georg Baresch. I study the art of chemistry, and other arts. {name}
+    job: I have spent twenty years on one book. It is not a book I wrote. It is a book I cannot read.
+    book,cipher,manuscript,read if player skill:arabic: You read the Arabic letters? Then look. (You look for a long time. It is not Arabic. It is not Hebrew, or Greek, or anything at all.) No. It is never anything at all.
+    book,cipher,manuscript,read: (He unlocks a chest and takes out a little book of vellum: plants that grow nowhere, stars and circles, little naked women bathing in green pools, and on every page a writing in a hand that nobody knows.) It came out of the Emperor Rudolf's cabinet, they say; he paid six hundred ducats for it. I think it is medicine, from the East. If only I could find someone who reads the old languages of Egypt.
+    kircher,egypt,hieroglyphs,jesuit: There is a young Jesuit of Würzburg, Father Kircher, who says he can read the hieroglyphs of Egypt. The Swedes chased him out of Würzburg last autumn, and nobody knows where he has gone. If I find him, I shall write to him. He will be able to read it. I am sure of it.
+  end
+end
+
+person arriaga
+  name Father Rodrigo de Arriaga
+  title a Jesuit of the Clementinum
+  role jesuit
+  near Clementinum
+  work landmark Clementinum
+  talk
+    name: Rodrigo de Arriaga, of the Society of Jesus, from Logroño in Spain, professor of philosophy at the Clementinum. {name}
+    job: I teach philosophy and theology to the young men of Bohemia, and this year my Course of Philosophy is printed at Antwerp: the whole of it, in one volume, and I disagree with everybody in it, Aristotle included, very politely.
+    heavens,fluid,spheres,planets: The heavens are not crystal spheres: they are fluid, as thin as air, and the planets move through them like fish in the sea. Tycho proved it with his comets, here in Prague. I say so in my book, and nobody has burned it yet.
+    saxons,heretics,exile: When the Saxons came in November the Society had to leave Prague, all of us, on foot. We came back last month behind the Duke of Friedland's army. The library was still here. God is good.
+    galileo,earth,moves: Whether the Earth moves is a question for the theologians, and the theologians have answered it. I am only a philosopher. I keep my opinion in a drawer.
+  end
+end
+
+person senno
+  name Giovanni Battista Senno
+  title the Duke of Friedland's astrologer
+  role mathematician
+  look coat #2A2A4A legs #1E1E2A hat hat #1A1A2A robe
+  near Wallenstein palace
+  work landmark Wallenstein palace
+  talk
+    name: Giovanni Battista Senno, of Genoa, mathematician to His Highness the Duke of Friedland. {name}
+    job: I watch the sky for the Duke, and cast his nativity again every year, and every year I tell him a little less than I see.
+    wallenstein,duke,friedland: His Highness the Duke of Friedland, the Emperor's generalissimo. He took Prague back from the Saxons last month, and now he is gone west with his army to find the King of Sweden. He built this palace to show the Emperor that a subject could be greater than a king. The Emperor noticed.
+    kepler,horoscope,nativity: Kepler cast the Duke's nativity, when he was young, and again seven years ago. He said the Duke would be restless, cruel, contemptuous of men, and great. And then for the year 1634 he broke off, and said the rest was superstition. I have looked at 1634 myself. I do not like it.
+  end
+end
+
+person sexton
+  name Matěj Novák
+  title the sexton of the Týn church
+  role priest
+  near Týn
+  work landmark Týn
+  talk
+    name: Matěj Novák, sexton of Our Lady before Týn. {name}
+    job: I ring the bells, I sweep, and I show the strangers the tomb of Tycho, who all come for that and not for Our Lady.
+    tycho,tomb,brahe,nose: Tycho Brahe, the Emperor Rudolf's astronomer, the Dane. He lies under the stone by the pillar, carved in his armour, with his nose. He lost the real one in a duel over a question of mathematics, and wore one of brass. They say he died of politeness: he would not leave the Emperor's table to make water.
+    chalice,hussite,madonna: Over the front of the church there was a great gilded chalice, for the Hussites, who take the communion in both kinds. After the White Mountain the Jesuits took it down and put up the Virgin, and they melted the chalice to make her halo. Do not say that to the Jesuits.
+  end
+end
+
+person shammes
+  name Reb Mordechai
+  title the shammes of the Old-New synagogue
+  role scholar
+  look coat #1E1E24 legs #1E1E24 hat hat #141414 robe
+  near Old-New synagogue
+  work landmark Old-New synagogue
+  talk
+    name: Mordechai ben Yehuda, shammes of the Old-New synagogue. {name}
+    job: I open the doors and close them, I wake the town for prayer, and I keep the key of the attic, which nobody needs, because nobody goes up there.
+    maharal,rabbi,loew,golem,attic: The great Rabbi Loew prayed here, the Maharal, of blessed memory; he died twenty-three years ago and lies in the old cemetery, under a stone with a lion on it. The children say that he made a man of clay to guard the town, and that it lies in the attic, and that is why the stairs stop halfway. Children say a great many things.
+    cemetery,stones,graves: The living cannot leave the Jewish town, and neither can the dead. There is no room, so we lay them one above another, twelve deep, and the stones stand crowded together like people at a market.
+  end
+end
+
+person glass
+  name Ludmila Hrubá
+  title a seller of glass
+  role merchant
+  sex f
+  look coat #3A4A5A legs #2A2A2A hat coif #F0ECE2 dress
+  near Old Town hall
+  work square
+  money 4800
+  talk
+    name: Ludmila Hrubá, widow, of the glass hall. {name}
+    job: Glass from the forest glasshouses in the mountains, where they burn beech and fern for the ash, and the glass comes out as clear as rock crystal. Then the cutters of Prague engrave it with the wheel.
+    glass,engraved,wheel,lehmann: Caspar Lehmann, the Emperor Rudolf's gem cutter, learned to cut glass on the copper wheel as if it were crystal: stags, hunters, saints, the Emperor's own face. Now every cutter in Prague does it, and the Venetians are frightened.
+  end
+end
+
+person clock
+  name Vojtěch the clockkeeper
+  title the keeper of the town clock
+  role watchman
+  near tower of the Old Town hall
+  work landmark tower of the Old Town hall
+  talk
+    name: Vojtěch. I keep the clock. {name}
+    job: I wind the clock of the Old Town hall, and oil it, and set it by the sun, and the Council never pays for the oil.
+    clock,orloj,astronomical,hanus: The clock shows the Sun and the Moon going round the Earth through the twelve signs, the hours of old Bohemia counted from sunset, and the hours of the Germans. Master Hanuš made it, they say, and the councillors put out his eyes so he could make no other, and he climbed up into the works and stopped it for a hundred years. It is not true. But I keep the door locked.
+  end
+end
+
+crowd 3 goodwife
+crowd 3 labourer work square
+crowd 2 guard
+crowd 1 merchant
+crowd 1 student
+crowd 1 beggar
+crowd 1 innkeeper
+crowd 1 changer
+crowd 1 herdsman

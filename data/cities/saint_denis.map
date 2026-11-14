@@ -1,0 +1,80 @@
+# Saint-Denis in 1632: the royal abbey north of Paris, its market, and a small walled town.
+# Same characters as paris.map.
+
+style village
+ground 1.0
+towerroof cone
+
+legend D cathedral "the Basilica of Saint-Denis"   spire=north
+legend C palace    "the Abbey of Saint-Denis"      depth=6 storeys=2
+legend I inn       "the Écu de France"
+
+gate 1 "the Paris gate"
+gate 2 "the Pontoise gate"
+
+map
+                                                  ____
+                                                  ____
+                                                  ____
+                                                  ____
+                                                  ____
+                                                  ____
+                  OO##############OO##############2222##############OO##############OO
+                  OO##############OO##############2222##############OO##############OO
+                  ##................................................................##
+                  ##................................................................##
+    t,  t,  t,    ##..hhhhhhhhhh..hhhhhhhhhhhhhhhh....hhhhhhhhhhhhhhhhhhhhhhhhhhhh..##
+    ,,  ,,  ,,    ##..hhhhhhhhhh..hhhhhhhhhhhhhhhh....hhhhhhhhhhhhhhhhhhhhhhhhhhhh..##
+                  ##..hhhhhhhhhh..hhhhhhhhhhhhhhhh....hhhhhhhhhhhhhhhhhhhhhhhhhhhh..##
+                  ##..hhhhhhhhhh..hhhhhhhhhhhhhhhh....hhhhhhhhhhhhhhhhhhhhhhhhhhhh..##
+                  ##..hhhhhhhhhh..hhhhhhhhhhhhhhhh....::DDDDDDDDDDDDDDDDDDDDDDDDDD..##
+                  ##..hhhhhhhhhh..hhhhhhhhhhhhhhhh....::DDDDDDDDDDDDDDDDDDDDDDDDDD..##
+    t,  t,  t,    ##..hhhhhhhhhh..hhhhhhhhhhhhhhhh....::DDDDDDDDDDDDDDDDDDDDDDDDDD..##
+    ,,  ,,  ,,    ##..hhhhhhhhhh..hhhhhhhhhhhhhhhh....::DDDDDDDDDDDDDDDDDDDDDDDDDD..##
+                  ##..hhhhhhhhhh..hhhhhhhhhhhhhhhh....::DDDDDDDDDDDDDDDDDDDDDDDDDD..##
+                  ##..hhhhhhhhhh..hhhhhhhhhhhhhhhh....::DDDDDDDDDDDDDDDDDDDDDDDDDD..##
+                  ##..hhhhhhhhhh..hhhhhhhhhhhhhhhh....::DDDDDDDDDDDDDDDDDDDDDDDDDD..##
+                  ##..hhhhhhhhhh..hhhhhhhhhhhhhhhh....::DDDDDDDDDDDDDDDDDDDDDDDDDD..##
+    t,  t,  t,    OO..hhhhhhhhhh..hhhhhhhhhhhhhhhh....::DDDDDDDDDDDDDDDDDDDDDDDDDD..OO
+    ,,  ,,  ,,    OO..hhhhhhhhhh..hhhhhhhhhhhhhhhh....::DDDDDDDDDDDDDDDDDDDDDDDDDD..OO
+                  ##..hhhhhhhhhh..hhhhhhhhhhhhhhhh....::DDDDDDDDDDDDDDDDDDDDDDDDDD..##
+                  ##..hhhhhhhhhh..hhhhhhhhhhhhhhhh....::DDDDDDDDDDDDDDDDDDDDDDDDDD..##
+                  ##..hhhhhhhhhh..hhhhhhhhhhhhhhhh....::DDDDDDDDDDDDDDDDDDDDDDDDDD..##
+                  ##..hhhhhhhhhh..hhhhhhhhhhhhhhhh....::DDDDDDDDDDDDDDDDDDDDDDDDDD..##
+    t,  t,  t,    ##..hhhhhhhhhh..hhhhhhhhhhhhhhhh....::............................##
+    ,,  ,,  ,,    ##..hhhhhhhhhh..hhhhhhhhhhhhhhhh....::............................##
+                  ##................................................................##
+                  ##................................................................##
+                  ##..hhhhhhhhhh..::::::::::::::::....hh,,,,hhhhhhhhhhhhhhhhhhhhhh..##
+                  ##..hhhhhhhhhh..::::::::::::::::....hh,,,,hhhhhhhhhhhhhhhhhhhhhh..##
+    t,  t,  t,    ##..hhhhhhhhhh..::m:::::::m:::::....hh,,,,CCCCCCCCCCCCCCCCCCCCCC..##
+    ,,  ,,  ,,    ##..hhhhhhhhhh..::::::::::::::::....hh,,,,CCCCCCCCCCCCCCCCCCCCCC..##
+                  ##..hhhhhhhhhh..::::::o:::::::::....hh,,,,CCCCCCCCCCCCCCCCCCCCCC..##
+                  ##..hhhhhhhhhh..::::::::::::::::....hh,,,,CCCCCCCCCCCCCCCCCCCCCC..##
+                  ##..hhhhhhhhhh..::m:::::::::m:::....hh,,,,CCCCCCCCCCCCCCCCCCCCCC..##
+                  ##..hhhhhhhhhh..::::::::::::::::....hh,,,,CCCCCCCCCCCCCCCCCCCCCC..##
+    t,  t,  t,    OO..hhhhhhhhhh..::::::::::::::::....hh,,,,CCCCCCCCCCCCCCCCCCCCCC..OO
+    ,,  ,,  ,,    OO..hhhhhhhhhh..::::::::::::::::....hh,,,,CCCCCCCCCCCCCCCCCCCCCC..OO
+                  ##..................................hh,,,,CCCCCCCCCCCCCCCCCCCCCC..##
+                  ##..................................hh,,,,CCCCCCCCCCCCCCCCCCCCCC..##
+                  ##..hhhhhhhhhh..hhhhhhhhhhhhhhhh....hh,,,,CCCCCCCCCCCCCCCCCCCCCC..##
+                  ##..hhhhhhhhhh..hhhhhhhhhhhhhhhh....hh,,,,CCCCCCCCCCCCCCCCCCCCCC..##
+    t,  t,  t,    ##..hhhhhhhhhh..IIIIIIIIIIhhhhhh....hh,,,,CCCCCCCCCCCCCCCCCCCCCC..##
+    ,,  ,,  ,,    ##..hhhhhhhhhh..IIIIIIIIIIhhhhhh....hh,,,,CCCCCCCCCCCCCCCCCCCCCC..##
+                  ##..hhhhhhhhhh..IIIIIIIIIIhhhhhh....hh,,,,CCCCCCCCCCCCCCCCCCCCCC..##
+                  ##..hhhhhhhhhh..IIIIIIIIIIhhhhhh....hh,,,,CCCCCCCCCCCCCCCCCCCCCC..##
+                  ##..hhhhhhhhhh..IIIIIIIIIIhhhhhh....hh,,,,CCCCCCCCCCCCCCCCCCCCCC..##
+                  ##..hhhhhhhhhh..IIIIIIIIIIhhhhhh....hh,,,,CCCCCCCCCCCCCCCCCCCCCC..##
+    t,  t,  t,    ##..hhhhhhhhhh..IIIIIIIIIIhhhhhh....hh,,,,hhhhhhhhhhhhhhhhhhhhhh..##
+    ,,  ,,  ,,    ##..hhhhhhhhhh..IIIIIIIIIIhhhhhh....hh,,,,hhhhhhhhhhhhhhhhhhhhhh..##
+                  ##................................................................##
+                  ##................................................................##
+                  OO##############OO##############1111##############OO##############OO
+                  OO##############OO##############1111##############OO##############OO
+                                                  ____
+                                                  ____
+                                                  ____
+                                                  ____
+                                                  ____
+                                                  ____
+end

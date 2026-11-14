@@ -1,0 +1,247 @@
+# Conversations people have with each other, which you may overhear now and then.
+#
+#   chat ID
+#     between A B      who may have it: role or person ids (lists with commas), or anyone
+#     where TEXT       only where the name of the place contains TEXT (optional)
+#     if CONDITION     on A (with "player KEY" for what you know), as in roles.txt
+#     ifb CONDITION    on B
+#     again MINUTES    may be overheard again this long after; otherwise only once.
+#                      Give plot points an "again", so that they come round until you act.
+#     A: TEXT {EFFECTS}
+#     B: TEXT {EFFECTS}
+#   end
+#
+# Effects (as in roles.txt) apply to the speaker; "hearer ..." to the other one;
+# "player ..." and "name" (you learn the speaker's name; "hearer name": the other's)
+# only if you are within earshot. In the text, $name $first $last are the speaker's,
+# $other $otherfirst $otherlast the other's. *word* is highlighted: something to ask about.
+# Everything you overhear is kept, to read again (key J).
+
+earshot 8       # tiles
+gap 180         # game minutes, at least, between two conversations you overhear
+pairgap 1440    # game minutes before the same two people talk together again
+chance 0.05     # each second, while two people stand together near you
+
+# ---------------------------------------------------------------- the plot
+
+chat dialogue-rumour
+  between martin student,scholar
+  if not seek-dialogue
+  again 1440
+  B: Master $otherlast! Is it true, what they are saying at the Sorbonne, about a book from Italy? {hearer name}
+  A: Quite true. Galileo of Florence has printed a *Dialogue* on the two chief systems of the world, Ptolemy's and *Copernicus*'s. And Copernicus has the better of it.
+  B: Against Aristotle! Has anyone in Paris a copy?
+  A: Not one. Father *Mersenne* would give his sandals for it. {player set heard-dialogue} {hearer set knows-dialogue}
+end
+
+chat roman-strings
+  between antonio anyone
+  if not player helped-lydia
+  again 1440
+  B: Good day, Signor $otherlast. What is new from Italy? {hearer name}
+  A: Gut *strings* from Rome, the finest in Christendom, and not one musician in Paris has come to ask for them!
+  B: There is a lady by the *Place Royale* who plays the lute; she has been lamenting a broken string all week. {player set heard-strings}
+end
+
+chat the-news-spreads
+  between anyone anyone
+  if knows-dialogue
+  ifb not knows-dialogue
+  again 720
+  A: Have you heard? An Italian has written a book saying that the Earth goes round the Sun!
+  B: Then why do I not fall off? {set knows-dialogue}
+end
+
+# ---------------------------------------------------------------- names, places, skills
+
+chat a-thrown-shoe
+  between jacques anyone
+  B: $otherfirst! My mare has thrown a shoe again. {hearer name}
+  A: Bring her round to the forge after Vespers, and not before. I have the Cardinal's coach to mend.
+end
+
+chat tempering
+  between jacques apprentice
+  A: Not so hot! Cherry red, no more, then into the oil. Too hot and the steel goes brittle.
+  B: Cherry red. And then into the oil. {learn smithing} {player learn smithing}
+end
+
+chat fermats-bill
+  between crenet fermat
+  A: The usual, Monsieur $otherlast? And will you pay me this time, or write me another theorem? {hearer name}
+  B: Patience, $otherlast. I have found a truly marvellous proof that your bill is correct, but your slate is too small to contain it. {hearer name}
+end
+
+chat la-chapelle
+  between goodwife,cook anyone
+  A: Two sous for a loaf! Bread has gone up again.
+  B: It is the rain. My cousin at *La Chapelle*, on the road to Saint-Denis, says the wheat is lying flat in the fields. {player set heard-la-chapelle}
+end
+
+chat the-quarries
+  between labourer,miner labourer,miner,apprentice
+  A: My brother cuts stone under the Faubourg Saint-Jacques. He says there are galleries down there no one has walked in a hundred years.
+  B: And you go down by the *shaft* outside the gate? Not for all the gold in Peru. {player set heard-quarries}
+end
+
+# ---------------------------------------------------------------- gossip
+
+chat spies
+  between guard guard
+  where Paris
+  A: They say the Cardinal has a spy in every tavern in Paris.
+  B: Then mind your tongue, or you will be pulling an oar in the King's galleys.
+end
+
+chat the-queen-mother
+  between washerwoman,goodwife washerwoman,goodwife
+  where Paris
+  A: The Cardinal's coach nearly ran me down on the Pont Neuf this morning.
+  B: He would not stop for a washerwoman. He did not stop for the *Queen Mother* either, and now she is in Brussels. {player set heard-queen-mother}
+end
+
+chat the-disputation
+  between student student
+  A: Were you at the disputation this morning?
+  B: I slept through it. Master *Lebrun* spoke for three hours on the motion of the heavens.
+  A: He says the Earth stands still. I am not so sure.
+end
+
+# ---------------------------------------------------------------- London
+
+chat cheddar
+  between goodwife,cook,innkeeper anyone
+  if town=London
+  again 1440
+  A: This *Cheddar* is from Somerset, and a twelvemonth old.
+  B: Pressed in a cloth, they say, and kept in a cave. You cannot get the like in France. {player set heard-cheddar}
+end
+
+# ---------------------------------------------------------------- Rome
+
+chat pasquino-today
+  between anyone anyone
+  if town=Rome
+  A: Have you seen what was stuck on *Pasquino* this morning?
+  B: Not before the police took it down. What did it say?
+  A: That the Barberini bees have eaten all the honey in Rome, and now they are starting on the wax.
+end
+
+chat scheiner-in-the-shop
+  between jesuit jesuit,priest,scholar
+  if town=Rome
+  again 1440
+  A: Father *Scheiner* went into the bookshop by the Minerva yesterday, and there was the Florentine's Dialogue on the counter.
+  B: And?
+  A: He went white and then red, and offered ten scudi for it on the spot. He has been reading it all night, and making a list. {player set heard-scheiner}
+end
+
+chat the-protest
+  between cardinal cardinal
+  if town=Rome
+  A: Did you see His Holiness's face when Borgia stood up in consistory?
+  B: Everyone saw it. To be lectured on heresy by the King of Spain's man, before the whole College! There will be a reckoning.
+  A: There already is. The Spanish cardinals have been told to go home to their dioceses.
+end
+
+chat the-sack
+  between swissguard swissguard
+  A: My grandfather's father was here in '27, when the Emperor's men sacked the city. A hundred and forty-seven of the Guard died on the steps of St Peter's.
+  B: And the forty-two who lived brought the Pope out to Castel Sant'Angelo by the passage. We could do it again, if we had to.
+end
+
+chat the-catacombs
+  between pilgrim pilgrim,friar,monk
+  if town=Rome
+  A: Will you come out to the *catacombs* with me tomorrow? On the Appian Way, past the Porta San Sebastiano.
+  B: Under the ground, with all those bones? Not I. Well, perhaps, if there is a friar with a good lamp. {player set heard-catacombs}
+end
+
+# ---------------------------------------------------------------- Venice
+
+chat tasso
+  between gondolier gondolier
+  if town=Venice
+  again 720
+  A: (Singing, across the water.) "Canto l'arme pietose e 'l capitano / che 'l gran sepolcro liberò di Cristo..."
+  B: (Answering, from another boat.) "Molto egli oprò co 'l senno e con la mano, / molto soffrì nel glorioso acquisto..."
+  A: (Laughing.) You have it wrong again, Zorzi, but you have the voice for it.
+end
+
+chat the-glass
+  between merchant,goodwife anyone
+  if town=Venice
+  A: A Murano mirror, as tall as a man! The Queen of France has a whole room of them, they say.
+  B: And not one of them made in France. The glassblowers may not leave the Republic, on pain of death. {player set heard-glass}
+end
+
+chat the-salute
+  between anyone anyone
+  if town=Venice
+  A: Have you seen them driving the piles for the new church, at the Dogana?
+  B: A hundred thousand oak piles, they say, before they can lay one stone. The Virgin had better be grateful.
+end
+
+# ---------------------------------------------------------------- what is whose: news of a thief spreads
+
+chat thief-gossip
+  between anyone anyone
+  if recent knows-thief
+  ifb not recent knows-thief
+  again 240
+  A: Did you hear? A stranger was taking what was not his, in broad day, and ran off when they cried thief.
+  B: In broad day! What a world. I shall bolt my door tonight. {set knows-thief=now}
+end
+
+# ---------------------------------------------------------------- Rome: the verse on Pasquino
+
+chat the-new-verse
+  between anyone anyone
+  where Rome
+  if player recent pasted-verse
+  again 720
+  A: Have you read it? "Run, bees, the Earth moves, and you with it!"
+  B: Hush. Not so loud. (Laughing.) The Earth moves! I shall copy it out for my brother in Naples.
+end
+
+# ---------------------------------------------------------------- Haarlem and Leiden
+
+chat bulb-prices
+  between anyone anyone
+  where Haarlem
+  again 1440
+  A: Cardoes paid three hundred guilders for a bulb he has never seen, on a paper, at the Lion last night.
+  B: And sold the paper this morning for four hundred. It is better than the East India Company. *Tulips* never sink.
+end
+
+chat the-anatomy-lesson
+  between student anyone
+  where Leiden
+  A: Did you go to the dissection in the theatre last winter? Heurnius opened a thief, and the whole town came to watch, with oranges.
+  B: Oranges? For the smell. I went to the Hortus instead, and looked at the *tulips*. They smell better.
+end
+
+chat the-stone-of-shame
+  between anyone anyone
+  where Padua
+  if not player paid-zennaro
+  again 1440
+  A: Iseppo Zennaro sits on the black stone in the Salone tomorrow, in his shirt, before the whole city.
+  B: Poor devil. Five livres between him and the road out of Padua. My father sat on that stone, and never came back.
+end
+
+chat the-campanile
+  between anyone anyone
+  where Pisa
+  A: My grandfather said the campanile would fall down the year he died. He died forty years ago.
+  B: It is waiting for a Florentine to stand under it.
+end
+
+chat the-two-balls
+  between student,scholar anyone
+  where Pisa
+  if player recent dropped-balls
+  again 1440
+  A: Did you hear? A foreigner dropped two balls off the campanile, a great one and a little one, and they hit the grass together. Chiaramonti was standing at the bottom, and went as white as the marble.
+  B: So Aristotle is wrong, or the foreigner cheated. I know which I would bet on, and I am not saying.
+end

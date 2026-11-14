@@ -1,0 +1,801 @@
+# The people of Rome.
+# June 1632: the first copies of the Dialogue have reached Rome. In the summer the Pope will
+# stop its sale and set up a commission to examine it.
+town Rome
+names roman
+prison Castel Sant'Angelo | The sbirri take you to Castel Sant'Angelo. You spend the night in the cell from which Benvenuto Cellini escaped by a rope of knotted bedsheets. You have no bedsheets. In the morning they let you go.
+country Italy
+
+person urban
+  name Maffeo Barberini
+  title His Holiness Pope Urban VIII
+  role prince
+  look coat #A81818 legs #F2EEE6 hat cap #A81818 robe
+  near Quirinal
+  work landmark Quirinal
+  schedule
+    6:00 home
+    7:00 work
+    12:00 eat
+    15:00 work
+    20:00 home
+    22:00 sleep
+  talk
+    hello if player audience-granted and player ch3-open and not player ch3-over and not player pope-met: (He receives you standing, in red, in a room full of light; he is older than his portraits, and very quick.) The Ambassador's friend. You have come to speak for Galileo. Everyone has. Speak. {player set pope-met}
+    galileo if player audience-granted and player ch3-open and not player ch3-over: (Sharply.) Your Galileo has meddled with things he ought not to have meddled with. I showed him every kindness. I let him write the book. And he put my argument in the mouth of a fool.
+    simplicio if player audience-granted and player ch3-open and not player ch3-over: (His face darkens.) Do not say that name to me.
+    poem,verses,adulatio,friend if player audience-granted and player ch3-open and not player ch3-over and not player pope-poem: (He is silent for a moment.) I wrote him a poem once, when I was a cardinal: Adulatio perniciosa, against flatterers, with his moons in it. (He looks away.) He was my friend. Kings have fewer friends than other men, and Popes have none. Well. Tell him I have not forgotten the poem. {player set pope-poem}
+    mercy,old,age,ill,sick if player audience-granted and player ch3-open and not player ch3-over: He is old, and the Holy Office is not cruel. He must submit. If he submits, he will find us merciful. That is all I can say, and more than I should.
+    forgery,paper,injunction,forged,proof if player audience-granted and player proofs >= 2 and not player forgery-stopped: (He reads, and his hands begin to shake, and not with age.) A forged paper. Spanish money. To make me burn him or to make me a fool before all Christendom. (He rings, and his nephew comes.) Francesco: this, tonight, in the fire, and Don Luis de Arellano out of Rome. (To you.) You have done the Church a service, and me one. Go. {player set forgery-stopped} {player set arellano-exposed} {player set pope-forgery} {player add favour 1} {player set knows:rome:arellano}
+    forgery,paper,injunction,forged,proof if player audience-granted and player ch3-open and not player ch3-over and player forgery-stopped: (His mouth tightens.) That paper will never be laid before the Congregation. We know what was attempted in our Rome, and we know who paid for it. We shall not speak of it again.
+    forgery,paper,injunction,forged,proof if player audience-granted and player ch3-open and not player ch3-over and player proofs < 1: (He goes very still.) A forged paper, against the Holy Office, in our own Rome? (He walks to the window, and back.) We believe that you believe it. We can even guess who would pay for such a thing: there are those who would like to see us burn our old friend, or else be made a fool before all Christendom for sparing him. But a Pope who acts on a story is himself a story by evening. Bring us the thing proved: what the paper is, whose hand wrote it, and who held the pen. Two of those, and agreeing, and we will act.
+    forgery,paper,injunction,forged,proof if player audience-granted and player ch3-open and not player ch3-over: Bring me proofs, not gossip. Rome is full of gossip.
+    hello if not met: (You kneel and kiss the Fisherman's ring.) Rise, rise. We receive many pilgrims. Speak.
+    name: We are Urban, the eighth of the name, Bishop of Rome. In the world we were Maffeo Barberini, of Florence. {name}
+    job: We are the Vicar of Christ, and the prince of a small state with large enemies. The first is easier.
+    galileo: We loved him once. We wrote verses in his praise, when we were a cardinal, and we received him six times when he came to Rome. We told him he might write of Copernicus as a hypothesis, and no more.
+    dialogue,book if player read-dialogue: You have read it? Then tell us: does it treat the motion of the Earth as a hypothesis? We are told it does not. We are told a great deal, these days. {player set told-urban}
+    dialogue,book: We have not yet read it; Father Riccardi says it is licensed. Others say it is a trick. We shall see. {player set knows:rome:riccardi}
+    simplicio: Who is this Simplicio, that we hear so much of? A fool, they say, who speaks at the end with our own words in his mouth. If that is true, it is not a joke. {player set heard-simplicio}
+    hypothesis,argument: God is all-powerful. He could make the tides, and the heavens, by any means He pleased, even by means we cannot imagine. So no man may say "this is how it must be". That was our argument; we gave it to Galileo to put in his book.
+    borgia,spain: Cardinal Borgia read us a lecture in consistory, before the whole Sacred College, on behalf of his King. We are not a chaplain of Spain.
+    swede,war: The Swede is in Bavaria. France pays him, Spain blames us, and the Emperor asks for money. God's will is hard to read this year.
+    bees,barberini: Our family's bees. They make honey, and they sting.
+    poetry,verses: We write in Latin, mostly hymns. One poem was for Galileo: on the spots of the Sun, and how the flatterer, like the Sun, hides his stains. We meant it kindly.
+    bernini: Our Bernini. We told him when we were elected: "It is your great good fortune to see Maffeo Barberini Pope; but ours is the greater, that Bernini lives in our time."
+    bye: Go in peace. (He makes the sign of the cross.)
+  end
+end
+
+person francesco
+  name Francesco Barberini
+  title a cardinal
+  role cardinal
+  near Barberini
+  work landmark Barberini
+  schedule
+    7:00 home
+    9:00 work
+    13:00 eat
+    15:00 go landmark Vatican
+    19:00 home
+    23:00 sleep
+  talk
+    forgery,paper,injunction,forged,proof if player proofs >= 2 and not player forgery-stopped: (He reads it all, and then reads it again, standing at the window.) A forgery against the Holy Office, paid for by Spain, in my uncle's Rome. (He turns.) It will be burned tonight, and Don Luis will be on the road to Madrid within the week. Say nothing of this to anyone, ever. {player set forgery-stopped} {player set arellano-exposed} {player add favour 1} {player set knows:rome:arellano}
+    forgery,paper,injunction,forged,proof if player proofs >= 1 and not player forgery-stopped: One paper, and a story. Bring me two things that agree, and I can act; one, and I must not.
+    forgery,paper,injunction,forged,proof if player forgery-stopped: (Quietly.) It is finished: that paper will never be laid before the Congregation. My uncle knows what was tried in his Rome, and who paid for it. I would rather Rome did not.
+    forgery,paper,injunction,forged,proof if player ch3-open and not player ch3-over and not player forgery-stopped and player proofs < 1: (He hears you out without a word, and is silent a while longer.) I can believe that someone would do it, and I can guess who would pay. But we Lynceans were taught to trust our eyes, not our ears. A forged paper has a mill, a hand and a man behind it: bring me two of them that agree, and I can act; bring me a story, and I must not. (Drily.) My secretary Cassiano knows more learned men than I do. He may know who can read a hand. {player set knows:rome:cassiano}
+    give:signed-injunction if player proofs >= 1: (He holds it to the light, and then against what you have found.) So. (He puts it in the fire himself, and watches it burn.) Don Luis will be on the road to Madrid within the week. {take} {player set forgery-stopped} {player set arellano-exposed} {player add favour 1} {player set knows:rome:arellano}
+    audience,pope,uncle,holiness if player ch3-open and not player ch3-over and player scarlet-done and not player audience-granted: The dyer who brought the cochineal for my robes in time? (He almost smiles.) My uncle will see you, on my word. Go to the Quirinal. {player set audience-granted}
+    name: Cardinal Francesco Barberini. My uncle is the Pope; you may have heard. {name}
+    job: The Cardinal-nephew: my uncle's right hand, Librarian of the Holy Roman Church, and builder of this palace, which will never be finished.
+    palace: Maderno began it, and died; now Signor Bernini has it, with a clever young stonemason from Lugano called Borromini, who quarrels with everyone.
+    galileo: I am a Lyncean, as he is: a member of the Academy of the Lynxes, sharp-eyed. I will do what I can for him. But he has made it very hard for his friends.
+    lynx,lyncean,lincei,academy: Prince Cesi founded it, to look at Nature with a lynx's eyes. He died two years ago, and the Academy with him, I fear. *Cassiano* keeps its papers. {player set knows:rome:cassiano}
+    library: Come and see it, when the shelves are up. Greek manuscripts, Arabic, Chinese. I mean to have every book in the world, and to read some of them.
+    give:augustine-codex if player ch2-open and not player ch3-over: (He reads the marked passage aloud, slowly, and then again.) "A shameful and a dangerous thing." Augustine, in the book of his own church, saying what our Galileo said to the Grand Duchess, and was rebuked for. I shall have this read to the Congregation before they vote. Let them tell the Bishop of Hippo that he talked nonsense. {take} {player add favour 1} {player set codex-trial} {player set codex-given}
+    give:augustine-codex if player got-bill: (He turns the leaves with the tips of his fingers.) The library of Hippo, which Possidius saw saved from the fire, and the oldest book on my shelves. The ship was well bought: we are quits, and I have the better of the bargain. Keep her. {take} {player set codex-library} {player set codex-given}
+    give:augustine-codex: (He turns the leaves with the tips of his fingers.) The library of Hippo, which Possidius saw saved from the fire. The oldest book on my shelves, and the only one that came by a ship nobody else would have sent. Take this for your voyage, and my thanks. {take} {player add money 12000} {player set codex-library} {player set codex-given}
+    augustine,hippo,codex,possidius if player codex-given: It has a shelf to itself, and Cassiano will not stop drawing its red hand. {player set knows:rome:cassiano}
+    # the Cardinal pays for the voyage: a bill of exchange for Pedro de Ojeda's
+    # patache at Seville (seville.txt ojeda), repaid by the codex (give:augustine-codex above)
+    augustine,hippo,codex,possidius,bill,voyage,ship if player got-bill: Hippo, and Augustine. Seville, the patache, and the Barbary coast: I am waiting, and so is my library.
+    augustine,hippo,codex,possidius,voyage if player ship:at: Augustine's own books? Possidius says the library of the church of Hippo was saved when the town burned, and Cassiano's coral fishers bring coins out of its ruins. You have a ship of your own? Then you have no excuse. Hippo is by Bône, on the Barbary coast: bring me one leaf. {player set heard-hippo} {player set knows:rome:cassiano}
+    augustine,hippo,codex,possidius,voyage: Augustine's own books? Possidius says the library of the church of Hippo was saved when the town burned, and Cassiano's coral fishers bring coins out of its ruins. Nobody goes there, because nobody has a ship. (He takes a sheet, writes, and seals it.) Then you shall have one. A bill of exchange on the Genoese bankers of Seville: two hundred livres, to buy a ship and for nothing else. Our agents write that a shipmaster of Triana has a patache for sale. Bring me Augustine, and we are quits. {player add has:barberini-bill 1} {player set got-bill} {player set heard-hippo} {player set knows:rome:cassiano}
+    dialogue: I have it; I am reading it. It is beautiful, and it is going to be a great deal of trouble.
+    cassiano: Cassiano dal Pozzo, my secretary. He has artists draw everything in Rome that is old, and everything in the world that is alive. A museum on paper. {player set knows:rome:cassiano}
+  end
+end
+
+person riccardi
+  name Niccolò Riccardi
+  title the Master of the Sacred Palace
+  role dominican
+  look coat #F0ECE2 legs #F0ECE2 hat hood #1A1A1A robe
+  near Minerva
+  work landmark Minerva
+  talk
+    forgery,paper,injunction,forged,proof if player proofs >= 1 and not player forgery-stopped and not player told-riccardi: (He goes white.) A forgery? In the Holy Office? Before the Congregation? I must think. I must speak to... (He is already hurrying away, and you see him stop a Spanish secretary in the corridor.) {player set told-riccardi=now}
+    name: Father Niccolò Riccardi, Master of the Sacred Palace. The King of Spain called me "Padre *Mostro*", and the name has stuck. {name}
+    mostro,monster: The Monster. For my size, he said, and for my learning. Kings may make jokes.
+    job: I license books for the press, here in Rome. Nothing is printed in the city unless I have read it first.
+    dialogue,book if player heard-riccardi: Between ourselves, I am afraid. His Holiness asks me every week what is in it. I shall have to stop the sale, I think, before somebody else does.
+    dialogue,book,license,imprimatur: I gave my licence to Galileo's Dialogue, on conditions: a preface, and an ending, saying that the motion of the Earth is only a hypothesis. They printed it in Florence, with a Florentine licence on top of mine, and I have not seen the last pages until now. {player set heard-riccardi}
+    galileo: An old friend. He is so sure he is right that he forgets other people must be persuaded.
+    niccolini,caterina: Caterina Niccolini, the Tuscan ambassador's wife, is my cousin. She writes to me about Galileo every week. {player set knows:rome:niccolini}
+    campanella: Brother Tommaso lives in our house. Pray for him; he needs it, and so do we.
+  end
+end
+
+person niccolini
+  name Francesco Niccolini
+  title the Tuscan ambassador
+  role mathematician
+  look coat #2A2A3A legs #1E1E26 hat hat #141418
+  near Villa Medici
+  work landmark Villa Medici
+  schedule
+    7:00 home
+    9:00 work
+    13:00 eat
+    16:00 go landmark Quirinal
+    19:00 home
+    23:00 sleep
+  talk
+    audience,pope,holiness if player ch3-open and not player ch3-over and player ch2-duke-letter and not player audience-granted: An audience? (He thinks.) His Holiness receives me on Thursdays, and shouts. Come with me; say little, and say it well. He will see you at the Quirinal. {player set audience-granted}
+    galileo,trial if player ch3-open and not player ch3-over and player hearing and date<1633-04-30: They have kept him at the Holy Office since the twelfth, in the Fiscal's rooms. My cook sends his dinner over every day, and the Pope shouts at me. If you can get His Holiness to hear a word in private, ask me for an *audience*.
+    galileo,trial if player ch3-open and not player ch3-over and player hearing: Back under my roof since the thirtieth, writing his defence, and my wife feeds him, and the Pope shouts at me. If you can get His Holiness to hear a word in private, ask me for an *audience*.
+    galileo,trial if player ch3-open and not player ch3-over: He is under my roof, and my wife feeds him, and the Pope shouts at me. If you can get His Holiness to hear a word in private, ask me for an *audience*. And the Commissary will *examine* him soon, behind closed doors.
+    give:duke-letter: (He breaks the Medici seal and reads, nodding.) The Grand Duke is not pleased: good. I shall see His Holiness on Thursday, and he will shout at me for an hour that our Galileo has dared to meddle with what is above him, and at the end he will say that he loves him. That is the most I can do, and it is something. {take} {player set ch2-duke-letter} {player add favour 1}
+    name: Francesco Niccolini, ambassador of the Grand Duke of Tuscany to the Holy See. {name}
+    job: I tell His Holiness what my master thinks, and my master what His Holiness thinks, and soften both.
+    galileo,prisoner if player ch3-over and player man-worse: (He glances at the ceiling.) Still under my roof, with the Holy Office's man at the door, writing all day by a candle. He asks after you. Go to him.
+    galileo: I would beg him to stay in Florence, whatever happens. Rome is no place for a man who cannot hold his tongue.
+    examine,examination,examinations,hearing,hearings,trial,secret,watch,see,commissary,doors if player ch3-open and not player ch3-over and not player hide-ok: The examinations are secret: not even an ambassador may be in the room, and the notary writes down every word and shows it to nobody. (He lowers his voice.) But there is a Florentine lay brother at the Holy Office, Fra *Bartolomeo*, who carries Signor Galileo his meals. He tells my servants more than he should. Florentines cannot keep anything to themselves. {player set heard-bartolomeo} {player set knows:rome:bartolomeo}
+    bartolomeo,lay brother if player ch3-open: Fra Bartolomeo, of San Frediano: he sweeps the Commissary's rooms at the Holy Office, by St Peter's, and he would do anything for a Florentine. {player set knows:rome:bartolomeo}
+    pope,urban: His Holiness is a Florentine; but when he is angry he is first a Pope. When you go to an audience, let him talk. He likes to talk.
+    villa,medici: The Grand Duke's villa on the Pincio. The view of Rome is the best in the city, and the garden is full of antique statues the Medici took from everywhere.
+    caterina,wife: My wife, Caterina. She is a Riccardi, and Father Riccardi's cousin, which is sometimes useful. {player set knows:rome:riccardi}
+  end
+end
+
+person caterina
+  name Caterina Riccardi Niccolini
+  title the ambassador's wife
+  role goodwife
+  look coat #5A2A3A legs #3A1E2A hat coif #EDE6DA dress
+  sex f
+  near Villa Medici
+  work landmark Villa Medici
+  schedule
+    8:00 home
+    10:00 work
+    13:00 eat
+    16:00 wander
+    19:00 home
+    23:00 sleep
+  talk
+    riccardi,cousin,galileo if player ch3-open and not player ch3-over and not player caterina-spoke: (She sighs.) My cousin Niccolò is frightened of everything, and most of all of having licensed the book. I will speak to him on Sunday: he will tell the cardinals that the book was licensed honestly, if I make him ashamed enough. {player set caterina-spoke} {player add favour 1}
+    name: Caterina Niccolini. My husband is the Tuscan ambassador. {name}
+    audience,pope,holiness if player ch3-open and not player ch3-over and player audience-granted: My husband says His Holiness will see you, at the Quirinal. Let him talk: he likes to, and he does not like to be answered.
+    audience,pope,holiness if player ch3-open and not player ch3-over: An audience? That is my husband's business, not mine. He sees His Holiness on Thursdays, and comes home and shouts at the servants. Ask him; but he will want a good reason to put before the Pope.
+    audience,pope,holiness: His Holiness receives cardinals, princes and ambassadors. My husband is one of the three, on Thursdays, and it does not improve his temper.
+    job: I keep the ambassador's house, and his temper, and write to half of Florence.
+    galileo: If he comes to Rome he shall stay here with us, at the Villa, and not in some inn where anyone can come and frighten him.
+    riccardi,cousin: My cousin the Monster! He is kinder than he looks, and more frightened than he lets anyone see.
+  end
+end
+
+person castelli
+  name Benedetto Castelli
+  title a monk and mathematician
+  role monk
+  look coat #1C1A1E legs #1C1A1E hat hood #1C1A1E robe
+  near Sapienza
+  work landmark Sapienza
+  schedule
+    6:00 go church
+    8:00 work
+    12:00 eat
+    14:00 work
+    18:00 wander
+    20:00 home
+    22:00 sleep
+  talk
+    hello if player ch3-open and not player ch3-over and not player heard-case: (He takes both your hands.) Thank God, a friend in Rome. He is at the Villa Medici, with Niccolini, and they will call him before the Holy Office within the month. (Low.) And there is worse. In certain houses they talk of a *paper*: a minute of the year sixteen, they say, with his own name at its foot, forbidding him ever to teach the motion of the Earth. If such a paper exists, it is false, and a false paper can be shown false in three ways. By the paper itself: every mill marks its moulds, and a papermaker, or anyone who buys paper by the bale, a printer or a mapmaker, can read the mark and say when it was made. By the hand: a man who has judged many hands, true and false, can say whose this is; Cassiano dal Pozzo, Cardinal Barberini's secretary, knows every learned man in Europe, and would know whom to ask. And by the man who held the pen, if he can be found and brought to speak; Ottavio *Grilli*, at the Sapienza, hears everything that is said in Rome. (He counts on his fingers, as at a lecture.) One proof will be enough for Fra Tommaso Ventura, at the Minerva: he is a careful man, and more afraid of being made a fool than of anything. The Commissary, Fra Vincenzo Maculano, is not afraid of anything: he will want two that agree. A month, my friend. Not more. {player set heard-case} {player set heard-paper} {player set knows:rome:ventura} {player set knows:rome:maculano} {player set knows:rome:ottavio} {player set knows:rome:cassiano}
+    paper,rumour,rumor,injunction if player ch3-open and not player ch3-over: (Low.) A minute of the year sixteen, with his own name on it: the Spaniards talk of it most. The paper it is written on, the hand that wrote it, the man who held the pen: find out any one of the three, and we have something. Ask *Grilli*, at the Sapienza, what the Spaniards say. {player set heard-paper}
+    hearing,trial,when if player ch3-open and not player ch3-over and not player hearing: Maculano says they will call him within a month, whatever happens: a month at most. If you can find out about that *paper* before then, find out. {player set knows:rome:maculano}
+    grilli,ottavio if player ch3-open and not player ch3-over: Ottavio Grilli, a writer of the Chancery, at the Sapienza: he sells gossip by the pound, and some of it is true.
+    name: Don Benedetto Castelli, of the Benedictines of Monte Cassino. {name}
+    job: I teach mathematics at the Sapienza, and advise His Holiness on rivers: how fast they run, and how to keep them in their beds.
+    rivers,water: I wrote a little book, On the Measure of Running Water: that the same water must run faster through a narrow place. The engineers had never thought of it.
+    galileo: My master. I was his student at Padua, and I learnt from him everything I know except my prayers. I am worried for him. {player set heard-castelli}
+    worried,letter if player heard-castelli and not player carried-castelli-letter: The post is opened, you know. If you are going north, would you carry a *letter* to him, at *Arcetri*, outside Florence? Put it in his own hands. {player add has:castelli-letter 1} {player set carried-castelli-letter}
+    letter if player carried-castelli-letter: Have you given it to him? Into his own hands, mind.
+    scheiner: Father Scheiner came into the bookshop when I was there, and saw the Dialogue on the counter. He went white, then red. He offered ten gold scudi for a copy, there and then.
+    arcetri: Arcetri is up the hill south of Florence: out by the Porta Romana and up the lane to the left, among the olives. His house is called Il Gioiello.
+  end
+end
+
+person campanella
+  name Tommaso Campanella
+  title a Dominican friar
+  role dominican
+  near Minerva
+  work landmark Minerva
+  schedule
+    5:00 go church if not player campanella-free
+    8:00 work if not player campanella-free
+    12:00 eat if not player campanella-free
+    14:00 wander if not player campanella-free
+    18:00 go church if not player campanella-free
+    20:00 home if not player campanella-free
+    21:00 sleep if not player campanella-free
+    0:00 away if player campanella-free
+  talk
+    france,paris,flee,escape,leave,noailles,spaniards,naples if player ch4-open and not player campanella-free and not player campanella-asked: (He lowers his voice.) The Spaniards want me back in Naples, in the cell where I spent twenty-seven years. The French ambassador, Monsieur de *Noailles*, at the Trinità dei Monti, would help me out of Rome, if somebody he trusted asked him for me. {player set campanella-asked} {player set knows:rome:campanella} {player set knows:rome:noailles}
+    noailles if player campanella-asked and not player campanella-free: Monsieur de Noailles, the King of France's ambassador, at the Trinità dei Monti. Galileo's pupil, once; he will listen to anyone who comes from Galileo. {player set knows:rome:noailles}
+    name: Brother Tommaso Campanella, of Stilo in Calabria. {name}
+    job: I am a friar, a philosopher, a poet, and for twenty-seven years I was a prisoner of the Spaniards in Naples. Then the Holy Office had me, here in Rome. Now I am free, more or less, in a nicer cell.
+    prison,naples: They tortured me for thirty-six hours, and I pretended to be mad, and they could not burn a madman. I wrote my best books in the dark.
+    city,sun: The City of the Sun. A city of seven walls, painted with all the sciences, where no one owns anything and everyone learns. It is the best of my books, and they will never let it be printed here.
+    galileo: I wrote a defence of him, ten years ago, and they printed it in Frankfurt. He never thanked me. I shall defend him again: the truth does not need our permission.
+    pope,urban: I did the Holy Father a service, once, when the astrologers said an eclipse would kill him. We sealed a room, burned laurel and myrtle, and lit seven torches for the planets. He lived. He does not like to be reminded of it.
+    astrology: The stars incline; they do not compel. Write that down.
+    paris,france: I have friends in Paris. If things go badly for me here, I shall go to them; the French have a taste for prophets.
+  end
+end
+
+person scheiner
+  name Christoph Scheiner
+  title a Jesuit astronomer
+  role jesuit
+  near Collegio Romano
+  work landmark Collegio Romano
+  talk
+    name: Father Christoph Scheiner, of the Society of Jesus. {name}
+    job: I observe the Sun. My Rosa Ursina is the whole of it: four years of sunspots, every one drawn.
+    harriot,english,englishman,secret,oxford if player read-harriot and not player told-scheiner-harriot: (You tell him about the papers at Oxford.) An Englishman. In December. Of 1610. (His face does not move at all.) I saw them in March of 1611, at Ingolstadt, with my pupil Cysat. The Florentine says he saw them the autumn before, and I never believed him. (He is quiet for a long time.) Then he did not steal them from me, nor I from him, and we have fought for twenty years over a thing a heretic saw first and put in a drawer. It makes no difference to his book, which is insolent. But you will forgive me if I go and pray. {player set told-scheiner-harriot} {set knows-harriot}
+    harriot,english,englishman if player told-scheiner-harriot: Do not speak to me of the Englishman.
+    galileo,dialogue if knows-harriot: An Englishman saw the spots before either of us, I am told. It does not make the Dialogue less insolent. But I sleep better. {player set heard-scheiner}
+    sunspots,spots,sun: I saw them in 1611, and wrote of them as Apelles, behind the painting. And the Florentine said I stole them from him, and called me a pig.
+    galileo,dialogue: He has written a whole book to mock us, and to mock the Holy Father, and he has had it licensed by a trick. It will not stand. {player set heard-scheiner}
+    pantograph: An instrument of my invention, for copying a drawing larger or smaller. Two rulers joined in a parallelogram. The painters love it.
+    rosa,ursina,book: There is a copy on the table in the library. Read it, if you have the Latin.
+  end
+end
+
+person bernini
+  name Gian Lorenzo Bernini
+  title a sculptor
+  role painter
+  look coat #2E2620 legs #1E1814 hat cap #1E1814
+  near Peter
+  work landmark Peter
+  schedule
+    6:00 home
+    7:00 work
+    13:00 eat
+    14:00 work
+    19:00 go landmark Barberini
+    21:00 home
+    23:00 sleep
+  talk
+    name: Gian Lorenzo Bernini. You will have seen my work; everyone in Rome has. {name}
+    job: I am the architect of St Peter's, and I carve, and I paint a little, and I write comedies for the carnival. His Holiness keeps me busy.
+    baldacchino,canopy,bronze: Four twisted columns of bronze over the tomb of St Peter, as high as a palace, with angels and the Barberini bees. Ten years of work, and nearly finished.
+    pantheon,pasquino: Yes, the bronze came from the portico of the Pantheon. It was doing nothing there. Let Pasquino say what he likes.
+    borromini: Francesco Borromini, my stonemason. A genius with a ruler, and he hates me already, which is quick even for Rome.
+    apollo,daphne: I carved Apollo and Daphne for Cardinal Scipione Borghese when I was twenty-four. You can see her fingers turning into laurel leaves.
+  end
+end
+
+person poussin
+  name Nicolas Poussin
+  title a painter
+  role painter
+  near Trinità
+  work none
+  schedule
+    7:00 home
+    10:00 wander
+    13:00 eat
+    15:00 home
+    18:00 wander
+    21:00 home
+    23:00 sleep
+  talk
+    name: Nicolas Poussin, of Les Andelys in Normandy. {name}
+    job: I paint, slowly, for people who can wait. Cardinal Barberini's secretary, Monsieur *Cassiano*, is my best patron. {player set knows:rome:cassiano}
+    paris,france: I came to Rome eight years ago, to learn from the ancients, and I am still learning. Paris is all gilding and noise.
+    painting: Painting is a silent poetry. Each figure must say with its body what it would say with its tongue.
+    wife: I married Anne-Marie Dughet, the daughter of the French cook who nursed me when I was sick. She is worth more than all my pictures.
+    cassiano,pozzo,patron: Cassiano dal Pozzo. He is making a museum on paper: a drawing of every old marble in Rome, and of every bird and flower besides. He pays me to draw the antiquities, and I learn more from them than from any living painter. You will find him at the Palazzo Barberini. {player set knows:rome:cassiano}
+  end
+end
+
+person cassiano
+  name Cassiano dal Pozzo
+  title a gentleman
+  role mathematician
+  look coat #2A2E3A legs #1E2026 hat hat #141418
+  near Barberini
+  work landmark Barberini
+  talk
+    name: Cassiano dal Pozzo, secretary to Cardinal Francesco Barberini. {name}
+    job: I am making a *museum* on paper: drawings of every Roman antiquity, every bird and fish and flower, every fossil. Thousands of sheets.
+    sheet,hand,writing,forgery,forged,forger,signature,wastepaper,paper,expert,proof if player has:practice-sheet and not player proof-hand: (He takes it to the window.) Antiquities are my trade, not hands. But a forger's hand? There is a painter at Seville, Francisco Pacheco, whose son-in-law Velázquez is now the King of Spain's painter. He censors sacred pictures for the Holy Office there, and has looked at more hands, true and false, than any man in Spain. If a Spaniard wrote this, he will know whose it is. {player set heard-pacheco} {player set knows:seville:pacheco}
+    museum,paper,drawings: Young Poussin draws reliefs for me, and others draw birds. One day the world will know Rome by my drawings, when the stones have gone.
+    galileo: A Lyncean, like me. He showed me a flea under his little microscope. The flea was not pleased.
+    lynx,lyncean,lincei: Prince Cesi's academy. I have his papers, and his drawings of fungi. Nobody knows what to do with them.
+    hippo,augustine,barbary,africa,coins,coin,antiquities,antique,peiresc,bone: Monsieur de Peiresc writes to me from Aix that the coral fishers of the Bastion de France bring him coins from the ruins of Hippo, by Bône, where Saint Augustine was bishop. And Possidius, who wrote Augustine's life, says that the library of his church came through the Vandals' fire. Nobody has looked for it in twelve hundred years. If only one could go there! But no Christian ship puts in on that coast except the coral boats, and the corsairs of Algiers take the rest. (He lowers his voice.) The Cardinal would give a great deal to know what lies in those ruins. {player set heard-hippo}
+    give:hippo-coin: (He turns it to the window.) Honorius! Struck while Augustine was bishop there, and dropped, perhaps, by somebody running from the Vandals. It shall be drawn for the museum before the week is out. Thirty livres, and my thanks to the shepherd. {take} {player add money 7200} {player set sold-coin}
+    give:augustine-codex: (He opens it, and does not breathe for some time.) Not to me. This is for the Cardinal: it belongs in his library, or, if it says what I think it says, in the hands of his uncle's judges.
+    codex,augustine,genesi,manuscript if player has:augustine-codex: Take it to Cardinal Francesco, today, and tell nobody else what you carry.
+  end
+end
+
+person allegri
+  name Gregorio Allegri
+  title a singer of the papal chapel
+  role priest
+  near Sistine
+  work landmark Sistine
+  talk
+    miserere: I am setting the Miserere for the Sistine, for Holy Week: two choirs, nine voices, and the soprano goes up to a high C like a soul going up to God. It will be sung only there, and nobody may copy it, on pain of excommunication. Though I suppose one day some clever boy will hear it once and write the whole thing down.
+    name: Don Gregorio Allegri, singer in the choir of the Sistine Chapel. {name}
+    job: I sing in the papal chapel, and I write music for it. We sing without instruments: only voices, as in Palestrina's day.
+    palestrina: The prince of music. Our choirbooks are full of him, and they may not leave the chapel, nor be copied, on pain of excommunication.
+    music: Come to Tenebrae in Holy Week. We sing in the dark, and put out the candles one by one.
+  end
+end
+
+person host
+  name Prospero Tozzi
+  role innkeeper
+  near Orso
+  talk
+    name: Prospero Tozzi, at your service: the Osteria dell'Orso, the Bear. Montaigne stayed here, and Dante, they say, though I would not swear to Dante. {name}
+    wine: Wine of the Castelli, from Frascati, cool from the cellar. Or Cesanese, red and sweet.
+  end
+end
+
+person ottavio
+  name Ottavio Grilli
+  title a writer of the Apostolic Chancery
+  role scholar
+  near Sapienza
+  work landmark Sapienza
+  schedule
+    7:00 home
+    8:00 work
+    12:00 eat
+    15:00 wander
+    19:00 go inn
+    22:00 home
+    23:00 sleep
+  talk
+    paper,spaniard,spanish,scrivener,injunction if player heard-paper and player ch3-open and not player ch3-over: (He leans close.) A Spaniard, a scrivener, lodges at the Osteria dell'Orso. Pays in new Spanish silver and weeps into his wine. Andrés, they call him, el Granadino. He was copying something for the embassy all winter, and they do not use the Orso's scriveners for nothing. Ask the maid there; she empties his basket. {player set heard-morales} {player set knows:rome:morales}
+    hello if player recent pasted-verse and not paid-verse: (Grinning, very low.) All Rome is reading it! The sbirri tore it down at dawn, but half the Curia had copied it by then. Here: the rest of your fee. And we have never met. {player add money 240} {set paid-verse}
+    hello if paid-verse: (He looks straight through you, as if you were a stranger. Which you are.)
+    name: Ottavio Grilli. I write letters for the Apostolic Chancery: a hundred a day, in Latin, for cardinals who cannot. {name}
+    job: I copy, and I keep my mouth shut. Mostly.
+    pasquino,verse,verses if not player has-verse-job: (Looking round.) You are a stranger; nobody in Rome knows your face. I have a little *verse* that wants to be read. Paste it on Pasquino tonight, at the corner by the Piazza Navona, and there is money in it: two sous now, and more when all Rome is laughing. {player add has:verse 1} {player set has-verse-job} {player add money 24}
+    pasquino,verse,verses if player has:verse: Tonight. Pasquino, by the Piazza Navona. Look out for the sbirri, and do not run.
+    bees,barberini: The bees are on everything: fountains, palaces, the bronze of the Pantheon. A bee stings once and dies, they say. These bees sting and sting.
+  end
+end
+
+# ---- merchant stories (stories.txt): cochineal for the cardinals' scarlet, amber from Danzig
+person tintore
+  name Giacomo Lanzi
+  title a dyer of Trastevere
+  role merchant
+  look coat #7A2424 legs #3A2A22 hat cap #5A1A1A apron #8A2A2A
+  near Santa Maria in Trastevere
+  work shop
+  money 14400
+  talk
+    give:cochineal if player late-scarlet: Too late, my friend: the consistory is past, and the robes were dyed with kermes, like our grandfathers'. I will buy it all the same, at the price of the Ripa. {take} {player add money 1150}
+    give:cochineal if player scarlet-done: More? The robes are dyed, but scarlet is never wasted. At the price of the Ripa, then. {take} {player add money 1150}
+    give:cochineal if bags-scarlet = 5: The sixth! (He weighs it in his hand and laughs.) That is all of it. Cardinal Francesco will sit in consistory in a scarlet that has crossed the Ocean. Seven livres, and my thanks. {take} {player add money 1680} {add bags-scarlet 1} {player set scarlet-done}
+    give:cochineal if player heard-scarlet: (He opens the pouch, rubs a grain between his thumbnails, and it bursts crimson.) Grana fina, from New Spain. Good. Seven livres, as I said. {take} {player add money 1680} {add bags-scarlet 1}
+    give:cochineal: Cochineal? I will buy it, at the price of the Ripa. {take} {player add money 1150}
+    name: Giacomo Lanzi, dyer, of the Vicolo dei Tintori, red to the elbows since I was nine. {name}
+    job: I dye cloth scarlet for the cardinals. Not red: scarlet, which is a colour of its own, and costs more than the cloth it is dyed into.
+    cochineal,scarlet,cardinal,cardinals,robes,consistory,grana if player scarlet-done: The robes are dyed and gone to the tailors. Watch the cardinals go in to the consistory, and look for the brightest: that is my scarlet.
+    cochineal,scarlet,cardinal,cardinals,robes,consistory,grana if player late-scarlet: The consistory has come and gone, and the robes were dyed with kermes after all. Nobody noticed but me.
+    cochineal,scarlet,cardinal,cardinals,robes,consistory,grana if player heard-scarlet: Six pouches, within the fortnight. They sell it cheap in Seville, if you can get there and back in time; it is dear here, and there is none.
+    cochineal,scarlet,cardinal,cardinals,robes,consistory,grana: Cardinal Francesco wants new robes for the consistory, in a fortnight, and I have not cochineal enough for one sleeve. The little beetles of New Spain, dried, that make the only true scarlet: it comes in the fleet to Seville, and from Seville by Genoa to us, dear and late. Bring me six pouches of it within the fortnight, and I will pay seven livres the pouch. {player set heard-scarlet} {player set heard-scarlet-at=now}
+    kermes: Kermes is the old red, from the oaks of Provence and the Morea. A good red. It is not scarlet.
+  end
+end
+
+person coronaro
+  name Battista Sforzini
+  title a rosary-maker of the Via dei Coronari
+  role merchant
+  look coat #4A3A2A legs #2A2218 hat cap #3A2A1E
+  near Castel Sant'Angelo
+  work shop
+  money 12000
+  talk
+    give:amber-rosaries: (He breaks Barbara Schultz's seal and lifts the strings out one by one, holding them to the light.) Danzig amber! The pilgrims will fight over these. And the German widow has sent the right count, as she always does. Your carriage: fifteen livres, as she wrote. {take} {player add money 3600} {player set delivered-rosaries}
+    name: Battista Sforzini, coronaro, of the street of the rosary-makers, between the Ponte Sant'Angelo and the Piazza Navona. {name}
+    job: Rosaries for the pilgrims: of olive wood, of bone, of coral from Naples, of jet from Santiago, and the best of all, amber from the Baltic, which is warm in the hand when you pray.
+    coral,red,barbary,naples,bone: Coral from Naples is good. From Barbary it is better: the red of the banks off Bône, which the Marseillais of the Bastion de France fish and sell in Marseille at a price to make a cardinal weep. If I had a ship of my own I should go and buy it on the beach myself. (He laughs.) If I had a ship of my own I should not be making rosaries. Bring me Barbary red, and I will pay you better than Marseille.
+    amber,danzig,rosaries,beads,box if player delivered-rosaries: Look: the amber is in the window already, and I have sold three strings to a monsignore.
+    amber,danzig,rosaries,beads,box if player carrying-rosaries: You have my box from Danzig? Then give it here, before somebody's thumb goes through the seal.
+    amber,danzig,rosaries,beads,box: My amber comes from a widow in Danzig, Barbara Schultz, who has never seen Rome and never will. If you are going north, ask her whether my box is ready; I have paid for it already, through the Fuggers' agents. Whoever brings it has fifteen livres from me for the carriage. {player set heard-rosaries}
+  end
+end
+
+crowd 8 swissguard work landmark Vatican
+crowd 6 cardinal
+crowd 6 jesuit
+crowd 5 dominican work landmark Minerva
+crowd 3 friar
+crowd 6 priest
+crowd 4 monk
+crowd 10 pilgrim
+crowd 14 labourer
+crowd 12 goodwife
+crowd 4 washerwoman
+crowd 8 apprentice
+crowd 6 merchant
+crowd 6 beggar
+crowd 3 painter
+crowd 2 musician
+crowd 2 cook
+crowd 10 guard
+crowd 6 student work landmark Sapienza
+crowd 1 herdsman
+crowd 1 changer
+
+# ---------------------------------------------------------------- the plot, chapter I
+# Two invented people: Fra Tommaso Ventura, a sincere
+# Dominican consultor of the Holy Office, and Don Luis de Arellano, a secretary of the Spanish
+# embassy, of Cardinal Borgia's party, who will commission the forgery (chapter III).
+
+person ventura
+  name Fra Tommaso Ventura
+  title a consultor of the Holy Office
+  role dominican
+  near Minerva
+  work landmark Minerva
+  talk
+    give:signed-injunction if player proofs >= 1: (He reads it, then what you have found, and his face changes.) This is the paper. And it is false. (He sits down.) I wanted him to say he was wrong. I did not want this. I will go to the Commissary tonight. {take} {player set forgery-stopped} {player set ventura-turned}
+    give:signed-injunction: (He reads it twice.) His own signature, acknowledging the injunction. If this is his hand, he lied to the Holy Office, and he is a relapsed heretic: he will die in a cell. (He looks up at you, and does not let go of it yet.) You swear it came to you honestly? {set offered-injunction=now}
+    swear,yes,honestly,=i swear,=i do if recent:0.05 offered-injunction and player has:signed-injunction: (He closes his eyes.) God forgive him. It goes before the Congregation tomorrow. {player add has:signed-injunction -1} {player set forgery-produced} {player set delivered-forgery} {unset offered-injunction}
+    no,=i do not,=i cannot,arellano,luis,spaniard,spanish,embassy if recent:0.05 offered-injunction: (He gives it back to you, slowly.) Then bring me the truth with it, or do not bring it at all. {unset offered-injunction}
+    forgery,forged,proof,false if player proofs >= 1 and not player forgery-stopped: (He reads what you show him, twice, and his face changes.) Forged? A forged paper, in the Holy Office's own business, to hang an old man? (He stands up.) I wanted him to say he was wrong, and to mean it. I did not want this. I will go to the Commissary tonight. {player set forgery-stopped} {player set ventura-turned}
+    paper,injunction if player hearing and not player forgery-stopped and not player forgery-produced: Don Luis says the paper will be laid before the Congregation within ten days. If it is what he says, the man is a relapsed heretic, and God help him. {player set knows:rome:arellano}
+    paper,injunction if player ch3-open and not player ch3-over and not player hearing: There is a paper, I am told, that will settle the matter beyond argument. I have not seen it. I hope it exists, and I hope it does not. {player set heard-paper}
+    galileo,trial if player ventura-turned: I was wrong about one thing and right about another. He must still say he went too far. But not on a lie.
+    hello if not met: (A Dominican, thin as a rake, in the white habit and the black cloak, with a book open on his knee.) Sit, if you like. Most people do not, when they see the habit.
+    name: Fra Tommaso Ventura, of the Order of Preachers; a consultor of the Holy Office, for my sins. {name}
+    job: I read books for the Holy Office, and say whether they endanger souls. It is not pleasant work. Most books are dull, and the ones that are not are dangerous.
+    galileo,dialogue,book: I have read it, all four days of it, which is more than most of its enemies can say. It is a beautiful book. Your *Salviati* is very clever. Cleverness is not what is asked of a Christian. {player set met-ventura}
+    salviati,simplicio: Salviati speaks for Copernicus, and Simplicio is a fool, and the Pope's own argument is put into the fool's mouth at the end. Galileo says he was asked to put it in. He was. He was not asked to put it *there*.
+    there,end: At the end, in the fool's mouth, after four days of the fool being wrong. A child would see it. The Holy Father is not a child.
+    copernicus,earth,sun,moves,motion: In 1616 the Congregation of the Index declared the motion of the Earth contrary to Scripture. Not unproven: contrary. A Catholic may treat it as a supposition, as the astronomers do, to save the appearances. Galileo's book does not suppose. It argues, and it laughs.
+    proof,truth,tides,science: If he had a proof, I would read it on my knees, and the Church would read the Scripture again; it has done so before, with Augustine. But he has the tides. The tides! Any boatman at Venice could tell him the sea comes in twice a day, and his two motions of the Earth make it come once.
+    burn,burned,sentence,punish: I do not want him burned, if that is what you are asking. I want him to say that he was wrong, and to mean it. The first is easy to arrange. The second is God's affair.
+    spain,spanish,arellano,borgia: (He frowns.) Don Luis de Arellano, of the Spanish embassy, comes to Mass here, and asks after the Holy Office's business more than a Spaniard need. Politics, in the Holy Office. I do not like it. {player set knows:rome:arellano}
+    minerva: Santa Maria sopra Minerva: built on the ruins of a temple of Minerva, the goddess of wisdom. The Holy Office meets in our convent. Wisdom underneath, as the novices say, and the Holy Office on top.
+    bye: Go with God. And read your Scripture before your Galileo.
+  end
+end
+
+person arellano
+  name Don Luis de Arellano
+  title a secretary of the Spanish embassy
+  role scholar
+  look coat #141216 legs #141216 hat hat #0E0C10
+  near Arellano
+  work landmark Arellano
+  schedule
+    7:00 home if not player arellano-exposed
+    9:00 work if not player arellano-exposed
+    13:00 eat if not player arellano-exposed
+    15:00 work if not player arellano-exposed
+    18:00 go landmark Minerva if not player arellano-exposed
+    19:30 work if not player arellano-exposed
+    23:00 sleep if not player arellano-exposed
+    0:00 away if player arellano-exposed and player not recent:2 arellano-exposed
+  talk
+    hello if player arellano-exposed: (He is packing.) You. I might have known it was you. Madrid, in June: I hope you enjoy the summer here more than I shall there.
+    give:bellarmine-cert: (He reads the signature twice.) Bellarmine's own hand. (He smiles, and hands it back.) A dangerous thing to carry about Rome. I would give fifty livres for it, and it would never have existed. Will you *sell* it? {set offered-cert=now}
+    sell,sale,yes,deal,take,=i will if recent:0.05 offered-cert and player has:bellarmine-cert: (He folds it into his doublet.) Fifty livres, and this never existed. {player add has:bellarmine-cert -1} {player add money 12000} {player set sold-bellarmine} {player add favour -2} {unset offered-cert}
+    errand,paper,deliver,document,minerva,ventura if player hearing and player ch3-open and not player ch3-over and not player forgery-stopped and not player arellano-knows and not player has-forgery-job and not player forgery-produced: (He takes a folded paper from his strongbox, and lets you read the foot of it.) A minute of the year sixteen, that the Holy Office somehow mislaid: the injunction, and under it the Florentine's own signature, acknowledging it. Once Fra Tommaso Ventura at the Minerva has it, nobody can say Galileo was not warned, and nothing will save him. It should come to him from an honest stranger, not from the embassy. A hundred livres. Will you *carry* it? {set offered-forgery=now} {player set knows:rome:ventura} {player set shown-forgery}
+    carry,yes,deal,take,=i will if recent:0.05 offered-forgery and player hearing and not player has-forgery-job and not player forgery-produced and not player forgery-stopped: (He seals it with plain wax, and counts the money into your hand.) To Fra Tommaso, at the Minerva. And you never saw me. {player add has:signed-injunction 1} {player add money 24000} {player set has-forgery-job} {unset offered-forgery}
+    no,never,refuse,=i will not if recent:0.05 offered-forgery: (He puts it back in the strongbox, smiling.) As you like. It will find its way to the Minerva without you. {unset offered-forgery}
+    give:king-offer: (He reads the seal before he looks at you.) The three crowns of Sweden. To the Florentine? (He weighs it in his hand, smiling, and gives it back.) That is worth fifty livres to me, and you would never have seen me. Will you *sell* it? {set offered-king=now}
+    sell,sale,yes,deal,take,=i will if recent:0.05 offered-king and player has:king-offer: (It goes into his doublet.) Fifty livres. And you never saw me. {player add has:king-offer -1} {player add money 12000} {player set sold-king-offer} {player add favour -2} {unset offered-king}
+    no,keep,=never if recent:0.05 offered-cert: (He shrugs, smiling.) As you like. In Rome an offer keeps, like everything else. {unset offered-cert}
+    no,keep,=never if recent:0.05 offered-king: (He shrugs, smiling.) As you like. In Rome an offer keeps, like everything else. {unset offered-king}
+    # you took his paper and kept it, and he had another written: no more errands
+    hello if player has-forgery-job and player forgery-produced and not player delivered-forgery and not player forgery-stopped and not player arellano-knows: (The smile is still there; the eyes are not.) You kept my paper. No matter: I had another written. I shall not trouble you with errands again. {player set arellano-knows}
+    hello if player opened-arellano-letter and player rodrigo-refused and player not recent:4 rodrigo-refused and not player arellano-knows: (The smile is still there; the eyes are not.) My brother writes that my letter reached him opened. How curious, the things that happen on the road. I shall not trouble you with my letters again. {player set arellano-knows}
+    hello if player delivered-arellano-letter and player not recent:4 delivered-arellano-letter and not player arellano-thanked: My brother writes that you are punctual and discreet. I like both. I may have other errands, one day. {player set arellano-thanked}
+    hello if not met: (A Spaniard in black, with a gold chain and a pleasant smile.) A traveller! Sit down. Travellers are the most useful people in the world: they go places, and they come back.
+    name: Don Luis de Arellano, secretary to His Catholic Majesty's embassy to the Holy See. At your service, as they say, and now and then it is even true. {name}
+    job: I write letters, and read other people's. An embassy is a post office with manners.
+    galileo,dialogue,book: The Florentine's book? (He laughs.) It has made the Pope look a fool, and the Pope is the only man in Rome who did not know he was one. Now His Holiness must be very severe, or seem very soft, in front of the whole of Christendom. Either suits us.
+    pope,urban,borgia: Cardinal Borgia told him to his face in the consistory this March that he is soft on heretics, while the King of Sweden marches through Germany burning churches. The Holy Father has not forgiven him. He has never forgiven anyone.
+    spain,king,france: His Majesty pays for the war against the heretics, and His Holiness's friends are paid by France. One of these is a Catholic policy.
+    errand,letter,courier,seville,brother if player arellano-knows: I have no letters for you.
+    errand,letter,courier,seville,brother if player has-arellano-job: My brother Rodrigo, at the Lonja of Seville. Into his own hands, and the seal unbroken. {player set knows:seville:rodrigo}
+    errand,letter,courier,seville,brother: Are you going west? I have a letter for my brother *Rodrigo*, at Seville: a merchant of the Indies, at the Lonja. It is dull family business, but I do not trust the ordinary post with the family. Twelve livres to carry it, and he will give you twelve more, if the seal is whole. {player add has:arellano-letter 1} {player set has-arellano-job} {player add money 2880} {player set knows:rome:arellano} {player set knows:seville:rodrigo}
+    rodrigo: My brother. He buys and sells the Indies at Seville, and is richer than I am, and duller. I do his thinking.
+    bye: Vaya con Dios. And if you hear anything amusing on the road, I am always at home.
+  end
+end
+
+# ---------------------------------------------------------------- the trial seen
+# The examinations of 1633 were secret: Galileo, the Commissary Maculano, the Fiscal Carlo Sinceri and
+# a notary, in the palace of the Holy Office south of St Peter's. Fra Bartolomeo, a Florentine lay
+# brother who keeps the Commissary's rooms, will hide you in his broom closet behind them, with a
+# grille in its door, once you have carried his wages to his mother in Trastevere (hide-ok). The
+# hearings are then seen (data/scenes/), and after the first you overhear Arellano (overheard-plot):
+# Morales is to be drowned the next night unless you warn him (morales-hidden, at Mona Lisabetta's).
+
+person bartolomeo
+  name Fra Bartolomeo
+  known A lay brother of the Holy Office, a Florentine, who keeps the Commissary's rooms, sweeps the Hall of the Congregations and carries Signor Galileo his meals. He talks to anyone who will listen about Florence.
+  title a lay brother of the Holy Office
+  role friar
+  sex m
+  look coat #DCD6C8 legs #DCD6C8 hat hood #2A2622 robe
+  near Holy Office
+  work landmark Holy Office
+  says Deo gratias.
+  schedule
+    5:00 work
+    12:00 eat
+    13:00 work
+    20:00 home
+    21:00 sleep
+  talk
+    hello if player hide-ok and player ch3-over: (He does not look up from his broom.) The little door is a cupboard again, and I sweep. I never saw you.
+    hello if player hide-ok: (He does not look up from his broom.) The little door on the left. When they send for Signor Galileo, be in it before they come in. I never saw you.
+    hello if player lisabetta-blessed and not player hide-ok: (He sees your face, and puts down his broom.) You have been to my mother?
+    hello: (A lay brother in a white habit, sweeping the Commissary's room, looks up hopefully at a stranger.) You are not a Roman. Are you from Florence, by any chance?
+    name: Fra Bartolomeo, lay brother, of Florence, of the parish of San Frediano. {name}
+    job if player hearing and date<1633-04-30 and not player ch3-over: I sweep this palace, and keep the Commissary's rooms, and carry Signor Galileo his soup. He thanks me every time, as if I were a cardinal.
+    job: I sweep this palace, and keep the Commissary's rooms, and the Fiscal's, upstairs.
+    florence,florentine,firenze: Florence! San Frediano, by the Carmine. I have not seen the Arno for nine years. Here they think the Tiber is a river.
+    galileo,signor galileo,supper,soup,meals if player ch3-over and player man-worse: They have taken him to the Grand Duke's house, the Villa Medici, with one of ours at the door. I carry him nothing now. I pray for him.
+    galileo,signor galileo,supper,soup,meals if player ch3-over: He is gone from Rome, and I carry his soup to nobody.
+    galileo,signor galileo,supper,soup,meals if player ch3-open and player hearing and date<1633-04-30: He eats little and thanks me much. They have given him the Fiscal's own rooms, upstairs, which are good rooms, and his servant. It is a prison all the same.
+    galileo,signor galileo,supper,soup,meals if player ch3-open and player hearing: They let him go back to the Grand Duke's villa on the thirtieth, to write his defence. I miss carrying his soup: nobody else here thanks me for anything.
+    galileo,signor galileo,supper,soup,meals if player ch3-open: He is at the Grand Duke's villa on the Pincio, waiting for them to call him. They have told me to air the Fiscal's rooms upstairs, and to say nothing. So I say nothing.
+    examination,examinations,hearing,hearings,trial,secret,watch,see,listen,closet,hide,commissary if player ch3-open and not player ch3-over and not player bart-errand: (He looks round at the door.) The examinations are secret: nobody may be in the room but the Commissary, the Fiscal and the notary. Nobody. (Lower.) But I keep my brooms in a closet behind the Commissary's room, and its door has a grille, for the air. Do something for me, and I may forget to lock it. My mother, Mona Lisabetta, lives in Trastevere, by Santa Maria; I have not been out of this palace for a month, and she is waiting for my wages. Carry them to her, and bring me back her blessing. {player add has:bart-purse 1} {player set bart-errand} {player set knows:rome:bartolomeo} {player set knows:rome:lisabetta}
+    examination,examinations,hearing,hearings,trial,secret,watch,see,listen,closet,hide,commissary,mother,lisabetta,wages if player bart-errand and not player lisabetta-blessed: My mother, Mona Lisabetta, in Trastevere, by Santa Maria. My wages, and her blessing. {player set knows:rome:lisabetta}
+    blessing,mother,lisabetta,done,back,wages,closet,hide if player lisabetta-blessed and not player hide-ok: (He crosses himself.) Then she is well, God be thanked, and fat. The closet is the little door on the left of the Commissary's. When they send for Signor Galileo, be in it before they come in, and do not sneeze. If they find you, I never saw you in my life. {player set hide-ok}
+    arellano,spaniard,spanish,notary if player overheard-plot: (He goes pale.) The Spaniard comes here? To the notary? (He crosses himself.) I sweep, my friend. I see nothing, and I sweep.
+  end
+end
+
+person lisabetta
+  name Mona Lisabetta
+  known An old Florentine widow in Trastevere, by Santa Maria, whose son is a lay brother at the Holy Office. She feeds the whole street.
+  title an old woman of Trastevere
+  role goodwife
+  sex f
+  look coat #4A3A3A legs #3A2E2A hat coif #E8E2D4 dress apron #D4CCBC
+  near Santa Maria in Trastevere
+  work landmark Santa Maria in Trastevere
+  # her son's room, which Morales sleeps in when he is hidden here ("sleep home-of lisabetta")
+  sparebed
+  schedule
+    6:00 work
+    12:00 home
+    15:00 work
+    19:00 home
+    21:00 sleep
+  talk
+    hello if player morales-hidden and not player morales-dead: (She jerks her head at the back of the house.) Your Spaniard is in my kitchen, praying and eating my bread. A Spaniard! My husband would turn in his grave. Nobody has come asking.
+    hello if player lisabetta-blessed: (She waves a spoon at you.) The courier! Have you eaten?
+    hello: (An old woman with a spoon in her hand and a voice that carries across the piazza.) What do you want? If you are selling something, I have it already.
+    give:bart-purse: (She counts it twice, and kisses the purse.) My Bartolomeo. Tell him his mother blesses him, and he is to eat, and he is not to let those Dominicans work him to death. And tell him the cat had kittens. {take} {player set lisabetta-blessed} {player set knows:rome:bartolomeo}
+    bartolomeo,son: My son, a lay brother of the Holy Office, God help him. He was a good boy. He is still a good boy, among all those inquisitors.
+    name: Lisabetta, widow of Piero the boatman, of Florence, and of Trastevere these forty years. {name}
+    job: I feed this street, and I pray for my son, and I tell the priest what I think of him.
+    morales,spaniard,hide if player overheard-plot and not player morales-hidden: A Spaniard, in my house? (She looks at you a long while.) If my Bartolomeo trusts you, I trust you. Bring him, and do not let anyone see you come. {player set knows:rome:bartolomeo}
+  end
+end
+
+person sinceri
+  name Carlo Sinceri
+  known The Fiscal of the Holy Office, its prosecutor, a doctor of both laws, who sits at every examination and says very little.
+  title the Fiscal of the Holy Office
+  role scholar
+  sex m
+  look coat #1E1A1E legs #1E1A1E hat biretta #141214
+  near Holy Office
+  work landmark Holy Office
+  talk
+    name: Carlo Sinceri, doctor of both laws, Fiscal of the Holy Office. {name}
+    job: I am the Fiscal: the prosecutor of this tribunal. I sit beside the Commissary and I listen. Good afternoon.
+    galileo,trial,examination: The cause is under examination. That is all I may say, and all you may hear.
+  end
+end
+
+person notary
+  name Ser Lelio Paganelli
+  known A notary of the Holy Office, who writes down every word of the examinations, and is said to live better than a notary should.
+  title a notary of the Holy Office
+  role scholar
+  sex m
+  look coat #2A2622 legs #2A2622 hat cap #1A1816
+  near Holy Office
+  work landmark Holy Office
+  talk
+    name: Ser Lelio Paganelli, notary. {name}
+    job: I write down what is said, word for word, in the Commissary's room. Then I copy it fair. Then I forget it.
+    arellano,spaniard,purse,money if player overheard-plot: (He does not look up.) I do not know what you mean, and you do not know what you mean either.
+  end
+end
+
+# ---------------------------------------------------------------- the plot, chapter III
+# Galileo in Rome (the same man as arcetri:galileo, who is away meanwhile: what he knows of you
+# is in your own memory, player flags), the Commissary Maculano, and the forger, Andrés Morales,
+# at the Osteria dell'Orso, with Checca who sweeps his room.
+
+person galileo
+  name Galileo Galilei
+  title a philosopher, the Grand Duke's
+  role philosopher
+  look coat #2A2420 legs #2A2420 hat cap #1A1614 robe hair #C9C4BA
+  near Villa Medici
+  work landmark Villa Medici
+  schedule
+    # the Ambassador's guest: he eats and sleeps in the Villa, never in his own house
+    8:00 work if player ch3-open and not player galileo-gone-rome
+    13:00 eat landmark Villa Medici if player ch3-open and not player galileo-gone-rome
+    15:00 work if player ch3-open and not player galileo-gone-rome
+    21:00 sleep landmark Villa Medici if player ch3-open and not player galileo-gone-rome
+    # held in the Fiscal's rooms, upstairs at the Holy Office, from the first examination to the
+    # second (12 to 30 April 1633); listed after the Villa's, so that at the same minute these win
+    8:00 go landmark Holy Office upstairs if player hearing and date<1633-04-30 and not player galileo-gone-rome
+    13:00 eat landmark Holy Office upstairs if player hearing and date<1633-04-30 and not player galileo-gone-rome
+    15:00 go landmark Holy Office upstairs if player hearing and date<1633-04-30 and not player galileo-gone-rome
+    21:00 sleep landmark Holy Office upstairs if player hearing and date<1633-04-30 and not player galileo-gone-rome
+    0:00 away if not player ch3-open
+    0:01 away if player galileo-gone-rome
+  talk
+    give:castelli-letter: (He laughs, and reads it all the same.) Castelli's letter, carried from Rome to Arcetri and back to Rome, while he is here in Rome himself. He says what he has said to my face every day this month. Thank you, my friend. {take} {player set warned-galileo} {player set knows:rome:castelli}
+    galileo: Galileo Galilei: that is me. In Florence the name opens doors; in Rome, just now, it shuts them, and people lower their voices when they say it.
+    hello if player ch4-open and not player ch5-open and not player ch4-briefed: (He is at his table with a lens, a sheet of paper and a candle.) Rome, still: a guard at the door, and the Holy Office's pleasure. Sit. I am writing again, at last: the book I should have written twenty years ago, on motion and on the strength of things. But my old notes on motion are at Padua, in the house where I lived, and my letters are read. Bring me my *notes*. {player set ch4-briefed}
+    hello if player ch4-briefed and player man-worse and not player ch5-open and not player celeste-dead and not player has:galileo-letter and not player celeste-letter: (He has a letter from San Matteo open on the table, and does not look up.) My daughter is ill again: the fever, and the dysentery. Ronconi writes that it may be only days, and they will not let me go to her, not even for that. I have written to her. Will you take it to Arcetri, to San Matteo? It is not sealed. Read it, if you like, so that somebody else knows. {player add has:galileo-letter 1} {player set knows:florence:ronconi}
+    hello if player celeste-dead and not player galileo-mourned: (He is sitting without a candle, and does not turn his head.) She is dead. The second of April, thirty-three years old, after six days. (A long silence.) I hear her calling me at night, by name. Sit with me a little. Do not say anything. {player set galileo-mourned}
+    hello if player ch5-open and not player last-scene and not player ch5-briefed and not player manuscript-given: (He holds a thick bundle of paper in both hands; his eyes are clouded, and he finds your face by your voice.) Finished. Two new sciences, of the strength of materials and of motion, in four days of dialogue. I may print nothing, anywhere: so it must go north, to the Elzevirs at Leiden, and appear to have been printed without me. Louis Elzevir is at Venice, at the Locanda della Luna; Monsieur de Noailles, at the Trinità dei Monti in Rome, would carry it in his own baggage; or you could take it yourself. There is one fair copy, and my eyes are going: if they take it at a gate, I cannot write it again. Will you carry the *manuscript*? {player set ch5-briefed} {player set knows:rome:noailles} {player set knows:venice:louis}
+    notes,padua,motion if player ch4-open and not player ch5-open and not player ch4-notes and not player has:padua-notes: Madonna Zuana Busetto, at my old house in Padua, keeps a box of my papers in the attic, or she did. Before 1610: the inclined planes, the pendulums, the times and the spaces. {player set knows:padua:landlady}
+    give:padua-notes: (He unties the string with shaking fingers, and holds the sheets close to his eye, one after another.) The spaces are as the squares of the times. I wrote that at thirty-nine, and forgot that I had proved it. (He laughs.) Now I can finish. {take} {player set ch4-notes=now}
+    virginia,daughter,celeste,letter if player ch4-open and not player ch5-open and not player celeste-dead and not player has:galileo-letter and not player celeste-letter: (He does not look up.) She is ill again: the fever, and the dysentery. Ronconi says it may be only days. I have written to her. Will you take it to San Matteo? It is not sealed. Read it, if you like, so that somebody else knows. {player add has:galileo-letter 1} {player set knows:florence:ronconi}
+    virginia,daughter,celeste if player celeste-dead: (He is quiet a long time.) Do not speak of her, my friend. Or speak of her: I do not know which is worse.
+    book,leiden,sciences,printed,elzevir,copy if player has:two-new-sciences and not player last-scene: (He holds out both hands, and turns his face towards your voice.) From Leiden? Give it to me. Let me feel the paper.
+    manuscript,book,carry,elzevir,leiden if player ch5-open and not player last-scene and not player manuscript-given: (He puts it in your hands, and keeps his own on it a moment.) The only fair copy, and my eyes will not make another. The searchers at Florence, Pisa, Rome, Venice and Padua turn out every pack, going in and coming out, and they are looking for anything of mine: if they find this, it goes on the fire, and I cannot write it again. Not through their gates, then, unless by night and in a false bottom. Give it to Louis Elzevir, at the Locanda della Luna in Venice, or to Monsieur de Noailles, at the Trinità dei Monti in Rome; or carry it to Leiden yourself. God go with it. {player add has:manuscript 1} {player set manuscript-given}
+    manuscript,book,carry,elzevir,leiden if player manuscript-given and not player science-printed and not player science-seized: Is it safe? Is it north? I lie awake and count the gates between here and Leiden.
+    longitude,jupiter,moons,holland,states,tables,sea if player ch5-open and not player last-scene and not player has:longitude-tables and not player longitude-delivered: (He brightens.) The longitude at sea, by the eclipses of Jupiter's moons: time them against my tables, compare with the hour at home, and the difference is how far east or west you are. Spain never answered me. The States of Holland might. Take them the tables, at Amsterdam: Blaeu is one of their judges. {player add has:longitude-tables 1} {player set knows:amsterdam:blaeu}
+    noailles: Monsieur de Noailles was my pupil at Padua, thirty years ago, and is now the King of France's ambassador at Rome. A good man, with a carriage nobody searches. {player set knows:rome:noailles}
+    louis,elzevir: Louis Elzevir, of the printers of Leiden, is travelling in Italy, buying and selling books, and at Venice now, at the Locanda della Luna. {player set knows:venice:louis}
+    give:two-new-sciences: (You put it into his hands. He turns it over, and feels the boards, and the edges of the pages, and holds it to his face to smell the ink.) {take} {player set last-scene=now}
+    manuscript,book if player science-seized: (He sits with his hands in his lap.) They took it at a gate, and burned it. It does not matter whose fault it was. I cannot see to write it again.
+    hello if not player rome-galileo-met and not player ch3-over and player hearing and date<1633-04-30: (He is at a table in the Fiscal's rooms, upstairs in the palace of the Holy Office, with his papers spread out before him.) My messenger! You found me. They have kept me here since they called me: good rooms, my own servant, and a prison. (Low.) Keep something for me: Bellarmine's certificate, from the year sixteen. It says what I was told, and what I was not. They search this room when I am at the window. Take it out of this palace, and bring it back when they call me to make my defence. {player add has:bellarmine-cert 1} {player set rome-galileo-met} {player set cert-given-held=now}
+    hello if not player rome-galileo-met and not player ch3-over: (He sits by a window of the Villa Medici, looking across the city at the dome of St Peter's.) My messenger! You came. Sit. (Low.) Keep something for me: Bellarmine's certificate, from the year sixteen. It says what I was told, and what I was not. My room is searched when I walk in the garden. Keep it out of this house until they call me to make my defence, and then bring it back. {player add has:bellarmine-cert 1} {player set rome-galileo-met}
+    # after the first hearing, while you still hold Bellarmine's certificate, he asks for it; "yes" gives it
+    hello if player hearing and not player ch3-over and player has:bellarmine-cert >= 1 and not player cert-returned and not player recent:1 cert-given-held: (He gets up as you come in, and looks at your hands before he looks at your face.) They called me, and showed me a paper of the year sixteen that I never saw in my life, with a command in it that nobody ever gave me. Have you the Cardinal's certificate? *Give* it to me now: they will call me again, for my defence. {set asked-cert=now}
+    bellarmine,certificate,defence,defense if player hearing and not player ch3-over and player has:bellarmine-cert >= 1 and not player cert-returned and player recent:1 cert-given-held: (Low.) Keep it out of this palace a day or two. When they are ready to call me for my defence, I shall want it.
+    bellarmine,certificate,defence,defense if player hearing and not player ch3-over and player has:bellarmine-cert >= 1 and not player cert-returned: (Low.) The certificate: yes, it is time. Have you it with you? *Give* it to me now, before they call me for my defence. {set asked-cert=now}
+    yes,give,here,take,=i have,=i do,=here it is if recent:0.05 asked-cert and player has:bellarmine-cert >= 1 and not player ch3-over: (He reads it, and his hand is steady.) The tenth of May, for my defence. With this I can say that I obeyed what I was told, and that I was told nothing more. Thank you, my friend. {player add has:bellarmine-cert -1} {add has:bellarmine-cert 1} {add given:bellarmine-cert 1} {player set cert-returned} {player add favour 1} {unset asked-cert}
+    no,keep,=not yet,=not now if recent:0.05 asked-cert: (He sits down again, slowly.) Then bring it soon. They will not wait for an old man's papers. {unset asked-cert}
+    hello if player man-worse and player celeste-dead: (He is thinner, and a guard sits by the door.) They will not let me go home. Not to Siena, not to Arcetri: here, at His Holiness's pleasure, which is not very great. And there is nobody at Arcetri now to write to.
+    hello if player man-worse: (He is thinner, and a guard sits by the door.) They will not let me go home. Not to Siena, not to Arcetri: here, at His Holiness's pleasure, which is not very great. Write to Virginia for me; my letters are read.
+    give:bellarmine-cert if player hearing and not player ch3-over: (He reads it, and his hand is steady.) The tenth of May, for my defence. With this I can say that I obeyed what I was told, and that I was told nothing more. Thank you, my friend. {take} {player set cert-returned} {player add favour 1}
+    give:bellarmine-cert if player ch3-over: (He turns it over in his hands, and gives it back to you.) It is too late for that now. Keep it: one day somebody will want to see the Cardinal's hand.
+    give:bellarmine-cert: Not yet. Keep it until they call me; this room is searched.
+    bellarmine,certificate if player sold-bellarmine: (He has been looking for something in his papers.) Bellarmine's certificate. You had it. (Silence.) Never mind. I shall say what it said. Perhaps they will believe an old man.
+    bellarmine,certificate if player ch3-over and player has:bellarmine-cert: It is too late for that now. Keep it: one day somebody will want to see the Cardinal's hand.
+    bellarmine,certificate if player has:bellarmine-cert: Keep it safe. Bring it back when they call me: for my defence, after the first hearing.
+    hearing,trial,rome,holy,office,fiscal,rooms if player hearing and not player ch3-over and date<1633-04-30: (He looks round the room.) The Fiscal's own rooms: good rooms, my own servant, the Ambassador's dinner carried up by a lay brother, and a door I may not open. Maculano is a sensible man. He wants me to say I went too far, and I think I shall. {player set knows:rome:maculano}
+    hearing,trial,rome,holy,office if player hearing and not player ch3-over: They kept me in the Fiscal's rooms at the Holy Office for eighteen days: good rooms, my own servant, a prison. Now I am back with the Ambassador, waiting. Maculano is a sensible man. He wants me to say I went too far, and I think I shall. {player set knows:rome:maculano}
+    hearing,trial,rome,holy,office if player ch3-open and not player ch3-over: They have not called me yet. I am not allowed out of the Villa, except into the garden. The Ambassadress sends up wine and the Ambassador sends up advice; I take the wine.
+    paper,injunction,forgery if player forgery-stopped: (He takes your hand.) A paper with my name on it, that I never wrote. And you found the man who wrote it. I shall not ask how. Thank you.
+    paper,injunction,forgery if player heard-paper and not player ch3-over: A paper of the year sixteen, with my name on it? I signed nothing, ever, in the Holy Office. If such a paper exists, it is false, and somebody made it. Find out who.
+    celeste,daughter,virginia: She writes every week: the lemons, the wine, the mule, her prayers. I read her letters twice and the Holy Office reads them once.
+  end
+end
+
+person maculano
+  name Fra Vincenzo Maculano
+  title the Commissary of the Holy Office
+  role dominican
+  near Minerva
+  work landmark Holy Office
+  talk
+    name: Fra Vincenzo Maculano, of Firenzuola, of the Order of Preachers; the Commissary of the Holy Office. I was an engineer before I was an inquisitor. I build fortifications. {name}
+    job: I examine the accused, and I try to bring every trial to an end that the Church can live with. That is harder than building walls.
+    galileo,trial,hearing: An old man, a proud one, and a great one. He needs a way out with his honour, and the Holy Father needs a way out with his. I mean to give them both one, if I am let alone to do it.
+    forgery,paper,injunction,forged,proof if player proofs >= 2 and not player forgery-stopped: (He reads what you bring him, slowly, as an engineer reads a plan.) The paper, the hand, and the man. (He is quiet.) Then this is a crime against the Holy Office, not by Galileo but against him. It will not be laid before the Congregation; I will see to that. And I will go to Galileo myself, and he will tell me he went too far, and we will end this like Christians. {player set forgery-stopped} {player set maculano-arrangement} {player add favour 1}
+    forgery,paper,injunction,forged,proof if player proofs >= 1 and not player forgery-stopped: One proof is a story. Two are a case. Bring me more, and quickly.
+    forgery,paper,injunction,forged,proof if player heard-paper and not player forgery-stopped: A paper, they say? I have heard it said. I have not seen it. A false paper has a mill, a hand and a man behind it, and any of the three can be found out. If you know something, bring it to me with its proofs, and not to anybody else.
+    give:signed-injunction if player proofs >= 1: (He looks at the signature for a long time, and then at what you have found.) So this is the paper. And this is how it was made. (He locks it in his desk.) It will not be seen again. Thank you. {take} {player set forgery-stopped} {player set maculano-arrangement} {player add favour 1}
+    give:signed-injunction: (He reads it, and his face goes still.) Signed, in his own hand. If it is his, he is a relapsed heretic, and nothing I can arrange will save him. (He does not hand it back yet.) Where did you get this? You swear it came to you honestly? {set offered-injunction=now}
+    swear,yes,honestly,=i swear,=i do if recent:0.05 offered-injunction and player has:signed-injunction: (He is quiet for a long time.) Then it must go before the Congregation. God help him. {player add has:signed-injunction -1} {player set forgery-produced} {player set delivered-forgery} {unset offered-injunction}
+    no,=i do not,=i cannot,arellano,luis,spaniard,spanish,embassy if recent:0.05 offered-injunction: (He hands it back.) Then keep it, and find out who made it. Bring me that, and I shall know what to do with this. {unset offered-injunction}
+  end
+end
+
+person morales
+  name Andrés Morales
+  died if player morales-dead | Andrés Morales? They took him out of the Tiber below the Ponte Sisto. Drunk, they say, and fell in.
+  title a scrivener
+  role scholar
+  look coat #2A2420 legs #1E1A16 hat hat #141210
+  near Orso
+  work landmark Orso
+  schedule
+    8:00 home if not player morales-hidden and not player morales-dead
+    11:00 work if not player morales-hidden and not player morales-dead
+    20:00 go inn if not player morales-hidden and not player morales-dead
+    23:00 sleep if not player morales-hidden and not player morales-dead
+    6:00 go landmark Santa Maria in Trastevere if player morales-hidden
+    19:00 go home-of lisabetta if player morales-hidden
+    22:00 sleep home-of lisabetta if player morales-hidden
+    0:00 away if player morales-dead
+  talk
+    warn,danger,tiber,river,drown,arellano,kill,tomorrow,bravi,hide if player overheard-plot and not player morales-hidden and not player morales-dead: (He goes the colour of his ink.) Tomorrow night. Into the river. (He stands up, and his hands shake.) And where does a Spaniard hide in Rome from Spaniards? Where? (You tell him of Mona Lisabetta, in Trastevere, and her son at the Holy Office.) A Florentine widow, by Santa Maria. (He is already picking up his hat.) God reward you. Tell nobody. {player set morales-hidden=now} {player set knows:rome:lisabetta}
+    hello if player morales-hidden and not player morales-dead: (He is in Mona Lisabetta's kitchen, or in the church by it, and starts at every step.) You. Is it safe? Is my boy safe? {player set knows:rome:lisabetta}
+    hello if player proof-confession: (He is sober, and has shaved.) My son is free. Whatever you need me to say, I will say it, to whomever you like.
+    hello: (A grey man in black, at a corner table, with ink on his fingers and a jug in front of him. He looks up as if he expected someone else.)
+    name: Andrés Morales, scrivener, of Granada. Some call me el Granadino, because I talk too much about it. {name}
+    job: I copy things for people who pay. Contracts, petitions, letters in fair hands. I have a good hand. Any hand you like.
+    son,juanico,boy,family: (He puts his cup down.) My boy is in Seville, a page in a rich man's house. He writes to me every month. When my work is done he will come home. (He drinks.) When my work is done.
+    paper,injunction,forgery,work,arellano if not player juanico-free: (Frightened.) I copy what I am paid to copy. Ask the man who paid. (He gets up, and sits down again, because there is nowhere to go.)
+    granada,lead,books,sacromonte: When I was young I cut letters in lead for the books of the Sacromonte, the ancient books that were found in the caves. They were not ancient. We meant to save our people with them. (He laughs.) It worked as well as these things do.
+    give:juanico-letter: (He reads it, and puts his face in his hands, and for a while he does not move. Then he looks up.) Free. (He wipes his eyes on his sleeve.) Then hear it. Don Luis de Arellano paid me forty reales and kept my boy, to make a minute of the Holy Office of the year sixteen, with Signor Galileo's signature acknowledging it. I made it on Dutch paper, which was a mistake, and I aged the ink with smoke and urine, which was not. I will swear to it before any cardinal in Rome. {take} {player set proof-confession} {player set knows:rome:arellano}
+    home,granada,go if player proof-confession and not player forger-free: Home? If they let me. When I have sworn to it, I will walk home to Granada, and my wife may let me in. {player set forger-free} {travel Granada}
+  end
+end
+
+person checca
+  name Checca
+  title a maid of the Osteria dell'Orso
+  role goodwife
+  near Orso
+  work landmark Orso
+  schedule
+    6:00 home
+    8:00 go market
+    11:00 home
+    14:00 wander
+    17:00 home
+    21:30 sleep
+    7:00 work if player ch3-open and not player ch3-over
+    8:00 work if player ch3-open and not player ch3-over
+    11:00 work if player ch3-open and not player ch3-over
+    14:00 work if player ch3-open and not player ch3-over
+    17:00 work if player ch3-open and not player ch3-over
+    21:30 work if player ch3-open and not player ch3-over
+    22:00 home if player ch3-open and not player ch3-over
+    23:00 sleep if player ch3-open and not player ch3-over
+  talk
+    name: Checca. Just Checca. {name}
+    job: I sweep the rooms, and empty what wants emptying, and do not look at what the gentlemen leave lying about. (She lowers her voice.) Except the Spanish scrivener's *basket*. Nobody could help looking at that.
+    spaniard,morales,andres,scrivener,room,basket,lodger if player ch3-open and not player ch3-over: The Spanish scrivener? He weeps in his cups and pays in new silver. His room is full of spoiled paper: he writes the same thing over and over, and throws it away. (She looks at your purse.) Paper is worth something to the grocers. {player set heard-morales} {player set knows:rome:morales}
+    paper,wastepaper,spoiled,sheet,basket if player ch3-open and not player ch3-over and not player has-sheet: Two livres, and you may have what the grocer would have had. (She holds out her hand.)
+    give:money if player gift >= 480 and player ch3-open and not player ch3-over and not player has-sheet: (She comes back with a sheet folded in her apron.) The best one: he wrote on it the most. And you never saw me either. {take} {player add has:practice-sheet 1} {player set has-sheet}
+    give:money: For what? I sweep floors, not secrets.
+  end
+end
+
+# ---------------------------------------------------------------- the plot, chapters IV and V
+
+person noailles
+  name François de Noailles
+  title the ambassador of France
+  role knight
+  look coat #2A3A6A legs #1E1E2A hat hat #14141E
+  near Trinità
+  work landmark Trinità
+  schedule
+    8:00 work if player ch4-open
+    13:00 eat if player ch4-open
+    15:00 work if player ch4-open
+    22:00 sleep if player ch4-open
+    0:00 away if not player ch4-open
+  talk
+    name: François de Noailles, comte d'Ayen, ambassador of the King of France to the Holy See. {name}
+    job: I represent France, which is to say I annoy Spain, politely, every day.
+    # the manuscript in hand (chapter V): any word of it, or of Galileo, and he asks for it; "yes" gives it
+    manuscript,book,books,sciences,discorsi,galileo,carry,baggage,leiden,elzevir,print if player has:manuscript >= 1 and not player manuscript-sent: (His eyes go to the bundle under your arm, and then to the door.) From my old master? Then I think you have something for me. Do you have a manuscript to *give* me? My baggage goes to Paris with the King's courier, and no customs man in Italy may open it. {set offered-ms=now}
+    yes,give,here,take,=i do,=here it is if recent:0.05 offered-ms and player has:manuscript >= 1: (He takes it in both hands, like a relic.) My old master's book. It goes in my own baggage, which no customs man in Italy may open, to Paris, to Diodati, and on to Leiden; and when it is printed and dedicated to me, I shall be astonished to learn that it exists. {player add has:manuscript -1} {add has:manuscript 1} {add given:manuscript 1} {player set manuscript-sent=now} {player set via-noailles} {player set knows:paris:diodati} {unset offered-ms}
+    no,keep,=not yet if recent:0.05 offered-ms: (He nods.) Then keep it close, and keep it from the gates by daylight. My door is open to anyone who comes from Galileo. {unset offered-ms}
+    galileo: My old master. I was his pupil at Padua, and he taught me to look through his glass at the Moon, and I have never been the same since. If I can do anything for him, I will.
+    campanella if player campanella-asked and not player campanella-free: (He thinks for a moment.) Tell Fra Tommaso: Thursday, after dark, here at the Trinità, in the habit of a Minim. My carriage is not searched, and the Minims of the Trinità are French. He will be in Paris for Christmas. {player set campanella-free}
+    campanella if player campanella-free: Fra Tommaso is in France, at the King's expense, writing against Spain. He is very happy.
+    give:manuscript: (He takes it in both hands, like a relic.) My old master's book. It goes in my own baggage, which no customs man in Italy may open, to Paris, to Diodati, and on to Leiden; and when it is printed and dedicated to me, I shall be astonished to learn that it exists. {take} {player set manuscript-sent=now} {player set via-noailles} {player set knows:paris:diodati}
+  end
+end

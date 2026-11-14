@@ -1,0 +1,34 @@
+# The ruins of Hippo Regius, Saint Augustine's town, beside Bône (Annaba) on the Barbary coast:
+# the columns of the great church, the Roman cisterns, a shepherd's fold, and a coral fisher's
+# hut on the shore. The sea comes from the old map (the Gulf of Bône, north of the template).
+style granada
+ground 0.9
+margin 12
+legend C chapel "the cisterns of Hippo"   plain=1 height=3.2 ruined=0.95 stone=C8B896
+map
+           hhhhhhhh  kk
+           hhhhhhhh  ;;     t
+   t       hhhhhhhh  kk           t
+           hhhhhhhh
+           hhhhhhhh
+         ;;;;;;;;;;;;;;;
+   t     ;                ;;;;;;;;;;;;;;;;;;
+         ;      t         ;::::::::::::::::;     t
+     t   ;                ;:j:j:j:j:j:j:j::;
+         ;   t      t     ;::::::::::::::::;
+         ;                ;::::::::::::::::;  t
+    t    ;   CCCCCCCCCC   ;:j:j:j:j:j:j:j::;
+         ;;;;CCCCCCCCCC;;;;::::::::::::::::;
+   t         CCCCCCCCCC   ;;;;;;;;;;;;;;;;;;    t
+             CCCCCCCCCC
+             CCCCCCCCCC
+             CCCCCCCCCC
+     t     t          t        t       t
+         %%%%%%%%%%
+    t    %;;;;;;;;%    hhhhhhhh      t
+         %;;;x;;;;;;;;;hhhhhhhh   t
+   t     %;;;;;;;;%    hhhhhhhh           t
+         %%%%%%%%%%    hhhhhhhh
+                       hhhhhhhh
+      t        t        t        t
+end

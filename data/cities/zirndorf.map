@@ -1,0 +1,63 @@
+# Zirndorf in 1632, and the Alte Veste on the ridge above it.  One character is one tile; north
+# is at the top. Drawn first by tools/draft_towns.py (zirndorf); the script is the master copy.
+# Characters as in paris.map; 'n' a tent, 'v' gabions, 'u' a gun: the camp of Wallenstein's army,
+# in the world only from the event wallenstein-comes until siege-ends (events.txt).
+
+style german
+ground 1.0
+camp wallenstein-comes until siege-ends
+
+legend A fortress  "the Alte Veste"               height=3 stone=A89878
+legend C church    "St Rochus"                    roof=tile stone=C8B898
+legend W mansion   "a farm by the Alte Veste"
+
+map
+  t,  t,    t,  t,  t,t,    t,t,          t,    t,t,    t,
+  ,,  ,,    ,,  ,,  ,,,,    ,,,,          ,,    ,,,,    ,,
+      t,t,t,                t,            t,    t,  t,vv
+      ,,,,,,                ,,            ,,    ,,  ,,vv
+                    t,  AAAAAAAA            t,  t,t,t,u;t,t,
+                    ,,  AAAAAAAA            ,,  ,,,,,,;;,,,,
+    t,                  AAAAAAAA  n t,n t,n   n t,n   vv
+    ,,                  AAAAAAAA    ,,  ,,      ,,    vv
+      t,            t,  AAAAAAAAt,t,t,t,  t,t,t,t,  t,vv  t,
+      ,,            ,,  AAAAAAAA,,,,,,,,  ,,,,,,,,  ,,vv  ,,
+      t,        t,t,      t,t,    n   n   n   n   n t,vv
+      ,,        ,,,,      ,,,,                      ,,vv
+  t,            t,    t,t,                  t,t,t,t,  u;
+  ,,            ,,    ,,,,                  ,,,,,,,,  ;;
+    t,          t,                n t,n   n t,n   n   vvt,t,
+    ,,          ,,                  ,,      ,,        vv,,,,
+              t,    t,      t,                    t,  vvt,
+              ,,    ,,      ,,                    ,,  vv,,
+t,              t,  t,            n   n   n   n   n   vv
+,,              ,,  ,,                                vv
+      t,t,  t,t,t,  CCCCCCCCCC    t,    t,    t,      u;  t,
+      ,,,,  ,,,,,,  CCCCCCCCCC    ,,    ,,    ,,      ;;  ,,
+                  ..CCCCCCCCCC    n   n   n   n   n   vv
+                  ..CCCCCCCCCC                        vv
+                  ..CCCCCCCCCC    WWWWWWWWWW          vv
+                  ..CCCCCCCCCC    WWWWWWWWWW          vv
+        hhhhhhhhhh..........      WWWWWWWWWW          vv
+        hhhhhhhhhh..........      WWWWWWWWWW          vv
+        hhhhhhhhhh..hhhhhhhh      WWWWWWWWWW          u;
+        hhhhhhhhhh..hhhhhhhh      WWWWWWWWWW          ;;
+        hhhhhhhhhh..hhhhhhhh      WWWWWWWWWW
+        hhhhhhhhhh..hhhhhhhh      WWWWWWWWWW
+__________________..________________________________________
+__________________..________________________________________
+        hhhhhhhhhh..hhhhhhhhhhhhhhhhhh
+        hhhhhhhhhh..hhhhhhhhhhhhhhhhhh
+        hhhhhhhhhh..hhhhhhhhhhhhhhhhhh
+        hhhhhhhhhh..hhhhhhhhhhhhhhhhhh
+        hhhhhhhhhh..hhhhhhhhhhhhhhhhhh
+        hhhhhhhhhh..hhhhhhhhhhhhhhhhhh
+                  ..
+                  ..
+
+
+
+
+
+
+end

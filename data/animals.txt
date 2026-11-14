@@ -1,0 +1,226 @@
+# Animals: what they look like, how they go about, and where they live (src/animals.cc).
+#   animal ID                  a kind of animal, then its lines:
+#     name a cow | cows        what it is called (one | many)
+#     look TEXT                what L says of one
+#     body four|bird LENGTH HEIGHT   the body's length and the height at the shoulder, in tiles
+#                              (a bird: its height without the neck)
+#     colour #hex ...          one of these, animal by animal
+#     patches #hex             patches on the flank; head #hex: the head's own colour
+#     horns wool mane snout ears neck comb tailup    what else it has
+#     speed N                  tiles a second, walking
+#     flock                    keeps close to the rest of its herd
+#     stands                   does not lie down at night (horses sleep standing)
+#     roams                    goes about the streets day and night, with short stops (dogs, cats)
+#     use VERB [needs ITEM] [gives ITEM] [every MINUTES] | TEXT
+#                              what U and a click on one does: the first use whose ITEM you carry
+#                              (items.txt); it gives you ITEM, at most once in MINUTES; from
+#                              somebody's animal (a herd's, a farm's, an inn's) only if nobody sees
+#     done VERB TEXT           what you read if you try it again too soon
+# Where they live (a town's animals are put out when you first come within reach of it):
+#   pasture ID LO HI [in PLACES]   a herd of LO..HI on the grass outside every town (not hamlets)
+#   yard ID LO HI [in PLACES]      in the yards and gardens of a farm or a village
+#   inn ID LO HI                   tied up beside the street door of every inn
+#   at "NAME" ID LO HI             round the door of a building whose name contains NAME
+#   pen "NAME" ID LO HI            inside an open building whose name contains NAME (a market hall)
+#   street ID LO HI [in PLACES]    loose in the streets and squares of every town
+#   PLACES: towns or countries (the people's files' "country"; France where none is given),
+#   with commas between and _ for a space
+
+animal cow
+  name a cow | cows
+  look A cow, chewing, who looks at you without interest and goes on chewing.
+  body four 1.6 1.12
+  colour #6B4A2E #8A5A34 #3A2C24 #B89A78
+  patches #EAE3D6
+  horns
+  speed 0.35
+  use milk needs pail gives milk every 720 | You milk her into the pail, your forehead against her warm flank. She shifts her feet, and lets you.
+  done milk She has been milked already today, and does not mean to be milked again.
+  use scratch | You scratch her between the horns. She lets you. With a pail, you could milk her.
+
+# Pâquerette, your family's cow, who died in May 1632. She is seen only in the still
+# scenes at the start of a new game, so no line at the end puts her anywhere.
+animal paquerette
+  name Pâquerette | cows
+  look Pâquerette, fawn and white, chewing, who looks at you as if you were late.
+  body four 1.55 1.1
+  colour #C49A6A
+  patches #F2EEE4
+  horns
+  speed 0.35
+  use scratch | You scratch her between the horns, in the place she likes.
+
+animal sheep
+  name a sheep | sheep
+  look A sheep in a dirty fleece. It backs away from you, and then forgets why.
+  body four 1.0 0.68
+  colour #E6DECA #DCD2BA #D2C8B0
+  head #2E2824
+  wool
+  flock
+  speed 0.4
+  use shear needs shears gives wool every 500000 | You clip the fleece off her in one piece, more or less. She trots off looking half her size, and indignant.
+  done shear She has been shorn already: there is nothing left to take.
+  use pat | You bury your hand in the fleece. It is greasy, and smells of sheep. With shears, you could take it.
+
+animal goat
+  name a goat | goats
+  look A goat with a beard and yellow eyes, which considers whether you are edible.
+  body four 0.95 0.66
+  colour #7A6650 #E2DACB #3E3630 #A08868
+  horns
+  speed 0.5
+  use milk needs pail gives milk every 720 | You milk her into the pail. She turns her head and eats the edge of your coat while you do it.
+  done milk She has been milked today; she makes it clear that once is enough.
+  use scratch | You scratch the goat's head between the horns. It butts your hand for more. With a pail, you could milk her.
+
+animal pig
+  name a pig | pigs
+  look A pig, rooting in the earth with great seriousness.
+  body four 1.1 0.58
+  colour #E0A69E #C9928A #5A4A44 #8A6A5A
+  snout
+  speed 0.3
+  use scratch | You scratch the pig's back with a stick. It grunts, deeply content, and leans into it.
+
+animal horse
+  name a horse | horses
+  look A horse, who shifts its weight and blows through its nose at you.
+  body four 1.9 1.3
+  colour #6A4528 #3A2618 #2A2220 #9A8A78 #C8B89A #8A5A30
+  mane
+  stands
+  speed 0.8
+  use pat | You stroke the horse's neck. It puts its nose against your coat, looking for something to eat.
+
+animal dog
+  name a dog | dogs
+  look A dog of no particular breed, who belongs to everybody and to nobody.
+  body four 0.75 0.5
+  colour #8A6A40 #3A3028 #C8B28A #E6DCC8 #5A4A3A
+  ears
+  tailup
+  roams
+  speed 1.1
+  use pet | You scratch the dog behind the ears. It decides that you are a friend, for now.
+
+animal cat
+  name a cat | cats
+  look A cat, going about its business, which is not yours.
+  body four 0.46 0.25
+  colour #7A7A78 #2A2622 #C8803A #E8E2D6 #5A4A3A
+  ears
+  tailup
+  roams
+  speed 0.6
+  use pet | The cat permits you to stroke it, once, and then walks off with its tail in the air.
+
+animal goose
+  name a goose | geese
+  look A goose, who hisses at you with its neck stretched out low.
+  body bird 0.55 0.5
+  colour #F2F0EA #F2F0EA #8A8478
+  neck
+  flock
+  speed 0.4
+  use pat | The goose hisses and goes for your ankles. You think better of it.
+
+animal hen
+  name a hen | hens
+  look A hen, scratching in the dirt and talking to herself.
+  body bird 0.34 0.3
+  colour #B5652E #E8E0D0 #3A2A22 #C89A5A
+  comb
+  flock
+  speed 0.45
+  use eggs gives egg every 720 | You feel under her in the straw and find an egg, still warm. She pecks your wrist for it.
+  done eggs She has nothing more for you today.
+
+# herds outside the towns, by country
+pasture cow 4 7 in France,Netherlands,Empire,Bohemia,Poland,Switzerland,Sweden
+pasture cow 3 5 in England,Italy
+pasture sheep 8 12 in England,Spain,Ottoman,Ragusa
+pasture sheep 5 8 in France,Empire,Bohemia,Poland,Italy,Sweden
+pasture goat 4 7 in Italy,Spain,Ragusa,Ottoman,Switzerland
+pasture pig 3 5 in Empire,Bohemia,Poland,France,England,Netherlands
+# farms and villages
+yard hen 5 8 in Watt's_Farm,Zirndorf,Arcetri,Montmartre
+yard hen 3 6 in France,England,Netherlands,Italy,Spain,Empire,Bohemia,Poland,Switzerland,Sweden,Ottoman,Ragusa
+yard goose 3 5 in Watt's_Farm,Zirndorf,Montmartre
+# horses at the inns, and Hobson's forty (or some of them)
+inn horse 1 2
+at "Hobson's stables" horse 5 7
+# the cows of the drovers at the cattle market of Poissy (one of them may be bought)
+pen "the cattle market" cow 6 9
+# in the streets
+street dog 2 4
+street cat 2 4
+street cat 4 6 in Constantinople
+
+# ---------------------------------------------------------------- the wild ones (main.cc, Game::wildStep)
+# Never put out by the rules above: met in the open country, away from the towns, and gone again
+# once you are far from them. Their own lines:
+#     wild                  one of these
+#     hostile N             goes for you once you are within N tiles
+#     shy N                 runs from you within N tiles (and from a shot)
+#     run N                 tiles a second, at a run
+#     fight HP SKILL DAMAGE it can be fought (C and a click) and shot (the fowling piece), and killed
+#     flees F               runs off, wounded, below F of its health
+#     night                 abroad at night (and at dusk and dawn in winter); lies up by day
+#     antlers               a stag's (half of a herd are hinds, without)
+#     every S               seconds between its bites or blows (1.4 if not given)
+#     biters N              no more than N of its herd at you at once (a pack: the rest circle)
+#     bout S                it breaks off after S seconds at you (a bear's charge)
+#     (when one of a pack is killed, the rest run)
+#     use VERB dead ...     what can be done with one that has been killed (skinned, butchered)
+
+animal wolf
+  name a wolf | wolves
+  look A grey wolf, lean in the shoulders, with pale eyes. It does not look away.
+  body four 1.0 0.82
+  colour #7A746A #8A8272 #5E5A54 #9A9284
+  head #8A8478
+  ears
+  wild
+  night
+  hostile 16
+  run 3.4
+  speed 0.9
+  fight 9 1 3
+  flees 0.35
+  every 2.0
+  biters 2
+  use skin dead needs knife gives wolf-pelt every 9999999 | You skin the wolf, as a shepherd would: hard, bloody work, and it takes a while. Any herdsman pays the parish's bounty on its pelt.
+  done skin You have taken its pelt already.
+
+animal bear
+  name a bear | bears
+  look A brown bear, rising on its hind legs to see you better. It is very much bigger than you.
+  body four 1.75 1.05
+  colour #4A3424 #5A3E2A #3E2E22
+  ears
+  wild
+  hostile 5
+  run 2.8
+  speed 0.45
+  fight 30 3 7
+  flees 0.5
+  every 1.8
+  bout 9
+  use skin dead needs knife gives bear-pelt every 9999999 | It takes you the best part of an hour to get the hide off the bear, and you are red to the elbows. There is a bounty on bears too.
+  done skin You have taken its hide already.
+
+animal deer
+  name a deer | deer
+  look A red deer, all legs and ears, standing quite still with one foot raised, ready to bolt.
+  body four 1.35 1.0
+  colour #8A5A36 #9A6440 #7A4E30
+  ears
+  antlers
+  wild
+  shy 9
+  run 4.8
+  speed 0.5
+  fight 7 0 0
+  use butcher dead needs knife gives venison every 9999999 | You gut the deer and cut off a haunch of venison, all you can carry. Any innkeeper will buy it; near the King's towns, mind the keepers.
+  done butcher You have taken all you can carry of it.

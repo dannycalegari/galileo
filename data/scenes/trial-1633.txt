@@ -1,0 +1,373 @@
+# The rest of the trial, played by the sentence's beat (events.txt beat-sentence-*): the examinations
+# of 30 April, 10 May and 21 June, seen from Fra Bartolomeo's closet if you watched the first from it (hearing-seen), and the
+# sentence and abjuration at Santa Maria sopra Minerva on 22 June, watched from the back with
+# Ambassador Niccolini. The words are our English, shortened, of the record (Le opere di Galileo
+# Galilei, ed. naz. XIX, pp. 342-348, 361-362, 402-407; the Italian in sources/trial/), except
+# where the game's own plot (the forged injunction, the voices for him) changes what happens:
+# those scenes are ours. Format as data/scenes.txt, with "date" and "if".
+
+# ---------------------------------------------------------------- 30 April
+scene
+  id trial-1633-1
+  if player hearing-seen
+  in Rome
+  date 1633-04-30
+  time 10:00
+  look table:the_palace_of_the_Holy_Office+1,0.6 yaw 30 pitch 50 zoom 2.2 roofs
+  rome:maculano table:the_palace_of_the_Holy_Office+1,-0.65 seated facing S
+  rome:sinceri table:the_palace_of_the_Holy_Office+3,-0.65 seated facing S
+  rome:notary table:the_palace_of_the_Holy_Office+4.75,0 seated facing W
+  rome:galileo table:the_palace_of_the_Holy_Office+-1,0 facing E
+  caption Saturday, 30 April 1633. From the closet again. Galileo has asked to be heard. "Reflecting for many days on my examination, I thought to read my Dialogue again, which I had not looked at for three years, to see whether anything had come from my pen, against my intention, that could make me seem disobedient."
+end
+
+scene
+  id trial-1633-2
+  if player hearing-seen
+  in Rome
+  date 1633-04-30
+  time 10:20
+  look table:the_palace_of_the_Holy_Office+1,0.6 yaw 14 pitch 54 zoom 1.9 roofs
+  rome:maculano table:the_palace_of_the_Holy_Office+1,-0.65 seated facing S
+  rome:sinceri table:the_palace_of_the_Holy_Office+3,-0.65 seated facing S
+  rome:notary table:the_palace_of_the_Holy_Office+4.75,0 seated facing W
+  rome:galileo table:the_palace_of_the_Holy_Office+-1,0 facing E
+  caption "Coming to it after so long, almost as a new book by another author, I freely confess that in several places a reader would think the arguments for the false side, which I meant to refute, were made strong rather than easy to answer: above all two, from the spots on the sun and from the ebb and flow of the sea."
+end
+
+scene
+  id trial-1633-3
+  if player hearing-seen
+  in Rome
+  date 1633-04-30
+  time 10:40
+  look table:the_palace_of_the_Holy_Office+1,0.6 yaw 30 pitch 50 zoom 2.2 roofs
+  rome:maculano table:the_palace_of_the_Holy_Office+1,-0.65 seated facing S
+  rome:sinceri table:the_palace_of_the_Holy_Office+3,-0.65 seated facing S
+  rome:notary table:the_palace_of_the_Holy_Office+4.75,0 seated facing W
+  rome:galileo table:the_palace_of_the_Holy_Office+-1,0 facing E
+  caption "My error, then, has been, and I confess it, one of vain ambition, and of pure ignorance and inadvertence." He signs and goes out, and a moment later comes back of his own accord: "I am ready to add one or two more days to the Dialogue, and refute those arguments as well as God will let me." That evening they let him go to the Tuscan ambassador's palace, as his prison.
+end
+
+# ---------------------------------------------------------------- 10 May
+scene
+  id trial-1633-4
+  if player hearing-seen and player cert-returned
+  in Rome
+  date 1633-05-10
+  time 10:00
+  look table:the_palace_of_the_Holy_Office+1,0.6 yaw 30 pitch 50 zoom 2.2 roofs
+  rome:maculano table:the_palace_of_the_Holy_Office+1,-0.65 seated facing S
+  rome:notary table:the_palace_of_the_Holy_Office+4.75,0 seated facing W
+  rome:galileo table:the_palace_of_the_Holy_Office+-1,0 facing E
+  caption Tuesday, 10 May 1633. The Commissary gives him eight days for his defence. "For my defence, to show the sincerity and purity of my intention, not to excuse my having gone too far, I present this writing, and with it a certificate of the late Cardinal Bellarmine, in his own hand." He lays down the certificate you kept for him, and Maculano reads the signature twice.
+end
+
+scene
+  id trial-1633-5
+  if player hearing-seen and player not cert-returned
+  in Rome
+  date 1633-05-10
+  time 10:00
+  look table:the_palace_of_the_Holy_Office+1,0.6 yaw 30 pitch 50 zoom 2.2 roofs
+  rome:maculano table:the_palace_of_the_Holy_Office+1,-0.65 seated facing S
+  rome:notary table:the_palace_of_the_Holy_Office+4.75,0 seated facing W
+  rome:galileo table:the_palace_of_the_Holy_Office+-1,0 facing E
+  caption Tuesday, 10 May 1633. The Commissary gives him eight days for his defence. "For my defence I present this writing, and with it a certificate of the late Cardinal Bellarmine." He searches his papers for the Cardinal's own certificate, and it is not there: he lays down only his copy, in his own hand. Maculano looks at it a long time, and says nothing.
+end
+
+scene
+  id trial-1633-6
+  if player hearing-seen
+  in Rome
+  date 1633-05-10
+  time 10:30
+  look table:the_palace_of_the_Holy_Office+1,0.6 yaw 14 pitch 54 zoom 1.9 roofs
+  rome:maculano table:the_palace_of_the_Holy_Office+1,-0.65 seated facing S
+  rome:notary table:the_palace_of_the_Holy_Office+4.75,0 seated facing W
+  rome:galileo table:the_palace_of_the_Holy_Office+-1,0 facing E
+  caption The notary reads the defence aloud: "The two phrases besides 'hold' and 'defend', that is 'teach' and 'in any way whatever', have come to me as new and unheard of... It remains for me to commend to you my pitiable state of body, to which ten months of affliction of mind and a long, hard journey, at the age of seventy, have brought me; and my honour and reputation, against the slanders of those who wish me ill."
+end
+
+# ---------------------------------------------------------------- 21 June
+scene
+  id trial-1633-7
+  if player hearing-seen
+  in Rome
+  date 1633-06-21
+  time 10:00
+  look table:the_palace_of_the_Holy_Office+1,0.6 yaw 22 pitch 58 zoom 3.4 roofs
+  rome:maculano table:the_palace_of_the_Holy_Office+1,-0.65 seated facing S
+  rome:sinceri table:the_palace_of_the_Holy_Office+3,-0.65 seated facing S
+  rome:notary table:the_palace_of_the_Holy_Office+4.75,0 seated facing W
+  rome:galileo table:the_palace_of_the_Holy_Office+-1,0 facing E
+  you table:the_palace_of_the_Holy_Office+7,-2 youth hat kneeling facing W
+  caption Tuesday, 21 June 1633: the rigorous examination. "Has he anything to say?" "I have nothing to say." "Does he hold, or has he held, that the sun is the centre of the world, and that the earth is not, and moves?"
+end
+
+scene
+  id trial-1633-8
+  if player hearing-seen
+  in Rome
+  date 1633-06-21
+  time 10:15
+  look table:the_palace_of_the_Holy_Office+1,0.6 yaw 30 pitch 50 zoom 2.2 roofs
+  rome:maculano table:the_palace_of_the_Holy_Office+1,-0.65 seated facing S
+  rome:sinceri table:the_palace_of_the_Holy_Office+3,-0.65 seated facing S
+  rome:notary table:the_palace_of_the_Holy_Office+4.75,0 seated facing W
+  rome:galileo table:the_palace_of_the_Holy_Office+-1,0 facing E
+  caption "Long ago, before the decision of the Congregation of the Index, I was undecided, and held both opinions, of Ptolemy and of Copernicus, open to dispute. But after that decision, assured by the prudence of my superiors, all doubt left me, and I held, and still hold, the opinion of Ptolemy to be most true: that the earth stands still, and the sun moves."
+end
+
+scene
+  id trial-1633-9
+  if player hearing-seen and player forgery-produced
+  in Rome
+  date 1633-06-21
+  time 10:30
+  look table:the_palace_of_the_Holy_Office+1,0.6 yaw 14 pitch 54 zoom 1.9 roofs
+  rome:maculano table:the_palace_of_the_Holy_Office+1,-0.65 seated facing S
+  rome:sinceri table:the_palace_of_the_Holy_Office+3,-0.65 seated facing S
+  rome:notary table:the_palace_of_the_Holy_Office+4.75,0 seated facing W
+  rome:galileo table:the_palace_of_the_Holy_Office+-1,0 facing E
+  caption On the table lies a paper of 1616 with his own name signed at the foot of it, the paper that Arellano promised the Congregation. "Does he know this hand?" Galileo holds it close to his better eye for a long time. "It is very like mine. I did not write it." The Fiscal makes a note.
+end
+
+scene
+  id trial-1633-10
+  if player hearing-seen
+  in Rome
+  date 1633-06-21
+  time 10:45
+  look table:the_palace_of_the_Holy_Office+1,0.6 yaw 14 pitch 54 zoom 1.9 roofs
+  rome:maculano table:the_palace_of_the_Holy_Office+1,-0.65 seated facing S
+  rome:sinceri table:the_palace_of_the_Holy_Office+3,-0.65 seated facing S
+  rome:notary table:the_palace_of_the_Holy_Office+4.75,0 seated facing W
+  rome:galileo table:the_palace_of_the_Holy_Office+-1,0 facing E
+  caption "From the book itself it is presumed that he holds the opinion of Copernicus, or held it; and unless he resolves to confess the truth, the remedies of law and of fact will be used against him." "I do not hold this opinion of Copernicus, and I have not held it since I was ordered to abandon it. For the rest, I am here in your hands: do as you please."
+end
+
+scene
+  id trial-1633-11
+  if player hearing-seen
+  in Rome
+  date 1633-06-21
+  time 11:00
+  look table:the_palace_of_the_Holy_Office+1,0.6 yaw 30 pitch 50 zoom 2.2 roofs
+  rome:maculano table:the_palace_of_the_Holy_Office+1,-0.65 seated facing S
+  rome:sinceri table:the_palace_of_the_Holy_Office+3,-0.65 seated facing S
+  rome:notary table:the_palace_of_the_Holy_Office+4.75,0 seated facing W
+  rome:galileo table:the_palace_of_the_Holy_Office+-1,0 facing E
+  caption "Let him tell the truth; otherwise he will be put to the torture." "I am here to obey. And I have not held this opinion since the decision was made, as I have said." Nothing more can be had from him. He signs, and they take him back to his room.
+end
+
+# ---------------------------------------------------------------- 22 June: the sentence and the abjuration
+scene
+  id trial-1633-12
+  if player not forgery-produced
+  in Rome
+  date 1633-06-22
+  time 09:00
+  look altar:Santa_Maria_sopra_Minerva+-3.5,-0.5 yaw 22 pitch 46 zoom 3.6 roofs
+  role:cardinal altar:Santa_Maria_sopra_Minerva+-1,1 seated facing W
+  role:cardinal altar:Santa_Maria_sopra_Minerva+-1,0 seated facing W
+  rome:francesco altar:Santa_Maria_sopra_Minerva+-1,-1 seated facing W
+  role:cardinal altar:Santa_Maria_sopra_Minerva+-1,-2 seated facing W
+  role:cardinal altar:Santa_Maria_sopra_Minerva+-1,-3 seated facing W
+  rome:galileo altar:Santa_Maria_sopra_Minerva+-3.4,-1.5 kneeling robe #ECE8DC facing E
+  rome:niccolini altar:Santa_Maria_sopra_Minerva+-4.7,-2.6 facing E
+  you altar:Santa_Maria_sopra_Minerva+-4.7,-0.4 youth hat facing E
+  caption Wednesday, 22 June 1633, the convent of Santa Maria sopra Minerva. The cardinals of the Holy Office sit in a row; Galileo kneels before them in the white robe of a penitent. You stand at the back with Ambassador Niccolini, as anyone may, and the notary reads the *sentence*.
+end
+
+scene
+  id trial-1633-13
+  if player not forgery-produced
+  in Rome
+  date 1633-06-22
+  time 09:15
+  look altar:Santa_Maria_sopra_Minerva+-3,-1 yaw 22 pitch 42 zoom 2.3 roofs
+  role:cardinal altar:Santa_Maria_sopra_Minerva+-1,0 seated facing W
+  rome:francesco altar:Santa_Maria_sopra_Minerva+-1,-1 seated facing W
+  role:cardinal altar:Santa_Maria_sopra_Minerva+-1,-2 seated facing W
+  rome:galileo altar:Santa_Maria_sopra_Minerva+-3.4,-1.5 kneeling robe #ECE8DC facing E
+  caption "We say, pronounce, sentence and declare that you, Galileo, by the things found in the trial and confessed by you, have rendered yourself to this Holy Office vehemently suspected of heresy: of having held and believed a doctrine false and contrary to the Holy Scriptures, that the sun is the centre of the world, and that the earth moves and is not the centre of the world."
+end
+
+scene
+  id trial-1633-14
+  if player not forgery-produced
+  in Rome
+  date 1633-06-22
+  time 09:30
+  look altar:Santa_Maria_sopra_Minerva+-3,-1 yaw 22 pitch 42 zoom 2.3 roofs
+  role:cardinal altar:Santa_Maria_sopra_Minerva+-1,0 seated facing W
+  rome:francesco altar:Santa_Maria_sopra_Minerva+-1,-1 seated facing W
+  role:cardinal altar:Santa_Maria_sopra_Minerva+-1,-2 seated facing W
+  rome:galileo altar:Santa_Maria_sopra_Minerva+-3.4,-1.5 kneeling robe #ECE8DC facing E
+  caption "We order that the book of the Dialogues of Galileo Galilei be prohibited by public edict. We condemn you to formal prison in this Holy Office, at our pleasure; and for a salutary penance, that for three years to come you say once a week the seven penitential Psalms."
+end
+
+scene
+  id trial-1633-15
+  if player not forgery-produced
+  in Rome
+  date 1633-06-22
+  time 09:45
+  look altar:Santa_Maria_sopra_Minerva+-3.4,-1.5 yaw 340 pitch 32 zoom 1.5 roofs
+  rome:galileo altar:Santa_Maria_sopra_Minerva+-3.4,-1.5 kneeling robe #ECE8DC facing E
+  caption Then he reads his *abjuration*, on his knees, in a voice that shakes only once: "I, Galileo, son of the late Vincenzio Galilei, of Florence, aged seventy years... with sincere heart and unfeigned faith I abjure, curse and detest the said errors and heresies, and every other error, heresy and sect contrary to the Holy Church."
+end
+
+scene
+  id trial-1633-16
+  if player not forgery-produced
+  in Rome
+  date 1633-06-22
+  time 10:00
+  look altar:Santa_Maria_sopra_Minerva+-3.5,-0.5 yaw 22 pitch 46 zoom 3.6 roofs
+  role:cardinal altar:Santa_Maria_sopra_Minerva+-1,1 seated facing W
+  role:cardinal altar:Santa_Maria_sopra_Minerva+-1,0 seated facing W
+  rome:francesco altar:Santa_Maria_sopra_Minerva+-1,-1 seated facing W
+  role:cardinal altar:Santa_Maria_sopra_Minerva+-1,-2 seated facing W
+  role:cardinal altar:Santa_Maria_sopra_Minerva+-1,-3 seated facing W
+  rome:galileo altar:Santa_Maria_sopra_Minerva+-3.4,-1.5 kneeling robe #ECE8DC facing E
+  rome:niccolini altar:Santa_Maria_sopra_Minerva+-4.7,-2.6 facing E
+  you altar:Santa_Maria_sopra_Minerva+-4.7,-0.4 youth hat facing E
+  caption He signs it. Seven of the ten cardinals sign the sentence; three do not: Borgia, Zacchia, and the Pope's own nephew, Francesco Barberini. A friar's arm under his, he gets up, slowly, and walks past you without seeing you.
+end
+
+scene
+  id trial-1633-17
+  if player man-history
+  in Rome
+  date 1633-06-22
+  leave door:Santa_Maria_sopra_Minerva
+  time 10:30
+  look door:Santa_Maria_sopra_Minerva yaw 22 pitch 48 zoom 3.0
+  rome:niccolini door:Santa_Maria_sopra_Minerva+1,0 facing W
+  you door:Santa_Maria_sopra_Minerva youth hat facing E
+  caption Outside, Niccolini takes your arm. "Prison at their pleasure," he says, "and their pleasure, I am told, will be my house, and then the Archbishop's at Siena, and then his own villa. He has kept his life, my friend, and his name will outlast theirs. That is more than they meant him to keep."
+end
+
+scene
+  id trial-1633-18
+  if player man-worse and player not forgery-doubted
+  in Rome
+  date 1633-06-22
+  leave door:Santa_Maria_sopra_Minerva
+  time 10:30
+  look door:Santa_Maria_sopra_Minerva yaw 22 pitch 48 zoom 3.0
+  rome:niccolini door:Santa_Maria_sopra_Minerva+1,0 facing W
+  you door:Santa_Maria_sopra_Minerva youth hat facing E
+  caption Outside, Niccolini does not take your arm. "They will not let him go home," he says. "Not to Siena, not to Arcetri: here, under guard, at His Holiness's pleasure. Too few voices spoke for him."
+end
+
+# ---------------------------------------------------------------- 22 June, had the forgery been believed (ours)
+scene
+  id trial-1633-19
+  if player forgery-produced and player not forgery-doubted
+  in Rome
+  date 1633-06-22
+  leave door:Santa_Maria_sopra_Minerva
+  time 09:00
+  look altar:Santa_Maria_sopra_Minerva+-3.5,-0.5 yaw 22 pitch 46 zoom 3.6 roofs
+  role:cardinal altar:Santa_Maria_sopra_Minerva+-1,1 seated facing W
+  role:cardinal altar:Santa_Maria_sopra_Minerva+-1,0 seated facing W
+  rome:francesco altar:Santa_Maria_sopra_Minerva+-1,-1 seated facing W
+  role:cardinal altar:Santa_Maria_sopra_Minerva+-1,-2 seated facing W
+  role:cardinal altar:Santa_Maria_sopra_Minerva+-1,-3 seated facing W
+  rome:galileo altar:Santa_Maria_sopra_Minerva+-3.4,-1.5 kneeling robe #ECE8DC facing E
+  rome:niccolini altar:Santa_Maria_sopra_Minerva+-4.7,-2.6 facing E
+  you altar:Santa_Maria_sopra_Minerva+-4.7,-0.4 youth hat facing E
+  caption Wednesday, 22 June 1633, the convent of Santa Maria sopra Minerva. The church is full, and very quiet. The notary reads for a long time; the words you hear are "relapsed", and "a signed acknowledgement of the year sixteen", and "contumacious".
+end
+
+scene
+  id trial-1633-20
+  if player forgery-produced and player not forgery-doubted
+  in Rome
+  date 1633-06-22
+  leave door:Santa_Maria_sopra_Minerva
+  time 09:40
+  look altar:Santa_Maria_sopra_Minerva+-3,-1 yaw 22 pitch 42 zoom 2.3 roofs
+  role:cardinal altar:Santa_Maria_sopra_Minerva+-1,0 seated facing W
+  rome:francesco altar:Santa_Maria_sopra_Minerva+-1,-1 seated facing W
+  role:cardinal altar:Santa_Maria_sopra_Minerva+-1,-2 seated facing W
+  rome:galileo altar:Santa_Maria_sopra_Minerva+-3.4,-1.5 kneeling robe #ECE8DC facing E
+  caption There is no abjuration to save him: a man who swore in 1616 to obey, and signed it, and then wrote the book, is not suspected of heresy. He is a heretic who has relapsed. The sentence is perpetual prison, in the Holy Office's own cells, at His Holiness's pleasure; the Pope, they say, remembered that they had once been friends, and would not give him to the fire.
+end
+
+scene
+  id trial-1633-21
+  if player forgery-produced and player not forgery-doubted
+  in Rome
+  date 1633-06-22
+  leave door:Santa_Maria_sopra_Minerva
+  time 10:00
+  look altar:Santa_Maria_sopra_Minerva+-3.4,-1.5 yaw 340 pitch 32 zoom 1.5 roofs
+  rome:galileo altar:Santa_Maria_sopra_Minerva+-3.4,-1.5 kneeling robe #ECE8DC facing E
+  caption Galileo does not kneel quickly enough, and two lay brothers help him down. The paper that did it is signed "Galileo Galilei", in a hand very like his own.
+end
+
+# ---------------------------------------------------------------- 22 June, the forgery laid but doubted (invented)
+# forgery-doubted: the paper was laid before the Congregation (by the clock or by Riccardi's alarm) and not
+# carried there by you. Placeholders: the facts are in each caption (tools/check.py lists them).
+scene
+  id trial-1633-22
+  if player forgery-doubted
+  in Rome
+  date 1633-06-22
+  leave door:Santa_Maria_sopra_Minerva
+  time 09:00
+  look altar:Santa_Maria_sopra_Minerva+-3.5,-0.5 yaw 22 pitch 46 zoom 3.6 roofs
+  role:cardinal altar:Santa_Maria_sopra_Minerva+-1,1 seated facing W
+  role:cardinal altar:Santa_Maria_sopra_Minerva+-1,0 seated facing W
+  rome:francesco altar:Santa_Maria_sopra_Minerva+-1,-1 seated facing W
+  role:cardinal altar:Santa_Maria_sopra_Minerva+-1,-2 seated facing W
+  role:cardinal altar:Santa_Maria_sopra_Minerva+-1,-3 seated facing W
+  rome:galileo altar:Santa_Maria_sopra_Minerva+-3.4,-1.5 kneeling robe #ECE8DC facing E
+  rome:niccolini altar:Santa_Maria_sopra_Minerva+-4.7,-2.6 facing E
+  you altar:Santa_Maria_sopra_Minerva+-4.7,-0.4 youth hat facing E
+  caption Wednesday, 22 June 1633, the convent of Santa Maria sopra Minerva. The church is full, and very quiet. The notary reads for a long time. He reads out the paper of the year sixteen, with its signature, and you see two of the cardinals look at each other; but the words "relapsed" and "contumacious" do not come.
+end
+
+scene
+  id trial-1633-23
+  if player forgery-doubted
+  in Rome
+  date 1633-06-22
+  leave door:Santa_Maria_sopra_Minerva
+  time 09:40
+  look altar:Santa_Maria_sopra_Minerva+-3,-1 yaw 22 pitch 42 zoom 2.3 roofs
+  role:cardinal altar:Santa_Maria_sopra_Minerva+-1,0 seated facing W
+  rome:francesco altar:Santa_Maria_sopra_Minerva+-1,-1 seated facing W
+  role:cardinal altar:Santa_Maria_sopra_Minerva+-1,-2 seated facing W
+  rome:galileo altar:Santa_Maria_sopra_Minerva+-3.4,-1.5 kneeling robe #ECE8DC facing E
+  caption The sentence: vehemently suspected of heresy, for holding that the Sun stands still at the centre of the world and that the Earth moves; the Dialogue prohibited; formal prison, at the pleasure of the Holy Office. Not a relapsed heretic: too many of them doubted the paper for that. Then he abjures, on his knees, reading from the sheet they give him.
+end
+
+scene
+  id trial-1633-24
+  if player forgery-doubted
+  in Rome
+  date 1633-06-22
+  leave door:Santa_Maria_sopra_Minerva
+  time 10:00
+  look altar:Santa_Maria_sopra_Minerva+-3.4,-1.5 yaw 340 pitch 32 zoom 1.5 roofs
+  rome:galileo altar:Santa_Maria_sopra_Minerva+-3.4,-1.5 kneeling robe #ECE8DC facing E
+  caption He signs, and two lay brothers help him up. Nobody names the paper again. It was doubted, and that is why he goes from here to a room under guard, and not to a cell; it was laid all the same, and that is why he does not go home.
+end
+
+scene
+  id trial-1633-25
+  if player forgery-doubted
+  in Rome
+  date 1633-06-22
+  leave door:Santa_Maria_sopra_Minerva
+  time 10:30
+  look door:Santa_Maria_sopra_Minerva yaw 22 pitch 48 zoom 3.0
+  rome:niccolini door:Santa_Maria_sopra_Minerva+1,0 facing W
+  you door:Santa_Maria_sopra_Minerva youth hat facing E
+  caption Outside, Niccolini does not take your arm. "The paper was laid," he says, "and they doubted it, God be thanked, or he would be in a cell tonight, or worse. But a doubt is not an acquittal. They will not let him go home: not to Siena, not to Arcetri. Here, under guard, at His Holiness's pleasure."
+end

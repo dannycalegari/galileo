@@ -1,0 +1,29 @@
+# A cattle market on the road west of Paris (Poissy): the market hall, open on
+# its sides, where the drovers bring their beasts from Normandy and the butchers of Paris buy, an
+# inn for the drovers, and a few houses, all open to the road.
+style village
+ground 0.9
+margin 14
+legend C halle "the cattle market" timber nostalls
+legend I inn   "the Lion d'Or"
+map
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;  
+  ;CCCCCCCCCCCCCCCCCC;;;IIIIIIIIIII;  
+  ;CCCCCCCCCCCCCCCCCC;;;IIIIIIIIIII;  
+  ;CCCCCCCCCCCCCCCCCC;x;IIIIIIIIIII;  
+  ;CCCCCCCCCCCCCCCCCC;;;IIIIIIIIIII;  
+  ;CCCCCCCCCCCCCCCCCC;;;IIIIIIIIIII;  
+  ;CCCCCCCCCCCCCCCCCC;x;IIIIIIIIIII;  
+  ;CCCCCCCCCCCCCCCCCC;;;IIIIIIIIIII;  
+  ;CCCCCCCCCCCCCCCCCC;;;;;;;;;;;;;;;  
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;o;;;;;;;  
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;  
+  ;;;hhhhhhh;;;;hhhhhhh;;;;hhhhhhh;;  
+  ;;;hhhhhhh;;;;hhhhhhh;;;;hhhhhhh;;  
+  ;;;hhhhhhh;;;;hhhhhhh;;;;hhhhhhh;;  
+  ;;;hhhhhhh;;;;hhhhhhh;;;;hhhhhhh;;  
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;  
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;  
+
+end

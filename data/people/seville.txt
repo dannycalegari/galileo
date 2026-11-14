@@ -1,0 +1,202 @@
+# The people of Seville.
+# June 1632: Seville holds the monopoly of the trade with the Indies, through the Casa de
+# Contratacion; the silver fleet comes in every autumn. Zurbaran paints for the monasteries;
+# Francisco Pacheco, Velazquez's master and father-in-law, censors paintings for the Holy Office;
+# Bartolome Murillo is a boy of fourteen, an orphan apprenticed to a painter.
+town Seville
+names spanish
+prison castle of San Jorge | The alguaciles take you over the bridge of boats to the castle of San Jorge in Triana, where the Holy Office keeps its prisoners. A friar asks you, very kindly, all night, what you believe. In the morning they decide you are only a thief, which is a relief, and let you go.
+country Spain
+
+person pacheco
+  name Francisco Pacheco
+  title a painter
+  role painter
+  near Cathedral of Seville
+  talk
+    sheet,hand,writing,forgery,paper,signature,wastepaper if player has:practice-sheet: (He studies it a long time with a glass.) I censor paintings for the Holy Office, and I know a forger's hand when I see one: slow where a true hand is quick, lifted where a true hand runs on. And I know whose hand this is. Andrés Morales, of Granada, who copied the inscriptions of the Sacromonte for the old Archbishop. (He puts the glass down.) They say his boy is a page in Don Rodrigo de Arellano's house here, and that the boy is not free to leave it. {player set proof-hand} {player set pacheco-knows} {player set knows:rome:morales} {player set knows:seville:rodrigo}
+    juanico,boy,page,rodrigo,note if player pacheco-knows and not player juanico-free and not player has:pacheco-note: (He writes a few lines and signs them.) Give this to Don Rodrigo. A merchant who keeps a boy against his father's will does not want the Holy Office of Seville to be interested in him. {player add has:pacheco-note 1} {player set knows:seville:rodrigo}
+    name: Francisco Pacheco, painter, and censor of sacred paintings for the Holy Office. {name}
+    job: I paint, I teach, and I see to it that nobody in Seville paints the Virgin with her feet showing. I am writing a book on the art of painting that will settle every question for ever.
+    velazquez,diego,pupil: Diego de Silva Velazquez was my pupil for six years, and I gave him my daughter. Now he is painter to the King in Madrid, and has been to Italy, and paints better than I do. I said so first.
+    spanish,lesson,learn,language if player skill:spanish: You speak Castilian like a man of Seville: too fast, and dropping your esses.
+    spanish,lesson,learn,language: Castilian? Sit with me in the studio a day, grind my colours, and listen. A sou for the lessons, and the colours for nothing. You will learn the names of every saint.
+    give:money if player gift >= 12 and not player skill:spanish: (You grind lead white and smalt all afternoon while he talks, of painting, of saints, of the Holy Office, of Diego.) Bueno: now you can buy and sell without the Sevillanos laughing at you. They will still laugh. {take} {player learn spanish} {pass 240}
+  end
+end
+
+person zurbaran
+  name Francisco de Zurbaran
+  title a painter
+  role painter
+  near Alcazar of Seville
+  talk
+    name: Francisco de Zurbaran, painter, of Fuente de Cantos. {name}
+    job: I paint saints and monks for the monasteries, in white habits against the dark, and a cup and a lemon on a table when nobody is ordering saints. The city council asked me to come and live here, and the painters' guild is still angry about it.
+    monks,white,habit: A white habit in the dark: there is nothing harder to paint, or more beautiful. Every fold is a different white.
+  end
+end
+
+person murillo
+  name Bartolome Esteban
+  title a boy
+  role apprentice
+  near Lonja
+  talk
+    name: Bartolome. Murillo, after my mother's family. {name}
+    job: I am apprenticed to Juan del Castillo. I grind his colours and I draw beggar boys on the walls with charcoal, and he beats me for it, and then he looks at them for a long time.
+    draw,drawing,paint,beggars: The boys by the river, eating melons, with their feet dirty. Nobody paints them. Somebody should.
+  end
+end
+
+person cargador
+  name Don Rodrigo de Vargas
+  title a merchant of the Indies
+  role merchant
+  near Casa de Contratacion
+  work landmark Lonja
+  money 24000
+  talk
+    name: Rodrigo de Vargas, cargador a Indias, of the consulado of Seville. {name}
+    job: I send cloth, wine, oil and iron to New Spain and Peru on the fleets, and I am paid in silver, cochineal, sugar and tobacco when the fleets come back, if they come back. The Dutch took the whole silver fleet at Matanzas four years ago. I was not paid that year.
+    fleet,silver,indies: The fleets sail in spring and come home in autumn, two of them, with the galleons to guard them: forty ships, a hundred, all of it through the Casa de Contratacion, which counts every real. This year the fleet is late.
+    cochineal,grana if player heard-scarlet and not player scarlet-done: For a dyer in Rome? Then take the grana fina, the tame cochineal of Oaxaca, not the wild; they will know the difference in Rome by smell. I sell it by the pouch, cheaper than anyone in Italy will believe.
+    tobacco,sugar,cochineal: Tobacco from Havana, sugar from the islands, cochineal from Oaxaca for the scarlet of every cardinal in Rome. Cheap here, dear everywhere else: that is the whole secret of Seville.
+  end
+end
+
+person pilot
+  name Diego Ramirez
+  title a pilot of the Casa
+  role sailor
+  near Torre del Oro
+  work landmark Casa de Contratacion
+  talk
+    name: Diego Ramirez, examined pilot of the Carrera de Indias. {name}
+    job: I examine the pilots of the Indies fleets for the Pilot Major of the Casa: the astrolabe, the cross-staff, the tables of the Sun, the soundings off Sanlucar bar. Half of them fail. The other half drown.
+    ship,own,buy,patache,vessel,sale: Old Pedro de Ojeda is selling his patache, the Santa Clara: ask him at Triana, on the bank below the castle of San Jorge. He has been trying to sell her since Lent.
+    navigation,lesson,learn,sea,pilot if player skill:navigation >= 2: You know as much as I do. Do not tell the Pilot Major.
+    navigation,lesson,lessons,learn,sea,pilot,teach: You want to learn to take the height of the Sun at noon and know where you are? A sou a lesson, two lessons, and you will sail straighter and faster, and lose less of your life at sea. Will you *take* a lesson? {set offered-lesson=now}
+    take,yes,deal,another,=i will if recent:0.05 offered-lesson and player skill:navigation >= 2: You know as much as I do. Do not tell the Pilot Major.
+    take,yes,deal,another,=i will if recent:0.05 offered-lesson and player money >= 12: (On the roof of the Casa, with an astrolabe, he shows you the Sun's height at noon, the tables of declination, the dead reckoning.) Now you will not need to hug the coast like a fisherman: a ship of yours will go a little faster for it. {player add money -12} {player learn navigation} {set offered-lesson=now}
+    take,yes,deal,another,=i will if recent:0.05 offered-lesson: A sou, friend. Even the Pilot Major pays for his bread.
+    give:money if player gift >= 12 and not player skill:navigation >= 2: (On the roof of the Casa, with an astrolabe, he shows you the Sun's height at noon, the tables of declination, the dead reckoning.) Now you will not need to hug the coast like a fisherman: a ship of yours will go a little faster for it. {take} {player learn navigation}
+  end
+end
+
+# a ship of your own in the Mediterranean (Game::shipDeal, "buyship PRICE patache"): down the river
+# past Sanlucar, through the Strait, and along the Barbary coast to Hippo (barbary.txt)
+person ojeda
+  name Pedro de Ojeda
+  title an old shipmaster
+  role sailor
+  look coat #3A3428 legs #2A2620 hat cap #2A2A30
+  near 1282,2104
+  work landmark San Jorge
+  schedule
+    7:00 home
+    8:00 work
+    13:00 eat
+    15:00 work
+    20:00 home
+    22:00 sleep
+  money 4800
+  talk
+    hello: (An old seaman sits on a coil of rope on the bank at Triana, below the castle of San Jorge, watching the river go by.) Looking for a ship, by any chance? No? Everybody says no.
+    name: Pedro de Ojeda, of Triana, master of the patache Santa Clara. {name}
+    job: Eleven years I carried the dispatches of the Casa to the fleets, the avisos: to Havana and back before a galleon could find its own anchor. Now my eyes are bad and my sons are priests, and the Santa Clara is for sale.
+    ship,whole,own,buy,patache,vessel,sale,clara if player ship:at: You have a ship already. One is all a man can afford to lose.
+    give:barberini-bill if not player ship:at: (He reads it twice, and holds the seal to the light.) For a ship, and for nothing else? Then it is for mine: the Santa Clara, at the bank below the castle. Will you *take* her? {set offered-ship=now}
+    take,yes,deal,=i will if recent:0.05 offered-ship and not player ship:at and player has:barberini-bill: (He reads the bill twice, and holds the seal to the light.) Genoese paper, with a cardinal's arms on it. As good as silver; better. She is yours. {player add has:barberini-bill -1} {buyship 0 patache}
+    take,yes,deal,=i will if recent:0.05 offered-ship and not player ship:at: (He kisses the cross of his rosary, and then, to your surprise, your hand.) Look after her. {buyship 48000 patache}
+    ship,whole,own,buy,patache,vessel,sale,clara if not player ship:at: The Santa Clara: a patache, two masts, quick as a gull and handy along a coast. Two hundred livres, and she is yours, moored below the bridge of boats, to sail where you like: down the river, over the bar at Sanlucar, and out through the Strait. Will you *take* her? {set offered-ship=now}
+    indies,america,havana,cartagena,mexico,veracruz,fleet,fleets,flota,aviso,avisos: (He looks down the river, towards Sanlucar.) Havana in a month and a little, with the trade wind behind you: I did it for eleven years. But nobody sails for the Indies without the Casa's licence, and a ship that tries is taken at the first port over there, and her master with her. Through the Strait, the sea is free.
+    barbary,africa,coast,strait,mediterranean,voyage,hippo,coral,algiers: Through the Strait, and keep the coast of Barbary on your right hand. You come to Oran, which is ours, then Algiers, which is the corsairs', then Bône, where the French fish coral. Keep well off Algiers. Every man in its bagnios once said he would.
+  end
+end
+
+person tobacconist
+  name Maria la Sevillana
+  title a seller of tobacco
+  role merchant
+  sex f
+  look coat #6A2A2A legs #3A2A24 hat coif #E8E2D2 dress
+  near Arenal
+  money 4800
+  talk
+    name: Maria. Everyone on the Arenal knows me. {name}
+    job: Tobacco, from Havana and Caracas, in rolls and in powder. The sailors buy it by the roll, the priests by the pinch. The priests are not supposed to.
+    tobacco,smoke,snuff: The friars say it is the Devil's own weed, and in England King James wrote a book against it. Everyone buys it all the same.
+  end
+end
+
+person guitarist
+  name Pedro el Ciego
+  title a guitar player
+  role musician
+  near Posada del Lucero
+  talk
+    name: Pedro. The blind one, they say, as if I could not hear them. {name}
+    job: I play the guitar at the Posada of an evening: five courses, strummed, the new way, not the old vihuela. Seguidillas, chaconas, zarabandas. The zarabanda is forbidden: it is too indecent. So everyone asks for it.
+    zarabanda,sarabande,dance: The zarabanda came from the Indies, they say, and Father Mariana says it has done more harm than the plague. You must hear it.
+  end
+end
+
+crowd 3 goodwife
+crowd 3 labourer
+crowd 2 merchant
+crowd 2 guard
+crowd 2 sailor
+crowd 1 beggar
+crowd 1 innkeeper
+crowd 1 changer
+crowd 1 herdsman
+
+# ---------------------------------------------------------------- the plot, chapter I
+# Don Rodrigo de Arellano, the Spanish secretary's brother, and the boy he keeps: Juanico,
+# son of the scrivener of Granada who will forge the injunction (chapter III).
+
+person rodrigo
+  name Don Rodrigo de Arellano
+  title a merchant of the Indies
+  role merchant
+  look coat #2A1A14 legs #1A1210 hat hat #120C0A
+  near Lonja
+  work landmark Lonja
+  talk
+    give:pacheco-note: (He reads it, and the colour leaves his face.) The Holy Office? For a page? (He calls the boy.) Take him. Take him, and go. (Juanico writes a few lines for his father at the counting desk, his hand shaking, and gives them to you, and runs out of the door.) {take} {player set juanico-free} {player add has:juanico-letter 1} {player set knows:seville:juanico}
+    give:money if player gift >= 48000 and player ch3-open and not player ch3-over and not player juanico-free: (He counts it twice.) My brother will be angry; my brother is in Rome. Juanico! You are free. (The boy writes a few lines for his father at the counting desk, and gives them to you, and runs out of the door.) {take} {player set juanico-free} {player add has:juanico-letter 1} {player set knows:seville:juanico}
+    juanico,boy,page,free,price if player ch3-open and not player ch3-over and not player juanico-free: The boy? He is my brother's business. (He looks you over.) Two hundred livres, and he is yours; nobody gives anything for nothing in Seville.
+    name: Rodrigo de Arellano, merchant of the Indies, of the consulado of Seville. {name}
+    job: I buy and sell what the fleet brings: silver, cochineal, indigo, hides, sugar. Mostly silver. Everything in Seville is mostly silver.
+    give:arellano-letter: (He breaks the seal, reads, and looks for a moment at the boy behind him.) My brother is well, and Rome is hot. Here: twelve livres, as he promised. *Juanico*! A cup of wine for the courier. {take} {player add money 2880} {player set delivered-arellano-letter=now} {player set knows:seville:juanico}
+    give:arellano-letter-open: (He turns it over, and sees the seal.) This has been opened. (Coldly.) I do not take letters that half of Spain has read. Take it back to whoever opened it. {player set rodrigo-refused=now}
+    juanico,boy,page: My page. A boy of Granada; his father works for my brother in Rome. He is learning to be useful.
+    luis,brother: My brother Luis is the clever one, at Rome. He sends me letters about the Pope, and I send him money.
+  end
+end
+
+person juanico
+  name Juanico Morales
+  title a page
+  role apprentice
+  near Lonja
+  work landmark Lonja
+  schedule
+    6:00 work if not player juanico-free
+    12:00 wander if not player juanico-free
+    13:00 work if not player juanico-free
+    19:00 wander if not player juanico-free
+    21:00 home if not player juanico-free
+    21:30 sleep if not player juanico-free
+    0:00 away if player juanico-free
+  talk
+    hello if player juanico-free: (He is gone: they say he ran out of the gate of Seville towards Granada, and did not look back.)
+    hello: (A boy of fifteen or so, in a page's livery too big for him. He keeps his eyes on the ground.)
+    name: Juanico, sir. Juan Morales, of Granada. {name}
+    job: I serve Don Rodrigo. I carry his papers, and his cloak, and his wine. {player set knows:seville:rodrigo}
+    father,morales: My father is in Rome, a scrivener; he works for Don Luis. He writes to me every month. I am to stay here until his *work* is done. (He looks at the door.) Don Rodrigo is very kind. {player set knows:rome:arellano} {player set knows:seville:rodrigo}
+    home,granada,mother: My mother is at Granada, in the Albaicín. I have not seen her since Lent.
+    work: My father's? He writes beautifully. He can write in any hand at all. (He stops.) I am not to talk about it.
+  end
+end

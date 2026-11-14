@@ -1,0 +1,125 @@
+# The people of Haarlem.
+# June 1632: Frans Hals is painting the officers of the Saint Hadrian guard (finished next year);
+# Judith Leyster, twenty-three, paints in her father's brewery; Saenredam draws the Grote Kerk.
+town Haarlem
+names dutch
+prison Town Hall of Haarlem | They lock you in the cellar of the Town Hall, under the room where the Burgomasters sit. All night you hear them arguing about the price of beer. In the morning they let you go.
+country Netherlands
+
+person hals
+  name Frans Hals
+  title a painter
+  role painter
+  near Frans Hals
+  work landmark Frans Hals
+  schedule
+    9:00 home
+    11:00 work
+    13:00 go landmark Golden Lion
+    16:00 work
+    19:00 go landmark Golden Lion
+    23:30 home
+    0:30 sleep
+  talk
+    hello if player paid-hals and not thanked-player: You paid my bill at the Lion! A stranger! (He embraces you, smelling of linseed and beer.) Next year, look for yourself among the officers of Saint Hadrian, at the back, the one with the astonished face. {set thanked-player}
+    name: Frans Hals, painter, of Antwerp once, of Haarlem these forty years. {name}
+    job: I paint people as they are, quickly, before they stop laughing. This year the officers of the Saint Hadrian guard: twelve of them, and every one of them wants to be in the front.
+    debt,bill,lion,money,beer if not player paid-hals: (Lowering his voice.) The landlord of the Golden Lion says I owe him for a year of beer: four livres. Four! If some kind soul paid it for me... I would put him in a painting.
+    leyster,judith: Judith Leyster? She paints like a man, and better than most of them. She will be in the Guild next year, mark my words, and then she will take my pupils.
+    painting,paint,brush: Do not lick it smooth. A face is never still: paint it moving.
+  end
+end
+
+person leyster
+  name Judith Leyster
+  title a painter
+  role painter
+  sex f
+  look coat #4A2A3A legs #3A2A30 hat coif #F2EEE6 dress
+  near Leyster
+  work landmark Leyster
+  talk
+    name: Judith Leyster. {name}
+    job: I paint: merry drinkers, children with cats, musicians. People buy them, which is more than can be said for most paintings.
+    star,leyster,sign,brewery: My father's brewery is called the Leyster, the lodestar; so I sign my pictures with a star, beside my name.
+    guild: The Guild of Saint Luke has never had a woman master. Next year it will.
+    hals,frans: Frans Hals paints the way he talks: too fast, and very well. Do not lend him money.
+  end
+end
+
+person saenredam
+  name Pieter Saenredam
+  title a painter of churches
+  role painter
+  near Grote Kerk
+  work landmark Grote Kerk
+  talk
+    name: Pieter Saenredam. I paint churches, and nothing else. {name}
+    job: I measure the church with a rod and a line, and draw it true, every pillar and every rib of the vault; then I paint it a little taller than it is, so it looks as tall as it feels when you walk in.
+    measure,geometry,perspective,drawing: Perspective is only geometry: a point for the eye, lines to every corner, and a glass between. The difficulty is to make it lie a little, honestly.
+    church,bavo,kerk: Saint Bavo: forty years of building, and then they whitewashed it all. I like it white. You can see the light.
+  end
+end
+
+person lionhost
+  name Cornelis Bol
+  role innkeeper
+  near Golden Lion
+  know hals-bill 960
+  talk
+    name: Cornelis Bol, host of the Golden Lion. {name}
+    beer,drink: Haarlem beer, the best in Holland: we brew it with the water of the dunes. Half the town is brewers and the other half drinks.
+    hals,frans,bill,debt if not paid-hals: Frans Hals? He owes me four livres: a year of beer, and a good deal of cheese. If you are a friend of his, pay it, and I will stop telling people.
+    give:money if player gift >= 960 and not paid-hals: (He counts it twice.) Paid in full! I shall have to find somebody else to complain about. Do not tell him I said so, but he is a great painter. {take} {set paid-hals} {player set paid-hals}
+    give:money if not paid-hals: Four livres, friend. That is Frans's bill.
+    tulip,tulips,florist,bulbs: The florists meet here in the back room in the evening and buy and sell bulbs they have never seen, on paper. One of them will make a fortune, and then all of them will lose it.
+  end
+end
+
+person florist
+  name Barent Cardoes
+  title a florist
+  role merchant
+  near Golden Lion
+  money 9600
+  schedule
+    8:00 home
+    10:00 wander
+    13:00 go landmark Golden Lion
+    15:00 wander
+    18:00 go landmark Golden Lion
+    23:00 home
+    23:30 sleep
+  talk
+    name: Barent Cardoes, florist, which is to say a dealer in tulips. {name}
+    job: I buy bulbs in the autumn and sell them in the spring; and in between I buy and sell them on paper, many times over, which is better.
+    tulip,tulips,bulb,bulbs,clusius if not player gave-tulip: I would give twenty livres for one bulb of old Clusius's own breaking, out of the Hortus at Leiden. His bulbs were stolen from that garden in his own lifetime; that is how all Holland came to have tulips. (He looks at the ceiling.) I do not say steal another. I say twenty livres.
+    give:tulip-bulb: (He holds it to the light, turns it, and almost weeps.) From the Hortus! A broken Viceroy, by the look of the skin. Here: twenty livres, and if anyone asks, I bought it from a sailor. {take} {player add money 4800} {player set gave-tulip}
+    semper,augustus: Semper Augustus! There are twelve bulbs of it in the world, and one man owns them all, and will not sell. They say he was offered a house on the Herengracht for one.
+  end
+end
+
+crowd 3 goodwife
+crowd 2 labourer
+crowd 2 merchant
+crowd 1 washerwoman
+crowd 1 apprentice
+crowd 2 guard
+crowd 1 beggar
+crowd 1 herdsman
+
+person papermaker
+  name Cornelis Claeszoon
+  title a papermaker
+  role merchant
+  look coat #4A4A3A legs #2E2E24 hat hat #1E1E18 apron #D8D0BC
+  near Vleeshal
+  work landmark Vleeshal
+  talk
+    name: Cornelis Claeszoon, papermaker, of the mill by the Spaarne. {name}
+    job: I make paper, the best in Holland, from linen rags and good water. Half of it goes to Amsterdam for the printers, and the rest to Italy, where they think it is their own.
+    watermark,=mark,=marks,mould,shield,paper,sheet,wastepaper if player has:practice-sheet: (He holds it to the light and laughs.) That is my father's shield! The crowned shield with the bend, and our initials. He made that mould in the year twenty-two, and I helped him wire it: you can see where the wire was mended, there, in the crown. Paper from that mould did not exist before 1622. Whoever wrote a date of 1616 on it is a liar. {player set proof-paper}
+    paper: Good paper is a matter of rags, water and patience. Bad paper is a matter of hurry.
+    watermark,=mark,=marks,mould,shield,forgery,forged: Every mill wires its own mark into the mould, and you see it when you hold the sheet up to the light. Bring me a sheet, and I will tell you whose mill it came from, and the year of the mould.
+  end
+end

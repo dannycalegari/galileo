@@ -1,0 +1,228 @@
+# The people of Amsterdam.
+# June 1632: Rembrandt has painted Dr Tulp's anatomy lesson this winter; the Athenaeum opened in
+# January; the Westerkerk was finished last year, all but its tower.
+town Amsterdam
+names dutch
+prison Town Hall | They lock you in the cellar of the Town Hall. In the morning the schout tells you that next time it will be the Rasphuis, where thieves rasp brazilwood into dye for the cloth-makers until they mend their ways. Then they let you go.
+country Netherlands
+
+person descartes
+  name René Descartes
+  title a French gentleman
+  role mathematician
+  look coat #1E1E24 legs #1E1E24 hat hat #141418
+  known He lodges in the Kalverstraat, by the Munttoren, and keeps to his room until eleven; towards evening he walks at the Exchange, among the merchants.
+  near Munttoren
+  work none
+  schedule
+    11:00 home
+    13:00 eat
+    14:00 wander
+    17:00 go landmark Exchange
+    19:00 home
+    23:00 sleep
+  talk
+    keep,drawer,save,wait if player descartes-told and not player descartes-kept: (He looks at you a long while, and then at a fat manuscript on the table.) In a drawer, then. Until the world is ready. Which will be after I am dead, no doubt. {player set descartes-kept}
+    galileo,condemned,monde,world,trial if player ch3-over and not player descartes-told: (Grim.) They have condemned him at Rome, for saying that the Earth moves. I heard in November. I had a book ready, Le Monde, which says exactly that. I was going to burn it. Or *keep* it in a drawer, until the world is ready. {player set descartes-told}
+    give:pappus: Pappus! Golius has sent you after me. (He reads it, takes a pen, and writes for an hour without looking up.) There. Give each line a letter, call the unknown distances x and y, and the problem becomes an equation of the second degree; the place of the points is a conic section. Take it back to Golius. And tell him this is not the answer to a problem; it is a new geometry. {take} {player add has:pappus-solution 1} {player set descartes-pappus}
+    pappus,problem,golius,geometry if player has:pappus: Golius's problem? Give it here.
+    give:mersenne-letter: From Mersenne! (He reads it twice, then burns the cover in the candle.) So he trusts you, and I must. Take him my answer, and tell nobody where I live. {take} {player add has:descartes-letter 1} {player set descartes-trusts}
+    give:de-motu-cordis: From Harvey, in London! (He reads standing up, turning the pages fast.) The circulation of the blood: he is right, and I shall say so. But he is wrong about the heart. It is not a pump; it is a furnace, that heats the blood, so that it swells and bursts out into the arteries. Thank him for me. {take} {player set gave-harvey}
+    harvey,heart,blood if player gave-harvey: Harvey is right that the blood goes round, and wrong about why. I am writing it all in my treatise on Man. Nobody will read it.
+    cogito,think,thinking,doubt,certain: I doubt everything I can; and I find I cannot doubt that I doubt, and so that I think, and so that I am. Write that down. No, do not: it is not ready. Ask me again in five years.
+    lens,lenses,optics,glass,hyperbola if player descartes-trusts and not player skill:optics: I have spent three years with Ferrier, in Paris, trying to grind a lens of the true curve, a hyperbola, which would bring every ray to one point. Nobody can make one. But I can show you how to grind an ordinary lens, which is how everybody fails. Sit. (An hour of glass, pitch and emery, and much geometry.) {player learn optics}
+    lens,lenses,optics,glass,hyperbola: Lenses? I study light: why it bends, and why the rainbow is round. I tell such things only to people Mersenne vouches for.
+    letter,mersenne if player carried-mersenne-letter and not player descartes-trusts: A letter from Mersenne, for me? Then give it here.
+    hello if not met: (A Frenchman in black, who looks as if he has only just got up.) Yes? I do not rise before eleven. I think better in bed.
+    name: René Descartes, of Touraine. A gentleman who studies, for his own instruction. {name}
+    job: I am writing a treatise on the World: light, the heavens, the Earth, man. All of it from first principles, and none of it from Aristotle.
+    world,treatise: The heavens are a fluid, and turn in great whirlpools, vortices, each one carrying its planets round its star, as a stream carries straws. It explains everything.
+    galileo,dialogue: I have heard that Galileo has printed a book on the system of the world. I am eager to see it, and a little afraid of it: if they condemn him in Rome, my treatise says the same thing. {player set heard-descartes}
+    dialogue,galileo if has:dialogue and from-blaeu: I have it! Blaeu had two copies from Frankfurt, and I was at his door when he opened the bale. The tides, my friend: he explains the tides by the motion of the Earth. Wrong, I think. But magnificent. {player set knows:amsterdam:blaeu}
+    give:dialogue if has:dialogue: Thank you, but I have one already. Sell it to Barlaeus: he lectures on the heavens to merchants' sons.
+    dialogue if player has:dialogue: You have a copy? Here, in Amsterdam? I would give a great deal to read it. Will you sell it to me? I will pay you what Mersenne would. {player set descartes-wants}
+    give:dialogue: (He turns the pages greedily.) The tides! He explains the tides by the motion of the Earth. Wrong, I think, but magnificent. Here: three livres, and my thanks. {take} {player add money 720} {player set sold-descartes}
+    mersenne,paris: Father Mersenne is my oldest friend, and my postman: every letter in Europe passes through his cell at the Place Royale. Tell him I am well, and working, and not to give my address to anyone.
+    anatomy,tulp,dissection: I buy carcasses at the butcher's in the Kalverstraat, and take them home to cut up. The animal is a machine; so is the body of man. The soul is another matter.
+    amsterdam,holland: In this great city everyone is so busy with his own profit that I could live here all my life without being noticed by a soul. That is why I came.
+  end
+end
+
+person rembrandt
+  name Rembrandt Harmensz van Rijn
+  title a painter
+  role painter
+  near Uylenburgh
+  work landmark Uylenburgh
+  talk
+    give:mother-letter: From my mother! (He reads it, and laughs, and wipes his eyes on his sleeve.) She says I am too proud, I do not eat, and I should marry a good girl from Leiden. Two of these are true. {take} {player set gave-mother-letter}
+    mother,leiden,neeltgen if not player gave-mother-letter: My mother is in Leiden, by the Weddesteeg. I painted her reading her Bible. She writes to me every week, and I do not answer. Do not tell her.
+    give:ultramarine: Ultramarine! (He opens the pouch and is silent a long while, then laughs.) Real lapis, from Venice. I shall paint a Virgin's robe with it, and a cardinal will buy it and never know who brought it. Here: take this. It is worth nothing now, but keep it. {take} {player add has:rembrandt-sketch 1} {player set gave-rembrandt}
+    blue,ultramarine,colour,colours,paint if not player gave-rembrandt: Blue! I have no blue worth the name: smalt, that turns grey, and azurite, that turns green. Real ultramarine comes from Venice, from the colour-sellers under the Rialto, and costs more than gold. If you were ever there with money in your pocket...
+    drawing,sketch if player gave-rembrandt: The old man? A beggar who sits by the Oude Kerk. I draw him when I cannot sleep.
+    name: Rembrandt, Harmen's son, of Leiden. The miller's son. {name}
+    job: I paint, here in Uylenburgh's house: portraits, mostly. They pay. This winter I painted the surgeons, Dr Tulp's anatomy lesson; now every merchant in Amsterdam wants to be painted by me.
+    tulp,anatomy,surgeons: The doctor holds up the muscles of the forearm with his forceps, and shows how they move the fingers. Seven surgeons look on, and each of them paid to be in it, so each of them had to be seen.
+    light,painting: Darkness, and light falling on what matters. The rest you leave to the eye.
+    uylenburgh: Hendrick sells pictures, and I paint them. He has a cousin in Friesland, Saskia; he says I would like her.
+  end
+end
+
+person uylenburgh
+  name Hendrick Uylenburgh
+  title a dealer in pictures
+  role merchant
+  near Uylenburgh
+  work landmark Uylenburgh
+  talk
+    name: Hendrick Uylenburgh. I sell paintings, and I keep painters. {name}
+    job: I have an academy of painters in my house: they copy, they paint portraits for my customers, and I sell. Young Rembrandt is the best of them, and he knows it.
+    rembrandt: He came from Leiden last year. He will be the greatest painter in Holland, if he learns to keep money in his pocket.
+    painting,buy: Everyone in Amsterdam buys pictures: the bakers, the brewers, the widows. There are more paintings in this city than in all of Italy.
+  end
+end
+
+person tulp
+  name Nicolaes Tulp
+  title a physician
+  role physician
+  near Waag
+  work landmark Waag
+  talk
+    name: Dr Nicolaes Tulp, praelector of anatomy to the Surgeons' Guild of Amsterdam. {name}
+    job: I physic the living, and in winter I open the dead, before the guild and anyone who pays a ticket. The guild meets upstairs here in the Waag.
+    anatomy,lesson,body: In January we had Aris Kindt, a thief, hanged that morning. Young Rembrandt painted it. I explained the muscles of the arm.
+    tulp,tulip,name: My father was Pieterszoon; I took the name Tulp from the tulip on my house. Now they say tulips may cost as much as a house.
+    tea: I recommend tea, from China. It purifies the blood. One day everyone in Holland will drink it.
+  end
+end
+
+person blaeu
+  name Willem Jansz Blaeu
+  title a printer and maker of maps
+  role printer
+  near Blaeu
+  work landmark Blaeu
+  sells book 2 tube 4 atlas 1
+  talk
+    give:longitude-tables: (He reads the proposal at once, standing, and then the tables, sitting down.) The longitude by Jupiter's moons. Galileo's own tables. (He looks up.) The States will appoint a committee, and I will be on it, and we will argue for two years, and send him a gold chain, which the Pope will not let him wear. But it will be tried at sea. Thank you. {take} {player set longitude-delivered}
+    paper,watermark,sheet,wastepaper if player has:practice-sheet: (He holds it up to the window, and turns it.) A crowned shield with a bend, and the initials under it. That is not Italian paper, whatever is written on it: it is Dutch, from one of the new mills at Haarlem. The papermakers there will tell you which mould, and when it was made. {player set blaeu-watermark}
+    old,map,squares,chequerboard if player read-old-map: That old map? Europe all in little squares, by somebody who wanted to make it simple. Holland is three islands in it! Some joker has written that the land came up out of the sea in a single night. Well: in a way we made it ourselves. Half of Holland was sea once, and we pumped it out with windmills.
+    tube,tubes: Pasteboard tubes, covered in leather, for maps: two sous. A spectacle-maker bought three last week, I don't know why.
+    name: Willem Jansz Blaeu, at the Sign of the Gilded Sundial, on the Water. {name}
+    job: I make maps and globes and print books: atlases, sea-pilots, astronomy. My Light of Navigation is in every ship's cabin, and I hope the East India Company will soon want me for its charts.
+    tycho,brahe: I studied with Tycho Brahe, on his island of Hven, when I was young. I helped him with his star catalogue. He had a nose of gold, and a tame elk.
+    galileo,dialogue if stock:dialogue >= 1: Galileo's Dialogue? Two copies came up the Rhine with the Frankfurt books. They will not last.
+    galileo,dialogue if heard-dialogue-in-town: Sold, both copies, one to that Frenchman who never gets up before noon. If Galileo ever wants something printed that they will not print in Italy, he should send it to Holland.
+    galileo,dialogue: Galileo? If he ever wants something printed that they will not print in Italy, he should send it to Holland. Here we print what sells.
+    globe,globes,map: Look at this globe: the whole world, with the coasts the Company's ships have found, New Holland and all. The Spanish keep their charts secret. I sell mine.
+    tulips: Do not buy tulips. A man was offered three thousand guilders for one bulb of Semper Augustus, and would not sell. It cannot last.
+  end
+end
+
+person vondel
+  name Joost van den Vondel
+  title a poet
+  role merchant
+  near Oude Kerk
+  sells strings 2
+  talk
+    name: Joost van den Vondel. I sell silk stockings in the Warmoesstraat, and I write tragedies. {name}
+    job: The shop is called the Faithfulness. My wife keeps it, mostly, while I write.
+    poem,poetry,tragedy: I wrote a play, Palamedes, about an innocent man put to death by his enemies. Everyone knew it was Oldenbarnevelt, and they fined me. Now I am writing something less dangerous.
+    oldenbarnevelt,grotius: Oldenbarnevelt was beheaded, an old man of seventy-one. Grotius escaped from his prison in a chest of books. He came back last year, and had to flee again in April.
+    amsterdam: Amsterdam, the queen of the West, the warehouse of the world: I have written poems on her, and I will write more.
+  end
+end
+
+person menasseh
+  name Menasseh ben Israel
+  title a rabbi and printer
+  role printer
+  near Menasseh
+  work landmark Menasseh
+  talk
+    name: Menasseh ben Israel. My father was born a Christian in Portugal, by force. Here we may be what we are. {name}
+    job: I teach, and preach in the synagogue on the Houtgracht, and I have the first Hebrew press in Amsterdam. I print prayer books, and my own books, in Spanish and Latin.
+    book,books,conciliador: My Conciliator: the passages of Scripture that seem to contradict each other, and how they agree. The first part was printed this year. Christian scholars write to me about it.
+    amsterdam,jews: The Portuguese Jews came here forty years ago, fleeing the Inquisition. The city lets us worship, if quietly, and trade, which is what it cares about.
+  end
+end
+
+person barlaeus
+  name Caspar Barlaeus
+  title a professor
+  role scholar
+  near Athenaeum
+  work none
+  schedule
+    8:00 home
+    10:00 wander
+    13:00 eat
+    15:00 home
+    20:00 sleep
+  talk
+    name: Caspar Barlaeus, professor of philosophy at the new Athenaeum. {name}
+    job: The Athenaeum Illustre opened in January, in the old Agnietenkapel: a school for the merchants' sons, so they need not go to Leiden. I gave the oration at the opening: The Wise Merchant.
+    merchant,wise: That trade and learning go together: a good merchant must know the world, its peoples, its languages and its stars. They liked that.
+    galileo: Galileo's spyglass was a Dutch invention, I remind my students. But the Italian made the heavens speak with it.
+  end
+end
+
+person host
+  name Claes Pietersz
+  role innkeeper
+  near Arms
+  talk
+    name: Claes Pietersz, host of the Arms of Amsterdam. {name}
+    beer,drink,wine: Beer from Haarlem, or Rhenish if you are rich. Or Spanish wine, if you do not ask how it got past the blockade.
+  end
+end
+
+# ---- merchant stories (stories.txt "hoop"): a part in a ship (events.txt hoop-sails, hoop-home, hoop-lost)
+person groen
+  name Arent Claesz Groen
+  title a merchant of the Baltic trade
+  role merchant
+  look coat #2A2A2E legs #1E1E22 hat hat #1A1A1E
+  near Exchange
+  work landmark Exchange
+  money 24000
+  talk
+    hello if hoop-home and player has:ship-share and not player paid-hoop: (He shakes your hand as if he meant to pull it off.) She is home! The Hoop, low in the water with Danzig rye, and every man aboard. Your part: twenty livres, and a drink. {player add money 4800} {player set paid-hoop} {player set hoop-over} {player unset has:ship-share}
+    hello if hoop-lost and player has:ship-share: (He does not get up.) You have heard. The Hoop went down off the Skaw in a summer gale, with Sijmonsz and eleven men. Your part is worth nothing now but a prayer for them. {player unset has:ship-share} {player set lost-hoop} {player set hoop-over}
+    give:money if player gift >= 2880 and not player bought-share and not player event:hoop-sails: (He writes the part out at once, seals it, and blows on the wax.) One sixty-fourth of the Hoop. She sails the day after tomorrow, with the morning tide. Pray for a west wind going and an east wind coming home. {take} {player add has:ship-share 1} {player set bought-share} {player set hoop-bought=now}
+    give:money if not player bought-share and not player event:hoop-sails: Twelve livres for a part, no less. I do not sell sixty-fourths of sixty-fourths.
+    # a ship of your own (Game::shipDeal): the only sea-going ship you may board and sail yourself
+    ship,whole,own,buy,pinnace,vessel if player ship:at: She is yours already, and a good ship. Mind the sandbanks of the Zuiderzee, and the Danes at the Sound.
+    take,yes,deal,=i will if recent:0.05 offered-ship and not player ship:at: (He spits in his hand, and you shake on it.) {buyship 48000}
+    # the Hoop's last part, in two steps like the ship
+    take,yes,deal,=i will if recent:0.05 offered-share and player money >= 2880 and not player bought-share and not player event:hoop-sails: (He writes the part out at once, seals it, and blows on the wax.) One sixty-fourth of the Hoop. She sails the day after tomorrow, with the morning tide. Pray for a west wind going and an east wind coming home. {player add money -2880} {player add has:ship-share 1} {player set bought-share} {player set hoop-bought=now} {unset offered-share}
+    take,yes,deal,=i will if recent:0.05 offered-share and not player bought-share and not player event:hoop-sails: Twelve livres for a part, no less. I do not sell sixty-fourths of sixty-fourths.
+    barbary,africa,coast,voyage,sail,mediterranean: Anywhere a keel goes and a packet does not. Round Spain to the Barbary coast, if you like, where the Marseillais fish coral and the Algerines fish Christians: keep a good watch. Or up to the Sound, or out to the Indies, if you are tired of living.
+    ship,whole,own,buy,pinnace,vessel if not player ship:at: A whole ship? (He looks you up and down, and decides to be serious.) There is a pinnace at the quay of the IJ: sound, new sails, and a hull of good Baltic oak, that a widow wants sold. Two hundred livres, and she is yours, to sail where you like. Will you *take* her? {set offered-ship=now} {unset offered-share}
+    name: Arent Claesz Groen, of the Baltic trade: herring and salt out, rye and timber home. {name}
+    job: I buy parts of ships and parts of cargoes, and sell them again to bakers and widows and ministers, so that when a ship comes home everyone eats, and when she does not, nobody is ruined. That is the whole secret of Amsterdam.
+    hoop,ship,fluyt,part,parts,share,shares if hoop-home: She is home, unloading at the rye warehouses. Next spring she goes again, and so may you.
+    hoop,ship,fluyt,part,parts,share,shares if hoop-lost: Do not speak to me of the Hoop.
+    hoop,ship,fluyt,part,parts,share,shares if player bought-share: She sails, or has sailed, with the morning tide. A fortnight there and back, if the King of Denmark does not keep her at Elsinore to count her cargo for his toll.
+    hoop,ship,fluyt,part,parts,share,shares if player event:hoop-sails: She has sailed, and the parts are all sold. Next spring, perhaps.
+    hoop,ship,fluyt,part,parts,share,shares,rye,baltic,danzig: The fluyt de Hoop is loading for Danzig, herring and salt out, rye home in a fortnight, God willing; she sails two days after her last part is sold, and I have one left. I am selling sixty-fourth parts: twelve livres the part. When she comes home with rye, your part pays twenty; if she does not (he shrugs), the sea is the sea. Twelve livres, and a part is yours. Will you *take* one? {player set heard-hoop} {set offered-share=now} {unset offered-ship}
+    elsinore,sound,toll,denmark,danes: Every ship into the Baltic stops under the guns of Elsinore and pays the King of Denmark a toll on her cargo. We pay it. We complain. We pay it.
+  end
+end
+
+crowd 10 sailor
+crowd 8 merchant work landmark Exchange
+crowd 12 labourer
+crowd 12 goodwife
+crowd 4 washerwoman
+crowd 8 apprentice
+crowd 8 guard
+crowd 3 painter work landmark Uylenburgh
+crowd 3 printer work landmark Blaeu
+crowd 2 musician
+crowd 2 cook
+crowd 3 beggar
+crowd 1 herdsman
+crowd 1 changer

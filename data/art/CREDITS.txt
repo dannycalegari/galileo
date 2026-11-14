@@ -1,0 +1,662 @@
+# Pictures of the works of art, shown when you look at them (data/items.txt: image, credit), and the pictures in
+# some of the books (data/books/). They are not covered by the game's licence (LICENSE): each keeps its own, given
+# below with its source on Wikimedia Commons and the credit the game shows with it. All but the old map were
+# downloaded from Wikimedia Commons and resized to 900 pixels; the damaged Leda is changed further, as its entry
+# says. The public-domain and CC0 pictures are free to use; the CC BY and CC BY-SA ones require their credit, and
+# the CC BY-SA ones, as resized here, are shared under the same licence.
+
+rubens-marseilles.png
+  file:    File:Le Débarquement de la reine à Marseille, le 3 novembre 1600 - Pierre Paul Rubens - Musée du Louvre Peintures INV 1774 ; MR 965.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Le_D%C3%A9barquement_de_la_reine_%C3%A0_Marseille,_le_3_novembre_1600_-_Pierre_Paul_Rubens_-_Mus%C3%A9e_du_Louvre_Peintures_INV_1774_;_MR_965.jpg
+  licence: Public domain
+  shown:   Rubens, Musée du Louvre. Public domain, via Wikimedia Commons.
+
+rubens-portrait.png
+  file:    File:Henri IV reçoit le portrait de Marie de Médicis et se laisse désarmer par l’Amour - Pierre Paul Rubens - Musée du Louvre Peintures INV 1772 ; MR 963.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Henri_IV_re%C3%A7oit_le_portrait_de_Marie_de_M%C3%A9dicis_et_se_laisse_d%C3%A9sarmer_par_l%E2%80%99Amour_-_Pierre_Paul_Rubens_-_Mus%C3%A9e_du_Louvre_Peintures_INV_1772_;_MR_963.jpg
+  licence: Public domain
+  shown:   Rubens, Musée du Louvre. Public domain, via Wikimedia Commons.
+
+rubens-coronation.png
+  file:    File:Rubens - Couronnement de Marie de Médicis le 13 mai 1610.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Rubens_-_Couronnement_de_Marie_de_M%C3%A9dicis_le_13_mai_1610.jpg
+  licence: Public domain
+  shown:   Rubens, Musée du Louvre. Public domain, via Wikimedia Commons.
+
+caryatid.png
+  file:    File:Caryatids by Jean Goujon at the Louvre - Flickr user Sharon Mollerus.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Caryatids_by_Jean_Goujon_at_the_Louvre_-_Flickr_user_Sharon_Mollerus.jpg
+  licence: Public domain
+  shown:   Photo: Sharon Mollerus, CC BY 2.0, via Wikimedia Commons.
+
+the-may.png
+  file:    File:Saint Pierre guérissant des malades de son ombre, par Laurent de La Hyre.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Saint_Pierre_gu%C3%A9rissant_des_malades_de_son_ombre,_par_Laurent_de_La_Hyre.jpg
+  licence: Public domain
+  shown:   Shown: Laurent de La Hyre's May of 1635, a later one. Public domain, via Wikimedia Commons.
+
+grande-chasse.png
+  file:    File:Tribune des reliques - Saint-Chapelle - Paris 1er.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Tribune_des_reliques_-_Saint-Chapelle_-_Paris_1er.jpg
+  licence: CC BY-SA 4.0
+  shown:   The relic tribune today; the Grande Châsse itself was melted down in the Revolution. Photo: denfr, CC BY-SA 4.0, via Wikimedia Commons.
+
+henri-iv.png
+  file:    File:Le Pont neuf - Quay de l'Horloge - Quay des Orfèvres, G.13248.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Le_Pont_neuf_-_Quay_de_l%27Horloge_-_Quay_des_Orf%C3%A8vres,_G.13248.jpg
+  licence: CC0
+  shown:   Stefano della Bella, the Pont Neuf, etching (Paris Musées). CC0, via Wikimedia Commons.
+
+tomb-louis-xii.png
+  file:    File:Basilique Saint-Denis Louis XII Anne de Bretagne tombeau.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Basilique_Saint-Denis_Louis_XII_Anne_de_Bretagne_tombeau.jpg
+  licence: CC BY-SA 3.0
+  shown:   Photo: Myrabella, CC BY-SA 3.0, via Wikimedia Commons.
+
+tomb-francois-i.png
+  file:    File:Francois-1-Claude-de-France.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Francois-1-Claude-de-France.jpg
+  licence: CC BY-SA 3.0
+  shown:   Photo: Bordeled, CC BY-SA 3.0, via Wikimedia Commons.
+
+tomb-henri-ii.png
+  file:    File:Tombeau et Monument de Henri II et Catherine de Médicis, Saint-Denis cropped.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Tombeau_et_Monument_de_Henri_II_et_Catherine_de_M%C3%A9dicis,_Saint-Denis_cropped.jpg
+  licence: CC BY-SA 3.0 (a derivative by Ecummenic of Roi Boshi's photograph "Tombeau et Monument de Henri II et
+           Catherine de Médicis, Saint-Denis.jpg")
+  shown:   Photo: Roi Boshi (a derivative by Ecummenic), CC BY-SA 3.0, via Wikimedia Commons.
+
+donne.png
+  file:    File:Wenceslas Hollar - John Donne (monument).jpg
+  page:    https://commons.wikimedia.org/wiki/File:Wenceslas_Hollar_-_John_Donne_(monument).jpg
+  licence: Public domain
+  shown:   Wenceslaus Hollar, etching of the monument. Public domain, via Wikimedia Commons.
+
+tomb-elizabeth.png
+  file:    File:Elizabeth I tomb effigy, Westminster Abbey.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Elizabeth_I_tomb_effigy,_Westminster_Abbey.jpg
+  licence: CC BY-SA 4.0
+  shown:   Photo: Arcaist, CC BY-SA 4.0, via Wikimedia Commons.
+
+tomb-henry-vii.png
+  file:    File:Henry VII's Tomb, Westminster Abbey (3610726325).jpg
+  page:    https://commons.wikimedia.org/wiki/File:Henry_VII%27s_Tomb,_Westminster_Abbey_(3610726325).jpg
+  licence: No restrictions
+  shown:   Photo: Cornell University Library, no known restrictions, via Wikimedia Commons.
+
+bare-ceiling.png
+  file:    File:Banqueting House in the Palace of Whitehall with ceiling paintings by Rubens, London. (16402125117).jpg
+  page:    https://commons.wikimedia.org/wiki/File:Banqueting_House_in_the_Palace_of_Whitehall_with_ceiling_paintings_by_Rubens,_London._(16402125117).jpg
+  licence: CC BY-SA 2.0
+  shown:   The ceiling as it has been since 1636. Photo: traveljunction, CC BY-SA 2.0, via Wikimedia Commons.
+
+# The works of art of Rome, Venice, Amsterdam and Florence.
+
+school-athens.png
+  file:    File:"The School of Athens" by Raffaello Sanzio da Urbino.jpg
+  page:    https://commons.wikimedia.org/wiki/File:%22The_School_of_Athens%22_by_Raffaello_Sanzio_da_Urbino.jpg
+  licence: Public domain
+  shown:   Raphael, Stanza della Segnatura. Public domain, via Wikimedia Commons.
+
+laocoon.png
+  file:    File:Laocoön and his sons group.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Laoco%C3%B6n_and_his_sons_group.jpg
+  licence: CC0
+  shown:   Shown as it is today, with the arm found in 1906 put back. Photo: Wilfredor, CC0, via Wikimedia Commons.
+
+last-judgment.png
+  file:    File:Last Judgement (Michelangelo).jpg
+  page:    https://commons.wikimedia.org/wiki/File:Last_Judgement_(Michelangelo).jpg
+  licence: Public domain
+  shown:   Michelangelo, Sistine Chapel. Public domain, via Wikimedia Commons.
+
+creation-adam.png
+  file:    File:Michelangelo - Creation of Adam (cropped).jpg
+  page:    https://commons.wikimedia.org/wiki/File:Michelangelo_-_Creation_of_Adam_(cropped).jpg
+  licence: Public domain
+  shown:   Shown: the Creation of Adam, from the middle of the vault. Public domain, via Wikimedia Commons.
+
+pieta.png
+  file:    File:Michelangelo's Pietà Saint Peter's Basilica Vatican City.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Michelangelo%27s_Piet%C3%A0_Saint_Peter%27s_Basilica_Vatican_City.jpg
+  licence: CC0
+  shown:   Photo: Jebulon, CC0, via Wikimedia Commons.
+
+baldacchino.png
+  file:    File:Baldaquin Bernin Saint-Pierre Vatican.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Baldaquin_Bernin_Saint-Pierre_Vatican.jpg
+  licence: CC0
+  shown:   Shown finished, with Bernini's Chair of Peter (1666) beyond it. Photo: Jebulon, CC0, via Wikimedia Commons.
+
+st-peter-bronze.png
+  file:    File:Statue of Saint Peter by Arnolfo di Cambio 01.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Statue_of_Saint_Peter_by_Arnolfo_di_Cambio_01.jpg
+  licence: CC BY-SA 3.0
+  shown:   Photo: Antoine Taveneaux, CC BY-SA 3.0, via Wikimedia Commons.
+
+caravaggio-paul.png
+  file:    File:Caravaggio-The Conversion on the Way to Damascus.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Caravaggio-The_Conversion_on_the_Way_to_Damascus.jpg
+  licence: Public domain
+  shown:   Caravaggio, Santa Maria del Popolo. Public domain, via Wikimedia Commons.
+
+caravaggio-peter.png
+  file:    File:Crucifixion of Saint Peter-Caravaggio (c.1600).jpg
+  page:    https://commons.wikimedia.org/wiki/File:Crucifixion_of_Saint_Peter-Caravaggio_(c.1600).jpg
+  licence: Public domain
+  shown:   Caravaggio, Santa Maria del Popolo. Public domain, via Wikimedia Commons.
+
+cristo-minerva.png
+  file:    File:Michelangelo – Cristo della Minerva.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Michelangelo_%E2%80%93_Cristo_della_Minerva.jpg
+  licence: CC BY 2.0
+  shown:   Photo: My Past, CC BY 2.0, via Wikimedia Commons.
+
+raphael-tomb.png
+  file:    File:Rome Pantheon 2020 P07 Raphael's grave.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Rome_Pantheon_2020_P07_Raphael%27s_grave.jpg
+  licence: CC BY-SA 4.0
+  shown:   Photo: Fallaner, CC BY-SA 4.0, via Wikimedia Commons.
+
+marcus-aurelius.png
+  file:    File:Statue of Marcus Aurelius on the Capitoline hill (582119115).jpg
+  page:    https://commons.wikimedia.org/wiki/File:Statue_of_Marcus_Aurelius_on_the_Capitoline_hill_(582119115).jpg
+  licence: CC BY 2.0
+  shown:   The copy in the square today. Photo: Scott Denham, CC BY 2.0, via Wikimedia Commons.
+
+pala-doro.png
+  file:    File:Venezia Basilica di San Marco Innen Pala d'Oro 1.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Venezia_Basilica_di_San_Marco_Innen_Pala_d%27Oro_1.jpg
+  licence: CC BY-SA 4.0
+  shown:   Photo: Zairon, CC BY-SA 4.0, via Wikimedia Commons.
+
+assunta.png
+  file:    File:Tizian 041.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Tizian_041.jpg
+  licence: Public domain
+  shown:   Titian, Santa Maria Gloriosa dei Frari. Public domain, via Wikimedia Commons.
+
+tintoretto-crucifixion.png
+  file:    File:Tintoretto, Crucifixion, 1565; Scuola Grande di San Rocco, Venice (1).jpg
+  page:    https://commons.wikimedia.org/wiki/File:Tintoretto,_Crucifixion,_1565;_Scuola_Grande_di_San_Rocco,_Venice_(1).jpg
+  licence: CC BY 2.0
+  shown:   Photo: Richard Mortel, CC BY 2.0, via Wikimedia Commons.
+
+tintoretto-paradise.png
+  file:    File:(Venice) Jacopo Tintoretto - Gloria del Paradiso - Sala del Maggior Consiglio.jpg
+  page:    https://commons.wikimedia.org/wiki/File:(Venice)_Jacopo_Tintoretto_-_Gloria_del_Paradiso_-_Sala_del_Maggior_Consiglio.jpg
+  licence: Public domain
+  shown:   Photo: Didier Descouens. Public domain, via Wikimedia Commons.
+
+tintoretto-supper.png
+  file:    File:Tintoretto, Jacopo - Ultima cena - San Giorgio Maggiore.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Tintoretto,_Jacopo_-_Ultima_cena_-_San_Giorgio_Maggiore.jpg
+  licence: Public domain
+  shown:   Tintoretto, San Giorgio Maggiore. Public domain, via Wikimedia Commons.
+
+veronese-levi.png
+  file:    File:The Feast in the House of Levi by Paolo Veronese (edited 2).jpg
+  page:    https://commons.wikimedia.org/wiki/File:The_Feast_in_the_House_of_Levi_by_Paolo_Veronese_(edited_2).jpg
+  licence: Public domain
+  shown:   Paolo Veronese, Gallerie dell'Accademia. Public domain, via Wikimedia Commons.
+
+colleoni.png
+  file:    File:Bartolomeo Colleoni by Andrea del Verrocchio.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Bartolomeo_Colleoni_by_Andrea_del_Verrocchio.jpg
+  licence: CC BY-SA 4.0
+  shown:   Photo: Didier Descouens, CC BY-SA 4.0, via Wikimedia Commons.
+
+anatomy-lesson.png
+  file:    File:Rembrandt - The Anatomy Lesson of Dr Nicolaes Tulp.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Rembrandt_-_The_Anatomy_Lesson_of_Dr_Nicolaes_Tulp.jpg
+  licence: Public domain
+  shown:   Rembrandt, Mauritshuis. Public domain, via Wikimedia Commons.
+
+europa.png
+  file:    File:Rembrandt Abduction of Europa.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Rembrandt_Abduction_of_Europa.jpg
+  licence: Public domain
+  shown:   Rembrandt, J. Paul Getty Museum. Public domain, via Wikimedia Commons.
+
+blaeu-world.png
+  file:    File:Willem Blaeu - Nova totius terrarum orbis geographica ac hydrographica tabula.png
+  page:    https://commons.wikimedia.org/wiki/File:Willem_Blaeu_-_Nova_totius_terrarum_orbis_geographica_ac_hydrographica_tabula.png
+  licence: Public domain
+  shown:   Willem Blaeu. Public domain, via Wikimedia Commons.
+
+amsterdam-1538.png
+  file:    File:Gezicht op Amsterdam in vogelvlucht 1538 Cornelis Anthonisz.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Gezicht_op_Amsterdam_in_vogelvlucht_1538_Cornelis_Anthonisz.jpg
+  licence: Public domain
+  shown:   Cornelis Anthonisz, Amsterdam Museum. Public domain, via Wikimedia Commons.
+
+david.png
+  file:    File:Michelangelo's David 2015.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Michelangelo%27s_David_2015.jpg
+  licence: CC BY-SA 4.0
+  shown:   Photo: Livioandronico2013, CC BY-SA 4.0, via Wikimedia Commons.
+
+perseus.png
+  file:    File:Perseus Medusa Cellini Lanzi Florence.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Perseus_Medusa_Cellini_Lanzi_Florence.jpg
+  licence: CC0
+  shown:   Photo: Jebulon, CC0, via Wikimedia Commons.
+
+sabines.png
+  file:    File:Rape of the Sabine Women by Giambologna-Loggia dei Lanzi-.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Rape_of_the_Sabine_Women_by_Giambologna-Loggia_dei_Lanzi-.jpg
+  licence: CC BY-SA 4.0
+  shown:   Photo: Yair Haklai, CC BY-SA 4.0, via Wikimedia Commons.
+
+cosimo.png
+  file:    File:Cosimo Giambologna Signoria Firenze.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Cosimo_Giambologna_Signoria_Firenze.jpg
+  licence: CC0
+  shown:   Photo: Jebulon, CC0, via Wikimedia Commons.
+
+tomb-michelangelo.png
+  file:    File:Tomb of Michelangelo by Vasari, Basilica of Santa Croce, Florence (2).jpg
+  page:    https://commons.wikimedia.org/wiki/File:Tomb_of_Michelangelo_by_Vasari,_Basilica_of_Santa_Croce,_Florence_(2).jpg
+  licence: CC BY 2.0
+  shown:   Photo: Richard Mortel, CC BY 2.0, via Wikimedia Commons.
+
+medici-tomb.png
+  file:    File:Life of Michael Angelo, 1912 - Tomb of Giuliano de Medici.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Life_of_Michael_Angelo,_1912_-_Tomb_of_Giuliano_de_Medici.jpg
+  licence: Public domain
+  shown:   Photograph of 1912. Public domain, via Wikimedia Commons.
+
+tribute-money.png
+  file:    File:The Tribute Money Masaccio Cappella Brancacci.jpg
+  page:    https://commons.wikimedia.org/wiki/File:The_Tribute_Money_Masaccio_Cappella_Brancacci.jpg
+  licence: Public domain
+  shown:   Masaccio, Brancacci Chapel. Public domain, via Wikimedia Commons.
+
+hawkwood.png
+  file:    File:John Hawkwood fresco by Paolo Uccello.jpg
+  page:    https://commons.wikimedia.org/wiki/File:John_Hawkwood_fresco_by_Paolo_Uccello.jpg
+  licence: Public domain
+  shown:   Paolo Uccello, Santa Maria del Fiore. Public domain, via Wikimedia Commons.
+
+# Pictures for things you carry, and for Pasquino.
+
+pasquino.png
+  file:    File:Pasquino 1.JPG
+  page:    https://commons.wikimedia.org/wiki/File:Pasquino_1.JPG
+  licence: Public domain
+  shown:   Photo: Lalupa. Public domain, via Wikimedia Commons.
+
+rembrandt-sketch.png
+  file:    File:Rembrandt van Rijn, Head of an Old Man (recto), c. 1631, NGA 69958.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Rembrandt_van_Rijn,_Head_of_an_Old_Man_(recto),_c._1631,_NGA_69958.jpg
+  licence: CC0
+  shown:   Rembrandt, Head of an Old Man, about 1631, National Gallery of Art, Washington. CC0, via Wikimedia Commons.
+
+fermat-margin.png
+  file:    File:Diophantus-II-8-Fermat.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Diophantus-II-8-Fermat.jpg
+  licence: Public domain
+  shown:   Diophantus, Arithmetica, the edition of 1670 with Fermat's notes. Public domain, via Wikimedia Commons.
+
+folio-macbeth.png
+  file:    File:Second Folio Title Page of Macbeth.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Second_Folio_Title_Page_of_Macbeth.jpg
+  licence: Public domain
+  shown:   The Second Folio, 1632. Public domain, via Wikimedia Commons.
+
+harvey-veins.png
+  file:    File:Guilielmi Harvei doct. & profess. Regii Exercitatio Anatomica De Motu Cordis & Sanguinis - DPLA - 47124957ca95fd4e6e8a971b7f551e88 (page 4).jpg
+  page:    https://commons.wikimedia.org/wiki/File:Guilielmi_Harvei_doct._%26_profess._Regii_Exercitatio_Anatomica_De_Motu_Cordis_%26_Sanguinis_-_DPLA_-_47124957ca95fd4e6e8a971b7f551e88_(page_4).jpg
+  licence: Public domain
+  shown:   Harvey's figure of the veins of the arm, from the edition of Rotterdam, 1648. Public domain, via Wikimedia Commons.
+
+# Padua and Pisa.
+
+gattamelata.png
+  file:    File:Padova Donatello Gattamelata.JPG
+  page:    https://commons.wikimedia.org/wiki/File:Padova_Donatello_Gattamelata.JPG
+  licence: Public domain (released by the photographer, Bentze)
+  shown:   Photo: Bentze, public domain, via Wikimedia Commons.
+
+giotto-magi.png
+  file:    File:Giotto di Bondone - No. 18 Scenes from the Life of Christ - 2. Adoration of the Magi - WGA09195.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Giotto_di_Bondone_-_No._18_Scenes_from_the_Life_of_Christ_-_2._Adoration_of_the_Magi_-_WGA09195.jpg
+  licence: Public domain
+  shown:   Giotto, the Scrovegni chapel, Padua. Public domain, via Wikimedia Commons.
+
+giotto-kiss.png
+  file:    File:Giotto - Scrovegni - -31- - Kiss of Judas.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Giotto_-_Scrovegni_-_-31-_-_Kiss_of_Judas.jpg
+  licence: Public domain
+  shown:   Giotto, the Scrovegni chapel, Padua. Public domain, via Wikimedia Commons.
+
+cattedra.png
+  file:    File:Palazzo del Bo, sala dei Quaranta, cattedra di Galileo (Padua) 01.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Palazzo_del_Bo,_sala_dei_Quaranta,_cattedra_di_Galileo_(Padua)_01.jpg
+  licence: CC BY-SA 4.0 (Threecharlie)
+  shown:   Photo: Threecharlie, CC BY-SA 4.0, via Wikimedia Commons.
+
+galileo-lamp.png
+  file:    File:Pisa Duomo lampadario in bronzo.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Pisa_Duomo_lampadario_in_bronzo.jpg
+  licence: Public domain (an old engraving, by Giuseppe Barberis)
+  shown:   Engraving by Giuseppe Barberis. Public domain, via Wikimedia Commons.
+
+pulpit-giovanni.png
+  file:    File:Giovanni pisano, pulpito del duomo di pisa, 1302-11, natività.JPG
+  page:    https://commons.wikimedia.org/wiki/File:Giovanni_pisano,_pulpito_del_duomo_di_pisa,_1302-11,_nativit%C3%A0.JPG
+  licence: CC BY 3.0 (Sailko)
+  shown:   Photo: Sailko, CC BY 3.0, via Wikimedia Commons.
+
+pulpit-nicola.png
+  file:    File:Pisa, battistero, pulpito di Nicola Pisano, foto di Carlo Dell'Orto 01.JPG
+  page:    https://commons.wikimedia.org/wiki/File:Pisa,_battistero,_pulpito_di_Nicola_Pisano,_foto_di_Carlo_Dell%27Orto_01.JPG
+  licence: CC BY-SA 4.0 (Carlo Dell'Orto)
+  shown:   Photo: Carlo Dell'Orto, CC BY-SA 4.0, via Wikimedia Commons.
+
+triumph-death.png
+  file:    File:Pisa, Camposanto trionfo della morte 1.JPG
+  page:    https://commons.wikimedia.org/wiki/File:Pisa,_Camposanto_trionfo_della_morte_1.JPG
+  licence: Public domain (uploaded by RM Vollmer; a photograph of a fresco)
+  shown:   Fresco in the Camposanto of Pisa. Public domain, via Wikimedia Commons.
+
+cosimo-pisa.png
+  file:    File:Pietro Francavilla, statua di cosimo I 01.JPG
+  page:    https://commons.wikimedia.org/wiki/File:Pietro_Francavilla,_statua_di_cosimo_I_01.JPG
+  licence: CC BY 2.5 (also GFDL, CC BY-SA 3.0; Sailko)
+  shown:   Photo: Sailko, CC BY 2.5, via Wikimedia Commons.
+
+# The other cities.
+
+pergamon-urn.png
+  file:    File:Lustration urns of Hagia Sophia 2.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Lustration_urns_of_Hagia_Sophia_2.jpg
+  licence: CC BY-SA 3.0
+  shown:   Photo: Ibrahim Husain Meraj, CC BY-SA 3.0, via Wikimedia Commons.
+
+iznik-tiles.png
+  file:    File:Blue Mosque balcony tiles DSCF4809.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Blue_Mosque_balcony_tiles_DSCF4809.jpg
+  licence: CC BY-SA 4.0
+  shown:   Photo: R Prazeres, CC BY-SA 4.0, via Wikimedia Commons.
+
+matrakci-istanbul.png
+  file:    File:Matrakçı Nasuh - İstanbul.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Matrak%C3%A7%C4%B1_Nasuh_-_%C4%B0stanbul.jpg
+  licence: Public domain
+  shown:   Matrakçı Nasuh, Istanbul University Library. Public domain, via Wikimedia Commons.
+
+orlando.png
+  file:    File:Orlando Column, Dubrovnik, 1417 (1) (30150111635).jpg
+  page:    https://commons.wikimedia.org/wiki/File:Orlando_Column,_Dubrovnik,_1417_(1)_(30150111635).jpg
+  licence: CC BY 2.0
+  shown:   Photo: Richard Mortel, CC BY 2.0, via Wikimedia Commons.
+
+blaise-head.png
+  file:    File:Head reliquary Dubrovnik Cathedral.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Head_reliquary_Dubrovnik_Cathedral.jpg
+  licence: Public domain
+  shown:   Photo: Marie-Lan Nguyen, public domain, via Wikimedia Commons.
+
+virgin-navigators.png
+  file:    File:Fernandez-Virgin of the Navigators (proper inversion).jpg
+  page:    https://commons.wikimedia.org/wiki/File:Fernandez-Virgin_of_the_Navigators_(proper_inversion).jpg
+  licence: Public domain
+  shown:   Alejo Fernández, Alcázar of Seville. Public domain, via Wikimedia Commons.
+
+retablo-seville.png
+  file:    File:Retablo mayor, Catedral de Sevilla, Sevilla, España, 2015-12-06, DD 124-125 HDR.JPG
+  page:    https://commons.wikimedia.org/wiki/File:Retablo_mayor,_Catedral_de_Sevilla,_Sevilla,_Espa%C3%B1a,_2015-12-06,_DD_124-125_HDR.JPG
+  licence: CC BY-SA 4.0
+  shown:   Photo: Diego Delso, CC BY-SA 4.0, via Wikimedia Commons.
+
+lions.png
+  file:    File:Granada - Alhambra, Palacio de los Leones, Fuente del patio 1.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Granada_-_Alhambra,_Palacio_de_los_Leones,_Fuente_del_patio_1.jpg
+  licence: CC0
+  shown:   Photo: Zarateman, CC0, via Wikimedia Commons.
+
+tomb-catholic-kings.png
+  file:    File:Granada-Capilla Real-7-Sepulcro de los Reyes Católicos (Domenico Fancelli).jpg
+  page:    https://commons.wikimedia.org/wiki/File:Granada-Capilla_Real-7-Sepulcro_de_los_Reyes_Cat%C3%B3licos_(Domenico_Fancelli).jpg
+  licence: CC BY-SA 4.0
+  shown:   Photo: Javi Guerra Hernando, CC BY-SA 4.0, via Wikimedia Commons.
+
+alhambra-motto.png
+  file:    File:Nasrid motto Alhambra Granada Andalusia Spain.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Nasrid_motto_Alhambra_Granada_Andalusia_Spain.jpg
+  licence: CC0
+  shown:   Photo: Jebulon, CC0, via Wikimedia Commons.
+
+bodley-portrait.png
+  file:    File:Unknown artist - Sir Thomas Bodley (1545–1613) - BODLEY - Bodleian Libraries.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Unknown_artist_-_Sir_Thomas_Bodley_(1545%E2%80%931613)_-_BODLEY_-_Bodleian_Libraries.jpg
+  licence: Public domain
+  shown:   Unknown artist, Bodleian Libraries. Public domain, via Wikimedia Commons.
+
+first-folio.png
+  file:    File:Title Page - Shakespeare First Folio (1623), title page - BL (cropped).jpg
+  page:    https://commons.wikimedia.org/wiki/File:Title_Page_-_Shakespeare_First_Folio_(1623),_title_page_-_BL_(cropped).jpg
+  licence: CC0
+  shown:   Martin Droeshout's engraving, the British Library's copy. Public domain, via Wikimedia Commons.
+
+kings-glass.png
+  file:    File:King's College Chapel, Cambridge - The Great East Window.jpg
+  page:    https://commons.wikimedia.org/wiki/File:King%27s_College_Chapel,_Cambridge_-_The_Great_East_Window.jpg
+  licence: CC BY-SA 4.0
+  shown:   Photo: DeFacto, CC BY-SA 4.0, via Wikimedia Commons.
+
+murer-plan.png
+  file:    File:Murerplan Zuerich.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Murerplan_Zuerich.jpg
+  licence: Public domain
+  shown:   Jos Murer, 1576. Public domain, via Wikimedia Commons.
+
+gessner-rhino.png
+  file:    File:De rhinocerote.jpg
+  page:    https://commons.wikimedia.org/wiki/File:De_rhinocerote.jpg
+  licence: No restrictions
+  shown:   Gessner, Historiae animalium, National Library of Medicine. No known restrictions, via Wikimedia Commons.
+
+sebaldus-shrine.png
+  file:    File:Nürnberg St. Sebald Sebaldusgrab 01.jpg
+  page:    https://commons.wikimedia.org/wiki/File:N%C3%BCrnberg_St._Sebald_Sebaldusgrab_01.jpg
+  licence: CC BY-SA 4.0
+  shown:   Photo: Uoaei1, CC BY-SA 4.0, via Wikimedia Commons.
+
+angelic-salutation.png
+  file:    File:Nürnberg St Lorenz Veit Stoß Engelsgruß.jpg
+  page:    https://commons.wikimedia.org/wiki/File:N%C3%BCrnberg_St_Lorenz_Veit_Sto%C3%9F_Engelsgru%C3%9F.jpg
+  licence: Public domain
+  shown:   Photo: public domain, via Wikimedia Commons.
+
+durer-self.png
+  file:    File:Albrecht Dürer - 1500 self-portrait (High resolution and detail).jpg
+  page:    https://commons.wikimedia.org/wiki/File:Albrecht_D%C3%BCrer_-_1500_self-portrait_(High_resolution_and_detail).jpg
+  licence: Public domain
+  shown:   Albrecht Dürer, Alte Pinakothek, Munich. Public domain, via Wikimedia Commons.
+
+imperial-crown.png
+  file:    File:Reichskrone HRR Front.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Reichskrone_HRR_Front.jpg
+  licence: CC BY 3.0 de
+  shown:   Photo: C. Löser, CC BY 3.0 DE, via Wikimedia Commons (in the Schatzkammer, Vienna).
+
+tycho-tomb.png
+  file:    File:Story of Prague, tombstone of Tycho Brahe.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Story_of_Prague,_tombstone_of_Tycho_Brahe.jpg
+  licence: Public domain
+  shown:   Drawing by Nelly Erichsen, 1902. Public domain, via Wikimedia Commons.
+
+vertumnus.png
+  file:    File:Giuseppe Arcimboldo - Rudolf II of Habsburg as Vertumnus - Google Art Project.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Giuseppe_Arcimboldo_-_Rudolf_II_of_Habsburg_as_Vertumnus_-_Google_Art_Project.jpg
+  licence: Public domain
+  shown:   Giuseppe Arcimboldo, Skokloster Castle. Public domain, via Wikimedia Commons.
+
+habsburg-mausoleum.png
+  file:    File:Royal Mausoleum Prague.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Royal_Mausoleum_Prague.jpg
+  licence: CC0
+  shown:   Photo: Packare, CC0, via Wikimedia Commons.
+
+pilgram-pulpit.png
+  file:    File:Wien - Stephansdom, Kanzel (1).JPG
+  page:    https://commons.wikimedia.org/wiki/File:Wien_-_Stephansdom,_Kanzel_(1).JPG
+  licence: CC BY-SA 4.0
+  shown:   Photo: C.Stadler/Bwag, CC BY-SA 4.0, via Wikimedia Commons.
+
+frederick-tomb.png
+  file:    File:Wien - Stephansdom, Grabmal Kaiser Friedrichs III.JPG
+  page:    https://commons.wikimedia.org/wiki/File:Wien_-_Stephansdom,_Grabmal_Kaiser_Friedrichs_III.JPG
+  licence: CC BY-SA 4.0
+  shown:   Photo: C.Stadler/Bwag, CC BY-SA 4.0, via Wikimedia Commons.
+
+dioscurides.png
+  file:    File:Wiener Dioskurides. Wien, Österreichische Nationalbibliothek, Cod. Med. gr. 1, fol. 6v. Anicia Juliana between Phronesis and Megalopsychia.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Wiener_Dioskurides._Wien,_%C3%96sterreichische_Nationalbibliothek,_Cod._Med._gr._1,_fol._6v._Anicia_Juliana_between_Phronesis_and_Megalopsychia.jpg
+  licence: CC BY 4.0
+  shown:   Photo: Gennadii Saus i Segura, CC BY 4.0, via Wikimedia Commons.
+
+stoss-altar.png
+  file:    File:Leon jan wyczo321kowski high altarpiece by veit stoss in st marys basi061111).jpg
+  page:    https://commons.wikimedia.org/wiki/File:Leon_jan_wyczo321kowski_high_altarpiece_by_veit_stoss_in_st_marys_basi061111).jpg
+  licence: Public domain
+  shown:   Shown: Leon Wyczółkowski's painting of it. Public domain, via Wikimedia Commons.
+
+sigismund-tomb.png
+  file:    File:Poland-01780 - Sigismund's Chapel (32080184076).jpg
+  page:    https://commons.wikimedia.org/wiki/File:Poland-01780_-_Sigismund%27s_Chapel_(32080184076).jpg
+  licence: CC BY-SA 2.0
+  shown:   Photo: Dennis G. Jarvis, CC BY-SA 2.0, via Wikimedia Commons.
+
+memling-judgment.png
+  file:    File:Hans Memling - Last Judgment Triptych (open) - WGA14829.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Hans_Memling_-_Last_Judgment_Triptych_(open)_-_WGA14829.jpg
+  licence: Public domain
+  shown:   Hans Memling, National Museum in Gdańsk. Public domain, via Wikimedia Commons.
+
+apotheosis-gdansk.png
+  file:    File:Allegory of Gdańsk trade.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Allegory_of_Gda%C5%84sk_trade.jpg
+  licence: Public domain
+  shown:   Isaak van den Blocke, Main Town Hall, Gdańsk. Public domain, via Wikimedia Commons.
+
+vakufnama.png
+  file:    File:Vakufnama.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Vakufnama.jpg
+  licence: Public domain
+  shown:   Gazi Husrev-beg Library, Sarajevo. Public domain, via Wikimedia Commons.
+
+dialogue-frontispiece.png   (the first page of the book data/books/dialogue.txt)
+  file:    File:Frontispiece for Dialogo di Galileo Galilei MET DP818095.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Frontispiece_for_Dialogo_di_Galileo_Galilei_MET_DP818095.jpg
+  licence: CC0
+  shown:   Stefano della Bella, The Metropolitan Museum of Art. CC0, via Wikimedia Commons.
+
+diana-louvre.png
+  file:    File:Diane de Versailles - Musée du Louvre AGER Ma 589.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Diane_de_Versailles_-_Mus%C3%A9e_du_Louvre_AGER_Ma_589.jpg
+  licence: CC0
+  shown:   Photo: Shonagon, CC0, via Wikimedia Commons.
+
+goujon-ceiling.png
+  file:    File:Escalier Henri II - 1551-1555 - Plafond - Détail - Atelier de Jean Goujon - Louvre.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Escalier_Henri_II_-_1551-1555_-_Plafond_-_D%C3%A9tail_-_Atelier_de_Jean_Goujon_-_Louvre.jpg
+  licence: CC0
+  shown:   Photo: Gary Todd, CC0, via Wikimedia Commons.
+
+bunel-henri-iv.png
+  file:    File:Henricus IV Franc.et Nava.Rex - Bunel, Jacob - btv1b10585504x.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Henricus_IV_Franc.et_Nava.Rex_-_Bunel,_Jacob_-_btv1b10585504x.jpg
+  licence: Public domain
+  shown:   Thomas de Leu's engraving (1605) after Jacob Bunel's portrait. Bibliothèque nationale de France; public domain, via Wikimedia Commons.
+
+mona-lisa.png
+  file:    File:Mona Lisa, by Leonardo da Vinci, from C2RMF retouched.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_retouched.jpg
+  licence: Public domain
+  shown:   Leonardo da Vinci, Musée du Louvre (C2RMF). Public domain, via Wikimedia Commons.
+
+virgin-rocks.png
+  file:    File:Leonardo da Vinci - Virgin of the Rocks (Louvre).jpg
+  page:    https://commons.wikimedia.org/wiki/File:Leonardo_da_Vinci_-_Virgin_of_the_Rocks_(Louvre).jpg
+  licence: Public domain
+  shown:   Leonardo da Vinci, Musée du Louvre. Public domain, via Wikimedia Commons.
+
+raphael-michael.png
+  file:    File:Le Grand Saint Michel, by Raffaello Sanzio, from C2RMF retouched.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Le_Grand_Saint_Michel,_by_Raffaello_Sanzio,_from_C2RMF_retouched.jpg
+  licence: Public domain
+  shown:   Raphael, Musée du Louvre (C2RMF). Public domain, via Wikimedia Commons.
+
+belle-jardiniere.png
+  file:    File:Belle jardinière 2.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Belle_jardini%C3%A8re_2.jpg
+  licence: Public domain
+  shown:   Raphael, Musée du Louvre. Public domain, via Wikimedia Commons.
+
+raphael-holy-family.png
+  file:    File:La Sainte Famille - Raphaël - Musée du Louvre Peintures INV 604.jpg
+  page:    https://commons.wikimedia.org/wiki/File:La_Sainte_Famille_-_Rapha%C3%ABl_-_Mus%C3%A9e_du_Louvre_Peintures_INV_604.jpg
+  licence: Public domain
+  shown:   Raphael, Musée du Louvre. Public domain, via Wikimedia Commons.
+
+titian-francis.png
+  file:    File:Titian francis I of france.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Titian_francis_I_of_france.jpg
+  licence: Public domain
+  shown:   Titian, Musée du Louvre. Public domain, via Wikimedia Commons.
+
+clouet-francis.png
+  file:    File:Jean Clouet - Portrait of François I, King of France - WGA5081.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Jean_Clouet_-_Portrait_of_Fran%C3%A7ois_I,_King_of_France_-_WGA5081.jpg
+  licence: Public domain
+  shown:   Jean Clouet, Musée du Louvre. Public domain, via Wikimedia Commons.
+
+sarto-charity.png
+  file:    File:La Charité - Andrea del Sarto - Musée du Louvre Peintures INV 712.jpg
+  page:    https://commons.wikimedia.org/wiki/File:La_Charit%C3%A9_-_Andrea_del_Sarto_-_Mus%C3%A9e_du_Louvre_Peintures_INV_712.jpg
+  licence: Public domain
+  shown:   Andrea del Sarto, Musée du Louvre. Public domain, via Wikimedia Commons.
+
+goujon-archimedes.png
+  file:    File:Archimedes Goujon Cour Carrée Louvre.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Archimedes_Goujon_Cour_Carr%C3%A9e_Louvre.jpg
+  licence: Public domain
+  shown:   Photo: Marie-Lan Nguyen, public domain, via Wikimedia Commons.
+
+goujon-euclid.png
+  file:    File:Euclid Goujon Cour Carrée Louvre.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Euclid_Goujon_Cour_Carr%C3%A9e_Louvre.jpg
+  licence: Public domain
+  shown:   Photo: Marie-Lan Nguyen, public domain, via Wikimedia Commons.
+
+leda-damaged.png, leda-restored.png
+  file:    File:Leda Melzi Uffizi.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Leda_Melzi_Uffizi.jpg
+  licence: Public domain
+  shown:   (restored) The copy by Francesco Melzi (the Spiridon Leda), Uffizi. Public domain, via Wikimedia Commons.
+           (damaged) After the copy by Francesco Melzi ...; the damage is drawn for this game (split boards, flaking along the joins, yellowed varnish, cracks), made by a script from the restored one.
+
+dioptrice-title.png   (a page of the book data/books/dioptrice.txt)
+  file:    File:Kepler dioptrice titul.JPG
+  page:    https://commons.wikimedia.org/wiki/File:Kepler_dioptrice_titul.JPG
+  licence: Public domain (by chlup.net; the Strahov Library's copy of Kepler's Dioptrice, 1611)
+  shown:   The Strahov Library's copy, photographed by chlup.net. Public domain, via Wikimedia Commons.
+
+harriot-moon-1609.png   (a page of the book data/books/harriot-papers.txt)
+  file:    File:Harriot moon drawing 1609.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Harriot_moon_drawing_1609.jpg
+  licence: Public domain (Thomas Harriot's drawing of 1609)
+  shown:   Thomas Harriot, his drawing at Petworth House. Public domain, via Wikimedia Commons.
+
+harriot-moon-map.png   (a page of the book data/books/harriot-papers.txt)
+  file:    File:Harriot Lunar Map.jpg
+  page:    https://commons.wikimedia.org/wiki/File:Harriot_Lunar_Map.jpg
+  licence: Public domain (Thomas Harriot's map of the Moon)
+  shown:   Thomas Harriot, his map at Petworth House. Public domain, via Wikimedia Commons.
+
+old-map.png
+  Not downloaded: the map of Europe of the 2013 Galileo (data/legacy/), drawn by the game; part of the game itself.
+  shown:   The old map of Europe, a thousand squares by eight hundred, from the first Galileo (2013).

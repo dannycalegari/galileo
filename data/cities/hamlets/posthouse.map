@@ -1,0 +1,32 @@
+# A post house on a road between the cities (put out along the roads by tools/plan_roads.py):
+# the inn, the stables across the yard, the ostler's cottage, hay and a well, all open to the
+# road. Each post house's line in world.txt gives its style and its inn's name (I=).
+style village
+ground 0.9
+margin 14
+legend I inn   "the post house"
+legend B halle "the stables"
+map
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;  
+  ;IIIIIIIIIIIIII;;;BBBBBBBBB;  
+  ;IIIIIIIIIIIIII;;;BBBBBBBBB;  
+  ;IIIIIIIIIIIIII;x;BBBBBBBBB;  
+  ;IIIIIIIIIIIIII;;;BBBBBBBBB;  
+  ;IIIIIIIIIIIIII;;;BBBBBBBBB;  
+  ;IIIIIIIIIIIIII;x;BBBBBBBBB;  
+  ;IIIIIIIIIIIIII;;;BBBBBBBBB;  
+  ;IIIIIIIIIIIIII;;;BBBBBBBBB;  
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;  
+  ;;;;;;;;;;;;;;;;;;;;o;;;;;;;  
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;  
+  ;;;hhhhhhhh;;;;;;;;;;;;;;;;;  
+  ;;;hhhhhhhh;;;;;;;;;;;;;;;;;  
+  ;;;hhhhhhhh;;;;;;;;;;;;;;;x;  
+  ;;;hhhhhhhh;;;;;;;;;;;;;;;;;  
+  ;;;hhhhhhhh;;;;;;;;;;;;;;;;;  
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;  
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;  
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;  
+
+end

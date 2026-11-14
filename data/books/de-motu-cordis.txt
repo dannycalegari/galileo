@@ -1,0 +1,43 @@
+# William Harvey, Exercitatio anatomica de motu cordis et sanguinis in animalibus (Frankfurt,
+# William Fitzer, 1628): its title page and the beginning and end of chapter XIV; the English is ours.
+book de-motu-cordis
+language latin
+title Exercitatio anatomica de motu cordis et sanguinis in animalibus | An Anatomical Exercise on the Motion of the Heart and Blood in Animals
+
+page
+EXERCITATIO ANATOMICA //
+DE MOTV CORDIS ET SANGVINIS IN ANIMALIBVS, //
+
+GVILIELMI HARVEI ANGLI, //
+Medici Regii, & Professoris Anatomiæ in Collegio Medicorum Londinensi. //
+
+FRANCOFVRTI, //
+Sumptibus GVILIELMI FITZERI. //
+ANNO M. DC. XXVIII.
+=
+AN ANATOMICAL EXERCISE //
+ON THE MOTION OF THE HEART AND BLOOD IN ANIMALS, //
+
+by WILLIAM HARVEY, Englishman, //
+Physician to the King, and Professor of Anatomy in the College of Physicians of London. //
+
+FRANKFURT, //
+at the expense of William Fitzer. //
+In the year 1628.
+
+page
+CAP. XIV. //
+Conclusio demonstrationis de sanguinis circuitu. //
+
+Iam tandem nostram de circuitu sanguinis sententiam dicere, & omnibus proponere liceat. [...] necessarium est concludere, circulari quodam motu in circuitu agitari in animalibus sanguinem, & esse in perpetuo motu, & hanc esse actionem sive functionem cordis, quam pulsu peragit, & omnino motus & pulsus cordis causam unam esse.
+=
+CHAPTER XIV. //
+The conclusion of the demonstration of the circuit of the blood. //
+
+Now at last let me state our opinion of the circuit of the blood, and put it before everyone. [...] it is necessary to conclude that in animals the blood is driven round in a circuit, with a kind of circular motion, and is in perpetual motion; that this is the action, or function, of the heart, which it performs by its beat; and that this is the one and only cause of the motion and beat of the heart.
+{player set read-harvey}
+
+page image art/harvey-veins.png | Harvey's figure of the veins of the arm, from the edition of Rotterdam, 1648. Public domain, via Wikimedia Commons.
+Figura I. & II.
+=
+The figures at the end of the book: an arm tied with a band above the elbow. The veins swell below the band, and knots stand out along them at the little doors inside, which let the blood flow only towards the heart: press on a vein, and see.

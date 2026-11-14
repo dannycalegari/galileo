@@ -1,0 +1,467 @@
+# Galileo: the world.
+#
+#   town NAME FILE X Y     a town map, centred at X,Y on the old 1000 x 800 map
+#                          (underscores in NAME become spaces)
+#   start TOWN DX DY       where the game begins: DX,DY tiles from the town's centre
+#   road WIDTH P1 P2 ...   a road through the points; a point is X,Y on the old map,
+#                          or TOWN.N for the road leaving gate N of a town
+#   underground Z X0,Y0 X1,Y1 SX,SY NAME
+#                          a network of tunnels at floor Z (below zero) under this
+#                          rectangle, with a shaft from the surface near SX,SY
+#   cliffs X0,Y0 X1,Y1 HEIGHT COLOUR NAME
+#                          the sea coast inside this rectangle (old-map coordinates)
+#                          ends in cliffs of this height and colour
+
+town Paris        cities/paris.map        296 383
+town Saint-Denis  cities/saint_denis.map  296.5 400
+town London       cities/london.map       279.5 441
+# Oxford on the upper Thames (its town map joins the old map's river at both edges), Cambridge
+# north of London on the Cam, which runs out to the Wash by the cells of this block
+town Oxford       cities/oxford.map       252 453.5
+town Cambridge    cities/cambridge.map    282 461
+oldmap 281 467
+|       ~|   467
+|   ~~~~ |   466
+|~~~     |   465
+|~       |   464
+end
+
+# hamlet NAME TEMPLATE X,Y   a farm, hut or quarry from cities/hamlets/TEMPLATE.map
+hamlet Watt's_Farm              farm    299,394.7
+hamlet the_Cottage_at_La_Chapelle  cottage  293.3,393.4
+hamlet the_Bois_de_Boulogne     hut     281,383
+hamlet Montmartre               quarry  290.8,394.5
+# the cattle market of Paris, on the road west (where your family's cow is bought)
+hamlet Poissy                   cattlemarket 265,394
+
+start Paris 4 0
+
+# The clock: game minutes for each second of real time (0.5: a day lasts 48 minutes), and game
+# minutes added for each step on the open road between the towns, on top of real time: 0, so that
+# time runs at the same slow pace inside and outside the towns. ] and [ move the clock an hour on or back.
+clock 0.5
+journey 0
+
+road 3 Paris.2 Saint-Denis.1
+road 3 Paris.3 299,393 300.5,400 301,412
+road 3 Saint-Denis.2 296.6,408 297,416 298.5,422
+road 3 Paris.1 283,389 272,392 258,396
+road 3 Paris.4 312,389 322,391 336,393
+road 3 Paris.5 310,378 318,373 330,366
+road 3 Paris.8 282,377 274,373 262,368
+road 3 London.6 286,452 285,455.5 282.5,458.0
+road 3 London.9 281,433 287,431 294,433
+road 3 London.2 266,447 260,449.8 Oxford.2
+road 3 London.7 293,444.6 298,446
+road 2 Oxford.1 252.7,458 253,462
+road 2 Oxford.4 246.2,452.6 243,452.6
+road 2 283.5,463.9 284,468
+
+cliffs 285,426 298,435 7.5 #EEEDE4 the White Cliffs of Dover
+underground -2 290,366 303,377 296,371 the old quarries
+underground -2 287.5,395.5 293,399 290.8,395.6 the gypsum quarries of Montmartre
+
+# ---------------------------------------------------------------- Italy
+# The coast of Tuscany: the old map had the sea three cells from Florence's walls. This block
+# moves it west, as the oldmap block of the Netherlands does (see there for the characters), so
+# that Pisa stands between Florence and the sea: the plain of the Arno, the river itself from
+# Florence through Pisa to its mouth (the cells between the towns), the pinewoods of San
+# Rossore along the shore, Monte Pisano north-east of Pisa. The block is the master copy.
+oldmap 366 279
+|~~~~~~~.------=   ====|   279
+|~~~~~~~~.------       |   278
+|~~~~~~~~...t--==   =  |   277
+|~~~~~~~~...--== =-    |   276
+|~~~~~~~...---- ==-=   |   275
+|~~~~~~~...------==T=  |   274
+|~~~~~~...-------= --==|   273
+|~~~~~~...------=T==T-=|   272
+|~~~~~tt.------T==T==..|   271
+|~~~~~ttt------=T==T=..|   270
+|~~~~~.tt-------.-.t...|   269
+|~~~~~t.t-------.-.-T..|   268
+|~~~~~tt.-------.-.....|   267
+|~~~~~~~~-------t-t...-|   266
+|~~~~~~~~-------.-~~~.-|   265
+|~~~~~t.t-------.-..~..|   264
+|~~~~~tt.--------------|   263
+|~~~~~~tt.-------------|   262
+|~~~~~~...--------.----|   261
+|~~~~~~...--------t----|   260
+|~~~~~~~...------------|   259
+|~~~~~~~...-------.----|   258
+|~~~~~~~~...------.----|   257
+|~~~~~~~~~...-----.----|   256
+|.~~~~~~~~~~...------.-|   255
+|.~~~~~~~~~~~~...--t..-|   254
+|-~~~~~~~~~~~~~~...--.-|   253
+|~~~~~~~~~~~~~~~~~....-|   252
+|~~~~~~~~~~~~~~~~~~~..-|   251
+|~~~~~~~~~~~~~~~~~~~~..|   250
+end
+town Florence     cities/florence.map     395 266
+town Pisa         cities/pisa.map         378 265.5
+# Florence's Porta al Prato north-west, past Pisa's Porta alle Piagge, to Lucca
+road 3 Florence.1 384,268.2 Pisa.5
+road 3 Pisa.1 378.5,271 379,275 378,280
+# the Via Pisana, from the Porta San Frediano along the south bank to Pisa's Porta Fiorentina
+road 3 Florence.7 384.6,262.6 Pisa.4
+# Pisa: west to the sea at Gombo, and south-west to Livorno
+road 2 Pisa.2 371.6,268.7
+road 3 Pisa.3 372.4,262 374.5,256.5
+road 3 Florence.6 394,255 398,253 404,251 409,249.5 Rome.1
+hamlet Arcetri  villa  396.6,255.4
+road 2 394.5,255.4 395.3,255.5
+road 3 Florence.4 409,267 413,269
+town Rome         cities/rome.map         414 238
+# the Via Appia
+road 3 Rome.5 419.4,226 421,220 424,212
+# the road to Ostia
+road 3 Rome.6 412,225 407,221 401,218
+road 3 Rome.3 425,236.5 432,236
+road 3 Rome.7 401,234 395,234
+# the Via Nomentana
+road 3 Rome.2 422,251 425,257
+# to Frascati
+road 3 Rome.4 427,233 433,229
+# joins the Via Cassia
+road 3 Rome.8 405.4,250 404,251
+underground -2 416,222 419,225.4 418.6,225.2 the catacombs of San Callisto
+town Venice       cities/venice.map       412 297
+# Padua, a day up the Brenta from Fusina; the road from Florence comes in at its south gate
+town Padua        cities/padua.map        390 301
+road 3 Padua.1 389,307 389.5,312
+road 3 Padua.4 382,301 377,301.5
+# ---------------------------------------------------------------- the Netherlands
+# The old map had only a few islands here. This block redraws its cells round Amsterdam as the
+# country was in 1632, squeezed like all the land between the towns: the dunes along the North
+# Sea, the IJ north of the town opening east into the Zuiderzee, North Holland across it, the
+# Haarlemmermeer, the Oude Rijn from Utrecht past Leiden to the sea at Katwijk, the Gooi east
+# of Muiden. The rivers from the south still reach the sea, by the Oude Rijn.
+#   oldmap U0 V0      then one row of cells per line between bars, the first row V0 (north),
+#                     going south; '~' water, '.' low land, '-' land, '=' high land, 't' and 'T'
+#                     the same with trees, ' ' as the old map has it; the number after a row is
+#                     only a reminder of its V
+oldmap 312 467
+|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|   467
+|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|   466
+|~~~~~~~~~~--..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|   465
+|~~~~~~~~~~--...~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|   464
+|~~~~~~~~~~~--....~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|   463
+|~~~~~~~~~~~--......~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|   462
+|~~~~~~~~~~~--.......~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~      |   461
+|~~~~~~~~~~~--.........~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~      |   460
+|~~~~~~~~~~--............~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~      |   459
+|~~~~~~~~~~--..............~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     |   458
+|~~~~~~~~~~--.....................~~~~~~~~~~~~~~~~~~~~~~~~~~~     |   457
+|~~~~~~~~~--...........................~~~~~~~~~~~~~~~~~~~~~~~    |   456
+|~~~~~~~~~--.........................~~~~~~~~~~~~~~~~~~~~~~~~~    |   455
+|~~~~~~~~~--.......................~~~~~~~~~~~~~~~~~~~~~~~~~~~~   |   454
+|~~~~~~~~~--......................~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   |   453
+|~~~~~~~~~--........................~~~~~~~~~~~~~~~~~~~~~~~~~~~   |   452
+|~~~~~~~~~--...........................~~~~~~~~~~~~~~~~~~~~~~~~   |   451
+|~~~~~~~~~--...~~...~~~~~~.......~~~~~~..~~~~~~~~~~~~~~~~~~~~~~   |   450
+|~~~~~~~~~--..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   |   449
+|~~~~~~~~~--.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     |   448
+|~~~~~~~~--...~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~       |   447
+|~~~~~~~~--..........~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.          |   446
+|~~~~~~~~--.....................................~~~~~-T-          |   445
+|~~~~~~~~TT.....................................-T--T--T          |   444
+|~~~~~~~~TT.....................................--T--T--          |   443
+|~~~~~~~~TT.t...................................T--T--T-          |   442
+|~~~~~~~~TT..t..................................-T--T--T          |   441
+|~~~~~~~~TT....~~~..............................--T--T--          |   440
+|~~~~~~~~--...~~~~~.............................T--T--T-          |   439
+|~~~~~~~~--....~~~~.............................-T--T--T          |   438
+|~~~~~~~~--....~~~~.............................--T--T--          |   437
+|~~~~~~~~--...~~~~~.....................................          |   436
+|~~~~~~~~--...~~~~......................................          |   435
+|~~~~~~~~--....~~~......................................          |   434
+|~~~~~~~--..............................................          |   433
+|~~~~~~~--.t............................................          |   432
+|~~~~~~--.t......~~~~..~~~~...~~~~..~~~~................          |   431
+|~~~~~~~~~~~~~~~~~..~~~~..~~~~~..~~~~..~~~~~~...........          |   430
+|~~~~~~~--.............................~~~~~~...........          |   429
+|~~~~~~~--..........                                              |   428
+|~~~~~~~--..........                                              |   427
+end
+
+town Amsterdam    cities/amsterdam.map    342 441
+# the Amstel, south from the town to the Oude Rijn
+river 8 343.55,433.2 343.45,431.8 343.3,430.6
+# the Vecht, from Utrecht north to the Zuiderzee at Muiden
+river 5 353.6,430.6 357,436 363.4,442 364.6,446.8
+# the Zaan, into the IJ from the north
+river 4 329,455 329.4,452 329.6,449.6
+# east to Muiden
+road 3 Amsterdam.4 355,443 362,442
+# west to Haarlem, along the IJ
+road 3 Amsterdam.1 330.5,445.2 Haarlem.4
+# south-west to Leiden, past the Haarlemmermeer
+road 3 Amsterdam.2 333,436.3 331,434 329.6,432.9 Leiden.2
+# Haarlem and Leiden: their towns (centred on these old-map points; their maps meet the
+# cells of the oldmap block above), and the road between them, west of the Meer
+town Haarlem      cities/haarlem.map      325 442.75
+town Leiden       cities/leiden.map       324.5 430
+road 3 Haarlem.3 323.6,438.2 323.2,435.5 Leiden.1
+# Leiden west to the dunes at Katwijk, and east up the Oude Rijn towards Utrecht
+road 2 Leiden.3 320,430.9
+road 3 Leiden.4 330.5,431.8 335,432.2 340,432.4 345,433.0
+# south to Utrecht, by the Amstel
+road 3 Amsterdam.3 342.6,434.6 345,433.0 348,432.7 351.2,431.9
+
+# ---------------------------------------------------------------- the Ottoman lands
+# The Bosphorus: the old map had only a thread of single cells between the Black Sea and a sea
+# that was the Marmara and the Aegean together. This block draws the strait's mouth on the Black
+# Sea, the shores of Thrace and of Asia beside the town's rectangle, and the Marmara below it
+# (see the Netherlands block for the characters; ' ' inside the town's rectangle: the town decides).
+oldmap 622 232
+|T------.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|   232
+|==----.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|   231
+|------.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|   230
+|--=---.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|   229
+|--==---.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|   228
+|--=----.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|   227
+|--------..--.--.--.--.-~~~-.--.--.--.--.-|   226
+|-----------.--.--.--.--~~~.--.--.--.--.--|   225
+|----------.--.                   -.--.--.|   224
+|--------T---..                   .--.--.-|   223
+|-------------.                   --.--.--|   222
+|--------------                   -.--.--.|   221
+|--------------                   .-......|   220
+|T-------T-----                   ------..|   219
+|-TTT----------                   ------..|   218
+|----------..t.                   T-----..|   217
+|..--T------.--                   --------|   216
+|----....--.--.                   --T-T---|   215
+|--..--.--.--.-                   --.-----|   214
+|--.--.--.--.--                   --.--...|   213
+|~~~~~~~~~~~~~~                   -.--...-|   212
+|~~~~~~~~~~~~~~                   .t.-----|   211
+|~~~~~~~~~~~~~~                   ------==|   210
+|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~----======.|   209
+|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~----======-|   208
+|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~------===-T|   207
+|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.-..-------|   206
+|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~--T.-------|   205
+|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~---T-------|   204
+|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=----T-----|   203
+|~~~~~~~~~~~~..-----------------------==--|   202
+|.~~~~~~~t~t.----------.....---------====-|   201
+|-...-...------..........------------====-|   200
+end
+town Constantinople  cities/constantinople.map  645 217
+# west from the land walls into Thrace, towards Edirne and Belgrade
+road 3 Constantinople.1 630,221.6 620,224
+road 3 Constantinople.2 629,219.4 618,219
+road 2 Constantinople.3 630,215 626,214
+
+# ---------------------------------------------------------------- the Adriatic
+town Ragusa  cities/ragusa.map  492.3 238
+# from the Pile gate north along the coast, and from the Ploce gate inland, to Bosnia
+road 2 Ragusa.1 489.4,243 490,250
+road 3 Ragusa.2 498,239 503,243 507,250
+
+# ---------------------------------------------------------------- Spain
+# Seville on the Guadalquivir (running west on the old map, to the Atlantic below it), Granada at
+# the foot of the Sierra Nevada
+# the mouth of the Guadalquivir at Sanlucar: the old map's river stopped two cells short of the sea
+oldmap 114 202
+|~~|   202
+end
+# and the cell between that river and Seville's town map
+oldmap 125 211
+|~|   211
+end
+town Seville  cities/seville.map  131 211
+road 3 Seville.1 124,212.6 119,214
+road 3 Seville.2 129.5,216.8 130,222
+road 3 Seville.3 138.6,212.6 140.5,207 143.2,197.6
+town Granada  cities/granada.map  147.5 196
+road 2 145.9,192.7 146,189.3
+road 2 151.6,197.4 155,197
+
+
+# ---------------------------------------------------------------- Central Europe
+# Zurich where the Limmat leaves the lake (the old map's lake runs east from the town, the Limmat
+# north from it); Nuremberg on the Pegnitz (joined to the old map's river at both edges: the cells
+# below fill the gaps); Prague on the Vltava
+town Zurich  cities/zurich.map  356 346
+road 2 Zurich.1 349,347.2 344,348
+road 2 Zurich.2 358.5,351 361,354
+oldmap 400 388
+|~~~|   388
+end
+oldmap 410 389
+|~|   389
+|~|   388
+end
+town Nuremberg  cities/nuremberg.map  406 389.5
+road 3 Nuremberg.1 411,390.5 416,391
+road 2 Nuremberg.2 406.3,385 406,381
+road 2 Nuremberg.4 403.5,393.6 400,396
+# Zirndorf and the Alte Veste, on the ridge north-west of the city (where Wallenstein camps, in
+# July 1632, when you have been sent to look for him: events.txt wallenstein-comes); a road from
+# the Spittlertor to the village street
+town Zirndorf  cities/zirndorf.map  396 391.5
+road 3 Nuremberg.3 400.4,389.4 399.6,390.65 398.8,390.65
+# the old map ran a second river down the west side of Prague, which made the Castle quarter an
+# island: dry it out beside the town (its two ends still join the old map's other channels)
+oldmap 447 416
+|----|   416
+|----|   415
+|----|   414
+|----|   413
+|----|   412
+|----|   411
+|----|   410
+|----|   409
+|----|   408
+|----|   407
+|----|   406
+|----|   405
+|----|   404
+|----|   403
+|----|   402
+end
+town Prague  cities/prague.map  453.5 408
+road 3 Prague.1 460,409 465,409.5
+road 2 Prague.2 455.7,413 456,416
+
+# ---------------------------------------------------------------- the East
+# Vienna on an arm of the Danube (the old map starts the river just south of the town); Cracow on
+# the Vistula; Danzig on the sea (which the old map puts to the west), the Vistula's last arm
+# along the north (joined to the old map's water by the cells below) and the Motlawa; Sarajevo
+# on the Miljacka (joined at the east), with the caravan road down to Ragusa
+# the old map's Danube by Vienna and its Vistula by Cracow are fragments that never reach the sea:
+# --stats reports those towns' rivers as inland water instead of a fault
+inland Vienna Cracow
+town Vienna  cities/vienna.map  503.5 374.5
+road 3 Vienna.1 504.5,369.6 505,366
+road 3 Vienna.2 509.4,374 513,373.5
+road 3 Vienna.4 505.5,379.4 509,377.5 512,377
+town Cracow  cities/cracow.map  563 404.5
+road 3 Cracow.1 563.5,409.5 564,414
+road 3 Cracow.2 568.9,405.5 572,406
+road 2 564.6,401.6 565,398
+oldmap 536 476
+|~~|   476
+end
+town Danzig  cities/danzig.map  532.5 474.5
+road 2 Danzig.1 529.3,472 530,468
+road 3 Danzig.3 532.7,471 533.5,466
+road 2 536.2,474 540,474
+oldmap 523 278
+|~~~|   278
+end
+town Sarajevo  cities/sarajevo.map  519.5 279.5
+road 3 525.0,280.4 527,281
+road 2 514.0,280.8 512,281.5
+road 3 518,275.0 515,268 510,258 507,250
+
+# ---------------------------------------------------------------- Sweden
+# Stockholm on its islands between Lake Malaren (the old map's lake to the west) and the Baltic
+# (east): the town's waters join both. No road in this game reaches it: you come by sea, from
+# Danzig or Amsterdam, as the King's recruits leave by sea for Stralsund.
+town Stockholm  cities/stockholm.map  496.5 559.5
+
+# ---------------------------------------------------------------- roads between the cities
+# Written by tools/plan_roads.py, the master copy: edit the script and run it again, not these lines.
+# The post roads of 1632 between the cities, with a post house at each stage (in Spain a venta,
+# in the Ottoman lands a han): an innkeeper who hires and sells horses, beds and the post, and an
+# ostler who knows where the road goes (data/people/posthouses.txt).
+#   hamlet NAME posthouse X,Y style=STYLE I=NAME_OF_THE_INN   (the template's style and inn renamed)
+# Paris to Brussels and Leiden
+road 3 301,412 302.50,412.50 304.50,411.50 309.50,406.50 315.50,414.50 320.50,414.50 322.50,413.50 323.50,418.50 330.50,424.50 331.50,425.50 Leiden.4
+# Paris to Basel and Zurich
+road 3 330,366 329.50,361.50 329.50,361.50 330.50,360.50 330.50,357.50 335.50,355.50 339.50,351.50 343.50,351.50 344.50,350.50 344,348
+# Paris to Madrid and Seville
+road 3 Paris.6 290.50,374.50 286.50,369.50 286.50,367.50 285.50,366.50 285.08,366.22 276.50,360.50 266.50,359.50 265.50,358.50 265.50,353.50 257.50,345.50 257.50,341.50 251.50,335.50 250.50,329.50 246.50,323.50 246.50,314.50 244.50,311.50 238.50,313.50 235.50,316.50 234.50,315.50 226.50,307.50 226.50,304.50 222.50,299.50 216.50,295.50 213.50,294.50 204.50,294.50 201.50,292.50 198.50,288.50 196.50,287.50 194.50,288.50 194.15,288.15 192.50,286.50 189.50,287.50 179.50,287.50 179.33,287.33 176.50,284.50 172.50,280.50 169.50,280.50 168.50,279.50 168.50,277.50 166.57,272.68 166.50,272.50 166.50,265.50 163.50,262.50 163.50,257.50 165.50,255.50 165.50,252.50 161.50,246.50 161.50,244.50 161.50,242.50 159.50,240.50 159.50,233.67 159.50,233.50 161.50,231.50 162.50,230.50 162.50,228.50 163.50,226.50 155.50,218.50 155.00,218.44 147.50,217.50 144.50,214.50 142.50,214.50 138.50,218.50 134.50,219.50 131.50,222.50 130,222
+# Zurich to Ulm, Augsburg and Nuremberg
+road 3 361,354 365.50,358.50 370.50,358.50 375.50,362.50 378.50,363.50 381.50,366.50 385.50,367.50 386.50,367.50 387.50,367.50 399.50,367.50 399.50,375.00 399.50,375.50 406,381
+# Augsburg over the Brenner to Verona and Padua
+road 3 399.50,367.50 401.50,363.50 401.50,361.50 401.50,351.50 399.50,344.50 399.50,341.50 400.50,340.50 401.50,339.50 401.46,339.42 400.50,337.50 398.50,339.50 393.50,340.50 389.50,336.50 388.50,333.50 389.50,328.50 389.50,326.50 389.50,323.00 389.50,322.50 384.50,316.50 387.50,311.50 389.5,312
+# Nuremberg to Pilsen and Prague
+road 3 416,391 416.75,391.15 417.24,391.25 418.50,391.50 426.50,399.50 437.50,399.50 438.50,400.50 440.50,398.50 440.50,391.50 441.50,390.50 444.50,391.50 445.50,391.50 445.50,392.50 446.50,393.50 450.50,393.50 450.78,393.78 455.50,398.50 460.50,401.50 465.50,408.50 465,409.5
+# Prague to Iglau and Vienna
+road 3 465,409.5 470.50,401.50 478.15,393.85 478.50,393.50 480.50,390.50 481.50,389.50 482.50,388.50 490.50,380.50 490.50,380.50 490.50,378.50 492.50,375.50 499.50,370.50 502.50,370.50 503.50,371.50 503.50,374.50 502.50,374.50 Vienna.3
+# Vienna to Brno and Cracow
+road 3 512,377 515.50,378.50 519.50,378.50 521.50,380.50 521.50,381.50 519.50,382.50 512.50,390.50 512.50,395.50 514.50,395.50 522.50,403.50 528.50,408.50 529.98,408.50 533.50,408.50 535.50,409.50 536.50,411.50 538.50,411.50 540.50,408.50 540.50,399.50 542.50,399.50 550.50,391.50 554.50,391.50 555.50,390.50 561.11,390.50 565.50,390.50 566.50,391.50 566.50,393.50 567.50,394.50 567.50,401.50 563.50,407.50 Cracow.1
+# Cracow to Warsaw and Danzig
+road 3 564,414 564.50,415.50 572.50,422.50 576.50,422.50 578.50,424.50 573.50,431.50 570.50,434.50 570.50,436.50 563.50,436.50 558.50,441.50 549.50,441.50 548.50,442.50 543.50,442.50 536.50,449.50 530.50,449.50 529.50,450.50 529.50,454.50 535.50,461.50 535.50,463.50 533.83,465.58 533.5,466
+# Vienna to Buda, Belgrade and Constantinople
+road 3 513,373.5 514.50,365.50 516.50,363.50 516.50,360.50 520.50,360.50 521.50,359.50 528.50,359.50 533.50,351.50 533.50,348.50 532.50,347.50 531.50,346.50 530.50,345.50 529.50,344.50 528.50,343.50 527.50,342.50 519.50,334.50 518.65,330.26 518.50,329.50 520.50,328.50 520.50,326.50 521.50,325.50 532.50,324.50 535.50,321.50 541.50,321.50 542.50,320.50 542.50,319.50 542.50,318.50 542.50,317.50 542.50,316.50 542.50,304.50 544.50,297.50 544.50,290.50 546.50,288.50 546.50,286.50 554.50,278.50 553.50,273.50 554.36,272.99 558.50,270.50 562.50,266.50 573.04,264.58 573.50,264.50 573.50,262.50 573.50,260.50 567.50,258.50 557.50,258.50 556.50,257.50 562.50,251.50 572.50,245.50 576.50,245.50 584.50,238.50 589.50,237.50 596.50,237.50 601.50,232.50 612.50,231.50 613.50,229.50 613.50,224.50 618,219
+# Sarajevo to Novi Pazar and Nis
+road 3 527,281 529.50,282.50 531.50,281.50 531.50,279.50 532.94,278.06 538.50,272.50 544.50,269.50 545.50,268.50 546.50,267.50 547.50,266.50 548.50,265.50 556.50,257.50
+# Brussels to Aachen, Cologne, Frankfurt and Nuremberg
+road 3 322.50,413.50 328.50,413.50 335.50,405.50 344.50,407.50 346.50,410.50 352.50,409.50 354.82,407.56 358.50,404.50 360.50,404.50 362.50,404.50 363.50,405.50 364.50,403.50 365.00,403.45 375.50,402.50 376.50,401.50 382.50,401.50 388.50,396.50 391.50,396.50 400,396
+# Oxford to Bedford and Cambridge
+road 3 253,462 257.50,462.50 258.50,461.50 263.50,461.50 267.50,458.50 271.50,458.50 276.2,461
+# Florence to Bologna, Ferrara and Padua
+road 3 Florence.2 393.50,280.50 393.50,288.00 393.50,288.50 384.50,288.50 381.50,291.50 379.50,291.50 377.50,294.50 377.50,296.50 378.50,299.50 381.50,299.50 385.50,296.50 Padua.3
+# Padua along the Brenta to Fusina
+road 3 Padua.2 396.50,300.50 399.50,300.50 Venice.1
+# Paris towards Chartres
+road 3 Paris.7 288.50,368.50 288.50,366.50 287.50,365.50 287.50,355.50 284,350
+# the post houses
+hamlet the_post_house_at_Bedford posthouse 271.98,456.56 style=village I=the_Swan
+hamlet the_post_house_at_Toruń posthouse 527.19,449.54 style=german I=the_Golden_Duck
+hamlet the_post_house_at_Płock posthouse 549.27,444.35 style=german I=the_White_Eagle
+hamlet the_post_house_at_Warsaw posthouse 572.44,438.44 style=german I=the_Black_Horse
+hamlet the_post_house_at_Dover posthouse 294.00,434.60 style=village I=the_Ship
+hamlet the_post_house_at_Radom posthouse 580.99,424.29 style=german I=the_White_Eagle
+hamlet the_post_house_at_Dordrecht posthouse 332.20,422.67 style=dutchtown I=the_Arms_of_Brabant
+hamlet the_post_house_at_Calais posthouse 300.60,421.40 style=village I=the_Silver_Lion
+hamlet the_post_house_at_Antwerp posthouse 325.87,417.11 style=dutchtown I=the_Golden_Hart
+hamlet the_post_house_at_Brussels posthouse 323.49,411.48 style=dutchtown I=the_Golden_Hart
+hamlet the_post_house_at_Koblenz posthouse 365.65,407.40 style=german I=the_White_Horse
+hamlet the_post_house_at_Aachen posthouse 347.89,407.29 style=german I=the_Golden_Stag
+hamlet the_post_house_at_Ostrau posthouse 529.98,406.50 style=german I=the_Golden_Pike
+hamlet the_post_house_at_Cambrai posthouse 309.64,404.51 style=dutchtown I=the_Arms_of_Brabant
+hamlet the_post_house_at_Teschen posthouse 542.44,401.44 style=german I=the_Golden_Pike
+hamlet the_post_house_at_Frankfurt posthouse 375.73,399.65 style=german I=the_Golden_Eagle
+hamlet the_post_house_at_Würzburg posthouse 391.56,398.50 style=german I=the_Golden_Stag
+hamlet the_post_house_at_Pilsen posthouse 438.50,396.50 style=german I=the_Golden_Wheel
+hamlet the_post_house_at_Iglau posthouse 479.76,395.42 style=german I=the_Black_Horse
+hamlet the_post_house_at_Amberg posthouse 416.80,393.45 style=german I=the_Golden_Lamb
+hamlet the_post_house_at_Olomouc posthouse 514.97,393.03 style=german I=the_Golden_Pike
+hamlet the_post_house_at_Beroun posthouse 452.48,391.62 style=german I=the_Golden_Wheel
+hamlet the_post_house_at_Wieliczka posthouse 561.11,388.50 style=german I=the_Black_Horse
+hamlet the_post_house_at_Znaim posthouse 488.19,379.54 style=german I=the_White_Swan
+hamlet the_post_house_at_Donauwörth posthouse 397.01,375.16 style=german I=the_Black_Bear
+hamlet the_post_house_at_Ulm posthouse 385.26,369.49 style=german I=the_Red_Ox
+hamlet the_post_house_at_Augsburg posthouse 397.56,369.44 style=german I=the_Black_Bear
+hamlet the_post_house_at_Orléans posthouse 286.93,363.55 style=village I=the_Trois_Rois
+hamlet the_post_house_at_Tours posthouse 265.64,361.31 style=village I=the_Soleil_d'Or
+hamlet the_post_house_at_Raab posthouse 514.56,358.56 style=german I=the_Golden_Crown
+hamlet the_han_at_Buda posthouse 535.90,352.19 style=ottoman I=the_han
+hamlet the_post_house_at_Basel posthouse 346.89,351.22 style=german I=the_Stork
+hamlet the_post_house_at_Mittenwald posthouse 397.02,344.85 style=german I=the_Golden_Lamb
+hamlet the_post_house_at_Poitiers posthouse 259.81,344.54 style=village I=the_Cheval_Rouge
+hamlet the_post_house_at_Innsbruck posthouse 403.96,339.57 style=german I=the_White_Horse
+hamlet the_han_at_Paks posthouse 515.95,330.80 style=ottoman I=the_han
+hamlet the_post_house_at_Angoulême posthouse 253.06,328.49 style=village I=the_Cheval_Rouge
+hamlet the_post_house_at_Bozen posthouse 387.00,323.14 style=german I=the_Three_Moors
+hamlet the_han_at_Szeged posthouse 544.81,321.46 style=ottoman I=the_han
+hamlet the_post_house_at_Bordeaux posthouse 235.50,318.50 style=village I=the_Grand_Cerf
+hamlet the_post_house_at_Bayonne posthouse 217.60,293.25 style=village I=the_Lion_d'Or
+hamlet the_han_at_Belgrade posthouse 542.19,289.54 style=ottoman I=the_han
+hamlet the_venta_at_Burgos posthouse 178.00,289.45 style=spain I=the_venta
+hamlet the_post_house_at_Ferrara posthouse 391.01,287.77 style=padua I=the_Tower
+hamlet the_venta_at_Vitoria posthouse 196.41,285.47 style=spain I=the_venta
+hamlet the_post_house_at_Bologna posthouse 391.00,280.40 style=padua I=the_Three_Kings
+hamlet the_han_at_Jagodina posthouse 556.80,277.06 style=ottoman I=the_han
+hamlet the_venta_at_Aranda posthouse 164.15,273.30 style=spain I=the_venta
+hamlet the_han_at_Aleksinac posthouse 573.64,266.49 style=ottoman I=the_han
+hamlet the_han_at_Niš posthouse 554.00,257.50 style=ottoman I=the_han
+hamlet the_venta_at_Madrid posthouse 167.81,256.46 style=spain I=the_venta
+hamlet the_han_at_Sofia posthouse 573.03,247.43 style=ottoman I=the_han
+hamlet the_han_at_Plovdiv posthouse 589.30,235.51 style=ottoman I=the_han
+hamlet the_han_at_Edirne posthouse 613.77,233.36 style=ottoman I=the_han
+hamlet the_venta_at_Manzanares posthouse 157.09,232.99 style=spain I=the_venta
+hamlet the_venta_at_Cárdenas posthouse 154.65,220.41 style=spain I=the_venta
+# ---------------------------------------------------------------- end of the roads between the cities
+
+# The Barbary coast (Regency of Algiers): the ruins of Hippo by Bône, Saint Augustine's town. No road
+# and no passage goes there; only a ship of your own (HIPPO: data/people/barbary.txt).
+hamlet the_ruins_of_Hippo hippo 338.5,142.6 style=granada

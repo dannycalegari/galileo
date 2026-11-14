@@ -1,0 +1,35 @@
+# A book of hours, its title page gone: the Hours of the Virgin, in Latin; the English is the
+# old English of the prayers.
+book book
+language latin
+title Horæ beatæ Mariæ Virginis | The Hours of the Blessed Virgin Mary
+
+page
+HORÆ BEATÆ MARIÆ VIRGINIS. //
+
+AD MATVTINVM. //
+
+Domine labia mea aperies. //
+Et os meum annuntiabit laudem tuam. //
+Deus in adiutorium meum intende. //
+Domine ad adiuuandum me festina. //
+Gloria Patri, & Filio, & Spiritui sancto. //
+Sicut erat in principio, & nunc, & semper: & in sæcula sæculorum. Amen.
+=
+THE HOURS OF THE BLESSED VIRGIN MARY. //
+
+AT MATINS. //
+
+O Lord, open thou my lips. //
+And my mouth shall show forth thy praise. //
+O God, come to my assistance. //
+O Lord, make haste to help me. //
+Glory be to the Father, and to the Son, and to the Holy Ghost. //
+As it was in the beginning, is now, and ever shall be, world without end. Amen.
+
+page
+Aue Maria, gratia plena, Dominus tecum: benedicta tu in mulieribus, & benedictus fructus uentris tui, Iesus. //
+Sancta Maria, Mater Dei, ora pro nobis peccatoribus, nunc & in hora mortis nostræ. Amen.
+=
+Hail Mary, full of grace, the Lord is with thee: blessed art thou among women, and blessed is the fruit of thy womb, Jesus. //
+Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen.

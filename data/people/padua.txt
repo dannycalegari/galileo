@@ -1,0 +1,228 @@
+# The people of Padua.
+# June 1632: Padua is Venice's, and its University (the Bo) is the Republic's pride: here a
+# Protestant may study, and here Galileo taught for eighteen years, until 1610. The plague of
+# 1631 has just passed; Cremonini, who would not look through the spyglass, died of it.
+town Padua
+names venetian
+prison Castello | The Venetians keep the old Castello of the Carrara as their prison. You spend the night at the top of the Torlonga, Ezzelino's tower, with a bandit from the Euganean hills who swears he is innocent and snores like a bellows. The warder says the tower will hold nothing worse than astronomers one day. In the morning they let you go.
+country Italy
+
+person liceti
+  name Fortunio Liceti
+  title a professor of philosophy
+  role scholar
+  near Palazzo del Bo
+  work landmark Palazzo del Bo
+  schedule
+    7:00 home
+    9:00 work
+    12:30 eat
+    14:00 work
+    17:00 wander
+    20:00 home
+    22:00 sleep
+  talk
+    name: Fortunio Liceti, of Rapallo, Professor of Philosophy in the University of Padua. {name}
+    job: I teach Aristotle, as the statutes require, and I write books: on monsters, on the soul of plants, on why the old lamps of the pagans burned for ever. Signor Galileo and I have quarrelled by letter for twenty years, and remain friends.
+    galileo: My friend and my adversary. He says the heavens are made of the same stuff as the Earth; I say Aristotle saw further without a spyglass than Galileo with one. We write each other long letters, and neither of us gives an inch.
+    earthshine,moon,light if player heard-earthshine and not player has-stone-from-liceti: (He frowns.) The Earth lights the Moon? That is what he says, is it? I say the Moon has a little light of her own, as a certain stone has. Here: take this, from my cabinet, and look at it in the dark. Then tell me which of us is mad. {player add has:bologna-stone 1} {player set has-stone-from-liceti}
+    earthshine,moon,light: The Moon, when she is new, shows a faint grey light over all her dark part. Where does it come from? Not from the Sun. I think she has a little light of her own, and drinks the Sun's as a certain *stone* does.
+    stone,bologna,lapis if player has-stone-from-liceti: Let it lie in the sun by day, and it will glow for you at night. A cobbler of Bologna found it, trying to make gold. He made something better.
+    stone,bologna,lapis: The stone of Bologna. You roast it, and then it drinks the daylight and gives it back in the dark, like the Moon. If I could show you one... but they are rare. Ask me about the *moon*.
+    cremonini: Cesare Cremonini, my colleague, the greatest Aristotelian in Italy. He would not look through Galileo's spyglass: it gave him a headache, he said, and besides, what could it show him that Aristotle had not? The plague took him last summer. He sees the heavens now, if anyone does.
+    monster,monsters: I wrote a book on them: a child with two heads, a lamb with a man's face. Nature errs, and in her errors you see how she works when she does not.
+    dialogue,book: The new Dialogue? I have read it twice, once in anger and once in admiration. My poor Simplicio! He is a better philosopher than Galileo allows him to be.
+  end
+end
+
+person vesling
+  name Johann Vesling
+  title a physician
+  role physician
+  near anatomy theatre
+  work landmark anatomy theatre
+  schedule
+    7:00 home
+    8:00 work
+    12:00 eat
+    13:30 go landmark prefect of the Orto
+    16:00 work
+    19:00 home
+    22:30 sleep
+  talk
+    name: Johann Vesling, of Minden in Westphalia, Professor of Anatomy and Surgery. They gave me the chair this year. {name}
+    job: I open the human body before four hundred students, in the theatre Fabricius built. In winter, that is: in June the dead will not keep.
+    theatre,anatomy,dissection: Six rings of standing room round the table, steep as a well, and the students lean on the rails and look down. Some faint; we catch them. There is a little door to the canal beneath, by which the bodies come in at night, by boat. Nobody asks from where.
+    fabricius: Girolamo Fabrici of Acquapendente, my great predecessor. He found the little doors in the veins, the valves, and never understood what they were for. An Englishman did, his pupil.
+    harvey,heart,blood if player has:de-motu-cordis: (He takes the book and turns the pages, fast, then slowly.) Harvey! A son of this house, a doctor of Padua of 1602. The blood goes round, out by the arteries and back by the veins, and Fabricius's valves are its doors... It is so simple I am angry I did not think of it. Keep it safe: half the physicians of Europe would burn it. {player set showed-vesling}
+    harvey,heart,blood: William Harvey, the Englishman: he studied here under Fabricius. He has written a little book that says the blood goes round the body, always the same blood. If you ever see it, bring it to me.
+    egypt,cairo,coffee,kahve: I was in Egypt four years ago, looking for plants for the Orto. In Cairo every street has a house where men drink kahve, a black water, and talk politics all night. Prospero Alpini wrote of it first. Ask his son, at the *Orto*.
+    orto,garden,botanic: The Orto botanico, behind the Santo: the garden of simples, the oldest in the world. Alpino Alpini keeps it, as his father did.
+  end
+end
+
+person alpini
+  name Alpino Alpini
+  title the prefect of the Orto botanico
+  role scholar
+  near prefect of the Orto
+  work landmark prefect of the Orto
+  schedule
+    6:00 home
+    7:00 wander
+    9:00 work
+    12:00 eat
+    14:00 work
+    19:00 home
+    22:00 sleep
+  talk
+    give:coffee-beans if not has-coffee: (He opens the paper and stares.) Green! Not parched! The Turks roast every bean that leaves Arabia, so that no Christian can grow it, and you bring me green ones. (He is already digging.) If one of these comes up, it will be the first kahve tree in Christendom, and it will have my father's name on the label. Take this, for the boat home. {take} {set has-coffee} {player add money 1440} {player set gave-coffee-padua}
+    give:coffee-beans: I have mine in the ground already, thank you. Pisa would give a great deal for those: they have nothing like it.
+    name: Alpino Alpini, prefect of the Orto botanico, as my father was before me. {name}
+    job: I keep the garden of simples: the plants a physician must know, and the strange ones the Republic's ships bring home. Everything has its bed, and its label, and its season.
+    alpini,prospero,father: Prospero Alpini, my father. He went to Cairo as physician to the Venetian consul and came back with three hundred plants and a book. He was the first Christian to describe the coffee tree: *kahve*, the Turks say.
+    coffee,kahve,beans if has-coffee: My beans are in the ground, under glass. Every morning I look; every morning nothing. Patience.
+    coffee,kahve,beans: The Turks drink it roasted and ground in hot water, black, and say it keeps them awake through the night prayers. I would give a great deal for a handful of green beans, unparched, to sow. The Turkish merchants of Venice may have some, at the Fondaco.
+    palm: That palm by the wall was planted in 1585: the year I was born. It will outlive us all. One day, I tell my gardeners, a German poet will come and stand under it, and write a book about the shapes of leaves.
+    orto,garden,oldest,pisa: The oldest garden of its kind in the world, founded by the Senate in 1545. Pisa says hers is older. Pisa's has moved house twice; ours is where it was planted. Ask them in Pisa, and watch them go red.
+  end
+end
+
+person bidello
+  name Ser Polo Rizzo
+  title a beadle of the University
+  role scholar
+  near Palazzo del Bo
+  work landmark Palazzo del Bo
+  talk
+    name: Polo Rizzo, beadle of the University of the Artists, at your service. {name}
+    job: I carry the mace before the Rector, ring the bell, fine the students, and show strangers the chair of Signor Galileo, for a small consideration.
+    chair,cattedra,lectern if player paid-bidello: There it is, in the hall: that wooden stand on its steps, like a pulpit for a carpenter. The students knocked it together themselves so that more of them could see him, he drew such crowds. He stood up there and showed them the new star of 1604, and the hall was full to the windows.
+    chair,cattedra,lectern,galileo: Signor Galileo's chair? Eighteen years he taught here, the best years, he says. For a sou I shall show it to you.
+    give:money if player gift >= 12: (He pockets it, and bows.) This way. Mind the step. {take} {player set paid-bidello}
+    bo,ox,name: The Bo is the ox: this was the inn of the Ox before the University bought it, two hundred years ago. The students say it still smells of the stable at examinations.
+    woman,women,degree: A woman? A doctor of Padua? Never, while the Bo stands. (He thinks.) Though the Senate has done stranger things.
+    copernicus: A Pole, Koppernigk, studied medicine here, a hundred and thirty years ago, and went home and set the Earth going round the Sun. We do not mention him at examinations.
+  end
+end
+
+person landlady
+  name Madonna Zuana Busetto
+  title a landlady
+  role goodwife
+  near Galileo's old house
+  talk
+    notes,papers,galileo,box,motion if player ch4-open and not player has:padua-notes and not player ch4-notes: His papers? (She climbs to the attic, and comes down with a bundle tied with string, and cobwebs.) They were under the glass in the box his workman left. I never threw them out: you do not throw out a great man's rubbish. {player add has:padua-notes 1}
+    name: Zuana Busetto, a widow. I keep lodgers. {name}
+    job: I let rooms to students, as I let them to Signor Galileo's students, when he had this house. Twenty young gentlemen at table, and a workshop in the yard, and the noise!
+    galileo,house: Signor Galileo had the whole house, eighteen years ago: he took students in to board, Germans and Poles and a Scotsman, and kept a workman, Marcantonio, making his compasses and his spyglasses in the yard. He grew vines, and made his own wine, and drank it.
+    lens,glass,box,attic if not gave-lens: (She hesitates.) There is a box in the attic that his workman left: broken glass, mostly, the bits that went wrong. One is whole, I think. Here: what use is it to me? {player add has:lens 1} {set gave-lens} {player set lens-from-padua}
+    lens,glass,box,attic: I gave you the only whole one. The rest are good for nothing but cutting your fingers.
+    marina,woman,children: (She folds her hands.) A woman from Venice. Their children were born there, not here. We did not speak of it, and we do not now.
+  end
+end
+
+person debtor
+  name Ser Iseppo Zennaro
+  title a ruined merchant
+  role merchant
+  near Ragione
+  money 0
+  schedule
+    8:00 home
+    10:00 go landmark Ragione
+    13:00 eat
+    15:00 go landmark Ragione
+    19:00 home
+    22:00 sleep
+  talk
+    hello if paid-debt: My friend! My benefactor! I can walk across the Piazza with my head up.
+    name: Iseppo Zennaro. You will hear the name shouted in the Salone tomorrow, God help me. {name}
+    job: I was a dealer in wool, until a ship of mine went down off Ragusa with all my credit in her. Now I am a debtor.
+    debt,stone,shame,cedo,salone if not paid-debt: Tomorrow I must sit on the black stone in the Salone, in my shirt, before the whole city, three times, and say "Cedo bonis": "I give up my goods". Then I must leave Padua for ever. Five livres would save me. Five! I would give you the best thing I have left.
+    give:money if player gift >= 1200 and not paid-debt: (He weeps, and presses something into your hands.) My creditors shall have it this very day. Take this: Galileo's own compass, made in his house in the Borgo dei Vignali. I paid him for it, and for the lessons, when I was a young man with prospects. {take} {set paid-debt} {player add has:galileo-compass 1} {player set paid-zennaro}
+    give:money if not paid-debt: Five livres it must be, to the last soldo.
+    compass,galileo if paid-debt: The compass is yours now. Use it well: it was made for better men than me, and I was never any good at the lessons.
+    compass,galileo: Galileo's compass, the geometric and military one. Every young gentleman at the University bought one, with the lessons. I still have mine; it is the last thing they have not taken.
+  end
+end
+
+person english
+  name Robert Ashby
+  title an English student
+  role student
+  near Stella
+  talk
+    name: Robert Ashby, of Leicestershire, student of law, and of everything else in Italy. {name}
+    job: I am supposed to be studying the civil law. I study the Venetian women and the Venetian wine, and I write letters home for money.
+    padua,arts,nursery: "Fair Padua, nursery of arts": that is from a play of Shakespeare's, about a shrew. A young man comes to Padua to study philosophy and falls in love on the first page. I have been here a year, and I understand him perfectly.
+    shakespeare,play,shrew,folio if player has:second-folio: (He snatches it.) The new folio! Give it here... "The Taming of the Shrew"... "Tranio, since for the great desire I had to see fair Padua, nursery of arts..." There, I told you! (He reads aloud for an hour, doing all the voices.) {player set read-shrew}
+    shakespeare,play,shrew,folio: Shakespeare. A player of London, dead these sixteen years. They have printed all his plays in a great book; I would sell my boots for a copy.
+    england,king: King Charles has no parliament, and wants none. My father writes that it will end badly. Fathers always do.
+  end
+end
+
+person german
+  name Hans Martens
+  title a student of the German nation
+  role student
+  near Palazzo del Bo
+  talk
+    give:dialogue if fair-gone: They have gone already, over the Brenner. Take it north yourself.
+    give:dialogue if fair-copies >= 4: Four is all they can hide. Any more and the customs men at the Brenner will think we are booksellers, and charge us for it.
+    give:dialogue if player ch1-commission: (He weighs it in his hand.) For the north? Our men go home in a day or two, over the Brenner, and they pass through Frankfurt for the fair. A few more books among their books are not noticed. (He puts it in his chest, under his shirts.) {take} {add fair-copies 1} {player set fair-at=now}
+    frankfurt,fair,north,brenner,home if player ch1-commission: Every autumn the booksellers of all Germany meet at the Frankfurt fair. Whatever is on the stalls there in September is in every town from Basel to Danzig by Christmas. Our men go home that way; if you have books that should go north, give them to me.
+    name: Hans Martens, of Danzig. {name}
+    job: Medicine. In Padua they do not ask a Lutheran his religion, only his fee. In Bologna they would burn me.
+    copernicus,pole: Koppernigk studied here! A Prussian, from Thorn, near my home. He took his degree at Ferrara, which was cheaper. Everyone knows that, and nobody says it.
+    nation,nations,german: The University is divided into nations: the Germans, the Poles, the Bohemians, the English and the Scots, the Italians of every kind. The German nation is the richest and the loudest.
+  end
+end
+
+person friar
+  name Fra Bonaventura
+  title a friar of the Santo
+  role friar
+  near Santo
+  work landmark Santo
+  talk
+    name: Brother Bonaventura, of the Conventual friars of Saint Anthony. {name}
+    job: I keep the Saint's chapel, and the candles, and the lost-property office of all Christendom.
+    santo,anthony,saint: Il Santo, we say: just "the Saint", as if there were no other. His tongue is in the treasury, uncorrupted after four hundred years, because he preached so well.
+    lost,find: Have you lost something? Tell the Saint. He found a novice's psalter that the Devil had stolen, and he finds keys and rings and husbands still. Light a candle first.
+    gattamelata,horse,statue: Gattamelata, the honeyed cat: a captain of the Republic, in bronze, by Donatello. He sits on his horse in front of our church as if he expected to be paid.
+  end
+end
+
+person stella
+  name Marco Penzo
+  title the host of the Stella
+  role innkeeper
+  near Stella
+  talk
+    name: Marco Penzo, host of the Stella. {name}
+    job: I feed students on credit and professors for cash, and I know which of them will pay.
+    venice,boat,burchiello: The burchiello goes down the Brenta to Fusina every morning from the Portello: a day's float past the gentlemen's villas, and a boat across the lagoon at the end of it. Or walk, if your purse is light.
+  end
+end
+
+person portello
+  name Toni Boscolo
+  title a boatman of the Portello
+  role waterman
+  near Porta Portello
+  talk
+    name: Toni Boscolo, of the Portello. {name}
+    job: I row the burchiello down the Piovego and the Brenta to Fusina, with the gentlemen sitting in the cabin playing cards, and the horses towing us at the locks.
+    brenta,villas,malcontenta: All along the Brenta, the Venetians' villas: Palladio's at Malcontenta, with its face to the river like a temple. The ladies wave from the steps. The gentlemen do not.
+  end
+end
+
+crowd 3 goodwife
+crowd 3 labourer
+crowd 2 merchant
+crowd 3 student
+crowd 2 guard
+crowd 1 washerwoman
+crowd 1 beggar
+crowd 1 herdsman

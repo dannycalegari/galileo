@@ -1,0 +1,694 @@
+# The people of the post houses on the roads between the cities: at each, the innkeeper
+# (the role: beds, horses to hire and to buy, the post) and an ostler who knows the road.
+# Written by tools/plan_roads.py: edit the script, not this file.
+
+town the post house at Bedford
+names english
+country England
+crowd 1 innkeeper
+person ostler-bedford
+  name Walter Fletcher
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs west to Oxford, and east to Cambridge.
+  end
+end
+
+town the post house at Toruń
+names polish
+country Poland
+crowd 1 innkeeper
+person ostler-torun
+  name Paweł Krawczyk
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs south-east to the post house at Płock, and north to Danzig.
+  end
+end
+
+town the post house at Płock
+names polish
+country Poland
+crowd 1 innkeeper
+person ostler-plock
+  name Walenty Lewandowski
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs east to the post house at Warsaw, and north-west to the post house at Toruń.
+  end
+end
+
+town the post house at Warsaw
+names polish
+country Poland
+crowd 1 innkeeper
+person ostler-warsaw
+  name Andrzej Lewandowski
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs south-east to the post house at Radom, and west to the post house at Płock.
+  end
+end
+
+town the post house at Dover
+names english
+country England
+crowd 1 innkeeper
+person ostler-dover
+  name Edward Ward
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: This is the end of the road: it goes back north-west to London.
+  end
+end
+
+person packet-dover
+  name Samuel Fisher
+  title the master of the Dover packet
+  role sailor
+  work inn
+  says The tide! The tide!
+  talk
+    job: I am master of the packet boat: the post, and passengers, across to Calais and back.
+    take,yes,deal,aboard,sail,=i will if recent:0.05 offered-passage: Aboard, then. {passage 60 150 the post house at Calais}
+    passage,packet,boat,sail,crossing,cross,ship,calais,france: The packet sails for Calais on every tide, when the wind serves: five sous a passage, and as much again for a horse. Two hours and a half, if God is kind. Will you *sail*? {set offered-passage=now}
+  end
+end
+
+town the post house at Radom
+names polish
+country Poland
+crowd 1 innkeeper
+person ostler-radom
+  name Adam Kowalski
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs south-west to Cracow, and north-west to the post house at Warsaw.
+  end
+end
+
+town the post house at Dordrecht
+names dutch
+country Netherlands
+crowd 1 innkeeper
+person ostler-dordrecht
+  name Abraham Bakker
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs south-west to the post house at Antwerp, and north-west to Leiden.
+  end
+end
+
+town the post house at Calais
+names french
+crowd 1 innkeeper
+person ostler-calais
+  name Pierre Tessier
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: This is the end of the road: it goes back south to Saint-Denis.
+  end
+end
+
+person packet-calais
+  name Denis Charpentier
+  title the master of the Calais packet
+  role sailor
+  work inn
+  says The tide! The tide!
+  talk
+    job: I am master of the packet boat: the post, and passengers, across to Dover and back.
+    take,yes,deal,aboard,sail,=i will if recent:0.05 offered-passage: Aboard, then. {passage 60 150 the post house at Dover}
+    passage,packet,boat,sail,crossing,cross,ship,dover,england: The packet sails for Dover on every tide: five sous a passage, and as much again for a horse. The English will want to see your papers; I never do. Will you *sail*? {set offered-passage=now}
+  end
+end
+
+town the post house at Antwerp
+names dutch
+country Netherlands
+crowd 1 innkeeper
+person ostler-antwerp
+  name Abraham Pietersz
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs south to the post house at Brussels, and north-east to the post house at Dordrecht.
+  end
+end
+
+town the post house at Brussels
+names dutch
+country Netherlands
+crowd 1 innkeeper
+person ostler-brussels
+  name Harmen Coster
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: Roads run from here south-west to the post house at Cambrai, north to the post house at Antwerp, and east to the post house at Aachen.
+  end
+end
+
+town the post house at Koblenz
+names german
+country Empire
+crowd 1 innkeeper
+person ostler-koblenz
+  name Lienhard Frank
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs west to the post house at Aachen, and east to the post house at Frankfurt.
+  end
+end
+
+town the post house at Aachen
+names german
+country Empire
+crowd 1 innkeeper
+person ostler-aachen
+  name Konrad Schröder
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs west to the post house at Brussels, and east to the post house at Koblenz.
+  end
+end
+
+town the post house at Ostrau
+names czech
+country Bohemia
+crowd 1 innkeeper
+person ostler-ostrau
+  name Pavel Hájek
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs south-west to the post house at Olomouc, and south-east to the post house at Teschen.
+  end
+end
+
+town the post house at Cambrai
+names french
+country Netherlands
+crowd 1 innkeeper
+person ostler-cambrai
+  name Mathurin Dubois
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs south-west to Paris, and north-east to the post house at Brussels.
+  end
+end
+
+town the post house at Teschen
+names czech
+country Bohemia
+crowd 1 innkeeper
+person ostler-teschen
+  name Adam Kučera
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs north-west to the post house at Ostrau, and south-east to the post house at Wieliczka.
+  end
+end
+
+town the post house at Frankfurt
+names german
+country Empire
+crowd 1 innkeeper
+person ostler-frankfurt
+  name Sebastian Krüger
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs west to the post house at Koblenz, and east to the post house at Würzburg.
+  end
+end
+
+town the post house at Würzburg
+names german
+country Empire
+crowd 1 innkeeper
+person ostler-wurzburg
+  name Johann Keller
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs west to the post house at Frankfurt, and south-east to Nuremberg.
+  end
+end
+
+town the post house at Pilsen
+names czech
+country Bohemia
+crowd 1 innkeeper
+person ostler-pilsen
+  name Šimon Hájek
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs south-west to the post house at Amberg, and south-east to the post house at Beroun.
+  end
+end
+
+town the post house at Iglau
+names czech
+country Bohemia
+crowd 1 innkeeper
+person ostler-iglau
+  name Jiří Hájek
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs north-west to Prague, and south-east to the post house at Znaim.
+  end
+end
+
+town the post house at Amberg
+names german
+country Empire
+crowd 1 innkeeper
+person ostler-amberg
+  name Jakob Krüger
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs west to Nuremberg, and north-east to the post house at Pilsen.
+  end
+end
+
+town the post house at Olomouc
+names czech
+country Bohemia
+crowd 1 innkeeper
+person ostler-olomouc
+  name Adam Bartoš
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs south-west to Vienna, and north-east to the post house at Ostrau.
+  end
+end
+
+town the post house at Beroun
+names czech
+country Bohemia
+crowd 1 innkeeper
+person ostler-beroun
+  name Vavřinec Pokorný
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs north-west to the post house at Pilsen, and north to Prague.
+  end
+end
+
+town the post house at Wieliczka
+names polish
+country Poland
+crowd 1 innkeeper
+person ostler-wieliczka
+  name Jakub Jankowski
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs north-west to the post house at Teschen, and north to Cracow.
+  end
+end
+
+town the post house at Znaim
+names czech
+country Bohemia
+crowd 1 innkeeper
+person ostler-znaim
+  name Václav Novák
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs north-west to the post house at Iglau, and south-east to Vienna.
+  end
+end
+
+town the post house at Donauwörth
+names german
+country Empire
+crowd 1 innkeeper
+person ostler-donauworth
+  name Endres Zimmermann
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs south to the post house at Augsburg, and north-east to Nuremberg.
+  end
+end
+
+town the post house at Ulm
+names german
+country Empire
+crowd 1 innkeeper
+person ostler-ulm
+  name Bastian Hoffmann
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs south-west to Zurich, and east to the post house at Augsburg.
+  end
+end
+
+town the post house at Augsburg
+names german
+country Empire
+crowd 1 innkeeper
+person ostler-augsburg
+  name Johann Meyer
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: Roads run from here west to the post house at Ulm, north to the post house at Donauwörth, and south to the post house at Mittenwald.
+  end
+end
+
+town the post house at Orléans
+names french
+crowd 1 innkeeper
+person ostler-orleans
+  name Gilles Lambert
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs north-east to Paris, and west to the post house at Tours.
+  end
+end
+
+town the post house at Tours
+names french
+crowd 1 innkeeper
+person ostler-tours
+  name Germain Laurent
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs east to the post house at Orléans, and south-west to the post house at Poitiers.
+  end
+end
+
+town the post house at Raab
+names german
+country Empire
+crowd 1 innkeeper
+person ostler-raab
+  name Martin Braun
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs north-west to Vienna, and south-east to the han at Buda.
+  end
+end
+
+town the han at Buda
+names ottoman
+country Ottoman
+crowd 1 innkeeper
+person ostler-buda
+  name Mehmed Efendi
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs north-west to the post house at Raab, and south-west to the han at Paks.
+  end
+end
+
+town the post house at Basel
+names german
+country Switzerland
+crowd 1 innkeeper
+person ostler-basel
+  name Balthasar Weber
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs north-west to Paris, and east to Zurich.
+  end
+end
+
+town the post house at Mittenwald
+names german
+country Empire
+crowd 1 innkeeper
+person ostler-mittenwald
+  name Matthes Müller
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs north to the post house at Augsburg, and south to the post house at Innsbruck.
+  end
+end
+
+town the post house at Poitiers
+names french
+crowd 1 innkeeper
+person ostler-poitiers
+  name Martin Garnier
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs north-east to the post house at Tours, and south-west to the post house at Angoulême.
+  end
+end
+
+town the post house at Innsbruck
+names german
+country Empire
+crowd 1 innkeeper
+person ostler-innsbruck
+  name Ulrich Schmidt
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs north to the post house at Mittenwald, and south-west to the post house at Bozen.
+  end
+end
+
+town the han at Paks
+names ottoman
+country Ottoman
+crowd 1 innkeeper
+person ostler-paks
+  name Osman Ağa
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs north-east to the han at Buda, and east to the han at Szeged.
+  end
+end
+
+town the post house at Angoulême
+names french
+crowd 1 innkeeper
+person ostler-angouleme
+  name Martin Boulanger
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs north-east to the post house at Poitiers, and south-west to the post house at Bordeaux.
+  end
+end
+
+town the post house at Bozen
+names german
+country Empire
+crowd 1 innkeeper
+person ostler-bozen
+  name Bastian Müller
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs north-east to the post house at Innsbruck, and south to Padua.
+  end
+end
+
+town the han at Szeged
+names ottoman
+country Ottoman
+crowd 1 innkeeper
+person ostler-szeged
+  name Mehmed Usta
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs west to the han at Paks, and south to the han at Belgrade.
+  end
+end
+
+town the post house at Bordeaux
+names french
+crowd 1 innkeeper
+person ostler-bordeaux
+  name Philippe Fontaine
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs north-east to the post house at Angoulême, and south-west to the post house at Bayonne.
+  end
+end
+
+town the post house at Bayonne
+names french
+crowd 1 innkeeper
+person ostler-bayonne
+  name Jean Meunier
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs north-east to the post house at Bordeaux, and west to the venta at Vitoria.
+  end
+end
+
+town the han at Belgrade
+names ottoman
+country Ottoman
+crowd 1 innkeeper
+person ostler-belgrade
+  name Kasım Hoca
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs north to the han at Szeged, and south-east to the han at Jagodina.
+  end
+end
+
+town the venta at Burgos
+names spanish
+country Spain
+crowd 1 innkeeper
+person ostler-burgos
+  name Gaspar Ruiz
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs east to the venta at Vitoria, and south-west to the venta at Aranda.
+  end
+end
+
+town the post house at Ferrara
+names italian
+country Italy
+crowd 1 innkeeper
+person ostler-ferrara
+  name Agnolo Lotti
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs south to the post house at Bologna, and north to Padua.
+  end
+end
+
+town the venta at Vitoria
+names spanish
+country Spain
+crowd 1 innkeeper
+person ostler-vitoria
+  name Luis Rodriguez
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs east to the post house at Bayonne, and west to the venta at Burgos.
+  end
+end
+
+town the post house at Bologna
+names italian
+country Italy
+crowd 1 innkeeper
+person ostler-bologna
+  name Giuseppe Rossi
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs south to Florence, and north to the post house at Ferrara.
+  end
+end
+
+town the han at Jagodina
+names ottoman
+country Ottoman
+crowd 1 innkeeper
+person ostler-jagodina
+  name Hüseyin Usta
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs north-west to the han at Belgrade, and south-east to the han at Aleksinac.
+  end
+end
+
+town the venta at Aranda
+names spanish
+country Spain
+crowd 1 innkeeper
+person ostler-aranda
+  name Francisco Sanchez
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs north-east to the venta at Burgos, and south to the venta at Madrid.
+  end
+end
+
+town the han at Aleksinac
+names ottoman
+country Ottoman
+crowd 1 innkeeper
+person ostler-aleksinac
+  name Ramazan Dede
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs north-west to the han at Jagodina, and south-west to the han at Niš.
+  end
+end
+
+town the han at Niš
+names ottoman
+country Ottoman
+crowd 1 innkeeper
+person ostler-nis
+  name Ramazan Çelebi
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: Roads run from here north-east to the han at Aleksinac, south-east to the han at Sofia, and north-west to Sarajevo.
+  end
+end
+
+town the venta at Madrid
+names spanish
+country Spain
+crowd 1 innkeeper
+person ostler-madrid
+  name Francisco Sanchez
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs north to the venta at Aranda, and south to the venta at Manzanares.
+  end
+end
+
+town the han at Sofia
+names ottoman
+country Ottoman
+crowd 1 innkeeper
+person ostler-sofia
+  name Bekir Ağa
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs north-west to the han at Niš, and south-east to the han at Plovdiv.
+  end
+end
+
+town the han at Plovdiv
+names ottoman
+country Ottoman
+crowd 1 innkeeper
+person ostler-plovdiv
+  name İlyas Usta
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs north-west to the han at Sofia, and east to the han at Edirne.
+  end
+end
+
+town the han at Edirne
+names ottoman
+country Ottoman
+crowd 1 innkeeper
+person ostler-edirne
+  name Ahmed Usta
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs west to the han at Plovdiv, and south-east to Constantinople.
+  end
+end
+
+town the venta at Manzanares
+names spanish
+country Spain
+crowd 1 innkeeper
+person ostler-manzanares
+  name Lorenzo Sanchez
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs north to the venta at Madrid, and south to the venta at Cárdenas.
+  end
+end
+
+town the venta at Cárdenas
+names spanish
+country Spain
+crowd 1 innkeeper
+person ostler-cardenas
+  name Antonio Ortega
+  role ostler
+  talk
+    road,roads,way,where,next,directions,route: The road runs north to the venta at Manzanares, and west to Seville.
+  end
+end

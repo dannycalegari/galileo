@@ -1,0 +1,125 @@
+# The people of Oxford.
+# June 1632: Archbishop-to-be William Laud is Chancellor of the University; John Rouse keeps Sir
+# Thomas Bodley's library; Robert Burton of Christ Church has published "The Anatomy of
+# Melancholy" four times; John Bainbridge is Savilian Professor of Astronomy; a student of
+# eighteen, John Wilkins, will write a book in six years about a voyage to the Moon.
+town Oxford
+names english
+prison Oxford Castle | They lock you in the gaol of Oxford Castle, in the old tower of Saint George, with a poacher, a forger of college bills, and a scholar of Brasenose who owes his tailor forty pounds. In the morning they let you go.
+country England
+
+# Duke Humfrey's Library, upstairs in the Bodleian (the map's library=): Rouse turns back anyone who
+# is not a reader while he is in the building, and it is locked while he is away (main.cc, mayEnter).
+# You become a reader by bringing him a letter from a Doctor of the University (Bainbridge's, for the
+# Dialogue or a spyglass) and swearing the readers' oath.
+guarded Duke Humfrey's Library
+  by rouse
+  pass if player reader-bodleian
+  stop (John Rouse is at the foot of the stairs before you are.) Not up there, sir, if you please. The Library is for graduates of the University, and for strangers who bring a letter from one of its Doctors and swear the readers' oath. I make no exceptions; I have made none for an Earl. {player set heard-reader-rule}
+  shut The door at the foot of the library stairs is locked. Sir Thomas Bodley allowed no candle or fire among his books, so the Library is open only by daylight, from eight till eleven and from two till five, and Master Rouse keeps the key.
+end
+
+person rouse
+  name John Rouse
+  title Bodley's Librarian
+  role scholar
+  near Bodleian
+  work landmark Bodleian
+  schedule
+    6:30 home
+    8:00 work
+    11:00 eat
+    14:00 work
+    17:00 home
+    22:00 sleep
+  talk
+    give:bainbridge-letter: (He breaks the seal, reads it twice, and looks at you over the top of it.) Dr Bainbridge says you are a student of the mathematics. Very well. Lay your hand on the book, and say after me. (You promise before God that whenever you come to the public Library of the University you will study there with modesty and silence, and use the books and everything belonging to them with a careful respect to their longest preservation.) You are a reader of Sir Thomas Bodley's Library. The stairs are in the corner of the Schools, and the Library is open from eight till eleven and from two till five, while the light lasts. {take} {player set reader-bodleian} {name}
+    give:dialogue if not has:dialogue and not player reader-bodleian: (He holds it as if it were the Ark of the Covenant.) Galileo's Dialogue! Printed this year at Florence! It shall be chained in the Arts End, and no one shall take it out of the building, not even the King. Here: the Library is poor, but it is not ungrateful. It does not make you a reader, mind: only a letter from a Doctor of the University does that. {take} {player add money 1440} {player set gave-rouse-dialogue}
+    give:dialogue if not has:dialogue: (He holds it as if it were the Ark of the Covenant.) Galileo's Dialogue! Printed this year at Florence! It shall be chained in the Arts End, and no one shall take it out of the building, not even the King. Here: the Library is poor, but it is not ungrateful. {take} {player add money 1440} {player set gave-rouse-dialogue}
+    give:dialogue: We have the Dialogue already, chained in the Arts End. Keep yours; sell it to a Cambridge man, they have nothing.
+    library,read,reader,books,upstairs,stairs,leave,enter,oath if not player reader-bodleian: The books are upstairs, in Duke Humfrey's Library: sixteen thousand of them. Graduates of the University may read there, and strangers who bring a letter from one of its Doctors and swear the readers' oath. A Doctor such as Dr Bainbridge of Merton, say, who is always wanting books that cannot be had. {player set heard-reader-rule}
+    library,read,reader,books,upstairs,stairs,oath: Upstairs, while the light lasts. No candle, no fire, no ink on the desks, and mind the chains: they are short on purpose.
+    letter,doctor,doctors,bainbridge if not player reader-bodleian: A letter from a Doctor of the University: Dr Bainbridge of Merton, say. {player set heard-reader-rule}
+    harriot,savile,papers,secret if player read-harriot: Sir Henry Savile's papers came to us with his books. I have catalogued them; I have not read them. I have not read anything for twelve years but catalogues.
+    name: John Rouse, Bodley's Librarian, these twelve years. {name}
+    job: I keep Sir Thomas Bodley's library: sixteen thousand books, chained to the shelves, in every language. Scholars come from all Europe to read here, and none may borrow; when the King himself asked for a book, I showed him the statutes.
+    galileo,dialogue,book if not has:dialogue: Galileo's new Dialogue? We have his Starry Messenger, and his book on the sunspots. If a copy of the Dialogue could be had, I would give a great deal for it; the booksellers of London have none.
+    galileo,dialogue,book: His Dialogue is in the Arts End now, chained, and three scholars have fought over it already.
+    library,books,bodley: Sir Thomas Bodley was a diplomat who married a rich widow and spent her money on books, God bless them both.
+  end
+end
+
+person burton
+  name Robert Burton
+  title a student of Christ Church
+  role scholar
+  near Christ Church
+  work landmark Christ Church
+  schedule
+    7:00 home
+    9:00 work
+    13:00 eat
+    15:00 go landmark South Gate
+    18:00 work
+    21:00 home
+    23:00 sleep
+  talk
+    name: Robert Burton, of Christ Church, vicar of Saint Thomas's, and Democritus Junior in print. {name}
+    job: I have written a book on melancholy, to cure my own: its causes, its kinds, its cures, in a thousand pages, and I add a hundred more each edition. It has not cured me, but it has sold.
+    melancholy,cure,anatomy: Be not solitary, be not idle: that is the whole of my book, in five words. I wrote the other nine hundred thousand to avoid following my own advice.
+    bridge,bargemen,laugh: When I am low I walk down to Folly Bridge and listen to the bargemen swear at one another. It is the finest music in Oxford, and I laugh until I have to hold the parapet.
+  end
+end
+
+person bainbridge
+  name John Bainbridge
+  title the Savilian Professor of Astronomy
+  role mathematician
+  near Merton
+  work landmark Merton
+  talk
+    give:dialogue if not player gave-bainbridge and not player reader-bodleian: (He turns the pages with his mouth a little open.) The Earth moving, in a dialogue, in print, with the licence of Rome! (He sits down at once, writes a letter, and seals it.) For Rouse, at the Schools: it says you are a student of the mathematics, which you are now, and of good character, which I take on trust. And when I have read this twice it shall go to the Library, to be chained in the Arts End, where it will do more good than in my chamber. {take} {set got-dialogue=now} {player add has:bainbridge-letter 1} {player set gave-bainbridge}
+    give:spyglass if not player gave-bainbridge and not player reader-bodleian: (He is at the window with it before you can say a word, and stays there a long while.) The mountains of the Moon, sharp as a knife. You give it me? Then you shall have your letter. (He writes it, and seals it.) For Rouse, at the Schools. {take} {player add has:bainbridge-letter 1} {player set gave-bainbridge}
+    name: John Bainbridge, Doctor of Physic, Savilian Professor of Astronomy. {name}
+    library,bodley,bodleian,rouse,letter,reader,read,stairs if not player reader-bodleian and not player has:bainbridge-letter: Rouse lets nobody up his stairs without a letter from a Doctor of the University, and I am a Doctor. Bring me something worth the trouble, Galileo's new *Dialogue*, which nobody in England has seen, or a better *spyglass* than my poor one, and I will write you a letter that would open the gates of heaven, or at least Rouse's stairs. {player set heard-bainbridge-letter}
+    library,bodley,bodleian,rouse,letter if player has:bainbridge-letter: Give it to Rouse, at the Schools. He will make you swear an oath. Swear it.
+    harriot,savile,sunspots,spots,papers,secret if player read-harriot: You found Harriot's papers? Sir Henry showed them to me when I came up in 1619, and made me promise. Harriot saw the mountains of the Moon before anyone, and the spots on the Sun, and Jupiter's moons a little after Galileo, and printed nothing at all. He has been dead eleven years; I suppose the promise died with him. But I should not like to be the one who tells Florence.
+    job: I teach the astronomy of Ptolemy, of Copernicus and of Tycho, all three, as Sir Henry Savile's statutes require, and let the young men choose. I wrote a book on the comet of 1618, and I am making tables of the stars.
+    spyglass,telescope,glass if player has:spyglass: A perspective glass! May I? (He takes it to the window and stays there a long while.) Galileo was right about the Moon. I shall say so in my lectures, and the Proctors may say what they like.
+    galileo,copernicus,dialogue: Galileo's moons of Jupiter I have seen myself, through a poor glass; I could wish for a better. As for the Earth moving, I teach it as a hypothesis. A very good hypothesis.
+  end
+end
+
+person wilkins
+  name John Wilkins
+  title a student of Magdalen Hall
+  role student
+  near Magdalen
+  talk
+    name: John Wilkins, of Magdalen Hall. My grandfather was John Dod, the preacher; I am not a preacher yet. {name}
+    job: I am reading for my degree, and in my own time I am reading Galileo and Kepler, which is more useful. I think the Moon is a world like ours, with seas and mountains and perhaps people.
+    harriot,moon,map,sunspots,spots if player read-harriot: An Englishman drew the Moon through a glass before Galileo did? In 1609? Then I shall say so in my book, when I write it, and the Italians may be as cross as they like.
+    moon,world,flying,fly if player saw-moons: You have seen the moons of Jupiter with your own eyes? Then you know: other worlds, with their own moons. One day we shall fly to ours. Not by witchcraft: by an engine, with wings, or by a chariot, if one could get above the pull of the Earth.
+    moon,world,flying,fly: If the Moon is a world, then why should not a man go there? Birds fly; why not a chariot, with wings and springs? Do not laugh. Everyone laughs. I am going to write a book about it.
+  end
+end
+
+person bargeman
+  name Tom Sikes
+  title a bargeman of Folly Bridge
+  role waterman
+  near South Gate
+  talk
+    name: Tom Sikes. Bargeman, and I'll thank you not to laugh. {name}
+    job: I take barges of coal and malt down the river to Abingdon and London, and the scholars stand on Folly Bridge and laugh at the way I talk. There is one old gentleman from Christ Church who laughs till he cries. God knows what is the matter with him.
+  end
+end
+
+crowd 3 student
+crowd 2 scholar
+crowd 2 goodwife
+crowd 2 labourer
+crowd 1 merchant
+crowd 1 guard
+crowd 1 innkeeper
+crowd 1 herdsman

@@ -1,0 +1,259 @@
+# Architecture styles.  Each town names one; landmarks may name another.
+#   walls    colours of plaster or stone to choose from
+#   trim     window sills, string courses
+#   roofs    roof colours to choose from
+#   roof     gable, hip, mansard, flat: one or more, chosen house by house
+#   storeys  fewest and most storeys, counting the ground floor
+#   storey   height of an upper storey (a tile is 1)
+#   pitch    roof height divided by half the house's width
+#   timber   chance (0 to 1, or yes/no) of half-timbered upper storeys, jettied out over the street
+#   dormers  yes: dormer windows (mansard roofs only)
+#   gablefront yes: the gable end faces the street
+#   jetty    yes: each half-timbered storey juts out over the one below
+#   balustrade yes: a balustrade around flat roofs
+#   chimney  colour, and how far chimneys rise above the ridge
+
+style paris
+  walls   #E9DEC4 #DDD0B0 #D4C5A2 #E6D9BC #CDBF9E #E2D2B4
+  trim    #F3EEE0
+  roofs   #5A6571 #4F5A67 #66707B #57616C #6B5A4E
+  roof    mansard gable gable hip
+  timber  0.25
+  storeys 3 4
+  storey  1.25
+  pitch   1.15
+  dormers yes
+end
+
+style brick
+  walls   #A8503C #9C4A37 #B05A42
+  trim    #EDE6D6
+  roofs   #4F5A67 #56606C
+  roof    hip
+  storeys 3 3
+  storey  1.3
+  pitch   1.4
+end
+
+style village
+  walls   #E2D6BC #D8C9A6 #CFC0A0 #E6DCC6 #D9CFB8
+  trim    #EFE8D8
+  roofs   #8C4A32 #9A5638 #7E4430 #A86A40 #A89060
+  roof    gable gable hip
+  timber  0.3
+  storeys 1 2
+  storey  1.2
+  pitch   1.15
+end
+
+style london
+  walls   #EFE6D2 #E8DCC0 #F2EAD8 #D9C49A #B5553E #A84C38
+  trim    #EFE8D8
+  roofs   #8A4A34 #7C4332 #96543A #6E4A3A
+  roof    gable
+  gablefront yes
+  jetty   yes
+  lots    4 6 5 8
+  timber  0.85
+  storeys 3 4
+  storey  1.8
+  pitch   1.6
+  chimney #8C4C38 1.5
+end
+
+style londonbrick
+  walls   #A8503C #9E4A38 #B25A42
+  trim    #E8E0CE
+  roofs   #6E4A3A #5E5048
+  roof    hip gable
+  storeys 3 3
+  storey  2.0
+  pitch   1.3
+  chimney #8C4C38 1.6
+end
+
+style palladian
+  walls   #EDE8DC
+  trim    #F6F3EC
+  roofs   #8C8F8E
+  roof    flat
+  balustrade yes
+  storeys 3 3
+  storey  2.4
+end
+
+# Italy: plaster in ochre and cream, low roofs of red tiles
+style florence
+  walls   #E3CFA4 #D9C08F #EBDDBE #CDB385 #E6D3AA #D4BC92
+  trim    #EEE7D6
+  roofs   #B5603E #A8553A #B86B48 #9E5034
+  roof    hip hip gable
+  storeys 3 4
+  storey  1.4
+  pitch   0.5
+  chimney #B0977A 0.5
+end
+
+style rome
+  walls   #D9A066 #C9845A #E3B77E #D69A6A #E8C79A #C47A4E #E0B48A
+  trim    #F0E6D2
+  roofs   #A8553A #B5603E #9E5034 #B0684A
+  roof    hip gable
+  storeys 3 4
+  storey  1.45
+  pitch   0.5
+  chimney #B08A6A 0.5
+end
+
+# Venice: pink, rose and cream over the water, white Istrian stone, funnel chimneys
+style venice
+  walls   #E8B9A8 #D99A84 #EAD2B0 #F0E4D0 #C9806A #E2C08E #DDA890
+  trim    #F4F0E6
+  roofs   #A8553A #B5603E #9E5034
+  roof    hip
+  storeys 3 4
+  storey  1.45
+  pitch   0.5
+  chimney #B87060 1.0 funnel
+end
+
+# Amsterdam: tall narrow houses of dark brick, stepped gables to the street
+style amsterdam
+  walls   #8C3A2A #9A4430 #7E3426 #A24E36 #6E2E22 #844032
+  trim    #F2EEE4
+  roofs   #4A4440 #5A4A42 #6E3A2C #3E3A38
+  roof    gable
+  gablefront yes
+  stepgable yes
+  storeys 4 5
+  storey  1.5
+  pitch   1.8
+  lots    4 6 8 11
+  chimney #7A3426 0.6
+end
+
+# the smaller Dutch towns (Haarlem, Leiden): the same brick and step gables, shorter lots, lower houses
+style dutchtown
+  walls   #8C3A2A #9A4430 #7E3426 #A24E36 #6E2E22 #844032
+  trim    #F2EEE4
+  roofs   #4A4440 #5A4A42 #6E3A2C #3E3A38
+  roof    gable
+  gablefront yes
+  stepgable yes
+  storeys 2 3
+  storey  1.5
+  pitch   1.8
+  lots    3 5 4 7
+  chimney #7A3426 0.6
+end
+
+# Padua: plastered houses of two or three storeys, most of them carried over the street on arcades
+style padua
+  walls   #E6C9A0 #DDB98C #EBD8B6 #D6A982 #E8CDA8 #CFA882
+  trim    #EFE6D2
+  roofs   #A8553A #B5603E #9E5034 #B0684A
+  roof    hip gable
+  storeys 2 3
+  storey  1.4
+  pitch   0.5
+  chimney #B08A6A 0.5
+  portico 0.85
+end
+
+# Pisa: tall narrow houses of stone and pale plaster, some of them old tower-houses
+style pisa
+  walls   #E8DCC2 #DCCBA8 #D2BE98 #E6D2AE #CDB892 #EDE2CC
+  trim    #F0E8D6
+  roofs   #A8553A #B5603E #9E5034
+  roof    hip gable
+  storeys 3 4
+  storey  1.45
+  pitch   0.5
+  chimney #B0977A 0.5
+end
+
+# Constantinople: timber houses of two or three storeys, painted ochre, red and white, the upper
+# storeys jutting out over the street (the cumba), low hipped roofs of red tile
+style ottoman
+  walls   #E8D8B8 #D9B98A #C89A6A #E6CFA6 #B8865A #EFE4CC #C07A5A
+  trim    #F2EAD8
+  roofs   #A8553A #B5603E #9E5034
+  roof    hip
+  storeys 2 3
+  storey  1.3
+  pitch   0.45
+  timber  0.5
+  jetty   yes
+  lots    4 6 5 8
+  chimney #B08A6A 0.3
+end
+
+# Ragusa: houses of pale limestone, three storeys, red tile roofs, narrow and close
+style ragusa
+  walls   #E8E0CC #E2D8C0 #DDD2B8 #EAE4D4 #D8CCB0
+  trim    #F2ECDC
+  roofs   #B5603E #A8553A #C06A44
+  roof    hip gable
+  storeys 2 3
+  storey  1.35
+  pitch   0.5
+  chimney #C8BCA0 0.4
+end
+
+# Seville: whitewashed and ochre houses round courtyards, two or three storeys, low tile roofs
+style spain
+  walls   #F2EEE4 #EAE2CE #E6CC9A #F0E6D2 #DDB27A #EDE6D8
+  trim    #C9A27A
+  roofs   #B5603E #A8553A #C06A44
+  roof    hip gable
+  storeys 2 3
+  storey  1.35
+  pitch   0.45
+  chimney #E8E0CC 0.3
+end
+
+# Granada: small white houses on the hills, one or two storeys, tile roofs
+style granada
+  walls   #F4F2EC #EEEAE0 #F2EEE4 #E8E2D4
+  trim    #D8C8A8
+  roofs   #B5603E #A8553A #9E5034
+  roof    hip gable
+  storeys 1 2
+  storey  1.3
+  pitch   0.45
+  lots    3 5 3 6
+  chimney #EEE8DC 0.3
+end
+
+# Central Europe: half-timbered and plastered houses of three or four storeys, steep tile roofs,
+# gables to the street
+# Stockholm: plastered houses in ochre, red and yellow on narrow lots, steep roofs of tile or
+# copper, stepped gables to the lanes (as the Hanse towns build)
+style stockholm
+  walls   #D8A860 #C8804A #E2C890 #B8603E #E8D6B0 #D49A5A
+  trim    #F0E8D8
+  roofs   #8A4A34 #A8553A #5E7E6E #9E5034
+  roof    gable
+  gablefront yes
+  stepgable yes
+  storeys 3 4
+  storey  1.4
+  pitch   1.7
+  lots    3 5 5 8
+  chimney #B08A6A 0.6
+end
+
+style german
+  walls   #E8DCC2 #DED0B0 #D8C4A0 #EAE2D0 #C9A07A #E2D2B4
+  trim    #F2ECDC
+  roofs   #A8553A #9E5034 #8A4A34 #B5603E
+  roof    gable
+  gablefront yes
+  storeys 3 4
+  storey  1.35
+  pitch   1.5
+  timber  0.4
+  jetty   yes
+  lots    4 6 5 8
+  chimney #B08A6A 0.6
+end

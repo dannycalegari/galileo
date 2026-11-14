@@ -1,0 +1,59 @@
+# Shakespeare's Comedies, Histories and Tragedies, the second impression (London, 1632): its title
+# page, Ben Jonson's lines on the portrait, the beginning and end of the new unsigned epitaph, and
+# the first lines of The Tempest. In English, as printed.
+book second-folio
+language english
+title Mr. William Shakespeares Comedies, Histories, and Tragedies
+
+page
+MR. WILLIAM //
+SHAKESPEARES //
+COMEDIES, //
+HISTORIES, and //
+TRAGEDIES. //
+
+Published according to the true Originall Coppies. //
+The second Impression. //
+
+LONDON, //
+Printed by Tho. Cotes, for Robert Allot, and are to be sold at his shop at the signe of the Blacke Beare in Pauls Church-yard. 1632.
+
+page
+To the Reader. //
+
+This Figure, that thou here seest put, //
+It was for gentle Shakespeare cut; //
+Wherein the Graver had a strife //
+with Nature, to out-doo the life: //
+O, could he but have drawne his wit //
+As well in brasse, as he hath hit //
+His face; the Print would then surpasse //
+All, that was ever writ in brasse. //
+But, since he cannot, Reader, looke //
+Not on his Picture, but his Booke. //
+
+B. I.
+
+page
+An Epitaph on the admirable Dramaticke Poet, W. SHAKESPEARE. //
+
+What neede my Shakespeare for his honour'd bones, //
+The labour of an Age, in piled stones, //
+Or that his hallow'd Reliques should be hid //
+Under a starre-ypointing Pyramid? //
+[...] //
+And so Sepulcher'd in such pompe dost lie, //
+That Kings for such a Tombe would wish to die.
+{player set read-folio-epitaph}
+
+page
+THE TEMPEST. //
+
+Actus primus, Scena prima. //
+
+A tempestuous noise of Thunder and Lightning heard: Enter a Ship-master, and a Boteswaine. //
+
+Master. Bote-swaine. //
+Botes. Heere Master: What cheere? //
+Mast. Good: Speake to th' Mariners: fall too't, yarely, or we run our selves a ground, bestirre, bestirre. //
+Exit.

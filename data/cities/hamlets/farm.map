@@ -1,0 +1,28 @@
+# A farm: the farmhouse, a barn, a yard inside a hedge.
+style village
+ground 0.9
+margin 14
+legend B halle "the barn"
+map
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %;;;;;;;;;;;;;;;;;;;;;;;;;;;;%
+  %;hhhhhhhhhh;;;;BBBBBBBBBB;;;%
+  %;hhhhhhhhhh;;;;BBBBBBBBBB;x;%
+  %;hhhhhhhhhh;;;;BBBBBBBBBB;;;%
+  %;hhhhhhhhhh;;;;BBBBBBBBBB;x;%
+  %;hhhhhhhhhh;;;;BBBBBBBBBB;;;%
+  %;hhhhhhhhhh;;;;BBBBBBBBBB;;;%
+  %;hhhhhhhhhh;;;;;;;;;;;;;;;x;%
+  %;hhhhhhhhhh;;;;;;o;;;;;;;;;;%
+  %;;;;;;;;;;;;;;;;;;;;;;;;;;;;%
+  %;;;;;;;;;;;;;;;;;;hhhhhhhh;;%
+  %;;;;;;;;;;;;;;;;;;hhhhhhhh;;%
+  %;;;;;;;;;;;;;;;;;;hhhhhhhh;;%
+  %;;;;;;;;;;;;;;;;;;hhhhhhhh;;%
+  %;;;;;;;;;;;;;;;;;;hhhhhhhh;;%
+  %;;;;;;;;;;;;;;;;;;hhhhhhhh;;%
+  %;;;;;;;;;;;;;;;;;;;;;;;;;;;;%
+  %%%%%%%%%%%;;;;;;%%%%%%%%%%%%%
+
+end

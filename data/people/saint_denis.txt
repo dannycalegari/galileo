@@ -1,0 +1,72 @@
+# The people of Saint-Denis.
+town Saint-Denis
+names french
+
+person domjean
+  name Dom Jean
+  role monk
+  near Basilica
+  work landmark Basilica
+  talk
+    treasury,treasure if not player saw-treasury: The treasury of the abbey? For two sous for the poor box, I will show you.
+    give:money if player gift >= 24 and not player saw-treasury: (He unlocks an iron door and lifts the lid of a chest.) Here is Joyeuse, the sword of Charlemagne, which every King of France carries at his crowning; the crown of Charlemagne, they say; the chessmen of Charlemagne, in ivory, sent him by the Caliph of Baghdad; the cup of Solomon, which is a Roman cameo; and a nail of the True Cross. Most of it is true. {take} {player set saw-treasury}
+    give:money: For the poor box, God reward you. {take}
+    lendit,fair: The Lendit? It was the greatest fair in France once, out on the plain, and the Abbey had a tithe of everything sold. Now it is a few stalls in the town in June, and the University's parchment.
+    joyeuse,sword,charlemagne if player saw-treasury: Joyeuse. The pommel is older than Charlemagne, I think, and the blade younger. Do not tell the King.
+    name: Dom Jean, of the Abbey of Saint-Denis. {name}
+    basilica,abbey: Here lie the kings of France, from Dagobert to Henri the Fourth. When the King dies, he comes to us.
+    kings,tombs: Louis the Twelfth and Anne of Brittany, François the First, Henri the Second and Catherine: you should see the tombs.
+  end
+end
+
+person ecu
+  name Guillaume Tessier
+  role innkeeper
+  near Écu
+  talk
+    name: Guillaume Tessier, of the Écu de France. {name}
+    salt,sack,grise,margot if player margot-agreed and not player margot-sack: (He looks round the yard, and brings a small sack out from under a bench.) For la Grise. Under your coat, not in your hand, and do not stop to talk to the searchers. And wait for dark, if you are wise: by day they look in everything. {player add has:salt 1} {player set margot-sack}
+    salt,sack,grise,margot: Salt? The King's granary is in the town. I am an innkeeper.
+  end
+end
+
+person donald
+  name Sir Donald Bradman
+  role knight
+  near Écu
+  talk
+    name: Sir Donald Bradman. {name}
+    job: I am a knight.
+    hunt: I hunt wild animals.
+    animal: Mostly bears and wolves.
+    danger: There's bandits too.
+    wild: It's dangerous outside the cities.
+    cricket: I used to play a bit.
+    horse: Just a couple of coconuts, really.
+    silly: Yes, silly mid-on.
+    bye: Forsooth!
+  end
+end
+
+person parcheminier
+  name Mathurin Lebègue
+  title a parchment-maker
+  role merchant
+  near market
+  # his shop has a name, so that AROUND, WALKTO and directions can find it
+  shopname the parchment-maker's, at the sign of the Calf
+  sells parchment 6
+  talk
+    name: Mathurin Lebègue, parchment-maker, of the Lendit fair. {name}
+    job: I make parchment: calfskin, soaked in lime, scraped, stretched, scraped again and rubbed with pumice. The finest is vellum, from calves never born.
+    lendit,fair,university: The University has bought its parchment at the Lendit since Saint Louis. In my grandfather's day the Rector came in procession with all the students, and they drank the town dry. Now the Rector sends his beadle, if that.
+    beadle,bedeau: Old Bedeau, with the gout? He buys three skins every June and complains of the price. Tell him they are the same price as last year, which is true. {player set knows:paris:beadle}
+  end
+end
+
+crowd 4 goodwife
+crowd 3 labourer
+crowd 3 monk
+crowd 2 apprentice
+crowd 2 guard
+crowd 1 herdsman

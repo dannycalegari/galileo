@@ -1,0 +1,1129 @@
+# Things that happen by themselves, whether or not you are there; each happens once.
+# The game begins on Tuesday 15 June 1632.
+#
+#   event ID
+#     on YYYY-MM-DD [HH:MM]      not before then (without "on": as soon as the conditions hold)
+#     if WHO CONDITION and WHO CONDITION ...
+#                                WHO is a person (town:id, as paris:martin) or player; the
+#                                condition is as in people's files (has:dialogue, town=London,
+#                                stock:dialogue >= 1, not KEY, recent KEY ...)
+#     stock WHO ITEM N           a shopkeeper has N more of a thing to sell
+#     buy WHO SHOPKEEPER ITEM    WHO buys one (if the shop has one)
+#     give FROM TO ITEM          one passes from FROM to TO (if FROM has it)
+#     set WHO KEY[=VALUE]        (VALUE "now": the time); unset WHO KEY; add WHO KEY N
+#                                WHO may also be TOWN:* (everyone of that town)
+#     travel WHO TOWN            WHO sets off for TOWN
+#     news TOWN TEXT             told you (status line and journal) if you are in TOWN
+#                                ("anywhere": wherever you are)
+#     wants TOWN ITEM FACTOR     what TOWN pays for ITEM changes (a siege); FACTOR 1: the plain
+#     makes TOWN ITEM FACTOR     price again (market.txt; made again when a saved game is loaded)
+#     card ID                    a chapter or date card (data/cards.txt) is shown: in an event with a
+#                                jump, after the clock has moved and before the jump's letter or scenes
+#     chance P                   when its time comes it happens with this chance, or never; then
+#                                you remember failed:ID (another event can wait for that)
+#   end
+#
+# People who remember wants:ITEM buy one themselves when they stand near a shopkeeper
+# who has it (People::wantsStep); the events below do it for them when you are not there.
+
+# ---------------------------------------------------------------- the Dialogue travels
+# Landini printed a thousand copies in Florence in February. Bales of books go north over
+# the Alps to the Frankfurt fair, and from there down the Rhine to Holland and across to
+# London: so the Dialogue reaches Amsterdam first, then Paul's Churchyard.
+
+event dialogue-reaches-amsterdam
+  on 1632-06-21 09:00
+  stock amsterdam:blaeu dialogue 2
+  set amsterdam:* heard-dialogue-in-town
+  news Amsterdam A Rhine barge from Cologne has brought Willem Blaeu a bale of books from the Frankfurt fair: two copies of Galileo's Dialogue among them.
+end
+
+# Descartes buys one of Blaeu's copies, if you have not sold him one first
+event descartes-buys-from-blaeu
+  on 1632-06-22 11:00
+  if amsterdam:descartes not has:dialogue
+  buy amsterdam:descartes amsterdam:blaeu dialogue
+  set amsterdam:descartes from-blaeu
+end
+
+event dialogue-reaches-london
+  on 1632-06-24 08:00
+  stock london:bookseller dialogue 1
+  set london:* heard-dialogue-in-town
+  news London Midsummer Day: a bale from the Frankfurt fair has come up the river to Paul's Churchyard. They say there is an Italian book in it.
+end
+
+# Martin, waiting in London for a copy for Father Mersenne, buys it (if he is there, and
+# if he has not bought it in person already, and if it is still there)
+event martin-buys-in-london
+  on 1632-06-24 13:00
+  if paris:martin wants:dialogue and paris:martin town=London and london:bookseller stock:dialogue >= 1
+  buy paris:martin london:bookseller dialogue
+end
+
+event martin-goes-home
+  if paris:martin has:dialogue and paris:martin town=London
+  travel paris:martin Paris
+  news London Martin Lebrun has gone home to Paris with the only copy of the Dialogue in London, singing.
+end
+
+event martin-brings-dialogue
+  if paris:martin has:dialogue and paris:martin town=Paris
+  give paris:martin paris:mersenne dialogue
+  set paris:mersenne has-dialogue
+  set paris:mersenne from-martin
+  set paris:martin gave-dialogue
+  news Paris Martin Lebrun is back from London with a book under his arm, and has run all the way to the Place Royale.
+end
+
+# if you got Father Mersenne a copy first, Martin is waiting in London for nothing
+event martin-gives-up
+  if paris:mersenne has-dialogue and paris:martin wants:dialogue
+  unset paris:martin wants:dialogue
+  set paris:martin mersenne-has-it
+end
+
+event martin-comes-home-empty
+  if paris:martin mersenne-has-it and paris:martin town=London and paris:martin not has:dialogue
+  travel paris:martin Paris
+end
+
+# ---------------------------------------------------------------- Pisa's feasts
+# The eve of San Ranieri, patron of Pisa (16 June): the Luminara, the palaces along the Arno lit
+# with little lamps in glasses; on his day, the regatta of the four quarters. On the last Sunday
+# of June (the 27th in 1632), the Gioco del Ponte on the Ponte di Mezzo, Tramontana (the north
+# bank) against Mezzogiorno (the south): people with "16:00 go ... if gioco-day" go to watch.
+
+event luminara
+  on 1632-06-16 21:00
+  set pisa:* luminara
+  news Pisa The eve of San Ranieri: every window and cornice along the Arno is lit with little lamps in glasses, thousands upon thousands, and the river doubles them.
+end
+
+event regatta-san-ranieri
+  on 1632-06-17 16:00
+  news Pisa The regatta of San Ranieri: the boats of the four quarters race up the Arno, and a boy of San Martino is first up the mast at the finish to seize the banner.
+end
+
+event gioco-del-ponte
+  on 1632-06-27 06:00
+  set pisa:* gioco-day
+  news Pisa The last Sunday of June: today the Gioco del Ponte, Tramontana against Mezzogiorno, on the Ponte di Mezzo. The whole city is going.
+end
+
+event gioco-del-ponte-fought
+  on 1632-06-27 18:00
+  news Pisa On the Ponte di Mezzo, after an hour of shoving in armour behind wooden shields, Mezzogiorno has driven Tramontana off the bridge. The south bank is drinking; the north bank is counting its bruises.
+  set pisa:* gioco-won
+end
+
+event gioco-del-ponte-over
+  on 1632-06-28 03:00
+  unset pisa:* gioco-day
+end
+
+# ---------------------------------------------------------------- Oxford
+# Dr Bainbridge, given the Dialogue for his letter to Rouse, reads it for three days and then gives
+# it to the Bodleian
+event bainbridge-gives-dialogue
+  if oxford:bainbridge has:dialogue and oxford:bainbridge not recent got-dialogue
+  give oxford:bainbridge oxford:rouse dialogue
+  news Oxford Dr Bainbridge has given his copy of Galileo's Dialogue to the Bodleian. It is chained in the Arts End, and three scholars have quarrelled over it already.
+end
+
+# ---------------------------------------------------------------- merchant stories
+# Cochineal for the cardinals' scarlet (rome.txt tintore): a fortnight from when you hear of it
+# (these two stories start when you do; the siege below keeps its own dates)
+event scarlet-late
+  if player heard-scarlet and player not recent:14 heard-scarlet-at and rome:tintore bags-scarlet < 6
+  set player late-scarlet
+  news Rome The cardinals have gone in to consistory in new robes of kermes red, not scarlet; Giacomo Lanzi the dyer is in a black mood.
+end
+
+# A part in the fluyt de Hoop (amsterdam.txt groen): she sails two days after you buy it, and
+# comes home a fortnight later, or not
+event hoop-sails
+  if player bought-share and player not recent:2 hoop-bought
+  news Amsterdam The fluyt de Hoop has sailed for Danzig on the morning tide, deep with herring and salt.
+end
+
+event hoop-home
+  if player bought-share and player not recent:16 hoop-bought
+  chance 0.75
+  set amsterdam:groen hoop-home
+  news Amsterdam The fluyt de Hoop is home from Danzig, low in the water with rye. Arent Groen is buying everyone a drink.
+end
+
+event hoop-lost
+  if player failed:hoop-home
+  set amsterdam:groen hoop-lost
+  news Amsterdam Word from Elsinore: the fluyt de Hoop of Amsterdam went down in a gale off the Skaw, with all hands.
+end
+
+# The siege of Nuremberg (nuremberg.txt monro and kornmesser; zirndorf.txt), set going by you, so
+# that it happens where you are. Historically: Wallenstein's army came on 17
+# July 1632, the storming of the Alte Veste was on 3 September, the King marched away on 18
+# September. Here: Monro sends you to look for Wallenstein at Zirndorf, and he comes when you get
+# there; the hunger ten days later; the astrologer's rumour carried back to Monro, or the truth seen
+# in the ruin, brings the King's attack two days
+# later; it lasts a day; the King marches away two weeks after it. The prices
+# (market.txt: rye 1.8, salt 1.5 before) go with them.
+event wallenstein-comes
+  if player scouting and player town=Zirndorf and player not event:siege-ends and player not ch2-open
+  set player siege-at=now
+  wants Nuremberg rye 3.0
+  wants Nuremberg salt 2.4
+  news Zirndorf From the ridge by the old castle you see it come along the road from the east: dust first, then banners, then an army, regiment after regiment, with carts and guns and women and cattle. By evening the ridge is a town of tents, and the pioneers are filling gabions with earth. Wallenstein has come.
+end
+
+event nuremberg-hunger
+  if player event:wallenstein-comes and player not recent:10 siege-at and player not event:siege-ends and player not ch2-open
+  wants Nuremberg rye 4.5
+  wants Nuremberg salt 3.0
+  news Nuremberg There is hunger in the city and typhus in both camps. Rye has never been so dear.
+end
+
+# Seeing through the astrologer's rumour: inside the ruin of the Alte Veste, once the camp is up and
+# before the storming is set, the Duke's guns under the brushwood ("player inside=", as the closet of the Holy Office).
+# A Croat sees you, and the Duke may then try to buy you (zirndorf.txt wallenstein). The first if you have heard Senno.
+event north-guns-seen-after-senno
+  if player inside=the-alte-veste and player event:wallenstein-comes and player heard-weak-north and player not saw-north-guns and player not storming-set and player not event:siege-ends and player not ch2-open
+  set player saw-north-guns
+  news Zirndorf Inside the burned walls of the Alte Veste the nettles are trodden flat. Under fresh-cut brushwood stand guns, more than you can count at a glance, their mouths turned towards Nuremberg, and the Croats who serve them doze in the sun with their caps over their eyes. Whatever the astrologer says, the north end of the ridge is not weakly held. One of the Croats has seen you. He says nothing, but he goes down towards the farm, quickly.
+end
+
+event north-guns-seen
+  if player inside=the-alte-veste and player event:wallenstein-comes and player not saw-north-guns and player not storming-set and player not event:siege-ends and player not ch2-open
+  set player saw-north-guns
+  news Zirndorf Inside the burned walls of the Alte Veste the nettles are trodden flat. Under fresh-cut brushwood stand guns, more than you can count at a glance, their mouths turned towards Nuremberg, and the Croats who serve them doze in the sun with their caps over their eyes. One of the Croats has seen you. He says nothing, but he goes down towards the farm, quickly.
+end
+
+# a game saved after carrying the rumour, before the storming was set by "storming-set"
+event storming-set-from-an-old-report
+  if player gave-false-report and player not storming-set
+  set player storming-set
+  set player report-at=now
+end
+
+# The drums of the muster and of the march are the English March, as Charles I's warrant of 7 February 1632 set it down
+# (data/music.txt "cue english-march"; music/english_march.py), played on side drums.
+# Any of the three reports to Monro sets the storming (nuremberg.txt monro: warned, lied to for nothing, or for the Duke's
+# money), and the King goes up two days after, at first light: "the day after tomorrow, at dawn". History holds.
+# The muster and the battle, on every road: the evening after the report, at
+# eight, the Scots muster in the square at Nuremberg (nuremberg.txt monro, murdo; roles.txt scot); at three they march,
+# and if you fell in with Monro you are carried with them to the foot of the ridge under the ruin (the-march); at first
+# light the storming, an honest battle (roles.txt scotstorm, assault, imperial, imperialreserve); at ten the Duke's guns
+# in the ruin fire, the drums beat the retreat, and the Croats come out to strip the fallen. Murdo Ross is down under
+# the wall if you warned Monro, and killed if you lied (the-volley). Beaten on the hill that day, or by the Croats after,
+# you wake in the hospital of the Holy Ghost with nothing lost ("carried-down": Game::defeated).
+event the-muster
+  if player storming-set and player day:1 report-at and player hour>=20 and player not event:alte-veste and player not event:siege-ends and player not ch2-open
+  set player muster-on
+  news Nuremberg Drums in the streets, beating the muster: the Scots are gathering in the square with their packs and muskets, to march before dawn.
+  news Zirndorf Far off, across the valley, drums are beating in Nuremberg.
+  cue Nuremberg english-march
+  cue Zirndorf english-march 0.25
+  wake
+end
+
+# at three, if you fell in with Monro (nuremberg.txt monro: "mustered") and are in the city: the march, a card, and you
+# stand at the foot of the ridge under the ruin at five, with Murdo Ross beside you (Game::takeRequests); the camera
+# turned to look from the north, the battle in front and the town behind it (the march turns the camera to
+# 202°; Z turns it back). You are set down outside the ruin's north-west corner, just behind the Scots' line, where
+# the Duke's reserve comes down from the north and the fighting is for most of the morning (the ruin stands
+# between you and the fighting)
+event the-march
+  if player muster-on and player mustered and player town=Nuremberg and player day:2+ report-at and player hour>=3 and player hour<5 and player not event:siege-ends and player not ch2-open
+  unset player muster-on
+  set player marched
+  pass until 5:00
+  carry 3949 3927 beside nuremberg:murdo
+  view 202
+  card the-march
+  cue anywhere english-march
+  wake
+end
+
+# or standing in the square with them at three, without a word to Monro
+event the-march-from-the-square
+  if player muster-on and player not mustered and player on-square and player town=Nuremberg and player day:2+ report-at and player hour>=3 and player hour<5 and player not event:siege-ends and player not ch2-open
+  unset player muster-on
+  set player mustered
+  set player marched
+  pass until 5:00
+  carry 3949 3927 beside nuremberg:murdo
+  view 202
+  card the-march
+  cue anywhere english-march
+  wake
+end
+
+event the-muster-ends
+  if player muster-on and player day:2+ report-at and player hour>=3
+  unset player muster-on
+  news Nuremberg The drums beat, and the Scots march out of the square in the dark, by the Spittlertor.
+  cue Nuremberg english-march
+  wake
+end
+
+event alte-veste
+  if player storming-set and player day:2+ report-at and player morning and player not event:siege-ends and player not ch2-open
+  set player assault-at=now
+  set player side=swedish
+  set player carried-down=Zirndorf
+  unset player muster-on
+  news Nuremberg The King's brigades marched out before dawn, to storm the Alte Veste.
+  wake
+end
+
+event storming-begins-with-the-scots
+  if player event:alte-veste and player marched and player not event:assault-over and player recent:0.1 assault-at
+  news Zirndorf All along the line the King's drums begin, and the brigades go up the hill in the grey light. Monro draws his sword and goes up first. Smoke rolls down the slope from the gabions, and out of it come the Duke's musketeers.
+  wake
+end
+
+event storming-begins
+  if player event:alte-veste and player not marched and player not event:assault-over and player recent:0.1 assault-at
+  news Zirndorf The Swedes are coming up the ridge! Drums, and smoke along the gabions.
+  wake
+end
+
+event storming-at-eight
+  if player event:alte-veste and player not event:assault-over and player not recent:0.125 assault-at and player recent:0.2 assault-at
+  news Zirndorf The sun is up, and the Duke's men have not given a yard. The dead lie thick along the gabions.
+end
+
+# the Duke's guns along the gabions fire on the King's men, and on you with them, while the storming lasts: one gun at a time, every two minutes and a half or so,
+# on the nearest Swede in front of it within fourteen tiles (People::gunsStep)
+guns Zirndorf every 2.5 damage 9 range 14
+  if player event:alte-veste and player not event:assault-over
+end
+
+# the musketry of the storming (sound only, the fights being hand to hand): a musket now and then, a ragged volley every
+# eight minutes or so, while it lasts
+musketry Zirndorf every 0.8 volleys 8
+  if player event:alte-veste and player not event:assault-over
+end
+
+# at ten (five hours after the storming began): the guns in the ruin, and the retreat
+event the-volley-warned
+  if player event:alte-veste and player warned-monro and player not recent:0.20834 assault-at and player recent:0.5 assault-at and player not event:siege-ends and player not ch2-open
+  volley the-alte-veste 6 12
+  news Zirndorf The brushwood on the walls of the Alte Veste falls away, and the guns you saw behind it fire all at once, down the slope, into the Scots. When the smoke clears there are gaps in the file where men were standing. All along the line the drums beat the retreat, and the brigades go back down the hill, carrying whom they can. Under the wall of the ruin Murdo Ross is down in the nettles, with his leg twisted under him; and out of the gate come the Croats, with their knives.
+  wake
+end
+
+event the-volley
+  if player event:alte-veste and player not warned-monro and player not recent:0.20834 assault-at and player recent:0.5 assault-at and player not event:siege-ends and player not ch2-open
+  volley the-alte-veste 6 12
+  kill nuremberg:murdo
+  news Zirndorf The brushwood on the walls of the Alte Veste falls away, and behind it are guns, more than you can count, that were never drawn off at all. They fire all at once, down the slope, into the Scots. When the smoke clears there are gaps in the file where men were standing. All along the line the drums beat the retreat, and the brigades go back down the hill, carrying whom they can. Under the wall of the ruin Murdo Ross lies on his back in the nettles, with his eyes open; and out of the gate come the Croats, with their knives.
+  wake
+end
+
+event assault-over
+  if player event:alte-veste and player not recent:0.20834 assault-at and player not event:siege-ends and player not ch2-open
+  unset player side
+  news except:Zirndorf The King of Sweden has stormed Wallenstein's camp at the Alte Veste, and been thrown back with great loss.
+end
+
+# On the roads of the lie, coming round in the hospital, where Monro sits up with his wounded: he comes to your straw
+# and says it to your face; his greeting gives the ruse after (nuremberg.txt monro)
+event monro-at-your-straw
+  if player gave-false-report and player carried-down-at and player recent:0.5 carried-down-at and player inside=the-hospital-of-the-holy-ghost and player not monro-blamed
+  set player monro-blamed
+  news Nuremberg Monro comes down the rows of straw with his head bound up, stopping at every man. At yours he stops longer, and looks at you. "You told me you had seen it with your own eyes," he says, and goes on to the next.
+end
+
+# The march turned the view to look up the hill with the town behind you (the-march, "view 202"); once you have left
+# Zirndorf after the storming has begun, it turns back to the usual view
+event view-back-from-the-hill
+  if player marched and player event:alte-veste and player not town=Zirndorf
+  view 22
+end
+
+# Murdo Ross brought into the hospital of the Holy Ghost when Meister Franz is not there: Monro, sitting up with his
+# wounded, sends for him (nuremberg.txt schmidt)
+event franz-sent-for
+  if player scot-following and player inside=the-hospital-of-the-holy-ghost and nuremberg:schmidt not working
+  set player franz-sent-for=now
+  news Nuremberg Monro sees you come in with Murdo, and sends a boy running for Meister Franz.
+end
+
+# the time for bringing Murdo down is past: a defeat at Zirndorf is a defeat again
+event the-rescue-past
+  if player event:alte-veste and player not recent:2.5 assault-at
+  unset player carried-down
+end
+
+# the recruits sail from Stockholm to fill the places of the dead
+event recruits-sail
+  if player event:assault-over
+  news Stockholm Two ships sail today for Stralsund with recruits for the King's army in Germany, to fill the places of those who fell at the Alte Veste. Their mothers stand on the Skeppsbron until the sails are out of sight.
+end
+
+event siege-ends
+  if player event:assault-over and player not recent:14 assault-at
+  wants Nuremberg rye 1.8
+  wants Nuremberg salt 1.5
+  news anywhere The King of Sweden has marched out of Nuremberg, south towards the Danube, and Wallenstein has struck his camp to follow him. The siege of Nuremberg is over.
+end
+
+# The siege belongs to chapter I: at chapter II's opening a siege never taken up,
+# or left unfinished, has happened without you, as in history (Wallenstein on the ridge in July, the
+# Alte Veste stormed on 3 September, the King gone on the 18th). Each sets siege-ends's own mark, so
+# that the King and Monro are gone, the camp at Zirndorf is struck, the prices fall, and the siege's
+# other events can no longer happen.
+event siege-ends-untouched
+  if player ch2-open and player not event:siege-ends and player not event:wallenstein-comes
+  set player event:siege-ends
+  wants Nuremberg rye 1.8
+  wants Nuremberg salt 1.5
+  news anywhere Word from Nuremberg: Wallenstein dug himself in on the ridge at Zirndorf in July, and all summer the two armies sat facing each other and starving, while typhus took the camps and the town. On the third of September the King of Sweden stormed the Alte Veste, and was thrown back with great loss; on the eighteenth he marched away south, and Wallenstein struck his camp to follow him. The siege of Nuremberg is over.
+end
+
+event siege-ends-unfinished
+  if player ch2-open and player not event:siege-ends and player event:wallenstein-comes and player not event:alte-veste
+  set player event:siege-ends
+  wants Nuremberg rye 1.8
+  wants Nuremberg salt 1.5
+  news anywhere Word from Nuremberg: on the third of September the King of Sweden stormed Wallenstein's camp at the Alte Veste, and was thrown back with great loss; on the eighteenth he marched away south, and Wallenstein struck his camp to follow him. The siege of Nuremberg is over.
+end
+
+event siege-ends-with-chapter-one
+  if player ch2-open and player not event:siege-ends and player event:alte-veste
+  set player event:siege-ends
+  wants Nuremberg rye 1.8
+  wants Nuremberg salt 1.5
+  news anywhere The King of Sweden, thrown back from the Alte Veste with great loss, has marched out of Nuremberg, south towards the Danube, and Wallenstein has struck his camp to follow him. The siege of Nuremberg is over.
+end
+
+# ---------------------------------------------------------------- the central plot, chapter I
+# Nothing here waits on a date: the plot starts when you take it up, and its deadlines count from
+# what you did. Galileo makes you his messenger once he trusts you and has
+# had Castelli's warning: carried by you (warned-galileo), or come by the post two days after you
+# became his friend (the citron, or the milk and eggs). Fra Clemente's men take the Dialogue at
+# Landini's the morning after you collect the bale (so that night is your chance to get it out of
+# Florence); if you never collect it, two weeks after the commission; at once, if you tell the
+# Inquisitor. Then it is forbidden in Florence, Pisa and Rome, searched for going in and coming
+# out (Game::searchers). The keepers are counted as they come to hold a copy, however they got it
+# (player keepers); with three, after the seizure, a letter calls you back to Arcetri, and
+# Galileo's scene there ends the chapter (ch1-over).
+
+event galileo-friend-citron
+  if player gave-citron and player not galileo-friend
+  set player galileo-friend=now
+end
+
+event galileo-friend-milk
+  if player gave-galileo-milk and player not galileo-friend
+  set player galileo-friend=now
+end
+
+event castelli-by-post
+  if player galileo-friend and player not recent:2 galileo-friend and player not warned-galileo
+  set arcetri:galileo warned-by-post
+  set player commission-ready
+  set player knows:arcetri:celeste
+  set player knows:rome:castelli
+  news anywhere A note finds you, in Suor Maria Celeste's careful hand: "My father has had a letter from Rome, from Don Benedetto Castelli, and he asks whether you will come to Arcetri. He would not say why."
+end
+
+event commission-ready
+  if player warned-galileo
+  set player commission-ready
+end
+
+# the seizure comes when one of these says it is due (and at once if you inform: florence.txt)
+event seizure-after-bale
+  if player has-bale and player not bale-late and player not recent:0.3 bale-at and player morning
+  set player seizure-due
+end
+
+event seizure-late
+  if player ch1-commission and player not has-bale and player not recent:14 ch1-commission
+  set player seizure-due
+end
+
+event seizure
+  if player seizure-due
+  forbid Florence dialogue | By order of the Holy Office, the Dialogue of Galileo Galilei may not be sold, kept or carried in Florence.
+  forbid Pisa dialogue | By order of the Holy Office, the Dialogue of Galileo Galilei may not be sold, kept or carried in Pisa.
+  forbid Rome dialogue | By order of the Holy Office, the Dialogue of Galileo Galilei may not be sold, kept or carried in Rome.
+  set florence:landini seized
+  set player knows:florence:landini
+  news anywhere Word comes along the roads from Florence: the Inquisitor's men have taken every copy of Galileo's Dialogue at Landini's, and the searchers at the gates of Florence, Pisa and Rome look for it in every pack, going in and coming out.
+end
+
+# the German students of Padua go home over the Brenner, by the Frankfurt fair, two days after
+# the last copy you gave them
+event students-leave
+  if padua:german fair-copies >= 1 and player not recent:2 fair-at
+  set padua:german fair-gone
+  set padua:german has:dialogue=0
+  news Padua The students of the German nation rode out this morning for the Brenner, singing, with your books among their shirts.
+end
+
+event keeper-frankfurt
+  if padua:german fair-copies >= 1
+  set player keeper:frankfurt
+  add player keepers 1
+end
+
+event keeper-diodati
+  if paris:diodati has:dialogue >= 1
+  set player keeper:diodati
+  add player keepers 1
+end
+
+event diodati-translation
+  if paris:diodati has:dialogue >= 1 and paris:diodati read-letter
+  set player diodati-translation
+end
+
+event keeper-mersenne
+  if paris:mersenne has:dialogue >= 1
+  set player keeper:mersenne
+  add player keepers 1
+end
+
+event keeper-bodleian
+  if oxford:rouse has:dialogue >= 1 and player not keeper:bodleian
+  set player keeper:bodleian
+  add player keepers 1
+end
+
+event keeper-bodleian-bainbridge
+  if oxford:bainbridge has:dialogue >= 1 and player not keeper:bodleian
+  set player keeper:bodleian
+  add player keepers 1
+end
+
+event keeper-descartes
+  if amsterdam:descartes has:dialogue >= 1 and amsterdam:descartes met
+  set player keeper:descartes
+  add player keepers 1
+end
+
+event keeper-elzevir
+  if leiden:elzevir has:dialogue >= 1
+  set player keeper:elzevir
+  add player keepers 1
+end
+
+event keeper-micanzio
+  if venice:micanzio has:dialogue >= 1
+  set player keeper:micanzio
+  add player keepers 1
+end
+
+event keeper-marci
+  if prague:marci has:dialogue >= 1
+  set player keeper:marci
+  add player keepers 1
+end
+
+event keeper-tengnagel
+  if vienna:tengnagel has:dialogue >= 1
+  set player keeper:tengnagel
+  add player keepers 1
+end
+
+event keeper-brozek
+  if cracow:brozek has:dialogue >= 1
+  set player keeper:brozek
+  add player keepers 1
+end
+
+event keeper-cruger
+  if danzig:cruger has:dialogue >= 1
+  set player keeper:cruger
+  add player keepers 1
+end
+
+# the King of Sweden, on Galileo's list: he sees nobody until Monro's scouting is done
+event keeper-gustavus
+  if nuremberg:gustavus has:dialogue >= 1
+  set player keeper:gustavus
+  add player keepers 1
+end
+
+# the end of the chapter: a letter back to Arcetri, with three keepers after the seizure, or
+# ten days after it whatever has been done (never to one who sold the bale)
+event ch1-call
+  if player event:seizure and player ch1-commission and player keepers >= 3 and player not informed-inquisitor
+  set player ch1-called
+  set player knows:arcetri:celeste
+  news anywhere A letter finds you, sent on from post house to post house, in Suor Maria Celeste's careful hand: "My father begs you to come to Arcetri when you can. He has letters from Rome, and he is afraid of them, though he will not say so."
+end
+
+event ch1-call-late
+  if player event:seizure and player ch1-commission and player not ch1-called and player not informed-inquisitor and player not recent:10 event:seizure
+  set player ch1-called
+  set player knows:arcetri:celeste
+  news anywhere A letter finds you, sent on from post house to post house, in Suor Maria Celeste's careful hand: "My father begs you to come to Arcetri when you can. He has letters from Rome, and he is afraid of them, though he will not say so."
+end
+
+# ---------------------------------------------------------------- the central plot, chapter II
+# Two days after the end of chapter I a letter calls you back to Arcetri; when you get there the
+# months pass (the first beat) to 1 October 1632, and the order from Rome has come. The
+# physicians' certificate and the Grand Duke's letter are "voices" for Galileo (player favour,
+# counted at the sentence in chapter III; selling the King of Sweden's offer to Arellano takes two
+# away). Two days after the certificate reaches Fra Clemente, or twelve days after the chapter
+# opens without it, Rome answers: come, or be brought in chains. At Arcetri then, the months pass
+# to his departure (20 January 1633: the King fell at Lutzen meanwhile); in Rome, to his arrival
+# (13 February 1633), and chapter III opens.
+
+# The card that opens chapter I: Mersenne's charge has sent you to Florence (courier-florence, set when
+# he gives you his letter, or at once for a game begun at the gates). Only a flag set in the last two days.
+event ch1-card
+  if player courier-florence and player recent:2 courier-florence
+  card ch1
+end
+
+event ch2-call
+  if player ch1-over and player not recent:2 ch1-over
+  set player ch2-called
+  set player knows:arcetri:celeste
+  news anywhere A letter finds you, in Suor Maria Celeste's careful hand: "Something has come from Rome for my father, and the Father Inquisitor brought it himself. Come to Arcetri, if you can."
+end
+
+event beat-summons
+  if player ch2-called and player town=Arcetri
+  card ch2
+  jump 1632-10-01 09:00 letter-1632-10
+  set player ch2-open=now
+  set player chapter=2
+end
+
+event certificate-written
+  if player ronconi-asked and player not recent:1 ronconi-asked
+  set arcetri:galileo has-certificate
+end
+
+# (The King of Sweden's refuge for Galileo is offered in chapter I, at the siege of Nuremberg (nuremberg.txt
+# gustavus); by chapter II the King is gone.)
+
+event ch2-answer
+  if player ch2-certificate and player not recent:2 ch2-certificate
+  set player ch2-answered
+  set player knows:arcetri:celeste
+  news anywhere A letter from Suor Maria Celeste: "Rome has answered the physicians. He must come, or be brought in chains, ill or well. He leaves as soon as the Grand Duke's litter is ready. Come to Arcetri before he goes."
+end
+
+event ch2-answer-late
+  if player ch2-open and player not ch2-answered and player not recent:12 ch2-open
+  set player ch2-answered
+  set player knows:arcetri:celeste
+  news anywhere A letter from Suor Maria Celeste: "Rome will wait no longer. He must come, or be brought in chains. He leaves as soon as the Grand Duke's litter is ready. Come to Arcetri before he goes."
+end
+
+event beat-departure
+  if player ch2-answered and player town=Arcetri
+  card departure
+  jump 1633-01-20 07:00 letter-1633-01
+  set player ch2-over=now
+  set player galileo-away
+  set player king-dead
+  set player ch3-ready
+end
+
+event beat-rome
+  if player ch3-ready and player town=Rome
+  card ch3
+  jump 1633-02-13 11:00 letter-1633-02
+  set player ch3-open=now
+  set player chapter=3
+end
+
+event keeper-christina
+  if stockholm:christina has:dialogue >= 1
+  set player keeper:christina
+  add player keepers 1
+end
+
+# ---------------------------------------------------------------- the central plot, chapter III
+# The trial. Don Luis de Arellano has had a SIGNED copy of the injunction of 1616 forged by Andres
+# Morales, whose son he keeps at Seville. The proofs (player proofs, counted once each): the paper
+# (the Haarlem papermaker), the hand (Pacheco, or your own eye after Lucaris), the confession
+# (Morales, once his son is free: Pacheco's note, two hundred livres, or Hamete's night) and the
+# commission (the Chancery of Ragusa, or the clerk of the post at Vienna). The first hearing (12
+# April 1633) is announced by Niccolini's note (hearing-warned) once a proof is held, or a month after
+# the chapter opens, and comes two days after the note; ten days after it Arellano lays the forgery
+# before the Congregation (two, if you told Riccardi),
+# unless it has been stopped (Maculano or Cardinal Barberini with two proofs, the Pope in audience
+# with two, Ventura with one). The sentence (22 June 1633) waits at least four days after the
+# hearing, for the voices for Galileo (player favour): with the forgery stopped and three voices,
+# history; with fewer, he is kept in Rome. Laid by the clock (or after Riccardi's alarm), the forgery
+# is doubted (forgery-doubted), and he is kept in Rome too. Carried to the Holy Office by you
+# (delivered-forgery), it is believed: he dies in a cell, and the ending follows.
+
+# the art subplot: the ink proof. Learnt from Marguerite Bahuche (or the boy, as
+# she showed him: skill connoisseur), it is seen the moment you hold the forged paper
+event proof-ink-seen
+  if player skill:connoisseur and player has:signed-injunction and player not proof-ink
+  set player proof-ink
+  news anywhere You hold the paper of 1616 to the light, as you were taught in the gallery of the kings. The ink of "Galileo Galilei" is as black as this morning's: no ink sixteen years old is that colour. Whoever wrote it wrote it this year.
+end
+
+# ... or the moment Don Luis lets you read the foot of it, whether or not you take it to carry
+event proof-ink-glimpsed
+  if player skill:connoisseur and player shown-forgery and player not proof-ink
+  set player proof-ink
+  news anywhere While Don Luis holds his paper to the window, you look at the foot of it as you were taught in the gallery of the kings. The ink of "Galileo Galilei" is as black as this morning's: no ink sixteen years old is that colour. Whoever wrote it wrote it this year.
+end
+
+event proof-ink-counted
+  if player proof-ink
+  add player proofs 1
+end
+
+event proof-paper-counted
+  if player proof-paper
+  add player proofs 1
+end
+
+event proof-hand-counted
+  if player proof-hand
+  add player proofs 1
+end
+
+event proof-confession-counted
+  if player proof-confession
+  add player proofs 1
+end
+
+event proof-commission-counted
+  if player proof-commission
+  add player proofs 1
+end
+
+event favour-poem
+  if player pope-poem
+  add player favour 1
+end
+
+event favour-scheiner
+  if player told-scheiner-harriot and player ch3-open
+  add player favour 1
+end
+
+event favour-scarlet
+  if player scarlet-done and player ch3-open
+  add player favour 1
+end
+
+event bandolero-frees
+  if player bandolero-help and player not recent:1 bandolero-help and player not juanico-free
+  set player juanico-free
+  set player has:juanico-letter=1
+  set player knows:seville:rodrigo
+  set player knows:seville:juanico
+  news anywhere A boy's note reaches you, carried by a muleteer from Granada: Juanico is home with his mother, over the wall of Don Rodrigo's house in the night. Folded inside is a second note, for his father in Rome.
+end
+
+# The first hearing. It is due (hearing-ready) once you hold a proof, or a month after the chapter
+# opens; it comes when you are in Rome: at once if Fra Bartolomeo has promised you his closet
+# (hide-ok), and you see it (data/scenes/hearing-1633-04-12.txt); otherwise two days after you
+# first came to Rome in this chapter (time to find the closet), and you read of it in a letter.
+# Seen while the forgery is still afoot (and its forger in Rome, alive), you overhear Arellano with
+# the notary (overheard-plot): Morales is to be drowned the next night, at ten, when the Orso shuts,
+# unless you warn him (rome.txt, morales-hidden: Mona Lisabetta's kitchen). Drowned, his
+# confession is lost with him, had you had it or not.
+event rome-reached-ch3
+  if player ch3-open and player town=Rome
+  set player ch3-in-rome=now
+end
+
+event hearing-ready-proof
+  if player ch3-open and player proofs >= 1 and player not hearing
+  set player hearing-ready
+end
+
+event hearing-called
+  if player ch3-open and player not hearing and player not hearing-due and player not recent:30 ch3-open
+  set player hearing-due
+  set player hearing-ready
+  set player knows:rome:niccolini
+  news anywhere A letter from Ambassador Niccolini: "They will call Signor Galileo before the Commissary within the week, whatever is found or not found. Nobody may watch the examinations, not even I. If you can help him, come to Rome."
+end
+
+event hearing-ready-due
+  if player hearing-due and player not hearing
+  set player hearing-ready
+end
+
+# Seen only from the closet itself: you must be inside the palace of the Holy Office when they
+# send for him; otherwise, two days after Niccolini's note, the hearing comes unseen (beat-hearing), closet or not
+event beat-hearing-plot
+  if player hearing-ready and player town=Rome and player not hearing and player hide-ok and player inside=the-palace-of-the-holy-office and player not forgery-stopped and player not forger-free and player not morales-dead
+  card hearing
+  jump 1633-04-12 10:00 scenes:hearing-1633-04-12
+  set player hearing=now
+  set player hearing-seen
+  set player overheard-plot=now
+end
+
+event beat-hearing-seen
+  if player hearing-ready and player town=Rome and player not hearing and player hide-ok and player inside=the-palace-of-the-holy-office
+  card hearing
+  jump 1633-04-12 10:00 scenes:hearing-1633-04-12
+  set player hearing=now
+  set player hearing-seen
+end
+
+# The first hearing is announced: a note from Niccolini, then two days (hearing-ready, in Rome, no
+# closet). A player with a proof reaching Rome reads it at once, and has the two days to find the closet.
+event hearing-warned
+  if player hearing-ready and player town=Rome and player not hearing and player not hearing-warned
+  set player hearing-warned=now
+  set player knows:rome:niccolini
+  news anywhere A note from Ambassador Niccolini, sent round to your lodging: "They will call Signor Galileo before the Commissary the day after tomorrow. Nobody may watch the examinations, not even I; though the lay brothers who sweep those rooms see more than ambassadors do."
+end
+
+event beat-hearing
+  if player hearing-ready and player town=Rome and player not hearing and player hearing-warned and player not recent:2 hearing-warned
+  card hearing
+  jump 1633-04-12 10:00 letter-1633-04
+  set player hearing=now
+end
+
+event morales-drowned
+  if player overheard-plot and player not recent:1.5 overheard-plot and player not morales-hidden and player not morales-dead and player not forger-free and player not proof-confession and player not forgery-stopped
+  set player morales-dead=now
+  set player knows:rome:morales
+  news anywhere Word goes round the taverns of Rome: a Spanish scrivener, the one they called el Granadino, has been taken out of the Tiber below the Ponte Sisto. Drunk, they say, and fell in.
+end
+
+event morales-drowned-confessed
+  if player overheard-plot and player not recent:1.5 overheard-plot and player not morales-hidden and player not morales-dead and player not forger-free and player proof-confession and player not forgery-stopped
+  set player morales-dead=now
+  set player confession-lost
+  add player proofs -1
+  set player knows:rome:morales
+  news anywhere Word goes round the taverns of Rome: a Spanish scrivener, the one they called el Granadino, has been taken out of the Tiber below the Ponte Sisto. Drunk, they say, and fell in. His confession died with him: no cardinal will hear it now.
+end
+
+# once the forgery is stopped Don Luis has no reason to silence the scrivener (so that Morales
+# does not drown after the Commissary has stopped the paper); if he confessed, he goes home
+event morales-goes-home
+  if player forgery-stopped and player proof-confession and player not morales-dead and player not forger-free
+  set player forger-free
+  set player knows:rome:morales
+  news anywhere A note finds you, in a careful hand that could be anybody's: Andrés Morales is going home to Granada, on foot, and thanks you, and will not write again.
+end
+
+event forgery-laid
+  if player hearing and player not forgery-stopped and player not forgery-produced and player not recent:10 hearing and player not has:signed-injunction
+  set player forgery-produced
+  news anywhere Word from Rome: a minute of the year 1616, signed by Galileo himself, has been laid before the Congregation of the Holy Office. They say it is the end of him.
+end
+
+event forgery-laid-early
+  if player hearing and player told-riccardi and player not forgery-stopped and player not forgery-produced and player not recent:2 told-riccardi and player not has:signed-injunction
+  set player forgery-produced
+  news anywhere Word from Rome: a minute of the year 1616, signed by Galileo himself, has been laid before the Congregation of the Holy Office, sooner than anyone expected. They say it is the end of him.
+end
+
+# You took Don Luis's paper and kept it: he has had a second copy written,
+# from the first, whether or not the scrivener can still be found. Yours still condemns him, with a proof.
+event forgery-laid-copy
+  if player hearing and player not forgery-stopped and player not forgery-produced and player not recent:10 hearing and player has:signed-injunction
+  set player forgery-produced
+  news anywhere Word from Rome: a minute of the year 1616, signed by Galileo himself, has been laid before the Congregation of the Holy Office, though the one Don Luis gave you is still in your pack. He did not wait for you: he had another written. They say it is the end of Galileo.
+end
+
+event forgery-laid-copy-early
+  if player hearing and player told-riccardi and player not forgery-stopped and player not forgery-produced and player not recent:2 told-riccardi and player has:signed-injunction
+  set player forgery-produced
+  news anywhere Word from Rome: a minute of the year 1616, signed by Galileo himself, has been laid before the Congregation of the Holy Office, sooner than anyone expected, though the one Don Luis gave you is still in your pack. He did not wait for you: he had another written. They say it is the end of Galileo.
+end
+
+event sentence-called
+  if player hearing and player forgery-stopped and player not sentence-called and player not recent:4 hearing
+  set player sentence-called=now
+  set player knows:rome:niccolini
+  news anywhere A letter from Ambassador Niccolini: "The Holy Father will decide on the sixteenth of June. The sentence will be read at the Minerva on the twenty-second. Come to Rome, and stand at the back with me."
+end
+
+event sentence-called-bad
+  if player hearing and player forgery-produced and player not forgery-stopped and player not sentence-called and player not recent:4 hearing
+  set player sentence-called=now
+  set player knows:rome:niccolini
+  news anywhere A letter from Ambassador Niccolini: "The Holy Father will decide on the sixteenth of June. The sentence will be read at the Minerva on the twenty-second. I am afraid. Come to Rome."
+end
+
+# The sentence (data/scenes/trial-1633.txt): the examinations after the first, seen from the closet
+# (hide-ok), then the Minerva. It waits two hours after Niccolini's letter, so that the letter is read.
+event beat-sentence-history
+  if player sentence-called and player not recent:0.08 sentence-called and player town=Rome and player forgery-stopped and player favour >= 3 and player not ch3-over
+  card sentence
+  jump 1633-06-22 08:00 scenes:trial-1633
+  set player man-history
+  set player ch3-over=now
+  set player galileo-gone-rome
+end
+
+event beat-sentence-worse
+  if player sentence-called and player not recent:0.08 sentence-called and player town=Rome and player forgery-stopped and player favour < 3 and player not ch3-over
+  card sentence
+  jump 1633-06-22 08:00 scenes:trial-1633
+  set player man-worse
+  set player ch3-over=now
+end
+
+event beat-sentence-worst
+  if player sentence-called and player not recent:0.08 sentence-called and player town=Rome and player forgery-produced and player not forgery-stopped and player delivered-forgery and player not ch3-over
+  card sentence
+  jump 1633-06-22 08:00 scenes:trial-1633
+  set player man-worst
+  set player ch3-over=now
+  set player galileo-gone-rome
+end
+
+# A forgery laid by the clock (forgery-laid) or by Riccardi's alarm (forgery-laid-early), and not carried
+# to the Holy Office by you: laid but doubted. He is condemned, but not as a relapsed heretic; he is
+# kept in Rome (the man-worse branch: chapters IV and V follow).
+event beat-sentence-doubted
+  if player sentence-called and player not recent:0.08 sentence-called and player town=Rome and player forgery-produced and player not forgery-stopped and player not delivered-forgery and player not ch3-over
+  card sentence
+  jump 1633-06-22 08:00 scenes:trial-1633
+  set player man-worse
+  set player forgery-doubted
+  set player ch3-over=now
+end
+
+event ending-worst
+  if player man-worst and player not recent:0.03 ch3-over
+  set player scoring
+end
+
+# ---------------------------------------------------------------- the ending (data/ending.txt)
+# An event sets "scoring" (ending-worst above, or the last scene of chapter V); these decide the
+# book front, and then the ending is shown. Each happens once: the ending is shown once a game.
+# The Latin translation and the keepers are two goals, scored apart: the
+# translation alone puts the Latin into the ending (Diodati says in chapter IV that it is printed),
+# and seven keepers decide whether the Italian copies were many. Both: book-history; the Latin
+# with fewer keepers: book-latin; seven keepers and no Latin: book-kept; neither: book-worse, or
+# book-worst with fewer than two keepers.
+
+event score-book-history
+  if player scoring and player diodati-translation and player keepers >= 7
+  set player book-history
+end
+
+event score-book-latin
+  if player scoring and player diodati-translation and player keepers < 7
+  set player book-latin
+end
+
+event score-book-kept
+  if player scoring and player not diodati-translation and player keepers >= 7
+  set player book-kept
+end
+
+event score-book-worst
+  if player scoring and player not diodati-translation and player keepers < 2
+  set player book-worst
+end
+
+event score-book-worse
+  if player scoring and player not book-history and player not book-latin and player not book-kept and player not book-worst
+  set player book-worse
+end
+
+event show-ending
+  if player scoring
+  ending
+end
+
+# ---------------------------------------------------------------- the central plot, chapters IV and V
+# After the sentence the Dialogue is on the Index: forbidden at Venice, Padua, Seville and Granada
+# as well (Gallican France never published the decree). Two days after the sentence a letter calls
+# you: to Arcetri, where he is home (man-history), or to Rome, where he is kept (man-worse); the
+# months pass to December 1633. He needs his old notes from Padua; and Maria Celeste is dying:
+# carry his letter to her within five days of the chapter's opening (Ronconi says so through him),
+# for at Arcetri after that the months pass to her death (3 April 1634). With the notes delivered
+# and her death past, two days later the book is nearly finished: at Arcetri (or Rome) the months
+# pass to October 1636. The manuscript is contraband in Florence, Pisa, Rome, Venice and Padua; it
+# reaches Leiden by Louis Elzevir (Venice), Noailles (Rome) or your own hand; five days later it is
+# printed, and Abraham Elzevir has the first copy. Given to Galileo, the months pass to spring 1638
+# (his blindness, Milton's visit), and the ending follows. Seized at a gate, or sold to Arellano's
+# captain at Bologna, the manuscript is burned, and the ending follows a day later.
+
+event index-1633
+  if player ch3-over
+  forbid Venice dialogue | The Dialogue of Galileo Galilei is on the Index of Forbidden Books, and the Holy Office of Venice will have none of it.
+  forbid Padua dialogue | The Dialogue of Galileo Galilei is on the Index of Forbidden Books.
+  forbid Seville dialogue | The Holy Office of Seville seizes every copy of the Dialogue of Galileo Galilei, which is on the Index.
+  forbid Granada dialogue | The Holy Office of Granada seizes every copy of the Dialogue of Galileo Galilei, which is on the Index.
+end
+
+event ch4-call
+  if player man-history and player not ch4-called and player not recent:2 ch3-over
+  set player ch4-called
+  set player knows:arcetri:celeste
+  news anywhere A letter from Suor Maria Celeste: "They are letting him come home: confined to the house, but home. He asks for you. Come to Arcetri."
+end
+
+event ch4-call-worse
+  if player man-worse and player not ch4-called and player not recent:2 ch3-over
+  set player ch4-called
+  set player knows:rome:niccolini
+  news anywhere A letter from Ambassador Niccolini: "They will not let him go home. He is kept here, under guard, at the Holy Office's pleasure. He asks for you. Come to Rome."
+end
+
+event beat-arcetri
+  if player ch4-called and player man-history and player town=Arcetri and player not ch4-open
+  card ch4-arcetri
+  jump 1633-12-17 10:00 letter-1633-12
+  set player ch4-open=now
+  set player chapter=4
+  unset player galileo-away
+end
+
+event beat-rome-prison
+  if player ch4-called and player man-worse and player town=Rome and player not ch4-open
+  card ch4-rome
+  jump 1633-12-17 10:00 letter-1633-12-rome
+  set player ch4-open=now
+  set player chapter=4
+end
+
+event beat-celeste
+  if player ch4-open and player town=Arcetri and player not celeste-dead and player not recent:5 ch4-open and player not has:galileo-letter
+  card celeste
+  jump 1634-04-03 09:00 letter-1634-04
+  set player celeste-dead=now
+end
+
+# while you carry Galileo's letter to her she waits for it (most of all on the branch where he is
+# kept in Rome and you must come from there), but not for ever
+event beat-celeste-late
+  if player ch4-open and player town=Arcetri and player not celeste-dead and player not recent:20 ch4-open and player has:galileo-letter
+  card celeste
+  jump 1634-04-03 09:00 letter-1634-04
+  set player celeste-dead=now
+end
+
+event campanella-goes
+  if player campanella-free
+  travel rome:campanella Paris
+end
+
+event ch5-call
+  if player ch4-notes and player celeste-dead and player not ch5-called and player not recent:2 ch4-notes and player not recent:2 celeste-dead
+  set player ch5-called
+  news anywhere A note in a large, unsteady hand, Galileo's own: "The book is nearly done. Come when you can. G."
+end
+
+event beat-1636
+  if player ch5-called and player man-history and player town=Arcetri and player not ch5-open
+  card ch5
+  jump 1636-10-01 09:00 letter-1636
+  set player ch5-open=now
+  set player chapter=5
+end
+
+event beat-1636-rome
+  if player ch5-called and player man-worse and player town=Rome and player not ch5-open
+  card ch5
+  jump 1636-10-01 09:00 letter-1636
+  set player ch5-open=now
+  set player chapter=5
+end
+
+event manuscript-forbidden
+  if player ch5-open
+  forbid Florence manuscript | By order of the Holy Office, nothing written by Galileo Galilei may be printed, or carried out of Tuscany.
+  forbid Pisa manuscript | By order of the Holy Office, nothing written by Galileo Galilei may be printed, or carried out of Tuscany.
+  forbid Rome manuscript | By order of the Holy Office, nothing written by Galileo Galilei may be printed or carried.
+  forbid Venice manuscript | By order of the Holy Office, nothing written by Galileo Galilei may be printed or carried.
+  forbid Padua manuscript | By order of the Holy Office, nothing written by Galileo Galilei may be printed or carried.
+end
+
+event manuscript-lost-gate
+  if player seized:manuscript >= 1 and player not science-printed and player not science-seized
+  set player science-seized
+  set player science-seized-at=now
+  news anywhere The searchers have taken Galileo's manuscript. They say it was burned that evening in the cloister, with the week's books.
+end
+
+event manuscript-lost-sold
+  if player sold-route and player not science-seized
+  set player science-seized
+  set player science-seized-at=now
+  news anywhere Word comes from Bologna: a manuscript in an old man's hand was burned in the garden of the Spanish embassy at Rome.
+end
+
+event printed
+  if player manuscript-sent and player not science-printed and player not recent:5 manuscript-sent
+  set player science-printed
+  news anywhere A letter from Leiden: the Two New Sciences is printed, at the Elzevirs', and the first copy is waiting there for you.
+end
+
+event beat-last
+  if player last-scene and player not last-scene-done
+  card epilogue
+  jump 1638-06-01 10:00 letter-1638
+  set player last-scene-done=now
+end
+
+# the ending's pages straight after the epilogue's letter (the scene could otherwise be taken for the
+# end); a couple of minutes, so that the letter is read first (the clock stands while you read)
+event ending-final
+  if player last-scene-done and player not recent:0.002 last-scene-done
+  set player scoring
+end
+
+event ending-seized
+  if player science-seized and player not recent:1 science-seized-at
+  set player scoring
+end
+
+event keeper-katip
+  if constantinople:katip has:dialogue >= 1
+  set player keeper:katip
+  add player keepers 1
+end
+
+# ---------------------------------------------------------------- the art lover of the Louvre
+# Marguerite Bahuche: every colour in, the restoration can begin; her month from the
+# day you take up the errand (plot timing follows the player); and her death, gently, afterwards
+event bq-all-in
+  if player bq-blue and player bq-gold and player bq-varnish and player bq-gesso and player not bq-all
+  set player bq-all=now
+end
+
+event bahuche-dies-waiting
+  if player bq-asked and player not recent:30 bq-asked and player not bq-done and player not bahuche-dead
+  set player bahuche-dead
+  news anywhere A letter finds you, in a boy's careful hand: "Madame Bahuche died in her sleep on Sunday, and they have buried her at Charenton. She left me her colours and her stone, and said you would bring the rest, and I was to do it as she showed me. I am at the gallery every day. Charles Le Brun."
+end
+
+event bahuche-dies-after
+  if player bq-done and player not recent:4 bq-done and player not bahuche-dead
+  set player bahuche-dead
+  news Paris They say in Paris that Marguerite Bahuche, keeper of the King's pictures, has died in her lodging under the Grande Galerie, and has been buried at Charenton, with the Protestants.
+end
+
+# ---------------------------------------------------------------- one man in two towns' files
+# Galileo is in florence.txt (at Arcetri) and in rome.txt, and Senno, Wallenstein's astrologer, in prague.txt and
+# in zirndorf.txt (with the army): known by name in one, he is known by it in the other (a player who knew
+# Galileo at Arcetri would meet "a philosopher, the Grand Duke's" in Rome)
+event galileo-known-in-rome
+  if player knows:arcetri:galileo and player not knows:rome:galileo
+  set player knows:rome:galileo
+end
+event galileo-known-at-arcetri
+  if player knows:rome:galileo and player not knows:arcetri:galileo
+  set player knows:arcetri:galileo
+end
+event senno-known-at-zirndorf
+  if player knows:prague:senno and player not knows:zirndorf:senno
+  set player knows:zirndorf:senno
+end
+event senno-known-at-prague
+  if player knows:zirndorf:senno and player not knows:prague:senno
+  set player knows:prague:senno
+end

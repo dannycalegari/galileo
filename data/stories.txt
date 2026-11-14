@@ -1,0 +1,654 @@
+# The stories you are in, for the journal (key J).
+# A story appears once one of its steps holds; each step is shown while its conditions hold,
+# and "done" says how it ended. Conditions as in events.txt: "player KEY" (what you remember:
+# has:ITEM, skill:X, the flags the people's lines set), or "town:id KEY" (what a person
+# remembers), joined by "and"; "not" before a key.
+#
+#   story ID
+#     title TEXT
+#     main                            (part of the main story: first in the detailed journal while open)
+#     step if CONDITIONS: TEXT
+#     step well if CONDITIONS: TEXT   (or "step badly if": marked + or x in the detailed journal)
+#     done if CONDITIONS: TEXT        (several allowed, "done well if" and "done badly if" too:
+#   end                                the first whose conditions hold is how the story ended)
+#
+# The detailed journal (Tab in the journal, or chosen on the choosing screen; STORIES:detailed in
+# the typed commands) marks each story open or done, well or badly, and lists the newest first:
+# your memory keeps when each step was first shown (jnl:STORY:KEY, KEY a hash of its conditions,
+# so a step's words can be edited without losing its date).
+#
+# The program checks that every person named exists (stories.txt: ... no person called ...).
+
+# ---------------------------------------------------------------- the end (shown once the ending has been)
+# "top": first in the journal in both views, with no "(open)"; what became of them, in brief
+
+story the-end
+  title The end of the story
+  main
+  top
+  step if player ending-seen: Your part in Galileo's story is over. The roads are still open, and you may go on travelling and trading as you please.
+  step well if player ending-seen and player man-history: Galileo abjured, and was not burned, nor kept in a cell: he lived out his life at Arcetri.
+  step badly if player ending-seen and player man-worse: Galileo was kept under guard in Rome, and never went home.
+  step badly if player ending-seen and player man-worst: Galileo was condemned on a forged paper, and died in a cell of the Holy Office.
+  step well if player ending-seen and player book-history: The Dialogue was not burned: put into Latin, it went all over Europe.
+  step well if player ending-seen and player book-latin: The Dialogue was put into Latin, and went all over Europe; but few copies of the Italian were kept.
+  step badly if player ending-seen and player book-kept: The copies of the Dialogue were kept, but there was no Latin translation.
+  step badly if player ending-seen and player book-worse: Some copies of the Dialogue survived, read by a few; there was no Latin translation.
+  step badly if player ending-seen and player book-worst: The seizures succeeded, and the Dialogue was hardly seen again.
+  step well if player ending-seen and player science-printed: The Two New Sciences was printed at Leiden, in 1638.
+  step badly if player ending-seen and player science-seized: The Two New Sciences was seized on the road and burned.
+end
+
+# ---------------------------------------------------------------- the prologue
+
+story courier
+  title Mersenne's courier
+  main
+  step if player me:age and not player courier-met: You have come to Paris to be Father Mersenne's courier. He lives at the convent of the Minims, behind the east side of the Place Royale; anyone in Paris can tell you the way.
+  step if player courier-met and not player courier-hired: Father Mersenne, at the Minims, is trying you out.
+  step if player courier-hired: He has taken you on, at a courier's wage, with one rule: never open a letter.
+  step if player courier-hired and not player delivered-diodati: Your first errand: his letter to Elia Diodati, an advocate, at the Palais de la Cité on the island. Into his own hands.
+  step if player delivered-diodati and not player courier-coat: Diodati has his letter. Go back and tell Father Mersenne.
+  step if player courier-coat: He paid you your first wage, four sous, and gave you a courier's coat.
+  step if player courier-stationer and not player stationer-done: He gave you twelve sous for a quire of paper, a pot of ink and four quills, from Le Gras, the stationer by les Halles. What is left over is yours.
+  step if player stationer-done and not player slept-on-account: Supper and a bed tonight at the Pomme de Pin, outside the Porte Saint-Denis, on his account: tell Crenet he sent you.
+  step if player slept-on-account and not player day2-home: In the morning, go back to Father Mersenne.
+  step if player day2-home and not player saw-coat-mother: He has nothing for you until the post comes in from Holland. Go home to La Chapelle and show your mother you are alive.
+  step if player day2-home and player saw-coat-mother and not player courier-dutch: Your mother has seen you in the courier's coat. Go back to Father Mersenne: the post from Holland should be in.
+  step if player courier-dutch and not player dutch-done and player coin:dutch: He gave you six livres in Dutch guilders, to change into French money with the changers on the Pont au Change, the bridge from the Grand Châtelet to the island; they set out their tables at nine.
+  step if player courier-dutch and not player dutch-done and not player coin:dutch: Take the French money back to Father Mersenne.
+  step if player courier-lendit and not player heard-beadle and not player lendit-done: Old Bedeau, the University's beadle, at the Sorbonne, wants something from the Lendit fair at Saint-Denis. Ask him what.
+  step if player courier-lendit and player heard-beadle and not player gave-parchment and not player lendit-done: Three skins of parchment for Bedeau, from the parchment-maker by the market at Saint-Denis, beyond La Chapelle on the same road.
+  step if player courier-lendit and player gave-parchment and not player lendit-done: Bedeau has his parchment. Go back to Father Mersenne.
+  step if player courier-packet and not player posted-packet: A packet of his letters for the south, for the post: Crenet, at the Pomme de Pin, outside the Porte Saint-Denis.
+  step if player posted-packet and not player packet-done: The packet is in the post. Go back to Father Mersenne.
+  step if player courier-letters and not player posted-letters: Three letters of his, for the post: Crenet, at the Pomme de Pin.
+  step if player grey-asked and not player grey-took and not player grey-refused: A gentleman in grey at the Pomme de Pin, who says he serves the Cardinal, offers you a livre to let him read Father Mersenne's letters.
+  step badly if player grey-took: You took the Cardinal's man's livre.
+  step well if player grey-refused: You would not take the Cardinal's man's livre.
+  step if player posted-letters and not player letters-done: The letters are in the post. Go back to Father Mersenne.
+  step if player courier-thief and not player got-peiresc-letter: Brother Jean of the Minims had his purse cut at les Halles, with Father Mersenne's letter to Peiresc in it. The sergeant of the watch at les Halles has the purse.
+  step if player got-peiresc-letter and not player thief-done: Take the letter back to Father Mersenne.
+  step if player margot-asked and not player margot-agreed and not player margot-refused: Margot, a fishwife of les Halles, asks you to fetch her a sack of salt that never paid the gabelle, from Tessier at the Écu de France at Saint-Denis, past the searchers at the Porte Saint-Denis. Ten sous.
+  step if player margot-agreed and not player margot-sack: Margot's salt: Tessier, at the Écu de France at Saint-Denis. Say la Grise sent you.
+  step if player margot-sack and not player sold-salt and not player seized:salt: Margot's salt: under your coat, past the searchers at the Porte Saint-Denis, to les Halles. By day they look in everything; after dark they are fewer.
+  step badly if player margot-sack and player seized:salt and not player sold-salt: The searchers at the gate took Margot's salt off you.
+  step if player courier-reading and not player read-physics and not player reading-done and not player skill:latin: Read the seventh book of Aristotle's Physics in the Sorbonne's library, and its margins. It is in Latin: Martin Lebrun, at the Sorbonne, teaches Latin for five sous.
+  step if player courier-reading and not player read-physics and not player reading-done and player skill:latin: You have Latin now: read the Physics at the Sorbonne again, margins and all.
+  step if player courier-reading and not player saw:the-may and not player reading-done: Look at the goldsmiths' May, the great painting in Notre-Dame, and tell Father Mersenne what it shows.
+  step well if player courier-reading and player saw:the-may and not player reading-done: You have seen the goldsmiths' May, at Notre-Dame.
+  step if player courier-reading and player read-physics and player saw:the-may and not player reading-done: Tell Father Mersenne what you read and what you saw.
+  step if player dutch-done and not player courier-lendit: Father Mersenne has his French money. Ask him for his next errand.
+  step if player lendit-done and not player courier-packet: Father Mersenne knows Bedeau has his parchment. Ask him for his next errand.
+  step if player packet-done and not player courier-letters: The packet is on its way south. Ask Father Mersenne for his next errand.
+  step if player letters-done and not player courier-thief: His letters are in the post. Ask Father Mersenne for his next errand.
+  step if player thief-done and not player courier-reading: Father Mersenne has his letter back. Ask him for his next errand.
+  step if player reading-done and not player courier-censor and not player courier-florence: Father Mersenne has written down what you read and saw. Ask him for his next errand.
+  step if player courier-censor and not player censor-struck: Father Mersenne's book of Questions, in manuscript, for Doctor Grosbois at the Sorbonne: no book of religion may be printed in Paris until two doctors of the Faculty of Theology approve it. Give it into his hands, and wait while he reads.
+  step if player censor-struck and not player censor-done: Doctor Grosbois has struck out in red every page that asks whether the Earth moves, and Galileo's name with them. Take the book back to Father Mersenne.
+  step if player censor-done and not player courier-florence: Father Mersenne has his book back, and its red ink. He has one more errand for you, and it is the last.
+  done if player courier-florence: Father Mersenne has sent you south, to serve Galileo.
+end
+
+# ---------------------------------------------------------------- the main story, first in the journal
+# Between Mersenne's charge and Galileo's commission: the main
+# story is never off the page. The central plot's stories follow it here, before the errands.
+
+story service
+  title In Galileo's service
+  main
+  step if player courier-florence and not player gave-galileo-mersenne: Father Mersenne has given you to Galileo: "Do whatever he asks of you, as if I had asked it." His letter into Galileo's own hands, at Arcetri, outside the walls of Florence, by the post road south. Two copies of the Dialogue from Landini the printer, for Mersenne and for Diodati, to keep until Galileo sends you north.
+  step if player gave-galileo-mersenne and not player commission-ready and not player ch1-commission: Galileo has Father Mersenne's letter ("Father Mersenne's friends are mine"), and wants you near. Stay about Florence two or three days, see his daughter, Suor Maria Celeste, at the convent of San Matteo, and then go back to him at Il Gioiello.
+  step if player commission-ready and not player ch1-commission: Galileo has had a letter from Rome, and asks you to come to Arcetri.
+  done if player ch1-commission: Galileo has made you his messenger.
+end
+
+# ---------------------------------------------------------------- the central plot
+
+story book-north
+  title The book goes north
+  main
+  step if player ch1-commission: Galileo has made you his messenger. Rome will seize his Dialogue: you are to take the last bale of it from Landini's in Florence, get it out of Tuscany before the Inquisitor's men come, and put the copies into the hands of friends across Europe who will neither burn them nor give them up. His list of their names is in your pack. Castelli thinks the Inquisitor will move within a fortnight; sooner, once the bale has gone.
+  step if player ch1-commission and player landini-waits and not player has-bale: Landini will not give you the bale while the familiar of the Holy Office stands in his doorway: after six in the evening, he said.
+  step well if player ch1-commission and player has-bale and not player bale-late and not player seized:dialogue: You have Landini's bale: a dozen copies, wrapped in spoiled proofs.
+  step if player ch1-commission and player has-bale and not player bale-late and not player event:seizure and not player seized:dialogue: Be out of the gates of Florence before morning: when the familiar finds the bale gone, the Inquisitor's men will come.
+  step badly if player ch1-commission and player bale-late: The Inquisitor's men came first. Landini had kept four copies under his floor, and gave you those.
+  step if player ch1-commission and player event:seizure: The Inquisitor's men have taken every copy at Landini's. The Dialogue is forbidden now in Florence, Pisa and Rome, and the searchers at their gates look for it going in and coming out.
+  step badly if player ch1-commission and player seized:dialogue >= 1: Searchers have found copies of the Dialogue in your pack, and taken them.
+  step well if player ch1-commission and player hid-at-convent: Suor Maria Celeste keeps copies for you in the apothecary of San Matteo at Arcetri, behind the senna.
+  step if player ch1-commission and player gave-diodati-letter and not player diodati-translation: Elia Diodati, at the Palais in Paris, has read Galileo's letter: he would have the book put into Latin at Strasbourg, if he had a copy.
+  step well if player ch1-commission and player diodati-translation: Diodati has a copy, and Galileo's letter: it goes to Bernegger at Strasbourg, to be put into Latin for the whole of Europe.
+  step well if player ch1-commission and player keeper:mersenne: Father Mersenne keeps a copy at the Place Royale in Paris.
+  step well if player ch1-commission and player keeper:bodleian: The Bodleian Library at Oxford keeps a copy.
+  step well if player ch1-commission and player keeper:descartes and not amsterdam:descartes from-blaeu: Monsieur Descartes keeps one, at Amsterdam.
+  step well if player ch1-commission and player keeper:descartes and amsterdam:descartes from-blaeu: Monsieur Descartes keeps one, at Amsterdam: he bought it from Blaeu.
+  step well if player ch1-commission and player keeper:elzevir: The Elzevirs keep one at Leiden, against the day it must be printed again.
+  step well if player ch1-commission and player keeper:micanzio: Fra Fulgenzio Micanzio keeps one at the Servi in Venice.
+  step well if player ch1-commission and player keeper:frankfurt: The German students at Padua carry copies over the Brenner to the Frankfurt fair.
+  step well if player ch1-commission and player keeper:marci: Doctor Marci keeps one at Prague, between Kepler and Tycho.
+  step well if player ch1-commission and player keeper:tengnagel: The Imperial Library at Vienna keeps one.
+  step well if player ch1-commission and player keeper:brozek: Brożek keeps one at Cracow, in Copernicus's own university.
+  step well if player ch1-commission and player keeper:cruger: Master Crüger keeps one at Danzig.
+  step well if player ch1-commission and player keeper:gustavus: The King of Sweden keeps one, in his own baggage.
+  step well if player keeper:christina: Christina of Sweden keeps one, at Stockholm.
+  step if player ch1-commission and player heard-stockholm and not player keeper:christina: The King of Sweden's little daughter would keep one, at Tre Kronor in Stockholm, and she sends her father a letter by every ship. The King's post ship sails from Danzig.
+  step well if player keeper:katip: Katip Çelebi keeps one at Constantinople.
+  step badly if player ch1-commission and player sold-to-inquisitor >= 1: You sold copies to the Inquisitor of Florence, at a livre each. They were burned in the cloister of Santa Croce.
+  step badly if player ch1-commission and player informed-inquisitor: You told the Inquisitor of Florence about Landini's bale, and took ten livres for it.
+  step if player ch1-commission and player ch1-called and not player ch1-over: A letter from Suor Maria Celeste: her father begs you to come to Arcetri.
+  step if player ch1-commission and not player keepers >= 1: Seven keepers, Galileo's list says, and Rome cannot unprint the book. Any honest reader who will keep it counts, Diodati says, as far away as Stockholm or Constantinople.
+  step if player ch1-commission and player keepers >= 1 and not player keepers >= 7: Seven keepers, Galileo's list says, and Rome cannot unprint the book. Keepers so far: $[keepers]. Any honest reader who will keep it counts, Diodati says, as far away as Stockholm or Constantinople.
+  step well if player ch1-commission and player keepers >= 7: Seven keepers and more: Rome cannot unprint the book now.
+  done well if player ch1-commission and player ch1-over and player keepers >= 3: Galileo knows where his book has gone. In Rome, the Pope has named a commission to examine it.
+  done if player ch1-commission and player ch1-over: Galileo knows where his book has gone. In Rome, the Pope has named a commission to examine it.
+end
+
+story seville-letter
+  title A letter for Seville
+  main
+  step if player has-arellano-job: Don Luis de Arellano, a secretary of the Spanish embassy in Rome, gave you a sealed letter for his brother Don Rodrigo, a merchant of the Indies at the Lonja of Seville: twelve livres paid, and twelve more when it is delivered with its seal whole.
+  step if player opened-arellano-letter: You opened it.
+  step if player read-arellano-letter: It is about "the matter of the scrivener of Granada", and a boy to be kept kindly, and a paper still to be done.
+  step if player rodrigo-refused: Don Rodrigo would not take a letter that had been opened, and wrote to his brother.
+  step if player delivered-arellano-letter: A boy of Granada waits on Don Rodrigo, and would not meet your eye: Juanico, whose father is a scrivener in Rome.
+  done if player delivered-arellano-letter: Don Rodrigo has his brother's letter.
+end
+
+story summons
+  title The summons
+  main
+  step if player ch1-over and not player ch2-called: Galileo is waiting for word from Rome, and so are you: Suor Maria Celeste will write as soon as anything comes, in a day or two.
+  step if player ch2-called and not player ch2-open: Suor Maria Celeste writes that something has come from Rome for her father, and that the Father Inquisitor brought it himself. She asks you to come to Arcetri.
+  step if player ch2-open: The Holy Office has ordered Galileo to Rome, to present himself within the month. He is sixty-eight and ill, there is plague in Tuscany, and winter is coming over the Apennines. He will go, but not yet, if his friends can help it.
+  step if player ch2-open and not player ronconi-asked and not player ch2-certificate and not player ch2-over: Three physicians could swear that he is too ill to travel: Dottor Ronconi, at the Annunziata in Florence, is honest.
+  step if player ronconi-asked and not player ch2-certificate and not player ch2-over: Dottor Ronconi has promised a certificate, with two colleagues' seals beside his own; Galileo will give it to you, for Fra Clemente.
+  step if player ronconi-asked and not arcetri:galileo has-certificate and not player has:certificate and not player ch2-certificate and not player ch2-over: Ronconi goes up to Arcetri tomorrow. Until the three physicians have written it and sealed it, there is nothing to carry.
+  step if player ch2-open and not player ch2-certificate and not player ch2-answered and not player ch2-over: Rome's patience will not last: whatever is done, the Holy Office will answer within about twelve days of its order, and Suor Maria Celeste will write when it does. A physicians' certificate, sent on by Fra Clemente, would bring the answer within two.
+  step well if player ch2-certificate: Fra Clemente has sent the physicians' certificate to Rome.
+  step if player ch2-certificate and not player ch2-answered and not player ch2-over: The certificate is on its way to Rome, and the answer will be back in two days or so: Suor Maria Celeste will write when it comes.
+  step if player has-duke-letter-job and not player ch2-duke-letter: The Grand Duke gave you a letter for his ambassador Niccolini, at the Villa Medici in Rome.
+  step well if player ch2-duke-letter: Niccolini has the Grand Duke's letter, and will speak to the Pope.
+  step if player king-offer-taken: The King of Sweden, at Nuremberg, gave you a letter for Galileo: refuge at Stockholm.
+  step if player king-offer-burned: Galileo read the King's letter twice and burned it. In Rome it would be a rope.
+  step badly if player sold-king-offer: You sold the King of Sweden's letter to Don Luis de Arellano, of the Spanish embassy, for fifty livres.
+  step if player ch2-answered and not player ch2-over: Rome has answered: he must come, or be brought in chains. Suor Maria Celeste asks you to come to Arcetri before he goes.
+  done if player ch2-over: Galileo left Arcetri for Rome before dawn on 20 January 1633, in the Grand Duke's litter, with snow on the hills.
+end
+
+story trial
+  title The trial
+  main
+  step if player ch3-ready and not player ch3-open: Galileo has gone to Rome, to present himself to the Holy Office. Follow him there: Ambassador Niccolini will lodge him at the Villa Medici.
+  step if player ch3-open and not player hearing: Galileo is in Rome, lodged with Ambassador Niccolini at the Villa Medici, waiting for the Holy Office to call him.
+  step if player has:bellarmine-cert and not player cert-returned: He gave you Cardinal Bellarmine's certificate of 1616 to keep out of his searched room, until he is called to make his defence, after the first hearing.
+  step well if player cert-returned: You gave Bellarmine's certificate back to him, for his defence.
+  step badly if player sold-bellarmine: You sold Bellarmine's certificate to Don Luis de Arellano.
+  step if player heard-paper and not player forgery-stopped: In certain houses in Rome there is talk of a paper of the year sixteen, with Galileo's own name on it, that will settle everything.
+  step badly if player has:signed-injunction and not player forgery-produced and not player forgery-stopped: Don Luis gave you his "document of the year sixteen" for Fra Tommaso: Galileo's signature, which Galileo swears he never gave. Laid before the Congregation as it is, it condemns him; laid there with proof that it is false, it condemns Don Luis.
+  step if player shown-forgery and not player has-forgery-job and not player forgery-produced and not player forgery-stopped: Don Luis de Arellano, of the Spanish embassy, keeps a paper of the year sixteen in his strongbox at the Casa Arellano: Galileo's signature, under an injunction. He means it for Fra Tommaso Ventura at the Minerva.
+  step if player heard-paper and not player forgery-stopped and not player forgery-produced and player proofs < 1: Talk is not proof. To stop such a paper you would need proofs that a cardinal would believe: what a master of his trade will swear to about the paper or the hand, or the forger's own word.
+  step if player heard-morales and not player has-sheet: A Spanish scrivener, Andres "el Granadino", lodges at the Osteria dell'Orso, and was copying something for the embassy all winter. The maid there empties his basket.
+  step if player has-sheet and not player proof-hand: His wastepaper: a sheet of "Galileo Galilei" practised over and over, with a watermark. Whose paper, and whose hand? An expert would know: a papermaker can tell a mill by its watermark, and the whitest paper is Dutch; a painter, or a judge of paintings, can tell a hand. Cassiano dal Pozzo, Cardinal Barberini's secretary at the Palazzo Barberini, knows every painter worth knowing.
+  step if player blaeu-watermark and not player proof-paper: Blaeu says the paper is Dutch, from a new mill at Haarlem.
+  step well if player proof-paper: The papermaker at Haarlem: the mould was made in 1622. The paper cannot be older.
+  step if player heard-pacheco and not player proof-hand: Cassiano dal Pozzo says the man to read a forger's hand is Francisco Pacheco, painter, and censor of pictures for the Holy Office, at Seville.
+  step well if player proof-hand: The hand is Andres Morales's, of Granada, who once cut letters for the Lead Books of the Sacromonte.
+  step if player pacheco-knows and not player juanico-free: His son Juanico is kept as a page in Don Rodrigo de Arellano's house at Seville, so that his father will do as he is told.
+  step if player bandolero-help and not player juanico-free: Hamete has promised: tomorrow night Juanico will be out of Don Rodrigo's house and on the road to his mother at Granada. A muleteer from Granada will bring you the boy's note, a day or so after.
+  step well if player juanico-free: Juanico is free, and on his way home to his mother in Granada, and he wrote a note for his father.
+  step well if player proof-confession: Andres Morales has confessed: Don Luis de Arellano paid him to forge the injunction, with Galileo's signature acknowledging it.
+  step well if player proof-commission: You have seen it in Arellano's own words: the paper "made at small cost", to be found in time.
+  step if player ch3-open and not player hearing and not player hearing-due: The first hearing will not wait for ever: a month at most, Castelli says.
+  step if player hearing-warned and not player hearing and not player hide-ok: Niccolini writes that the first examination is the day after tomorrow. Nobody may watch it, he says.
+  step if player hearing-due and not player hearing: Niccolini writes that the Holy Office will call Galileo before the Commissary within the week, whatever is found or not found.
+  step if player hearing and not player told-riccardi and not player forgery-stopped and not player forgery-produced: The first hearing is over. Within ten days the paper is to be laid before the Congregation: before then the proofs must be in the right hands (two proofs for the Commissary, Cardinal Barberini or the Holy Father; one may move Fra Tommaso).
+  step if player hearing and player told-riccardi and not player forgery-stopped and not player forgery-produced: You told Father Riccardi, and he ran to the Spaniards: Don Luis will not wait ten days now. The paper goes before the Congregation at the first chance, in a day or two, and the proofs must be in the right hands before it does (two proofs for the Commissary, Cardinal Barberini or the Holy Father; one may move Fra Tommaso).
+  step well if player forgery-stopped: The forgery will never be seen: it has been stopped.
+  step if player hearing and player forgery-stopped and not player sentence-called and not player ch3-over: The forgery is stopped, and the Holy Father has the case. Niccolini will write when the day of the sentence is fixed, not before four days have passed since the first hearing. Until then, every voice that will speak for Galileo still counts.
+  step if player hearing and player forgery-produced and not player forgery-stopped and not player sentence-called and not player ch3-over: The forged paper is before the Congregation. Niccolini will write when the day of the sentence is fixed, four days after the first hearing at the soonest.
+  step well if player arellano-exposed: Don Luis de Arellano has been sent home to Madrid.
+  step badly if player forgery-produced and not player forgery-stopped: The forged paper has been laid before the Congregation of the Holy Office.
+  step if player audience-granted and not player pope-met: His Holiness will see you, at the Quirinal.
+  step if player pope-met: You have spoken with the Pope.
+  step badly if player told-riccardi: You told Father Riccardi, and he went straight to a Spanish secretary.
+  step if player papers-given and not player papers-cleared: Suor Maria Celeste gave you a bundle of her father's papers, letters from Kepler and Sarpi, for Signor Geri Bocchineri at the Palazzo Vecchio in Florence.
+  step well if player papers-cleared: Signor Geri burned Galileo's papers before the Inquisitor could search the house.
+  step if player sentence-called and not player ch3-over: The sentence will be read at the Minerva on 22 June. Ambassador Niccolini asks you to come to Rome.
+  step well if player man-history: On 22 June 1633, at Santa Maria sopra Minerva, Galileo abjured, on his knees; he was sentenced to imprisonment at the Holy Office's pleasure, and sent to the Archbishop of Siena, and then home.
+  step badly if player forgery-doubted: On 22 June 1633 Galileo abjured at the Minerva. The forged paper was laid, and doubted: not a relapsed heretic, then, but condemned all the same, and kept under guard in Rome.
+  step badly if player man-worse and not player forgery-doubted: On 22 June 1633 Galileo abjured at the Minerva; but too few voices spoke for him, and he is kept under guard in Rome.
+  step badly if player man-worst: On 22 June 1633 Galileo was condemned at the Minerva as a relapsed heretic, on a forged paper, to perpetual prison in the Holy Office's cells.
+  done well if player man-history: The trial is over.
+  done badly if player man-worse: The trial is over.
+  done badly if player man-worst: The trial is over.
+  done if player ch3-over: The trial is over.
+end
+
+story examinations
+  title The examinations
+  main
+  step if player heard-bartolomeo and not player bart-errand: Nobody may watch Galileo's examinations, Niccolini says, not even an ambassador. But Fra Bartolomeo, a Florentine lay brother at the Holy Office, by St Peter's, tells more than he should.
+  step if player bart-errand and not player lisabetta-blessed: Fra Bartolomeo keeps his brooms in a closet behind the Commissary's room, with a grille in its door. He may forget to lock it, if you carry his wages to his mother, Mona Lisabetta, in Trastevere by Santa Maria, and bring him back her blessing.
+  step if player lisabetta-blessed and not player hide-ok: Mona Lisabetta has her son's wages, and sends him her blessing (and the cat has had kittens). Go back and tell Fra Bartolomeo.
+  step if player hide-ok and not player hearing and not player hearing-warned: Fra Bartolomeo's closet is the little door on the left of the Commissary's room. When they send for Galileo, you will be in it.
+  step if player hide-ok and not player hearing and player hearing-warned: Niccolini writes that they will call Galileo before the Commissary the day after tomorrow. Be in Fra Bartolomeo's closet before they come in: the little door on the left of the Commissary's room, in the palace of the Holy Office.
+  step if player hearing-seen: Through the grille you watched Galileo's first examination, on 12 April 1633. He did not remember being told not to teach the opinion "in any way whatever".
+  step if player overheard-plot and not player morales-hidden and not player morales-dead and not player forger-free: Afterwards Don Luis de Arellano came to the notary, Ser Lelio. Tomorrow night at ten, when the Orso shuts, two of his men are to walk Andres Morales down to the river and drown him. Warn him; Mona Lisabetta would hide a man her son trusts.
+  step well if player morales-hidden: You warned Morales, and he is hidden in Mona Lisabetta's kitchen in Trastevere.
+  step badly if player morales-dead: Andres Morales was taken out of the Tiber below the Ponte Sisto. Drunk, they say, and fell in.
+  step badly if player confession-lost: His confession died with him.
+  step if player hearing-seen and player ch3-over: From the closet you saw the examinations of 30 April, 10 May and 21 June as well; and on 22 June you stood at the back of the Minerva with Niccolini.
+  done if player ch3-over: The examinations are over.
+end
+
+story arcetri
+  title The prisoner of Arcetri
+  main
+  step if player man-history and not player ch4-called: The sentence is read, and he is to go home: confined to his house, but home. Suor Maria Celeste will write in a day or two to say when he may come, and to ask for you.
+  step if player man-worse and not player ch4-called: The sentence is read, and he is to be kept in Rome, under guard, at the Holy Office's pleasure. Niccolini will write in a day or two: Galileo has asked for you.
+  step if player ch4-called and player man-history and not player ch4-open: Suor Maria Celeste writes that they are letting him come home: confined to the house, but home. He asks for you, at Arcetri.
+  step if player ch4-called and player man-worse and not player ch4-open: Niccolini writes that they will not let him go home: he is kept in Rome, under guard, at the Holy Office's pleasure. He asks for you, in Rome.
+  step if player ch4-open and not player ch4-briefed and not player celeste-dead: Galileo has sent for you, and you should not be slow: Ronconi writes that Suor Maria Celeste, at San Matteo, is failing, and may have only days.
+  step well if player ch4-open and player man-history: Galileo is home at Il Gioiello: confined to the house and the garden, forbidden company, watched by Fra Clemente's man at the gate.
+  step if player ch4-open and not player ch4-briefed and player celeste-dead: Galileo has sent for you, and is waiting for you.
+  step badly if player ch4-open and player man-worse: Galileo is kept under guard at the Villa Medici in Rome, at the Holy Office's pleasure.
+  step if player ch4-briefed and not player ch4-notes: He is writing again, the book of his life, on motion and the strength of things; he needs his old notes on motion, from before 1610, from the house where he lived at Padua.
+  step well if player has:padua-notes and not player ch4-notes: Madonna Zuana Busetto gave you his old notes, from the attic at Padua.
+  step well if player ch4-notes: He has his notes, and he is finishing the book.
+  step if player ch4-notes and player man-history and not player celeste-dead: Suor Maria Celeste is failing at San Matteo. He would have you near him at Arcetri in these last days, and he may have something for her.
+  step if player ch4-notes and player celeste-dead and not player ch5-called: He has his notes from Padua; Suor Maria Celeste is dead, and he is finishing the book alone. He will send a note when it is nearly done, in a day or two.
+  step if player ch5-called and not player ch5-open: A note in Galileo's large, unsteady hand: "The book is nearly done. Come when you can."
+  step if player man-worse and player ch4-briefed and not player has:galileo-letter and not player celeste-letter and not player celeste-dead: Galileo's daughter, Suor Maria Celeste, is ill at San Matteo, in Arcetri, and the Holy Office will not let him go to her.
+  step if player has:galileo-letter and not player celeste-letter and not player celeste-dead: Suor Maria Celeste is dying; Ronconi says it may be only days. Galileo gave you a letter for her, at San Matteo in Arcetri.
+  step well if player celeste-letter: You gave her her father's letter. "The best of his works," she said.
+  step if player celeste-dead: Suor Maria Celeste died on 2 April 1634, aged thirty-three.
+  step if player campanella-asked and not player campanella-free: Campanella must get out of Rome before the Spaniards take him back to Naples; the French ambassador, Monsieur de Noailles, at the Trinità dei Monti, would help.
+  step well if player campanella-free: Campanella got out of Rome in a Minim's habit, in the French ambassador's carriage, for Paris.
+  step if player descartes-told and not player descartes-kept: Descartes, in Amsterdam, means to burn his book Le Monde, now that Galileo is condemned.
+  step well if player descartes-kept: Descartes has put Le Monde in a drawer, instead of the fire.
+  done if player ch5-open: The book is nearly finished.
+end
+
+story sciences
+  title Two New Sciences
+  main
+  step if player ch5-briefed: The Two New Sciences is finished. Galileo may print nothing, so it must go to the Elzevirs at Leiden: by Louis Elzevir, at the Locanda della Luna in Venice; by Monsieur de Noailles, at the Trinità dei Monti in Rome; or by your own hand. There is one fair copy, and his eyes are going.
+  step if player has:manuscript: You carry the manuscript. It is contraband in Florence, Pisa, Rome, Venice and Padua, and the searchers there look for it, going in and coming out.
+  step if player capitano-met and not player capitano-pass and not player sold-route: At the post house at Bologna, a captain of banditi paid by a Spaniard is waiting for a certain manuscript.
+  step well if player capitano-pass: The captain at Bologna let you pass: his father made Galileo's spyglass tubes.
+  step well if player via-louis: Louis Elzevir took it, to sail from Venice for Amsterdam.
+  step well if player via-noailles: Monsieur de Noailles took it in his own baggage, for Paris, Diodati and Leiden.
+  step well if player via-leiden: You put it into Abraham Elzevir's hands at Leiden yourself.
+  step if player manuscript-sent and not player science-printed and not player science-seized: The manuscript has gone to the Elzevirs, and the press at Leiden is at work. A letter will come from Leiden when the book is printed, in five days or so.
+  step well if player science-printed and not player has-printed-copy: It is printed at Leiden: the first copy waits for you at the Elzevirs'.
+  step well if player has:two-new-sciences: You have the first printed copy, for Galileo.
+  step if player has:longitude-tables: Galileo gave you his tables of Jupiter's moons, for finding the longitude at sea, for the States of Holland: Blaeu, at Amsterdam, is one of their judges.
+  step well if player longitude-delivered: Blaeu has the tables, for the States General.
+  step badly if player science-seized: The manuscript was taken, and burned. Galileo cannot write it again.
+  done well if player last-scene: Galileo held the Two New Sciences in his hands at Arcetri, in the spring of 1638. He could not see it.
+  done badly if player science-seized and not player science-printed: The manuscript is lost, and the Two New Sciences will never be printed.
+end
+
+
+story cow
+  title A cow for the byre
+  step if player heard-cow-wish and not player cow:bought: Your mother says a good milch cow costs twenty livres, at the cattle market at Poissy, on the road west of Paris. A fortune, for a courier.
+  step if player cow:bought and not player cow-home: You have bought a cow at Poissy. Lead her home to La Chapelle, on the Saint-Denis road, north of Paris.
+  step if player cow-home and not player cow-named: She is home. Your mother wants to give her a name.
+  done if player cow-named: The byre at La Chapelle is full again, and your mother carries the milk into Paris every morning.
+end
+
+story queen
+  title The queen in the gallery
+  step if player saw-bq-damage and not player bq-asked: In the gallery of the kings at the Louvre, an old woman in black sits before a portrait of the Queen Mother whose face someone has burned with a candle.
+  step if player bq-asked and not player bahuche-dead: Marguerite Bahuche, keeper of the King's pictures, painted that queen, and can mend her, but she has a month at most.
+  step if player bq-asked and not player bq-blue and not player bq-done: Ultramarine, from Zorzi Bon, the colour-seller under the Rialto at Venice.
+  step if player bq-asked and not player bq-gold and not player bq-done: Gold leaf, from the goldbeaters on the Ponte Vecchio at Florence.
+  step if player bq-asked and not player bq-varnish and not player bq-done: A varnish: mastic of Chios, from the Grand Bazaar at Constantinople, or amber, from the merchants of Danzig.
+  step if player bq-asked and not player bq-gesso and not player bq-done: Glue and chalk, from a stationer in Paris.
+  step if player bq-all and not player bq-done and not player bahuche-dead: She has everything she needs. Go back to her at the Louvre.
+  step if player bahuche-dead and not player bq-done: She is dead. The boy, Charles Le Brun, has her colours, and will do it as she showed him: bring him what is still wanting, at the gallery.
+  step if player heard-grey-candle and not player bq-done: The boy saw who held the candle: a gentleman in grey, with very clean hands.
+  step if player bq-done and not player leda-restored and player bq-leda-asked and not player bahuche-dead: She would mend the Leda too, Leonardo's, whose boards have split, if Nicolas Dupuis, the King's joiner under the Grande Galerie, would key them together.
+  done if player queen-restored: The queen in the gallery of the kings has her face again. Iron-gall ink turns brown with the years: a paper "sixteen years old" with black ink is a lie.
+end
+
+story post
+  title The post
+  step if player has:post-packet: You carry a packet of the post, for $[post:to]. Give it to an innkeeper there: in good time, and you are paid in full; late, half. Only the time on the road counts, not the time in the towns.
+  step if player has:post-packet and player post:far: It is too far to walk in time: on a horse you will be there with time to spare. Any innkeeper on the road hires one out.
+  step if player post:delivered and not player has:post-packet: Packets of the post you have carried: $[post:delivered]. Any innkeeper on a post road has another.
+end
+
+# ---------------------------------------------------------------- the Dialogue, and Rome
+
+story dialogue
+  title Galileo's Dialogue
+  step if player heard-dialogue and not paris:mersenne has-dialogue: Galileo has printed a Dialogue on the two chief systems of the world, at Florence; nobody in Paris has a copy.
+  step if player heard-mersenne-wants: Father Mersenne, at the Place Royale in Paris, would give a great deal for one.
+  step if paris:martin seek-dialogue: Martin Lebrun has gone to London, to the booksellers of Paul's Churchyard, to find him one.
+  step if player has:dialogue and not paris:mersenne has-dialogue: You carry the Dialogue.
+  step if player read-dialogue: You have read it, in Tuscan.
+  step if player sold-descartes: You sold a copy to Descartes, in Amsterdam.
+  step if player sold-chiaramonti: You sold a copy to Chiaramonti at Pisa, who found what it says of him and is writing a reply.
+  done if paris:mersenne has-dialogue: A copy has reached Paris, and Father Mersenne is reading it.
+end
+
+story rome
+  title Trouble in Rome
+  step if player heard-scheiner: Father Scheiner, the Jesuit, says the Dialogue mocks the Holy Father, and was licensed by a trick.
+  step if player heard-riccardi: Father Riccardi, who licensed it, is afraid, and thinks he must stop the sale.
+  step if player heard-simplicio: In Rome they ask who Simplicio is, the fool who speaks at the end with the Pope's own words.
+  step if player heard-micanzio: Fra Fulgenzio Micanzio says Venice would shelter Galileo, if Rome makes trouble.
+end
+
+story castelli
+  title Castelli's letter
+  step if player heard-castelli: Benedetto Castelli, in Rome, is worried for his master.
+  step if player carried-castelli-letter and not player commission-ready: He gave you a letter for Galileo, at Arcetri outside Florence, to put into his own hands.
+  done if player warned-galileo: Galileo has read Castelli's letter.
+  done if player commission-ready and player carried-castelli-letter: Castelli's news reached Galileo by the post before his letter did. The letter in your pack tells him nothing he does not know.
+  done if player commission-ready: Galileo has had Castelli's news, by the post.
+end
+
+# ---------------------------------------------------------------- Paris and Saint-Denis
+
+story strings
+  title Lydia's lute
+  step if paris:lydia asked:lute: Lydia Morel has broken a string of her lute, and there is no good gut string to be had in Paris.
+  step if player heard-strings: Antonio, by les Halles, has strings from Rome.
+  done if paris:lydia has-string: Lydia's lute sings again; she plays at the Pomme de Pin of an evening.
+end
+
+story fermat
+  title Fermat's Diophantus
+  step if player borrowed-diophantus: Pierre de Fermat lent you his Diophantus.
+  step if player read-margin: You read the note he wrote in its margin.
+  done if player returned-diophantus: You gave Fermat his book back.
+end
+
+story parchment
+  title The beadle's parchment
+  step if player heard-beadle: The University's beadle, Bedeau, needs parchment, from the Lendit fair at Saint-Denis.
+  step if player has:parchment: You have parchment.
+  done if player gave-parchment: The beadle has his parchment.
+end
+
+# ---------------------------------------------------------------- across towns
+
+story spyglass
+  title A spyglass of your own
+  step if player carried-citron: Suor Maria Celeste gave you candied citron for her father, who forgets to eat.
+  step if player gave-citron: For it Galileo showed you how to grind a lens.
+  step if player skill:optics and not player has:lens and not player has:spyglass and not player sold-spyglass and not player saw-moons: You know optics: good glass comes from the glassworks of the Barovier, on Murano (the boat goes from the Fondamenta Nuove, at Venice), and a map-seller would have a tube: Blaeu, the map-maker at Amsterdam, rolls his maps in them.
+  step if player has:glass-blank: You have a disc of Murano cristallo.
+  step if player has:lens: You have a lens.
+  step if player has:spyglass: You have made a spyglass.
+  step if player sold-spyglass: The Doge bought your spyglass, as the Senate once bought Galileo's.
+  done if player saw-moons: You have seen the four moons of Jupiter with your own eyes.
+end
+
+story postman
+  title Letters between Paris and Amsterdam
+  step if player carried-mersenne-letter: Father Mersenne gave you a letter for Monsieur Descartes, in Amsterdam.
+  step if player has:descartes-letter: Descartes gave you his answer, for Mersenne.
+  done if player postman: Mersenne has Descartes's rainbow.
+end
+
+story harvey
+  title Harvey's book
+  step if player carried-harvey-book: William Harvey gave you his book on the motion of the heart, for Descartes.
+  step if player showed-vesling: Vesling read it at Padua, where Harvey studied, and was angry he had not thought of it himself.
+  done if player gave-harvey: Descartes has Harvey's book, and is arguing with it.
+end
+
+story ultramarine
+  title Blue for Rembrandt
+  step if amsterdam:rembrandt asked:blue: Rembrandt has no blue worth the name.
+  step if player has:ultramarine: You have ultramarine, from Zorzi Bon under the Rialto.
+  done if player gave-rembrandt: Rembrandt has his ultramarine, and gave you a drawing.
+end
+
+story pappus
+  title Pappus's problem
+  step if player carried-pappus: Golius, at Leiden, gave you a problem of Pappus that nobody has solved, for Descartes.
+  step if player descartes-pappus: Descartes solved it in a night, with letters for the lines.
+  done if player skill:geometry: Golius has Descartes's answer: a new geometry.
+end
+
+story mother
+  title A letter from Leiden
+  step if player carried-mother-letter: Neeltgen, Rembrandt's mother, gave you a letter for her son in Amsterdam.
+  done if player gave-mother-letter: Rembrandt has his mother's letter.
+end
+
+story stone
+  title The light of the Moon
+  step if player heard-earthshine: Galileo says the grey light on the dark of the new Moon is the Earth's light, sent back; Liceti at Padua thinks otherwise.
+  step if player has-stone-from-liceti: Liceti gave you a stone of Bologna, to look at in the dark.
+  done if player saw-stone-glow: You have seen the stone glow in the dark. Who is right?
+end
+
+story coffee
+  title Kahve for the gardens
+  step if player has:coffee-beans: You have green coffee beans, from Mehmed Çelebi at the Fondaco dei Turchi in Venice.
+  step if player gave-coffee-padua: Alpino Alpini has planted his in the Orto botanico at Padua.
+  step if player gave-coffee-pisa: The keeper of the garden at Pisa has planted his, and is not to tell Alpini.
+  done if player gave-coffee-padua and player gave-coffee-pisa: Both gardens have their kahve, and each thinks it is the first.
+end
+
+# ---------------------------------------------------------------- one town each
+
+story verse
+  title A verse for Pasquino
+  step if player has-verse-job: Ottavio Grilli, a writer of the Chancery, wants a verse pasted on Pasquino, by night.
+  step if player pasted-verse: You pasted it up. Next day all Rome was quoting it.
+  done if rome:ottavio paid-verse: Ottavio has paid you, and no longer knows your face.
+end
+
+story tower
+  title Two balls from the tower
+  step if player has:cannonball: You have a cannonball, from the gunner of the galleys at Pisa.
+  done if player dropped-balls: You dropped a cannonball and a musket ball together from the Leaning Tower, and they struck the ground together.
+end
+
+story debtor
+  title The Stone of Shame
+  step if padua:debtor asked:debt: Iseppo Zennaro must sit on the black stone in the Salone at Padua, in his shirt, unless someone pays his five livres.
+  done if player paid-zennaro: You paid his debt, and he gave you Galileo's own compass.
+end
+
+story hals
+  title Frans Hals's bill
+  step if haarlem:lionhost asked:hals: Frans Hals owes the Golden Lion at Haarlem four livres in beer.
+  done if player paid-hals: You paid it. Look for yourself in his next painting.
+end
+
+story tulip
+  title A bulb of Clusius's
+  step if player has:tulip-bulb: You have a tulip bulb from the Hortus at Leiden, worth as much as a horse.
+  done if player gave-tulip: You sold it to Barent Cardoes, the florist of Haarlem, for twenty livres.
+end
+
+# ---------------------------------------------------------------- what you have seen
+
+story sights
+  title Sights and wonders
+  step if player saw-treasury: The treasury of Saint-Denis: Joyeuse, and the chessmen of Charlemagne.
+  step if player read-old-map: An old map of Europe in squares, on Willem Blaeu's table.
+  step if player saw-theatre: The curiosities of the anatomy theatre at Leiden.
+  step if player paid-bidello: The chair of Galileo, in the Bo at Padua.
+  step if player lens-from-padua: Galileo's old house at Padua, and a lens his workman left.
+  step if player read-shrew: An English student reading "The Taming of the Shrew" at Padua, doing all the voices.
+end
+
+# ---------------------------------------------------------------- Constantinople
+
+story katip-atlas
+  title An atlas for Katip Çelebi
+  step if constantinople:katip asked:maps: Katip Çelebi, a clerk of the army at Constantinople, longs to see the new maps of the Franks, printed at Amsterdam by Blaeu.
+  step if player has:atlas: You have Blaeu's atlas, bought in Amsterdam.
+  done if player gave-atlas: Katip Çelebi has his atlas, and has sworn to put the world into Turkish.
+end
+
+story lucaris
+  title The Patriarch's letter
+  step if player carried-lucaris-letter: Cyril Lucaris, the Patriarch, gave you a letter for the Dutch ambassador at Pera, to be put into no other hands.
+  done if player gave-lucaris-letter: Cornelis Haga has read the Patriarch's letter, and burned it.
+end
+
+# ---------------------------------------------------------------- Oxford and Cambridge
+
+story bodleian
+  title A Dialogue for the Bodleian
+  step if oxford:rouse asked:galileo: John Rouse, Bodley's Librarian at Oxford, would give a great deal for Galileo's Dialogue; the booksellers of London have none.
+  step if oxford:bainbridge has:dialogue: Dr Bainbridge has your copy, and means to give it to the Library when he has read it twice.
+  done if oxford:rouse has:dialogue: The Dialogue is chained in the Arts End of the Bodleian.
+end
+
+story bodleian-reader
+  title A reader of the Bodleian
+  step if player heard-reader-rule: The books of the Bodleian are upstairs, in Duke Humfrey's Library, and John Rouse lets nobody up but graduates of the University and strangers with a letter from one of its Doctors.
+  step if player heard-bainbridge-letter: Dr Bainbridge of Merton, the Savilian Professor of Astronomy, would write you a letter, for Galileo's Dialogue or a good spyglass.
+  step if player has:bainbridge-letter: You have Dr Bainbridge's letter for John Rouse.
+  done if player reader-bodleian: You have sworn the readers' oath, and may read in Duke Humfrey's Library while the light lasts.
+end
+
+story harriot
+  title Spots on the Sun
+  step if player read-harriot: Among Sir Henry Savile's papers in the Bodleian you found Thomas Harriot's: the Moon drawn through a glass in July 1609, before Galileo's Starry Messenger, and spots on the Sun on 8 December 1610, before Galileo or Father Scheiner saw them. Galileo and Scheiner have quarrelled for twenty years over who saw them first.
+  step if player told-galileo-harriot: You told Galileo, at Arcetri. He laughed until he coughed.
+  step if player told-scheiner-harriot: You told Father Scheiner, in Rome. He went to pray.
+  done if player told-galileo-harriot and player told-scheiner-harriot: Galileo and Scheiner both know now that neither of them was first.
+end
+
+story milton-folio
+  title An epitaph without a name
+  step if player has:second-folio and player knows:cambridge:milton: Young Milton of Christ's at Cambridge once wrote verses on Shakespeare, and heard nothing more of them.
+  done if player showed-milton: You showed Milton his verses, printed without his name in the Second Folio.
+end
+
+# ---------------------------------------------------------------- merchant stories
+
+story scarlet
+  title Scarlet for the cardinals
+  step if player heard-scarlet: Giacomo Lanzi, a dyer of Trastevere in Rome, wants six pouches of cochineal within a fortnight, to dye Cardinal Barberini's new robes for the consistory, and will pay seven livres the pouch. It comes from the Indies, by Seville.
+  step if rome:tintore bags-scarlet >= 1 and not player scarlet-done: You have brought him some of it; he wants six in all.
+  step if player heard-scarlet and player late-scarlet and not player scarlet-done: The consistory came, and the robes were dyed with kermes after all.
+  done if player scarlet-done: Cardinal Barberini's robes are dyed with your cochineal.
+end
+
+story hoop
+  title A part in the Hoop
+  step if player heard-hoop: Arent Groen of the Amsterdam Exchange sells sixty-fourth parts of the fluyt de Hoop, loading for Danzig to bring home rye: twelve livres a part, twenty if she comes home.
+  step if player bought-share: You own a sixty-fourth part of the Hoop.
+  step if player bought-share and player event:hoop-sails and not player event:hoop-home: She has sailed for Danzig. She should be home in a fortnight.
+  step if player bought-share and player failed:hoop-home: She was lost in a gale off the Skaw, with all hands, and your twelve livres with her.
+  step if player paid-hoop: She came home with rye, and your part paid twenty livres.
+  done if player hoop-over: The voyage of the Hoop is over.
+end
+
+story siege
+  title The siege of Nuremberg
+  step if player heard-siege: The King of Sweden's army is camped round Nuremberg, behind its lines, and Wallenstein is coming from Bohemia with a greater one; the city's grain master buys rye and salt at any price.
+  step if player scouting and player not event:wallenstein-comes: Robert Monro, a Scots officer of the King's, has asked you to ride out to Zirndorf, west of the city, and see whether Wallenstein has come to the ridge by the Alte Veste.
+  step if player event:wallenstein-comes: You watched Wallenstein's army come to the ridge at Zirndorf and dig in.
+  step if player reported-wallenstein: You told Monro; the King knows.
+  step if player reported-wallenstein and player not heard-weak-north and player not storming-set and player not event:siege-ends: Monro wants to know where the Duke's camp is weak: if the King knew, he could take it in a morning and end the siege. Senno, the Duke's astrologer, is at the farm under the Alte Veste at Zirndorf, and they say he cannot hold his wine.
+  step if player event:nuremberg-hunger: Hunger in the city, typhus in both camps; rye has never been so dear.
+  step if player heard-weak-north and player not gave-false-report and player not warned-monro: Senno, the Duke's astrologer, let slip that the north end of the ridge, by the old castle, is weakly held.
+  step if player sent-to-look and player not saw-north-guns and player not storming-set: Monro asked whether you had seen it with your own eyes. He wants you to look inside the ruin of the Alte Veste before he takes it to the King.
+  step if player heard-gretl-guns and player not saw-north-guns and player not storming-set: A child of Zirndorf says the soldiers have put their big guns in the castle, under branches.
+  step if player saw-north-guns: In the ruin of the Alte Veste you saw the Duke's guns under the brushwood. The north end of the ridge is not weak at all.
+  step if player sold-north and player not storming-set: The Duke of Friedland will pay you thirty livres to tell Monro the astrologer's story, and swear that you saw it.
+  step well if player warned-monro and player not event:assault-over: You told Monro what you saw. The King will not listen: he storms the Alte Veste on $[date:report-at+2], at first light. The Scots muster in the square at Nuremberg on the evening of $[date:report-at+1], at eight, when the drums beat. Monro asked you to stand with them, and to bring down whoever you can.
+  step if player gave-false-report and player not event:assault-over: You carried the astrologer's words to Monro, and the King means to storm the Alte Veste on $[date:report-at+2], at first light. The Scots muster in the square at Nuremberg on the evening of $[date:report-at+1], at eight, when the drums beat.
+  step if player mustered and player not event:assault-over: You fell in with Monro's Scots, at the back of Murdo Ross's file. They march at three, to be under the hill at first light.
+  step if player warned-monro and player mustered and player event:assault-over and player recent:2.5 assault-at and player not scot-following and player not scot-saved and player not carried-down-at: The Duke's guns in the ruin fired into the Scots, and the King's drums beat the retreat. Murdo Ross is down under the wall of the Alte Veste.
+  step if player warned-monro and player carried-down-at and player recent:2.5 assault-at and player not scot-following and player not scot-saved: You came round in the hospital of the Holy Ghost, carried down by the Scots. Murdo Ross is still under the wall of the Alte Veste, and the Croats go round the fallen at night.
+  step if player scot-following: Murdo Ross, a wounded Scot of Monro's, is leaning on you. Meister Franz, at the hospital of the Holy Ghost in Nuremberg, sets bones.
+  step well if player scot-saved: Meister Franz set Murdo Ross's leg. He will walk home to Ross.
+  step if player event:assault-over and player not warned-monro: The King stormed the Alte Veste, and was thrown back with great loss. The north end was not weak at all.
+  step badly if player event:assault-over and player gave-false-report and player not sold-north: You told Monro you had seen the north end with your own eyes, and you had not.
+  step badly if player event:assault-over and player gave-false-report and player sold-north: You told Monro you had seen the north end empty with your own eyes; what you had seen there was the Duke's guns.
+  step if player event:assault-over and player warned-monro: The King stormed the Alte Veste all the same, and was thrown back with great loss.
+  step badly if player event:assault-over and player warned-monro and player not scot-saved and player not scot-following and player not recent:2.5 assault-at: Nobody brought down Monro's man from under the ruin.
+  step badly if player mustered and player not warned-monro and player event:assault-over: Murdo Ross, who marched beside you, was killed under the wall of the Alte Veste by the Duke's guns.
+  step if player heard-ruse: Somebody wanted the King to attack. The astrologer's wine was the Duke's.
+  step badly if player paid-by-duke: The Duke paid you thirty livres.
+  done if player event:siege-ends: The King marched away south, Wallenstein after him, and the siege was over.
+end
+
+story glass
+  title Glass for the Grand Bazaar
+  step if player carrying-glass: Mehmed Çelebi, at the Fondaco dei Turchi in Venice, gave you a crate of Murano glass for his partner Yakub Ağa, in the Bedesten of the Grand Bazaar at Constantinople, who will pay the carriage: eight livres.
+  done if player delivered-glass: Yakub Ağa has his glass, every piece whole.
+end
+
+story augustine
+  title Augustine's books
+  step if player heard-hippo and not player has:augustine-codex and not player codex-given: Cassiano dal Pozzo says that the coral fishers of the Bastion de France bring coins from the ruins of Hippo, by Bône on the Barbary coast, where Saint Augustine was bishop; and that the library of his church came through the Vandals' fire. No road or passage goes there: only a ship of your own.
+  step if player has:barberini-bill: Cardinal Francesco Barberini gave you a bill of exchange on the bankers of Seville: two hundred livres, to buy a ship and nothing else, so that you bring him Augustine's books from Hippo. A shipmaster of Triana, at Seville, has a patache for sale.
+  step if player got-bill and not player has:barberini-bill and not player has:augustine-codex and not player codex-given: Pedro de Ojeda sold you his patache with the Cardinal's bill. His way to Barbary: through the Strait, the coast of Barbary on your right hand, past Oran and Algiers to Bône; the ruins of Hippo are beside it.
+  step if player heard-cistern and not player has:augustine-codex and not player codex-given: Moussa the shepherd found a box of written skins in a bricked-up niche, at the back of the cisterns of Hippo, where the roof has come down.
+  step if player has:augustine-codex: You have a codex of Augustine's "De Genesi ad litteram" from the cisterns of Hippo, with a passage marked in red: that it is a shameful and dangerous thing for a Christian to talk nonsense about the heavens before unbelievers. Galileo quoted it to the Grand Duchess Christina. Cardinal Francesco Barberini, Librarian of the Holy Roman Church, would give a great deal for it.
+  done well if player codex-trial: Cardinal Francesco Barberini had Augustine read to the cardinals of the Holy Office before they voted: one more voice for Galileo.
+  done if player codex-library: Augustine's codex from Hippo is in the Barberini library, the oldest book on its shelves.
+end
+
+story rosaries
+  title Amber for the Via dei Coronari
+  step if player heard-rosaries: Battista Sforzini, a rosary-maker of the Via dei Coronari in Rome, is waiting for a box of amber rosaries from Barbara Schultz in Danzig, and will pay fifteen livres to whoever brings it.
+  step if player carrying-rosaries: Barbara Schultz of Danzig gave you a box of amber rosaries for Battista Sforzini, in the Via dei Coronari in Rome, by the Ponte Sant'Angelo.
+  done if player delivered-rosaries: Battista Sforzini has his amber, and Barbara Schultz knows you are honest.
+end
+
+# ---------------------------------------------------------------- Sweden
+
+story degeer-packet
+  title A packet for Stockholm
+  step if player degeer-packet-taken: Crenet, at the Pomme de Pin in Paris, gave you a packet for Louis De Geer, the copper merchant on the quay at Stockholm: six livres at the other end. The Swedish post ship sails from Danzig.
+  done if player degeer-delivered: De Geer has his packet, and you have your six livres.
+end
+
+story christina-letter
+  title A letter for the King
+  step if player carried-christina-letter: Princess Christina, five years old, at Tre Kronor in Stockholm, gave you a letter for her father the King, in Germany, to be put into his own hands.
+  step if player carried-king-letter: The King, at Nuremberg, read it, and gave you his answer to take back to her.
+  done if player gave-king-letter: Christina has her father's letter, and keeps it in her Bible.
+  done if player christina-letter-back and player king-dead: Christina has her lion back. Her father, killed at Lützen, never saw it.
+  done if player christina-letter-back: Christina has her lion back, to send after her father by the ship.
+  done if player carried-christina-letter and not player carried-king-letter and player king-dead: The King was killed at Lützen in November, and never saw his daughter's lion.
+  step badly if player carried-christina-letter and not player carried-king-letter and player event:siege-ends: The King marched away from Nuremberg, further into Germany, before her letter reached him.
+end
+
+# ---------------------------------------------------------------- smuggling (people/smugglers.txt)
+
+story saunier
+  title The salt of the Spanish side
+  step if player met-saunier: At the post house at Cambrai, on the Spanish side of the border, the Saunier sells salt that has paid no gabelle, three sous a sack, and packs with false bottoms. At les Halles in Paris, Margot la Grise pays ten sous a sack, six sacks a week, if it gets past the searchers: by night, in a false bottom, they never find it.
+  step if player met-saunier and player smuggle-caught: The searchers have caught you with forbidden goods.
+  step if player sold-salt: You have sold salt that never paid the gabelle to Margot, at les Halles.
+  done if player informed-saunier: You told the commis of the gabelle at the Porte Saint-Denis where the Saunier keeps his salt, and took the farm's three livres. He was taken at the border, and goes to the galleys.
+end
+
+# ---------------------------------------------------------------- the open country (data/wild.txt; main.cc, Game::wildStep)
+
+story roads
+  title The roads
+  step if player robbed: Brigands have robbed you on the road. They like a lonely traveller best, and after dark best of all. Innkeepers and ostlers will find you a hired sword to walk beside you for a day; and a money-changer will turn your coin into a bill of exchange, which no robber can spend.
+  step if player bands-beaten: You have fought off brigands on the road.
+  step if player escorts: You have hired a sword to walk beside you on the road.
+  step if player has:bill-of-exchange: You carry a bill of exchange, drawn at $[bill:town]: any money-changer in another town will pay it.
+end
+
+story wild
+  title Wolves, bears and deer
+  step if player wolves-killed: The herdsmen pay the parish's bounty on wolves, ten sous a pelt: you have been paid for $[wolves-killed].
+  step if player bears-killed: A herdsman paid you two livres' bounty on a bear.
+  step if player deer-shot: Any innkeeper buys venison, and asks no questions.
+  step if player deer-shot: Near the King's towns the deer are the King's, and his gamekeepers have good ears.
+  step if player poached: A gamekeeper caught you poaching, and took the venison and your gun.
+  step if player fish-caught: Fish bite best at dawn and towards evening. Fridays and Lent are fish days; the friars and nuns pay for a fish, and the Minims, who keep Lent all year, most gladly of all.
+end
+

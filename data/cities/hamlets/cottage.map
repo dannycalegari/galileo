@@ -1,0 +1,22 @@
+# A small farm of one cow on the Saint-Denis road: the farmhouse, the byre, a yard and a kitchen
+# garden inside a hedge, the gate towards the road (east). The player's home: "home"
+# makes the farmhouse's beds and things the player's own.
+style village
+ground 0.9
+margin 10
+legend F house "the farmhouse" home
+legend B halle "the byre" nostalls timber
+map
+%%%%%%%%%%%%%%%%%%%%%
+%;;;;;;;;;;;;;;;;;;;%
+%;BBBBBB;;;FFFFFFFF;%
+%;BBBBBB;;;FFFFFFFF;%
+%;BBBBBB;;;FFFFFFFF;%
+%;BBBBBB;;;FFFFFFFF;%
+%;;x;x;;;;;FFFFFFFF;%
+%;;;;;;;;;;FFFFFFFF;%
+%;;;;;;;;o;;;;;;;;;;;
+%;;;;;;;;;;;;;;;;;;;;
+%;;;x;;;;;;;,,,,,,,,%
+%%%%%%%%%%%%%%%%%%%%%
+end

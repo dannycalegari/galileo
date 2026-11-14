@@ -1,0 +1,111 @@
+# What the word for someone's own trade or title means, in their own words: asked "beadle", a
+# beadle says what a beadle is. Used only when the word is in the asker's own title (or the
+# name their trade gives them, roles.txt), and only when none of their own lines answers.
+# Code: People::tradeAnswer (people.cc). A word without an entry here gets their "job" line.
+#
+#   WORD[,WORD...]: TEXT      (words lower case and without accents; $name, $town are filled in)
+
+# ---- the Church
+friar: A friar is a brother of one of the begging orders: Franciscans, Dominicans, Minims, Servites. A monk keeps to his cloister; we go out into the streets, to preach and to beg.
+monk: A monk lives in his monastery under a rule, and prays the hours, day and night: Matins at two in the morning, and the rest after. He does not go out into the world, as the friars do.
+minim,minims: We Minims are the least of the friars: that is what the name means, minimi, the least. Saint Francis of Paola founded us. We eat no meat, no eggs and no milk, all the year round, as if every day were Lent.
+servite: The Servites are the Servants of Mary, an order of friars founded in Florence. Fra Paolo Sarpi was one of us, God rest him; Rome never forgave him for taking the Republic's side.
+dominican: We are the Order of Preachers, founded by Saint Dominic to preach against heresy. The Holy Office is mostly ours. The people call us Domini canes, the Lord's dogs, and we do not mind.
+jesuit: A Jesuit is of the Society of Jesus, which Ignatius of Loyola founded not a hundred years ago. We teach, we preach, we confess kings, and we go to the Indies, to Japan and to China. Our colleges are the best in Europe.
+priest: A priest says Mass, hears confession, baptises, marries and buries. Without a priest there are no sacraments; without the sacraments, no salvation. So you see why the people should listen to us.
+canon: A canon is a priest of a cathedral's chapter, or of a great church: we sing the hours in the choir, govern the church's lands, and elect the bishop, when we are allowed.
+cardinal: A cardinal is a prince of the Church, one of the Holy Father's counsellors; when he dies, we elect the next. We wear red, they say, to show we would shed our blood for the faith.
+consultor: A consultor advises the Holy Office. We read the suspect books, and say what is wrong with them, and the cardinals decide.
+familiar: A familiar of the Holy Office is a layman who serves the Inquisition: I carry its summonses, I help at an arrest, and I keep my mouth shut. It is an honour. Nobody asks me to dinner.
+commissary: The Commissary of the Holy Office conducts its examinations. When the cardinals wish to know what a man believes, it is I who ask him, and I who write down what he answers.
+inquisitor: The Inquisitor keeps watch over the faith in this city: the books printed, the sermons preached, the things said in the taverns. No book is printed here without my licence.
+sacred: The Master of the Sacred Palace is the Holy Father's own theologian, and the censor of every book printed in Rome. It is a great honour, and a great deal of reading.
+sacristan: I keep the sacristy: the vestments, the chalices, the candles and the relics. Nothing goes up to the altar except through my hands.
+sexton: A sexton keeps the church and the churchyard. I ring the bell, I dig the graves, I sweep up after the congregation. These years there are more graves than sweeping.
+nun: A nun is a bride of Christ. We take vows of poverty, chastity and obedience, and we stay behind the convent wall; the world comes to the grille, if it comes at all.
+pilgrim: A pilgrim travels to a holy place for the good of his soul: Rome, Compostela, Loreto. The road is the penance; the shrine is the reward. And the inns are terrible.
+pastor: A pastor is the shepherd of a Lutheran parish. I preach, I baptise, I marry and I bury. These last years I have mostly buried.
+antistes: Antistes means the one who stands before. I am the first of the ministers of the church of Zurich, as Zwingli and Bullinger were before me. We have no bishops here, and want none.
+patriarch: The Patriarch of Constantinople is the first among the bishops of the Orthodox Church. The Sultan confirms us in office, and the Sultan removes us, when someone pays him enough.
+confessor: I hear the Emperor's confession, and counsel him on his conscience. And His Majesty's conscience, these days, is the whole Empire.
+rabbi: A rabbi is a teacher of the Law. We are not priests: there has been no altar since the Temple fell. We read, we teach, we judge, and we argue, which is the same thing.
+shammes: The shammes is the servant of the synagogue. I open it and lock it, I keep the scrolls and the lamps, and before dawn I go knocking on the shutters to call the men to prayer.
+dervish: A dervish has given up the world to seek God. We Mevlevis turn, to the reed flute, as the heavens turn; Mevlana Rumi taught us so.
+
+# ---- the learned
+scholar: A scholar studies: Latin, logic, philosophy, divinity. In the end it all comes down to Aristotle, and Aristotle, thank God, has already settled most things.
+beadle: A beadle is an officer of the University. I walk before the Rector with the mace, I keep the keys, I call the lectures, and I see that the students pay their fees and keep the peace, which they do not.
+savilian: Sir Henry Savile founded two chairs at Oxford, of geometry and of astronomy, and left them his books. I hold the chair of astronomy, and I am not allowed to cast horoscopes. Sir Henry insisted.
+philosopher: When I came back to Florence I asked the Grand Duke for the title of Philosopher as well as Mathematician. I told him I had spent more years studying philosophy than months studying pure mathematics. It was true.
+astrologer: An astrologer reads the heavens as they stood at a man's birth, and tells him what they advise. My master listens to the stars, which is more than generals usually do.
+alchemist: An alchemist studies how one substance is changed into another. The ignorant think we only make gold. We make it rarely.
+physician: A physician studies the body by Galen and Hippocrates, and by the urine. I tell you what is wrong with you; the apothecary makes up what I prescribe; the barber does the cutting.
+apothecary: An apothecary makes up what the physicians prescribe: syrups, pills, plasters, theriac, from herbs and minerals and things you would rather not know.
+advocate,parlement: An advocate pleads causes before the judges. The Parlement of Paris is not an assembly, as the English have: it is the King's highest court. We register his edicts, and now and then we remonstrate.
+scrivener: A scrivener writes for those who cannot: letters, contracts, wills, petitions, at so much a page. I know more secrets than any priest, and I keep them better.
+chancery,apostolic: The Apostolic Chancery writes out the Holy Father's bulls, in the old hand, on parchment, with the lead seal. I am one of its writers. My hand is better than my Latin, but nobody looks at the Latin.
+kapellmeister: The Kapellmeister is the master of a prince's music. I compose, I choose the singers and the players, I beat the time, and I hear about it when the Emperor does not like it.
+hortus: The Hortus is the University's garden of plants, for the students of medicine to learn their simples: every plant in its bed, with its name. And the tulips, which the students steal.
+botanico: The Orto botanico is the University's garden of simples, the first of its kind: the students of medicine learn their plants here, and some of them learn to climb the wall at night.
+
+# ---- trades
+smith,blacksmith: A smith works iron: horseshoes, hinges, nails, the iron of a cart. Every village needs one, and every horse.
+goldsmith: A goldsmith works gold and silver: cups, rings, chalices. And we keep money for people in our strongboxes, and lend it, which is the better trade.
+glassblower: A glassblower blows the glass on the end of an iron pipe, hot from the furnace: goblets, bottles, beads. On Murano we may not leave the island with the secret. They would send someone after us.
+printer: A printer sets the type, letter by letter, inks it, and pulls the press. A thousand copies a week, if the author does not keep changing his mind.
+bookseller: A bookseller buys from the printers and sells to the readers, and knows which books may be sold openly, which under the counter, and which not at all.
+changer: A money-changer changes one coin for another: livres for florins, Spanish pieces of eight for Venetian ducats, and takes a little on each. Bring me any coin in Europe, and I will tell you what it is worth, and whether it is clipped.
+merchant: A merchant buys where things are cheap and sells where they are dear. That is all there is to it, except the risk.
+vintner: A vintner sells wine. My husband did; now I do, and the guild still calls me his widow.
+fishwife: A fishwife sells fish, from a basket in les Halles, with a voice you can hear across the river. Nobody cheats a fishwife twice.
+sutler: A sutler follows the army and sells to the soldiers: bread, beer, tobacco, needles and thread. And I buy what they bring back from the villages, and ask no questions.
+drover: A drover drives cattle to market on the hoof. From the Hungarian plain to Vienna, to Nuremberg, to Venice: a month on the road, and the oxen must arrive fat.
+quarryman: A quarryman cuts the stone out of the ground for building, down in the dark with a pick and a candle. Half of Paris came up out of the quarries under the other half.
+ostler: An ostler looks after the horses at an inn or a post house: feeds them, waters them, rubs them down and saddles them, and hires them out to travellers.
+goodwife: Goodwife is what you call a married woman of the common sort: not a lady, and not a servant. I keep a house, and a husband, and the hens.
+milkmaid: A milkmaid milks the cows, morning and evening, and carries the milk to market. Cold hands, but a good complexion, they say.
+herdsman: A herdsman keeps the beasts out on the common: the cows, the sheep, whosever they are. I know every one of them by its voice.
+labourer: A labourer has nothing to sell but his back. I carry, I dig, I load: whatever needs doing, by the day.
+washerwoman: A washerwoman washes other people's linen, at the river, with ash-lye and a beater, and lays it on the grass to bleach.
+apprentice: An apprentice is bound to a master for seven years: he teaches me his trade, feeds me and beats me, and at the end, if I am lucky, I am a journeyman.
+innkeeper: An innkeeper keeps an inn: a bed, a meal, a stable for your horse. And I hear all the news of the road before anyone else.
+watchman: A watchman walks the streets at night with a lantern and a halberd, calls the hours, and looks out for fire and thieves.
+gondolier: A gondolier rows a gondola: one oar, standing at the stern, facing forward. We know every canal of Venice, and every secret that has been carried down one.
+caique: A caique is our boat of the Bosphorus, long and narrow and quick. I row people across, from Galata to the city, or up to the villages, for a few aspers.
+waterman: A waterman rows people across the river, and up and down it, for a fare. The river is the best street in the town, and the only one without mud.
+bargeman: A bargeman carries goods on the river, in a barge, Oxford to London and back, with the stream or against it.
+skipper: A skipper is the master of a small ship: I take her where the cargo is, and bring her home, and the owners take the profit.
+pilot,casa: A pilot finds the way at sea. The Casa de Contratación, here in Seville, examines every pilot of the Indies fleets, and keeps the great chart that all our charts are copied from.
+packet: The packet is the boat that carries the King's mail across the strait, between Dover and Calais, and passengers, if they pay. In a fair wind, four hours. In a foul one, pray.
+lazaretto: The Lazaretto is the island where ships' crews and their goods wait out their forty days, the quarantine, so that the plague does not come ashore in Venice. I am its doctor. Few people visit me.
+coffeehouse: A coffeehouse is where men sit and drink coffee, the black drink from Yemen, and talk, and play at backgammon, and hear the storytellers. The preachers say it is worse than a tavern. It is certainly better.
+trumpeter: Every hour, day and night, I play the hejnał from the tower of St Mary's, to the four quarters of the city, and I keep watch for fires.
+dragoman: A dragoman is an interpreter. I speak Turkish, Greek, Italian and enough Persian, and I carry the bailo's words to the Porte, and bring back what they meant, which is not always what they said.
+bailo: The bailo is the Venetian ambassador at Constantinople, the Republic's eyes and ears in the Sultan's city. I am his tongue.
+alcaide: The alcaide is the governor of the Alhambra, for the King. I am his lieutenant, which means that I do the work.
+saunier: A saunier deals in salt. The King's salt, at the King's price, through the King's granaries: that is the gabelle. Other salt is cheaper. I say no more.
+commis,gabelle: The gabelle is the King's tax on salt: every household must buy its salt at the King's granary, at the King's price. I am a commis of the gabelle; I look for the salt that has not paid. You would be surprised where people hide it.
+foundation,steward: Gazi Husrev-beg left his wealth to a foundation, a vakuf: the mosque, the medrese, the baths, the covered market, the kitchen that feeds the poor. I am its steward, and I keep its accounts, to the last asper.
+aga: An ağa is a commander: an officer of the Janissaries, or of the Sultan's household. My husband Hasan is one, and he is away at the wars, as an ağa should be.
+patrician: The patricians are the old families who govern Nuremberg: only we may sit in the Inner Council. The craftsmen have no guilds here to give themselves airs; the Council rules them, and the Council is us.
+palatine: My husband, John Casimir, is of the house of the Counts Palatine of the Rhine: palatine, of the palace, from the old counts who kept the Emperor's palaces. The war drove us out of Germany, and we live here, on my brother's kindness.
+doge: The Doge is the prince of the Republic, elected for life by the Great Council. I preside; I do not rule. I may not even open my letters except in front of my councillors.
+rector: The Rector of Ragusa holds office for one month only, and in that month he may not leave the palace except on the Republic's business. So nobody grows too fond of power.
+
+# ---- soldiers and the road
+guard: A guard stands where he is told, and stops whoever he is told to stop. It is not difficult. It is very dull.
+musketeer: A musketeer carries a musket, a forked rest, a match burning at both ends, and twelve charges on the bandolier. We call them the Twelve Apostles. One shot a minute, if you are good; two, if you are frightened.
+pikeman: A pikeman holds a pike of sixteen feet of ash and stands in the block, shoulder to shoulder, so that the cavalry cannot ride down the musketeers. It is not clever, but it works.
+croat: The Croats are the Emperor's light horse. We ride ahead of the army: raid, burn, forage, and vanish. Not all of us are from Croatia. Few of us are.
+recruit: A recruit is a man who took the drummer's coin. A month ago I was a ploughboy; now I am a soldier, they tell me.
+mercenaries,mercenary: A mercenary fights for pay. Today for the Swede, who pays; tomorrow, perhaps, for the Emperor, if he pays better.
+banditi,bandito: Banditi are men under the ban: outlawed, with a price on our heads. So we live in the hills, and take what we need from those who travel the roads.
+bandolero: A bandolero is a bandit of the sierra, with the bandolier across his chest. We take a toll from travellers on the King's road; the King does the same, and calls it a tax.
+knight: A knight is a gentleman who has been dubbed, by a king or by an order, and owes his service for it.
+stefano: The Order of Santo Stefano was founded by Grand Duke Cosimo to fight the Turkish corsairs at sea. Our galleys sail from Livorno; our church is here in Pisa, hung with the flags we have taken.
+warder,yeoman: A yeoman warder guards the Tower of London and its prisoners, for the King. Some of the prisoners are better company than the others.
+
+# ---- others
+gentleman: A gentleman lives on his lands, or his rents, or his office, and not by the work of his hands. He may wear a sword, and he must never be seen to carry a parcel.
+player: A player acts in plays: kings one day, and fools the next, and sometimes both in one afternoon. The preachers say we are the devil's servants. The audience does not agree.
+beggar: A beggar lives on what he is given, for the love of God. Give, and you buy a prayer. It is the cheapest prayer in the town.

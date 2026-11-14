@@ -1,0 +1,1803 @@
+# Stand-in scripts for tools/check.py (part 3). Each scenario runs tools/play.sh on a COPY of a
+# fixture save (tools/check/fixtures/), one run after another on the same copy, and checks the
+# output of each run. To add one, write a block and, if it needs a new place in the game, put a
+# save in fixtures/ (make it with tools/play.sh on a scratch copy, then copy the save here).
+#
+#   scenario NAME
+#     about TEXT              one line: what it guards
+#     fixture FILE | -        a save in tools/check/fixtures/ ("-": a new game, from the choosing screen)
+#     run COMMANDS            the commands of tools/play.sh, as one string (a few words: use _ for a space)
+#     expect TEXT             the output of the run above contains TEXT
+#     absent TEXT             ... does not contain TEXT
+#     expect-re REGEX         ... has a line matching REGEX
+#     file-expect REGEX       the save file, after the run above, has a line matching REGEX
+#     file-absent REGEX       ... has none
+#     exists SUFFIX           a file beside the save (".bak") exists
+#   end
+#
+# Fixtures: paris_start (the farm start's first morning, 10:00 on 15 June 1632, in the street at
+# Paris), paris_sorbonne (the same, inside the Sorbonne, 37 livres), florence_landini (inside
+# Landini's printing house, Florence), stockholm (just landed from Danzig), arcetri (inside the
+# convent of San Matteo), rome_ch4_worse (chapter IV of the worse branch, inside the Villa Medici, 18 July 1634).
+# paris_packet: the prologue's second morning, at the Pomme de Pin with Mersenne's packet for the south (and a post packet).
+# paris_start_fraction is paris_start with the time 600.125.
+
+scenario new-game
+  about the choosing screen, then the nine scenes of the farm start
+  fixture -
+  run AROUND
+  expect Who are you?
+  expect Begin          at home, on the farm
+  expect [scene 9 of 9]
+  expect Before you is the Porte Saint-Denis, and Paris.
+end
+
+scenario stockholm-two-step-passage
+  about the master of the post ship asks "Will you *sail*?" and sails only on the second word
+  fixture stockholm.txt
+  run WALKTO:ship TALK:master SAY:passage
+  expect Will you *sail*?
+  absent Aboard, then.
+  absent You pay
+  run SAY:sail
+  expect Aboard, then.
+  expect You pay 2 livres.
+  expect ends the conversation
+end
+
+scenario landini-buy-book-asks-which
+  about "buy book" at Landini's names the two things he sells and asks which
+  fixture florence_landini.txt
+  run WALKTO:printer TALK:printer SAY:buy_book
+  expect Which do you mean?
+  expect Galileo's Dialogue
+  absent You buy
+end
+
+scenario latin-lesson-takes-four-hours
+  about the Latin lesson at the Sorbonne moves the clock from 10:00 to 14:00 (the {pass 240} effect)
+  fixture paris_sorbonne.txt
+  run AROUND
+  expect Tuesday 15 June 1632, 10:00
+  run WALKTO:scholar TALK:scholar SAY:latin SAY:give_5_sous AROUND
+  expect You can read Latin
+  expect Tuesday 15 June 1632, 14:00
+end
+
+scenario post-offer-states-the-allowance
+  about an innkeeper asks "Will you *carry* one?" and the packet's message gives the allowance
+  fixture paris_start.txt
+  run WALKTO:Pomme_de_Pin WALKTO:innkeeper TALK:innkeeper SAY:post
+  expect Will you *carry* one?
+  absent The post allows
+  run SAY:yes
+  expect The post allows
+  expect minutes on foot
+end
+
+scenario convent-nuns-numbered
+  about AROUND in the convent of San Matteo numbers the nuns, and WALKTO:nun#2 TALK:nun#2 reach #2
+  fixture arcetri.txt
+  run AROUND
+  expect a nun #1
+  expect a nun #2
+  expect a nun #3
+  run WALKTO:nun#2 TALK:nun#2
+  expect [talking to a nun]
+  expect-re tile [0-9]+,[0-9]+, the convent of San Matteo
+end
+
+scenario save-roundtrip
+  about the time is saved to three decimals, reloads the same, and a .bak is kept
+  fixture paris_start_fraction.txt
+  run AROUND
+  expect Tuesday 15 June 1632, 10:00
+  file-expect ^time 600\.125$
+  exists .bak
+  run WAIT:30
+  file-expect ^time 630\.\d{3}$
+  run AROUND
+  expect Tuesday 15 June 1632, 10:30
+end
+
+scenario give-letter-without-one
+  about "give letter" with no letter answers in your own words, not about another thing
+  fixture paris_start.txt
+  run WALKTO:goodwife TALK:goodwife SAY:give_letter
+  expect (You have no letter to give.)
+end
+
+scenario accents-are-folded
+  about WALKTO:Ecu finds the Écu de France at Saint-Denis
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Saint-Denis WALKTO:Ecu
+  expect you are in the Écu de France
+end
+
+scenario directions-hours-and-other-towns
+  about asking after a person gives the hours in words; a person of another town is told only if you already know of them; PLACES lists those you have heard of, and a town you have not been to
+  fixture florence_knows.txt
+  run WALKTO:printer TALK:printer SAY:clemente
+  expect You will find him at Santa Croce from five in the morning till noon
+  absent by day
+  run SAY:pacheco
+  expect Francisco Pacheco? They say he is a painter, at Seville.
+  run SAY:grosbois
+  expect They say he is a doctor of the Sorbonne, at Paris. Ask for him at the Sorbonne.
+  run SAY:cassiano
+  expect I know nothing about that.
+  run PLACES
+  expect People you have heard of
+  expect You have not been here yet.
+  expect Francisco Pacheco, a painter.
+end
+
+scenario clemente-keeps-santa-croce-in-the-plot
+  about while the plot needs him, the Inquisitor is at Santa Croce in the afternoon too
+  fixture florence_ch3.txt
+  run WALKTO:printer TALK:printer SAY:clemente
+  expect from two in the afternoon till eight in the evening
+end
+
+scenario checca-at-the-orso-in-the-evening
+  about during the trial the maid of the Osteria dell'Orso is at work there from morning to night
+  fixture florence_ch3.txt
+  run ROAD:none TRAVEL:Rome WAIT:386 WALKTO:Osteria WALKTO:Orso AROUND
+  expect a maid of the Osteria dell'Orso
+end
+
+scenario grosbois-at-the-sorbonne-by-eight
+  about once Mersenne has sent you to him, Doctor Grosbois is in the Sorbonne at eight
+  fixture paris_censor.txt
+  run WAIT:1320 AROUND
+  expect a doctor of the Sorbonne
+end
+
+scenario pope-at-the-quirinal-in-the-morning
+  about AROUND inside the Quirinal finds the Pope at ten
+  fixture florence_ch3.txt
+  run ROAD:none TRAVEL:Rome WAIT:1226 WALKTO:Quirinal WALKTO:Quirinal AROUND
+  expect His Holiness Pope Urban VIII
+end
+
+scenario waits-said-in-the-journal
+  about chapter II's waiting steps show during the wait and vanish when it ends
+  fixture paris_start.txt
+  run KNOW:ch2-open=1 KNOW:ronconi-asked=590 STORIES:detailed
+  expect Ronconi goes up to Arcetri tomorrow.
+  expect Rome's patience will not last
+  absent The certificate is on its way to Rome
+  run SKIP:1500 WAIT:2 STORIES:detailed
+  absent Ronconi goes up to Arcetri tomorrow.
+  expect Rome's patience will not last
+  run KNOW:ch2-certificate=2000 STORIES:detailed
+  expect The certificate is on its way to Rome
+  absent Rome's patience will not last
+  run SKIP:3000 WAIT:2 STORIES:detailed
+  absent The certificate is on its way to Rome
+  expect Rome has answered: he must come
+end
+
+scenario no-refusal-at-zero-proofs
+  about at zero proofs the Pope and Cardinal Barberini take the story and point outward; with one proof the old answers stay
+  fixture florence_ch3.txt
+  run ROAD:none KNOW:audience-granted=1 TRAVEL:Rome WAIT:1226 WALKTO:Quirinal WALKTO:Quirinal AROUND
+  expect His Holiness Pope Urban VIII
+  run WALKTO:Holiness TALK:Holiness SAY:forgery
+  expect a Pope who acts on a story is himself a story by evening.
+  absent Bring me proofs, not gossip
+  run KNOW:proofs=1 SAY:forgery
+  expect Bring me proofs, not gossip
+  absent a Pope who acts on a story
+  run BYE WALKTO:Barberini WALKTO:Barberini KNOW:proofs=0 WALKTO:cardinal TALK:cardinal SAY:forgery
+  expect we Lynceans were taught to trust our eyes
+  run KNOW:proofs=1 SAY:forgery
+  expect One paper, and a story.
+  absent we Lynceans were taught
+end
+
+scenario checca-sells-the-sheet-without-ottavio
+  about the maid of the Orso answers about paper and sells the practice sheet at two livres to a player who has not heard of Morales; asking about the Spaniard sets heard-morales
+  fixture florence_ch3.txt
+  run ROAD:none TRAVEL:Rome WAIT:386 WALKTO:Osteria WALKTO:Orso AROUND
+  expect a maid of the Osteria dell'Orso
+  run MEM:heard-morales WALKTO:maid TALK:maid SAY:paper
+  expect [you remember heard-morales = (nothing)
+  expect Two livres, and you may have what the grocer would have had.
+  run SAY:give_2_livres MEM:has-sheet
+  expect (She comes back with a sheet folded in her apron.)
+  expect [you remember has-sheet = 1
+end
+
+scenario searchers-warn-leaving-then-search
+  about by day the searchers are seen at the edge of a town that forbids the Dialogue (leaving Florence by road): a warning and no journey; TRAVEL again within the hour goes on anyway, and they search you at the gate going out
+  fixture florence_landini.txt
+  run ROAD:none KNOW:has:dialogue=1 KNOW:seizure-due=1 WAIT:5 TRAVEL:Pisa
+  expect the searchers are turning out every pack and basket that goes out, and you remember what is in yours: Galileo's Dialogue. You turn back before they see you.
+  expect Go on out now and you take your chance with them; or wait for the dark, when they are fewer, and lazier, but not blind.
+  expect [you turn back: the journey is not made
+  absent You are fined
+  file-expect ^player warned:dialogue 1
+  run SEARCH:1 ROAD:none TRAVEL:Pisa
+  expect You go on, and take your chance. The searchers at the edge of Florence find Galileo's Dialogue in your pack, and take it.
+  expect arrive on
+end
+
+scenario searchers-seen-every-day
+  about by day the searchers turn you back unsearched every time you come after the hour, not only the first; at night, once you have been warned, there is no warning, only the search
+  fixture florence_landini.txt
+  run ROAD:none KNOW:has:dialogue=1 KNOW:seizure-due=1 WAIT:5 TRAVEL:Pisa
+  expect You turn back before they see you.
+  run ROAD:none WAIT:90 TRAVEL:Pisa
+  expect You turn back before they see you.
+  absent in your pack, and take it
+  run SEARCH:1 ROAD:none SKIP:560 TRAVEL:Pisa
+  absent You turn back
+  expect The searchers at the edge of Florence find Galileo's Dialogue in your pack
+end
+
+scenario searchers-dark-as-the-sky
+  about the searchers' dark is the dark you see: at 21:13 the sky is black, and the night's words come; at 20:00 it is still day, and the searchers do not search as by night
+  fixture florence_landini.txt
+  run ROAD:none KNOW:has:dialogue=1 KNOW:seizure-due=1 WAIT:5 SKIP:478 TRAVEL:Pisa
+  expect In the dark at the edge of Florence a searcher is turning out a pack by the light of a lantern
+  run ROAD:none KNOW:has:dialogue=1 KNOW:seizure-due=1 SKIP:1367 TRAVEL:Pisa
+  expect They search everyone by day, and find nearly everything. Go on out now and you take your chance with them
+end
+
+scenario searchers-night-first-warning
+  about the first time you ever bring a kind of thing to a gate, even at night, you are warned and not searched (the night's words)
+  fixture florence_landini.txt
+  run ROAD:none KNOW:has:dialogue=1 KNOW:seizure-due=1 WAIT:5 SKIP:560 TRAVEL:Pisa
+  expect In the dark at the edge of Florence a searcher is turning out a pack by the light of a lantern
+  expect but not blind.
+  expect [you turn back: the journey is not made
+end
+
+scenario searchers-warn-entering-by-road
+  about carried from Paris to Pisa, the Dialogue is not searched the first time: the warning says "goes in", and you stand outside the town, not in it
+  fixture paris_start.txt
+  run ROAD:none KNOW:has:dialogue=1 KNOW:seizure-due=1 WAIT:5 TRAVEL:Pisa AROUND
+  expect the searchers are turning out every pack and basket that goes in, and you remember what is in yours: Galileo's Dialogue. You step back before they see you. They search everyone by day, and find nearly everything. Go on into the town now and you take your chance with them; or wait for the dark, when they are fewer, and lazier, but not blind.
+  absent in your pack, and take it
+  file-expect ^player warned:dialogue 1
+  file-expect ^player town -
+end
+
+scenario manuscript-warned-first
+  about the manuscript too is warned of once at a gate: no search, no seizure, no ending
+  fixture florence_landini.txt
+  run ROAD:none KNOW:ch5-open=1 KNOW:has:manuscript=1 WAIT:5 TRAVEL:Rome
+  expect the manuscript of the Two New Sciences. You turn back before they see you.
+  file-absent ^player science-seized
+  file-expect ^player warned:manuscript 1
+  absent The searchers have taken
+end
+
+scenario hearing-announced-two-days-before
+  about reaching Rome with a proof gives Niccolini's note and a journal step, and the first hearing comes only two days after it (not at once)
+  fixture florence_ch3.txt
+  run ROAD:none KNOW:ch3-open=1 KNOW:proofs=1 TRAVEL:Rome WAIT:5 STORIES:detailed
+  expect "They will call Signor Galileo before the Commissary the day after tomorrow.
+  expect Niccolini writes that the first examination is the day after tomorrow. Nobody may watch it, he says.
+  file-absent ^player hearing [0-9]
+  run WAIT:2900
+  expect The months pass.
+  file-expect ^player hearing [0-9]
+end
+
+scenario forgery-doubted-or-delivered
+  about a forgery laid by the clock is "laid but doubted" (man-worse, the game goes on to chapter IV), only a delivered one ends the game
+  fixture florence_ch3.txt
+  run ROAD:none KNOW:ch3-open=1 KNOW:hearing=1 KNOW:forgery-produced=1 KNOW:sentence-called=1 TRAVEL:Rome WAIT:300
+  expect Not a relapsed heretic: too many of them doubted the paper for that.
+  absent relapsed heretic. The sentence is perpetual prison
+  file-expect ^player forgery-doubted 1
+  file-expect ^player man-worse 1
+  file-absent ^player man-worst
+  file-absent ^player scoring
+  run WAIT:3000
+  expect A letter from Ambassador Niccolini: "They will not let him go home.
+  file-expect ^player ch4-open
+end
+
+scenario forgery-delivered-ends-the-game
+  about the worst sentence, and the ending, need delivered-forgery (the player carried the paper to the Holy Office)
+  fixture florence_ch3.txt
+  run ROAD:none KNOW:ch3-open=1 KNOW:hearing=1 KNOW:forgery-produced=1 KNOW:delivered-forgery=1 KNOW:sentence-called=1 TRAVEL:Rome WAIT:300
+  expect a relapsed heretic
+  file-expect ^player man-worst 1
+  file-expect ^player scoring 1
+  file-absent ^player forgery-doubted
+end
+
+scenario call-letters-in-the-journal
+  about between each call letter and the chapter's opening the journal says where to go
+  fixture paris_start.txt
+  run KNOW:ch2-called=1 STORIES:detailed
+  expect Suor Maria Celeste writes that something has come from Rome for her father
+  run KNOW:ch2-open=1 STORIES:detailed
+  absent Suor Maria Celeste writes that something has come from Rome for her father
+  run KNOW:ch4-called=1 KNOW:man-worse=1 STORIES:detailed
+  expect Niccolini writes that they will not let him go home
+  run KNOW:man-worse=0 KNOW:man-history=1 STORIES:detailed
+  expect Suor Maria Celeste writes that they are letting him come home
+  run KNOW:ch5-called=1 STORIES:detailed
+  expect A note in Galileo's large, unsteady hand: "The book is nearly done. Come when you can."
+end
+
+
+scenario false-pack-at-night-is-foolproof
+  about with a false-bottomed pack at night the searchers never find the Dialogue (no GALILEO_SEARCH), six crossings at different minutes, after the one warning
+  fixture florence_landini.txt
+  run ROAD:none KNOW:has:dialogue=1 KNOW:has:false-pack=1 KNOW:seizure-due=1 WAIT:5 SKIP:560 TRAVEL:Pisa
+  expect You turn back before he sees you.
+  run ROAD:none TRAVEL:Pisa SKIP:7 TRAVEL:Florence SKIP:11 TRAVEL:Pisa SKIP:13 TRAVEL:Florence SKIP:3 TRAVEL:Rome SKIP:17 TRAVEL:Florence
+  expect find nothing under its false bottom: you carry Galileo's Dialogue into Rome unseen.
+  absent in your pack, and take
+  file-absent ^player seized:dialogue
+  file-expect ^player has:dialogue 1
+end
+
+scenario margot-buys-six-sacks-a-week
+  about Margot names the Saunier at Cambrai on the first sack, buys six a week at ten sous, and refuses the seventh
+  fixture paris_start.txt
+  run GIVEME:salt GIVEME:salt GIVEME:salt GIVEME:salt GIVEME:salt GIVEME:salt GIVEME:salt WALKTO:Halles WALKTO:fishwife TALK:fishwife SAY:give_salt
+  expect The salt comes from the Saunier, Nicolas Ganot, at the post house at Cambrai
+  run SAY:give_salt SAY:give_salt SAY:give_salt SAY:give_salt SAY:give_salt SAY:give_salt
+  expect Six this week already.
+end
+
+scenario salt-warned-at-the-gate-first
+  about the first time salt comes to the edge of Paris the searchers warn, and you are turned back unsearched
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Saint-Denis GIVEME:salt TRAVEL:Paris
+  expect the searchers are turning out every pack and basket that goes in, and you remember what is in yours: a sack of salt.
+  absent find a sack of salt in your pack
+end
+
+scenario the-book-in-rome-and-passage-at-danzig
+  about several small items: the ending's line for the book when Galileo is kept in Rome; the keepers counted in the same run; "passage" at Danzig points to the Swede below the Crane; AROUND names La Chapelle's buildings from the Paris street
+  fixture florence_ch3.txt
+  run KNOW:man-worse=1 KNOW:science-printed=1 KNOW:last-scene WAIT:2 WAIT:5
+  expect Galileo, blind, held it in his hands in Rome, where he was still a prisoner. This is what nearly happened.
+  absent held it in his hands at Arcetri
+  run ROAD:none MONEY:24000 TRAVEL:Danzig WALKTO:sailor TALK:sailor SAY:passage
+  expect For Stockholm? The Swede below the Crane carries passengers, with the King's post: two livres.
+  absent England
+end
+
+scenario small-items-in-paris
+  about the Paris street names the farmhouse and byre of La Chapelle with their place; the keepers are counted in the same run as the give; the Chapter I card, with no jump, has no "weeks later"
+  fixture paris_start.txt
+  run ROAD:none WALKTO:Pomme_de_Pin AROUND
+  expect the farmhouse, at La Chapelle (
+  run ROAD:none KNOW:ch1-commission=1 KNOW:has:dialogue=2 KNOW:knows:paris:diodati=1 WALKTO:Palais WALKTO:Diodati TALK:Diodati SAY:give_copy BYE STORIES
+  expect Keepers so far: 1.
+  run SKIP:43200 KNOW:courier-florence=43790 WAIT:2
+  expect [card] Chapter I
+  expect-re \[card\] [A-Za-z' -]+, [A-Z][a-z]+day [0-9]+ July 1632\.$
+end
+
+scenario descartes-bought-from-blaeu
+  about Descartes, met and not sold a copy, buys Blaeu's on 22 June: the journal counts him, and says he bought it from Blaeu
+  fixture paris_start.txt
+  run ROAD:none MONEY:24000 KNOW:ch1-commission=1 KNOW:knows:amsterdam:descartes=1 TRAVEL:Amsterdam WALKTO:house_of_Menasseh WALKTO:Descartes TALK:Descartes BYE SKIP:12000 WAIT:120 STORIES
+  expect Monsieur Descartes keeps one, at Amsterdam: he bought it from Blaeu.
+end
+
+scenario celeste-spoken-of-after-her-death
+  about after Suor Maria Celeste's death the people of Florence and Bocchineri speak of her death
+  fixture florence_ch3.txt
+  run KNOW:celeste-dead=1 KNOW:knows:florence:geri=1 WHERE:florence:geri
+  run KNOW:celeste-dead=1 WALKTO:money-changer TALK:money-changer SAY:celeste
+  expect Signor Galileo's daughter Suor Maria Celeste died at San Matteo, in the spring of 1634
+end
+
+scenario bale-line-goes-after-a-seizure
+  about the journal's "You have Landini's bale" goes once the searchers have taken the copies
+  fixture florence_ch3.txt
+  run KNOW:ch1-commission=1 KNOW:has-bale=1 STORIES:detailed
+  expect You have Landini's bale: a dozen copies
+  run KNOW:seized:dialogue=9 STORIES:detailed
+  absent You have Landini's bale
+end
+
+scenario cards-chapter-and-date
+  about the chapter card (data/cards.txt) comes after the jump's clock moves, with the old chapter's end and the interval; the first card of a game has none
+  fixture florence_ch3.txt
+  run KNOW:ch2-called KNOW:town=Arcetri WAIT:2
+  expect [card] The end of Chapter I: The book goes north
+  expect [card] Chapter II
+  expect [card] The summons
+  expect [card] Florence, Friday 1 October 1632. Four months later.
+  run KNOW:ch2-answered KNOW:town=Arcetri WAIT:2
+  expect-re \[card\] Florence, Thursday 20 January 1633\. .* later\.
+  absent [card] Chapter
+end
+
+scenario cards-epilogue-branch
+  about the epilogue card says Arcetri, or Rome on the man-worse branch
+  fixture florence_ch3.txt
+  run KNOW:last-scene KNOW:man-worse WAIT:2
+  expect [card] The end of Chapter V: Two New Sciences
+  expect [card] Epilogue
+  expect-re \[card\] Rome, Tuesday 1 June 1638\.
+end
+
+scenario ferry-to-murano
+  about AROUND lists ferry boats, and WALKTO:murano walks into the boat to Murano (the Fondamenta Nuove at Venice); then WALKTO:glassworks
+  fixture venice_nuove.txt
+  run AROUND
+  expect a ferry boat to Murano (
+  run WALKTO:murano
+  expect you took the ferry boat to Murano
+  run WALKTO:glassworks
+  expect [you are in the glassworks of the Barovier]
+end
+
+scenario walk-stops-at-the-warning
+  about a multi-step walk stops where the searchers' first warning turns you back; the next walk goes on (and is searched: by chance, so only that the warning is not repeated is checked)
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Saint-Denis GIVEME:salt
+  run GOTO:2965,3905
+  expect [you turn back at the edge of Paris
+  absent find a sack of salt in your pack
+  run GOTO:2965,3895
+  absent [you turn back at the edge of Paris
+  absent the searchers are turning out
+end
+
+scenario wait-news-coarse
+  about WAIT:news runs the clock in coarse steps until a news line is told to you (Maria Celeste's call, two days after ch1-over)
+  fixture florence_landini.txt
+  run KNOW:ch1-over=789 WAIT:news
+  expect A letter finds you, in Suor Maria Celeste's careful hand
+  expect-re word came after 28[0-9][0-9] minutes
+  file-expect ^player event:ch2-call 36[0-9][0-9]$
+end
+
+scenario inn-stay-until-word
+  about the innkeeper's second offer, "stay": the bed is kept until the letter comes; 2 sous for each night (two nights here)
+  fixture florence_landini.txt
+  run KNOW:coin:french=0 MONEY:240 WALKTO:innkeeper SKIP:350 KNOW:ch1-over=1100 TALK:innkeeper SAY:bed
+  expect will you *stay*?
+  run SAY:stay
+  expect (You pay for the first night, and settle in to wait.)
+  expect You wake to a knock at the door: word has come. A letter finds you
+  file-expect ^player money 192$
+end
+
+scenario inn-stay-no-word
+  about "stay" with no letter due: fourteen days, 14 nights paid (28 sous), and the innkeeper's remark
+  fixture florence_landini.txt
+  run KNOW:coin:french=0 MONEY:400 WALKTO:innkeeper SKIP:350 TALK:innkeeper SAY:bed SAY:stay
+  expect Fourteen days, and no word. The innkeeper has begun to look at you.
+  file-expect ^player money 64$
+end
+
+scenario post-ride-paris-florence
+  about the post ride as a ticket: the fare, two stills, the arrival at Florence's inn, the clock moved by the riding time (1.6 hours)
+  fixture paris_start.txt
+  run MONEY:2000 POSTEVENT:none WALKTO:innkeeper TALK:innkeeper SAY:ride
+  expect Name the town, and I will tell you the fare.
+  run SAY:Florence
+  expect The post to Florence: 2 livres, 11 sous, and you are there by noon, with your bag behind the postilion. Will you *ride*?
+  run POSTEVENT:none SAY:ride
+  expect [scene 1 of 2] The post horses are brought out into the yard
+  expect [scene 2 of 2] Over the Alps the horses give way to mules
+  expect You come in with the post to Florence at noon, stiff in every bone.
+  file-expect ^player been:florence 1$
+  file-expect ^time 6[0-9]{2}\.
+end
+
+scenario post-ride-cheap-fare-and-no-road
+  about Florence to Rome costs the least fare (10 sous); no post goes where there is no road (Stockholm); too little money
+  fixture florence_landini.txt
+  run MONEY:2000 POSTEVENT:none WALKTO:innkeeper POST:Stockholm
+  expect No post goes to Stockholm from here: there is no road, only the sea.
+  run MONEY:60 POST:Rome
+  expect The post to Rome: 10 sous, and you are there this afternoon
+  expect That is 10 sous, and you have
+  run MONEY:2000 POSTEVENT:none POST:Rome
+  expect Over the Apennines and down through the oak woods
+  expect You come in with the post to Rome this afternoon, stiff in every bone.
+end
+
+scenario post-ride-cow-stays
+  about a led cow cannot ride the post: no fare is taken
+  fixture paris_start.txt
+  run ROAD:none MONEY:9000 TRAVEL:Poissy WALKTO:drover TALK:drover SAY:cow SAY:yes BYE WALKTO:innkeeper POST:Paris
+  expect Not on the post, friend: the cow walks, and so do you.
+  absent You come in with the post
+end
+
+scenario post-ride-stopped-on-the-road
+  about a ride stopped by the lame horse: set down on the open road, the unused fare returned, only the first still shown, and the post houses passed marked as been
+  fixture paris_start.txt
+  run MONEY:2000 POSTEVENT:lame WALKTO:innkeeper POST:Florence
+  expect [scene 1 of 1] The post horses are brought out into the yard
+  expect Your horse goes lame on a stone, and the postilion swears.
+  absent Over the Mont Cenis
+  file-expect ^player been:the-post-house-at-ulm 1$
+  file-absent ^player been:florence
+end
+
+scenario food-heals-when-hurt
+  about eating bread mends health only when you are hurt, and the text says so then ("heals 4": 10 of 20 becomes 14)
+  fixture paris_start.txt
+  run GIVEME:loaf GIVEME:loaf USE:loaf HP
+  expect You eat the bread. A day old, but good, and it fills you.
+  absent It does you good
+  expect [health 20.0 of 20
+  run KNOW:hp=10 USE:loaf HP
+  expect (It does you good.)
+  expect [health 14.0 of 20
+end
+
+scenario post-horse-hire-is-three-sous
+  about the innkeeper's hired post horse costs 3 sous (36 deniers), as he says
+  fixture paris_start.txt
+  run MONEY:1000 WALKTO:innkeeper TALK:innkeeper SAY:horse
+  expect A post horse is three sous, to the next inn on your road
+  run SAY:hire
+  expect You pay 3 sous for a post horse
+  run HP
+  expect money 4 livres, 4 deniers
+end
+
+scenario travel-stops-at-the-roads-dangers
+  about TRAVEL goes stage by stage and stops on the open road when the dangers are forced (ROAD:band), with the towns passed marked; the band, paid at the next run, lets you go on
+  fixture paris_start.txt
+  run ROAD:band TRAVEL:Rome WAIT:1 AROUND
+  expect and meet a band of brigands
+  expect [the journey stops here: TRAVEL again to go on]
+  expect You are in countryside
+  expect a brigand
+  file-expect been:paris
+  file-expect been:the-post-house-at-augsburg
+  file-absent been:rome
+  run SAY:pay ROAD:none TRAVEL:Rome
+  expect [the men from the road are still here]
+  expect The toll, friend.
+  expect and arrive on
+  absent the journey stops here
+  file-expect been:rome
+end
+
+scenario ferry-from-afar
+  about WALKTO finds a ferry landing by its name, takes the boat to a place named, and crosses the water to a building there
+  fixture venice_nuove.txt
+  run WALKTO:locanda
+  expect [you are in the Locanda della Luna]
+  run WALKTO:fondamenta_nuove
+  expect [you are at the Fondamenta Nuove, by the ferry boat to Murano]
+  run WALKTO:locanda WALKTO:santi_maria_e_donato
+  expect you took the ferry boat to Murano
+  expect [you are in Santi Maria e Donato]
+  run WALKTO:ferry_boat_to_the_Fondamenta_Nuove
+  expect you took the ferry boat to the Fondamenta Nuove
+end
+
+scenario walkto-far-building
+  about a building whose door is beyond the first search's reach (the Minims from the Pomme de Pin) is entered from beside it; upstairs WALKTO says CLIMB
+  fixture paris_start.txt
+  run WALKTO:Pomme_de_Pin
+  expect [you are in the Pomme de Pin]
+  run CLIMB WALKTO:Minims
+  expect [you are upstairs (or below): CLIMB down first]
+  run CLIMB WALKTO:Minims
+  expect [you are in the Minims]
+  run LOOKAT:the-may
+  expect none near you
+end
+
+scenario manuscript-carriers-ask
+  about with the manuscript in hand (chapter V), a word of it to de Noailles or Louis Elzevir makes him ask for it, and "yes" gives it
+  fixture florence_landini.txt
+  run ROAD:none KNOW:ch4-open=1 KNOW:ch5-open=1 TRAVEL:Rome
+  expect arrive on
+  run KNOW:has:manuscript=1 WALKTO:Trinita WAIT:100 WALKTO:ambassador TALK:ambassador SAY:book SAY:yes
+  expect Do you have a manuscript to *give* me?
+  expect (He takes it in both hands, like a relic.)
+  file-expect ^player manuscript-sent
+  file-expect ^player via-noailles
+end
+
+scenario manuscript-louis-asks
+  about Louis Elzevir at the Locanda della Luna asks for the manuscript when it is named, and "yes" gives it
+  fixture venice_nuove.txt
+  run KNOW:ch5-open=1 KNOW:has:manuscript=1 WAIT:60 WALKTO:Locanda WALKTO:printer TALK:printer SAY:manuscript SAY:yes
+  expect Do you have a manuscript to *give* me?
+  expect It sails with me on Friday
+  file-expect ^player via-louis
+end
+
+scenario certificate-asked-for
+  about after the first hearing Galileo asks for Bellarmine's certificate, and "yes" gives it back for his defence; he is held upstairs at the Holy Office then
+  fixture florence_ch3.txt
+  run ROAD:none KNOW:ch3-open=1 TRAVEL:Rome WALKTO:Villa_Medici WAIT:100 WALKTO:philosopher TALK:philosopher SAY:give_certificate
+  expect Keep something for me: Bellarmine's certificate
+  expect Not yet. Keep it until they call me
+  run BYE KNOW:hearing=1 WAIT:180 WALKTO:palace_of_the_Holy_Office CLIMB WALKTO:philosopher TALK:philosopher SAY:yes
+  expect Have you the Cardinal's certificate? *Give* it to me now
+  expect The tenth of May, for my defence.
+  file-expect ^player cert-returned
+end
+
+scenario certificate-too-late
+  about after the sentence Bellarmine's certificate is no longer taken for the defence, and adds no favour
+  fixture florence_ch3.txt
+  run ROAD:none KNOW:ch3-open=1 TRAVEL:Rome WALKTO:Villa_Medici WAIT:100 WALKTO:philosopher TALK:philosopher
+  expect Keep something for me: Bellarmine's certificate
+  run KNOW:hearing=1 KNOW:ch3-over=1 WALKTO:philosopher TALK:philosopher SAY:give_certificate
+  expect It is too late for that now.
+  file-absent ^player cert-returned
+end
+
+scenario forgery-second-copy
+  about Don Luis's paper taken and kept: ten days after the first hearing he has another written and laid, and the news says so; both news lines of that moment are told
+  fixture florence_ch3.txt
+  run ROAD:none KNOW:ch3-open=1 TRAVEL:Rome KNOW:hearing=814 WAIT:100 WALKTO:Casa_Arellano WALKTO:secretary TALK:secretary SAY:paper SAY:carry
+  expect Will you *carry* it?
+  expect (He seals it with plain wax, and counts the money into your hand.)
+  run WAIT:news
+  expect He did not wait for you: he had another written.
+  expect A letter from Ambassador Niccolini
+  file-expect ^player forgery-produced
+  run WAIT:240 WALKTO:Casa_Arellano WALKTO:secretary TALK:secretary
+  expect You kept my paper. No matter: I had another written. I shall not trouble you with errands again.
+  file-expect ^player arellano-knows
+end
+
+scenario forgery-refused-and-glimpsed
+  about refusing Don Luis's paper leaves a plain journal fact (no mark), and a connoisseur reads the ink at its foot when shown it
+  fixture florence_ch3.txt
+  run ROAD:none KNOW:ch3-open=1 TRAVEL:Rome KNOW:hearing=814 KNOW:skill:connoisseur=1 WAIT:100 WALKTO:Casa_Arellano WALKTO:secretary TALK:secretary SAY:paper SAY:no BYE WAIT:2 STORIES:detailed
+  expect It will find its way to the Minerva without you.
+  expect as you were taught in the gallery of the kings
+  expect keeps a paper of the year sixteen in his strongbox at the Casa Arellano
+  file-expect ^player proof-ink
+end
+
+scenario mersenne-takes-the-stationery-given
+  about Mersenne's paper, ink and quills are handed over by giving any of them, as by the words
+  fixture paris_start.txt
+  run ROAD:none KNOW:knows:paris:mersenne=1 KNOW:courier-coat=1 KNOW:courier-stationer=1 KNOW:has:paper=1 KNOW:has:inkpot=1 KNOW:has:quill=4 WALKTO:Minims WALKTO:Mersenne TALK:Mersenne SAY:give_quills
+  expect He sharpens a quill at once, dips it, and writes a line to try it.
+  absent keep it
+  file-expect ^player stationer-done
+  file-absent ^player has:paper 1
+end
+
+scenario mersenne-stationery-given-short
+  about given the paper with only two quills, Mersenne says again what he asked for, and nothing is taken
+  fixture paris_start.txt
+  run ROAD:none KNOW:knows:paris:mersenne=1 KNOW:courier-coat=1 KNOW:courier-stationer=1 KNOW:has:paper=1 KNOW:has:inkpot=1 KNOW:has:quill=2 WALKTO:Minims WALKTO:Mersenne TALK:Mersenne SAY:give_paper
+  expect A quire of paper, a pot of ink and four quills, from a *stationer*
+  absent keep it
+  file-expect ^player has:paper 1
+  file-absent ^player stationer-done
+end
+
+scenario a-refused-gift-stays-with-you
+  about a gift nobody wants is refused plainly: "(He does not take it.)", "(She does not take it.)", and it stays in your pack
+  fixture paris_start.txt
+  run ROAD:none KNOW:knows:paris:mersenne=1 KNOW:has:loaf=1 WALKTO:Minims WALKTO:Mersenne TALK:Mersenne SAY:give_loaf
+  expect (He does not take it.) Thank you, but keep it.
+  file-expect ^player has:loaf 1
+  run ROAD:none TRAVEL:Zirndorf WALKTO:goodwife TALK:goodwife SAY:give_loaf
+  expect (She does not take it.) Thank you, but keep it.
+  file-expect ^player has:loaf 1
+end
+
+scenario the-two-new-sciences-given-as-a-copy
+  about the book printed at Leiden answers to "copy" as well as "book"
+  fixture arcetri.txt
+  run KNOW:has:two-new-sciences=1 KNOW:knows:arcetri:galileo=1 WALKTO:Il_Gioiello WALKTO:Galileo TALK:Galileo SAY:give_copy
+  expect (You put it into his hands. He turns it over, and feels the boards
+  absent You have no copy
+end
+
+scenario mersenne-road-money-post
+  about Mersenne's errand to Florence: "Crenet will put you on the post", and Crenet, asked of the post, gives the ride to Florence
+  fixture paris_start.txt
+  run KNOW:courier-florence=600 MONEY:3120 POSTEVENT:none WALKTO:Pomme_de_Pin WALKTO:Crenet TALK:Crenet SAY:post SAY:florence SAY:yes AROUND
+  expect The Father told me you would come.
+  expect The post to Florence:
+  expect You come in with the post to Florence
+  expect You are in the street, Florence.
+end
+
+scenario band-toll
+  about paying a band of brigands costs a toll, a quarter of what you carry, at most ten livres, not the whole purse
+  fixture paris_start.txt
+  run KNOW:gave-mersenne-dialogue=1 MONEY:9600 ROAD:band TRAVEL:Orleans SAY:pay PURSE
+  expect [a brigand stops you on the road]
+  expect He counts 10 livres out of your purse into his hat, and hands you back the rest.
+  expect [money 30 livres
+end
+
+scenario purse-warning
+  about setting out from a town with twenty livres or more (out of the prologue, with no hired sword) says the roads' dangers and their remedies, once a day
+  fixture paris_start.txt
+  run KNOW:gave-mersenne-dialogue=1 MONEY:9600 ROAD:none TRAVEL:Orleans
+  expect You have 40 livres on you, and the roads are not safe.
+  expect a bill of exchange
+  run ROAD:none TRAVEL:Paris
+  absent the roads are not safe
+end
+
+scenario closet-seen-from-inside
+  about with Fra Bartolomeo's closet promised, the first examination is seen only by one inside the palace of the Holy Office when they send for Galileo
+  fixture florence_ch3.txt
+  run ROAD:none KNOW:ch3-open=1 KNOW:hide-ok=1 KNOW:hearing-ready=1 TRAVEL:Rome WALKTO:palace_of_the_Holy_Office WAIT:2
+  expect Through the grille of Fra Bartolomeo's closet
+  file-expect ^player hearing-seen
+end
+
+scenario closet-promised-but-away
+  about with the closet promised but never gone into, the first examination comes unseen two days after Niccolini's note, as a letter
+  fixture florence_ch3.txt
+  run ROAD:none KNOW:ch3-open=1 KNOW:hide-ok=1 KNOW:hearing-ready=1 TRAVEL:Rome WALKTO:Villa_Medici WAIT:3000
+  expect They will call Signor Galileo before the Commissary the day after tomorrow.
+  expect Francesco Niccolini to Andrea Cioli, April 1633
+  absent Through the grille
+  file-absent ^player hearing-seen
+end
+
+scenario directions-one-sentence
+  about the part of the town and the way from where you stand come in one sentence, so that "north-east" and "east" do not read as a contradiction
+  fixture paris_start.txt
+  run WALKTO:apprentice TALK:apprentice SAY:Minims
+  expect It is in the north-east quarter of the town, by the Place Royale; from where you stand, go
+end
+
+scenario calais-from-the-baltic
+  about in Stockholm, asked of England, people point to the Calais packet
+  fixture stockholm.txt
+  run AROUND
+  run WALKTO:innkeeper TALK:innkeeper SAY:england
+  expect the long road west to Calais
+end
+
+scenario kepler-follows-the-date
+  about Kepler died in November 1630: Galileo says "the winter before last" in June 1632, and "the year thirty" from October 1632 (a talk condition date<YYYY-MM-DD)
+  fixture arcetri.txt
+  run WALKTO:Gioiello WAIT:120 WALKTO:gentleman TALK:gentleman SAY:kepler SKIP:172800 SAY:kepler
+  expect He died the winter before last.
+  expect He died in the winter of the year thirty
+end
+
+scenario the-dead-are-not-sent-for
+  about after Maria Celeste's death nobody gives the way to her convent; her "died" line is said instead
+  fixture paris_start.txt
+  run KNOW:celeste-dead=1 KNOW:knows:arcetri:celeste=1 WALKTO:apprentice TALK:apprentice SAY:maria_celeste
+  expect She died at San Matteo on the second of April, 1634
+  absent Ask for her at
+end
+
+scenario ending-pages-at-once
+  about the ending's pages come straight after the epilogue, and Ending 5's "Nothing." reads as praise
+  fixture florence_ch3.txt
+  run KNOW:last-scene WAIT:2 WAIT:5
+  expect [card] Epilogue
+  expect What you did for the other side
+  expect Nothing. You never sold him, nor his friends, nor his papers, to anyone.
+end
+
+scenario climb-in-this-building
+  about CLIMB uses a stair of the building you are in, never one outside its walls (the abbey of Saint-Denis has none; the Pomme de Pin its ladder)
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Saint-Denis WALKTO:Abbey CLIMB
+  expect nothing to climb in this building
+  run ROAD:none TRAVEL:Paris WALKTO:Pomme_de_Pin CLIMB
+  expect climb from floor 0 to floor 1
+end
+
+scenario changer-asks-first
+  about the money-changer says what he will do and asks first; "change" then changes
+  fixture venice_nuove.txt
+  run WALKTO:Rialto WALKTO:money-changer TALK:money-changer SAY:exchange SAY:change
+  expect Will you *change*?
+  expect (He holds out his hand for your purse, and empties it onto the cloth.)
+end
+
+scenario band-stays-until-dealt-with
+  about in the stand-in a band stops you on foot until you pay or fight, and is still there at the next run; TRAVEL cannot walk past it
+  fixture paris_start.txt
+  run KNOW:gave-mersenne-dialogue=1 MONEY:9600 ROAD:band TRAVEL:Orleans
+  expect on foot they will not let you by
+  run ROAD:none TRAVEL:Orleans
+  expect [the men from the road are still here]
+  expect the men on the road are in your way
+  run SAY:pay PURSE
+  expect He counts 10 livres out of your purse
+  expect [money 30 livres
+end
+
+scenario band-ridden-past
+  about on horseback you ride wide of a band, and keep your purse
+  fixture paris_start.txt
+  run KNOW:gave-mersenne-dialogue=1 MONEY:9600 WALKTO:Pomme_de_Pin WALKTO:Crenet TALK:Crenet SAY:horse SAY:yes BYE OUT USEANIMAL:horse ROAD:band TRAVEL:Orleans PURSE
+  expect on a horse you can leave them behind
+  expect [on horseback you ride wide of them, and they do not follow a horse]
+  expect [money 39 livres, 17 sous
+end
+
+scenario galileo-known-in-rome
+  about chapter IV, the worse branch, after Maria Celeste's death: the journal sends you to Galileo at the Villa Medici; known at Arcetri, he is known by name in Rome; Niccolini and Bartolomeo say where he is; after the trial he hands over no certificate, and asks nobody to write to his dead daughter (fixture rome_ch4_worse: inside the Villa Medici, with Rome's knowledge of him removed)
+  fixture rome_ch4_worse.txt
+  run STORIES
+  expect Galileo has sent for you, and is waiting for you.
+  expect Galileo is kept under guard at the Villa Medici in Rome
+  run WAIT:10 AROUND
+  expect-re Galileo Galilei \(\d+ steps?
+  run WALKTO:Galileo TALK:Galileo
+  expect Bring me my *notes*.
+  run BYE TALK:Galileo
+  expect She is dead.
+  run BYE TALK:Galileo
+  expect nobody at Arcetri now to write to
+  absent Keep something for me
+  run BYE WALKTO:Niccolini TALK:Niccolini SAY:galileo
+  expect Still under my roof
+  run BYE WALKTO:palace_of_the_Holy_Office WALKTO:Bartolomeo TALK:Bartolomeo SAY:galileo
+  expect The little door is a cupboard again
+  expect They have taken him to the Grand Duke's house, the Villa Medici
+end
+
+scenario lookat-carried-before-far
+  about LOOKAT names a thing you carry before one of its kind lying out of reach (a book in your pack, before a book 24 steps off)
+  fixture rome_ch4_worse.txt
+  run LOOKAT:book
+  expect (you carry it) A book bound in calf
+end
+
+scenario workplaces-from-home
+  about a workplace of a kind (an inn, a theatre) is the one nearest the person's home, not the map's corner (the Mermaid's landlord worked at the Tabard, the Locanda della Luna's innkeeper at Fusina)
+  fixture rome_ch4_worse.txt
+  run WHERE:london:mermaid WHERE:venice:luna
+  expect (the Mermaid Tavern, London)
+  expect (the Locanda della Luna, Venice)
+end
+
+scenario mersenne-packet-asked-for
+  about any word of the post or the south to Crenet, while you carry Mersenne's packet, and he asks for it; "yes" posts it
+  fixture paris_packet.txt
+  run WALKTO:Crenet TALK:Crenet SAY:post
+  expect Will you *give* it here?
+  run SAY:yes
+  expect Aix, Digne, Rome.
+  run BYE STORIES
+  expect The packet is in the post. Go back to Father Mersenne.
+end
+
+scenario crenet-post-florence-by-ride
+  about on Mersenne's errand, the fare for Florence quoted, "ride" takes the post; POST:Florence quotes the fare rather than asking "Name the town"
+  fixture paris_start.txt
+  run KNOW:courier-florence=600 MONEY:3120 POSTEVENT:none WALKTO:Pomme_de_Pin WALKTO:Crenet POST:Florence AROUND
+  expect The post to Florence:
+  expect You come in with the post to Florence
+  absent Name the town, and I will tell you the fare.
+end
+
+scenario trade-needs-every-word
+  about a trade asked for in two words needs both: "map-seller" is not Zorzi Bon the colour-seller (at Venice); "colour-seller" still is
+  fixture venice_nuove.txt
+  run WALKTO:Rialto WALKTO:apprentice TALK:apprentice SAY:map-seller
+  absent Zorzi Bon
+  run SAY:colour-seller
+  expect There is Zorzi Bon: he is a colour-seller.
+end
+
+scenario post-fare-in-the-coin-of-departure
+  about the post's fare is paid in the coin of the town you leave, not squared at the far end, where it is foreign (at Venice a fare squared at the far end loses a tenth below its worth)
+  fixture paris_start.txt
+  run MONEY:2000 POSTEVENT:none WAIT:1 WALKTO:innkeeper POST:Venice PURSE
+  expect You come in with the post to Venice
+  expect [money 6 livres, 1 sou, 8 deniers: all in French coin]
+  absent a tenth below its worth
+end
+
+scenario trade-of-the-crowd
+  about asked for a trade or a thing that only an unnamed townsman has (Florence's herdsman, whom Suor Maria Celeste sends you to), people say where he is
+  fixture florence_landini.txt
+  run WALKTO:printer TALK:printer SAY:herdsman
+  expect There is a herdsman. You will find him in the market
+  run SAY:milk
+  expect A herdsman sells them.
+end
+
+scenario galileo-confined-in-chapter-four
+  about Galileo walks to San Matteo of an evening, but not from chapter IV, when he is "confined to the house and the garden" and his daughter says "He has not been allowed to come"
+  fixture arcetri.txt
+  run WAIT:255 WAIT:5 WHERE:arcetri:galileo
+  expect (the convent of San Matteo in Arcetri, Arcetri)
+end
+
+scenario galileo-confined-in-chapter-four-at-home
+  about (the same, chapter IV open): at Il Gioiello at half past five
+  fixture arcetri.txt
+  run KNOW:ch4-open=1 WAIT:255 WAIT:5 WHERE:arcetri:galileo
+  expect (Il Gioiello, Arcetri)
+end
+
+scenario book-front-latin-few-keepers
+  about the Latin and the keepers are scored apart: translation with 6 keepers gets the Latin; 7 keepers without it, the kept copies; both, history; neither, worse or worst
+  fixture florence_ch3.txt
+  run KNOW:diodati-translation=1 KNOW:keepers=6 KNOW:last-scene WAIT:2 WAIT:5
+  expect in 1635 the Latin translation, the Systema cosmicum
+  expect This is close to what happened.
+  absent there was no Latin translation
+  expect Copies kept, in the end, by 6 keepers.
+  file-expect ^player book-latin
+  file-absent ^player book-worse
+  run STORIES
+  expect The Dialogue was put into Latin, and went all over Europe; but few copies of the Italian were kept.
+end
+
+scenario book-front-kept-no-latin
+  about seven keepers without the translation: the copies were kept, but no Latin
+  fixture florence_ch3.txt
+  run KNOW:keepers=7 KNOW:last-scene WAIT:2 WAIT:5
+  expect and were read in Italian by those who could read it; but there was no Latin translation
+  absent Some copies survived, in a few libraries
+  file-expect ^player book-kept
+  file-absent ^player book-worse
+  run STORIES
+  expect The copies of the Dialogue were kept, but there was no Latin translation.
+end
+
+scenario book-front-history
+  about the translation and seven keepers: what happened
+  fixture florence_ch3.txt
+  run KNOW:diodati-translation=1 KNOW:keepers=7 KNOW:last-scene WAIT:2 WAIT:5
+  expect went out from the Elzevirs to the whole of Protestant Europe, with a preface swearing that Galileo knew nothing of it. This is what happened.
+  file-expect ^player book-history
+  file-absent ^player book-(latin|kept|worse|worst)
+end
+
+scenario book-front-worse-and-worst
+  about neither goal: worse with 2 to 6 keepers, worst with fewer than two
+  fixture florence_ch3.txt
+  run KNOW:keepers=4 KNOW:last-scene WAIT:2 WAIT:5
+  expect Some copies survived, in a few libraries, read by a few
+  file-expect ^player book-worse
+  file-absent ^player book-(history|latin|kept|worst)
+end
+
+scenario book-front-worst
+  about no translation and fewer than two keepers: the worst
+  fixture florence_ch3.txt
+  run KNOW:keepers=1 KNOW:last-scene WAIT:2 WAIT:5
+  expect The seizures succeeded.
+  file-expect ^player book-worst
+  file-absent ^player book-(history|latin|kept|worse)
+end
+
+scenario galileo-held-in-the-fiscals-rooms
+  about from the first examination to 30 April 1633 Galileo is held upstairs in the palace of the Holy Office: he works and eats there, and sleeps in the Fiscal's bed; met there first, he hands over the certificate, and asks for it back only the next day
+  fixture florence_ch3.txt
+  run ROAD:none KNOW:ch3-open=1 KNOW:hide-ok=1 KNOW:hearing-ready=1 TRAVEL:Rome WALKTO:palace_of_the_Holy_Office WAIT:2
+  expect Through the grille of Fra Bartolomeo's closet
+  run WAIT:240 WHERE:rome:galileo
+  expect the upper floor, the palace of the Holy Office, Rome), sleep landmark Holy Office upstairs, lying down
+  run WAIT:720 WALKTO:palace_of_the_Holy_Office CLIMB WALKTO:philosopher TALK:philosopher
+  expect (He is at a table in the Fiscal's rooms, upstairs in the palace of the Holy Office
+  absent Villa Medici
+  file-expect ^player has:bellarmine-cert 1
+  run SAY:hearing SAY:certificate
+  expect The Fiscal's own rooms: good rooms
+  expect Keep it out of this palace a day or two.
+  absent *Give* it to me now
+  run BYE WAIT:240 WHERE:rome:galileo
+  expect the upper floor, the palace of the Holy Office, Rome), eat landmark Holy Office upstairs
+  run WAIT:1440 WALKTO:philosopher TALK:philosopher
+  expect *Give* it to me now: they will call me again, for my defence.
+end
+
+scenario galileo-back-at-the-villa-from-30-april
+  about from 30 April 1633 Galileo is back with Niccolini, and Niccolini and Fra Bartolomeo say so
+  fixture florence_ch3.txt
+  run ROAD:none TRAVEL:Rome KNOW:ch3-open=1 KNOW:hearing=1 KNOW:rome-galileo-met=1 KNOW:knows:rome:niccolini=1 KNOW:knows:rome:bartolomeo=1 SKIP:460800 WHERE:rome:galileo
+  absent the palace of the Holy Office, Rome), go landmark
+  absent upstairs, there
+  run WALKTO:Villa_Medici WALKTO:Niccolini TALK:Niccolini SAY:galileo
+  expect Back under my roof since the thirtieth, writing his defence
+  run BYE WALKTO:palace_of_the_Holy_Office WALKTO:Bartolomeo TALK:Bartolomeo SAY:galileo
+  expect They let him go back to the Grand Duke's villa on the thirtieth
+end
+
+scenario bartolomeo-before-the-hearing
+  about before the first examination Galileo is at the Villa Medici, and Fra Bartolomeo carries him no soup yet
+  fixture florence_ch3.txt
+  run ROAD:none TRAVEL:Rome KNOW:ch3-open=1 KNOW:knows:rome:bartolomeo=1 WALKTO:palace_of_the_Holy_Office WALKTO:Bartolomeo TALK:Bartolomeo SAY:galileo SAY:job
+  expect They have told me to air the Fiscal's rooms upstairs, and to say nothing.
+  expect I sweep this palace, and keep the Commissary's rooms, and the Fiscal's, upstairs.
+  absent carry Signor Galileo his soup
+end
+
+scenario morales-sleeps-at-lisabettas
+  about Morales hidden at Mona Lisabetta's sleeps in her house's spare bed (sparebed; "sleep home-of lisabetta"), and spends the day in Santa Maria in Trastevere
+  fixture florence_ch3.txt
+  run ROAD:none TRAVEL:Rome KNOW:ch3-open=1 KNOW:morales-hidden=1 WAIT:600 WHERE:rome:morales WHERE:rome:lisabetta
+  expect sleep home-of lisabetta, lying down
+  expect-re Mona Lisabetta is at .*sleep , lying down
+  run WAIT:600 WHERE:rome:morales
+  expect (Santa Maria in Trastevere, Rome), go landmark Santa Maria in Trastevere
+end
+
+scenario galileo-eats-and-sleeps-in-the-villa
+  about in Rome Galileo is the Ambassador's guest: he eats and sleeps inside the Villa Medici, never in his own house; after a load he is still in the bed
+  fixture rome_ch4_worse.txt
+  run WAIT:330 WHERE:rome:galileo
+  expect (the upper floor, the Villa Medici, Rome), sleep landmark Villa Medici, lying down
+  run WAIT:600 WHERE:rome:galileo
+  expect (the upper floor, the Villa Medici, Rome), sleep landmark Villa Medici, lying down
+  run WAIT:330 WHERE:rome:galileo
+  expect (the Villa Medici, Rome), eat landmark Villa Medici
+end
+
+scenario king-on-galileos-list
+  about the King of Sweden, camped before Nuremberg, is on Galileo's list of keepers, and Galileo names him
+  fixture arcetri.txt
+  run KNOW:ch1-commission=1 KNOW:has:galileo-list=1 WALKTO:Gioiello WALKTO:old_gentleman TALK:old_gentleman SAY:king
+  expect A Protestant king who reads: put a copy into his baggage
+  file-expect ^player knows:nuremberg:gustavus
+  run BYE USE:galileo-list
+  expect AT NUREMBERG: the King of Sweden, in his camp before the city
+end
+
+scenario king-sees-nobody-until-scouting
+  about the King sees nobody, and takes no Dialogue, until Monro's scouting is done; Monro and the townspeople say so; then he keeps a copy (keeper:gustavus)
+  fixture florence_ch3.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:ch1-commission=1 KNOW:has:dialogue=1 KNOW:knows:nuremberg:gustavus=1 WALKTO:Gustavus TALK:Gustavus SAY:give_dialogue
+  expect Not now. Until I know where Friedland means to sit down
+  expect (He does not take it.)
+  file-expect ^player has:dialogue 1
+  run BYE WALKTO:Rathaus WALKTO:grain TALK:grain SAY:king
+  expect outside the Spittlertor, digging with his soldiers
+  run BYE WALKTO:Scots_officer TALK:Scots_officer SAY:king
+  expect He will see nobody until he knows where Friedland means to sit down
+  file-expect ^player scouting
+  run BYE KNOW:reported-wallenstein=1 WALKTO:Gustavus TALK:Gustavus SAY:give_dialogue
+  expect Monro's stranger, who went up the ridge to look at Friedland.
+  expect Then it shall travel in my own baggage
+  expect A house at Stockholm, a pension, and the Swedish Crown between him and any Inquisitor in the world.
+  file-expect ^player has:king-offer 1
+  run BYE WAIT:5
+  file-expect ^player keeper:gustavus
+  file-expect ^player keepers 1
+end
+
+scenario king-refuge-in-chapter-one
+  about the King of Sweden's refuge for Galileo is offered in chapter I, at the siege: by speaking of Galileo once you have scouted, and then not again with the copy; Galileo burns it at Arcetri
+  fixture florence_ch3.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:ch1-commission=1 KNOW:reported-wallenstein=1 KNOW:has:dialogue=1 KNOW:knows:nuremberg:gustavus=1 WALKTO:Gustavus TALK:Gustavus SAY:galileo
+  expect They are hunting his book all over Italy? Then when they have done with the book, they will hunt the man
+  file-expect ^player king-offer-taken
+  file-expect ^player has:king-offer 1
+  run SAY:give_dialogue
+  expect Tell him so.
+  absent Take him this, with the book's answer.
+  file-expect ^player has:king-offer 1
+end
+
+scenario king-refuge-burned-at-arcetri
+  about Galileo burns the King's letter in chapter I too
+  fixture arcetri.txt
+  run KNOW:ch1-commission=1 KNOW:has:king-offer=1 WALKTO:Gioiello WALKTO:old_gentleman TALK:old_gentleman SAY:give_letter SAY:king
+  expect holds it in the candle until it catches
+  expect if Rome sends for me, I shall go to Rome
+  expect And a king who rides in front of his army does not grow old.
+end
+
+scenario siege-ends-with-chapter-one-untouched
+  about a siege never taken up has happened without you when chapter II opens, as in history: the news, the King gone, Monro holding the town (until 18 November 1632), the grain master's prices fallen
+  fixture florence_ch3.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:ch2-open=1 WAIT:5 WHERE:nuremberg:monro WHERE:nuremberg:gustavus
+  expect Word from Nuremberg: Wallenstein dug himself in on the ridge at Zirndorf in July
+  expect On the third of September the King of Sweden stormed the Alte Veste
+  expect Robert Monro is at
+  expect-re Gustavus Adolphus is at .*away , AWAY
+  file-expect ^player event:siege-ends 1
+  run WALKTO:Rathaus WALKTO:grain TALK:grain SAY:rye
+  expect The King has marched away south, God be thanked
+end
+
+scenario siege-ends-with-chapter-one-unfinished
+  about a siege begun but not fought out ends at chapter II's opening with the storming of 3 September, as in history
+  fixture florence_ch3.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:event:wallenstein-comes=1 KNOW:ch2-open=1 WAIT:5
+  expect Word from Nuremberg: on the third of September the King of Sweden stormed Wallenstein's camp at the Alte Veste
+  absent dug himself in on the ridge at Zirndorf in July
+  file-expect ^player event:siege-ends-unfinished
+end
+
+scenario siege-ends-with-chapter-one-after-the-assault
+  about a siege fought, but with the King not yet gone, ends at chapter II's opening with his march south
+  fixture florence_ch3.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:event:wallenstein-comes=1 KNOW:event:alte-veste=1 KNOW:event:assault-over=1 KNOW:assault-at=900 KNOW:ch2-open=1 WAIT:5
+  expect The King of Sweden, thrown back from the Alte Veste with great loss, has marched out of Nuremberg
+  file-expect ^player event:siege-ends-with-chapter-one
+end
+
+scenario no-siege-after-chapter-one
+  about after chapter I a scouting errand left over brings no Wallenstein to Zirndorf
+  fixture florence_ch3.txt
+  run ROAD:none KNOW:scouting=1 KNOW:ch2-open=1 TRAVEL:Zirndorf WAIT:5
+  absent Wallenstein has come.
+  file-absent ^player event:wallenstein-comes
+end
+
+# ---- the siege's second half: the way in, Monro's question, the ruin,
+# the child, the Duke's offer, the warning and the rapier, the storming at dawn, Murdo Ross brought down to Meister Franz
+
+scenario monro-gives-his-name
+  about Monro gives his name when he first sends you to Zirndorf, so that "Monro" in the journal and from the King is somebody
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Nuremberg WALKTO:Scots_officer TALK:Scots_officer SAY:king
+  expect Robert Monro, of Foulis in Ross, at your service.
+  file-expect ^player knows:nuremberg:monro
+  file-expect ^player scouting
+end
+
+scenario monro-has-work-for-a-stranger
+  about the King says "Monro, in the square, has work for a stranger who wants to be useful": "work" to Monro is the scouting, not the way to a workshop
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Nuremberg WALKTO:Scots_officer TALK:Scots_officer SAY:work
+  expect the King wants to know where he means to sit down
+  file-expect ^player scouting
+end
+
+scenario a-word-they-used-is-not-unknown
+  about a word the person has said to you in this conversation, with no more to say of it, gets "That is all I can tell you about it.", not "I know nothing about that."; a word nobody has said still gets "I know nothing"
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Nuremberg WALKTO:Scots_officer TALK:Scots_officer SAY:king SAY:petition SAY:xylophone
+  expect So does every Nuremberger with a petition.
+  expect That is all I can tell you about it.
+  expect I know nothing about that.
+end
+
+scenario the-words-they-used-answered
+  about threads that once answered "I know nothing about that": Diodati on Gassendi and Grotius, Father Antoine on the May, Mersenne on Florence, Crenet on supper after the Father's supper; Monro on Friedland; Galileo on letters
+  fixture paris_start.txt
+  run ROAD:none KNOW:knows:paris:diodati=1 WALKTO:Palais WALKTO:Diodati TALK:Diodati SAY:gassendi SAY:grotius
+  expect Last November he watched Mercury cross the face of the Sun
+  expect His wife carried him out of Loevestein in a chest of books
+  run BYE KNOW:knows:paris:curate=1 WALKTO:Notre-Dame WALKTO:Father_Antoine TALK:Father_Antoine SAY:may
+  expect the goldsmiths' confraternity gives Our Lady a great picture of the Acts of the Apostles
+  run BYE KNOW:knows:paris:mersenne=1 WALKTO:Minims WALKTO:Mersenne TALK:Mersenne SAY:florence
+  expect Florence? The Grand Duke's city, and Galileo's
+  run BYE KNOW:knows:paris:crenet=1 KNOW:account:paris:crenet=1 KNOW:supper-on-account=1 WALKTO:Pomme_de_Pin WALKTO:Crenet TALK:Crenet SAY:supper
+  expect The Father pays for one supper, not for a courier's whole life.
+  run BYE TRAVEL:Nuremberg WALKTO:Scots_officer TALK:Scots_officer SAY:friedland
+  expect The Emperor made him Duke of Friedland, in Bohemia
+end
+
+scenario the-spyglass-tube-is-named
+  about the spyglass's tube: Galileo, the journal and the Nuremberg compass maker name Blaeu at Amsterdam
+  fixture arcetri.txt
+  run KNOW:skill:optics=1 KNOW:knows:arcetri:galileo=1 WALKTO:Il_Gioiello WALKTO:Galileo TALK:Galileo SAY:lens BYE STORIES
+  expect the map-sellers of Holland roll their maps in leather tubes, and Blaeu at Amsterdam will sell you one for two sous.
+  expect a map-seller would have a tube: Blaeu, the map-maker at Amsterdam, rolls his maps in them.
+  file-expect ^player knows:amsterdam:blaeu
+  run ROAD:none TRAVEL:Nuremberg WALKTO:instrument_maker WALKTO:compass_maker TALK:compass_maker SAY:tube
+  expect I make dials, not spyglasses. For a tube, ask the Dutch: Blaeu at Amsterdam rolls his maps in them.
+end
+
+scenario galileo-on-letters
+  about Galileo asked of letters: his correspondents; carrying his letter for Diodati, what it is for
+  fixture arcetri.txt
+  run KNOW:knows:arcetri:galileo=1 WALKTO:Il_Gioiello WALKTO:Galileo TALK:Galileo SAY:letters
+  expect Castelli in Rome, Micanzio in Venice, Diodati in Paris
+  run BYE KNOW:has:diodati-letter=1 TALK:Galileo SAY:letter
+  expect My letter is for Diodati's hands, and nobody else's
+end
+
+scenario maria-celeste-asked-of-galileo
+  about asked of Galileo, Suor Maria Celeste speaks of her father, not of her name Virginia ("galilei" a whole word only)
+  fixture arcetri.txt
+  run KNOW:knows:arcetri:celeste=1 WALKTO:Maria_Celeste TALK:Maria_Celeste SAY:galileo
+  expect He is a great man and a careless one.
+  absent Nobody has called me Virginia
+end
+
+scenario monro-report-names-the-next-step
+  about the report: five livres said aloud, and the task with its stake and its place (where Friedland is weak; Senno, at the farm under the old castle), in the journal too
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:scouting=1 KNOW:event:wallenstein-comes=1 WALKTO:Scots_officer TALK:Scots_officer SAY:wallenstein
+  expect Here: five livres, for your trouble.
+  expect where is Friedland weak? If we knew that, we could take his camp in a morning
+  expect he will go up it, whether he knows or not
+  expect Senno, a Genoese
+  run SAY:weak BYE STORIES
+  expect Senno, at the farm under the old castle: go up and listen to him.
+  expect if the King knew, he could take it in a morning and end the siege. Senno, the Duke's astrologer, is at the farm under the Alte Veste
+  file-expect ^player reported-wallenstein
+  file-expect ^player knows:zirndorf:senno
+end
+
+scenario king-repeats-monros-errand
+  about at the audience, while the weak point is still to find, the King says Monro has sent you up again; with Christina's lions too
+  fixture florence_ch3.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:reported-wallenstein=1 KNOW:knows:nuremberg:gustavus=1 WALKTO:Gustavus TALK:Gustavus
+  expect And Monro says you are going up again, to find me where he is weak.
+  expect my daughter is at Tre Kronor
+  file-expect ^player king-met
+end
+
+scenario king-quiet-on-the-errand-once-senno-heard
+  about once you have heard Senno the King does not send you up again
+  fixture florence_ch3.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:reported-wallenstein=1 KNOW:heard-weak-north=1 KNOW:knows:nuremberg:gustavus=1 WALKTO:Gustavus TALK:Gustavus
+  absent Monro says you are going up again
+  expect Monro's stranger, who went up the ridge to look at Friedland. Good.
+end
+
+scenario senno-greets-you-with-the-lie
+  about after the report the astrologer is the Duke's bait: his greeting is the rumour of the north end, with no word needed
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Zirndorf KNOW:event:wallenstein-comes=1 KNOW:reported-wallenstein=1 WAIT:15 WALKTO:astrologer TALK:astrologer
+  expect The Duke has drawn his guns off the north end of the ridge
+  file-expect ^player heard-weak-north
+end
+
+scenario monro-asks-did-you-see-it
+  about with the astrologer's word Monro asks whether you saw it with your own eyes; "no" sends you to look in the ruin, and sets nothing going
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:event:wallenstein-comes=1 KNOW:reported-wallenstein=1 KNOW:heard-weak-north=1 WALKTO:Scots_officer TALK:Scots_officer SAY:north
+  expect Did you see it with your own eyes?
+  run SAY:no BYE STORIES
+  expect Then go and look, before I take it to the King.
+  expect He wants you to look inside the ruin of the Alte Veste
+  file-absent ^player storming-set
+end
+
+scenario monro-yes-without-looking
+  about "yes" without having looked: the Duke's tool for nothing; the storming is set, and no rapier
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:event:wallenstein-comes=1 KNOW:reported-wallenstein=1 KNOW:heard-weak-north=1 WALKTO:Scots_officer TALK:Scots_officer SAY:north SAY:yes
+  expect Tomorrow evening at eight the drums beat in the square, and we muster; we march at three. Come with us, if you like, and watch; or bring a sword.
+  file-expect ^player gave-false-report
+  file-expect ^player storming-set
+  file-absent ^player has:rapier
+end
+
+scenario the-ruin-shows-the-guns
+  about inside the Alte Veste (its gate) the Duke's guns under the brushwood, and a Croat runs to the farm; WALKTO:Alte_Veste (with or without "the") takes the ruin itself, not the farm "by the Alte Veste"
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Zirndorf KNOW:event:wallenstein-comes=1 KNOW:heard-weak-north=1 WALKTO:Alte_Veste WAIT:2 STORIES
+  expect You enter the Alte Veste.
+  expect Whatever the astrologer says, the north end of the ridge is not weakly held.
+  expect In the ruin of the Alte Veste you saw the Duke's guns
+  file-expect ^player saw-north-guns
+end
+
+scenario the-child-knows-the-guns
+  about a child of Zirndorf who used to play in the ruin says the soldiers have put their big guns in it
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Zirndorf KNOW:event:wallenstein-comes=1 WALKTO:farmer's_child TALK:farmer's_child
+  expect The soldiers have put their big guns in it, under branches
+  file-expect ^player heard-gretl-guns
+end
+
+scenario the-duke-buys-the-lie
+  about having seen his guns, you may take the Duke's thirty livres to swear the lie to Monro; paid after the storming; the ending's other side says so
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Zirndorf KNOW:event:wallenstein-comes=1 KNOW:reported-wallenstein=1 KNOW:heard-weak-north=1 KNOW:saw-north-guns=1 WAIT:2 WALKTO:Friedland TALK:Friedland
+  expect there will be thirty livres for you here. Well?
+  run SAY:yes BYE
+  expect (He nods, once, and looks back at his foot.) Go quietly.
+  file-expect ^player sold-north
+  run TRAVEL:Nuremberg WALKTO:Scots_officer TALK:Scots_officer SAY:north
+  expect when he asks whether you saw it with your own eyes, you say that you did.
+  file-expect ^player sold-alte-veste
+  file-expect ^player storming-set
+  file-absent ^player has:rapier
+  run BYE KNOW:event:alte-veste=1 KNOW:event:assault-over=1 KNOW:assault-at=600 TRAVEL:Zirndorf WAIT:2 WALKTO:Friedland TALK:Friedland PURSE
+  expect thirty livres in gold
+  file-expect ^player paid-by-duke
+end
+
+scenario the-duke-refused
+  about "no" to the Duke: he lets you go, and the offer is not made again
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Zirndorf KNOW:event:wallenstein-comes=1 KNOW:reported-wallenstein=1 KNOW:heard-weak-north=1 KNOW:saw-north-guns=1 WAIT:2 WALKTO:Friedland TALK:Friedland SAY:no BYE TALK:Friedland
+  expect He will come up my hill all the same; they always do.
+  file-expect ^player refused-duke
+  file-absent ^player sold-north
+end
+
+scenario monros-three-lessons
+  about Monro's three lessons are the three he promises, each its own: the guard, the thrust, when to run; between them he says what comes next, and after the third that he teaches no more; the three lessons do not print the same words
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Nuremberg MONEY:2400 WALKTO:Scots_officer TALK:Scots_officer SAY:lesson SAY:give_2_sous SAY:lesson
+  expect The guard. Point at his eyes, elbow in
+  expect You have the guard. For two sous more, the thrust.
+  file-expect ^player skill:fencing 1
+  run TALK:Scots_officer SAY:give_2_sous SAY:lesson
+  expect The thrust. Not a swing: a sword is not a scythe.
+  expect The guard and the thrust. One left, for two sous: when to run.
+  absent The guard. Point at his eyes
+  file-expect ^player skill:fencing 2
+  run TALK:Scots_officer SAY:give_2_sous SAY:lesson
+  expect When to run. When there are two of them
+  expect There: that is all I teach. The rest only the Croats can teach you, and they charge more.
+  absent brave once
+  expect You fence well enough to stay alive, which is all I teach.
+  file-expect ^player skill:fencing 3
+  run TALK:Scots_officer SAY:give_2_sous
+  absent When to run.
+  file-expect ^player skill:fencing 3
+end
+
+scenario warned-monro-gives-a-rapier
+  about the warning: Monro believes you, the King will not wait; he gives you a rapier and offers his lessons, and the storming is set
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:event:wallenstein-comes=1 KNOW:reported-wallenstein=1 KNOW:heard-weak-north=1 KNOW:saw-north-guns=1 WALKTO:Scots_officer TALK:Scots_officer SAY:guns
+  expect Two deserters came in last night swearing the Duke is drawing off his guns
+  expect Take this one; its owner has no more use for it.
+  file-expect ^player has:rapier 1
+  file-expect ^player warned-monro
+  file-expect ^player storming-set
+  expect Tomorrow evening at eight the drums beat in the square, and the regiment musters there; we march at three
+  run TALK:Scots_officer SAY:lesson SAY:give_2_sous BYE TALK:Scots_officer SAY:wallenstein BYE STORIES
+  expect There: one lesson.
+  expect Tomorrow evening, at eight, in the square, when the drums beat. We march at three.
+  expect he storms the Alte Veste on the 17th of June, at first light. The Scots muster in the square at Nuremberg on the evening of the 16th of June, at eight, when the drums beat.
+  file-expect ^player skill:fencing 1
+end
+
+scenario warned-monro-with-a-sword-already
+  about the warning with a rapier already in your pack: no second sword
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:event:wallenstein-comes=1 KNOW:reported-wallenstein=1 KNOW:heard-weak-north=1 KNOW:saw-north-guns=1 KNOW:has:rapier=1 WALKTO:Scots_officer TALK:Scots_officer SAY:guns
+  expect You have a sword: good.
+  file-expect ^player has:rapier 1
+end
+
+scenario the-storming-comes-at-dawn-two-days-on
+  about the King storms the Alte Veste the second morning after the report, "the day after tomorrow, at dawn"
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:event:wallenstein-comes=1 KNOW:storming-set=1 KNOW:report-at=600 SKIP:1500 WAIT:2
+  absent The King's brigades marched out before dawn
+  file-absent ^player event:alte-veste
+  run SKIP:1100 WAIT:2
+  expect The King's brigades marched out before dawn, to storm the Alte Veste.
+  file-expect ^player event:alte-veste
+end
+
+scenario murdo-under-the-wall
+  about warned, after the retreat: Murdo Ross lies under the wall of the Alte Veste, with two Croats; and will not be helped up while they are at you; he is still there the next night, and gone after
+  fixture paris_start.txt
+  run ROAD:none KNOW:warned-monro=1 KNOW:event:wallenstein-comes=1 KNOW:event:alte-veste=1 KNOW:event:assault-over=1 KNOW:assault-at=600 TRAVEL:Zirndorf WAIT:2 WHERE:nuremberg:murdo WHERE:zirndorf:looter:0
+  expect-re Murdo Ross is at .*lie landmark the Alte Veste, lying down
+  absent away , AWAY
+  run WALKTO:wounded_Scot TALK:wounded_Scot
+  expect Behind you! See to them first
+  file-absent ^player follower
+  run BYE SKIP:2000 WHERE:nuremberg:murdo
+  expect-re Murdo Ross is at .*lie landmark the Alte Veste, lying down
+  run SKIP:2000 WHERE:nuremberg:murdo WHERE:zirndorf:looter:0
+  expect-re Murdo Ross is at .*away , AWAY
+end
+
+scenario around-sees-outside-the-alte-veste
+  about in the ruin's gate (a building with no room inside) AROUND lists the people just outside, and a WAIT stops when a Croat comes at you
+  fixture paris_start.txt
+  run ROAD:none KNOW:warned-monro=1 KNOW:event:wallenstein-comes=1 KNOW:event:alte-veste=1 KNOW:event:assault-over=1 KNOW:assault-at=600 TRAVEL:Zirndorf WAIT:2 WALKTO:Alte_Veste AROUND
+  expect a wounded Scot
+  expect-re People near you: .*a Croat
+  run WAIT:60
+  expect the wait stops (FIGHT back, or get away)
+  absent you black out
+  file-absent ^player ch2-open
+end
+
+scenario walkto-king-is-the-king
+  about WALKTO:King goes to the King of Sweden, not to "a Scots officer of the King of Sweden" standing nearer
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Nuremberg WALKTO:Scots_officer WALKTO:King
+  expect [you are beside the King of Sweden]
+end
+
+scenario murdo-brought-down-to-meister-franz
+  about the secret success: the Croats beaten, Murdo's greeting ends with him got up and the game says he leans on you; he comes behind you (across a reload and the road), Meister Franz sets his leg and Monro thanks you there and then; the ending says so
+  fixture paris_start.txt
+  run ROAD:none KNOW:warned-monro=1 KNOW:has:rapier=1 KNOW:skill:fencing=3 KNOW:event:wallenstein-comes=1 KNOW:event:alte-veste=1 KNOW:event:assault-over=1 KNOW:assault-at=600 TRAVEL:Zirndorf WAIT:2 WALKTO:Croat FIGHT:Croat WAIT:5 WALKTO:Croat FIGHT:Croat WAIT:5 WALKTO:wounded_Scot TALK:wounded_Scot WAIT:1
+  expect I will not walk; but I will hop. (You get him up. He puts an arm round your shoulders, stands on his good leg, and swears.) Down the hill, and do not stop.
+  expect Murdo Ross is leaning on you: he goes where you go.
+  file-expect ^player follower nuremberg:murdo
+  run TRAVEL:Nuremberg WAIT:1 WHERE:nuremberg:murdo
+  expect-re Murdo Ross is at [0-9,]+ \(.*Nuremberg\)
+  run WALKTO:healer TALK:healer BYE WAIT:20 WHERE:nuremberg:murdo STORIES
+  expect It is the same trade: you must know where the bones are.
+  expect and here is Murdo Ross, swearing at the hangman, and that is your doing. (He shakes your hand.)
+  expect-re Murdo Ross is at .*hospital of the Holy Ghost
+  expect Meister Franz set Murdo Ross's leg.
+  file-expect ^player scot-saved
+  file-absent ^player follower
+end
+
+scenario after-the-storming-warned
+  about afterwards, warned: the King says he should have listened; Monro thanks you for Murdo, and will not put your name in his book
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:warned-monro=1 KNOW:scot-saved=1 KNOW:reported-wallenstein=1 KNOW:king-met=1 KNOW:knows:nuremberg:gustavus=1 KNOW:knows:nuremberg:monro=1 KNOW:event:wallenstein-comes=1 KNOW:event:alte-veste=1 KNOW:event:assault-over=1 KNOW:assault-at=600 WALKTO:Gustavus TALK:Gustavus SAY:alte
+  expect he should listen to the one who did.
+  run BYE WALKTO:Monro TALK:Monro SAY:wallenstein
+  expect Murdo Ross is walking up and down the yard of the Holy Ghost on a stick, cursing the hangman who set his leg. I go and look at him every morning
+end
+
+scenario monro-names-your-lie-after-the-storming
+  about on the road of the lie (you said you saw it, and had not), Monro's first greeting after the storming says it to your face, and the ruse; the journal says it too
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:knows:nuremberg:monro=1 KNOW:reported-wallenstein=1 KNOW:storming-set=1 KNOW:event:wallenstein-comes=1 KNOW:event:alte-veste=1 KNOW:event:assault-over=1 KNOW:assault-at=600 KNOW:gave-false-report=1 KNOW:mustered=1 WAIT:40 WALKTO:Monro TALK:Monro
+  expect (His head is bound up. He looks at you for a long time before he speaks.) You told me you had seen it with your own eyes.
+  expect and the King his best colonels, and Murdo Ross, who marched beside you. The astrologer told it to you, and you told it to me
+  expect Somebody wanted us to attack. I wonder who.
+  file-expect ^player monro-blamed
+  file-expect ^player heard-ruse
+  run BYE STORIES
+  expect You told Monro you had seen the north end with your own eyes, and you had not.
+  expect The astrologer's wine was the Duke's.
+  absent what you had seen there was the Duke's guns
+  run TALK:Monro
+  absent You told me you had seen it
+end
+
+scenario the-dukes-road-in-the-journal
+  about on the road of the Duke's thirty livres, the journal says what you had seen there was the guns
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:knows:nuremberg:monro=1 KNOW:reported-wallenstein=1 KNOW:storming-set=1 KNOW:event:wallenstein-comes=1 KNOW:event:alte-veste=1 KNOW:event:assault-over=1 KNOW:assault-at=600 KNOW:gave-false-report=1 KNOW:sold-north=1 KNOW:saw-north-guns=1 STORIES
+  expect You told Monro you had seen the north end empty with your own eyes; what you had seen there was the Duke's guns.
+  absent and you had not.
+end
+
+scenario monro-does-not-blame-the-warner
+  about on the honest road (you warned him) Monro does not say you lied
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:knows:nuremberg:monro=1 KNOW:reported-wallenstein=1 KNOW:storming-set=1 KNOW:event:wallenstein-comes=1 KNOW:event:alte-veste=1 KNOW:event:assault-over=1 KNOW:assault-at=600 KNOW:warned-monro=1 KNOW:mustered=1 KNOW:scot-saved=1 WAIT:40 WALKTO:Monro TALK:Monro
+  absent You told me you had seen it
+  file-absent ^player monro-blamed
+end
+
+scenario monro-at-your-straw-on-the-lie
+  about on the road of the lie, beaten on the hill and coming round in the hospital, Monro comes to your straw and says it to your face; his greeting then gives only the ruse
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:event:wallenstein-comes=1 KNOW:reported-wallenstein=1 KNOW:gave-false-report=1 KNOW:storming-set=1 KNOW:report-at=600 KNOW:mustered=1 MONEY:2400 SKIP:2000 WAIT:2 WAIT:600 SKIP:300.5 WAIT:0.2 HP:0 WAIT:1
+  expect You come round on straw in the hospital of the Holy Ghost
+  expect Monro comes down the rows of straw with his head bound up, stopping at every man. At yours he stops longer, and looks at you. "You told me you had seen it with your own eyes," he says, and goes on to the next.
+  file-expect ^player monro-blamed
+  run WALKTO:Scots_officer TALK:Scots_officer
+  expect (His head is bound up.) There were guns behind every tree
+  absent You told me you had seen it
+  file-expect ^player heard-ruse
+end
+
+scenario monro-after-the-storming-words
+  about after the storming Monro answers the words a player uses for it ("siege", "attack", "astrologer", "war"), and "work" is no longer the way to a workshop
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:knows:nuremberg:monro=1 KNOW:reported-wallenstein=1 KNOW:gave-false-report=1 KNOW:storming-set=1 KNOW:event:wallenstein-comes=1 KNOW:event:alte-veste=1 KNOW:event:assault-over=1 KNOW:assault-at=600 WAIT:40 WALKTO:Monro TALK:Monro SAY:siege
+  expect Somebody wanted us to attack. I wonder who.
+  run SAY:work
+  expect We bury our dead, and the King sits in his tent and writes letters.
+  absent instrument maker's workshop
+end
+
+scenario monro-holds-the-town-until-18-november
+  about Monro stays in Nuremberg after the King has gone, as he did, until 18 November 1632; then he is gone
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:event:siege-ends=1 KNOW:knows:nuremberg:monro=1 WAIT:2 WHERE:nuremberg:monro WALKTO:Monro TALK:Monro SAY:king
+  absent away , AWAY
+  expect left me the town to hold, with what is left of us
+  run BYE SKIP:225000 WAIT:2 WHERE:nuremberg:monro
+  expect-re Robert Monro is at .*away , AWAY
+end
+
+scenario siege-ending-lines
+  about the ending: Murdo among the things nobody wrote down; the Duke's money on the other side's page, and then no "Nothing."
+  fixture florence_ch3.txt
+  run KNOW:scot-saved=1 KNOW:sold-alte-veste=1 KNOW:last-scene WAIT:2 WAIT:5
+  expect had his leg set by the old hangman of Nuremberg, and walked home to Ross.
+  expect You sold the King of Sweden's men to the Duke of Friedland at the Alte Veste, for thirty livres.
+  absent Nothing. You never sold him
+end
+
+# The muster and the battle
+scenario the-muster-in-the-square
+  about the evening after you warned Monro: "tonight" until eight; then the drums (the English March) stop a wait, and Monro, Murdo Ross (whole, "a soldier of Mackay's") and the Scots are in the square; speaking to Monro puts you in Murdo's file
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:event:wallenstein-comes=1 KNOW:reported-wallenstein=1 KNOW:heard-weak-north=1 KNOW:saw-north-guns=1 KNOW:has:rapier=1 WALKTO:Scots_officer TALK:Scots_officer SAY:guns BYE SKIP:1200 WALKTO:Scots_officer TALK:Scots_officer SAY:dawn
+  expect Tonight, at eight, in the square, when the drums beat. We march at three.
+  run BYE WAIT:720 WHERE:nuremberg:murdo WHERE:nuremberg:scot:0 WALKTO:Scots_officer TALK:Scots_officer
+  expect Drums in the streets, beating the muster: the Scots are gathering in the square
+  expect [music: english-march, at 100% of full]
+  expect waited until Wednesday 16 June 1632, 20:
+  expect-re Murdo Ross is at .*Nuremberg.*go square
+  expect-re is at .*Nuremberg.*, work ,
+  expect You will march at the back of Murdo Ross's file
+  file-expect ^player mustered
+  run BYE WALKTO:soldier_of_Mackay TALK:soldier_of_Mackay SAY:hill SAY:bye
+  expect So you are Monro's stranger, that went into the old castle.
+  expect We shall know by breakfast.
+  expect If I go down tomorrow, do not leave me for the Croats.
+end
+
+scenario a-wait-ends-at-the-card
+  about the stand-in's WAIT ends at a card or a jump of the calendar, as a card on the screen stops the clock in the window
+  fixture arcetri.txt
+  run KNOW:ch1-over=1 KNOW:ch2-called=1 WAIT:2880
+  expect [card] The summons
+  expect [the wait ends at the card: the calendar is now Friday 1 October 1632, 09:
+  expect waited until Friday 1 October 1632, 09:
+  absent 2 October
+end
+
+scenario the-view-is-kept-across-a-reload
+  about the camera's turn, tilt and distance are kept in the saved game: the march's view of the hill is still there after a reload
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:event:wallenstein-comes=1 KNOW:warned-monro=1 KNOW:storming-set=1 KNOW:report-at=600 KNOW:mustered=1 SKIP:2000 WAIT:2 WAIT:600
+  expect [the view turns to 202 degrees (Z: back to the usual view)]
+  file-expect ^view 202 52 20
+  run WAIT:1
+  absent [the view turns
+  file-expect ^view 202 52 20
+end
+
+scenario the-view-turns-back-off-the-hill
+  about once you have left Zirndorf after the storming has begun, the view turns back to the usual one
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:event:wallenstein-comes=1 KNOW:warned-monro=1 KNOW:storming-set=1 KNOW:report-at=600 KNOW:mustered=1 SKIP:2000 WAIT:2 WAIT:600 TRAVEL:Nuremberg
+  expect [the view turns to 202 degrees (Z: back to the usual view)]
+  expect [the view turns back to the usual one, 22 degrees]
+  file-expect ^view 22 52 20
+end
+
+scenario the-march-carries-you-to-the-hill
+  about fallen in at the muster, a long wait ends at three with the march: the card, and you stand under the ruin at first light with Murdo by you; the storming begins, and you are of the Swedes' side that day
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:event:wallenstein-comes=1 KNOW:warned-monro=1 KNOW:storming-set=1 KNOW:report-at=600 KNOW:mustered=1 SKIP:2000 WAIT:2 WAIT:600 WHERE:nuremberg:murdo WHERE:nuremberg:monro WHERE:zirndorf:scotstorm:0
+  expect [card] The drums wake you in the dark.
+  expect [card] Zirndorf, Thursday 17 June 1632.
+  expect [music: english-march, at 100% of full]
+  expect [the view turns to 202 degrees (Z: back to the usual view)]
+  expect All along the line the King's drums begin, and the brigades go up the hill in the grey light.
+  expect waited until Thursday 17 June 1632, 05:00
+  expect-re Murdo Ross is at 39[0-9][0-9],39[0-9][0-9],0 \(Zirndorf\)
+  expect-re Robert Monro is at .*Zirndorf.*go landmark the Alte Veste
+  expect-re is at .*Zirndorf.*, work ,
+  expect-re after the walk: tile 39[0-9][0-9],39[0-9][0-9], Zirndorf
+  file-expect ^player marched
+  file-expect ^player side swedish
+  file-expect ^player carried-down Zirndorf
+  file-absent ^player muster-on
+end
+
+scenario no-march-without-falling-in
+  about not fallen in: at three the drums, and the Scots march out of the square without you; at five the news of the storming in Nuremberg
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:event:wallenstein-comes=1 KNOW:warned-monro=1 KNOW:storming-set=1 KNOW:report-at=600 SKIP:2000 WAIT:2 WAIT:600
+  expect The drums beat, and the Scots march out of the square in the dark, by the Spittlertor.
+  expect [music: english-march, at 100% of full]
+  absent [card] The drums wake you
+  run WAIT:600
+  expect The King's brigades marched out before dawn, to storm the Alte Veste.
+  expect-re after the walk: tile 4[0-9]+,3[0-9]+, Nuremberg
+  file-absent ^player marched
+end
+
+scenario the-volley-and-the-retreat-warned
+  about warned, at ten: the guns in the ruin fire (the smoke and the boom), the drums beat the retreat, Murdo is down under the wall, the Scots and the Duke's men are gone and the Croats come out; your side is no longer the Swedes'
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:event:wallenstein-comes=1 KNOW:warned-monro=1 KNOW:storming-set=1 KNOW:report-at=600 KNOW:mustered=1 SKIP:2000 WAIT:2 WAIT:600 SKIP:300.5 WAIT:0.2 WHERE:nuremberg:murdo WHERE:zirndorf:scotstorm:0 WHERE:zirndorf:imperialreserve:0 WHERE:zirndorf:looter:0
+  expect-re \[the guns fire: smoke in 12 places, [0-9]+ tiles off; the boom at volume
+  expect the guns you saw behind it fire all at once, down the slope, into the Scots.
+  expect Under the wall of the ruin Murdo Ross is down in the nettles
+  absent The King of Sweden has stormed Wallenstein's camp at the Alte Veste, and been thrown back
+  expect-re Murdo Ross is at .*lie landmark the Alte Veste, lying down
+  expect-re is at .*Zirndorf.*, work , (there|walking)
+  file-absent ^player side
+  file-expect ^player event:assault-over
+end
+
+scenario the-volley-kills-murdo-on-the-lying-roads
+  about lied to Monro, at the muster and on the hill: at ten the guns that were "drawn off" fire and Murdo Ross is killed; the Scot in the hospital, Monro, the journal and the ending say so
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:event:wallenstein-comes=1 KNOW:gave-false-report=1 KNOW:reported-wallenstein=1 KNOW:storming-set=1 KNOW:report-at=600 KNOW:mustered=1 KNOW:knows:nuremberg:monro=1 SKIP:2000 WAIT:2 WAIT:600 SKIP:300.5 WAIT:0.2 WHERE:nuremberg:murdo
+  expect that were never drawn off at all
+  expect Murdo Ross lies on his back in the nettles, with his eyes open
+  expect-re Murdo Ross is at .*DEAD
+  run TRAVEL:Nuremberg WAIT:2 WALKTO:Scot_with TALK:Scot_with BYE WALKTO:Monro TALK:Monro SAY:siege BYE STORIES
+  expect You were in Murdo Ross's file. Murdo we left under the old castle: the guns that were not there killed him.
+  expect and Murdo Ross, who marched beside you. Somebody wanted us to attack. I wonder who.
+  expect Murdo Ross, who marched beside you, was killed under the wall of the Alte Veste by the Duke's guns.
+end
+
+scenario beaten-on-the-hill-wakes-in-the-hospital
+  about beaten on the hill that day (here after the retreat, with your health brought to nothing), you wake in the hospital of the Holy Ghost the next morning with nothing lost, and the Scot there says Murdo is still up there
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:event:wallenstein-comes=1 KNOW:warned-monro=1 KNOW:storming-set=1 KNOW:report-at=600 KNOW:mustered=1 KNOW:has:rapier=1 MONEY:2400 SKIP:2000 WAIT:2 WAIT:600 SKIP:300.5 WAIT:0.2 HP:0 WAIT:1 HP
+  expect You come round on straw in the hospital of the Holy Ghost, in Nuremberg, the next morning, among the wounded of the storming
+  expect [health 10.0 of 20; money 10 livres]
+  file-expect ^player carried-down-at
+  run WALKTO:Scot_with TALK:Scot_with BYE STORIES
+  expect You were in Murdo Ross's file. We carried you down; we could not get to Murdo, for the Croats.
+  expect You came round in the hospital of the Holy Ghost, carried down by the Scots.
+end
+
+scenario franz-sent-for-at-night
+  about Murdo brought into the hospital at night: Monro, sitting up with his wounded, sends for Meister Franz, who comes in his nightshirt and sets the leg; Monro thanks you there
+  fixture paris_start.txt
+  run ROAD:none KNOW:warned-monro=1 KNOW:event:wallenstein-comes=1 KNOW:event:alte-veste=1 KNOW:event:assault-over=1 KNOW:assault-at=600 KNOW:scot-following=1 KNOW:follower=nuremberg:murdo TRAVEL:Nuremberg SKIP:660 WAIT:2 WHERE:nuremberg:schmidt WHERE:nuremberg:monro WALKTO:hospital_of_the_Holy_Ghost WAIT:2
+  expect-re Robert Monro is at .*go landmark hospital of the Holy Ghost
+  expect Monro sees you come in with Murdo, and sends a boy running for Meister Franz.
+  run WAIT:15 WALKTO:healer TALK:healer
+  expect He comes in with a lantern and a coat over his nightshirt, sent for by Monro
+  expect (He shakes your hand.)
+  file-expect ^player scot-saved
+end
+
+scenario a-first-strike-at-your-own-side-is-stopped
+  about on the hill a first strike at a Scot of Monro's does not land, and says who he is; a second go at him strikes all the same; the Duke's men are struck at once
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:event:wallenstein-comes=1 KNOW:warned-monro=1 KNOW:storming-set=1 KNOW:report-at=600 KNOW:mustered=1 SKIP:2000 WAIT:2 WAIT:600 WAIT:40 WALKTO:Scots_musketeer FIGHT:Scots_musketeer
+  expect That is a Scots musketeer, one of Monro's: your own side. (C on him again: strike him all the same.)
+  absent You go for a Scots musketeer
+  file-expect ^player own-side-asked zirndorf:scotstorm:
+  run FIGHT:Scots_musketeer
+  expect You go for a Scots musketeer
+  absent your own side
+end
+
+scenario the-dukes-men-are-struck-at-once
+  about on the hill a strike at one of the Duke's men lands at once, with no question
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:event:wallenstein-comes=1 KNOW:warned-monro=1 KNOW:storming-set=1 KNOW:report-at=600 KNOW:mustered=1 SKIP:2000 WAIT:2 WAIT:600 WAIT:40 WALKTO:Scots_musketeer FIGHT:Imperial_musketeer
+  expect You go for an Imperial musketeer
+  absent your own side
+end
+
+scenario the-battle-is-heard
+  about while the storming lasts: muskets now and then and a ragged volley among the soldiers, and the blows of the soldiers near you (steel or wood); none of the musketry after the retreat
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:event:wallenstein-comes=1 KNOW:warned-monro=1 KNOW:storming-set=1 KNOW:report-at=600 KNOW:mustered=1 SKIP:2000 WAIT:2 WAIT:600 HEARD WAIT:10 HEARD
+  expect-re \[heard: .*knock [0-9]+.*musket [0-9]+
+  run SKIP:302 WAIT:1 HEARD WAIT:10 HEARD
+  expect-re \[heard: (knock [0-9]+|clash [0-9]+|nothing of the fighting)(, (clash|knock) [0-9]+)?\]$
+end
+
+scenario christina-offers-her-letter
+  about Princess Christina asks a traveller herself to carry her lion to her father at Nuremberg; she will not take it back while he is there
+  fixture stockholm.txt
+  run WALKTO:King's_castle WALKTO:daughter TALK:daughter
+  expect You have mud on your boots: you are a traveller. Are you going to Germany?
+  expect Will you *take* it to him?
+  run SAY:yes
+  expect It is a lion. He is the Lion of the North
+  file-expect ^player has:christina-letter 1
+  file-expect ^player knows:nuremberg:gustavus
+  run SAY:give_letter
+  expect No. It is for Papa, into his own hands. At Nuremberg.
+  file-expect ^player has:christina-letter 1
+end
+
+scenario christina-letter-opens-the-siege
+  about her letter brought to Nuremberg first: the King will read it only once Monro's scouting is done, and then answers it
+  fixture florence_ch3.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:has:christina-letter=1 KNOW:carried-christina-letter=1 KNOW:knows:nuremberg:gustavus=1 WALKTO:Gustavus TALK:Gustavus SAY:give_letter
+  expect Find me Friedland, and I will read it tonight.
+  file-expect ^player has:christina-letter 1
+  run BYE KNOW:reported-wallenstein=1 WALKTO:Gustavus TALK:Gustavus SAY:give_letter
+  absent my daughter is at Tre Kronor
+  expect A lion. With a crown, and a sword
+  file-expect ^player has:king-letter 1
+end
+
+scenario king-speaks-of-christina
+  about at the audience the King tells a player who has not met her of his daughter at Tre Kronor
+  fixture florence_ch3.txt
+  run ROAD:none TRAVEL:Nuremberg KNOW:reported-wallenstein=1 KNOW:knows:nuremberg:gustavus=1 WALKTO:Gustavus TALK:Gustavus
+  expect my daughter is at Tre Kronor, in Stockholm: she draws me lions
+  file-expect ^player knows:stockholm:christina
+end
+
+scenario christina-letter-after-the-king-has-gone
+  about if the King has gone from Nuremberg before her letter reached him she takes it back, and the journal says so; after Lutzen, "He never saw it"
+  fixture stockholm.txt
+  run KNOW:carried-christina-letter=1 KNOW:has:christina-letter=1 KNOW:event:siege-ends=1 WALKTO:King's_castle WALKTO:daughter TALK:daughter SAY:father
+  expect You did not find him. He has gone on, further into Germany.
+  run SAY:give_letter STORIES
+  expect the letters will go round after him until they find him
+  expect Christina has her lion back, to send after her father by the ship.
+  run BYE KNOW:king-dead=1 KNOW:christina-letter-back=0 KNOW:has:christina-letter=1 TALK:daughter SAY:give_letter
+  expect He never saw it.
+end
+
+scenario larsson-speaks-of-christina
+  about at Danzig the master of the Swedish post ship speaks of the princess's drawings for her father
+  fixture florence_ch3.txt
+  run ROAD:none TRAVEL:Danzig WAIT:720 KNOW:knows:danzig:swedeship=1 WALKTO:Crane WALKTO:Larsson TALK:Larsson SAY:job SAY:princess
+  expect The princess sends her father a drawing by every ship
+  expect Princess Christina, at Tre Kronor: five years old
+  file-expect ^player knows:stockholm:christina
+end
+
+scenario diodati-points-to-stockholm
+  about Diodati, chapter I's first stop, sends the messenger on to Stockholm and Crenet's packet when he takes the copy; the journal says so
+  fixture paris_start.txt
+  run KNOW:ch1-commission=1 KNOW:has:diodati-letter=1 KNOW:has:dialogue=1 KNOW:knows:paris:diodati=1 WALKTO:Palais WALKTO:Diodati TALK:Diodati SAY:give_letter SAY:give_dialogue
+  expect And if you go north, go as far as Stockholm.
+  expect Crenet, at the Pomme de Pin, has a packet for Stockholm that nobody will carry.
+  file-expect ^player heard-stockholm
+  run BYE STORIES
+  expect The King of Sweden's little daughter would keep one, at Tre Kronor in Stockholm
+end
+
+scenario crenet-offers-the-stockholm-packet
+  about in chapter I Crenet offers, once, a packet for De Geer at Stockholm, six livres at the other end; then his ordinary packets
+  fixture paris_start.txt
+  run KNOW:ch1-commission=1 KNOW:knows:paris:crenet=1 WALKTO:Pomme_de_Pin WALKTO:Crenet TALK:Crenet SAY:work
+  expect for Monsieur Louis De Geer, the copper merchant, on the quay at Stockholm
+  expect Will you *carry* it?
+  run SAY:yes
+  expect De Geer, on the quay at Stockholm, into his own hands.
+  file-expect ^player has:degeer-packet 1
+  run SAY:packet
+  expect There is always a packet for somebody.
+  run BYE STORIES
+  expect Crenet, at the Pomme de Pin in Paris, gave you a packet for Louis De Geer
+end
+
+scenario degeer-pays-for-the-packet
+  about De Geer on the quay at Stockholm pays six livres for the packet, and points to the princess
+  fixture stockholm.txt
+  run KNOW:has:degeer-packet=1 KNOW:degeer-packet-taken=1 KNOW:knows:stockholm:degeer=1 MONEY:0 WALKTO:De_Geer TALK:De_Geer SAY:give_packet PURSE
+  expect Six livres, as he promised you.
+  expect the princess at the castle sends him a letter by every ship
+  expect [money 6 livres
+  file-expect ^player degeer-delivered
+end
+
+scenario cruger-points-north
+  about Crüger at Danzig, on Galileo's list, points the messenger over the water to Stockholm when he takes his copy
+  fixture florence_ch3.txt
+  run ROAD:none TRAVEL:Danzig WAIT:720 KNOW:ch1-commission=1 KNOW:has:dialogue=1 WALKTO:St_Mary's WALKTO:professor TALK:professor SAY:give_dialogue
+  expect Three days over the water is Stockholm
+  expect The Swedish post ship lies below the Crane.
+  file-expect ^player heard-stockholm
+  file-expect ^player knows:danzig:swedeship
+end
+
+scenario change-is-the-money-changer
+  about "change" and "changers" are the money-changers, not the Channel ("channel" is a whole word in the England lines)
+  fixture paris_start.txt
+  run WALKTO:apprentice TALK:apprentice SAY:changers SAY:channel
+  expect he is a money-changer
+  expect England? By the post road north
+end
+
+scenario post-cordon-gives-back-the-fare
+  about a post ride turned back at a plague cordon says that the rest of the fare is given back
+  fixture paris_start.txt
+  run MONEY:3156 POSTEVENT:cordon WALKTO:innkeeper POST:Florence
+  expect The post turns back, and the postilion gives you back the rest of the fare
+end
+
+scenario parchment-makers-shop-is-named
+  about Lebègue's shop at Saint-Denis has a name (shopname), so that AROUND lists it and WALKTO finds it
+  fixture paris_start.txt
+  run ROAD:none TRAVEL:Saint-Denis WALKTO:parchment-maker's AROUND
+  expect [you are in the parchment-maker's, at the sign of the Calf]
+  expect a parchment-maker
+end
+
+scenario walkto-tre-kronor-is-the-castle
+  about WALKTO by a name that a tower or a gate shares with another building goes to the other one ("Tre_Kronor" is the castle; the tower by its own word)
+  fixture stockholm.txt
+  run WALKTO:Tre_Kronor
+  expect [you are in Tre Kronor, the King's castle]
+  run OUT WALKTO:tower
+  expect [you are in the tower of Tre Kronor]
+end

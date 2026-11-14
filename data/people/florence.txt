@@ -1,0 +1,378 @@
+# The people of Florence and of Arcetri.
+town Florence
+names italian
+prison Fortezza da Basso | They march you to the Fortezza da Basso, where Filippo Strozzi died a prisoner of Duke Cosimo. It is a long night. In the morning they let you go, with some advice.
+country Italy
+
+person landini
+  name Giovanni Battista Landini
+  role printer
+  near Landini
+  work landmark Landini
+  sells dialogue 3 book 4
+  talk
+    mersenne,minims,paris,copies,copy,friar,galileo if player gave-galileo-mersenne and not player ch1-commission: Two copies for a friar of Paris? Signor Galileo sent word you might come. (He wipes his inky hands.) There are a few left in the shop, and I sell them to whoever pays: buy what you need.
+    mersenne,minims,paris,copies,copy,friar if player courier-florence and not player ch1-commission: Two copies for a friar of Paris? (He wipes his inky hands.) There are a few left in the shop, and I sell them to whoever pays: buy what you need.
+    give:landini-order if player event:seizure: (He reads the order, and laughs without any pleasure.) Too late, my friend. The Inquisitor's men came, and took every copy in the house, and the bale too. (Quietly.) All but four, that I kept under the floor for myself. Take them, for him. {take} {player add has:dialogue 4} {player set has-bale} {player set bale-late}
+    give:landini-order if not morning and not afternoon: (He reads the order, and puts it in the fire.) Wait. (He comes back with a sack of waste sheets, heavy: the books are inside, wrapped in spoiled proofs.) A dozen. If anyone asks, it is paper for a grocer. And be out of the gates tonight: by morning that familiar will know the bale is gone, and Fra Clemente will know it by breakfast. {take} {player add has:dialogue 12} {player set has-bale} {player set bale-at=now} {player set knows:florence:inquisitor}
+    give:landini-order: (Low, with a glance at the man in the doorway.) Not with him watching. Come back this *evening*, when he has gone to his supper. {player set landini-waits}
+    evening,supper,tonight if player ch1-commission and not player has-bale: After six, when the familiar goes home. Here, or at my house, whichever. Bring the Signor's order.
+    bale,north if player ch1-commission and not player has-bale and not player event:seizure: A dozen copies, for the booksellers of the north. Bring me the Signor's order, and keep your voice down.
+    # the player's own words (bale) get a reply, not a flat "I know nothing about that"
+    bale if player has-bale and not player event:seizure: (He does not look up from the press.) What bale? I sold a few copies to a stranger, and Ser Bartolo saw me do it. That is all anybody knows.
+    dialogue,galileo,book,bale if player event:seizure: (Bitterly.) The Inquisitor's men took every copy in the house, and wrote them all in a ledger. I am a printer without a book. Buy something else.
+    familiar,man,him,door,doorway if player ch1-commission and not player event:seizure: Ser Bartolo, a familiar of the Holy Office. He came to see how the sales go, he says. He has been reading the same page all day.
+    italian,tuscan,lesson,read if player skill:italian: You read Tuscan now. Read the Dialogue: you will laugh at Simplicio, and then you will stop laughing.
+    italian,tuscan,lesson,read: You want to read the Dialogue, and you have no Tuscan? For five sous I will teach you, here among the type cases; we read everything backwards here, so you will learn fast.
+    give:money if player gift >= 60 and not player skill:italian: (He sits you down by the press with a proof sheet of the Dialogue, and you read it together, line by line, until the light goes.) Bene. Now you read Tuscan, a little. {take} {player learn italian}
+    give:money: Five sous, for a lesson.
+    name: Giovanni Battista Landini, printer. {name}
+    job: I print books. This February I finished the greatest of them: Signor Galileo's *Dialogue*, a thousand copies.
+    dialogue,galileo,book: A thousand copies, licensed by Rome and by Florence both. I have a few left, at one livre five sous to a Florentine; a stranger without the Tuscan pays a little more, as everywhere. Buy one while you can; the Jesuits are grumbling. {player set heard-dialogue}
+    jesuits,rome: Father Scheiner and his friends at the Roman College do not love Signor Galileo. They will say the book makes fun of the Pope. It does not, I think. But I only print them; I do not read them all.
+  end
+end
+
+person duke
+  name Ferdinando II de' Medici
+  title the Grand Duke of Tuscany
+  role prince
+  look coat #4A1E3A legs #1E1A22 hat hat #141018
+  near Pitti
+  work landmark Pitti
+  talk
+    galileo,rome,letter,niccolini,summons if player ch2-open and not player has-duke-letter-job: (He frowns.) Rome orders my philosopher about like a parish priest. Very well: Niccolini shall speak to His Holiness, from me, and say that the Grand Duke of Tuscany is not pleased. Take this to him at the Villa Medici, by your own hand; a courier would be read. {player add has:duke-letter 1} {player set has-duke-letter-job} {player set knows:rome:niccolini}
+    galileo,rome,letter,niccolini,summons if player has-duke-letter-job and not player ch2-duke-letter: Niccolini, at the Villa Medici in Rome. Into his own hands. {player set knows:rome:niccolini}
+    hello if not met: You stand before the Grand Duke of Tuscany. Speak, but briefly.
+    name: Ferdinando de' Medici, Grand Duke of Tuscany, by the grace of God. {name}
+    job: I rule Tuscany, as my father and grandfather did. And I keep the finest philosopher in Europe.
+    galileo: Our Galileo! He gave my family the stars: the four moons of Jupiter, the Medicean planets. He has written a great book, and dedicated it to me.
+    plague: When the plague came I stayed. A prince who runs away from his people is not a prince.
+    pope,rome: His Holiness is a Barberini, and the Barberini are touchy. My ambassador Niccolini tells me the book is not liked in Rome. I hope he exaggerates. {player set knows:rome:niccolini}
+    stars,medicean: Look at Jupiter through a good glass and you will see my family going round it. My father liked that very much.
+  end
+end
+
+person buonarroti
+  name Michelangelo Buonarroti
+  title a poet
+  role scholar
+  look coat #3A2E26 legs #2A221C hat hat #1E1814
+  near Croce
+  work none
+  schedule
+    8:00 home
+    10:00 wander
+    13:00 eat
+    15:00 wander
+    19:00 home
+    22:00 sleep
+  talk
+    name: Michelangelo Buonarroti, the younger. Great-nephew of the great one, and a poet in a small way. {name}
+    job: I write comedies, and I keep my great-uncle's house as a shrine to him, with pictures of his life on every wall.
+    michelangelo,uncle: He is buried there in Santa Croce, near the door. He carved the *David* that stands before the Palazzo Vecchio, from a block that others had spoiled.
+    david: Look at the hands, and the eyes. He was twenty-six.
+    galileo: My good friend. He was born the year my great-uncle died; they say the soul passed from one to the other. I do not say so; I am only glad of it.
+  end
+end
+
+person bastiano
+  name Bastiano Corsi
+  role innkeeper
+  near Corona
+  talk
+    name: Bastiano Corsi, host of the Corona. {name}
+    wine: Chianti, from the hills to the south; or Trebbiano, if you like it white and young.
+  end
+end
+
+# the art subplot: gold leaf for Marguerite Bahuche's queen
+person battiloro
+  name Jacopo Ricci
+  known A goldbeater, in one of the shops on the Ponte Vecchio: he beats gold so thin you can read through it, and sells it to every gilder and painter in Tuscany.
+  title a goldbeater
+  role goldsmith
+  sex m
+  near Ponte Vecchio
+  work landmark Ponte Vecchio
+  sells gold-leaf 4
+  talk
+    name: Jacopo Ricci, battiloro, on the Ponte Vecchio. {name}
+    job: I beat gold: a ducat's worth of it, between skins, a whole day with the hammer, until it covers a door. Painters lay it on their haloes, and bookbinders on their spines.
+    gold,leaf,gilding: Twenty-five leaves to a book, two and a half livres the book. Breathe on it and it is gone: lay it on with a squirrel's tail, never with your fingers.
+    bahuche,paris,louvre,queen,painter if player bq-asked: A lady painter in Paris, mending a queen? Then she wants the best, and that is mine. Tell her the Florentines still remember the French.
+  end
+end
+
+crowd 14 labourer
+crowd 12 goodwife
+crowd 6 washerwoman
+crowd 8 apprentice
+crowd 4 goldsmith
+crowd 4 dominican
+crowd 3 monk
+crowd 3 priest
+crowd 14 guard
+crowd 6 merchant
+crowd 4 beggar
+crowd 2 musician
+crowd 2 cook
+
+crowd 1 herdsman
+crowd 1 changer
+
+town Arcetri
+names italian
+country Italy
+
+person galileo
+  name Galileo Galilei
+  role philosopher
+  look coat #2A2420 legs #2A2420 hat cap #1A1614 robe hair #C9C4BA
+  near Gioiello
+  schedule
+    7:00 home if not player galileo-away
+    10:00 wander if not player galileo-away
+    12:00 eat if not player galileo-away
+    14:00 home if not player galileo-away
+    17:00 go landmark Matteo if not player galileo-away and not player ch4-open
+    18:30 home if not player galileo-away
+    21:30 sleep if not player galileo-away
+    0:00 away if player galileo-away
+  talk
+    galileo: Galileo Galilei: that is me. In Florence the name opens doors; in Rome, just now, it shuts them, and people lower their voices when they say it.
+    hello if player ch4-open and not player ch5-open and not player ch4-briefed: (He is at his table with a lens, a sheet of paper and a candle.) Home: confined to the house and the garden, forbidden company, and watched by Fra Clemente's man at the gate; but home. Sit. I am writing again, at last: the book I should have written twenty years ago, on motion and on the strength of things. But my old notes on motion are at Padua, in the house where I lived, and my letters are read. Bring me my *notes*. {player set ch4-briefed} {player set knows:florence:inquisitor}
+    hello if player celeste-dead and not player galileo-mourned: (He is sitting without a candle, and does not turn his head.) She is dead. The second of April, thirty-three years old, after six days. (A long silence.) I hear her calling me at night, by name. Sit with me a little. Do not say anything. {player set galileo-mourned}
+    hello if player ch5-open and not player last-scene and not player ch5-briefed and not player manuscript-given: (He holds a thick bundle of paper in both hands; his eyes are clouded, and he finds your face by your voice.) Finished. Two new sciences, of the strength of materials and of motion, in four days of dialogue. I may print nothing, anywhere: so it must go north, to the Elzevirs at Leiden, and appear to have been printed without me. Louis Elzevir is at Venice, at the Locanda della Luna; Monsieur de Noailles, at the Trinità dei Monti in Rome, would carry it in his own baggage; or you could take it yourself. There is one fair copy, and my eyes are going: if they take it at a gate, I cannot write it again. Will you carry the *manuscript*? {player set ch5-briefed} {player set knows:rome:noailles} {player set knows:venice:louis}
+    notes,padua,motion if player ch4-open and not player ch5-open and not player ch4-notes and not player has:padua-notes: Madonna Zuana Busetto, at my old house in Padua, keeps a box of my papers in the attic, or she did. Before 1610: the inclined planes, the pendulums, the times and the spaces. {player set knows:padua:landlady}
+    give:padua-notes: (He unties the string with shaking fingers, and holds the sheets close to his eye, one after another.) The spaces are as the squares of the times. I wrote that at thirty-nine, and forgot that I had proved it. (He laughs.) Now I can finish. {take} {player set ch4-notes=now}
+    virginia,daughter,celeste,letter if player ch4-open and not player ch5-open and not player celeste-dead and not player has:galileo-letter and not player celeste-letter: (He does not look up.) She is ill again: the fever, and the dysentery. Ronconi says it may be only days. I have written to her. Will you take it to San Matteo? It is not sealed. Read it, if you like, so that somebody else knows. {player add has:galileo-letter 1} {player set knows:florence:ronconi}
+    virginia,daughter,celeste,maria,suor if player celeste-dead: (He is quiet a long time.) Do not speak of her, my friend. Or speak of her: I do not know which is worse.
+    book,leiden,sciences,printed,elzevir,copy if player has:two-new-sciences and not player last-scene: (He holds out both hands, and turns his face towards your voice.) From Leiden? Give it to me. Let me feel the paper.
+    manuscript,book,carry,elzevir,leiden if player ch5-open and not player last-scene and not player manuscript-given: (He puts it in your hands, and keeps his own on it a moment.) The only fair copy, and my eyes will not make another. The searchers at Florence, Pisa, Rome, Venice and Padua turn out every pack, going in and coming out, and they are looking for anything of mine: if they find this, it goes on the fire, and I cannot write it again. Not through their gates, then, unless by night and in a false bottom. Give it to Louis Elzevir, at the Locanda della Luna in Venice, or to Monsieur de Noailles, at the Trinità dei Monti in Rome; or carry it to Leiden yourself. God go with it. {player add has:manuscript 1} {player set manuscript-given}
+    manuscript,book,carry,elzevir,leiden if player manuscript-given and not player science-printed and not player science-seized: Is it safe? Is it north? I lie awake and count the gates between here and Leiden.
+    longitude,jupiter,moons,holland,states,tables,sea if player ch5-open and not player last-scene and not player has:longitude-tables and not player longitude-delivered: (He brightens.) The longitude at sea, by the eclipses of Jupiter's moons: time them against my tables, compare with the hour at home, and the difference is how far east or west you are. Spain never answered me. The States of Holland might. Take them the tables, at Amsterdam: Blaeu is one of their judges. {player add has:longitude-tables 1} {player set knows:amsterdam:blaeu}
+    noailles: Monsieur de Noailles was my pupil at Padua, thirty years ago, and is now the King of France's ambassador at Rome. A good man, with a carriage nobody searches. {player set knows:rome:noailles}
+    louis,elzevir: Louis Elzevir, of the printers of Leiden, is travelling in Italy, buying and selling books, and at Venice now, at the Locanda della Luna. {player set knows:venice:louis}
+    give:two-new-sciences: (You put it into his hands. He turns it over, and feels the boards, and the edges of the pages, and holds it to his face to smell the ink.) {take} {player set last-scene=now}
+    manuscript,book if player science-seized: (He sits with his hands in his lap.) They took it at a gate, and burned it. It does not matter whose fault it was. I cannot see to write it again.
+    hello if player ch2-open and not player ch2-briefed: (He has a paper in his hand, and does not get up.) Read it, if you like. The Holy Office orders me to Rome, to present myself to the Commissary within the month. I am sixty-eight. There is plague in Tuscany, quarantine at every border, and winter coming over the Apennines. (He puts the paper down.) I will go; but not this month, if my friends can help it. Help me *delay*. {player set ch2-briefed}
+    delay,help,month if player ch2-open and not player ch2-over: Two things can be done. Three *physicians* can swear I am too ill to travel, which God knows is true; and the *Grand Duke* can write to Niccolini, our ambassador in Rome, who can speak to the Pope. The rest is waiting. {player set knows:rome:niccolini}
+    physicians,physician,doctor,ronconi,certificate if has-certificate and not player has:certificate and not player ch2-certificate: (He hands you a sheet with three seals at its foot.) There. Three of them, and they argued for an hour over the Latin for my gut. Take it to Fra Clemente, at Santa Croce: he must send it to Rome. {player add has:certificate 1} {unset has-certificate} {player set knows:florence:inquisitor}
+    physicians,physician,doctor,ronconi,certificate if player ch2-certificate and not player ch2-answered: Fra Clemente has sent it to Rome. Now we wait, and I eat what Virginia sends me, and pretend to be more ill than I am, which is difficult. {player set knows:florence:inquisitor}
+    physicians,physician,doctor,ronconi,certificate if player ch2-open and not player ch2-certificate: Dottor Ronconi, at the Annunziata in Florence, is honest, and has seen me ill often enough. If he will come with two colleagues and put it in writing, Fra Clemente must send it to Rome, and Rome must answer. {player set knows:florence:inquisitor} {player set knows:florence:ronconi}
+    grand,duke,ferdinando,niccolini if player ch2-open and not player ch2-duke-letter: The Grand Duke can write to Niccolini, our ambassador at the Villa Medici in Rome; Niccolini can speak to the Pope, who will shout at him. Ask the Grand Duke, at the Pitti. He likes you better than he likes me just now. {player set knows:rome:niccolini}
+    give:king-offer if not player ch2-open: (He breaks the three crowns, reads it, reads it again, and then holds it in the candle until it catches.) The King of Sweden offers me a house, a pension and his protection at Stockholm. (He drops the ashes in the hearth.) If I went north I should be a Lutheran's pensioner and a fugitive, the Grand Duke would be shamed, and my daughters would be a heretic's daughters. I am a Catholic, my friend: if Rome sends for me, I shall go to Rome. But tell no one that he wrote. In Rome it would be a rope. {take} {player set king-offer-burned}
+    give:king-offer: (He breaks the three crowns, reads it, reads it again, and then holds it in the candle until it catches.) The King of Sweden offers me a house, a pension and his protection at Stockholm. (He drops the ashes in the hearth.) If I went north I should be a Lutheran's pensioner and a fugitive, the Grand Duke would be shamed, and my daughters would be a heretic's daughters. I am a Catholic, my friend: I shall go to Rome. But tell no one that he wrote. In Rome it would be a rope. {take} {player set king-offer-burned}
+    sweden,king,gustavus if player king-offer-burned and not player king-dead: Never speak of it. It is ashes. (He looks north, as if he could see so far.) And a king who rides in front of his army does not grow old.
+    sweden,king,gustavus if player king-offer-burned: Never speak of it. It is ashes, and so is he, they say, or soon will be: kings who ride in front of their armies do not grow old.
+    hello if player informed-inquisitor: (He looks at you for a long moment, and turns back to his olives.) Fra Clemente's men knew just where to look for Landini's bale. Virginia has heard who told them. Go away. {bye} {player set knows:florence:inquisitor} {player set knows:florence:landini}
+    hello if player ch1-called and not player ch1-over and player keepers >= 3: (He is at his table among a heap of letters, holding one close to his better eye.) My messenger! Sit, sit. They write to me from places I have never seen: the book is on their tables, and nobody in Rome can unprint it. (He laughs, and then he stops.) And this one is from Rome. His Holiness has named a commission, three theologians, to examine my book. Riccardi writes that I need not worry. When a man in Rome tells you not to worry, my friend, it is time to worry. Stay near. I think I shall need you again. {player set ch1-over=now}
+    hello if player ch1-called and not player ch1-over: (He is at his table with a letter from Rome.) You came. Sit. (He does not ask how many copies are safe, and you see that he knows.) Well: some are, and that is something. And now Rome. His Holiness has named a commission, three theologians, to examine my book. Riccardi writes that I need not worry. When a man in Rome tells you not to worry, it is time to worry. Stay near. {player set ch1-over=now}
+    hello if player sold-to-inquisitor >= 1 and not player galileo-heard-sold: (He does not get up.) Fra Clemente is telling half of Florence that a stranger sells him copies of my book, at a livre each. A livre! Judas had thirty pieces of silver, and he had to sell God. (He waves a hand.) Do what you like with the rest. I cannot stop you. {player set galileo-heard-sold} {player set knows:florence:inquisitor}
+    hello if player sold-to-inquisitor >= 1: (Coolly.) You again. What is it?
+    hello if player commission-ready and not player ch1-commission: (He has a letter in his hand, and gets up when he sees you.) You. Good. Sit with me. (He taps the letter.) Castelli writes that the Pope is angry, that Riccardi is frightened, and that the Holy Office will be told to stop the sale of my book and take every copy it can find in Italy. Well: let them. A book is not a man. It cannot be summoned to Rome, if it is somewhere else. (He stops.) Landini has the last bale of the Dialogue, paid for: a dozen copies, meant for the booksellers of the north. Take it out of Tuscany before Fra Clemente's men come for it, and put the copies into the hands of friends who will neither burn them nor give them up. I will write you their names. Will you be my *messenger*? {player set knows:florence:inquisitor} {player set knows:florence:landini} {player set knows:rome:castelli}
+    errand,more,carry,messenger,next,north,work if player galileo-friend and not player commission-ready and not player ch1-commission: Not yet. Castelli writes to me from Rome by every post, and his last letter was not a happy one. Stay in Florence a day or two, see my daughter, and come back to me then. {player set knows:rome:castelli}
+    messenger,yes,errand,carry,bale if player commission-ready and not player ch1-commission: (He takes your hand in both of his.) Then go with God, and quickly. Here is an order on Landini, and the list of names: Diodati, at Paris, before all the others, and here is my letter for him. And ten livres for the road; I wish it were more. (He looks at the hills.) Castelli thinks Fra Clemente will move within a fortnight. Sooner, if he hears the bale has gone: so when you have it, do not sleep in Florence. Be out of the gates the same night. {player add has:landini-order 1} {player add has:galileo-list 1} {player add has:diodati-letter 1} {player add money 2400} {player set ch1-commission=now} {player set knows:florence:inquisitor} {player set knows:florence:landini} {player set knows:paris:diodati} {player set knows:rome:castelli}
+    book,dialogue,landini,bale,list if player ch1-commission and not player has-bale and not player event:seizure: Landini has the bale. Give him my order; and when you have it, be out of the gates of Florence the same night, and then north, out of Tuscany. And *Diodati* first, at Paris: he will know what to do with it. {player set knows:florence:landini} {player set knows:paris:diodati}
+    book,dialogue,landini,bale,list if player ch1-commission and not player has-bale: They have taken it? All of it? (He sits down heavily.) Then what is out in the world already is all there is. Find what you can: Blaeu at Amsterdam had copies, and the booksellers of London. {player set knows:amsterdam:blaeu}
+    book,dialogue,landini,bale,list if player ch1-commission and not player ch1-over: You have it! Then go: *Diodati* first, at Paris. And do not bring my book through the gates of Florence again. Fra Clemente's men will be looking for it, going in and coming out. {player set knows:florence:inquisitor} {player set knows:paris:diodati}
+    messenger,sidereus,nuncius if player ch1-commission: My starry messenger. I gave a book that name once, the *Sidereus Nuncius*, when I had seen the moons of Jupiter. Now I have a messenger of flesh, and it is worth more.
+    rome,commission if player ch1-over: Three theologians, reading my book to see whether it is a crime. Well, I wrote it to be read.
+    king,sweden,gustavus,nuremberg if player ch1-commission and not player ch1-over: The King of Sweden is camped before Nuremberg with forty thousand men, and the Emperor's general is coming from Bohemia to meet him. They say he heard me lecture at Padua once, under another name, when he was young and travelling where kings should not. A Protestant king who reads: put a copy into his baggage, and the Pope will have to conquer Sweden to get it back. {player set knows:nuremberg:gustavus}
+    diodati,elia: Elia Diodati, an advocate at Paris: of Geneva by his family, and the most honest man in France. He writes to everyone, and everyone writes back. {player set knows:paris:diodati}
+    clemente,inquisitor,fra: Fra Clemente, the Inquisitor of Florence, at Santa Croce. He licensed my book himself, God help him, and now he must collect it. {player set knows:florence:inquisitor}
+    give:milk: Milk, fresh this morning? My daughter's doing, I suppose: she thinks I forget to eat. She is right. (He drinks it standing, and wipes his beard.) Sit down. Let me show you what the moons of Jupiter are doing this week. {take} {player set gave-galileo-milk}
+    give:egg: An egg! (He cracks it on the edge of the table and swallows it.) My daughter sent you. Tell her I ate it, and that I am working less, which is not true. {take} {player set gave-galileo-milk}
+    give:citron: From Virginia! (He opens the box and smells it, and is quiet a moment.) She says I forget to eat. She is right. You have done an old man a kindness, and I will do you one. Sit: I will show you how I grind a lens. (All afternoon at the lap in his workshop: the pitch, the emery, the tripoli, and how to test the curve against a candle.) Now you know more optics than all the Jesuits. Good glass comes from Murano, across the lagoon from Venice: ask for Barovier. The boat goes from the Fondamenta Nuove. {take} {player learn optics} {player set gave-citron} {pass 240}
+    spyglass,telescope,glass if player has:spyglass: Let me see. (He holds your spyglass to his better eye, and looks a long time at the hills.) Not bad! Better than the toys the Dutch sell at fairs. Show it to the Venetians: they paid me well for mine, once.
+    lens,lenses,grind,optics if player skill:optics: Two lenses: a long one, gently curved, for the far end, and a short one for the eye. Good glass: Murano cristallo, from Barovier. A tube to hold them, a little longer than the long lens's reach: the map-sellers of Holland roll their maps in leather tubes, and Blaeu at Amsterdam will sell you one for two sous. And patience. {player set knows:amsterdam:blaeu}
+    moon,moons,jupiter if player saw-moons: You have seen them yourself! Then you know. Nobody who has seen the moons of Jupiter can unsee them, whatever they say in Rome.
+    # the bridge from the prologue: Mersenne's courier, with his letter
+    hello if player has:mersenne-to-galileo >= 1 and not player gave-galileo-mersenne: (An old man among his olive trees peers at your coat.) A courier's coat, and the dust of the road on it. You have come a long way, I think. Have you something for me?
+    hello if not met: Good day. You find an old man among his olive trees. My eyes are failing, but I can still make out a visitor.
+    name: Galileo Galilei, Philosopher and Mathematician to the Grand Duke of Tuscany. {name}
+    job: I measure the world and the heavens, and they turn out to be made of the same stuff.
+    dialogue,book: My *Dialogue* on the two chief systems of the world. Landini printed it in February, in Florence. Three friends talk for four days: *Salviati*, Sagredo and *Simplicio*. {player set heard-dialogue} {player set knows:florence:landini}
+    salviati,sagredo: Salviati speaks for Copernicus, which is to say for me. Sagredo is a gentleman of Venice who loves good sense. Both are dead now, God rest them; I gave them a second life.
+    simplicio: They say in Rome that I made a fool of the Pope, putting his favourite argument into Simplicio's mouth. I put it in at the end, as I was asked to do. Is it my fault who says it?
+    pope,urban: Maffeo Barberini was my friend. He wrote a poem in my honour, once. Now he is Pope, and Popes have fewer friends.
+    telescope,spyglass,glass: I did not invent it; the Dutch did. I made it better, and I was the first to turn it on the sky: the Moon has mountains, Jupiter has four *moons*, and *Venus* waxes and wanes. {player set heard-telescope}
+    moons,jupiter,medicean: The Medicean stars, I named them, for the Grand Duke's house. Four moons going round Jupiter, as ours goes round us. So not everything goes round the Earth.
+    venus: Venus waxes and wanes like the Moon, and grows and shrinks. That can only be if she goes round the Sun.
+    tides: The tides are my proof: the two motions of the Earth shake the seas, as water slops in a barge that speeds up and slows down. Kepler says the Moon pulls them. Occult nonsense.
+    kepler if date<1632-10-01: A great mind with too much fancy. Ellipses! A Moon that draws the waters! He died the winter before last.
+    kepler: A great mind with too much fancy. Ellipses! A Moon that draws the waters! He died in the winter of the year thirty, at Regensburg, still owed his salary.
+    mersenne if player heard-mersenne-wants and player event:seizure: Father Mersenne, in Paris? He writes to everyone. Tell him the Inquisitor's men have emptied Landini's shop: what is out in the world is out, and he should keep his copy close. {player set knows:florence:landini}
+    mersenne if player heard-mersenne-wants: Father Mersenne, in Paris? He writes to everyone. Tell him Landini still has copies, and he should not wait for Rome to make up its mind. {player set knows:florence:landini}
+    daughter,celeste,maria if not player celeste-dead: My eldest, Virginia: Suor Maria Celeste, at San Matteo, just down the lane. She is the best of my works, though I do not deserve her. {player set knows:arcetri:celeste}
+    earthshine,moonlight if player saw-stone-glow: You have seen Liceti's stone shine in the dark? So have I. A pretty thing. But the Moon is not a stone of Bologna: the grey light on her dark part is the Earth's light, sent back. Tell him so, from me, for the twentieth time.
+    earthshine,moonlight: When the Moon is new, look at her dark part: it is not black but grey, with a faint light. Where does it come from? From us. The Earth shines on the Moon, as the Moon shines on us; I wrote it in the Starry Messenger. Liceti at Padua says the Moon has a light of her own, like a stone of Bologna. Ask him. {player set heard-earthshine}
+    liceti,padua if player has-stone-from-liceti: So Liceti gave you a stone! He gives everyone a stone. He has been arguing with me for twenty years, and I would miss him if he stopped.
+    liceti: Fortunio Liceti, at Padua: an Aristotelian, and an honest one, which is rarer. We have argued by letter for twenty years about the *earthshine*.
+    tower,balls,drop,leaning if player dropped-balls: You dropped them from the tower at Pisa? And they fell together? (He laughs until he coughs.) Then you have done what everyone says I did. I dropped things from many places, and timed balls rolling down a groove, which is better. If some boy writes one day that I did it from the tower, before the whole University, let him.
+    tower,balls,drop,leaning,pisa: Pisa! I was born there, and taught there, and left owing money. They say I dropped balls from the campanile. Heavy and light fall together, if the air does not hinder them: try it, and see.
+    lamp,pendulum: The lamp in the Duomo of Pisa? I was nineteen. The swings grew smaller and kept time: the same time, wide or narrow. I measured with my pulse; a physician should have thought of it. Nobody believes it was the lamp they hang there now, and nobody should.
+    compass if player has:galileo-compass: My compass! One of Marcantonio's, from Padua; I can feel the hinge. I sold three hundred of those, with lessons. It paid for my daughters' dowries, very nearly.
+    arcetri,villa,gioiello: Il Gioiello, the jewel. I came here last autumn to be near my daughters. The air is good and the wine is better.
+    padua,venice: Eighteen years at Padua, the best of my life. I showed the Senate of Venice the spyglass from the top of the Campanile of San Marco, and they doubled my salary.
+    harriot,english,englishman,secret,oxford if player read-harriot and not player told-galileo-harriot: (You tell him about the papers at Oxford.) Harriot? The Earl of Northumberland's mathematician, who wrote to Kepler about the rainbow? (He is silent for a while.) I saw the spots that autumn, I think, and I showed them to the prelates in Rome the next spring; Scheiner says he saw them in March, at Ingolstadt; and all the while an Englishman had drawn them and put them away in a drawer. (He laughs until he coughs.) Then Scheiner was not first, and perhaps I was not either, and we have hated each other for twenty years over a prize that belongs to a man who did not want it. Do not tell Scheiner. No: tell him. I should like to see his face. {player set told-galileo-harriot}
+    harriot,english,englishman if player told-galileo-harriot: Have you told Scheiner yet? Tell me what he said. Every word.
+    give:mersenne-to-galileo: (He breaks the seal, holds the letter close to his better eye, and reads it twice.) Mersenne! The Minim friar who writes to the whole of Europe. He writes as if we had known each other twenty years, and we have never met. He wants two copies of my book, one for himself and one for Diodati, and he asks me to trust his courier as I would trust him. (He folds the letter, and looks at you.) Father Mersenne's friends are mine; and he writes that you are mine to use, which is generous of him, with a courier he has only just found. Good: stay near me. Castelli writes to me from Rome, and I do not like what he writes. Landini has copies still, at his shop in the city: tell him I sent you. Go down the lane to San Matteo and see my daughter, Suor Maria Celeste: she will want to feed you, and she always has an errand for somebody. And come back to me in two or three days: I may have more for you to carry than two books. {take} {name} {player set gave-galileo-mersenne} {player set galileo-friend=now} {player set knows:arcetri:celeste} {player set knows:florence:landini} {player set knows:paris:diodati} {player set knows:rome:castelli}
+    mersenne,minims if player gave-galileo-mersenne: Father Mersenne writes to me now about everything: music, falling bodies, and whether I have measured how fast sound goes. I have not. He has.
+    give:castelli-letter if player ch1-commission: (He reads it quickly, close to his eye.) He says again what he wrote by the post, only louder. Thank you, my friend. {take} {player set warned-galileo}
+    give:castelli-letter: From Castelli! Give it here. (He holds it close to his eyes and reads, frowning.) He says the Jesuits are buying up my book, and Father Riccardi is frightened, and the Pope is being told I made a fool of him. Well. My friends in Rome will look after me. Thank you; you have done me a kindness. (He looks at you for a long moment.) Come and see me again soon. I may have an errand for a traveller. {take} {player set warned-galileo} {player set knows:rome:castelli} {player set knows:rome:riccardi}
+    castelli,benedetto if player carried-castelli-letter and not player warned-galileo: You have a letter from Castelli? Then give it to me, my friend, do not just wave it about. {player set knows:rome:castelli}
+    castelli,benedetto: Don Benedetto, my best pupil. He teaches in Rome now, at the Sapienza, and keeps me told of everything that is said there.
+    # the player's own words (letter) get a reply, not a flat "I know nothing about that"
+    letter,letters if player has:diodati-letter: My letter is for Diodati's hands, and nobody else's: it tells him what you carry, and to whom it must go after him. Paris first.
+    letter,letters: (He waves at the heap on his table.) Castelli in Rome, Micanzio in Venice, Diodati in Paris, and a hundred people I have never met: everyone writes to me, and I answer at night, when my eyes are worst.
+    rome if player warned-galileo: Rome. I am sixty-eight, and my eyes are going, and I am to be afraid of Rome. I will not be afraid.
+    rome: I have been to Rome six times. They gave me a dinner on the Janiculum, and named my spyglass a telescope there.
+    bye: Go carefully. And if you see the Moon tonight, look at her mountains.
+  end
+end
+
+person celeste
+  name Suor Maria Celeste
+  died if player celeste-dead | Suor Maria Celeste? She died at San Matteo on the second of April, 1634, and the nuns buried her in their own chapel.
+  role nun
+  near Matteo
+  work landmark Matteo
+  schedule
+    5:00 work if not player celeste-dead
+    12:00 eat if not player celeste-dead
+    13:00 work if not player celeste-dead
+    19:00 home if not player celeste-dead
+    20:30 sleep if not player celeste-dead
+    0:00 away if player celeste-dead
+  talk
+    hello if player ch4-open and not player ch5-open and not player celeste-dead and not player celeste-letter: (She is in the infirmary of San Matteo, very pale, propped on a pillow, with her breviary open on the blanket.) You came. (She smiles.) They let you in because I am dying, I think, which is a kind of privilege.
+    give:galileo-letter: (She reads it slowly, and then holds it against her.) The best of his works. (She smiles.) He always says that, and it is never true: his books are better. Tell him I have said his psalms for this week, and that the lemon tree is a liar. {take} {player set celeste-letter} {player set celeste-eased}
+    father,galileo if player ch4-open and not player ch5-open and not player celeste-dead: He has a guard at the gate and a book on his table, and they keep him alive, the one as much as the other. Has he written to me? He has not been allowed to come.
+    keys,papers,house,geri,study if player ch3-open and not player ch3-over and not player papers-given: (Low.) Signor Geri has my father's keys; I gave them to him. There are papers in the study, letters from Germany, from Kepler and Fra Paolo, nothing wicked, but the Father Inquisitor may search the house while my father is in Rome. Will you take them to Signor Geri, at the Palazzo Vecchio? He will know what to do. {player add has:galileo-papers 1} {player set papers-given} {player set knows:florence:geri}
+    father,galileo,rome if player ch3-open and not player ch3-over: He writes from Rome that he is well treated and eats too much. I do not believe the first part. Signor Geri is keeping the house for him; I should like to speak to you about the *papers*. {player set knows:florence:geri}
+    father,galileo if player ch2-open and not player ch2-over: He says he will go to Rome when the weather allows, and that he is not afraid. He does not sleep. Pray for him; I do, at every Office.
+    rome,summons,order if player ch2-open and not player ch2-over: They want him in Rome within the month. Dottor Ronconi says the journey in winter could kill him. If you are his friend, help him to wait. {player set knows:florence:ronconi}
+    hello if player informed-inquisitor: (She will not look at you.) God forgive you. I cannot, yet. {bye}
+    give:dialogue if player ch1-commission: (She looks at the title, and at you, and slips it under her scapular.) Nobody searches the Poor Clares. I will keep it in the apothecary, behind the jars of senna. Ask me for it *back* when you want it. {take} {player set hid-at-convent}
+    back,copies,books,hidden if has:dialogue >= 1: (She brings one from the apothecary; it smells faintly of senna.) Here. God speed it. {player add has:dialogue 1} {add has:dialogue -1}
+    back,copies,books,hidden: I have none of his books now.
+    father,galileo if player event:seizure and not player ch1-over: They have taken his book from Landini's. He laughs about it at supper, and does not sleep. Did you get them away? {player set knows:florence:landini}
+    father,galileo if player ch1-commission and not player event:seizure: He has asked you to carry his book away. (She crosses herself.) Then be quick, and be careful. If you must hide some, bring them to me: nobody searches a convent of poor nuns.
+    errand,citron,basket,help if player gave-citron: My father wrote to me that a stranger brought him my citron, and stayed to learn his lenses. God bless you for it.
+    errand,citron,basket,help if not player carried-citron: Would you do me an errand? We may not leave the convent, and my father forgets to eat when he is working. Take him this: candied citron, from our own tree. He is at Il Gioiello, just up the lane. {player add has:citron 1} {player set carried-citron}
+    errand,citron,basket,help: Have you taken him the citron? He is at Il Gioiello, up the lane, among his olives.
+    name: Suor Maria Celeste. In the world I was Virginia Galilei. {name}
+    virginia,=galilei,daughter: (She smiles.) Nobody has called me Virginia since I took the veil. I am Suor Maria Celeste, his daughter, yes. {name}
+    job: I keep the apothecary of our convent, and write to my father, and pray for him.
+    father,galileo: He is a great man and a careless one. He works by candlelight, he forgets to eat, and he trusts that the truth will protect him. I am afraid for him. Would you do me an *errand*?
+    plague: It came to Florence two summers ago. We shut our doors and prayed, and God spared us.
+    convent: We are Poor Clares, and very poor. My father sends us wine and wood, and mends whatever breaks, even our clock.
+    eggs,milk,ill,illness,health,sick,doctor if player gave-galileo-milk: He ate! He wrote to me that he ate an egg and drank the milk, and asked who you were. Thank you.
+    eggs,milk,ill,illness,health,sick,doctor: He has been ill again this summer: the fever, and the pains in his joints, and he will not rest. The doctor says fresh eggs and fresh milk, every day. From me he says it is too much trouble; from a stranger he will eat. The herdsman of the town will take you on for his cows and his hens, if you ask him for *work*.
+    work,herdsman: Ask the herdsman in the market, down in the city: he takes on anyone who can carry a pail. Bring my father what you milk.
+    give:cheese: Bless you! The sisters will eat well tonight, and pray for you. {take}
+    give:loaf: Bless you. Nothing is wasted here. {take}
+  end
+end
+
+crowd 4 nun
+crowd 2 farmer
+
+# ---------------------------------------------------------------- the plot, chapter I
+# The Inquisitor of Florence (a real office), and the
+# familiar who watches Landini's door from Galileo's commission until the seizure.
+
+town Florence
+names italian
+country Italy
+
+person inquisitor
+  name Fra Clemente Egidi
+  title the Inquisitor of Florence
+  role friar
+  near Santa Croce
+  work landmark Santa Croce
+  schedule
+    5:00 go church
+    8:00 work
+    12:00 eat
+    14:00 wander
+    14:00 work if player ch1-commission and not player ch2-over
+    18:00 go church
+    20:00 home
+    21:00 sleep
+  talk
+    give:certificate: (He reads it twice, and puts it in a folder.) Three physicians, and three seals. I will send it to Rome by Saturday's post. I do not think it will change anything, but I shall send it, and say that I believe it. {take} {player set ch2-certificate=now} {player add favour 1}
+    galileo,rome,summons if player ch2-open and not player ch2-over: The Holy Office has ordered him to Rome. I delivered the order myself; he was very polite, and very angry. If he is ill, let his physicians say so, in writing, and I will send it on.
+    hello if player informed-inquisitor: (He looks up from his ledger and smiles.) Our friend. Sit down. The Holy Office does not forget its friends.
+    hello if not met: (A Franciscan with a quiet voice, at a table in the cloister with a ledger open before him.) Peace be with you. You are a stranger. Strangers carry things.
+    name: Fra Clemente, of the Conventual Friars Minor; for my sins, the Inquisitor of the Holy Office at Florence. {name}
+    job: I keep the faith of Tuscany. That is to say, I read its books, and listen to its gossip, and write a great many letters to Rome.
+    give:dialogue if player ch1-commission: (He writes in his ledger.) One more. A livre, as I said; the Holy Office does not haggle. It will be burned in the cloister on Saturday, with the others, and you will not have the trouble of it. {take} {player add money 240} {player add sold-to-inquisitor 1}
+    give:dialogue: (He turns it over.) I licensed this book myself, you know. I read it for the licence, and found nothing against the faith. Others have found more since. Keep it, for now.
+    landini,printer if player heard-inquisitor-bale and not player informed-inquisitor and not player has-bale and not player event:seizure: (He puts down his pen.) Landini. The last bale, for the north, and it has not gone yet. (He counts out ten livres on the table, one by one.) The Holy Office is grateful. {player add money 2400} {player set informed-inquisitor} {player set seizure-due} {player set knows:florence:landini}
+    landini,printer: Landini printed the Dialogue, with my licence and Rome's. He is a good printer and an obedient son of the Church, and he will give up every copy when he is asked. {player set knows:florence:landini}
+    dialogue,galileo,book if player ch1-commission and not player event:seizure: (Quietly.) Rome writes that the sale is to stop, and that I am to gather what copies I can, without scandal. If you have any, the Holy Office pays a livre a copy. And there is a bale, they tell me, the last of them, going north. If you know when it goes, and who has it, that would be worth ten livres. Was it at the *printer*'s? {player set heard-inquisitor-bale}
+    dialogue,galileo,book if player event:seizure: We have them all now, or nearly. The searchers at the gates of Florence, of Pisa and of Rome are looking for the rest, going in and coming out. They are burned on Saturdays, in the cloister. It is a small fire. Books burn badly.
+    dialogue,galileo,book: A book licensed by Rome and by Florence, by me among others. (He sighs.) Rome is not pleased with it. Rome is not pleased with me.
+    galileo: An old man, and a great one, and proud. Pride is the only sin the Holy Office cannot forgive, because it never asks to be forgiven.
+    croce,santa: Santa Croce is our church, the Franciscans'. Michelangelo lies there, and Machiavelli, and one day, they say, Galileo will. Not too soon, I hope.
+  end
+end
+
+person familiar
+  name Bartolo Nuti
+  title a familiar of the Holy Office
+  role guard
+  look coat #3A3228 legs #2A241C hat cap #1E1A16
+  near Landini
+  work landmark Landini
+  schedule
+    8:00 work if player ch1-commission and not player event:seizure
+    8:00 wander if not player ch1-commission
+    8:01 wander if player event:seizure
+    18:00 home
+    22:00 sleep
+  talk
+    hello: (A heavy man leaning in the printer's doorway, cleaning his nails with a knife.) Buying books? Then buy, and let me see what.
+    name: Bartolo Nuti. A familiar of the Holy Office, which is to say a friend of the family. {name}
+    job: I serve the Holy Office. Today I serve it by standing in a doorway. It is very restful.
+    dialogue,galileo,book: That book? I would not know. I cannot read. (He smiles.) But I can count.
+    =count,=counting,copies,bales: (He holds up his fingers, one by one.) Bales in at the door, bales out. Copies under a man's coat, copies in a cart. I count them all, and the Father Inquisitor hears the sum.
+  end
+end
+
+person ronconi
+  name Dottor Giovanni Ronconi
+  title a physician
+  role physician
+  near Annunziata
+  work landmark Annunziata
+  talk
+    name: Giovanni Ronconi, doctor of physic, at your service, and the Grand Duke's, and the poor's, in that order of payment. {name}
+    job: I bleed, purge, and listen. Mostly I listen; it is the only one of the three that does no harm.
+    physicians,certificate,galileo,arcetri,ill if player ch2-open and not player ronconi-asked and not player ch2-certificate: (He sighs.) Signor Galileo has a hernia, a bad heart, the melancholy, the gout, and sixty-eight years: I need not exaggerate anything. I will go up to Arcetri with two colleagues tomorrow, and we will write it out properly, with our seals, and he can give it to you to carry. {player set ronconi-asked=now}
+    physicians,certificate,galileo,arcetri,ill if player ronconi-asked and not player ch2-certificate: We have been, or we are going; ask him for it at Arcetri. Three seals, and the Latin argued over for an hour.
+    plague: It came back this summer in the Oltrarno. We burn juniper, shut the sick in, and pray. Nobody knows what it is; anyone who says he does is selling something.
+  end
+end
+
+person geri
+  name Geri Bocchineri
+  title a secretary of the Grand Duke
+  role scholar
+  near Palazzo Vecchio
+  work landmark Palazzo Vecchio
+  talk
+    # after Suor Maria Celeste's death
+    celeste,maria,suor,virginia,daughter if player celeste-dead: Suor Maria Celeste died at San Matteo in the spring. He wrote to me that he hears her calling him. (He looks away.)
+    galileo,keys,house if player celeste-dead: He has his house and his keys again. I go up every week, as she asked me to.
+    celeste,maria,suor,virginia,daughter: Suor Maria Celeste, his eldest, at the convent of San Matteo in Arcetri. She gave me his keys, and writes to him every week, and worries for him more than he has ever worried for himself. {player set knows:arcetri:celeste}
+    name: Geri Bocchineri, secretary to His Highness, and Galileo's friend, which today is a more dangerous office. {name}
+    job: I write the Grand Duke's letters, and keep Galileo's house while he is in Rome, and lie awake.
+    give:galileo-papers: (He unties the tape and looks through them quickly: Kepler, Sarpi, a Dutchman.) Nothing wicked, and enough to hang him, read by the wrong man. (He feeds them to the fire one by one, and watches each one burn.) Tell Suor Maria Celeste it is done. When they search the house they will find his accounts and his lens-grinding, and much good may it do them. {take} {player set papers-cleared} {player add favour 1} {player set knows:arcetri:celeste}
+    galileo,keys,house: Suor Maria Celeste gave me the keys. I go up every week. The lemons are well, the mule is fat, and the Father Inquisitor's man watches the gate. {player set knows:arcetri:celeste}
+  end
+end

@@ -1,0 +1,48 @@
+# Names for ordinary townspeople: "POOL male|female|surname: names..."
+french male: Jean Pierre Jacques Nicolas François Antoine Louis Claude Michel Étienne Guillaume Denis Martin Simon Mathurin Robert Charles Gilles Philippe Laurent Thomas Noël Germain
+french female: Marie Jeanne Marguerite Catherine Anne Madeleine Françoise Geneviève Louise Perrette Nicole Barbe Claude Denise Isabeau Agnès Marthe Suzanne Antoinette Guillemette
+french surname: Martin Bernard Lefèvre Dubois Moreau Laurent Girard Roux Fournier Mercier Blanc Garnier Chevalier Boyer Lambert Dupont Fontaine Rousseau Bonnet Leroy Charpentier Boulanger Meunier Tessier
+english male: John William Thomas Richard Robert Henry Edward George Francis Nicholas Walter Christopher Hugh Ralph Roger Samuel Matthew Humphrey Giles Edmund
+english female: Mary Elizabeth Anne Margaret Joan Alice Agnes Jane Katherine Dorothy Susan Frances Ellen Bridget Grace Judith Joyce Martha
+english surname: Smith Taylor Clarke Wright Walker Turner Cooper Baker Carter Fletcher Hill Ward Webb Hunt Fisher Wood Bell Mason Chandler Draper Fuller Hayward
+italian male: Giovanni Francesco Antonio Pietro Giuseppe Domenico Bartolomeo Lorenzo Niccolò Matteo Andrea Jacopo Cosimo Filippo Benedetto Vincenzo Michele Agnolo Bernardo Simone Tommaso Luca Paolo Girolamo Carlo Marco Alessandro Raffaello Zanobi Baccio
+italian female: Maria Caterina Lucrezia Maddalena Margherita Lisabetta Ginevra Cassandra Francesca Lucia Agnola Costanza Diamante Camilla Virginia Livia Laura Bartolomea Nannina Ottavia
+italian surname: Rossi Bianchi Bruni Rinaldi Ricci Conti Galli Fabbri Bonaccorsi Cecchi Bartolini Guidi Lapi Pucci Neri Martelli Morelli Gori Baldi Benci Corsi Doni Ghini Lotti Mazzei Nardi Pieri Sassetti Tosi Vettori
+roman male: Giovanni Pietro Paolo Francesco Giacomo Antonio Domenico Marcantonio Lorenzo Girolamo Felice Bernardino Orazio Cesare Fabrizio Ottavio Prospero Ascanio Mario Sebastiano
+roman female: Maria Anna Caterina Lucrezia Faustina Vittoria Olimpia Porzia Ortensia Livia Giulia Cecilia Agnese Costanza Prudenza Felice Margherita Clarice
+roman surname: Rossi Colonna Mancini Bianchi Marini Ferri Massimi Santori Conti Mariani Fabi Leoni Galli Cenci Pace Moretti Scotti Celli Tozzi Paoli
+venetian male: Zuane Piero Alvise Marco Zorzi Bortolo Antonio Domenego Iseppo Nicolò Andrea Francesco Mattio Polo Lunardo Bastian Anzolo Vettor Tomaso Gasparo
+venetian female: Marieta Cate Betina Zuana Lucieta Anzola Orsola Paolina Chiara Isabeta Felicita Laura Momola Cecilia Elena Lugrezia
+venetian surname: Zanon Bortolotti Zorzi Rizzo Ferro Tagliapietra Scarpa Busetto Vianello Zennaro Boscolo Gasparini Bon Favaretto Dolfin Marangon Moro Costantini Biasio Rossetto
+dutch male: Jan Pieter Willem Hendrick Cornelis Claes Dirck Jacob Gerrit Adriaen Joost Reyer Frans Abraham Isaac Barent Lucas Maerten Harmen Thijs Wouter Joris Gijsbert Arent Roelof
+dutch female: Grietje Marritje Annetje Trijntje Geertruyd Aeltje Neeltje Lijsbeth Maria Elsje Hillegond Weyntje Saskia Belitje Jannetje Cornelia Baertje
+dutch surname: Jansz Pietersz de_Vries van_Dijk Bakker Visser de_Wit Smit Coster de_Graeff van_der_Meer Kuyper Brouwer Schipper de_Boer Verhoef van_Leeuwen Mulder Haeck Roos van_Hoorn Blom Steen
+ottoman male: Mehmed Ahmed Ali Hasan Hüseyin Mustafa Osman Süleyman İbrahim Yusuf Ömer Halil Murad Kasım Hızır Davud İlyas Musa Ramazan Bekir Selim Abdullah Hamza Yakub Nasuh
+ottoman female: Ayşe Fatma Hatice Emine Zeynep Rukiye Saliha Hanife Şerife Kerime Safiye Hümaşah Esma Ümmügülsüm Rabia Halime
+ottoman surname: Ağa Efendi Çelebi Bey Reis Usta Hoca Dede Halife Beşe
+spanish male: Juan Pedro Diego Francisco Alonso Antonio Luis Fernando Andres Martin Gonzalo Rodrigo Miguel Cristobal Gaspar Sebastian Bartolome Jeronimo Lorenzo Hernando Tomas Gabriel
+spanish female: Maria Ana Isabel Juana Catalina Francisca Leonor Ines Beatriz Luisa Mariana Teresa Elvira Mencia Ursula Magdalena Agueda
+spanish surname: Garcia Lopez Martinez Sanchez Perez Gonzalez Rodriguez Fernandez Ruiz Diaz Moreno Jimenez Romero Navarro Torres Dominguez Vazquez Ramos Gil Serrano Molina Ortega Castro Delgado
+german male: Hans Georg Johann Michael Jakob Heinrich Konrad Paul Wolf Christoph Lorenz Sebastian Kaspar Ulrich Martin Andreas Bastian Endres Jörg Lienhard Veit Matthes Friedrich Balthasar
+german female: Anna Margaretha Barbara Katharina Maria Ursula Elisabeth Magdalena Dorothea Regina Kunigunde Apollonia Sabina Susanna Helena Ottilia Walburga Agnes Juliana
+german surname: Müller Schmidt Schneider Fischer Weber Meyer Wagner Becker Hoffmann Koch Bauer Richter Klein Wolf Schröder Neumann Schwarz Zimmermann Braun Krüger Hofmann Hartmann Lang Huber Keller Frank
+czech male: Jan Václav Jiří Jindřich Matěj Vojtěch Pavel Tomáš Adam Vavřinec Mikuláš Ondřej Petr Šimon Martin Jakub Bartoloměj Kryštof Zikmund Havel
+czech female: Anna Dorota Kateřina Ludmila Marie Alžběta Magdalena Johana Barbora Markéta Zuzana Lidmila Salomena Eva Veronika
+czech surname: Novák Svoboda Dvořák Černý Procházka Kučera Veselý Horák Němec Pokorný Hájek Král Beneš Kolář Šimek Mareš Bartoš Kovář
+polish male: Jan Stanisław Wojciech Andrzej Piotr Jakub Mikołaj Krzysztof Marcin Tomasz Paweł Szymon Maciej Jerzy Kasper Walenty Grzegorz Łukasz Sebastian Adam
+polish female: Anna Katarzyna Zofia Barbara Jadwiga Agnieszka Małgorzata Dorota Elżbieta Regina Helena Urszula Jagna Marianna Teresa
+polish surname: Nowak Kowalski Wiśniewski Wójcik Kowalczyk Kamiński Lewandowski Zieliński Szymański Woźniak Dąbrowski Kozłowski Jankowski Mazur Krawczyk Piotrowski Grabowski Pawłowski
+bosnian male: Mehmed Ahmed Ali Hasan Husein Mustafa Osman Ibrahim Jusuf Omer Halil Murat Ismail Sulejman Derviš Salih Ibro Hamza Junuz
+bosnian female: Fatima Aiša Hatidža Emina Zejneba Rukija Saliha Hanifa Šerifa Kerima Safija Esma Rabija Halima
+bosnian surname: Begović Hadžić Kovačević Mehmedbašić Bašić Čelebić Kurtović Hasanović Alić Pašić Dizdar Kujundžić Sarač Tufekčić
+# soldiers of other nations (roles.txt "names POOL"): Swedes by their fathers' names, as in 1632; Croats
+swedish male: Erik Anders Olof Lars Nils Per Johan Karl Hans Jöns Mats Måns Sven Jakob Mikael Henrik Mårten Peder Bengt Göran Staffan Knut
+swedish female: Kerstin Karin Brita Anna Margareta Ingrid Elin Malin Gertrud Kristina Elsa Marit
+swedish surname: Andersson Eriksson Larsson Olofsson Nilsson Persson Jönsson Svensson Månsson Mattsson Jakobsson Hansson Bengtsson Knutsson Pedersson Göransson
+croatian male: Ivan Marko Petar Nikola Juraj Matija Tomo Luka Grgur Pavao Stjepan Mihovil Andrija Vuk Franjo Ilija Jakov Martin
+croatian female: Ana Marija Katarina Jela Mara Kata Barbara Ivana Magdalena Lucija
+croatian surname: Horvat Kovačević Babić Marić Jurić Novak Knežević Vuković Petrović Matić Perić Radić Božić Lukić Tomić Grgić Vlašić Pavlović
+# Monro's Scots, of Mackay's regiment, raised in Strathnaver, Sutherland and Ross (roles.txt scot, scotstorm)
+scottish male: Donald John William Alexander Hugh Angus Neil Kenneth Robert Hector George James Thomas Andrew Roderick Farquhar Adam David
+scottish female: Margaret Janet Agnes Isobel Christian Marion Catherine Elspeth Ann Helen
+scottish surname: Mackay Munro Ross Sutherland Gunn Mackenzie Macleod Matheson Sinclair Gordon Fraser Forbes Innes Murray Bain Polson

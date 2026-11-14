@@ -1,0 +1,3763 @@
+time 5293.204
+at 4965 5549 0
+player been:danzig 1
+player been:paris 1
+player been:stockholm 1
+player been:the-cottage-at-la-chapelle 1
+player chat:last 600
+player coin:french 9000
+player courier-coat 1
+player courier-hired 1
+player courier-met 1
+player courier-ruled 1
+player courier-stationer 1
+player courier-tested 1
+player courier-testing 1
+player cow:seed -
+player crossings 1
+player delivered-diodati 1
+player gift 0
+player heard:the-quarries 600
+player jnl:courier:33459c1b 600
+player jnl:courier:bea32574 600
+player jnl:courier:d1c2a717 600
+player knows:paris:apprentice:6 1
+player knows:paris:commis 1
+player knows:paris:crenet 1
+player knows:paris:diodati 1
+player knows:paris:goodwife:0 1
+player knows:paris:margot 1
+player knows:paris:mersenne 1
+player knows:the_cottage_at_la_chapelle:perrette 1
+player knows:the_cottage_at_la_chapelle:pierre 1
+player me:age 17
+player me:clothes 0
+player me:hair 2
+player me:hairlong 1
+player me:name Marie
+player me:sex f
+player me:skin 1
+player money 8520
+player town Stockholm
+player visited:danzig:the_Green_Gate 973
+heard	1	600	Paris	a labourer	My brother cuts stone under the Faubourg Saint-Jacques. He says there are galleries down there no one has walked in a hundred years.
+person paris:jacques 2927 3880 0
+mem paris:jacques money 300
+mem paris:jacques town Paris
+person paris:antonio 2935 3892 0
+mem paris:antonio money 4800
+mem paris:antonio town Paris
+person paris:lydia 2931 3787 0
+mem paris:lydia town Paris
+person paris:martin 2966 3783 0
+mem paris:martin money 720
+mem paris:martin town Paris
+person paris:mersenne 3022 3879 0
+mem paris:mersenne asked:48 1
+mem paris:mersenne asked:coat 1
+mem paris:mersenne asked:courier 1
+mem paris:mersenne asked:diodati 1
+mem paris:mersenne asked:errand 1
+mem paris:mersenne asked:job 1
+mem paris:mersenne asked:letter 1
+mem paris:mersenne asked:name 1
+mem paris:mersenne asked:numbers 1
+mem paris:mersenne asked:promise 1
+mem paris:mersenne asked:terms 1
+mem paris:mersenne last 600
+mem paris:mersenne met 1
+mem paris:mersenne talks 3
+mem paris:mersenne town Paris
+person paris:fermat 2865 3850 0
+mem paris:fermat town Paris
+person paris:richelieu 2880 3759 0
+mem paris:richelieu town Paris
+person paris:francis 2875 3802 0
+mem paris:francis town Paris
+person paris:pierre 2934 3905 0
+mem paris:pierre money 200
+mem paris:pierre town Paris
+person paris:thierry 2915 3903 0
+mem paris:thierry money 4800
+mem paris:thierry town Paris
+person paris:crenet 2905 3915 0
+mem paris:crenet asked:name 1
+mem paris:crenet last 600
+mem paris:crenet met 1
+mem paris:crenet money 400
+mem paris:crenet talks 1
+mem paris:crenet town Paris
+person paris:curate 2991 3832 0
+mem paris:curate town Paris
+person paris:beadle 2965 3788 0
+mem paris:beadle town Paris
+person paris:grosbois 2977 3787 0
+mem paris:grosbois town Paris
+person paris:changer 2942 3844 0
+mem paris:changer town Paris
+person paris:grey 2907 3913 0
+mem paris:grey asked:cardinal 1
+mem paris:grey asked:job 1
+mem paris:grey asked:name 1
+mem paris:grey last 600
+mem paris:grey met 1
+mem paris:grey talks 1
+mem paris:grey town Paris
+person paris:sergeant 2926 3898 0
+mem paris:sergeant town Paris
+person paris:bahuche 2905 3858 0
+mem paris:bahuche town Paris
+person paris:lebrun 2911 3859 0
+mem paris:lebrun town Paris
+person paris:dupuis 2873 3843 0
+mem paris:dupuis town Paris
+person paris:lemercier 2915 3854 0
+mem paris:lemercier town Paris
+person paris:stationer 2948 3900 0
+mem paris:stationer money 600
+mem paris:stationer town Paris
+person paris:diodati 2931 3826 0
+mem paris:diodati asked:letter 1
+mem paris:diodati asked:name 1
+mem paris:diodati given:mersenne-to-diodati 1
+mem paris:diodati has:mersenne-to-diodati 1
+mem paris:diodati last 600
+mem paris:diodati met 1
+mem paris:diodati talks 1
+mem paris:diodati town Paris
+person paris:labourer:0 2995 3833 0
+mem paris:labourer:0 town Paris
+person paris:labourer:1 2965 3813 0
+mem paris:labourer:1 town Paris
+person paris:labourer:2 3002 3830 0
+mem paris:labourer:2 town Paris
+person paris:labourer:3 3024 3809 0
+mem paris:labourer:3 town Paris
+person paris:labourer:4 2954 3841 0
+mem paris:labourer:4 town Paris
+person paris:labourer:5 2953 3848 0
+mem paris:labourer:5 town Paris
+person paris:labourer:6 2995 3829 0
+mem paris:labourer:6 town Paris
+person paris:labourer:7 2951 3848 0
+mem paris:labourer:7 town Paris
+person paris:labourer:8 3044 3833 0
+mem paris:labourer:8 town Paris
+person paris:labourer:9 3010 3824 0
+mem paris:labourer:9 town Paris
+person paris:labourer:10 3021 3848 0
+mem paris:labourer:10 town Paris
+person paris:labourer:11 2964 3848 0
+mem paris:labourer:11 town Paris
+person paris:labourer:12 2899 3844 0
+mem paris:labourer:12 town Paris
+person paris:labourer:13 2952 3848 0
+mem paris:labourer:13 town Paris
+person paris:labourer:14 2917 3848 0
+mem paris:labourer:14 town Paris
+person paris:labourer:15 2905 3847 0
+mem paris:labourer:15 town Paris
+person paris:labourer:16 2946 3813 0
+mem paris:labourer:16 town Paris
+person paris:labourer:17 2976 3848 0
+mem paris:labourer:17 town Paris
+person paris:labourer:18 3004 3825 0
+mem paris:labourer:18 town Paris
+person paris:labourer:19 2948 3841 0
+mem paris:labourer:19 town Paris
+person paris:washerwoman:0 2991 3841 0
+mem paris:washerwoman:0 town Paris
+person paris:washerwoman:1 2949 3813 0
+mem paris:washerwoman:1 town Paris
+person paris:washerwoman:2 2913 3813 0
+mem paris:washerwoman:2 town Paris
+person paris:washerwoman:3 2922 3813 0
+mem paris:washerwoman:3 town Paris
+person paris:washerwoman:4 3002 3828 0
+mem paris:washerwoman:4 town Paris
+person paris:washerwoman:5 3021 3837 0
+mem paris:washerwoman:5 town Paris
+person paris:washerwoman:6 2901 3844 0
+mem paris:washerwoman:6 town Paris
+person paris:washerwoman:7 3037 3840 0
+mem paris:washerwoman:7 town Paris
+person paris:washerwoman:8 2906 3813 0
+mem paris:washerwoman:8 town Paris
+person paris:washerwoman:9 2925 3813 0
+mem paris:washerwoman:9 town Paris
+person paris:washerwoman:10 2927 3813 0
+mem paris:washerwoman:10 town Paris
+person paris:washerwoman:11 2944 3841 0
+mem paris:washerwoman:11 town Paris
+person paris:goodwife:0 2934 3894 0
+mem paris:goodwife:0 asked:name 1
+mem paris:goodwife:0 last 600
+mem paris:goodwife:0 met 1
+mem paris:goodwife:0 talks 1
+mem paris:goodwife:0 town Paris
+person paris:goodwife:1 2935 3894 0
+mem paris:goodwife:1 town Paris
+person paris:goodwife:2 2917 3903 0
+mem paris:goodwife:2 town Paris
+person paris:goodwife:3 2925 3890 0
+mem paris:goodwife:3 town Paris
+person paris:goodwife:4 2927 3889 0
+mem paris:goodwife:4 town Paris
+person paris:goodwife:5 2934 3892 0
+mem paris:goodwife:5 town Paris
+person paris:goodwife:6 2935 3893 0
+mem paris:goodwife:6 town Paris
+person paris:goodwife:7 2926 3890 0
+mem paris:goodwife:7 town Paris
+person paris:goodwife:8 2926 3888 0
+mem paris:goodwife:8 town Paris
+person paris:goodwife:9 2915 3902 0
+mem paris:goodwife:9 town Paris
+person paris:goodwife:10 2925 3888 0
+mem paris:goodwife:10 town Paris
+person paris:goodwife:11 2927 3890 0
+mem paris:goodwife:11 town Paris
+person paris:goodwife:12 2916 3902 0
+mem paris:goodwife:12 town Paris
+person paris:goodwife:13 2925 3889 0
+mem paris:goodwife:13 town Paris
+person paris:goodwife:14 2917 3902 0
+mem paris:goodwife:14 town Paris
+person paris:goodwife:15 2927 3888 0
+mem paris:goodwife:15 town Paris
+person paris:goodwife:16 2972 3733 0
+mem paris:goodwife:16 town Paris
+person paris:goodwife:17 2898 3896 0
+mem paris:goodwife:17 town Paris
+person paris:goodwife:18 2982 3889 0
+mem paris:goodwife:18 town Paris
+person paris:goodwife:19 2927 3804 0
+mem paris:goodwife:19 town Paris
+person paris:apprentice:0 2958 3765 0
+mem paris:apprentice:0 town Paris
+person paris:apprentice:1 2918 3752 0
+mem paris:apprentice:1 town Paris
+person paris:apprentice:2 2857 3796 0
+mem paris:apprentice:2 town Paris
+person paris:apprentice:3 2866 3792 0
+mem paris:apprentice:3 town Paris
+person paris:apprentice:4 3004 3796 0
+mem paris:apprentice:4 town Paris
+person paris:apprentice:5 3001 3800 0
+mem paris:apprentice:5 town Paris
+person paris:apprentice:6 2938 3914 0
+mem paris:apprentice:6 asked:job 1
+mem paris:apprentice:6 asked:name 1
+mem paris:apprentice:6 last 600
+mem paris:apprentice:6 met 1
+mem paris:apprentice:6 talks 2
+mem paris:apprentice:6 town Paris
+person paris:apprentice:7 2956 3822 0
+mem paris:apprentice:7 town Paris
+person paris:apprentice:8 2957 3857 0
+mem paris:apprentice:8 town Paris
+person paris:apprentice:9 2966 3865 0
+mem paris:apprentice:9 town Paris
+person paris:apprentice:10 2911 3763 0
+mem paris:apprentice:10 town Paris
+person paris:apprentice:11 2959 3858 0
+mem paris:apprentice:11 town Paris
+person paris:student:0 2978 3790 0
+mem paris:student:0 town Paris
+person paris:student:1 2973 3789 0
+mem paris:student:1 town Paris
+person paris:student:2 2978 3791 0
+mem paris:student:2 town Paris
+person paris:student:3 2965 3791 0
+mem paris:student:3 town Paris
+person paris:student:4 2969 3790 0
+mem paris:student:4 town Paris
+person paris:student:5 2968 3795 0
+mem paris:student:5 town Paris
+person paris:student:6 2968 3788 0
+mem paris:student:6 town Paris
+person paris:student:7 2973 3788 0
+mem paris:student:7 town Paris
+person paris:student:8 2965 3796 0
+mem paris:student:8 town Paris
+person paris:student:9 2966 3786 0
+mem paris:student:9 town Paris
+person paris:student:10 2964 3792 0
+mem paris:student:10 town Paris
+person paris:student:11 2972 3793 0
+mem paris:student:11 town Paris
+person paris:student:12 2966 3793 0
+mem paris:student:12 town Paris
+person paris:student:13 2978 3789 0
+mem paris:student:13 town Paris
+person paris:student:14 2972 3795 0
+mem paris:student:14 town Paris
+person paris:student:15 2966 3787 0
+mem paris:student:15 town Paris
+person paris:beggar:0 2860 3799 0
+mem paris:beggar:0 town Paris
+person paris:beggar:1 2865 3798 0
+mem paris:beggar:1 town Paris
+person paris:beggar:2 2870 3795 0
+mem paris:beggar:2 town Paris
+person paris:beggar:3 2867 3802 0
+mem paris:beggar:3 town Paris
+person paris:beggar:4 2859 3795 0
+mem paris:beggar:4 town Paris
+person paris:beggar:5 2876 3799 0
+mem paris:beggar:5 town Paris
+person paris:guard:0 2943 3911 0
+mem paris:guard:0 town Paris
+person paris:guard:1 2930 3752 0
+mem paris:guard:1 town Paris
+person paris:guard:2 2960 3748 0
+mem paris:guard:2 town Paris
+person paris:guard:3 2957 3748 0
+mem paris:guard:3 town Paris
+person paris:guard:4 2956 3748 0
+mem paris:guard:4 town Paris
+person paris:guard:5 2884 3802 0
+mem paris:guard:5 town Paris
+person paris:guard:6 2884 3801 0
+mem paris:guard:6 town Paris
+person paris:guard:7 2958 3911 0
+mem paris:guard:7 town Paris
+person paris:guard:8 2944 3911 0
+mem paris:guard:8 town Paris
+person paris:guard:9 2927 3752 0
+mem paris:guard:9 town Paris
+person paris:guard:10 3036 3877 0
+mem paris:guard:10 town Paris
+person paris:guard:11 3033 3878 0
+mem paris:guard:11 town Paris
+person paris:guard:12 3025 3801 0
+mem paris:guard:12 town Paris
+person paris:guard:13 3033 3877 0
+mem paris:guard:13 town Paris
+person paris:guard:14 2955 3748 0
+mem paris:guard:14 town Paris
+person paris:guard:15 3025 3802 0
+mem paris:guard:15 town Paris
+person paris:guard:16 2956 3911 0
+mem paris:guard:16 town Paris
+person paris:guard:17 2957 3911 0
+mem paris:guard:17 town Paris
+person paris:guard:18 2960 3911 0
+mem paris:guard:18 town Paris
+person paris:guard:19 2928 3752 0
+mem paris:guard:19 town Paris
+person paris:watchman:0 2937 3772 1
+mem paris:watchman:0 town Paris
+person paris:watchman:1 2964 3866 1
+mem paris:watchman:1 town Paris
+person paris:watchman:2 2962 3887 0
+mem paris:watchman:2 town Paris
+person paris:priest:0 2875 3800 0
+mem paris:priest:0 town Paris
+person paris:priest:1 2876 3802 0
+mem paris:priest:1 town Paris
+person paris:monk:0 2861 3801 0
+mem paris:monk:0 town Paris
+person paris:monk:1 2867 3804 0
+mem paris:monk:1 town Paris
+person paris:monk:2 2872 3796 0
+mem paris:monk:2 town Paris
+person paris:monk:3 2866 3800 0
+mem paris:monk:3 town Paris
+person paris:herdsman:0 2942 3807 0
+mem paris:herdsman:0 town Paris
+person saint-denis:domjean 3001 4010 0
+mem saint-denis:domjean town Saint-Denis
+person saint-denis:ecu 2962 3982 0
+mem saint-denis:ecu money 400
+mem saint-denis:ecu town Saint-Denis
+person saint-denis:donald 2972 3966 0
+mem saint-denis:donald town Saint-Denis
+person saint-denis:parcheminier 2961 4004 0
+mem saint-denis:parcheminier money 4800
+mem saint-denis:parcheminier town Saint-Denis
+person saint-denis:goodwife:0 2957 3992 0
+mem saint-denis:goodwife:0 town Saint-Denis
+person saint-denis:goodwife:1 2967 3993 0
+mem saint-denis:goodwife:1 town Saint-Denis
+person saint-denis:goodwife:2 2957 3994 0
+mem saint-denis:goodwife:2 town Saint-Denis
+person saint-denis:goodwife:3 2957 3996 0
+mem saint-denis:goodwife:3 town Saint-Denis
+person saint-denis:labourer:0 2977 4005 0
+mem saint-denis:labourer:0 town Saint-Denis
+person saint-denis:labourer:1 2942 4028 0
+mem saint-denis:labourer:1 town Saint-Denis
+person saint-denis:labourer:2 2939 3993 0
+mem saint-denis:labourer:2 town Saint-Denis
+person saint-denis:monk:0 2979 4012 0
+mem saint-denis:monk:0 town Saint-Denis
+person saint-denis:monk:1 2990 4008 0
+mem saint-denis:monk:1 town Saint-Denis
+person saint-denis:monk:2 3000 4007 0
+mem saint-denis:monk:2 town Saint-Denis
+person saint-denis:apprentice:0 2965 3996 0
+mem saint-denis:apprentice:0 town Saint-Denis
+person saint-denis:apprentice:1 2967 3992 0
+mem saint-denis:apprentice:1 town Saint-Denis
+person saint-denis:guard:0 2971 4023 0
+mem saint-denis:guard:0 town Saint-Denis
+person saint-denis:guard:1 2976 4023 0
+mem saint-denis:guard:1 town Saint-Denis
+person saint-denis:herdsman:0 2957 3994 0
+mem saint-denis:herdsman:0 town Saint-Denis
+person london:mermaid 2813 4437 0
+mem london:mermaid gambler 1
+mem london:mermaid money 960
+mem london:mermaid town London
+person london:warder 2866 4441 0
+mem london:warder town London
+person london:taylor 2769 4385 0
+mem london:taylor town London
+person london:bookseller 2794 4425 0
+mem london:bookseller money 800
+mem london:bookseller town London
+person london:harvey 2756 4466 0
+mem london:harvey town London
+person london:labourer:0 2796 4451 0
+mem london:labourer:0 town London
+person london:labourer:1 2813 4338 0
+mem london:labourer:1 town London
+person london:labourer:2 2824 4394 0
+mem london:labourer:2 town London
+person london:labourer:3 2755 4422 0
+mem london:labourer:3 town London
+person london:labourer:4 2743 4447 0
+mem london:labourer:4 town London
+person london:labourer:5 2824 4403 0
+mem london:labourer:5 town London
+person london:labourer:6 2802 4424 0
+mem london:labourer:6 town London
+person london:labourer:7 2720 4450 0
+mem london:labourer:7 town London
+person london:labourer:8 2727 4456 0
+mem london:labourer:8 town London
+person london:labourer:9 2824 4399 0
+mem london:labourer:9 town London
+person london:labourer:10 2794 4425 0
+mem london:labourer:10 town London
+person london:labourer:11 2823 4430 0
+mem london:labourer:11 town London
+person london:labourer:12 2755 4393 0
+mem london:labourer:12 town London
+person london:labourer:13 2839 4378 0
+mem london:labourer:13 town London
+person london:labourer:14 2743 4453 0
+mem london:labourer:14 town London
+person london:labourer:15 2794 4414 0
+mem london:labourer:15 town London
+person london:goodwife:0 2768 4392 0
+mem london:goodwife:0 town London
+person london:goodwife:1 2794 4414 0
+mem london:goodwife:1 town London
+person london:goodwife:2 2846 4479 0
+mem london:goodwife:2 town London
+person london:goodwife:3 2883 4441 0
+mem london:goodwife:3 town London
+person london:goodwife:4 2755 4386 0
+mem london:goodwife:4 town London
+person london:goodwife:5 2781 4423 0
+mem london:goodwife:5 town London
+person london:goodwife:6 2843 4346 0
+mem london:goodwife:6 town London
+person london:goodwife:7 2815 4348 0
+mem london:goodwife:7 town London
+person london:goodwife:8 2715 4456 0
+mem london:goodwife:8 town London
+person london:goodwife:9 2832 4490 0
+mem london:goodwife:9 town London
+person london:goodwife:10 2788 4416 0
+mem london:goodwife:10 town London
+person london:goodwife:11 2761 4391 0
+mem london:goodwife:11 town London
+person london:goodwife:12 2884 4454 0
+mem london:goodwife:12 town London
+person london:goodwife:13 2720 4450 0
+mem london:goodwife:13 town London
+person london:goodwife:14 2846 4479 0
+mem london:goodwife:14 town London
+person london:goodwife:15 2859 4441 0
+mem london:goodwife:15 town London
+person london:apprentice:0 2774 4385 0
+mem london:apprentice:0 town London
+person london:apprentice:1 2743 4447 0
+mem london:apprentice:1 town London
+person london:apprentice:2 2727 4456 0
+mem london:apprentice:2 town London
+person london:apprentice:3 2745 4385 0
+mem london:apprentice:3 town London
+person london:apprentice:4 2792 4386 0
+mem london:apprentice:4 town London
+person london:apprentice:5 2844 4380 0
+mem london:apprentice:5 town London
+person london:apprentice:6 2720 4450 0
+mem london:apprentice:6 town London
+person london:apprentice:7 2776 4424 0
+mem london:apprentice:7 town London
+person london:apprentice:8 2802 4418 0
+mem london:apprentice:8 town London
+person london:apprentice:9 2832 4339 0
+mem london:apprentice:9 town London
+person london:apprentice:10 2808 4421 0
+mem london:apprentice:10 town London
+person london:apprentice:11 2727 4456 0
+mem london:apprentice:11 town London
+person london:waterman:0 2746 4465 0
+mem london:waterman:0 town London
+person london:waterman:1 2832 4402 0
+mem london:waterman:1 town London
+person london:waterman:2 2813 4368 0
+mem london:waterman:2 town London
+person london:waterman:3 2846 4488 0
+mem london:waterman:3 town London
+person london:waterman:4 2774 4385 0
+mem london:waterman:4 town London
+person london:waterman:5 2843 4346 0
+mem london:waterman:5 town London
+person london:waterman:6 2843 4346 0
+mem london:waterman:6 town London
+person london:waterman:7 2837 4419 0
+mem london:waterman:7 town London
+person london:waterman:8 2808 4413 0
+mem london:waterman:8 town London
+person london:waterman:9 2769 4385 0
+mem london:waterman:9 town London
+person london:guard:0 2743 4447 0
+mem london:guard:0 town London
+person london:guard:1 2846 4467 0
+mem london:guard:1 town London
+person london:guard:2 2817 4358 0
+mem london:guard:2 town London
+person london:guard:3 2761 4384 0
+mem london:guard:3 town London
+person london:guard:4 2843 4356 0
+mem london:guard:4 town London
+person london:guard:5 2837 4356 0
+mem london:guard:5 town London
+person london:guard:6 2729 4448 0
+mem london:guard:6 town London
+person london:guard:7 2823 4430 0
+mem london:guard:7 town London
+person london:guard:8 2843 4356 0
+mem london:guard:8 town London
+person london:guard:9 2761 4391 0
+mem london:guard:9 town London
+person london:guard:10 2846 4488 0
+mem london:guard:10 town London
+person london:guard:11 2832 4490 0
+mem london:guard:11 town London
+person london:guard:12 2823 4357 0
+mem london:guard:12 town London
+person london:guard:13 2779 4384 0
+mem london:guard:13 town London
+person london:guard:14 2877 4454 0
+mem london:guard:14 town London
+person london:guard:15 2746 4465 0
+mem london:guard:15 town London
+person london:watchman:0 2756 4459 0
+mem london:watchman:0 town London
+person london:watchman:1 2755 4422 0
+mem london:watchman:1 town London
+person london:watchman:2 2815 4353 0
+mem london:watchman:2 town London
+person london:beggar:0 2724 4449 0
+mem london:beggar:0 town London
+person london:beggar:1 2844 4413 0
+mem london:beggar:1 town London
+person london:beggar:2 2794 4420 0
+mem london:beggar:2 town London
+person london:beggar:3 2755 4393 0
+mem london:beggar:3 town London
+person london:beggar:4 2884 4454 0
+mem london:beggar:4 town London
+person london:beggar:5 2745 4392 0
+mem london:beggar:5 town London
+person london:actor:0 2761 4384 0
+mem london:actor:0 town London
+person london:actor:1 2859 4454 0
+mem london:actor:1 town London
+person london:actor:2 2812 4358 0
+mem london:actor:2 town London
+person london:actor:3 2813 4368 0
+mem london:actor:3 town London
+person london:priest:0 2884 4454 0
+mem london:priest:0 town London
+person london:priest:1 2846 4488 0
+mem london:priest:1 town London
+person london:herdsman:0 2877 4454 0
+mem london:herdsman:0 town London
+person london:changer:0 2843 4338 0
+mem london:changer:0 town London
+person watt's_farm:watt 2964 3942 0
+mem watt's_farm:watt town Watt's_Farm
+person watt's_farm:jane 3016 3965 0
+mem watt's_farm:jane town Watt's_Farm
+person the_cottage_at_la_chapelle:pierre 2948 3956 0
+mem the_cottage_at_la_chapelle:pierre family father
+mem the_cottage_at_la_chapelle:pierre town the_Cottage_at_La_Chapelle
+person the_cottage_at_la_chapelle:perrette 2931 3934 0
+mem the_cottage_at_la_chapelle:perrette family mother
+mem the_cottage_at_la_chapelle:perrette household the_cottage_at_la_chapelle:pierre
+mem the_cottage_at_la_chapelle:perrette town the_Cottage_at_La_Chapelle
+person the_bois_de_boulogne:lisa 2796 3836 0
+mem the_bois_de_boulogne:lisa town the_Bois_de_Boulogne
+person poissy:drover 2639 3935 0
+mem poissy:drover town Poissy
+person poissy:poissy-host 2660 3944 0
+mem poissy:poissy-host money 400
+mem poissy:poissy-host town Poissy
+person montmartre:miner:0 2885 3969 -2
+mem montmartre:miner:0 town Montmartre
+person montmartre:miner:1 2909 3983 -2
+mem montmartre:miner:1 town Montmartre
+person montmartre:miner:2 2897 3984 -2
+mem montmartre:miner:2 town Montmartre
+person montmartre:miner:3 2904 3958 -2
+mem montmartre:miner:3 town Montmartre
+person poissy:herdsman:0 2650 3935 0
+mem poissy:herdsman:0 town Poissy
+person poissy:herdsman:1 2661 3935 0
+mem poissy:herdsman:1 town Poissy
+person poissy:herdsman:2 2650 3940 0
+mem poissy:herdsman:2 town Poissy
+person poissy:labourer:0 2650 3940 0
+mem poissy:labourer:0 town Poissy
+person poissy:labourer:1 2650 3940 0
+mem poissy:labourer:1 town Poissy
+person poissy:goodwife:0 2650 3940 0
+mem poissy:goodwife:0 town Poissy
+person poissy:goodwife:1 2650 3940 0
+mem poissy:goodwife:1 town Poissy
+person florence:landini 3930 2689 0
+mem florence:landini country Italy
+mem florence:landini money 700
+mem florence:landini town Florence
+person florence:duke 3960 2623 0
+mem florence:duke country Italy
+mem florence:duke town Florence
+person florence:buonarroti 4024 2672 0
+mem florence:buonarroti country Italy
+mem florence:buonarroti town Florence
+person florence:bastiano 3912 2667 0
+mem florence:bastiano country Italy
+mem florence:bastiano money 400
+mem florence:bastiano town Florence
+person florence:battiloro 3943 2645 0
+mem florence:battiloro country Italy
+mem florence:battiloro money 900
+mem florence:battiloro town Florence
+person arcetri:galileo 3948 2555 0
+mem arcetri:galileo country Italy
+mem arcetri:galileo town Arcetri
+person arcetri:celeste 3976 2545 0
+mem arcetri:celeste country Italy
+mem arcetri:celeste town Arcetri
+person florence:inquisitor 4018 2676 0
+mem florence:inquisitor country Italy
+mem florence:inquisitor town Florence
+person florence:familiar 3929 2674 0
+mem florence:familiar country Italy
+mem florence:familiar town Florence
+person florence:ronconi 3983 2720 0
+mem florence:ronconi country Italy
+mem florence:ronconi town Florence
+person florence:geri 3955 2686 0
+mem florence:geri country Italy
+mem florence:geri town Florence
+person florence:labourer:0 3875 2680 0
+mem florence:labourer:0 country Italy
+mem florence:labourer:0 town Florence
+person florence:labourer:1 3971 2611 0
+mem florence:labourer:1 country Italy
+mem florence:labourer:1 town Florence
+person florence:labourer:2 3989 2622 0
+mem florence:labourer:2 country Italy
+mem florence:labourer:2 town Florence
+person florence:labourer:3 3963 2686 0
+mem florence:labourer:3 country Italy
+mem florence:labourer:3 town Florence
+person florence:labourer:4 3914 2724 0
+mem florence:labourer:4 country Italy
+mem florence:labourer:4 town Florence
+person florence:labourer:5 3896 2717 0
+mem florence:labourer:5 country Italy
+mem florence:labourer:5 town Florence
+person florence:labourer:6 3921 2706 0
+mem florence:labourer:6 country Italy
+mem florence:labourer:6 town Florence
+person florence:labourer:7 3963 2681 0
+mem florence:labourer:7 country Italy
+mem florence:labourer:7 town Florence
+person florence:labourer:8 3898 2667 0
+mem florence:labourer:8 country Italy
+mem florence:labourer:8 town Florence
+person florence:labourer:9 4009 2692 0
+mem florence:labourer:9 country Italy
+mem florence:labourer:9 town Florence
+person florence:labourer:10 3972 2621 0
+mem florence:labourer:10 country Italy
+mem florence:labourer:10 town Florence
+person florence:labourer:11 3885 2689 0
+mem florence:labourer:11 country Italy
+mem florence:labourer:11 town Florence
+person florence:labourer:12 3972 2686 0
+mem florence:labourer:12 country Italy
+mem florence:labourer:12 town Florence
+person florence:labourer:13 4015 2694 0
+mem florence:labourer:13 country Italy
+mem florence:labourer:13 town Florence
+person florence:goodwife:0 3982 2611 0
+mem florence:goodwife:0 country Italy
+mem florence:goodwife:0 town Florence
+person florence:goodwife:1 3982 2630 0
+mem florence:goodwife:1 country Italy
+mem florence:goodwife:1 town Florence
+person florence:goodwife:2 3997 2661 0
+mem florence:goodwife:2 country Italy
+mem florence:goodwife:2 town Florence
+person florence:goodwife:3 3906 2676 0
+mem florence:goodwife:3 country Italy
+mem florence:goodwife:3 town Florence
+person florence:goodwife:4 3936 2727 0
+mem florence:goodwife:4 country Italy
+mem florence:goodwife:4 town Florence
+person florence:goodwife:5 4024 2663 0
+mem florence:goodwife:5 country Italy
+mem florence:goodwife:5 town Florence
+person florence:goodwife:6 3916 2658 0
+mem florence:goodwife:6 country Italy
+mem florence:goodwife:6 town Florence
+person florence:goodwife:7 4009 2703 0
+mem florence:goodwife:7 country Italy
+mem florence:goodwife:7 town Florence
+person florence:goodwife:8 3892 2690 0
+mem florence:goodwife:8 country Italy
+mem florence:goodwife:8 town Florence
+person florence:goodwife:9 3892 2690 0
+mem florence:goodwife:9 country Italy
+mem florence:goodwife:9 town Florence
+person florence:goodwife:10 4016 2645 0
+mem florence:goodwife:10 country Italy
+mem florence:goodwife:10 town Florence
+person florence:goodwife:11 3981 2639 0
+mem florence:goodwife:11 country Italy
+mem florence:goodwife:11 town Florence
+person florence:washerwoman:0 3982 2713 0
+mem florence:washerwoman:0 country Italy
+mem florence:washerwoman:0 town Florence
+person florence:washerwoman:1 3995 2624 0
+mem florence:washerwoman:1 country Italy
+mem florence:washerwoman:1 town Florence
+person florence:washerwoman:2 3910 2715 0
+mem florence:washerwoman:2 country Italy
+mem florence:washerwoman:2 town Florence
+person florence:washerwoman:3 3929 2664 0
+mem florence:washerwoman:3 country Italy
+mem florence:washerwoman:3 town Florence
+person florence:washerwoman:4 3929 2674 0
+mem florence:washerwoman:4 country Italy
+mem florence:washerwoman:4 town Florence
+person florence:washerwoman:5 3885 2689 0
+mem florence:washerwoman:5 country Italy
+mem florence:washerwoman:5 town Florence
+person florence:apprentice:0 3951 2645 0
+mem florence:apprentice:0 country Italy
+mem florence:apprentice:0 town Florence
+person florence:apprentice:1 4024 2672 0
+mem florence:apprentice:1 country Italy
+mem florence:apprentice:1 town Florence
+person florence:apprentice:2 3898 2723 0
+mem florence:apprentice:2 country Italy
+mem florence:apprentice:2 town Florence
+person florence:apprentice:3 3914 2724 0
+mem florence:apprentice:3 country Italy
+mem florence:apprentice:3 town Florence
+person florence:apprentice:4 4015 2688 0
+mem florence:apprentice:4 country Italy
+mem florence:apprentice:4 town Florence
+person florence:apprentice:5 4015 2688 0
+mem florence:apprentice:5 country Italy
+mem florence:apprentice:5 town Florence
+person florence:apprentice:6 3989 2630 0
+mem florence:apprentice:6 country Italy
+mem florence:apprentice:6 town Florence
+person florence:apprentice:7 3881 2702 0
+mem florence:apprentice:7 country Italy
+mem florence:apprentice:7 town Florence
+person florence:goldsmith:0 3898 2660 0
+mem florence:goldsmith:0 country Italy
+mem florence:goldsmith:0 money 900
+mem florence:goldsmith:0 town Florence
+person florence:goldsmith:1 3909 2658 0
+mem florence:goldsmith:1 country Italy
+mem florence:goldsmith:1 money 900
+mem florence:goldsmith:1 town Florence
+person florence:goldsmith:2 4015 2694 0
+mem florence:goldsmith:2 country Italy
+mem florence:goldsmith:2 money 900
+mem florence:goldsmith:2 town Florence
+person florence:goldsmith:3 3983 2720 0
+mem florence:goldsmith:3 country Italy
+mem florence:goldsmith:3 money 900
+mem florence:goldsmith:3 town Florence
+person florence:dominican:0 3994 2619 0
+mem florence:dominican:0 country Italy
+mem florence:dominican:0 town Florence
+person florence:dominican:1 3914 2724 0
+mem florence:dominican:1 country Italy
+mem florence:dominican:1 town Florence
+person florence:dominican:2 3981 2658 0
+mem florence:dominican:2 country Italy
+mem florence:dominican:2 town Florence
+person florence:dominican:3 3982 2622 0
+mem florence:dominican:3 country Italy
+mem florence:dominican:3 town Florence
+person florence:monk:0 3930 2689 0
+mem florence:monk:0 country Italy
+mem florence:monk:0 town Florence
+person florence:monk:1 3973 2656 0
+mem florence:monk:1 country Italy
+mem florence:monk:1 town Florence
+person florence:monk:2 4016 2662 0
+mem florence:monk:2 country Italy
+mem florence:monk:2 town Florence
+person florence:priest:0 3887 2651 0
+mem florence:priest:0 country Italy
+mem florence:priest:0 town Florence
+person florence:priest:1 3917 2653 0
+mem florence:priest:1 country Italy
+mem florence:priest:1 town Florence
+person florence:priest:2 3906 2676 0
+mem florence:priest:2 country Italy
+mem florence:priest:2 town Florence
+person florence:guard:0 3896 2717 0
+mem florence:guard:0 country Italy
+mem florence:guard:0 town Florence
+person florence:guard:1 3909 2658 0
+mem florence:guard:1 country Italy
+mem florence:guard:1 town Florence
+person florence:guard:2 3981 2695 0
+mem florence:guard:2 country Italy
+mem florence:guard:2 town Florence
+person florence:guard:3 3885 2689 0
+mem florence:guard:3 country Italy
+mem florence:guard:3 town Florence
+person florence:guard:4 3967 2600 0
+mem florence:guard:4 country Italy
+mem florence:guard:4 town Florence
+person florence:guard:5 3921 2698 0
+mem florence:guard:5 country Italy
+mem florence:guard:5 town Florence
+person florence:guard:6 3963 2686 0
+mem florence:guard:6 country Italy
+mem florence:guard:6 town Florence
+person florence:guard:7 3935 2657 0
+mem florence:guard:7 country Italy
+mem florence:guard:7 town Florence
+person florence:guard:8 3982 2630 0
+mem florence:guard:8 country Italy
+mem florence:guard:8 town Florence
+person florence:guard:9 3886 2661 0
+mem florence:guard:9 country Italy
+mem florence:guard:9 town Florence
+person florence:guard:10 3885 2689 0
+mem florence:guard:10 country Italy
+mem florence:guard:10 town Florence
+person florence:guard:11 3889 2622 0
+mem florence:guard:11 country Italy
+mem florence:guard:11 town Florence
+person florence:guard:12 3997 2693 0
+mem florence:guard:12 country Italy
+mem florence:guard:12 town Florence
+person florence:guard:13 3989 2610 0
+mem florence:guard:13 country Italy
+mem florence:guard:13 town Florence
+person florence:merchant:0 3982 2622 0
+mem florence:merchant:0 country Italy
+mem florence:merchant:0 money 4800
+mem florence:merchant:0 town Florence
+person florence:merchant:1 4018 2670 0
+mem florence:merchant:1 country Italy
+mem florence:merchant:1 money 4800
+mem florence:merchant:1 town Florence
+person florence:merchant:2 3875 2680 0
+mem florence:merchant:2 country Italy
+mem florence:merchant:2 money 4800
+mem florence:merchant:2 town Florence
+person florence:merchant:3 3888 2702 0
+mem florence:merchant:3 country Italy
+mem florence:merchant:3 money 4800
+mem florence:merchant:3 town Florence
+person florence:merchant:4 3982 2713 0
+mem florence:merchant:4 country Italy
+mem florence:merchant:4 money 4800
+mem florence:merchant:4 town Florence
+person florence:merchant:5 3991 2714 0
+mem florence:merchant:5 country Italy
+mem florence:merchant:5 money 4800
+mem florence:merchant:5 town Florence
+person florence:beggar:0 3883 2669 0
+mem florence:beggar:0 country Italy
+mem florence:beggar:0 town Florence
+person florence:beggar:1 3967 2655 0
+mem florence:beggar:1 country Italy
+mem florence:beggar:1 town Florence
+person florence:beggar:2 3930 2689 0
+mem florence:beggar:2 country Italy
+mem florence:beggar:2 town Florence
+person florence:beggar:3 3909 2612 0
+mem florence:beggar:3 country Italy
+mem florence:beggar:3 town Florence
+person florence:musician:0 3885 2689 0
+mem florence:musician:0 country Italy
+mem florence:musician:0 town Florence
+person florence:musician:1 3929 2656 0
+mem florence:musician:1 country Italy
+mem florence:musician:1 town Florence
+person florence:cook:0 3981 2703 0
+mem florence:cook:0 country Italy
+mem florence:cook:0 money 200
+mem florence:cook:0 town Florence
+person florence:cook:1 3873 2663 0
+mem florence:cook:1 country Italy
+mem florence:cook:1 money 200
+mem florence:cook:1 town Florence
+person florence:herdsman:0 3888 2702 0
+mem florence:herdsman:0 country Italy
+mem florence:herdsman:0 town Florence
+person florence:changer:0 3929 2656 0
+mem florence:changer:0 country Italy
+mem florence:changer:0 town Florence
+person arcetri:nun:0 3948 2555 0
+mem arcetri:nun:0 country Italy
+mem arcetri:nun:0 town Arcetri
+person arcetri:nun:1 3948 2555 0
+mem arcetri:nun:1 country Italy
+mem arcetri:nun:1 town Arcetri
+person arcetri:nun:2 3948 2555 0
+mem arcetri:nun:2 country Italy
+mem arcetri:nun:2 town Arcetri
+person arcetri:nun:3 3948 2555 0
+mem arcetri:nun:3 country Italy
+mem arcetri:nun:3 town Arcetri
+person arcetri:farmer:0 3948 2555 0
+mem arcetri:farmer:0 country Italy
+mem arcetri:farmer:0 town Arcetri
+person arcetri:farmer:1 3948 2555 0
+mem arcetri:farmer:1 country Italy
+mem arcetri:farmer:1 town Arcetri
+person rome:urban 4163 2408 0
+mem rome:urban country Italy
+mem rome:urban town Rome
+person rome:francesco 4146 2440 0
+mem rome:francesco country Italy
+mem rome:francesco town Rome
+person rome:riccardi 4128 2427 0
+mem rome:riccardi country Italy
+mem rome:riccardi town Rome
+person rome:niccolini 4136 2466 0
+mem rome:niccolini country Italy
+mem rome:niccolini town Rome
+person rome:caterina 4121 2452 0
+mem rome:caterina country Italy
+mem rome:caterina town Rome
+person rome:castelli 4121 2408 0
+mem rome:castelli country Italy
+mem rome:castelli town Rome
+person rome:campanella 4129 2435 0
+mem rome:campanella country Italy
+mem rome:campanella town Rome
+person rome:scheiner 4148 2406 0
+mem rome:scheiner country Italy
+mem rome:scheiner town Rome
+person rome:bernini 4081 2429 0
+mem rome:bernini country Italy
+mem rome:bernini town Rome
+person rome:poussin 4147 2447 0
+mem rome:poussin country Italy
+mem rome:poussin town Rome
+person rome:cassiano 4135 2437 0
+mem rome:cassiano country Italy
+mem rome:cassiano town Rome
+person rome:allegri 4078 2454 0
+mem rome:allegri country Italy
+mem rome:allegri town Rome
+person rome:host 4104 2439 0
+mem rome:host country Italy
+mem rome:host money 400
+mem rome:host town Rome
+person rome:ottavio 4115 2399 0
+mem rome:ottavio country Italy
+mem rome:ottavio town Rome
+person rome:tintore 4105 2372 0
+mem rome:tintore country Italy
+mem rome:tintore money 14400
+mem rome:tintore town Rome
+person rome:coronaro 4081 2420 0
+mem rome:coronaro country Italy
+mem rome:coronaro money 12000
+mem rome:coronaro town Rome
+person rome:ventura 4127 2439 0
+mem rome:ventura country Italy
+mem rome:ventura town Rome
+person rome:arellano 4149 2391 0
+mem rome:arellano country Italy
+mem rome:arellano town Rome
+person rome:bartolomeo 4075 2410 0
+mem rome:bartolomeo country Italy
+mem rome:bartolomeo town Rome
+person rome:lisabetta 4105 2365 0
+mem rome:lisabetta country Italy
+mem rome:lisabetta town Rome
+person rome:sinceri 4083 2409 0
+mem rome:sinceri country Italy
+mem rome:sinceri town Rome
+person rome:notary 4081 2393 0
+mem rome:notary country Italy
+mem rome:notary town Rome
+person rome:galileo 4098 2463 0
+mem rome:galileo country Italy
+mem rome:galileo town Rome
+person rome:maculano 4107 2421 0
+mem rome:maculano country Italy
+mem rome:maculano town Rome
+person rome:morales 4114 2441 0
+mem rome:morales country Italy
+mem rome:morales town Rome
+person rome:checca 4107 2428 0
+mem rome:checca country Italy
+mem rome:checca town Rome
+person rome:noailles 4111 2449 0
+mem rome:noailles country Italy
+mem rome:noailles town Rome
+person rome:swissguard:0 4076 2464 0
+mem rome:swissguard:0 country Italy
+mem rome:swissguard:0 town Rome
+person rome:swissguard:1 4101 2453 0
+mem rome:swissguard:1 country Italy
+mem rome:swissguard:1 town Rome
+person rome:swissguard:2 4081 2420 0
+mem rome:swissguard:2 country Italy
+mem rome:swissguard:2 town Rome
+person rome:swissguard:3 4073 2384 0
+mem rome:swissguard:3 country Italy
+mem rome:swissguard:3 town Rome
+person rome:swissguard:4 4171 2399 0
+mem rome:swissguard:4 country Italy
+mem rome:swissguard:4 town Rome
+person rome:swissguard:5 4078 2454 0
+mem rome:swissguard:5 country Italy
+mem rome:swissguard:5 town Rome
+person rome:swissguard:6 4174 2390 0
+mem rome:swissguard:6 country Italy
+mem rome:swissguard:6 town Rome
+person rome:swissguard:7 4076 2464 0
+mem rome:swissguard:7 country Italy
+mem rome:swissguard:7 town Rome
+person rome:cardinal:0 4146 2440 0
+mem rome:cardinal:0 country Italy
+mem rome:cardinal:0 town Rome
+person rome:cardinal:1 4099 2459 0
+mem rome:cardinal:1 country Italy
+mem rome:cardinal:1 town Rome
+person rome:cardinal:2 4121 2397 0
+mem rome:cardinal:2 country Italy
+mem rome:cardinal:2 town Rome
+person rome:cardinal:3 4076 2464 0
+mem rome:cardinal:3 country Italy
+mem rome:cardinal:3 town Rome
+person rome:cardinal:4 4081 2385 0
+mem rome:cardinal:4 country Italy
+mem rome:cardinal:4 town Rome
+person rome:cardinal:5 4146 2440 0
+mem rome:cardinal:5 country Italy
+mem rome:cardinal:5 town Rome
+person rome:jesuit:0 4182 2391 0
+mem rome:jesuit:0 country Italy
+mem rome:jesuit:0 town Rome
+person rome:jesuit:1 4094 2349 0
+mem rome:jesuit:1 country Italy
+mem rome:jesuit:1 town Rome
+person rome:jesuit:2 4146 2440 0
+mem rome:jesuit:2 country Italy
+mem rome:jesuit:2 town Rome
+person rome:jesuit:3 4075 2410 0
+mem rome:jesuit:3 country Italy
+mem rome:jesuit:3 town Rome
+person rome:jesuit:4 4165 2388 0
+mem rome:jesuit:4 country Italy
+mem rome:jesuit:4 town Rome
+person rome:jesuit:5 4175 2400 0
+mem rome:jesuit:5 country Italy
+mem rome:jesuit:5 town Rome
+person rome:dominican:0 4078 2454 0
+mem rome:dominican:0 country Italy
+mem rome:dominican:0 town Rome
+person rome:dominican:1 4081 2385 0
+mem rome:dominican:1 country Italy
+mem rome:dominican:1 town Rome
+person rome:dominican:2 4148 2406 0
+mem rome:dominican:2 country Italy
+mem rome:dominican:2 town Rome
+person rome:dominican:3 4182 2413 0
+mem rome:dominican:3 country Italy
+mem rome:dominican:3 town Rome
+person rome:dominican:4 4081 2420 0
+mem rome:dominican:4 country Italy
+mem rome:dominican:4 town Rome
+person rome:friar:0 4083 2409 0
+mem rome:friar:0 country Italy
+mem rome:friar:0 town Rome
+person rome:friar:1 4094 2356 0
+mem rome:friar:1 country Italy
+mem rome:friar:1 town Rome
+person rome:friar:2 4161 2391 0
+mem rome:friar:2 country Italy
+mem rome:friar:2 town Rome
+person rome:priest:0 4174 2390 0
+mem rome:priest:0 country Italy
+mem rome:priest:0 town Rome
+person rome:priest:1 4174 2390 0
+mem rome:priest:1 country Italy
+mem rome:priest:1 town Rome
+person rome:priest:2 4191 2401 0
+mem rome:priest:2 country Italy
+mem rome:priest:2 town Rome
+person rome:priest:3 4180 2401 0
+mem rome:priest:3 country Italy
+mem rome:priest:3 town Rome
+person rome:priest:4 4078 2454 0
+mem rome:priest:4 country Italy
+mem rome:priest:4 town Rome
+person rome:priest:5 4128 2381 0
+mem rome:priest:5 country Italy
+mem rome:priest:5 town Rome
+person rome:monk:0 4163 2408 0
+mem rome:monk:0 country Italy
+mem rome:monk:0 town Rome
+person rome:monk:1 4094 2349 0
+mem rome:monk:1 country Italy
+mem rome:monk:1 town Rome
+person rome:monk:2 4078 2454 0
+mem rome:monk:2 country Italy
+mem rome:monk:2 town Rome
+person rome:monk:3 4126 2386 0
+mem rome:monk:3 country Italy
+mem rome:monk:3 town Rome
+person rome:pilgrim:0 4094 2356 0
+mem rome:pilgrim:0 country Italy
+mem rome:pilgrim:0 town Rome
+person rome:pilgrim:1 4163 2408 0
+mem rome:pilgrim:1 country Italy
+mem rome:pilgrim:1 town Rome
+person rome:pilgrim:2 4081 2385 0
+mem rome:pilgrim:2 country Italy
+mem rome:pilgrim:2 town Rome
+person rome:pilgrim:3 4083 2409 0
+mem rome:pilgrim:3 country Italy
+mem rome:pilgrim:3 town Rome
+person rome:pilgrim:4 4121 2397 0
+mem rome:pilgrim:4 country Italy
+mem rome:pilgrim:4 town Rome
+person rome:pilgrim:5 4191 2401 0
+mem rome:pilgrim:5 country Italy
+mem rome:pilgrim:5 town Rome
+person rome:pilgrim:6 4135 2437 0
+mem rome:pilgrim:6 country Italy
+mem rome:pilgrim:6 town Rome
+person rome:pilgrim:7 4081 2420 0
+mem rome:pilgrim:7 country Italy
+mem rome:pilgrim:7 town Rome
+person rome:pilgrim:8 4094 2349 0
+mem rome:pilgrim:8 country Italy
+mem rome:pilgrim:8 town Rome
+person rome:pilgrim:9 4115 2379 0
+mem rome:pilgrim:9 country Italy
+mem rome:pilgrim:9 town Rome
+person rome:labourer:0 4114 2441 0
+mem rome:labourer:0 country Italy
+mem rome:labourer:0 town Rome
+person rome:labourer:1 4174 2390 0
+mem rome:labourer:1 country Italy
+mem rome:labourer:1 town Rome
+person rome:labourer:2 4097 2470 0
+mem rome:labourer:2 country Italy
+mem rome:labourer:2 town Rome
+person rome:labourer:3 4083 2409 0
+mem rome:labourer:3 country Italy
+mem rome:labourer:3 town Rome
+person rome:labourer:4 4075 2410 0
+mem rome:labourer:4 country Italy
+mem rome:labourer:4 town Rome
+person rome:labourer:5 4097 2470 0
+mem rome:labourer:5 country Italy
+mem rome:labourer:5 town Rome
+person rome:labourer:6 4174 2390 0
+mem rome:labourer:6 country Italy
+mem rome:labourer:6 town Rome
+person rome:labourer:7 4135 2437 0
+mem rome:labourer:7 country Italy
+mem rome:labourer:7 town Rome
+person rome:labourer:8 4121 2397 0
+mem rome:labourer:8 country Italy
+mem rome:labourer:8 town Rome
+person rome:labourer:9 4094 2356 0
+mem rome:labourer:9 country Italy
+mem rome:labourer:9 town Rome
+person rome:labourer:10 4084 2373 0
+mem rome:labourer:10 country Italy
+mem rome:labourer:10 town Rome
+person rome:labourer:11 4180 2401 0
+mem rome:labourer:11 country Italy
+mem rome:labourer:11 town Rome
+person rome:labourer:12 4126 2396 0
+mem rome:labourer:12 country Italy
+mem rome:labourer:12 town Rome
+person rome:labourer:13 4126 2386 0
+mem rome:labourer:13 country Italy
+mem rome:labourer:13 town Rome
+person rome:goodwife:0 4126 2396 0
+mem rome:goodwife:0 country Italy
+mem rome:goodwife:0 town Rome
+person rome:goodwife:1 4074 2363 0
+mem rome:goodwife:1 country Italy
+mem rome:goodwife:1 town Rome
+person rome:goodwife:2 4101 2354 0
+mem rome:goodwife:2 country Italy
+mem rome:goodwife:2 town Rome
+person rome:goodwife:3 4179 2422 0
+mem rome:goodwife:3 country Italy
+mem rome:goodwife:3 town Rome
+person rome:goodwife:4 4111 2449 0
+mem rome:goodwife:4 country Italy
+mem rome:goodwife:4 town Rome
+person rome:goodwife:5 4086 2354 0
+mem rome:goodwife:5 country Italy
+mem rome:goodwife:5 town Rome
+person rome:goodwife:6 4180 2401 0
+mem rome:goodwife:6 country Italy
+mem rome:goodwife:6 town Rome
+person rome:goodwife:7 4182 2391 0
+mem rome:goodwife:7 country Italy
+mem rome:goodwife:7 town Rome
+person rome:goodwife:8 4191 2401 0
+mem rome:goodwife:8 country Italy
+mem rome:goodwife:8 town Rome
+person rome:goodwife:9 4076 2464 0
+mem rome:goodwife:9 country Italy
+mem rome:goodwife:9 town Rome
+person rome:goodwife:10 4183 2421 0
+mem rome:goodwife:10 country Italy
+mem rome:goodwife:10 town Rome
+person rome:goodwife:11 4148 2406 0
+mem rome:goodwife:11 country Italy
+mem rome:goodwife:11 town Rome
+person rome:washerwoman:0 4126 2386 0
+mem rome:washerwoman:0 country Italy
+mem rome:washerwoman:0 town Rome
+person rome:washerwoman:1 4191 2394 0
+mem rome:washerwoman:1 country Italy
+mem rome:washerwoman:1 town Rome
+person rome:washerwoman:2 4126 2386 0
+mem rome:washerwoman:2 country Italy
+mem rome:washerwoman:2 town Rome
+person rome:washerwoman:3 4111 2449 0
+mem rome:washerwoman:3 country Italy
+mem rome:washerwoman:3 town Rome
+person rome:apprentice:0 4081 2393 0
+mem rome:apprentice:0 country Italy
+mem rome:apprentice:0 town Rome
+person rome:apprentice:1 4126 2396 0
+mem rome:apprentice:1 country Italy
+mem rome:apprentice:1 town Rome
+person rome:apprentice:2 4191 2401 0
+mem rome:apprentice:2 country Italy
+mem rome:apprentice:2 town Rome
+person rome:apprentice:3 4191 2394 0
+mem rome:apprentice:3 country Italy
+mem rome:apprentice:3 town Rome
+person rome:apprentice:4 4081 2420 0
+mem rome:apprentice:4 country Italy
+mem rome:apprentice:4 town Rome
+person rome:apprentice:5 4081 2393 0
+mem rome:apprentice:5 country Italy
+mem rome:apprentice:5 town Rome
+person rome:apprentice:6 4191 2401 0
+mem rome:apprentice:6 country Italy
+mem rome:apprentice:6 town Rome
+person rome:apprentice:7 4136 2466 0
+mem rome:apprentice:7 country Italy
+mem rome:apprentice:7 town Rome
+person rome:merchant:0 4114 2441 0
+mem rome:merchant:0 country Italy
+mem rome:merchant:0 money 4800
+mem rome:merchant:0 town Rome
+person rome:merchant:1 4081 2393 0
+mem rome:merchant:1 country Italy
+mem rome:merchant:1 money 4800
+mem rome:merchant:1 town Rome
+person rome:merchant:2 4182 2391 0
+mem rome:merchant:2 country Italy
+mem rome:merchant:2 money 4800
+mem rome:merchant:2 town Rome
+person rome:merchant:3 4136 2466 0
+mem rome:merchant:3 country Italy
+mem rome:merchant:3 money 4800
+mem rome:merchant:3 town Rome
+person rome:merchant:4 4135 2437 0
+mem rome:merchant:4 country Italy
+mem rome:merchant:4 money 4800
+mem rome:merchant:4 town Rome
+person rome:merchant:5 4174 2390 0
+mem rome:merchant:5 country Italy
+mem rome:merchant:5 money 4800
+mem rome:merchant:5 town Rome
+person rome:beggar:0 4156 2390 0
+mem rome:beggar:0 country Italy
+mem rome:beggar:0 town Rome
+person rome:beggar:1 4191 2401 0
+mem rome:beggar:1 country Italy
+mem rome:beggar:1 town Rome
+person rome:beggar:2 4156 2390 0
+mem rome:beggar:2 country Italy
+mem rome:beggar:2 town Rome
+person rome:beggar:3 4111 2449 0
+mem rome:beggar:3 country Italy
+mem rome:beggar:3 town Rome
+person rome:beggar:4 4148 2406 0
+mem rome:beggar:4 country Italy
+mem rome:beggar:4 town Rome
+person rome:beggar:5 4136 2466 0
+mem rome:beggar:5 country Italy
+mem rome:beggar:5 town Rome
+person rome:painter:0 4081 2420 0
+mem rome:painter:0 country Italy
+mem rome:painter:0 town Rome
+person rome:painter:1 4136 2466 0
+mem rome:painter:1 country Italy
+mem rome:painter:1 town Rome
+person rome:painter:2 4081 2393 0
+mem rome:painter:2 country Italy
+mem rome:painter:2 town Rome
+person rome:musician:0 4081 2393 0
+mem rome:musician:0 country Italy
+mem rome:musician:0 town Rome
+person rome:musician:1 4146 2440 0
+mem rome:musician:1 country Italy
+mem rome:musician:1 town Rome
+person rome:cook:0 4086 2354 0
+mem rome:cook:0 country Italy
+mem rome:cook:0 money 200
+mem rome:cook:0 town Rome
+person rome:cook:1 4165 2395 0
+mem rome:cook:1 country Italy
+mem rome:cook:1 money 200
+mem rome:cook:1 town Rome
+person rome:guard:0 4191 2394 0
+mem rome:guard:0 country Italy
+mem rome:guard:0 town Rome
+person rome:guard:1 4156 2390 0
+mem rome:guard:1 country Italy
+mem rome:guard:1 town Rome
+person rome:guard:2 4146 2440 0
+mem rome:guard:2 country Italy
+mem rome:guard:2 town Rome
+person rome:guard:3 4136 2466 0
+mem rome:guard:3 country Italy
+mem rome:guard:3 town Rome
+person rome:guard:4 4148 2406 0
+mem rome:guard:4 country Italy
+mem rome:guard:4 town Rome
+person rome:guard:5 4097 2470 0
+mem rome:guard:5 country Italy
+mem rome:guard:5 town Rome
+person rome:guard:6 4146 2440 0
+mem rome:guard:6 country Italy
+mem rome:guard:6 town Rome
+person rome:guard:7 4148 2406 0
+mem rome:guard:7 country Italy
+mem rome:guard:7 town Rome
+person rome:guard:8 4156 2390 0
+mem rome:guard:8 country Italy
+mem rome:guard:8 town Rome
+person rome:guard:9 4101 2354 0
+mem rome:guard:9 country Italy
+mem rome:guard:9 town Rome
+person rome:student:0 4081 2429 0
+mem rome:student:0 country Italy
+mem rome:student:0 town Rome
+person rome:student:1 4174 2390 0
+mem rome:student:1 country Italy
+mem rome:student:1 town Rome
+person rome:student:2 4136 2466 0
+mem rome:student:2 country Italy
+mem rome:student:2 town Rome
+person rome:student:3 4081 2429 0
+mem rome:student:3 country Italy
+mem rome:student:3 town Rome
+person rome:student:4 4101 2354 0
+mem rome:student:4 country Italy
+mem rome:student:4 town Rome
+person rome:student:5 4084 2373 0
+mem rome:student:5 country Italy
+mem rome:student:5 town Rome
+person rome:herdsman:0 4101 2354 0
+mem rome:herdsman:0 country Italy
+mem rome:herdsman:0 town Rome
+person rome:changer:0 4086 2354 0
+mem rome:changer:0 country Italy
+mem rome:changer:0 town Rome
+person venice:doge 4199 2973 0
+mem venice:doge country Italy
+mem venice:doge town Venice
+person venice:micanzio 4115 3008 0
+mem venice:micanzio country Italy
+mem venice:micanzio town Venice
+person venice:monteverdi 4176 3003 0
+mem venice:monteverdi country Italy
+mem venice:monteverdi town Venice
+person venice:modena 4093 2971 0
+mem venice:modena country Italy
+mem venice:modena gambler 1
+mem venice:modena money 720
+mem venice:modena town Venice
+person venice:barovier 4157 3048 0
+mem venice:barovier country Italy
+mem venice:barovier town Venice
+person venice:bortolo 4137 2964 0
+mem venice:bortolo country Italy
+mem venice:bortolo town Venice
+person venice:mehmed 4087 2974 0
+mem venice:mehmed country Italy
+mem venice:mehmed money 4800
+mem venice:mehmed town Venice
+person venice:luna 4150 2961 0
+mem venice:luna country Italy
+mem venice:luna money 400
+mem venice:luna town Venice
+person venice:fusina 4024 2965 0
+mem venice:fusina country Italy
+mem venice:fusina money 400
+mem venice:fusina town Venice
+person venice:zorzi 4128 2983 0
+mem venice:zorzi country Italy
+mem venice:zorzi money 4800
+mem venice:zorzi town Venice
+person venice:louis 4141 2974 0
+mem venice:louis country Italy
+mem venice:louis money 700
+mem venice:louis town Venice
+person venice:gondolier:0 4147 3002 0
+mem venice:gondolier:0 country Italy
+mem venice:gondolier:0 town Venice
+person venice:gondolier:1 4147 2996 0
+mem venice:gondolier:1 country Italy
+mem venice:gondolier:1 town Venice
+person venice:gondolier:2 4084 2956 0
+mem venice:gondolier:2 country Italy
+mem venice:gondolier:2 town Venice
+person venice:gondolier:3 4157 3048 0
+mem venice:gondolier:3 country Italy
+mem venice:gondolier:3 town Venice
+person venice:gondolier:4 4147 2988 0
+mem venice:gondolier:4 country Italy
+mem venice:gondolier:4 town Venice
+person venice:gondolier:5 4209 2975 0
+mem venice:gondolier:5 country Italy
+mem venice:gondolier:5 town Venice
+person venice:gondolier:6 4135 2975 0
+mem venice:gondolier:6 country Italy
+mem venice:gondolier:6 town Venice
+person venice:gondolier:7 4075 2970 0
+mem venice:gondolier:7 country Italy
+mem venice:gondolier:7 town Venice
+person venice:labourer:0 4165 3048 0
+mem venice:labourer:0 country Italy
+mem venice:labourer:0 town Venice
+person venice:labourer:1 4087 2968 0
+mem venice:labourer:1 country Italy
+mem venice:labourer:1 town Venice
+person venice:labourer:2 4022 2975 0
+mem venice:labourer:2 country Italy
+mem venice:labourer:2 town Venice
+person venice:labourer:3 4157 3001 0
+mem venice:labourer:3 country Italy
+mem venice:labourer:3 town Venice
+person venice:labourer:4 4022 2975 0
+mem venice:labourer:4 country Italy
+mem venice:labourer:4 town Venice
+person venice:labourer:5 4157 3048 0
+mem venice:labourer:5 country Italy
+mem venice:labourer:5 town Venice
+person venice:labourer:6 4084 2956 0
+mem venice:labourer:6 country Italy
+mem venice:labourer:6 town Venice
+person venice:labourer:7 4099 2952 0
+mem venice:labourer:7 country Italy
+mem venice:labourer:7 town Venice
+person venice:sailor:0 4137 2964 0
+mem venice:sailor:0 country Italy
+mem venice:sailor:0 town Venice
+person venice:sailor:1 4122 3009 0
+mem venice:sailor:1 country Italy
+mem venice:sailor:1 town Venice
+person venice:sailor:2 4135 2995 0
+mem venice:sailor:2 country Italy
+mem venice:sailor:2 town Venice
+person venice:merchant:0 4156 3009 0
+mem venice:merchant:0 country Italy
+mem venice:merchant:0 money 4800
+mem venice:merchant:0 town Venice
+person venice:merchant:1 4075 2970 0
+mem venice:merchant:1 country Italy
+mem venice:merchant:1 money 4800
+mem venice:merchant:1 town Venice
+person venice:merchant:2 4156 2994 0
+mem venice:merchant:2 country Italy
+mem venice:merchant:2 money 4800
+mem venice:merchant:2 town Venice
+person venice:merchant:3 4161 3007 0
+mem venice:merchant:3 country Italy
+mem venice:merchant:3 money 4800
+mem venice:merchant:3 town Venice
+person venice:merchant:4 4083 2970 0
+mem venice:merchant:4 country Italy
+mem venice:merchant:4 money 4800
+mem venice:merchant:4 town Venice
+person venice:changer:0 4075 2970 0
+mem venice:changer:0 country Italy
+mem venice:changer:0 town Venice
+person venice:goodwife:0 4199 2973 0
+mem venice:goodwife:0 country Italy
+mem venice:goodwife:0 town Venice
+person venice:goodwife:1 4131 3011 0
+mem venice:goodwife:1 country Italy
+mem venice:goodwife:1 town Venice
+person venice:goodwife:2 4141 3001 0
+mem venice:goodwife:2 country Italy
+mem venice:goodwife:2 town Venice
+person venice:goodwife:3 4128 2975 0
+mem venice:goodwife:3 country Italy
+mem venice:goodwife:3 town Venice
+person venice:goodwife:4 4199 2973 0
+mem venice:goodwife:4 country Italy
+mem venice:goodwife:4 town Venice
+person venice:goodwife:5 4156 2994 0
+mem venice:goodwife:5 country Italy
+mem venice:goodwife:5 town Venice
+person venice:goodwife:6 4135 2983 0
+mem venice:goodwife:6 country Italy
+mem venice:goodwife:6 town Venice
+person venice:washerwoman:0 4084 2956 0
+mem venice:washerwoman:0 country Italy
+mem venice:washerwoman:0 town Venice
+person venice:washerwoman:1 4156 2988 0
+mem venice:washerwoman:1 country Italy
+mem venice:washerwoman:1 town Venice
+person venice:washerwoman:2 4156 2988 0
+mem venice:washerwoman:2 country Italy
+mem venice:washerwoman:2 town Venice
+person venice:apprentice:0 4199 2973 0
+mem venice:apprentice:0 country Italy
+mem venice:apprentice:0 town Venice
+person venice:apprentice:1 4137 2964 0
+mem venice:apprentice:1 country Italy
+mem venice:apprentice:1 town Venice
+person venice:apprentice:2 4156 2994 0
+mem venice:apprentice:2 country Italy
+mem venice:apprentice:2 town Venice
+person venice:priest:0 4022 2975 0
+mem venice:priest:0 country Italy
+mem venice:priest:0 town Venice
+person venice:priest:1 4156 2994 0
+mem venice:priest:1 country Italy
+mem venice:priest:1 town Venice
+person venice:friar:0 4199 2973 0
+mem venice:friar:0 country Italy
+mem venice:friar:0 town Venice
+person venice:friar:1 4022 2975 0
+mem venice:friar:1 country Italy
+mem venice:friar:1 town Venice
+person venice:nun:0 4137 2964 0
+mem venice:nun:0 country Italy
+mem venice:nun:0 town Venice
+person venice:beggar:0 4022 2975 0
+mem venice:beggar:0 country Italy
+mem venice:beggar:0 town Venice
+person venice:beggar:1 4137 2964 0
+mem venice:beggar:1 country Italy
+mem venice:beggar:1 town Venice
+person venice:beggar:2 4199 2973 0
+mem venice:beggar:2 country Italy
+mem venice:beggar:2 town Venice
+person venice:musician:0 4156 2988 0
+mem venice:musician:0 country Italy
+mem venice:musician:0 town Venice
+person venice:musician:1 4199 2973 0
+mem venice:musician:1 country Italy
+mem venice:musician:1 town Venice
+person venice:guard:0 4199 2973 0
+mem venice:guard:0 country Italy
+mem venice:guard:0 town Venice
+person venice:guard:1 4137 2964 0
+mem venice:guard:1 country Italy
+mem venice:guard:1 town Venice
+person venice:guard:2 4022 2975 0
+mem venice:guard:2 country Italy
+mem venice:guard:2 town Venice
+person venice:cook:0 4199 2973 0
+mem venice:cook:0 country Italy
+mem venice:cook:0 money 200
+mem venice:cook:0 town Venice
+person venice:painter:0 4022 2975 0
+mem venice:painter:0 country Italy
+mem venice:painter:0 town Venice
+person amsterdam:descartes 3444 4389 0
+mem amsterdam:descartes country Netherlands
+mem amsterdam:descartes town Amsterdam
+person amsterdam:rembrandt 3480 4411 0
+mem amsterdam:rembrandt country Netherlands
+mem amsterdam:rembrandt town Amsterdam
+person amsterdam:uylenburgh 3492 4413 0
+mem amsterdam:uylenburgh country Netherlands
+mem amsterdam:uylenburgh money 4800
+mem amsterdam:uylenburgh town Amsterdam
+person amsterdam:tulp 3469 4415 0
+mem amsterdam:tulp country Netherlands
+mem amsterdam:tulp town Amsterdam
+person amsterdam:blaeu 3446 4453 0
+mem amsterdam:blaeu country Netherlands
+mem amsterdam:blaeu money 700
+mem amsterdam:blaeu town Amsterdam
+person amsterdam:vondel 3460 4436 0
+mem amsterdam:vondel country Netherlands
+mem amsterdam:vondel money 4800
+mem amsterdam:vondel town Amsterdam
+person amsterdam:menasseh 3453 4392 0
+mem amsterdam:menasseh country Netherlands
+mem amsterdam:menasseh money 700
+mem amsterdam:menasseh town Amsterdam
+person amsterdam:barlaeus 3419 4388 0
+mem amsterdam:barlaeus country Netherlands
+mem amsterdam:barlaeus town Amsterdam
+person amsterdam:host 3422 4435 0
+mem amsterdam:host country Netherlands
+mem amsterdam:host money 400
+mem amsterdam:host town Amsterdam
+person amsterdam:groen 3423 4410 0
+mem amsterdam:groen country Netherlands
+mem amsterdam:groen money 24000
+mem amsterdam:groen town Amsterdam
+person amsterdam:sailor:0 3388 4452 0
+mem amsterdam:sailor:0 country Netherlands
+mem amsterdam:sailor:0 town Amsterdam
+person amsterdam:sailor:1 3390 4425 0
+mem amsterdam:sailor:1 country Netherlands
+mem amsterdam:sailor:1 town Amsterdam
+person amsterdam:sailor:2 3328 4449 0
+mem amsterdam:sailor:2 country Netherlands
+mem amsterdam:sailor:2 town Amsterdam
+person amsterdam:sailor:3 3375 4403 0
+mem amsterdam:sailor:3 country Netherlands
+mem amsterdam:sailor:3 town Amsterdam
+person amsterdam:sailor:4 3412 4406 0
+mem amsterdam:sailor:4 country Netherlands
+mem amsterdam:sailor:4 town Amsterdam
+person amsterdam:sailor:5 3500 4431 0
+mem amsterdam:sailor:5 country Netherlands
+mem amsterdam:sailor:5 town Amsterdam
+person amsterdam:sailor:6 3383 4379 0
+mem amsterdam:sailor:6 country Netherlands
+mem amsterdam:sailor:6 town Amsterdam
+person amsterdam:sailor:7 3446 4453 0
+mem amsterdam:sailor:7 country Netherlands
+mem amsterdam:sailor:7 town Amsterdam
+person amsterdam:sailor:8 3357 4382 0
+mem amsterdam:sailor:8 country Netherlands
+mem amsterdam:sailor:8 town Amsterdam
+person amsterdam:sailor:9 3409 4391 0
+mem amsterdam:sailor:9 country Netherlands
+mem amsterdam:sailor:9 town Amsterdam
+person amsterdam:merchant:0 3444 4389 0
+mem amsterdam:merchant:0 country Netherlands
+mem amsterdam:merchant:0 money 4800
+mem amsterdam:merchant:0 town Amsterdam
+person amsterdam:merchant:1 3491 4426 0
+mem amsterdam:merchant:1 country Netherlands
+mem amsterdam:merchant:1 money 4800
+mem amsterdam:merchant:1 town Amsterdam
+person amsterdam:merchant:2 3465 4450 0
+mem amsterdam:merchant:2 country Netherlands
+mem amsterdam:merchant:2 money 4800
+mem amsterdam:merchant:2 town Amsterdam
+person amsterdam:merchant:3 3479 4428 0
+mem amsterdam:merchant:3 country Netherlands
+mem amsterdam:merchant:3 money 4800
+mem amsterdam:merchant:3 town Amsterdam
+person amsterdam:merchant:4 3347 4436 0
+mem amsterdam:merchant:4 country Netherlands
+mem amsterdam:merchant:4 money 4800
+mem amsterdam:merchant:4 town Amsterdam
+person amsterdam:merchant:5 3419 4407 0
+mem amsterdam:merchant:5 country Netherlands
+mem amsterdam:merchant:5 money 4800
+mem amsterdam:merchant:5 town Amsterdam
+person amsterdam:merchant:6 3484 4447 0
+mem amsterdam:merchant:6 country Netherlands
+mem amsterdam:merchant:6 money 4800
+mem amsterdam:merchant:6 town Amsterdam
+person amsterdam:merchant:7 3348 4425 0
+mem amsterdam:merchant:7 country Netherlands
+mem amsterdam:merchant:7 money 4800
+mem amsterdam:merchant:7 town Amsterdam
+person amsterdam:labourer:0 3398 4388 0
+mem amsterdam:labourer:0 country Netherlands
+mem amsterdam:labourer:0 town Amsterdam
+person amsterdam:labourer:1 3396 4444 0
+mem amsterdam:labourer:1 country Netherlands
+mem amsterdam:labourer:1 town Amsterdam
+person amsterdam:labourer:2 3357 4405 0
+mem amsterdam:labourer:2 country Netherlands
+mem amsterdam:labourer:2 town Amsterdam
+person amsterdam:labourer:3 3385 4412 0
+mem amsterdam:labourer:3 country Netherlands
+mem amsterdam:labourer:3 town Amsterdam
+person amsterdam:labourer:4 3359 4432 0
+mem amsterdam:labourer:4 country Netherlands
+mem amsterdam:labourer:4 town Amsterdam
+person amsterdam:labourer:5 3465 4450 0
+mem amsterdam:labourer:5 country Netherlands
+mem amsterdam:labourer:5 town Amsterdam
+person amsterdam:labourer:6 3455 4455 0
+mem amsterdam:labourer:6 country Netherlands
+mem amsterdam:labourer:6 town Amsterdam
+person amsterdam:labourer:7 3334 4433 0
+mem amsterdam:labourer:7 country Netherlands
+mem amsterdam:labourer:7 town Amsterdam
+person amsterdam:labourer:8 3405 4395 0
+mem amsterdam:labourer:8 country Netherlands
+mem amsterdam:labourer:8 town Amsterdam
+person amsterdam:labourer:9 3390 4434 0
+mem amsterdam:labourer:9 country Netherlands
+mem amsterdam:labourer:9 town Amsterdam
+person amsterdam:labourer:10 3420 4452 0
+mem amsterdam:labourer:10 country Netherlands
+mem amsterdam:labourer:10 town Amsterdam
+person amsterdam:labourer:11 3398 4388 0
+mem amsterdam:labourer:11 country Netherlands
+mem amsterdam:labourer:11 town Amsterdam
+person amsterdam:goodwife:0 3459 4418 0
+mem amsterdam:goodwife:0 country Netherlands
+mem amsterdam:goodwife:0 town Amsterdam
+person amsterdam:goodwife:1 3452 4397 0
+mem amsterdam:goodwife:1 country Netherlands
+mem amsterdam:goodwife:1 town Amsterdam
+person amsterdam:goodwife:2 3397 4435 0
+mem amsterdam:goodwife:2 country Netherlands
+mem amsterdam:goodwife:2 town Amsterdam
+person amsterdam:goodwife:3 3499 4427 0
+mem amsterdam:goodwife:3 country Netherlands
+mem amsterdam:goodwife:3 town Amsterdam
+person amsterdam:goodwife:4 3479 4451 0
+mem amsterdam:goodwife:4 country Netherlands
+mem amsterdam:goodwife:4 town Amsterdam
+person amsterdam:goodwife:5 3357 4441 0
+mem amsterdam:goodwife:5 country Netherlands
+mem amsterdam:goodwife:5 town Amsterdam
+person amsterdam:goodwife:6 3396 4444 0
+mem amsterdam:goodwife:6 country Netherlands
+mem amsterdam:goodwife:6 town Amsterdam
+person amsterdam:goodwife:7 3501 4451 0
+mem amsterdam:goodwife:7 country Netherlands
+mem amsterdam:goodwife:7 town Amsterdam
+person amsterdam:goodwife:8 3480 4411 0
+mem amsterdam:goodwife:8 country Netherlands
+mem amsterdam:goodwife:8 town Amsterdam
+person amsterdam:goodwife:9 3396 4453 0
+mem amsterdam:goodwife:9 country Netherlands
+mem amsterdam:goodwife:9 town Amsterdam
+person amsterdam:goodwife:10 3414 4452 0
+mem amsterdam:goodwife:10 country Netherlands
+mem amsterdam:goodwife:10 town Amsterdam
+person amsterdam:goodwife:11 3405 4388 0
+mem amsterdam:goodwife:11 country Netherlands
+mem amsterdam:goodwife:11 town Amsterdam
+person amsterdam:washerwoman:0 3388 4452 0
+mem amsterdam:washerwoman:0 country Netherlands
+mem amsterdam:washerwoman:0 town Amsterdam
+person amsterdam:washerwoman:1 3396 4453 0
+mem amsterdam:washerwoman:1 country Netherlands
+mem amsterdam:washerwoman:1 town Amsterdam
+person amsterdam:washerwoman:2 3460 4450 0
+mem amsterdam:washerwoman:2 country Netherlands
+mem amsterdam:washerwoman:2 town Amsterdam
+person amsterdam:washerwoman:3 3363 4421 0
+mem amsterdam:washerwoman:3 country Netherlands
+mem amsterdam:washerwoman:3 town Amsterdam
+person amsterdam:apprentice:0 3412 4406 0
+mem amsterdam:apprentice:0 country Netherlands
+mem amsterdam:apprentice:0 town Amsterdam
+person amsterdam:apprentice:1 3414 4452 0
+mem amsterdam:apprentice:1 country Netherlands
+mem amsterdam:apprentice:1 town Amsterdam
+person amsterdam:apprentice:2 3390 4434 0
+mem amsterdam:apprentice:2 country Netherlands
+mem amsterdam:apprentice:2 town Amsterdam
+person amsterdam:apprentice:3 3472 4397 0
+mem amsterdam:apprentice:3 country Netherlands
+mem amsterdam:apprentice:3 town Amsterdam
+person amsterdam:apprentice:4 3383 4451 0
+mem amsterdam:apprentice:4 country Netherlands
+mem amsterdam:apprentice:4 town Amsterdam
+person amsterdam:apprentice:5 3460 4450 0
+mem amsterdam:apprentice:5 country Netherlands
+mem amsterdam:apprentice:5 town Amsterdam
+person amsterdam:apprentice:6 3444 4389 0
+mem amsterdam:apprentice:6 country Netherlands
+mem amsterdam:apprentice:6 town Amsterdam
+person amsterdam:apprentice:7 3343 4398 0
+mem amsterdam:apprentice:7 country Netherlands
+mem amsterdam:apprentice:7 town Amsterdam
+person amsterdam:guard:0 3368 4412 0
+mem amsterdam:guard:0 country Netherlands
+mem amsterdam:guard:0 town Amsterdam
+person amsterdam:guard:1 3414 4452 0
+mem amsterdam:guard:1 country Netherlands
+mem amsterdam:guard:1 town Amsterdam
+person amsterdam:guard:2 3397 4426 0
+mem amsterdam:guard:2 country Netherlands
+mem amsterdam:guard:2 town Amsterdam
+person amsterdam:guard:3 3412 4406 0
+mem amsterdam:guard:3 country Netherlands
+mem amsterdam:guard:3 town Amsterdam
+person amsterdam:guard:4 3333 4449 0
+mem amsterdam:guard:4 country Netherlands
+mem amsterdam:guard:4 town Amsterdam
+person amsterdam:guard:5 3444 4389 0
+mem amsterdam:guard:5 country Netherlands
+mem amsterdam:guard:5 town Amsterdam
+person amsterdam:guard:6 3464 4395 0
+mem amsterdam:guard:6 country Netherlands
+mem amsterdam:guard:6 town Amsterdam
+person amsterdam:guard:7 3329 4432 0
+mem amsterdam:guard:7 country Netherlands
+mem amsterdam:guard:7 town Amsterdam
+person amsterdam:painter:0 3419 4388 0
+mem amsterdam:painter:0 country Netherlands
+mem amsterdam:painter:0 town Amsterdam
+person amsterdam:painter:1 3465 4450 0
+mem amsterdam:painter:1 country Netherlands
+mem amsterdam:painter:1 town Amsterdam
+person amsterdam:painter:2 3390 4434 0
+mem amsterdam:painter:2 country Netherlands
+mem amsterdam:painter:2 town Amsterdam
+person amsterdam:printer:0 3460 4436 0
+mem amsterdam:printer:0 country Netherlands
+mem amsterdam:printer:0 money 700
+mem amsterdam:printer:0 town Amsterdam
+person amsterdam:printer:1 3460 4450 0
+mem amsterdam:printer:1 country Netherlands
+mem amsterdam:printer:1 money 700
+mem amsterdam:printer:1 town Amsterdam
+person amsterdam:printer:2 3390 4434 0
+mem amsterdam:printer:2 country Netherlands
+mem amsterdam:printer:2 money 700
+mem amsterdam:printer:2 town Amsterdam
+person amsterdam:musician:0 3358 4449 0
+mem amsterdam:musician:0 country Netherlands
+mem amsterdam:musician:0 town Amsterdam
+person amsterdam:musician:1 3464 4395 0
+mem amsterdam:musician:1 country Netherlands
+mem amsterdam:musician:1 town Amsterdam
+person amsterdam:cook:0 3384 4436 0
+mem amsterdam:cook:0 country Netherlands
+mem amsterdam:cook:0 money 200
+mem amsterdam:cook:0 town Amsterdam
+person amsterdam:cook:1 3384 4436 0
+mem amsterdam:cook:1 country Netherlands
+mem amsterdam:cook:1 money 200
+mem amsterdam:cook:1 town Amsterdam
+person amsterdam:beggar:0 3458 4427 0
+mem amsterdam:beggar:0 country Netherlands
+mem amsterdam:beggar:0 town Amsterdam
+person amsterdam:beggar:1 3472 4448 0
+mem amsterdam:beggar:1 country Netherlands
+mem amsterdam:beggar:1 town Amsterdam
+person amsterdam:beggar:2 3372 4436 0
+mem amsterdam:beggar:2 country Netherlands
+mem amsterdam:beggar:2 town Amsterdam
+person amsterdam:herdsman:0 3339 4411 0
+mem amsterdam:herdsman:0 country Netherlands
+mem amsterdam:herdsman:0 town Amsterdam
+person amsterdam:changer:0 3388 4443 0
+mem amsterdam:changer:0 country Netherlands
+mem amsterdam:changer:0 town Amsterdam
+person haarlem:hals 3224 4422 0
+mem haarlem:hals country Netherlands
+mem haarlem:hals town Haarlem
+person haarlem:leyster 3248 4422 0
+mem haarlem:leyster country Netherlands
+mem haarlem:leyster town Haarlem
+person haarlem:saenredam 3257 4424 0
+mem haarlem:saenredam country Netherlands
+mem haarlem:saenredam town Haarlem
+person haarlem:lionhost 3236 4444 0
+mem haarlem:lionhost country Netherlands
+mem haarlem:lionhost hals-bill 960
+mem haarlem:lionhost money 400
+mem haarlem:lionhost town Haarlem
+person haarlem:florist 3267 4436 0
+mem haarlem:florist country Netherlands
+mem haarlem:florist money 9600
+mem haarlem:florist town Haarlem
+person haarlem:papermaker 3257 4419 0
+mem haarlem:papermaker country Netherlands
+mem haarlem:papermaker money 4800
+mem haarlem:papermaker town Haarlem
+person haarlem:goodwife:0 3269 4428 0
+mem haarlem:goodwife:0 country Netherlands
+mem haarlem:goodwife:0 town Haarlem
+person haarlem:goodwife:1 3248 4422 0
+mem haarlem:goodwife:1 country Netherlands
+mem haarlem:goodwife:1 town Haarlem
+person haarlem:goodwife:2 3248 4422 0
+mem haarlem:goodwife:2 country Netherlands
+mem haarlem:goodwife:2 town Haarlem
+person haarlem:labourer:0 3248 4422 0
+mem haarlem:labourer:0 country Netherlands
+mem haarlem:labourer:0 town Haarlem
+person haarlem:labourer:1 3248 4422 0
+mem haarlem:labourer:1 country Netherlands
+mem haarlem:labourer:1 town Haarlem
+person haarlem:merchant:0 3224 4422 0
+mem haarlem:merchant:0 country Netherlands
+mem haarlem:merchant:0 money 4800
+mem haarlem:merchant:0 town Haarlem
+person haarlem:merchant:1 3224 4422 0
+mem haarlem:merchant:1 country Netherlands
+mem haarlem:merchant:1 money 4800
+mem haarlem:merchant:1 town Haarlem
+person haarlem:washerwoman:0 3224 4422 0
+mem haarlem:washerwoman:0 country Netherlands
+mem haarlem:washerwoman:0 town Haarlem
+person haarlem:apprentice:0 3224 4422 0
+mem haarlem:apprentice:0 country Netherlands
+mem haarlem:apprentice:0 town Haarlem
+person haarlem:guard:0 3224 4422 0
+mem haarlem:guard:0 country Netherlands
+mem haarlem:guard:0 town Haarlem
+person haarlem:guard:1 3224 4422 0
+mem haarlem:guard:1 country Netherlands
+mem haarlem:guard:1 town Haarlem
+person haarlem:beggar:0 3224 4422 0
+mem haarlem:beggar:0 country Netherlands
+mem haarlem:beggar:0 town Haarlem
+person haarlem:herdsman:0 3239 4433 0
+mem haarlem:herdsman:0 country Netherlands
+mem haarlem:herdsman:0 town Haarlem
+person leiden:golius 3227 4292 0
+mem leiden:golius country Netherlands
+mem leiden:golius town Leiden
+person leiden:heinsius 3237 4291 0
+mem leiden:heinsius country Netherlands
+mem leiden:heinsius town Leiden
+person leiden:elzevir 3229 4305 0
+mem leiden:elzevir country Netherlands
+mem leiden:elzevir money 700
+mem leiden:elzevir town Leiden
+person leiden:heurnius 3215 4305 0
+mem leiden:heurnius country Netherlands
+mem leiden:heurnius town Leiden
+person leiden:gardener 3244 4273 0
+mem leiden:gardener country Netherlands
+mem leiden:gardener town Leiden
+person leiden:neeltgen 3201 4313 0
+mem leiden:neeltgen country Netherlands
+mem leiden:neeltgen town Leiden
+person leiden:fleecehost 3247 4319 0
+mem leiden:fleecehost country Netherlands
+mem leiden:fleecehost money 400
+mem leiden:fleecehost town Leiden
+person leiden:student:0 3232 4313 0
+mem leiden:student:0 country Netherlands
+mem leiden:student:0 town Leiden
+person leiden:student:1 3264 4315 0
+mem leiden:student:1 country Netherlands
+mem leiden:student:1 town Leiden
+person leiden:student:2 3270 4309 0
+mem leiden:student:2 country Netherlands
+mem leiden:student:2 town Leiden
+person leiden:student:3 3284 4298 0
+mem leiden:student:3 country Netherlands
+mem leiden:student:3 town Leiden
+person leiden:scholar:0 3232 4313 0
+mem leiden:scholar:0 country Netherlands
+mem leiden:scholar:0 town Leiden
+person leiden:goodwife:0 3207 4305 0
+mem leiden:goodwife:0 country Netherlands
+mem leiden:goodwife:0 town Leiden
+person leiden:goodwife:1 3260 4272 0
+mem leiden:goodwife:1 country Netherlands
+mem leiden:goodwife:1 town Leiden
+person leiden:labourer:0 3243 4291 0
+mem leiden:labourer:0 country Netherlands
+mem leiden:labourer:0 town Leiden
+person leiden:labourer:1 3212 4321 0
+mem leiden:labourer:1 country Netherlands
+mem leiden:labourer:1 town Leiden
+person leiden:merchant:0 3227 4292 0
+mem leiden:merchant:0 country Netherlands
+mem leiden:merchant:0 money 4800
+mem leiden:merchant:0 town Leiden
+person leiden:guard:0 3264 4309 0
+mem leiden:guard:0 country Netherlands
+mem leiden:guard:0 town Leiden
+person leiden:guard:1 3223 4305 0
+mem leiden:guard:1 country Netherlands
+mem leiden:guard:1 town Leiden
+person leiden:herdsman:0 3243 4327 0
+mem leiden:herdsman:0 country Netherlands
+mem leiden:herdsman:0 town Leiden
+person padua:liceti 3911 3016 0
+mem padua:liceti country Italy
+mem padua:liceti town Padua
+person padua:vesling 3929 3001 0
+mem padua:vesling country Italy
+mem padua:vesling town Padua
+person padua:alpini 3925 2976 0
+mem padua:alpini country Italy
+mem padua:alpini town Padua
+person padua:bidello 3898 3001 0
+mem padua:bidello country Italy
+mem padua:bidello town Padua
+person padua:landlady 3926 3013 0
+mem padua:landlady country Italy
+mem padua:landlady town Padua
+person padua:debtor 3904 3027 0
+mem padua:debtor country Italy
+mem padua:debtor money 0
+mem padua:debtor town Padua
+person padua:english 3888 2994 0
+mem padua:english country Italy
+mem padua:english town Padua
+person padua:german 3911 3023 0
+mem padua:german country Italy
+mem padua:german town Padua
+person padua:friar 3938 2985 0
+mem padua:friar country Italy
+mem padua:friar town Padua
+person padua:stella 3889 3002 0
+mem padua:stella country Italy
+mem padua:stella money 400
+mem padua:stella town Padua
+person padua:portello 3940 2991 0
+mem padua:portello country Italy
+mem padua:portello town Padua
+person padua:goodwife:0 3908 3037 0
+mem padua:goodwife:0 country Italy
+mem padua:goodwife:0 town Padua
+person padua:goodwife:1 3938 3023 0
+mem padua:goodwife:1 country Italy
+mem padua:goodwife:1 town Padua
+person padua:goodwife:2 3929 3001 0
+mem padua:goodwife:2 country Italy
+mem padua:goodwife:2 town Padua
+person padua:labourer:0 3885 2974 0
+mem padua:labourer:0 country Italy
+mem padua:labourer:0 town Padua
+person padua:labourer:1 3880 3042 0
+mem padua:labourer:1 country Italy
+mem padua:labourer:1 town Padua
+person padua:labourer:2 3938 3015 0
+mem padua:labourer:2 country Italy
+mem padua:labourer:2 town Padua
+person padua:merchant:0 3911 3023 0
+mem padua:merchant:0 country Italy
+mem padua:merchant:0 money 4800
+mem padua:merchant:0 town Padua
+person padua:merchant:1 3866 3034 0
+mem padua:merchant:1 country Italy
+mem padua:merchant:1 money 4800
+mem padua:merchant:1 town Padua
+person padua:student:0 3885 2974 0
+mem padua:student:0 country Italy
+mem padua:student:0 town Padua
+person padua:student:1 3878 2995 0
+mem padua:student:1 country Italy
+mem padua:student:1 town Padua
+person padua:student:2 3859 3032 0
+mem padua:student:2 country Italy
+mem padua:student:2 town Padua
+person padua:guard:0 3902 2990 0
+mem padua:guard:0 country Italy
+mem padua:guard:0 town Padua
+person padua:guard:1 3892 3040 0
+mem padua:guard:1 country Italy
+mem padua:guard:1 town Padua
+person padua:washerwoman:0 3925 2976 0
+mem padua:washerwoman:0 country Italy
+mem padua:washerwoman:0 town Padua
+person padua:beggar:0 3938 3023 0
+mem padua:beggar:0 country Italy
+mem padua:beggar:0 town Padua
+person padua:herdsman:0 3872 3039 0
+mem padua:herdsman:0 country Italy
+mem padua:herdsman:0 town Padua
+person pisa:aggiunti 3780 2642 0
+mem pisa:aggiunti country Italy
+mem pisa:aggiunti town Pisa
+person pisa:chiaramonti 3758 2665 0
+mem pisa:chiaramonti country Italy
+mem pisa:chiaramonti money 1440
+mem pisa:chiaramonti town Pisa
+person pisa:keeper 3772 2641 0
+mem pisa:keeper country Italy
+mem pisa:keeper town Pisa
+person pisa:gunner 3768 2632 0
+mem pisa:gunner country Italy
+mem pisa:gunner money 1200
+mem pisa:gunner town Pisa
+person pisa:knight 3794 2678 0
+mem pisa:knight country Italy
+mem pisa:knight town Pisa
+person pisa:sacristan 3795 2671 0
+mem pisa:sacristan country Italy
+mem pisa:sacristan town Pisa
+person pisa:oldwoman 3774 2631 0
+mem pisa:oldwoman country Italy
+mem pisa:oldwoman town Pisa
+person pisa:bidello 3785 2640 0
+mem pisa:bidello country Italy
+mem pisa:bidello town Pisa
+person pisa:host 3800 2659 0
+mem pisa:host country Italy
+mem pisa:host gambler 1
+mem pisa:host money 1200
+mem pisa:host town Pisa
+person pisa:nanni 3783 2631 0
+mem pisa:nanni country Italy
+mem pisa:nanni town Pisa
+person pisa:goodwife:0 3780 2642 0
+mem pisa:goodwife:0 country Italy
+mem pisa:goodwife:0 town Pisa
+person pisa:goodwife:1 3816 2657 0
+mem pisa:goodwife:1 country Italy
+mem pisa:goodwife:1 town Pisa
+person pisa:goodwife:2 3783 2631 0
+mem pisa:goodwife:2 country Italy
+mem pisa:goodwife:2 town Pisa
+person pisa:labourer:0 3774 2631 0
+mem pisa:labourer:0 country Italy
+mem pisa:labourer:0 town Pisa
+person pisa:labourer:1 3780 2642 0
+mem pisa:labourer:1 country Italy
+mem pisa:labourer:1 town Pisa
+person pisa:labourer:2 3816 2657 0
+mem pisa:labourer:2 country Italy
+mem pisa:labourer:2 town Pisa
+person pisa:student:0 3803 2672 0
+mem pisa:student:0 country Italy
+mem pisa:student:0 town Pisa
+person pisa:student:1 3800 2643 0
+mem pisa:student:1 country Italy
+mem pisa:student:1 town Pisa
+person pisa:sailor:0 3794 2640 0
+mem pisa:sailor:0 country Italy
+mem pisa:sailor:0 town Pisa
+person pisa:sailor:1 3772 2641 0
+mem pisa:sailor:1 country Italy
+mem pisa:sailor:1 town Pisa
+person pisa:guard:0 3795 2671 0
+mem pisa:guard:0 country Italy
+mem pisa:guard:0 town Pisa
+person pisa:guard:1 3772 2641 0
+mem pisa:guard:1 country Italy
+mem pisa:guard:1 town Pisa
+person pisa:merchant:0 3807 2658 0
+mem pisa:merchant:0 country Italy
+mem pisa:merchant:0 money 4800
+mem pisa:merchant:0 town Pisa
+person pisa:washerwoman:0 3783 2631 0
+mem pisa:washerwoman:0 country Italy
+mem pisa:washerwoman:0 town Pisa
+person pisa:beggar:0 3800 2643 0
+mem pisa:beggar:0 country Italy
+mem pisa:beggar:0 town Pisa
+person pisa:herdsman:0 3772 2641 0
+mem pisa:herdsman:0 country Italy
+mem pisa:herdsman:0 town Pisa
+person constantinople:evliya 6431 2143 0
+mem constantinople:evliya country Ottoman
+mem constantinople:evliya town Constantinople
+person constantinople:katip 6387 2183 0
+mem constantinople:katip country Ottoman
+mem constantinople:katip town Constantinople
+person constantinople:lucaris 6381 2184 0
+mem constantinople:lucaris country Ottoman
+mem constantinople:lucaris town Constantinople
+person constantinople:haga 6406 2233 0
+mem constantinople:haga country Ottoman
+mem constantinople:haga town Constantinople
+person constantinople:marcheville 6418 2233 0
+mem constantinople:marcheville country Ottoman
+mem constantinople:marcheville town Constantinople
+person constantinople:dragoman 6430 2233 0
+mem constantinople:dragoman country Ottoman
+mem constantinople:dragoman money 4800
+mem constantinople:dragoman town Constantinople
+person constantinople:kahveci 6402 2168 0
+mem constantinople:kahveci country Ottoman
+mem constantinople:kahveci money 400
+mem constantinople:kahveci town Constantinople
+person constantinople:bazaar 6383 2163 0
+mem constantinople:bazaar country Ottoman
+mem constantinople:bazaar money 9600
+mem constantinople:bazaar town Constantinople
+person constantinople:dervish 6424 2215 0
+mem constantinople:dervish country Ottoman
+mem constantinople:dervish town Constantinople
+person constantinople:kayikci 6419 2170 0
+mem constantinople:kayikci country Ottoman
+mem constantinople:kayikci town Constantinople
+person constantinople:sakizci 6383 2153 0
+mem constantinople:sakizci country Ottoman
+mem constantinople:sakizci money 4800
+mem constantinople:sakizci town Constantinople
+person constantinople:goodwife:0 6392 2214 0
+mem constantinople:goodwife:0 country Ottoman
+mem constantinople:goodwife:0 town Constantinople
+person constantinople:goodwife:1 6397 2141 0
+mem constantinople:goodwife:1 country Ottoman
+mem constantinople:goodwife:1 town Constantinople
+person constantinople:goodwife:2 6430 2233 0
+mem constantinople:goodwife:2 country Ottoman
+mem constantinople:goodwife:2 town Constantinople
+person constantinople:labourer:0 6533 2186 0
+mem constantinople:labourer:0 country Ottoman
+mem constantinople:labourer:0 town Constantinople
+person constantinople:labourer:1 6441 2193 0
+mem constantinople:labourer:1 country Ottoman
+mem constantinople:labourer:1 town Constantinople
+person constantinople:labourer:2 6372 2214 0
+mem constantinople:labourer:2 country Ottoman
+mem constantinople:labourer:2 town Constantinople
+person constantinople:labourer:3 6384 2214 0
+mem constantinople:labourer:3 country Ottoman
+mem constantinople:labourer:3 town Constantinople
+person constantinople:merchant:0 6434 2212 0
+mem constantinople:merchant:0 country Ottoman
+mem constantinople:merchant:0 money 4800
+mem constantinople:merchant:0 town Constantinople
+person constantinople:merchant:1 6389 2142 0
+mem constantinople:merchant:1 country Ottoman
+mem constantinople:merchant:1 money 4800
+mem constantinople:merchant:1 town Constantinople
+person constantinople:merchant:2 6525 2193 0
+mem constantinople:merchant:2 country Ottoman
+mem constantinople:merchant:2 money 4800
+mem constantinople:merchant:2 town Constantinople
+person constantinople:guard:0 6509 2190 0
+mem constantinople:guard:0 country Ottoman
+mem constantinople:guard:0 town Constantinople
+person constantinople:guard:1 6434 2212 0
+mem constantinople:guard:1 country Ottoman
+mem constantinople:guard:1 town Constantinople
+person constantinople:guard:2 6367 2159 0
+mem constantinople:guard:2 country Ottoman
+mem constantinople:guard:2 town Constantinople
+person constantinople:waterman:0 6499 2179 0
+mem constantinople:waterman:0 country Ottoman
+mem constantinople:waterman:0 town Constantinople
+person constantinople:waterman:1 6434 2212 0
+mem constantinople:waterman:1 country Ottoman
+mem constantinople:waterman:1 town Constantinople
+person constantinople:merchant:3 6499 2179 0
+mem constantinople:merchant:3 country Ottoman
+mem constantinople:merchant:3 money 4800
+mem constantinople:merchant:3 town Constantinople
+person constantinople:merchant:4 6426 2175 0
+mem constantinople:merchant:4 country Ottoman
+mem constantinople:merchant:4 money 4800
+mem constantinople:merchant:4 town Constantinople
+person constantinople:beggar:0 6405 2214 0
+mem constantinople:beggar:0 country Ottoman
+mem constantinople:beggar:0 town Constantinople
+person constantinople:herdsman:0 6509 2168 0
+mem constantinople:herdsman:0 country Ottoman
+mem constantinople:herdsman:0 town Constantinople
+person constantinople:changer:0 6445 2152 0
+mem constantinople:changer:0 country Ottoman
+mem constantinople:changer:0 town Constantinople
+person ragusa:rector 4928 2388 0
+mem ragusa:rector country Ragusa
+mem ragusa:rector town Ragusa
+person ragusa:gundulic 4904 2386 0
+mem ragusa:gundulic country Ragusa
+mem ragusa:gundulic town Ragusa
+person ragusa:shipowner 4951 2384 0
+mem ragusa:shipowner country Ragusa
+mem ragusa:shipowner money 9600
+mem ragusa:shipowner town Ragusa
+person ragusa:apothecary 4890 2395 0
+mem ragusa:apothecary country Ragusa
+mem ragusa:apothecary town Ragusa
+person ragusa:doctor 4962 2386 0
+mem ragusa:doctor country Ragusa
+mem ragusa:doctor lodger 1
+mem ragusa:doctor town Ragusa
+person ragusa:caravan 4962 2386 0
+mem ragusa:caravan country Ragusa
+mem ragusa:caravan lodger 1
+mem ragusa:caravan money 7200
+mem ragusa:caravan town Ragusa
+person ragusa:guard:0 4951 2384 0
+mem ragusa:guard:0 country Ragusa
+mem ragusa:guard:0 town Ragusa
+person ragusa:guard:1 4951 2384 0
+mem ragusa:guard:1 country Ragusa
+mem ragusa:guard:1 town Ragusa
+person ragusa:innkeeper:0 4962 2386 0
+mem ragusa:innkeeper:0 country Ragusa
+mem ragusa:innkeeper:0 money 400
+mem ragusa:innkeeper:0 town Ragusa
+person ragusa:changer:0 4894 2406 0
+mem ragusa:changer:0 country Ragusa
+mem ragusa:changer:0 town Ragusa
+person ragusa:herdsman:0 4886 2410 0
+mem ragusa:herdsman:0 country Ragusa
+mem ragusa:herdsman:0 town Ragusa
+person seville:pacheco 1294 2131 0
+mem seville:pacheco country Spain
+mem seville:pacheco town Seville
+person seville:zurbaran 1336 2121 0
+mem seville:zurbaran country Spain
+mem seville:zurbaran town Seville
+person seville:murillo 1285 2131 0
+mem seville:murillo country Spain
+mem seville:murillo town Seville
+person seville:cargador 1337 2140 0
+mem seville:cargador country Spain
+mem seville:cargador money 24000
+mem seville:cargador town Seville
+person seville:pilot 1357 2130 0
+mem seville:pilot country Spain
+mem seville:pilot town Seville
+person seville:ojeda 1269 2101 0
+mem seville:ojeda country Spain
+mem seville:ojeda money 4800
+mem seville:ojeda town Seville
+person seville:tobacconist 1302 2093 0
+mem seville:tobacconist country Spain
+mem seville:tobacconist money 4800
+mem seville:tobacconist town Seville
+person seville:guitarist 1256 2139 0
+mem seville:guitarist country Spain
+mem seville:guitarist town Seville
+person seville:rodrigo 1302 2100 0
+mem seville:rodrigo country Spain
+mem seville:rodrigo money 4800
+mem seville:rodrigo town Seville
+person seville:juanico 1312 2098 0
+mem seville:juanico country Spain
+mem seville:juanico town Seville
+person seville:goodwife:0 1337 2101 0
+mem seville:goodwife:0 country Spain
+mem seville:goodwife:0 town Seville
+person seville:goodwife:1 1312 2098 0
+mem seville:goodwife:1 country Spain
+mem seville:goodwife:1 town Seville
+person seville:goodwife:2 1263 2075 0
+mem seville:goodwife:2 country Spain
+mem seville:goodwife:2 town Seville
+person seville:labourer:0 1324 2081 0
+mem seville:labourer:0 country Spain
+mem seville:labourer:0 town Seville
+person seville:labourer:1 1291 2080 0
+mem seville:labourer:1 country Spain
+mem seville:labourer:1 town Seville
+person seville:labourer:2 1355 2076 0
+mem seville:labourer:2 country Spain
+mem seville:labourer:2 town Seville
+person seville:merchant:0 1293 2066 0
+mem seville:merchant:0 country Spain
+mem seville:merchant:0 money 4800
+mem seville:merchant:0 town Seville
+person seville:merchant:1 1310 2065 0
+mem seville:merchant:1 country Spain
+mem seville:merchant:1 money 4800
+mem seville:merchant:1 town Seville
+person seville:guard:0 1257 2096 0
+mem seville:guard:0 country Spain
+mem seville:guard:0 town Seville
+person seville:guard:1 1276 2150 0
+mem seville:guard:1 country Spain
+mem seville:guard:1 town Seville
+person seville:sailor:0 1281 2081 0
+mem seville:sailor:0 country Spain
+mem seville:sailor:0 town Seville
+person seville:sailor:1 1361 2144 0
+mem seville:sailor:1 country Spain
+mem seville:sailor:1 town Seville
+person seville:beggar:0 1337 2140 0
+mem seville:beggar:0 country Spain
+mem seville:beggar:0 town Seville
+person seville:innkeeper:0 1266 2137 0
+mem seville:innkeeper:0 country Spain
+mem seville:innkeeper:0 money 400
+mem seville:innkeeper:0 town Seville
+person seville:changer:0 1356 2064 0
+mem seville:changer:0 country Spain
+mem seville:changer:0 town Seville
+person seville:herdsman:0 1257 2076 0
+mem seville:herdsman:0 country Spain
+mem seville:herdsman:0 town Seville
+person granada:morisco 1457 1972 0
+mem granada:morisco country Spain
+mem granada:morisco town Granada
+person granada:alcaide 1488 1972 0
+mem granada:alcaide country Spain
+mem granada:alcaide town Granada
+person granada:silk 1468 1954 0
+mem granada:silk country Spain
+mem granada:silk money 9600
+mem granada:silk town Granada
+person granada:gitano 1469 1984 0
+mem granada:gitano country Spain
+mem granada:gitano town Granada
+person granada:canon 1445 1953 0
+mem granada:canon country Spain
+mem granada:canon town Granada
+person granada:waterman 1482 1941 0
+mem granada:waterman country Spain
+mem granada:waterman town Granada
+person granada:leonor 1470 1976 0
+mem granada:leonor country Spain
+mem granada:leonor town Granada
+person granada:goodwife:0 1475 1976 0
+mem granada:goodwife:0 country Spain
+mem granada:goodwife:0 town Granada
+person granada:goodwife:1 1443 1986 0
+mem granada:goodwife:1 country Spain
+mem granada:goodwife:1 town Granada
+person granada:goodwife:2 1503 1936 0
+mem granada:goodwife:2 country Spain
+mem granada:goodwife:2 town Granada
+person granada:labourer:0 1494 1972 0
+mem granada:labourer:0 country Spain
+mem granada:labourer:0 town Granada
+person granada:labourer:1 1469 1984 0
+mem granada:labourer:1 country Spain
+mem granada:labourer:1 town Granada
+person granada:labourer:2 1484 1931 0
+mem granada:labourer:2 country Spain
+mem granada:labourer:2 town Granada
+person granada:merchant:0 1446 1959 0
+mem granada:merchant:0 country Spain
+mem granada:merchant:0 money 4800
+mem granada:merchant:0 town Granada
+person granada:merchant:1 1483 1972 0
+mem granada:merchant:1 country Spain
+mem granada:merchant:1 money 4800
+mem granada:merchant:1 town Granada
+person granada:guard:0 1512 1981 0
+mem granada:guard:0 country Spain
+mem granada:guard:0 town Granada
+person granada:guard:1 1511 1934 0
+mem granada:guard:1 country Spain
+mem granada:guard:1 town Granada
+person granada:student:0 1443 1986 0
+mem granada:student:0 country Spain
+mem granada:student:0 town Granada
+person granada:beggar:0 1489 1930 0
+mem granada:beggar:0 country Spain
+mem granada:beggar:0 town Granada
+person granada:innkeeper:0 1473 1939 0
+mem granada:innkeeper:0 country Spain
+mem granada:innkeeper:0 money 400
+mem granada:innkeeper:0 town Granada
+person granada:changer:0 1436 1972 0
+mem granada:changer:0 country Spain
+mem granada:changer:0 town Granada
+person granada:herdsman:0 1468 1930 0
+mem granada:herdsman:0 country Spain
+mem granada:herdsman:0 town Granada
+person oxford:rouse 2529 4554 0
+mem oxford:rouse country England
+mem oxford:rouse town Oxford
+person oxford:burton 2510 4521 0
+mem oxford:burton country England
+mem oxford:burton town Oxford
+person oxford:bainbridge 2526 4521 0
+mem oxford:bainbridge country England
+mem oxford:bainbridge town Oxford
+person oxford:wilkins 2546 4570 0
+mem oxford:wilkins country England
+mem oxford:wilkins town Oxford
+person oxford:bargeman 2492 4535 0
+mem oxford:bargeman country England
+mem oxford:bargeman town Oxford
+person oxford:student:0 2474 4572 0
+mem oxford:student:0 country England
+mem oxford:student:0 town Oxford
+person oxford:student:1 2548 4521 0
+mem oxford:student:1 country England
+mem oxford:student:1 town Oxford
+person oxford:student:2 2475 4555 0
+mem oxford:student:2 country England
+mem oxford:student:2 town Oxford
+person oxford:scholar:0 2541 4524 0
+mem oxford:scholar:0 country England
+mem oxford:scholar:0 town Oxford
+person oxford:scholar:1 2553 4545 0
+mem oxford:scholar:1 country England
+mem oxford:scholar:1 town Oxford
+person oxford:goodwife:0 2552 4570 0
+mem oxford:goodwife:0 country England
+mem oxford:goodwife:0 town Oxford
+person oxford:goodwife:1 2546 4570 0
+mem oxford:goodwife:1 country England
+mem oxford:goodwife:1 town Oxford
+person oxford:labourer:0 2541 4545 0
+mem oxford:labourer:0 country England
+mem oxford:labourer:0 town Oxford
+person oxford:labourer:1 2482 4521 0
+mem oxford:labourer:1 country England
+mem oxford:labourer:1 town Oxford
+person oxford:merchant:0 2474 4572 0
+mem oxford:merchant:0 country England
+mem oxford:merchant:0 money 4800
+mem oxford:merchant:0 town Oxford
+person oxford:guard:0 2510 4521 0
+mem oxford:guard:0 country England
+mem oxford:guard:0 town Oxford
+person oxford:innkeeper:0 2494 4558 0
+mem oxford:innkeeper:0 country England
+mem oxford:innkeeper:0 money 400
+mem oxford:innkeeper:0 town Oxford
+person oxford:herdsman:0 2548 4527 0
+mem oxford:herdsman:0 country England
+mem oxford:herdsman:0 town Oxford
+person cambridge:milton 2837 4619 0
+mem cambridge:milton country England
+mem cambridge:milton town Cambridge
+person cambridge:harvard 2850 4605 0
+mem cambridge:harvard country England
+mem cambridge:harvard town Cambridge
+person cambridge:mede 2837 4627 0
+mem cambridge:mede country England
+mem cambridge:mede town Cambridge
+person cambridge:more 2859 4617 0
+mem cambridge:more country England
+mem cambridge:more town Cambridge
+person cambridge:ostler 2838 4599 0
+mem cambridge:ostler country England
+mem cambridge:ostler town Cambridge
+person cambridge:student:0 2861 4603 0
+mem cambridge:student:0 country England
+mem cambridge:student:0 town Cambridge
+person cambridge:student:1 2841 4647 0
+mem cambridge:student:1 country England
+mem cambridge:student:1 town Cambridge
+person cambridge:student:2 2860 4647 0
+mem cambridge:student:2 country England
+mem cambridge:student:2 town Cambridge
+person cambridge:scholar:0 2829 4583 0
+mem cambridge:scholar:0 country England
+mem cambridge:scholar:0 town Cambridge
+person cambridge:scholar:1 2869 4624 0
+mem cambridge:scholar:1 country England
+mem cambridge:scholar:1 town Cambridge
+person cambridge:goodwife:0 2806 4570 0
+mem cambridge:goodwife:0 country England
+mem cambridge:goodwife:0 town Cambridge
+person cambridge:goodwife:1 2841 4581 0
+mem cambridge:goodwife:1 country England
+mem cambridge:goodwife:1 town Cambridge
+person cambridge:labourer:0 2788 4633 0
+mem cambridge:labourer:0 country England
+mem cambridge:labourer:0 town Cambridge
+person cambridge:labourer:1 2863 4571 0
+mem cambridge:labourer:1 country England
+mem cambridge:labourer:1 town Cambridge
+person cambridge:merchant:0 2841 4639 0
+mem cambridge:merchant:0 country England
+mem cambridge:merchant:0 money 4800
+mem cambridge:merchant:0 town Cambridge
+person cambridge:guard:0 2869 4571 0
+mem cambridge:guard:0 country England
+mem cambridge:guard:0 town Cambridge
+person cambridge:innkeeper:0 2824 4599 0
+mem cambridge:innkeeper:0 country England
+mem cambridge:innkeeper:0 money 400
+mem cambridge:innkeeper:0 town Cambridge
+person cambridge:herdsman:0 2768 4635 0
+mem cambridge:herdsman:0 country England
+mem cambridge:herdsman:0 town Cambridge
+person zurich:breitinger 3571 3493 0
+mem zurich:breitinger country Switzerland
+mem zurich:breitinger town Zurich
+person zurich:printer 3521 3486 0
+mem zurich:printer country Switzerland
+mem zurich:printer money 700
+mem zurich:printer town Zurich
+person zurich:orelli 3539 3456 0
+mem zurich:orelli country Switzerland
+mem zurich:orelli money 7200
+mem zurich:orelli town Zurich
+person zurich:boatman 3559 3449 0
+mem zurich:boatman country Switzerland
+mem zurich:boatman town Zurich
+person zurich:captain 3579 3465 0
+mem zurich:captain country Switzerland
+mem zurich:captain town Zurich
+person zurich:warder 3550 3438 0
+mem zurich:warder country Switzerland
+mem zurich:warder town Zurich
+person zurich:goodwife:0 3537 3434 0
+mem zurich:goodwife:0 country Switzerland
+mem zurich:goodwife:0 town Zurich
+person zurich:goodwife:1 3527 3462 0
+mem zurich:goodwife:1 country Switzerland
+mem zurich:goodwife:1 town Zurich
+person zurich:labourer:0 3589 3472 0
+mem zurich:labourer:0 country Switzerland
+mem zurich:labourer:0 town Zurich
+person zurich:labourer:1 3544 3493 0
+mem zurich:labourer:1 country Switzerland
+mem zurich:labourer:1 town Zurich
+person zurich:merchant:0 3538 3448 0
+mem zurich:merchant:0 country Switzerland
+mem zurich:merchant:0 money 4800
+mem zurich:merchant:0 town Zurich
+person zurich:guard:0 3529 3442 0
+mem zurich:guard:0 country Switzerland
+mem zurich:guard:0 town Zurich
+person zurich:student:0 3577 3471 0
+mem zurich:student:0 country Switzerland
+mem zurich:student:0 town Zurich
+person zurich:scholar:0 3515 3486 0
+mem zurich:scholar:0 country Switzerland
+mem zurich:scholar:0 town Zurich
+person zurich:innkeeper:0 3550 3475 0
+mem zurich:innkeeper:0 country Switzerland
+mem zurich:innkeeper:0 money 400
+mem zurich:innkeeper:0 town Zurich
+person zurich:changer:0 3589 3472 0
+mem zurich:changer:0 country Switzerland
+mem zurich:changer:0 town Zurich
+person zurich:herdsman:0 3550 3438 0
+mem zurich:herdsman:0 country Switzerland
+mem zurich:herdsman:0 town Zurich
+person nuremberg:monro 4041 3898 0
+mem nuremberg:monro country Empire
+mem nuremberg:monro lodger 1
+mem nuremberg:monro town Nuremberg
+person nuremberg:imhoff 4043 3908 0
+mem nuremberg:imhoff country Empire
+mem nuremberg:imhoff town Nuremberg
+person nuremberg:compass 4075 3908 0
+mem nuremberg:compass country Empire
+mem nuremberg:compass money 4800
+mem nuremberg:compass town Nuremberg
+person nuremberg:schmidt 4064 3894 0
+mem nuremberg:schmidt country Empire
+mem nuremberg:schmidt town Nuremberg
+person nuremberg:baker 4045 3883 0
+mem nuremberg:baker country Empire
+mem nuremberg:baker town Nuremberg
+person nuremberg:gustavus 4054 3883 0
+mem nuremberg:gustavus country Empire
+mem nuremberg:gustavus town Nuremberg
+person nuremberg:plattner 4049 3883 0
+mem nuremberg:plattner country Empire
+mem nuremberg:plattner money 9600
+mem nuremberg:plattner town Nuremberg
+person nuremberg:kornmesser 4055 3874 0
+mem nuremberg:kornmesser country Empire
+mem nuremberg:kornmesser money 24000
+mem nuremberg:kornmesser town Nuremberg
+person nuremberg:musketeer:0 4054 3883 0
+mem nuremberg:musketeer:0 country Empire
+mem nuremberg:musketeer:0 town Nuremberg
+person nuremberg:musketeer:1 4076 3884 0
+mem nuremberg:musketeer:1 country Empire
+mem nuremberg:musketeer:1 town Nuremberg
+person nuremberg:musketeer:2 4045 3883 0
+mem nuremberg:musketeer:2 country Empire
+mem nuremberg:musketeer:2 town Nuremberg
+person nuremberg:musketeer:3 4064 3874 0
+mem nuremberg:musketeer:3 country Empire
+mem nuremberg:musketeer:3 town Nuremberg
+person nuremberg:musketeer:4 4043 3908 0
+mem nuremberg:musketeer:4 country Empire
+mem nuremberg:musketeer:4 town Nuremberg
+person nuremberg:musketeer:5 4043 3908 0
+mem nuremberg:musketeer:5 country Empire
+mem nuremberg:musketeer:5 town Nuremberg
+person nuremberg:musketeer:6 4075 3908 0
+mem nuremberg:musketeer:6 country Empire
+mem nuremberg:musketeer:6 town Nuremberg
+person nuremberg:musketeer:7 4075 3908 0
+mem nuremberg:musketeer:7 country Empire
+mem nuremberg:musketeer:7 town Nuremberg
+person nuremberg:musketeer:8 4075 3908 0
+mem nuremberg:musketeer:8 country Empire
+mem nuremberg:musketeer:8 town Nuremberg
+person nuremberg:musketeer:9 4075 3908 0
+mem nuremberg:musketeer:9 country Empire
+mem nuremberg:musketeer:9 town Nuremberg
+person nuremberg:musketeer:10 4043 3908 0
+mem nuremberg:musketeer:10 country Empire
+mem nuremberg:musketeer:10 town Nuremberg
+person nuremberg:musketeer:11 4082 3898 0
+mem nuremberg:musketeer:11 country Empire
+mem nuremberg:musketeer:11 town Nuremberg
+person nuremberg:musketeer:12 4043 3908 0
+mem nuremberg:musketeer:12 country Empire
+mem nuremberg:musketeer:12 town Nuremberg
+person nuremberg:musketeer:13 4043 3908 0
+mem nuremberg:musketeer:13 country Empire
+mem nuremberg:musketeer:13 town Nuremberg
+person nuremberg:pikeman:0 4043 3908 0
+mem nuremberg:pikeman:0 country Empire
+mem nuremberg:pikeman:0 town Nuremberg
+person nuremberg:pikeman:1 4075 3908 0
+mem nuremberg:pikeman:1 country Empire
+mem nuremberg:pikeman:1 town Nuremberg
+person nuremberg:pikeman:2 4043 3908 0
+mem nuremberg:pikeman:2 country Empire
+mem nuremberg:pikeman:2 town Nuremberg
+person nuremberg:pikeman:3 4027 3910 0
+mem nuremberg:pikeman:3 country Empire
+mem nuremberg:pikeman:3 town Nuremberg
+person nuremberg:pikeman:4 4050 3863 0
+mem nuremberg:pikeman:4 country Empire
+mem nuremberg:pikeman:4 town Nuremberg
+person nuremberg:pikeman:5 4041 3920 0
+mem nuremberg:pikeman:5 country Empire
+mem nuremberg:pikeman:5 town Nuremberg
+person nuremberg:croat:0 4022 3942 0
+mem nuremberg:croat:0 country Empire
+mem nuremberg:croat:0 town Nuremberg
+person nuremberg:croat:1 4063 3828 0
+mem nuremberg:croat:1 country Empire
+mem nuremberg:croat:1 town Nuremberg
+person nuremberg:croat:2 4061 3856 0
+mem nuremberg:croat:2 country Empire
+mem nuremberg:croat:2 town Nuremberg
+person nuremberg:croat:3 4032 3937 0
+mem nuremberg:croat:3 country Empire
+mem nuremberg:croat:3 town Nuremberg
+person nuremberg:goodwife:0 4068 3899 0
+mem nuremberg:goodwife:0 country Empire
+mem nuremberg:goodwife:0 town Nuremberg
+person nuremberg:goodwife:1 4067 3901 0
+mem nuremberg:goodwife:1 country Empire
+mem nuremberg:goodwife:1 town Nuremberg
+person nuremberg:labourer:0 4065 3888 0
+mem nuremberg:labourer:0 country Empire
+mem nuremberg:labourer:0 town Nuremberg
+person nuremberg:labourer:1 4072 3888 0
+mem nuremberg:labourer:1 country Empire
+mem nuremberg:labourer:1 town Nuremberg
+person nuremberg:guard:0 4067 3899 0
+mem nuremberg:guard:0 country Empire
+mem nuremberg:guard:0 town Nuremberg
+person nuremberg:guard:1 4065 3897 0
+mem nuremberg:guard:1 country Empire
+mem nuremberg:guard:1 town Nuremberg
+person nuremberg:guard:2 4070 3899 0
+mem nuremberg:guard:2 country Empire
+mem nuremberg:guard:2 town Nuremberg
+person nuremberg:merchant:0 4060 3895 0
+mem nuremberg:merchant:0 country Empire
+mem nuremberg:merchant:0 money 4800
+mem nuremberg:merchant:0 town Nuremberg
+person nuremberg:apprentice:0 4066 3903 0
+mem nuremberg:apprentice:0 country Empire
+mem nuremberg:apprentice:0 town Nuremberg
+person nuremberg:apprentice:1 4066 3901 0
+mem nuremberg:apprentice:1 country Empire
+mem nuremberg:apprentice:1 town Nuremberg
+person nuremberg:innkeeper:0 4041 3898 0
+mem nuremberg:innkeeper:0 country Empire
+mem nuremberg:innkeeper:0 money 400
+mem nuremberg:innkeeper:0 town Nuremberg
+person nuremberg:changer:0 4066 3902 0
+mem nuremberg:changer:0 country Empire
+mem nuremberg:changer:0 town Nuremberg
+person nuremberg:herdsman:0 4068 3903 0
+mem nuremberg:herdsman:0 country Empire
+mem nuremberg:herdsman:0 town Nuremberg
+person zirndorf:pastor 3953 3908 0
+mem zirndorf:pastor country Empire
+mem zirndorf:pastor town Zirndorf
+person zirndorf:wallenstein 3968 3910 0
+mem zirndorf:wallenstein country Empire
+mem zirndorf:wallenstein town Zirndorf
+person zirndorf:senno 3965 3901 0
+mem zirndorf:senno country Empire
+mem zirndorf:senno town Zirndorf
+person zirndorf:sutler 3956 3901 0
+mem zirndorf:sutler country Empire
+mem zirndorf:sutler money 4800
+mem zirndorf:sutler town Zirndorf
+person zirndorf:imperial:0 3968 3910 0
+mem zirndorf:imperial:0 country Empire
+mem zirndorf:imperial:0 town Zirndorf
+person zirndorf:imperial:1 3942 3901 0
+mem zirndorf:imperial:1 country Empire
+mem zirndorf:imperial:1 town Zirndorf
+person zirndorf:imperial:2 3944 3909 0
+mem zirndorf:imperial:2 country Empire
+mem zirndorf:imperial:2 town Zirndorf
+person zirndorf:imperial:3 3956 3901 0
+mem zirndorf:imperial:3 country Empire
+mem zirndorf:imperial:3 town Zirndorf
+person zirndorf:imperial:4 3944 3909 0
+mem zirndorf:imperial:4 country Empire
+mem zirndorf:imperial:4 town Zirndorf
+person zirndorf:imperial:5 3942 3901 0
+mem zirndorf:imperial:5 country Empire
+mem zirndorf:imperial:5 town Zirndorf
+person zirndorf:imperial:6 3944 3909 0
+mem zirndorf:imperial:6 country Empire
+mem zirndorf:imperial:6 town Zirndorf
+person zirndorf:imperial:7 3968 3910 0
+mem zirndorf:imperial:7 country Empire
+mem zirndorf:imperial:7 town Zirndorf
+person zirndorf:imperialpike:0 3968 3910 0
+mem zirndorf:imperialpike:0 country Empire
+mem zirndorf:imperialpike:0 town Zirndorf
+person zirndorf:imperialpike:1 3939 3909 0
+mem zirndorf:imperialpike:1 country Empire
+mem zirndorf:imperialpike:1 town Zirndorf
+person zirndorf:imperialpike:2 3968 3910 0
+mem zirndorf:imperialpike:2 country Empire
+mem zirndorf:imperialpike:2 town Zirndorf
+person zirndorf:imperialpike:3 3968 3910 0
+mem zirndorf:imperialpike:3 country Empire
+mem zirndorf:imperialpike:3 town Zirndorf
+person zirndorf:assault:0 3951 3901 0
+mem zirndorf:assault:0 country Empire
+mem zirndorf:assault:0 town Zirndorf
+person zirndorf:assault:1 3942 3901 0
+mem zirndorf:assault:1 country Empire
+mem zirndorf:assault:1 town Zirndorf
+person zirndorf:assault:2 3942 3901 0
+mem zirndorf:assault:2 country Empire
+mem zirndorf:assault:2 town Zirndorf
+person zirndorf:assault:3 3969 3916 0
+mem zirndorf:assault:3 country Empire
+mem zirndorf:assault:3 town Zirndorf
+person zirndorf:assault:4 3968 3929 0
+mem zirndorf:assault:4 country Empire
+mem zirndorf:assault:4 town Zirndorf
+person zirndorf:assault:5 3979 3917 0
+mem zirndorf:assault:5 country Empire
+mem zirndorf:assault:5 town Zirndorf
+person zirndorf:assault:6 3976 3927 0
+mem zirndorf:assault:6 country Empire
+mem zirndorf:assault:6 town Zirndorf
+person zirndorf:assault:7 3983 3932 0
+mem zirndorf:assault:7 country Empire
+mem zirndorf:assault:7 town Zirndorf
+person zirndorf:assault:8 3964 3927 0
+mem zirndorf:assault:8 country Empire
+mem zirndorf:assault:8 town Zirndorf
+person zirndorf:assault:9 3981 3931 0
+mem zirndorf:assault:9 country Empire
+mem zirndorf:assault:9 town Zirndorf
+person zirndorf:farmer:0 3934 3856 0
+mem zirndorf:farmer:0 country Empire
+mem zirndorf:farmer:0 town Zirndorf
+person zirndorf:farmer:1 3927 3845 0
+mem zirndorf:farmer:1 country Empire
+mem zirndorf:farmer:1 town Zirndorf
+person zirndorf:farmer:2 3908 3928 0
+mem zirndorf:farmer:2 country Empire
+mem zirndorf:farmer:2 town Zirndorf
+person zirndorf:goodwife:0 3960 3915 0
+mem zirndorf:goodwife:0 country Empire
+mem zirndorf:goodwife:0 town Zirndorf
+person zirndorf:goodwife:1 3960 3915 0
+mem zirndorf:goodwife:1 country Empire
+mem zirndorf:goodwife:1 town Zirndorf
+person prague:marci 4569 4058 0
+mem prague:marci country Bohemia
+mem prague:marci town Prague
+person prague:baresch 4586 4057 0
+mem prague:baresch country Bohemia
+mem prague:baresch town Prague
+person prague:arriaga 4560 4060 0
+mem prague:arriaga country Bohemia
+mem prague:arriaga town Prague
+person prague:senno 4526 4076 0
+mem prague:senno country Bohemia
+mem prague:senno town Prague
+person prague:sexton 4523 4091 0
+mem prague:sexton country Bohemia
+mem prague:sexton town Prague
+person prague:shammes 4522 4109 0
+mem prague:shammes country Bohemia
+mem prague:shammes town Prague
+person prague:glass 4518 4091 0
+mem prague:glass country Bohemia
+mem prague:glass money 4800
+mem prague:glass town Prague
+person prague:clock 4521 4100 0
+mem prague:clock country Bohemia
+mem prague:clock town Prague
+person prague:goodwife:0 4511 4107 0
+mem prague:goodwife:0 country Bohemia
+mem prague:goodwife:0 town Prague
+person prague:goodwife:1 4522 4116 0
+mem prague:goodwife:1 country Bohemia
+mem prague:goodwife:1 town Prague
+person prague:goodwife:2 4569 4058 0
+mem prague:goodwife:2 country Bohemia
+mem prague:goodwife:2 town Prague
+person prague:labourer:0 4518 4048 0
+mem prague:labourer:0 country Bohemia
+mem prague:labourer:0 town Prague
+person prague:labourer:1 4560 4042 0
+mem prague:labourer:1 country Bohemia
+mem prague:labourer:1 town Prague
+person prague:labourer:2 4523 4091 0
+mem prague:labourer:2 country Bohemia
+mem prague:labourer:2 town Prague
+person prague:guard:0 4569 4058 0
+mem prague:guard:0 country Bohemia
+mem prague:guard:0 town Prague
+person prague:guard:1 4560 4037 0
+mem prague:guard:1 country Bohemia
+mem prague:guard:1 town Prague
+person prague:merchant:0 4552 4037 0
+mem prague:merchant:0 country Bohemia
+mem prague:merchant:0 money 4800
+mem prague:merchant:0 town Prague
+person prague:student:0 4512 4093 0
+mem prague:student:0 country Bohemia
+mem prague:student:0 town Prague
+person prague:beggar:0 4587 4038 0
+mem prague:beggar:0 country Bohemia
+mem prague:beggar:0 town Prague
+person prague:innkeeper:0 4567 4106 0
+mem prague:innkeeper:0 country Bohemia
+mem prague:innkeeper:0 money 400
+mem prague:innkeeper:0 town Prague
+person prague:changer:0 4587 4038 0
+mem prague:changer:0 country Bohemia
+mem prague:changer:0 town Prague
+person prague:herdsman:0 4569 4039 0
+mem prague:herdsman:0 country Bohemia
+mem prague:herdsman:0 town Prague
+person vienna:lamormaini 5068 3736 0
+mem vienna:lamormaini country Empire
+mem vienna:lamormaini town Vienna
+person vienna:valentini 5035 3729 0
+mem vienna:valentini country Empire
+mem vienna:valentini town Vienna
+person vienna:tengnagel 5021 3747 0
+mem vienna:tengnagel country Empire
+mem vienna:tengnagel town Vienna
+person vienna:drover 5058 3732 0
+mem vienna:drover country Empire
+mem vienna:drover lodger 1
+mem vienna:drover money 4800
+mem vienna:drover town Vienna
+person vienna:vintner 5035 3760 0
+mem vienna:vintner country Empire
+mem vienna:vintner town Vienna
+person vienna:postclerk 5068 3730 0
+mem vienna:postclerk country Empire
+mem vienna:postclerk town Vienna
+person vienna:goodwife:0 5041 3767 0
+mem vienna:goodwife:0 country Empire
+mem vienna:goodwife:0 town Vienna
+person vienna:goodwife:1 5038 3715 0
+mem vienna:goodwife:1 country Empire
+mem vienna:goodwife:1 town Vienna
+person vienna:labourer:0 5041 3767 0
+mem vienna:labourer:0 country Empire
+mem vienna:labourer:0 town Vienna
+person vienna:labourer:1 5004 3726 0
+mem vienna:labourer:1 country Empire
+mem vienna:labourer:1 town Vienna
+person vienna:guard:0 5054 3757 0
+mem vienna:guard:0 country Empire
+mem vienna:guard:0 town Vienna
+person vienna:guard:1 5040 3736 0
+mem vienna:guard:1 country Empire
+mem vienna:guard:1 town Vienna
+person vienna:merchant:0 5005 3743 0
+mem vienna:merchant:0 country Empire
+mem vienna:merchant:0 money 4800
+mem vienna:merchant:0 town Vienna
+person vienna:student:0 5040 3736 0
+mem vienna:student:0 country Empire
+mem vienna:student:0 town Vienna
+person vienna:priest:0 5054 3757 0
+mem vienna:priest:0 country Empire
+mem vienna:priest:0 town Vienna
+person vienna:innkeeper:0 5058 3732 0
+mem vienna:innkeeper:0 country Empire
+mem vienna:innkeeper:0 money 400
+mem vienna:innkeeper:0 town Vienna
+person vienna:changer:0 5054 3757 0
+mem vienna:changer:0 country Empire
+mem vienna:changer:0 town Vienna
+person vienna:herdsman:0 5043 3714 0
+mem vienna:herdsman:0 country Empire
+mem vienna:herdsman:0 town Vienna
+person cracow:brozek 5610 4054 0
+mem cracow:brozek country Poland
+mem cracow:brozek town Cracow
+person cracow:trumpeter 5663 4064 0
+mem cracow:trumpeter country Poland
+mem cracow:trumpeter town Cracow
+person cracow:trevano 5609 4022 0
+mem cracow:trevano country Poland
+mem cracow:trevano town Cracow
+person cracow:armenian 5638 4046 0
+mem cracow:armenian country Poland
+mem cracow:armenian money 9600
+mem cracow:armenian town Cracow
+person cracow:miner 5626 4071 0
+mem cracow:miner country Poland
+mem cracow:miner town Cracow
+person cracow:goodwife:0 5641 4019 0
+mem cracow:goodwife:0 country Poland
+mem cracow:goodwife:0 town Cracow
+person cracow:goodwife:1 5671 4032 0
+mem cracow:goodwife:1 country Poland
+mem cracow:goodwife:1 town Cracow
+person cracow:goodwife:2 5638 4008 0
+mem cracow:goodwife:2 country Poland
+mem cracow:goodwife:2 town Cracow
+person cracow:labourer:0 5627 4032 0
+mem cracow:labourer:0 country Poland
+mem cracow:labourer:0 town Cracow
+person cracow:labourer:1 5629 4046 0
+mem cracow:labourer:1 country Poland
+mem cracow:labourer:1 town Cracow
+person cracow:student:0 5662 4023 0
+mem cracow:student:0 country Poland
+mem cracow:student:0 town Cracow
+person cracow:student:1 5634 4019 0
+mem cracow:student:1 country Poland
+mem cracow:student:1 town Cracow
+person cracow:merchant:0 5643 4006 0
+mem cracow:merchant:0 country Poland
+mem cracow:merchant:0 money 4800
+mem cracow:merchant:0 town Cracow
+person cracow:guard:0 5671 4022 0
+mem cracow:guard:0 country Poland
+mem cracow:guard:0 town Cracow
+person cracow:priest:0 5676 4022 0
+mem cracow:priest:0 country Poland
+mem cracow:priest:0 town Cracow
+person cracow:innkeeper:0 5644 4074 0
+mem cracow:innkeeper:0 country Poland
+mem cracow:innkeeper:0 money 400
+mem cracow:innkeeper:0 town Cracow
+person cracow:changer:0 5676 4022 0
+mem cracow:changer:0 country Poland
+mem cracow:changer:0 town Cracow
+person cracow:herdsman:0 5638 4046 0
+mem cracow:herdsman:0 country Poland
+mem cracow:herdsman:0 town Cracow
+person danzig:cruger 5310 4753 0
+mem danzig:cruger country Poland
+mem danzig:cruger town Danzig
+person danzig:crane 5329 4759 0
+mem danzig:crane country Poland
+mem danzig:crane town Danzig
+person danzig:skipper 5335 4737 0
+mem danzig:skipper country Poland
+mem danzig:skipper town Danzig
+person danzig:swedeship 5335 4724 0
+mem danzig:swedeship asked:passage 1
+mem danzig:swedeship asked:take 1
+mem danzig:swedeship country Poland
+mem danzig:swedeship last 973
+mem danzig:swedeship met 1
+mem danzig:swedeship money 480
+mem danzig:swedeship offered-passage 973
+mem danzig:swedeship talks 1
+mem danzig:swedeship town Danzig
+person danzig:distiller 5322 4731 0
+mem danzig:distiller country Poland
+mem danzig:distiller money 400
+mem danzig:distiller town Danzig
+person danzig:amber 5326 4745 0
+mem danzig:amber country Poland
+mem danzig:amber money 7200
+mem danzig:amber town Danzig
+person danzig:goodwife:0 5330 4768 0
+mem danzig:goodwife:0 country Poland
+mem danzig:goodwife:0 town Danzig
+person danzig:goodwife:1 5340 4724 0
+mem danzig:goodwife:1 country Poland
+mem danzig:goodwife:1 town Danzig
+person danzig:goodwife:2 5326 4716 0
+mem danzig:goodwife:2 country Poland
+mem danzig:goodwife:2 town Danzig
+person danzig:labourer:0 5342 4737 0
+mem danzig:labourer:0 country Poland
+mem danzig:labourer:0 town Danzig
+person danzig:labourer:1 5335 4735 0
+mem danzig:labourer:1 country Poland
+mem danzig:labourer:1 town Danzig
+person danzig:sailor:0 5335 4740 0
+mem danzig:sailor:0 country Poland
+mem danzig:sailor:0 town Danzig
+person danzig:sailor:1 5342 4748 0
+mem danzig:sailor:1 country Poland
+mem danzig:sailor:1 town Danzig
+person danzig:merchant:0 5309 4733 0
+mem danzig:merchant:0 country Poland
+mem danzig:merchant:0 money 4800
+mem danzig:merchant:0 town Danzig
+person danzig:guard:0 5331 4741 0
+mem danzig:guard:0 country Poland
+mem danzig:guard:0 town Danzig
+person danzig:apprentice:0 5315 4742 0
+mem danzig:apprentice:0 country Poland
+mem danzig:apprentice:0 town Danzig
+person danzig:herdsman:0 5319 4740 0
+mem danzig:herdsman:0 country Poland
+mem danzig:herdsman:0 town Danzig
+person danzig:changer:0 5318 4739 0
+mem danzig:changer:0 country Poland
+mem danzig:changer:0 town Danzig
+person sarajevo:mutevelli 5197 2796 0
+mem sarajevo:mutevelli country Ottoman
+mem sarajevo:mutevelli town Sarajevo
+person sarajevo:hatidza 5204 2796 0
+mem sarajevo:hatidza country Ottoman
+mem sarajevo:hatidza town Sarajevo
+person sarajevo:ragusan 5163 2813 0
+mem sarajevo:ragusan country Ottoman
+mem sarajevo:ragusan money 7200
+mem sarajevo:ragusan town Sarajevo
+person sarajevo:physician 5233 2794 0
+mem sarajevo:physician country Ottoman
+mem sarajevo:physician town Sarajevo
+person sarajevo:coppersmith 5179 2801 0
+mem sarajevo:coppersmith country Ottoman
+mem sarajevo:coppersmith money 300
+mem sarajevo:coppersmith town Sarajevo
+person sarajevo:goodwife:0 5178 2765 0
+mem sarajevo:goodwife:0 country Ottoman
+mem sarajevo:goodwife:0 town Sarajevo
+person sarajevo:goodwife:1 5203 2771 0
+mem sarajevo:goodwife:1 country Ottoman
+mem sarajevo:goodwife:1 town Sarajevo
+person sarajevo:goodwife:2 5232 2813 0
+mem sarajevo:goodwife:2 country Ottoman
+mem sarajevo:goodwife:2 town Sarajevo
+person sarajevo:labourer:0 5186 2823 0
+mem sarajevo:labourer:0 country Ottoman
+mem sarajevo:labourer:0 town Sarajevo
+person sarajevo:labourer:1 5197 2796 0
+mem sarajevo:labourer:1 country Ottoman
+mem sarajevo:labourer:1 town Sarajevo
+person sarajevo:labourer:2 5211 2832 0
+mem sarajevo:labourer:2 country Ottoman
+mem sarajevo:labourer:2 town Sarajevo
+person sarajevo:merchant:0 5155 2796 0
+mem sarajevo:merchant:0 country Ottoman
+mem sarajevo:merchant:0 money 4800
+mem sarajevo:merchant:0 town Sarajevo
+person sarajevo:merchant:1 5239 2813 0
+mem sarajevo:merchant:1 country Ottoman
+mem sarajevo:merchant:1 money 4800
+mem sarajevo:merchant:1 town Sarajevo
+person sarajevo:guard:0 5203 2771 0
+mem sarajevo:guard:0 country Ottoman
+mem sarajevo:guard:0 town Sarajevo
+person sarajevo:student:0 5148 2771 0
+mem sarajevo:student:0 country Ottoman
+mem sarajevo:student:0 town Sarajevo
+person sarajevo:beggar:0 5222 2831 0
+mem sarajevo:beggar:0 country Ottoman
+mem sarajevo:beggar:0 town Sarajevo
+person sarajevo:innkeeper:0 5216 2798 0
+mem sarajevo:innkeeper:0 country Ottoman
+mem sarajevo:innkeeper:0 money 400
+mem sarajevo:innkeeper:0 town Sarajevo
+person sarajevo:changer:0 5166 2823 0
+mem sarajevo:changer:0 country Ottoman
+mem sarajevo:changer:0 town Sarajevo
+person sarajevo:herdsman:0 5147 2766 0
+mem sarajevo:herdsman:0 country Ottoman
+mem sarajevo:herdsman:0 town Sarajevo
+person stockholm:catherine 4960 5621 0
+mem stockholm:catherine country Sweden
+mem stockholm:catherine town Stockholm
+person stockholm:christina 4980 5602 0
+mem stockholm:christina country Sweden
+mem stockholm:christina town Stockholm
+person stockholm:oxenstierna 4970 5623 0
+mem stockholm:oxenstierna country Sweden
+mem stockholm:oxenstierna town Stockholm
+person stockholm:degeer 4989 5586 0
+mem stockholm:degeer country Sweden
+mem stockholm:degeer money 48000
+mem stockholm:degeer town Stockholm
+person stockholm:recruiter 4955 5592 0
+mem stockholm:recruiter country Sweden
+mem stockholm:recruiter town Stockholm
+person stockholm:danzigship 4990 5592 0
+mem stockholm:danzigship country Sweden
+mem stockholm:danzigship town Stockholm
+person stockholm:ferryman 4969 5583 0
+mem stockholm:ferryman country Sweden
+mem stockholm:ferryman town Stockholm
+person stockholm:recruit:0 4981 5556 0
+mem stockholm:recruit:0 country Sweden
+mem stockholm:recruit:0 town Stockholm
+person stockholm:recruit:1 4955 5592 0
+mem stockholm:recruit:1 country Sweden
+mem stockholm:recruit:1 town Stockholm
+person stockholm:recruit:2 4969 5633 0
+mem stockholm:recruit:2 country Sweden
+mem stockholm:recruit:2 town Stockholm
+person stockholm:recruit:3 4962 5565 0
+mem stockholm:recruit:3 country Sweden
+mem stockholm:recruit:3 town Stockholm
+person stockholm:recruit:4 4968 5638 0
+mem stockholm:recruit:4 country Sweden
+mem stockholm:recruit:4 town Stockholm
+person stockholm:recruit:5 4939 5556 0
+mem stockholm:recruit:5 country Sweden
+mem stockholm:recruit:5 town Stockholm
+person stockholm:recruit:6 4950 5565 0
+mem stockholm:recruit:6 country Sweden
+mem stockholm:recruit:6 town Stockholm
+person stockholm:recruit:7 4951 5556 0
+mem stockholm:recruit:7 country Sweden
+mem stockholm:recruit:7 town Stockholm
+person stockholm:recruit:8 5017 5633 0
+mem stockholm:recruit:8 country Sweden
+mem stockholm:recruit:8 town Stockholm
+person stockholm:recruit:9 4994 5633 0
+mem stockholm:recruit:9 country Sweden
+mem stockholm:recruit:9 town Stockholm
+person stockholm:sailor:0 4942 5635 0
+mem stockholm:sailor:0 country Sweden
+mem stockholm:sailor:0 town Stockholm
+person stockholm:sailor:1 4970 5623 0
+mem stockholm:sailor:1 country Sweden
+mem stockholm:sailor:1 town Stockholm
+person stockholm:sailor:2 4985 5623 0
+mem stockholm:sailor:2 country Sweden
+mem stockholm:sailor:2 town Stockholm
+person stockholm:sailor:3 4981 5556 0
+mem stockholm:sailor:3 country Sweden
+mem stockholm:sailor:3 town Stockholm
+person stockholm:merchant:0 4932 5556 0
+mem stockholm:merchant:0 country Sweden
+mem stockholm:merchant:0 money 4800
+mem stockholm:merchant:0 town Stockholm
+person stockholm:merchant:1 4974 5565 0
+mem stockholm:merchant:1 country Sweden
+mem stockholm:merchant:1 money 4800
+mem stockholm:merchant:1 town Stockholm
+person stockholm:goodwife:0 4958 5556 0
+mem stockholm:goodwife:0 country Sweden
+mem stockholm:goodwife:0 town Stockholm
+person stockholm:goodwife:1 4974 5638 0
+mem stockholm:goodwife:1 country Sweden
+mem stockholm:goodwife:1 town Stockholm
+person stockholm:goodwife:2 5005 5556 0
+mem stockholm:goodwife:2 country Sweden
+mem stockholm:goodwife:2 town Stockholm
+person stockholm:labourer:0 4948 5621 0
+mem stockholm:labourer:0 country Sweden
+mem stockholm:labourer:0 town Stockholm
+person stockholm:labourer:1 5002 5625 0
+mem stockholm:labourer:1 country Sweden
+mem stockholm:labourer:1 town Stockholm
+person stockholm:labourer:2 4996 5556 0
+mem stockholm:labourer:2 country Sweden
+mem stockholm:labourer:2 town Stockholm
+person stockholm:labourer:3 4994 5633 0
+mem stockholm:labourer:3 country Sweden
+mem stockholm:labourer:3 town Stockholm
+person stockholm:washerwoman:0 4951 5635 0
+mem stockholm:washerwoman:0 country Sweden
+mem stockholm:washerwoman:0 town Stockholm
+person stockholm:washerwoman:1 4969 5633 0
+mem stockholm:washerwoman:1 country Sweden
+mem stockholm:washerwoman:1 town Stockholm
+person stockholm:guard:0 4960 5635 0
+mem stockholm:guard:0 country Sweden
+mem stockholm:guard:0 town Stockholm
+person stockholm:guard:1 4942 5635 0
+mem stockholm:guard:1 country Sweden
+mem stockholm:guard:1 town Stockholm
+person stockholm:guard:2 4960 5621 0
+mem stockholm:guard:2 country Sweden
+mem stockholm:guard:2 town Stockholm
+person stockholm:apprentice:0 4994 5638 0
+mem stockholm:apprentice:0 country Sweden
+mem stockholm:apprentice:0 town Stockholm
+person stockholm:apprentice:1 4936 5638 0
+mem stockholm:apprentice:1 country Sweden
+mem stockholm:apprentice:1 town Stockholm
+person stockholm:innkeeper:0 4959 5582 0
+mem stockholm:innkeeper:0 country Sweden
+mem stockholm:innkeeper:0 money 400
+mem stockholm:innkeeper:0 town Stockholm
+person stockholm:changer:0 4974 5638 0
+mem stockholm:changer:0 country Sweden
+mem stockholm:changer:0 town Stockholm
+person stockholm:herdsman:0 4942 5625 0
+mem stockholm:herdsman:0 country Sweden
+mem stockholm:herdsman:0 town Stockholm
+person the_post_house_at_bedford:ostler-bedford 2712 4561 0
+mem the_post_house_at_bedford:ostler-bedford country England
+mem the_post_house_at_bedford:ostler-bedford town the_post_house_at_Bedford
+person the_post_house_at_toruń:ostler-torun 5264 4490 0
+mem the_post_house_at_toruń:ostler-torun country Poland
+mem the_post_house_at_toruń:ostler-torun town the_post_house_at_Toruń
+person the_post_house_at_płock:ostler-plock 5485 4439 0
+mem the_post_house_at_płock:ostler-plock country Poland
+mem the_post_house_at_płock:ostler-plock town the_post_house_at_Płock
+person the_post_house_at_warsaw:ostler-warsaw 5716 4379 0
+mem the_post_house_at_warsaw:ostler-warsaw country Poland
+mem the_post_house_at_warsaw:ostler-warsaw town the_post_house_at_Warsaw
+person the_post_house_at_dover:ostler-dover 2932 4341 0
+mem the_post_house_at_dover:ostler-dover country England
+mem the_post_house_at_dover:ostler-dover town the_post_house_at_Dover
+person the_post_house_at_dover:packet-dover 2937 4351 0
+mem the_post_house_at_dover:packet-dover country England
+mem the_post_house_at_dover:packet-dover town the_post_house_at_Dover
+person the_post_house_at_radom:ostler-radom 5802 4238 0
+mem the_post_house_at_radom:ostler-radom country Poland
+mem the_post_house_at_radom:ostler-radom town the_post_house_at_Radom
+person the_post_house_at_dordrecht:ostler-dordrecht 3314 4222 0
+mem the_post_house_at_dordrecht:ostler-dordrecht country Netherlands
+mem the_post_house_at_dordrecht:ostler-dordrecht town the_post_house_at_Dordrecht
+person the_post_house_at_calais:ostler-calais 2998 4209 0
+mem the_post_house_at_calais:ostler-calais country Netherlands
+mem the_post_house_at_calais:ostler-calais town the_post_house_at_Calais
+person the_post_house_at_calais:packet-calais 3001 4219 0
+mem the_post_house_at_calais:packet-calais country Netherlands
+mem the_post_house_at_calais:packet-calais town the_post_house_at_Calais
+person the_post_house_at_antwerp:ostler-antwerp 3251 4166 0
+mem the_post_house_at_antwerp:ostler-antwerp country Netherlands
+mem the_post_house_at_antwerp:ostler-antwerp town the_post_house_at_Antwerp
+person the_post_house_at_brussels:ostler-brussels 3227 4110 0
+mem the_post_house_at_brussels:ostler-brussels country Netherlands
+mem the_post_house_at_brussels:ostler-brussels town the_post_house_at_Brussels
+person the_post_house_at_koblenz:ostler-koblenz 3649 4069 0
+mem the_post_house_at_koblenz:ostler-koblenz country Empire
+mem the_post_house_at_koblenz:ostler-koblenz town the_post_house_at_Koblenz
+person the_post_house_at_aachen:ostler-aachen 3471 4068 0
+mem the_post_house_at_aachen:ostler-aachen country Empire
+mem the_post_house_at_aachen:ostler-aachen town the_post_house_at_Aachen
+person the_post_house_at_ostrau:ostler-ostrau 5292 4060 0
+mem the_post_house_at_ostrau:ostler-ostrau country Bohemia
+mem the_post_house_at_ostrau:ostler-ostrau town the_post_house_at_Ostrau
+person the_post_house_at_cambrai:ostler-cambrai 3088 4040 0
+mem the_post_house_at_cambrai:ostler-cambrai country Netherlands
+mem the_post_house_at_cambrai:ostler-cambrai town the_post_house_at_Cambrai
+person the_post_house_at_teschen:ostler-teschen 5416 4009 0
+mem the_post_house_at_teschen:ostler-teschen country Bohemia
+mem the_post_house_at_teschen:ostler-teschen town the_post_house_at_Teschen
+person the_post_house_at_frankfurt:ostler-frankfurt 3749 3992 0
+mem the_post_house_at_frankfurt:ostler-frankfurt country Empire
+mem the_post_house_at_frankfurt:ostler-frankfurt town the_post_house_at_Frankfurt
+person the_post_house_at_würzburg:ostler-wurzburg 3908 3980 0
+mem the_post_house_at_würzburg:ostler-wurzburg country Empire
+mem the_post_house_at_würzburg:ostler-wurzburg town the_post_house_at_Würzburg
+person the_post_house_at_pilsen:ostler-pilsen 4377 3960 0
+mem the_post_house_at_pilsen:ostler-pilsen country Bohemia
+mem the_post_house_at_pilsen:ostler-pilsen town the_post_house_at_Pilsen
+person the_post_house_at_iglau:ostler-iglau 4790 3949 0
+mem the_post_house_at_iglau:ostler-iglau country Bohemia
+mem the_post_house_at_iglau:ostler-iglau town the_post_house_at_Iglau
+person the_post_house_at_amberg:ostler-amberg 4160 3930 0
+mem the_post_house_at_amberg:ostler-amberg country Empire
+mem the_post_house_at_amberg:ostler-amberg town the_post_house_at_Amberg
+person the_post_house_at_olomouc:ostler-olomouc 5142 3925 0
+mem the_post_house_at_olomouc:ostler-olomouc country Bohemia
+mem the_post_house_at_olomouc:ostler-olomouc town the_post_house_at_Olomouc
+person the_post_house_at_beroun:ostler-beroun 4517 3911 0
+mem the_post_house_at_beroun:ostler-beroun country Bohemia
+mem the_post_house_at_beroun:ostler-beroun town the_post_house_at_Beroun
+person the_post_house_at_wieliczka:ostler-wieliczka 5603 3880 0
+mem the_post_house_at_wieliczka:ostler-wieliczka country Poland
+mem the_post_house_at_wieliczka:ostler-wieliczka town the_post_house_at_Wieliczka
+person the_post_house_at_znaim:ostler-znaim 4874 3790 0
+mem the_post_house_at_znaim:ostler-znaim country Bohemia
+mem the_post_house_at_znaim:ostler-znaim town the_post_house_at_Znaim
+person the_post_house_at_donauwörth:ostler-donauworth 3962 3747 0
+mem the_post_house_at_donauwörth:ostler-donauworth country Empire
+mem the_post_house_at_donauwörth:ostler-donauworth town the_post_house_at_Donauwörth
+person the_post_house_at_ulm:ostler-ulm 3845 3690 0
+mem the_post_house_at_ulm:ostler-ulm country Empire
+mem the_post_house_at_ulm:ostler-ulm town the_post_house_at_Ulm
+person the_post_house_at_augsburg:ostler-augsburg 3968 3689 0
+mem the_post_house_at_augsburg:ostler-augsburg country Empire
+mem the_post_house_at_augsburg:ostler-augsburg town the_post_house_at_Augsburg
+person the_post_house_at_orléans:ostler-orleans 2861 3631 0
+mem the_post_house_at_orléans:ostler-orleans country Empire
+mem the_post_house_at_orléans:ostler-orleans town the_post_house_at_Orléans
+person the_post_house_at_tours:ostler-tours 2648 3608 0
+mem the_post_house_at_tours:ostler-tours country Empire
+mem the_post_house_at_tours:ostler-tours town the_post_house_at_Tours
+person the_post_house_at_raab:ostler-raab 5138 3581 0
+mem the_post_house_at_raab:ostler-raab country Empire
+mem the_post_house_at_raab:ostler-raab town the_post_house_at_Raab
+person the_han_at_buda:ostler-buda 5351 3517 0
+mem the_han_at_buda:ostler-buda country Ottoman
+mem the_han_at_buda:ostler-buda town the_han_at_Buda
+person the_post_house_at_basel:ostler-basel 3461 3507 0
+mem the_post_house_at_basel:ostler-basel country Switzerland
+mem the_post_house_at_basel:ostler-basel town the_post_house_at_Basel
+person the_post_house_at_mittenwald:ostler-mittenwald 3962 3444 0
+mem the_post_house_at_mittenwald:ostler-mittenwald country Empire
+mem the_post_house_at_mittenwald:ostler-mittenwald town the_post_house_at_Mittenwald
+person the_post_house_at_poitiers:ostler-poitiers 2590 3440 0
+mem the_post_house_at_poitiers:ostler-poitiers country Empire
+mem the_post_house_at_poitiers:ostler-poitiers town the_post_house_at_Poitiers
+person the_post_house_at_innsbruck:ostler-innsbruck 4032 3391 0
+mem the_post_house_at_innsbruck:ostler-innsbruck country Empire
+mem the_post_house_at_innsbruck:ostler-innsbruck town the_post_house_at_Innsbruck
+person the_han_at_paks:ostler-paks 5152 3303 0
+mem the_han_at_paks:ostler-paks country Ottoman
+mem the_han_at_paks:ostler-paks town the_han_at_Paks
+person the_post_house_at_angoulême:ostler-angouleme 2523 3280 0
+mem the_post_house_at_angoulême:ostler-angouleme country Ottoman
+mem the_post_house_at_angoulême:ostler-angouleme town the_post_house_at_Angoulême
+person the_post_house_at_bozen:ostler-bozen 3862 3226 0
+mem the_post_house_at_bozen:ostler-bozen country Empire
+mem the_post_house_at_bozen:ostler-bozen town the_post_house_at_Bozen
+person the_han_at_szeged:ostler-szeged 5440 3210 0
+mem the_han_at_szeged:ostler-szeged country Ottoman
+mem the_han_at_szeged:ostler-szeged town the_han_at_Szeged
+person the_post_house_at_bordeaux:ostler-bordeaux 2347 3180 0
+mem the_post_house_at_bordeaux:ostler-bordeaux country Ottoman
+mem the_post_house_at_bordeaux:ostler-bordeaux town the_post_house_at_Bordeaux
+person the_post_house_at_bayonne:ostler-bayonne 2168 2928 0
+mem the_post_house_at_bayonne:ostler-bayonne country Ottoman
+mem the_post_house_at_bayonne:ostler-bayonne town the_post_house_at_Bayonne
+person the_han_at_belgrade:ostler-belgrade 5414 2890 0
+mem the_han_at_belgrade:ostler-belgrade country Ottoman
+mem the_han_at_belgrade:ostler-belgrade town the_han_at_Belgrade
+person the_venta_at_burgos:ostler-burgos 1772 2890 0
+mem the_venta_at_burgos:ostler-burgos country Spain
+mem the_venta_at_burgos:ostler-burgos town the_venta_at_Burgos
+person the_post_house_at_ferrara:ostler-ferrara 3902 2873 0
+mem the_post_house_at_ferrara:ostler-ferrara country Italy
+mem the_post_house_at_ferrara:ostler-ferrara town the_post_house_at_Ferrara
+person the_venta_at_vitoria:ostler-vitoria 1956 2850 0
+mem the_venta_at_vitoria:ostler-vitoria country Spain
+mem the_venta_at_vitoria:ostler-vitoria town the_venta_at_Vitoria
+person the_post_house_at_bologna:ostler-bologna 3902 2799 0
+mem the_post_house_at_bologna:ostler-bologna country Italy
+mem the_post_house_at_bologna:ostler-bologna town the_post_house_at_Bologna
+person the_han_at_jagodina:ostler-jagodina 5560 2766 0
+mem the_han_at_jagodina:ostler-jagodina country Ottoman
+mem the_han_at_jagodina:ostler-jagodina town the_han_at_Jagodina
+person the_venta_at_aranda:ostler-aranda 1634 2728 0
+mem the_venta_at_aranda:ostler-aranda country Spain
+mem the_venta_at_aranda:ostler-aranda town the_venta_at_Aranda
+person the_han_at_aleksinac:ostler-aleksinac 5728 2660 0
+mem the_han_at_aleksinac:ostler-aleksinac country Ottoman
+mem the_han_at_aleksinac:ostler-aleksinac town the_han_at_Aleksinac
+person the_han_at_niš:ostler-nis 5532 2570 0
+mem the_han_at_niš:ostler-nis country Ottoman
+mem the_han_at_niš:ostler-nis town the_han_at_Niš
+person the_venta_at_madrid:ostler-madrid 1670 2560 0
+mem the_venta_at_madrid:ostler-madrid country Spain
+mem the_venta_at_madrid:ostler-madrid town the_venta_at_Madrid
+person the_han_at_sofia:ostler-sofia 5722 2469 0
+mem the_han_at_sofia:ostler-sofia country Ottoman
+mem the_han_at_sofia:ostler-sofia town the_han_at_Sofia
+person the_han_at_plovdiv:ostler-plovdiv 5885 2350 0
+mem the_han_at_plovdiv:ostler-plovdiv country Ottoman
+mem the_han_at_plovdiv:ostler-plovdiv town the_han_at_Plovdiv
+person the_han_at_edirne:ostler-edirne 6130 2329 0
+mem the_han_at_edirne:ostler-edirne country Ottoman
+mem the_han_at_edirne:ostler-edirne town the_han_at_Edirne
+person the_venta_at_manzanares:ostler-manzanares 1563 2325 0
+mem the_venta_at_manzanares:ostler-manzanares country Spain
+mem the_venta_at_manzanares:ostler-manzanares town the_venta_at_Manzanares
+person the_venta_at_cárdenas:ostler-cardenas 1539 2199 0
+mem the_venta_at_cárdenas:ostler-cardenas country Spain
+mem the_venta_at_cárdenas:ostler-cardenas town the_venta_at_Cárdenas
+person the_post_house_at_bedford:innkeeper:0 2713 4570 0
+mem the_post_house_at_bedford:innkeeper:0 country England
+mem the_post_house_at_bedford:innkeeper:0 money 400
+mem the_post_house_at_bedford:innkeeper:0 town the_post_house_at_Bedford
+person the_post_house_at_toruń:innkeeper:0 5265 4499 0
+mem the_post_house_at_toruń:innkeeper:0 country Poland
+mem the_post_house_at_toruń:innkeeper:0 money 400
+mem the_post_house_at_toruń:innkeeper:0 town the_post_house_at_Toruń
+person the_post_house_at_płock:innkeeper:0 5486 4448 0
+mem the_post_house_at_płock:innkeeper:0 country Poland
+mem the_post_house_at_płock:innkeeper:0 money 400
+mem the_post_house_at_płock:innkeeper:0 town the_post_house_at_Płock
+person the_post_house_at_warsaw:innkeeper:0 5717 4388 0
+mem the_post_house_at_warsaw:innkeeper:0 country Poland
+mem the_post_house_at_warsaw:innkeeper:0 money 400
+mem the_post_house_at_warsaw:innkeeper:0 town the_post_house_at_Warsaw
+person the_post_house_at_dover:innkeeper:0 2933 4350 0
+mem the_post_house_at_dover:innkeeper:0 country England
+mem the_post_house_at_dover:innkeeper:0 money 400
+mem the_post_house_at_dover:innkeeper:0 town the_post_house_at_Dover
+person the_post_house_at_radom:innkeeper:0 5803 4247 0
+mem the_post_house_at_radom:innkeeper:0 country Poland
+mem the_post_house_at_radom:innkeeper:0 money 400
+mem the_post_house_at_radom:innkeeper:0 town the_post_house_at_Radom
+person the_post_house_at_dordrecht:innkeeper:0 3315 4231 0
+mem the_post_house_at_dordrecht:innkeeper:0 country Netherlands
+mem the_post_house_at_dordrecht:innkeeper:0 money 400
+mem the_post_house_at_dordrecht:innkeeper:0 town the_post_house_at_Dordrecht
+person the_post_house_at_calais:innkeeper:0 2999 4218 0
+mem the_post_house_at_calais:innkeeper:0 country Netherlands
+mem the_post_house_at_calais:innkeeper:0 money 400
+mem the_post_house_at_calais:innkeeper:0 town the_post_house_at_Calais
+person the_post_house_at_antwerp:innkeeper:0 3252 4175 0
+mem the_post_house_at_antwerp:innkeeper:0 country Netherlands
+mem the_post_house_at_antwerp:innkeeper:0 money 400
+mem the_post_house_at_antwerp:innkeeper:0 town the_post_house_at_Antwerp
+person the_post_house_at_brussels:innkeeper:0 3228 4119 0
+mem the_post_house_at_brussels:innkeeper:0 country Netherlands
+mem the_post_house_at_brussels:innkeeper:0 money 400
+mem the_post_house_at_brussels:innkeeper:0 town the_post_house_at_Brussels
+person the_post_house_at_koblenz:innkeeper:0 3650 4078 0
+mem the_post_house_at_koblenz:innkeeper:0 country Empire
+mem the_post_house_at_koblenz:innkeeper:0 money 400
+mem the_post_house_at_koblenz:innkeeper:0 town the_post_house_at_Koblenz
+person the_post_house_at_aachen:innkeeper:0 3472 4077 0
+mem the_post_house_at_aachen:innkeeper:0 country Empire
+mem the_post_house_at_aachen:innkeeper:0 money 400
+mem the_post_house_at_aachen:innkeeper:0 town the_post_house_at_Aachen
+person the_post_house_at_ostrau:innkeeper:0 5293 4069 0
+mem the_post_house_at_ostrau:innkeeper:0 country Bohemia
+mem the_post_house_at_ostrau:innkeeper:0 money 400
+mem the_post_house_at_ostrau:innkeeper:0 town the_post_house_at_Ostrau
+person the_post_house_at_cambrai:innkeeper:0 3089 4049 0
+mem the_post_house_at_cambrai:innkeeper:0 country Netherlands
+mem the_post_house_at_cambrai:innkeeper:0 money 400
+mem the_post_house_at_cambrai:innkeeper:0 town the_post_house_at_Cambrai
+person the_post_house_at_teschen:innkeeper:0 5417 4018 0
+mem the_post_house_at_teschen:innkeeper:0 country Bohemia
+mem the_post_house_at_teschen:innkeeper:0 money 400
+mem the_post_house_at_teschen:innkeeper:0 town the_post_house_at_Teschen
+person the_post_house_at_frankfurt:innkeeper:0 3750 4001 0
+mem the_post_house_at_frankfurt:innkeeper:0 country Empire
+mem the_post_house_at_frankfurt:innkeeper:0 money 400
+mem the_post_house_at_frankfurt:innkeeper:0 town the_post_house_at_Frankfurt
+person the_post_house_at_würzburg:innkeeper:0 3909 3989 0
+mem the_post_house_at_würzburg:innkeeper:0 country Empire
+mem the_post_house_at_würzburg:innkeeper:0 money 400
+mem the_post_house_at_würzburg:innkeeper:0 town the_post_house_at_Würzburg
+person the_post_house_at_pilsen:innkeeper:0 4378 3969 0
+mem the_post_house_at_pilsen:innkeeper:0 country Bohemia
+mem the_post_house_at_pilsen:innkeeper:0 money 400
+mem the_post_house_at_pilsen:innkeeper:0 town the_post_house_at_Pilsen
+person the_post_house_at_iglau:innkeeper:0 4791 3958 0
+mem the_post_house_at_iglau:innkeeper:0 country Bohemia
+mem the_post_house_at_iglau:innkeeper:0 money 400
+mem the_post_house_at_iglau:innkeeper:0 town the_post_house_at_Iglau
+person the_post_house_at_amberg:innkeeper:0 4161 3939 0
+mem the_post_house_at_amberg:innkeeper:0 country Empire
+mem the_post_house_at_amberg:innkeeper:0 money 400
+mem the_post_house_at_amberg:innkeeper:0 town the_post_house_at_Amberg
+person the_post_house_at_olomouc:innkeeper:0 5143 3934 0
+mem the_post_house_at_olomouc:innkeeper:0 country Bohemia
+mem the_post_house_at_olomouc:innkeeper:0 money 400
+mem the_post_house_at_olomouc:innkeeper:0 town the_post_house_at_Olomouc
+person the_post_house_at_beroun:innkeeper:0 4518 3920 0
+mem the_post_house_at_beroun:innkeeper:0 country Bohemia
+mem the_post_house_at_beroun:innkeeper:0 money 400
+mem the_post_house_at_beroun:innkeeper:0 town the_post_house_at_Beroun
+person the_post_house_at_wieliczka:innkeeper:0 5604 3889 0
+mem the_post_house_at_wieliczka:innkeeper:0 country Poland
+mem the_post_house_at_wieliczka:innkeeper:0 money 400
+mem the_post_house_at_wieliczka:innkeeper:0 town the_post_house_at_Wieliczka
+person the_post_house_at_znaim:innkeeper:0 4875 3799 0
+mem the_post_house_at_znaim:innkeeper:0 country Bohemia
+mem the_post_house_at_znaim:innkeeper:0 money 400
+mem the_post_house_at_znaim:innkeeper:0 town the_post_house_at_Znaim
+person the_post_house_at_donauwörth:innkeeper:0 3963 3756 0
+mem the_post_house_at_donauwörth:innkeeper:0 country Empire
+mem the_post_house_at_donauwörth:innkeeper:0 money 400
+mem the_post_house_at_donauwörth:innkeeper:0 town the_post_house_at_Donauwörth
+person the_post_house_at_ulm:innkeeper:0 3846 3699 0
+mem the_post_house_at_ulm:innkeeper:0 country Empire
+mem the_post_house_at_ulm:innkeeper:0 money 400
+mem the_post_house_at_ulm:innkeeper:0 town the_post_house_at_Ulm
+person the_post_house_at_augsburg:innkeeper:0 3969 3698 0
+mem the_post_house_at_augsburg:innkeeper:0 country Empire
+mem the_post_house_at_augsburg:innkeeper:0 money 400
+mem the_post_house_at_augsburg:innkeeper:0 town the_post_house_at_Augsburg
+person the_post_house_at_orléans:innkeeper:0 2862 3640 0
+mem the_post_house_at_orléans:innkeeper:0 country Empire
+mem the_post_house_at_orléans:innkeeper:0 money 400
+mem the_post_house_at_orléans:innkeeper:0 town the_post_house_at_Orléans
+person the_post_house_at_tours:innkeeper:0 2649 3617 0
+mem the_post_house_at_tours:innkeeper:0 country Empire
+mem the_post_house_at_tours:innkeeper:0 money 400
+mem the_post_house_at_tours:innkeeper:0 town the_post_house_at_Tours
+person the_post_house_at_raab:innkeeper:0 5139 3590 0
+mem the_post_house_at_raab:innkeeper:0 country Empire
+mem the_post_house_at_raab:innkeeper:0 money 400
+mem the_post_house_at_raab:innkeeper:0 town the_post_house_at_Raab
+person the_han_at_buda:innkeeper:0 5352 3526 0
+mem the_han_at_buda:innkeeper:0 country Ottoman
+mem the_han_at_buda:innkeeper:0 money 400
+mem the_han_at_buda:innkeeper:0 town the_han_at_Buda
+person the_post_house_at_basel:innkeeper:0 3462 3516 0
+mem the_post_house_at_basel:innkeeper:0 country Switzerland
+mem the_post_house_at_basel:innkeeper:0 money 400
+mem the_post_house_at_basel:innkeeper:0 town the_post_house_at_Basel
+person the_post_house_at_mittenwald:innkeeper:0 3963 3453 0
+mem the_post_house_at_mittenwald:innkeeper:0 country Empire
+mem the_post_house_at_mittenwald:innkeeper:0 money 400
+mem the_post_house_at_mittenwald:innkeeper:0 town the_post_house_at_Mittenwald
+person the_post_house_at_poitiers:innkeeper:0 2591 3449 0
+mem the_post_house_at_poitiers:innkeeper:0 country Empire
+mem the_post_house_at_poitiers:innkeeper:0 money 400
+mem the_post_house_at_poitiers:innkeeper:0 town the_post_house_at_Poitiers
+person the_post_house_at_innsbruck:innkeeper:0 4033 3400 0
+mem the_post_house_at_innsbruck:innkeeper:0 country Empire
+mem the_post_house_at_innsbruck:innkeeper:0 money 400
+mem the_post_house_at_innsbruck:innkeeper:0 town the_post_house_at_Innsbruck
+person the_han_at_paks:innkeeper:0 5153 3312 0
+mem the_han_at_paks:innkeeper:0 country Ottoman
+mem the_han_at_paks:innkeeper:0 money 400
+mem the_han_at_paks:innkeeper:0 town the_han_at_Paks
+person the_post_house_at_angoulême:innkeeper:0 2524 3289 0
+mem the_post_house_at_angoulême:innkeeper:0 country Ottoman
+mem the_post_house_at_angoulême:innkeeper:0 money 400
+mem the_post_house_at_angoulême:innkeeper:0 town the_post_house_at_Angoulême
+person the_post_house_at_bozen:innkeeper:0 3863 3235 0
+mem the_post_house_at_bozen:innkeeper:0 country Empire
+mem the_post_house_at_bozen:innkeeper:0 money 400
+mem the_post_house_at_bozen:innkeeper:0 town the_post_house_at_Bozen
+person the_han_at_szeged:innkeeper:0 5441 3219 0
+mem the_han_at_szeged:innkeeper:0 country Ottoman
+mem the_han_at_szeged:innkeeper:0 money 400
+mem the_han_at_szeged:innkeeper:0 town the_han_at_Szeged
+person the_post_house_at_bordeaux:innkeeper:0 2348 3189 0
+mem the_post_house_at_bordeaux:innkeeper:0 country Ottoman
+mem the_post_house_at_bordeaux:innkeeper:0 money 400
+mem the_post_house_at_bordeaux:innkeeper:0 town the_post_house_at_Bordeaux
+person the_post_house_at_bayonne:innkeeper:0 2169 2937 0
+mem the_post_house_at_bayonne:innkeeper:0 country Ottoman
+mem the_post_house_at_bayonne:innkeeper:0 money 400
+mem the_post_house_at_bayonne:innkeeper:0 town the_post_house_at_Bayonne
+person the_han_at_belgrade:innkeeper:0 5415 2899 0
+mem the_han_at_belgrade:innkeeper:0 country Ottoman
+mem the_han_at_belgrade:innkeeper:0 money 400
+mem the_han_at_belgrade:innkeeper:0 town the_han_at_Belgrade
+person the_venta_at_burgos:innkeeper:0 1773 2899 0
+mem the_venta_at_burgos:innkeeper:0 country Spain
+mem the_venta_at_burgos:innkeeper:0 money 400
+mem the_venta_at_burgos:innkeeper:0 town the_venta_at_Burgos
+person the_post_house_at_ferrara:innkeeper:0 3903 2882 0
+mem the_post_house_at_ferrara:innkeeper:0 country Italy
+mem the_post_house_at_ferrara:innkeeper:0 money 400
+mem the_post_house_at_ferrara:innkeeper:0 town the_post_house_at_Ferrara
+person the_venta_at_vitoria:innkeeper:0 1957 2859 0
+mem the_venta_at_vitoria:innkeeper:0 country Spain
+mem the_venta_at_vitoria:innkeeper:0 money 400
+mem the_venta_at_vitoria:innkeeper:0 town the_venta_at_Vitoria
+person the_post_house_at_bologna:innkeeper:0 3903 2808 0
+mem the_post_house_at_bologna:innkeeper:0 country Italy
+mem the_post_house_at_bologna:innkeeper:0 money 400
+mem the_post_house_at_bologna:innkeeper:0 town the_post_house_at_Bologna
+person the_han_at_jagodina:innkeeper:0 5561 2775 0
+mem the_han_at_jagodina:innkeeper:0 country Ottoman
+mem the_han_at_jagodina:innkeeper:0 money 400
+mem the_han_at_jagodina:innkeeper:0 town the_han_at_Jagodina
+person the_venta_at_aranda:innkeeper:0 1635 2737 0
+mem the_venta_at_aranda:innkeeper:0 country Spain
+mem the_venta_at_aranda:innkeeper:0 money 400
+mem the_venta_at_aranda:innkeeper:0 town the_venta_at_Aranda
+person the_han_at_aleksinac:innkeeper:0 5729 2669 0
+mem the_han_at_aleksinac:innkeeper:0 country Ottoman
+mem the_han_at_aleksinac:innkeeper:0 money 400
+mem the_han_at_aleksinac:innkeeper:0 town the_han_at_Aleksinac
+person the_han_at_niš:innkeeper:0 5533 2579 0
+mem the_han_at_niš:innkeeper:0 country Ottoman
+mem the_han_at_niš:innkeeper:0 money 400
+mem the_han_at_niš:innkeeper:0 town the_han_at_Niš
+person the_venta_at_madrid:innkeeper:0 1671 2569 0
+mem the_venta_at_madrid:innkeeper:0 country Spain
+mem the_venta_at_madrid:innkeeper:0 money 400
+mem the_venta_at_madrid:innkeeper:0 town the_venta_at_Madrid
+person the_han_at_sofia:innkeeper:0 5723 2478 0
+mem the_han_at_sofia:innkeeper:0 country Ottoman
+mem the_han_at_sofia:innkeeper:0 money 400
+mem the_han_at_sofia:innkeeper:0 town the_han_at_Sofia
+person the_han_at_plovdiv:innkeeper:0 5886 2359 0
+mem the_han_at_plovdiv:innkeeper:0 country Ottoman
+mem the_han_at_plovdiv:innkeeper:0 money 400
+mem the_han_at_plovdiv:innkeeper:0 town the_han_at_Plovdiv
+person the_han_at_edirne:innkeeper:0 6131 2338 0
+mem the_han_at_edirne:innkeeper:0 country Ottoman
+mem the_han_at_edirne:innkeeper:0 money 400
+mem the_han_at_edirne:innkeeper:0 town the_han_at_Edirne
+person the_venta_at_manzanares:innkeeper:0 1564 2334 0
+mem the_venta_at_manzanares:innkeeper:0 country Spain
+mem the_venta_at_manzanares:innkeeper:0 money 400
+mem the_venta_at_manzanares:innkeeper:0 town the_venta_at_Manzanares
+person the_venta_at_cárdenas:innkeeper:0 1540 2208 0
+mem the_venta_at_cárdenas:innkeeper:0 country Spain
+mem the_venta_at_cárdenas:innkeeper:0 money 400
+mem the_venta_at_cárdenas:innkeeper:0 town the_venta_at_Cárdenas
+person the_post_house_at_cambrai:saunier 3094 4048 0
+mem the_post_house_at_cambrai:saunier money 300
+mem the_post_house_at_cambrai:saunier town the_post_house_at_Cambrai
+person the_post_house_at_cambrai:carter 3087 4049 0
+mem the_post_house_at_cambrai:carter town the_post_house_at_Cambrai
+person paris:margot 2929 3900 0
+mem paris:margot asked:name 1
+mem paris:margot last 600
+mem paris:margot met 1
+mem paris:margot talks 2
+mem paris:margot town Paris
+person paris:commis 2943 3915 0
+mem paris:commis asked:job 1
+mem paris:commis asked:name 1
+mem paris:commis last 600
+mem paris:commis met 1
+mem paris:commis talks 1
+mem paris:commis town Paris
+person the_venta_at_cárdenas:bandolero 1534 2180 0
+mem the_venta_at_cárdenas:bandolero town the_venta_at_Cárdenas
+person the_post_house_at_bologna:capitano 3935 2805 0
+mem the_post_house_at_bologna:capitano town the_post_house_at_Bologna
+person the_ruins_of_hippo:moussa 3374 1436 0
+mem the_ruins_of_hippo:moussa country Ottoman
+mem the_ruins_of_hippo:moussa town the_ruins_of_Hippo
+person the_ruins_of_hippo:honorat 3386 1417 0
+mem the_ruins_of_hippo:honorat country Ottoman
+mem the_ruins_of_hippo:honorat money 2400
+mem the_ruins_of_hippo:honorat town the_ruins_of_Hippo
+person roads:brigand:0 0 0 0
+mem roads:brigand:0 town -
+person roads:brigand:1 0 0 0
+mem roads:brigand:1 town -
+person roads:brigand:2 0 0 0
+mem roads:brigand:2 town -
+person roads:brigand:3 0 0 0
+mem roads:brigand:3 town -
+person roads:escort:0 0 0 0
+mem roads:escort:0 town -
+person roads:gamekeeper:0 0 0 0
+mem roads:gamekeeper:0 town -

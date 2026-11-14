@@ -1,0 +1,30 @@
+# Arcetri: Galileo's villa, Il Gioiello, and the convent of San Matteo, among olive groves on
+# the hills south of Florence.
+style florence
+ground 1.8
+margin 16
+legend G mansion "Il Gioiello"                              style=florence
+legend C palace  "the convent of San Matteo in Arcetri"     depth=4 storeys=2 roof=tile stone=E6D8B8 as=church
+map
+
+   t     t        t      t    __         t       t      t
+       t     t       t        __    t        t      t
+  t       t      t       t    __       t       t        t
+     %%%%%%%%%%%%%%%%%%%      __     CCCCCCCCCCCCCCCC
+     %,,,,t,,,,,t,,,,,,%      __     CCCCCCCCCCCCCCCC
+     %,GGGGGGGGGGGG,,t,%      __     CCCCCCCCCCCCCCCC   t
+  t  %,GGGGGGGGGGGG,,,,%      __     CCCCCCCCCCCCCCCC
+     %,GGGGGGGGGGGG,t,,%   t  __     CCCCCCCCCCCCCCCC
+     %,GGGGGGGGGGGG,,,,%      __     CCCCCCCCCCCCCCCC      t
+     %,GGGGGGGGGGGG,,t,%      __     CCCCCCCCCCCCCCCC
+     %,GGGGGGGGGGGG,,,,%      __     CCCCCCCCCCCCCCCC
+     %,GGGGGGGGGGGG,o,,%      __     CCCCCCCCCCCCCCCC  t
+     %,,,,,,,,,,,,,,,,,;;;;;;;__;;;;;CCCCCCCCCCCCCCCC
+     %,t,,,,t,,,,,t,,,,%      __     CCCCCCCCCCCCCCCC
+     %%%%%%%%%%%%%%%%%%%      __     CCCCCCCCCCCCCCCC     t
+  t        t        t         __          ;
+      t         t        t    __     hhhhhhhh   t     t
+  t       t         t         __     hhhhhhhh
+     t        t        t      __     hhhhhhhh      t
+          t        t          __     hhhhhhhh   t
+  t    t      t         t     __                    t

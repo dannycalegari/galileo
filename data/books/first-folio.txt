@@ -1,0 +1,59 @@
+# Shakespeare's Comedies, Histories and Tragedies (London, 1623): the Bodleian's copy, which came
+# from the Stationers' Company under Bodley's agreement with them. Its title page and the beginning of
+# the balcony scene of Romeo and Juliet, as printed in the Folio (from Wikisource's transcription of
+# the Methuen facsimile of 1910). In square brackets: what you see on the page.
+book first-folio
+language english
+title Mr. William Shakespeares Comedies, Histories, & Tragedies
+
+page image art/first-folio.png | Martin Droeshout's engraving, the British Library's copy. Public domain, via Wikimedia Commons.
+The title page, with Martin Droeshout's engraving of the author: Mr. William Shakespeares Comedies, Histories, & Tragedies. Published according to the True Originall Copies. London, printed by Isaac Iaggard and Ed. Blount, 1623.
+
+page
+THE TRAGEDIE OF //
+ROMEO AND IULIET. //
+
+[The book falls open here by itself. These pages are grey and soft with thumbing, the corners worn round, and in the margin somebody has drawn a small heart and somebody else has crossed it out. Sir Thomas Bodley wanted no plays in his Library, calling them riff-raff; the scholars read this one more than any book in the room.]
+
+page
+Iul. //
+O Romeo, Romeo, wherefore art thou Romeo? //
+Denie thy Father and refuse thy name: //
+Or if thou wilt not, be but sworne my Loue, //
+And Ile no longer be a Capulet. //
+
+Rom. //
+Shall I heare more, or shall I speake at this? //
+
+Iu. //
+'Tis but thy name that is my Enemy: //
+Thou art thy selfe, though not a Mountague, //
+What's Mountague? it is nor hand nor foote, //
+Nor arme, nor face, O be some other name //
+Belonging to a man. //
+What? in a names that which we call a Rose, //
+By any other word would smell as sweete, //
+So Romeo would, were he not Romeo cal'd, //
+Retaine that deare perfection which he owes, //
+Without that title Romeo, doffe thy name, //
+And for thy name which is no part of thee, //
+Take all my selfe.
+
+page
+Rom. //
+I take thee at thy word: //
+Call me but Loue, and Ile be new baptiz'd, //
+Hence foorth I neuer will be Romeo. //
+
+Iuli. //
+What man art thou, that thus bescreen'd in night //
+So stumblest on my counsell? //
+
+Rom. //
+By a name, //
+I know not how to tell thee who I am: //
+My name deare Saint, is hatefull to my selfe, //
+Because it is an Enemy to thee, //
+Had I it written, I would teare the word. //
+
+[The rest of the page is worn through.]

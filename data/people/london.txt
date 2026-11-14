@@ -1,0 +1,86 @@
+# The people of London.
+town London
+names english
+prison Tower of London | There is no lock-up nearer than the Tower. You spend the night in a cold stone room where, they say, the little princes walk. At daybreak a yeoman warder shows you out: "We are for traitors here, not for thieves. Mend your ways."
+
+person mermaid
+  name Humphrey Draper
+  money 960
+  know gambler 1
+  role innkeeper
+  near Mermaid
+  talk
+    dice,bet,game,gamble: A throw of the dice, for the house? I play anyone, a few shillings at most. May the better man win. That is me.
+    name: Humphrey Draper, landlord of the Mermaid. {name}
+    cheese,stilton: Stilton? Never heard of it. Now, a good *Cheddar*, from Somerset, pressed in a cloth and kept a twelvemonth: there's a cheese. {player set heard-cheddar}
+    cheddar: Milk, rennet, salt, a press and patience. Every farmer's wife in Somerset knows how. {player set heard-cheddar}
+    jonson,ben: Old Ben Jonson used to hold court here, with Shakespeare and the rest. He is sick abed now, poor man, but still writing for the stage.
+  end
+end
+
+person warder
+  name Giles Hayward
+  role warder
+  near Tower
+  talk
+    name: Giles Hayward, yeoman warder. {name}
+  end
+end
+
+person taylor
+  name Joseph Taylor
+  role actor
+  near Globe
+  talk
+    folio,book,shakespeare: Heminges and Condell put the first Folio together, God rest them both; we lent them the prompt-books. Now there is a second. My Hamlet is in it, though they did not ask me.
+    milton: Never heard of him. A poet? Does he write for the stage? Then I never shall.
+    globe: The Globe, on Bankside, where you see me in summer; in winter we play at the Blackfriars, indoors, by candlelight, for the gentlemen.
+    name: Joseph Taylor, of the King's Men. I play Hamlet. {name}
+    hamlet: "What a piece of work is a man!" They still weep at the end.
+  end
+end
+
+person bookseller
+  name Matthew Chandler
+  sells book 2 second-folio 1
+  role bookseller
+  near Paul
+  talk
+    folio,shakespeare,second,plays: The new Folio, just out: Mr. Shakespeare's plays, the second impression, printed by Cotes for Allot at the Black Bear, three doors down. Ten livres, as you French reckon it, and worth it. There is a new poem in the front, by some young man at Cambridge.
+    milton,poem,cambridge: The epitaph in the Folio? Unsigned. A Mr. Milton of Christ's College, they say, who writes Latin verses and will not take orders. Nobody has heard of him.
+    name: Matthew Chandler, at the sign of the Bible in Paul's Churchyard. {name}
+    galileo,dialogue if stock:dialogue >= 1: It came this morning, in a bale from the Frankfurt fair, and only one copy: Galileo's *Dialogue*, in Italian, in vellum. Buy it before somebody else does.
+    galileo,dialogue if heard-dialogue-in-town: The one copy that came from Frankfurt is sold. Ask me again at the next fair.
+    galileo,dialogue if player heard-dialogue: The Italian's *Dialogue*? Not a copy in London yet. The bale from the Frankfurt fair should come about Midsummer; books from Italy come that way.
+    galileo: Galileo? His *Starry Messenger* sold well here, twenty years ago. Moons round Jupiter!
+    starry,messenger: Sidereus Nuncius, in Latin. The Moon has mountains, and Jupiter four moons. All seen through a glass.
+    martin if seek-dialogue: A Frenchman has been asking after that Italian book every day. Lebrun, he calls himself.
+  end
+end
+
+person harvey
+  name William Harvey
+  role physician
+  near Bartholomew
+  talk
+    descartes if player carried-harvey-book: You gave Monsieur Descartes my book? Tell me what he says, when he writes. I expect he will say I am wrong about something. {player set knows:amsterdam:descartes}
+    descartes: Monsieur Descartes, in Holland? I hear he says the body of a man is a machine, like a clock. Then let him see how the machine works. Take him my book, with my compliments: it is printed in Frankfurt, so perhaps he has not seen it. {player add has:de-motu-cordis 1} {player set carried-harvey-book} {player set knows:amsterdam:descartes}
+    book: My book on the motion of the heart, printed at Frankfurt four years ago. The physicians of Paris say I am mad. The physicians of Padua say I am right, which is worse for them.
+    name: Doctor William Harvey, physician to the King, and to Saint Bartholomew's Hospital. {name}
+    job: I am a physician. I have shown that the *blood* goes round the body.
+    blood,circulation: It goes round, sir. Around and around, as the Earth goes round the Sun, if your Italian is right.
+    heart: The heart is a pump, no more and no less. I have proved it on a hundred animals, and a few of the King's deer.
+  end
+end
+
+crowd 16 labourer
+crowd 16 goodwife
+crowd 12 apprentice
+crowd 10 waterman
+crowd 16 guard
+crowd 3 watchman
+crowd 6 beggar
+crowd 4 actor
+crowd 2 priest
+crowd 1 herdsman
+crowd 1 changer

@@ -1,0 +1,226 @@
+# The people of Pisa.
+# June 1632: Pisa is the Grand Duke's, and its University (the Sapienza) is where Galileo
+# studied and first taught. His pupil Niccolò Aggiunti holds the chair of mathematics; Scipione
+# Chiaramonti, whom the new Dialogue mocks at length, the chair of philosophy. The eve of San
+# Ranieri (16 June) is the Luminara, the last Sunday of June (the 27th) the Gioco del Ponte.
+town Pisa
+names italian
+prison Cittadella Vecchia | They lock you in the Guelph Tower of the old citadel, over the river. All night the warder tells you the story of Count Ugolino, starved to death in a tower of this city with his sons and grandsons, and what Dante says he did then. At breakfast you are not hungry. In the morning they let you go.
+country Italy
+
+person aggiunti
+  name Niccolò Aggiunti
+  title a professor of mathematics
+  role scholar
+  near Palazzo della Sapienza
+  work landmark Palazzo della Sapienza
+  schedule
+    7:00 home
+    9:00 work
+    12:30 eat
+    14:30 work
+    17:00 wander
+    20:00 home
+    22:30 sleep
+    17:00 go landmark Logge if gioco-day
+    19:30 home if gioco-day
+  talk
+    name: Niccolò Aggiunti, Professor of Mathematics in the Studio of Pisa, and tutor to the Grand Duke's brothers. {name}
+    job: I teach Euclid to young men who would rather be fencing, and I write on why water climbs up a narrow straw by itself, which nobody can explain, not even my master.
+    galileo,master: Signor Galileo was my master in Florence. I hold the chair he held here forty years ago, and I am paid three times what they paid him. He likes to remind me.
+    tower,balls,drop,leaning if player dropped-balls: You did it yourself? And they fell together? (He shakes your hand.) Then my master is right, and Aristotle may go and lie down in the Camposanto. Did Chiaramonti see?
+    tower,balls,drop,leaning: They say that when he taught here, young, he dropped balls from the tower before the whole University, a great one and a small one, and they struck the ground together. He has never told me so himself. Buy a cannonball and a musket ball from the gunner at the *arsenal*, and see for yourself.
+    arsenal,gunner: The Medici arsenal, by the old citadel: the galleys of the Knights are built there, and Mastro Biagio the gunner keeps his shot.
+    lamp,pendulum,duomo: The lamp in the Duomo? The story is that he timed its swinging against his pulse, at Mass, and found that wide swings and small take the same time. The sacristan will tell you more, and less.
+    chiaramonti: My colleague of the chair of philosophy. My master's Dialogue spends half a day proving that his calculations of the new star of 1572 are nonsense. He has not read it yet. I am keeping out of his way when he does.
+    water,straw,capillary: Dip a fine glass straw in water and the water rises in it, higher the finer the straw. Against its weight! There is no vacuum to pull it. I have a theory. My master says it is wrong.
+  end
+end
+
+person chiaramonti
+  name Scipione Chiaramonti
+  title a professor of philosophy
+  role scholar
+  near Palazzo della Sapienza
+  work landmark Palazzo della Sapienza
+  money 1440
+  schedule
+    7:00 home
+    9:00 work
+    12:30 eat
+    15:00 go landmark Leaning
+    18:00 wander
+    20:00 home
+    22:00 sleep
+    16:00 go landmark Logge if gioco-day
+    19:30 home if gioco-day
+  talk
+    hello if player recent dropped-balls and not saw-drop: (He is standing at the foot of the tower, quite pale.) I saw it. The big one and the little one, together. The air pushed the small one, or held back the large one; or my eyes deceived me. Yes. I do not believe my eyes, sir, and neither should you. {set saw-drop}
+    name: Scipione Chiaramonti, of Cesena, Professor of Philosophy. Author of the Anti-Tycho. {name}
+    job: I defend the incorruptible heavens against the novelties of the age. The new stars of 1572 and 1604 were in the air, below the Moon, as comets are; I have proved it by the parallaxes, in three books.
+    galileo: Galileo Galilei. A clever man, who has never understood that the heavens are not a workshop. They say his new book mentions me. I have not seen it; there is not a copy in Pisa.
+    dialogue,book if has-dialogue: (Darkly.) I have read the third day. Twice. He calls my parallaxes "mistakes a child would not make". I am writing a Defence. It will be very long.
+    dialogue,book: His Dialogue? If you have one, I will pay you well for it: four livres. I must know what he says of me.
+    give:dialogue: (He snatches it, and finds the place at once, and reads, and goes red, then white.) Four livres, as promised. Now leave me, sir. I have a reply to write. {take} {set has-dialogue} {player add money 960} {player set sold-chiaramonti}
+    tower,balls,drop,leaning: The fable of the tower? A heavy body falls faster than a light one, in proportion to its weight: Aristotle, On the Heavens, the first book. Anyone who has dropped a stone and a feather knows it. I come here every afternoon to look at the tower, and it has never contradicted me.
+    stars,star,nova,parallax: A new star in the heavens is impossible: the heavens do not change. So the new stars were not in the heavens. That is logic, sir.
+  end
+end
+
+person keeper
+  name Michele Lapi
+  title the keeper of the Orto botanico
+  role farmer
+  near keeper of the Orto
+  work landmark keeper of the Orto
+  talk
+    give:coffee-beans if not has-coffee: Kahve? Green? (He holds one up to the light as if it were a pearl.) Padua has these, you say? Then Pisa will have them first in the ground! Here, for your trouble, and not a word to Alpini. {take} {set has-coffee} {player add money 1440} {player set gave-coffee-pisa}
+    give:coffee-beans: I have planted mine. If they come up, I shall write to Padua about it, very politely.
+    name: Michele Lapi, keeper of the simples of the Grand Duke's garden. {name}
+    job: I keep the garden of simples for the professors of medicine: every herb in its bed, labelled in Latin, and the students trample them all.
+    orto,garden,oldest,padua: The first garden of its kind in the world: Luca Ghini made it in 1544, for Cosimo. The Paduans say theirs is older, of 1545. Does a garden stop being itself because it moves house? Ours has moved twice. Theirs has never been anywhere.
+    coffee,kahve,beans if has-coffee: Mine are in the ground, under a frame, and watered with rain water only. Nothing yet.
+    coffee,kahve,beans: Kahve, the Turks' bean? I have read of it in Alpini's book. If Padua had it growing and Pisa did not, I would never sleep again.
+    tomato,tomatoes,golden: Golden apples from the Indies. The Grand Duke's steward had a basket of them, eighty years ago, the first in Italy. We grow them for their looks. Some say they are poisonous; some fry them. I have done both; I am still alive.
+  end
+end
+
+person gunner
+  name Mastro Biagio Gori
+  title the master gunner of the galleys
+  role sailor
+  look coat #4A3A2A legs #3A3028 hat cap #2A2420
+  near arsenal
+  work landmark arsenal
+  sells cannonball 4 musket-ball 20
+  money 1200
+  talk
+    name: Biagio Gori, master gunner of the galleys of the Order of Santo Stefano. {name}
+    job: I keep the shot and the powder of the galleys, and teach the boys to fire a culverin without losing a hand. Iron balls for the falconets, lead balls for the muskets.
+    compass if player has:galileo-compass: You have a compass of Galileo's? (He takes it, and sets the arms, and whistles.) With this a gunner needs no master. Mine is the copy of a copy. Look after it.
+    balls,tower,drop,leaning: The professors buy my balls to drop off the tower. They come back to argue, and buy more. I sell them a big one and a little one. Iron and lead, it is all one to the ground.
+    galley,galleys,knights: Four galleys, with Turks and thieves at the oars. In spring we go hunting the Barbary corsairs, and they come hunting us.
+  end
+end
+
+person knight
+  name Cavaliere Ottavio Sanminiati
+  title a Knight of Santo Stefano
+  role knight
+  near Carovana
+  work landmark Carovana
+  schedule
+    7:00 work
+    12:00 eat
+    14:00 work
+    18:00 wander
+    21:00 home
+    22:30 sleep
+    16:00 go landmark Logge if gioco-day
+  talk
+    gioco,ponte,bridge if gioco-won: Mezzogiorno took the bridge. I had ten scudi on Tramontana. A Knight of Santo Stefano does not complain.
+    name: Ottavio Sanminiati, Knight of the Order of Santo Stefano Pope and Martyr. {name}
+    job: I am a knight of the Order Cosimo founded to fight the Turk at sea. In winter I sit in the Carovana and learn navigation; in summer I am sick over the side of a galley.
+    banners,turks,lepanto,church: The banners hanging in Santo Stefano were taken from Turkish galleys, at Lepanto and since. The church is the only one in Christendom that smells of gunpowder.
+    galileo,longitude,stars,jupiter,helmet: Signor Galileo would have us find our longitude by the moons of Jupiter. He made a helmet with a spyglass fixed to it, to keep the moons in view from a rolling deck. I wore it. I saw my own nose, and then the sea, and then my breakfast.
+    gioco,ponte,bridge: The Gioco del Ponte, on the last Sunday of June: Tramontana against Mezzogiorno, the north bank against the south, on the Ponte di Mezzo, with shields and armour. We Knights are above such things, and we bet on it.
+  end
+end
+
+person sacristan
+  name Ser Piero Neri
+  title the sacristan of the Duomo
+  role priest
+  near Duomo of Pisa
+  work landmark Duomo of Pisa
+  talk
+    name: Piero Neri, sacristan of the Primaziale. {name}
+    job: I light the lamps, ring the bells, sweep out the pigeons, and answer the same question forty times a day.
+    lamp,pendulum,galileo: (He sighs.) Yes, that is the lamp. Bronze, by Battista Lorenzi. Young Galileo watched it swing at Mass, they say, and timed it with his pulse. It was hung in 1587. He went away to Florence in 1585. The lamp he watched is in the Camposanto, in a chapel. Nobody wants to see that one.
+    pulpit,pisano: Giovanni Pisano's pulpit, of 1310. After the fire of 1595 they took it to pieces and put it in boxes. We are still arguing about where the pieces go. The Baptistery's, by his father Nicola, is whole.
+    tower,leaning: The campanile began to lean when they had built the third storey, four hundred years ago. They waited a hundred years, built the rest leaning the other way, and it leaned more. It is the only thing in Pisa that is not in a hurry.
+    fire: In 1595 the roof burned, and the bronze doors melted, and half the treasures. The Grand Duke paid for a new roof, with his arms on it.
+  end
+end
+
+person oldwoman
+  name Mona Lisabetta Gori
+  title an old woman
+  role goodwife
+  near Galileo was born
+  talk
+    name: Lisabetta. I was born a Gori, and I married a Gori, so nobody has ever had to learn my name. {name}
+    job: I am eighty, and I sit at my door. That is a job, at eighty.
+    galileo,born,baby,house: He was born in this house, the Ammannati house, sixty-eight years ago, in February. I was a girl of twelve. His mother Giulia had a tongue like a razor, and his father Vincenzio played the lute all day and argued with everyone about music. Three days later Michelangelo died in Rome. My mother said the one soul had gone into the other.
+    vincenzio,father,music,lute: Vincenzio Galilei, a Florentine of good family and no money, a lutenist. He wrote a book to prove that the old masters of music had their numbers wrong. The son is the same: he proves people wrong for a living.
+  end
+end
+
+person bidello
+  name Ser Jacopo Pucci
+  title a beadle of the Sapienza
+  role scholar
+  near Palazzo della Sapienza
+  work landmark Palazzo della Sapienza
+  talk
+    name: Jacopo Pucci, beadle of the Studio. {name}
+    job: I ring the bell, I carry the mace, and I fine the professors who will not wear their gowns.
+    gown,gowns,toga,fine,fines: There was a young lecturer of mathematics here, forty years ago, who would not wear his gown in the street. Fined every week! He wrote a poem against gowns, three hundred lines: that a man should go naked, as God made him, and then you would see what he was worth. His name was Galileo. They still talk of the poem. Nobody can recite it in front of the Rector.
+    galileo,student: He came here as a student of medicine, in 1581, and left without a degree, for want of money. Then he came back as a professor. Then he left again, for Padua, for want of money. The Studio does not forget.
+  end
+end
+
+person host
+  name Ceccone Baldi
+  title the host of the Cappello
+  role innkeeper
+  near Cappello
+  money 1200
+  know gambler 1
+  schedule
+    6:00 work
+    16:00 go landmark Logge if gioco-day
+    18:30 work
+    23:30 home
+    0:00 sleep
+  talk
+    gioco,ponte,bridge,bet if gioco-won: Mezzogiorno! We drove them off the bridge in an hour! Wine for everybody from the south bank, at half price; the north bank pays double.
+    name: Ceccone Baldi, host of the Cappello. {name}
+    job: Wine, bread, beds, and a little dice in the back room, if nobody is looking.
+    gioco,ponte,bridge,bet: The Gioco del Ponte, Sunday the twenty-seventh: Tramontana against Mezzogiorno. I am of Mezzogiorno, from the south bank, and so is my wine. Are you a sporting man?
+  end
+end
+
+person nanni
+  name Nanni Galli
+  title a fisherman of the Arno
+  role waterman
+  near Spina
+  schedule
+    5:00 work
+    11:00 eat
+    12:30 work
+    18:00 wander
+    20:30 home
+    22:00 sleep
+    16:00 go landmark Logge if gioco-day
+  talk
+    gioco,ponte,bridge if gioco-won: (He has a black eye, and is very happy.) We won! Mezzogiorno! I was in the front rank, and a Tramontana butcher sat on me for half an hour.
+    name: Nanni Galli. I fish the Arno, and I row in the regatta for San Martino. {name}
+    job: Eels, mullet, and whatever comes down from Florence. Mostly what comes down from Florence.
+    luminara,lights,candles if luminara: Did you see them, the lights? Seventy thousand little lamps in glasses along every palace on the Lungarni, and the river doubled them. Every year I think I am too old to cry, and every year I cry.
+    luminara,lights,candles: On the eve of San Ranieri, the sixteenth, the whole Lungarno is lit with little lamps in glasses, every window and every cornice, and the river doubles them. Come and see.
+    regatta,ranieri,boats: On San Ranieri's day the four quarters race their boats up the Arno, and the first to climb the mast at the finish wins the banner. I climbed it once, in '09. I have not been dry since.
+    gioco,ponte,bridge: The Gioco! The last Sunday of June, on the Ponte di Mezzo: six hundred men in armour, with wooden shields, pushing. Tramontana and Mezzogiorno. I am Mezzogiorno. We won last year. We will win this year.
+  end
+end
+
+crowd 3 goodwife
+crowd 3 labourer
+crowd 2 student
+crowd 2 sailor
+crowd 2 guard
+crowd 1 merchant
+crowd 1 washerwoman
+crowd 1 beggar
+crowd 1 herdsman

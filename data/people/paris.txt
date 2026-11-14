@@ -1,0 +1,713 @@
+# The people of Paris. Many lines are from the old Galileo (2013). See roles.txt for how this file works.
+town Paris
+names french
+prison Grand Châtelet | The watch drags you to the Grand Châtelet. You spend the night on wet straw with two pickpockets and a poet who has written a sonnet against the Cardinal. In the morning the jailer turns you out: the cells are wanted for better criminals.
+
+person jacques
+  name Jacques Lefèvre
+  known A big quiet man, who talks more to his anvil than to his customers. The English gentlemen bring him their horses, and he swears at them in English.
+  role blacksmith
+  near Saint-Germain-l'Auxerrois
+  sells horseshoe 6 nails 8 knife 2 hammer 1
+  talk
+    hello if not met: Good day to you, stranger. Mind the sparks.
+    name: Jacques Lefèvre. The English call me Jack. {name}
+  end
+end
+
+person antonio
+  name Antonio Bassano
+  known A Venetian, or nearly. He will sell you anything with a smile; count your change.
+  role merchant
+  near les Halles
+  sells strings 3 cheese 2 onions 4 lute 1
+  talk
+    lute,lutes: A lute? I have one, from Padua, made by a German, the best kind: four livres.
+    name: Antonio Bassano, at your service. {name}
+    merchant: I trained in Venice.
+    venice: The Rialto! Everything in the world passes over that bridge, sooner or later.
+    string,strings,gut,lute: Gut strings? I have a few from Rome, the best there are: 5 sous a coil. Tell your musician friend. {player set heard-strings}
+  end
+end
+
+person lydia
+  name Lydia Morel
+  known She plays the lute like an angel, when she has strings for it.
+  role musician
+  sex f
+  look coat #6A2E5E legs #4A2A4A hat coif #EEE8E0 dress lute
+  near Place Royale
+  schedule
+    9:00 home
+    11:00 wander
+    14:00 work
+    18:00 home
+    18:00 go landmark Pomme if has-string
+    23:00 home
+    23:30 sleep
+  talk
+    lesson,teach,learn,play if has-string and player skill:lute: You play well enough to make a cat stop and listen. Practise.
+    lesson,teach,learn,play if has-string: You want to learn? For the strings, I will teach you for nothing. Sit: thumb here, the fingers there, and the left hand like this... (She teaches you all afternoon, until your fingertips burn.) You will need a lute of your own: Antonio by les Halles has one. {player learn lute} {pass 240}
+    lesson,teach,learn,play: Teach you? When my lute has strings again, perhaps.
+    lute if has-string: My lute sings again! Come and hear me at the *Pomme de Pin* of an evening, outside the Porte Saint-Denis.
+    pomme,inn,tavern if has-string: The Pomme de Pin, Robert Crenet's tavern, outside the Porte Saint-Denis. I play there of an evening now; come and listen, and Crenet will give you his worst wine for nothing. {player set knows:paris:crenet}
+    pomme,inn,tavern: The Pomme de Pin, Robert Crenet's tavern, outside the Porte Saint-Denis. I played there every evening, before my string broke. {player set knows:paris:crenet}
+    lute: I broke an E string, and there is not a good gut *string* to be had in Paris. If you hear of one, tell me.
+    string,strings if has-string: The new string is from Rome, and sweet as honey.
+    give:strings if not has-string: Strings! Roman gut! Oh, bless you. Let me try them at once. (She strings her lute, tunes it, and begins to play: music such as you have never heard.) {take} {set has-string} {player set helped-lydia} {play bach-prelude}
+    music,piece,prelude,tune if has-string: That? It came to me as I tuned the new string. A German air, I think, though I could not tell you where I learned it. Perhaps nobody has written it yet. Come and hear more at the *Pomme de Pin* of an evening.
+    give:strings: I have strings enough now, thank you. Keep them for another musician.
+    string,strings,antonio if player heard-strings: Antonio has strings from Rome? Bless you! I shall go to him this very day. {set has-string} {player set helped-lydia}
+    string,strings: Gut strings, of sheep, twisted and dried. The best come from Rome.
+    concert: I played for the Pope in Rome.
+    pope: Urban. He likes music, and he writes Latin verses himself.
+    name: Lydia Morel. {name}
+  end
+end
+
+person martin
+  name Martin Lebrun
+  known A clever young man of the Sorbonne: always arguing, always short of money, and reading English books, God knows why.
+  role scholar
+  near Sorbonne
+  money 720
+  schedule
+    6:00 home
+    7:00 work
+    12:00 eat
+    13:00 work
+    18:00 go inn
+    21:00 home
+    22:00 sleep
+    8:00 go landmark Paul if town=London
+    18:00 go inn if town=London
+  talk
+    latin,lesson if player skill:latin: You read Latin now as well as any bachelor of the Sorbonne. Better than some.
+    latin,lesson: Latin? Every master of arts teaches it, for bread. For five sous I will teach you enough to read a page of Aristotle without weeping.
+    give:money if player gift >= 60 and not player skill:latin: (He takes the money, sits you down on a bench in the Sorbonne, and drills you all afternoon: amo, amas, amat; motus, motus; quod movetur ab alio movetur.) There. You can read Latin, more or less. {take} {player learn latin} {pass 240}
+    give:money if not player skill:latin: Five sous, my friend, not less. I have to eat.
+    parchment,lendit if not player heard-beadle: Parchment? Ask the old beadle, Bedeau, at the gate of the Sorbonne. He is always complaining about parchment. {player set knows:paris:beadle}
+    hello if gave-dialogue: Father Mersenne has the Dialogue! I brought it from London myself. He reads it day and night, and writes to every learned man in Europe about it.
+    hello if town=London and has:dialogue: I have it! The only copy in London, out of a bale from Frankfurt. I am off home to Paris this very hour.
+    hello if town=London and mersenne-has-it: You found Father Mersenne a copy yourself? Then I have been a fool in London for nothing. Well: I have seen the Globe, and eaten a pudding. I shall go home.
+    hello if town=London and heard-dialogue-in-town: A bale has come from the Frankfurt fair! But Chandler says it had only one copy, and it is gone. To whom? He will not tell me.
+    hello if town=London: Ah! You find me in London, among the booksellers of Paul's Churchyard. No Dialogue yet, alas. Chandler says a bale is expected from the Frankfurt fair about Midsummer.
+    name: Martin Lebrun, master of arts. {name}
+    master,arts,degree,bachelor,university: A master of arts of the University of Paris: six years of Aristotle, a disputation in the Rue du Fouarre, and a cap. It entitles me to teach *Latin* to boys, and to starve in a garret while I wait for a living.
+    book: I hear there is a new book by an Italian called *Galileo*.
+    galileo,dialogue: Galileo Galilei of Florence. His new book is a *Dialogue* on the two chief systems of the world, Ptolemy's and *Copernicus*'s. It was printed in Florence this February. Not a copy has reached Paris yet. {player set heard-dialogue}
+    copernicus: The Sun at the centre, and the Earth going round it, spinning like a top. A pretty hypothesis; the Church says it may only be a hypothesis.
+    mersenne if player heard-mersenne-wants and not seek-dialogue: Father Mersenne wants a copy? Then I shall find him one. Books from Italy come to *London*, to Paul's Churchyard, by way of the Frankfurt fair. I shall set off at once! {set seek-dialogue} {set wants:dialogue} {travel London}
+    mersenne: Father Mersenne, the Minim friar? He writes to every learned man in Europe.
+    london if seek-dialogue: I am off to London, to the booksellers of Paul's.
+  end
+end
+
+person mersenne
+  name Marin Mersenne
+  known A kind man, and terribly curious. He writes to every learned man in Europe, and he will ask you how fast you walk, and write it down.
+  title a Minim friar
+  role friar
+  near Minims
+  work landmark Minims
+  schedule
+    5:00 go church
+    7:00 work
+    12:00 eat
+    14:00 work
+    19:00 home
+    21:00 sleep
+  talk
+    # the prologue, day one: his new courier, from La Chapelle
+    hello if player me:age and not player courier-met: (A friar with ink on his fingers looks up from his letters.) A yellow hat! You must be Pierre's child, from La Chapelle; your father said you would come today. I am Father Mersenne. Come in, come in. Your father says you are quick with *numbers*. Shall we see? {player set courier-met} {name}
+    hello if player courier-met and not player courier-tested: Ah, $me. Now, where were we? Your *numbers*.
+    hello if player courier-tested and not player courier-hired: Ah, $me. We were speaking of my *terms*.
+    hello if player courier-hired and not player delivered-diodati: Back already? Monsieur *Diodati* has his letter? {player set knows:paris:diodati}
+    hello if player delivered-diodati and not player courier-coat: Back already! Well? Has Monsieur *Diodati* his letter? {player set knows:paris:diodati}
+    numbers,number,yes,see,try,test,ready if player courier-met and not player courier-tested: Then listen. A letter to Rome costs me eleven sous, one to Amsterdam seven, and one to Toulouse five. Today I send two to Rome, three to Amsterdam and one to Toulouse. What do I owe the post, in sous? {player set courier-testing}
+    48,=forty-eight,=fortyeight,=forty eight if player courier-testing and not player courier-tested: (He writes it in the margin of a letter, and checks it twice.) Forty-eight. Your father did not lie about that, at least. Now, my *terms*. {player set courier-tested}
+    terms,wage,pay,money,yes,courier if player courier-tested and not player courier-ruled: I pay a courier's wage: a few sous for each errand in Paris, more on the roads. And there is one rule, the only one. You never open a letter. Never: not mine, not anyone's, whatever you are offered and whoever asks. Will you *promise* me that? {player set courier-ruled}
+    promise,yes,swear,agree,=i will,=i promise if player courier-ruled and not player courier-hired: (He looks at you for a long moment.) Good. Then here is your first errand: a letter for Monsieur Elia *Diodati*, an advocate in the Parlement, at the Palais de la Cité, on the island. Into his own hands, and come back and tell me. {player add has:mersenne-to-diodati 1} {player set courier-hired} {player set knows:paris:diodati}
+    no,never,=i will not if player courier-ruled and not player courier-hired: (He frowns.) Then you are no use to me, and your father has walked here for nothing. Think about it. Will you *promise*?
+    courier,courrier if player me:age and not player courier-tested: Yes, yes: my new courier, if you will do. But first your *numbers*: a courier who cannot count is robbed at every post house.
+    courier,courrier if player me:age and not player courier-hired: My courier, if you will agree to my *terms*.
+    ? if player courier-testing and not player courier-tested: (He shakes his head, and counts on his fingers.) No. Two to Rome at eleven sous, three to Amsterdam at seven, and one to Toulouse at five. Take your time.
+    letter,post,descartes if player me:age and not player courier-hired: Letters, yes: that is the work. But first let us see whether you are the courier I need: your *numbers*, and then my *terms*.
+    diodati,letter,errand,courier,palais if player courier-hired and not player delivered-diodati: Monsieur Diodati, the advocate: at the Palais de la Cité, on the island, in the middle of the river. Into his own hands, mind, not his clerk's. {player set knows:paris:diodati}
+    diodati,letter,done,yes,delivered,errand,back if player delivered-diodati and not player courier-coat: He has it? And laughed, I suppose. (He counts four sous into your hand.) Your wage. And you cannot run about Paris in a farm smock: take this *coat*. It was my last courier's, who went to be a soldier. It is too good for the moths. {player add money 48} {player set courier-coat}
+    wage,wages,pay,paid if player courier-hired: A few sous for each errand in Paris, when it is done, and more on the roads. I am a poor friar, but I pay on the nail.
+    cannonball,cannon,ball,arsenal,friday if player delivered-diodati: (He rubs his hands.) Diodati laughed, I suppose. Fire a cannon straight up. If the Earth turns, as Copernicus says, it turns under the ball while the ball is in the air, and the ball comes down to the west of the gun; if it does not turn, the ball falls back into the gun's mouth, and on the gunner. Nobody has ever found the ball. One day I shall try it, and stand well back. {player set knows:paris:diodati}
+    coat if player courier-coat: It was my last courier's. He went to be a soldier, in Germany, and I pray for him.
+    # errand 3: paper, ink and quills; errand 4: supper and a bed at the Pomme de Pin, on his account. The stationery is
+    # handed over by a word or by giving any of it (so that "give paper" is never met with "Thank you, but keep it.")
+    hello if player courier-stationer and not player stationer-done: Back so soon? Did you find a *stationer*?
+    errand,work,courier,next,yes,more if player courier-coat and not player courier-stationer: One more thing before supper. I am out of paper, nearly out of ink, and my quills are worn to stumps. Here are twelve sous. A quire of paper, a pot of ink and four quills, from a *stationer*: Le Gras, by les Halles, at the sign of the Book, is honest. What is left over is yours, for your trouble. {player add money 144} {player set courier-stationer} {player set knows:paris:stationer}
+    paper,ink,quills,quill,stationer,done,errand,back,yes,give:paper,give:inkpot,give:quill if morning and player courier-stationer and not player stationer-done and player has:paper >= 1 and player has:inkpot >= 1 and player has:quill >= 4: (He sharpens a quill at once, dips it, and writes a line to try it.) Good. And the change is yours: if you were cheated, you were cheated of your own money, and that is the best lesson in buying there is. Now go and learn your way about Paris. This evening you will not walk back to La Chapelle in the dark: go to the *Pomme de Pin*, outside the Porte Saint-Denis, and tell Crenet I sent you. Supper and a bed, on my account, tonight. Tomorrow morning, come back to me. {player add has:paper -1} {player add has:inkpot -1} {player add has:quill -4} {player set stationer-done} {player set account:paris:crenet=Father_Mersenne} {player set knows:paris:crenet}
+    paper,ink,quills,quill,stationer,done,errand,back,yes,give:paper,give:inkpot,give:quill if afternoon and player courier-stationer and not player stationer-done and player has:paper >= 1 and player has:inkpot >= 1 and player has:quill >= 4: (He sharpens a quill at once, dips it, and writes a line to try it.) Good. And the change is yours: if you were cheated, you were cheated of your own money, and that is the best lesson in buying there is. Now go and learn your way about Paris. This evening you will not walk back to La Chapelle in the dark: go to the *Pomme de Pin*, outside the Porte Saint-Denis, and tell Crenet I sent you. Supper and a bed, on my account, tonight. Tomorrow morning, come back to me. {player add has:paper -1} {player add has:inkpot -1} {player add has:quill -4} {player set stationer-done} {player set account:paris:crenet=Father_Mersenne} {player set knows:paris:crenet}
+    paper,ink,quills,quill,stationer,done,errand,back,yes,give:paper,give:inkpot,give:quill if player courier-stationer and not player stationer-done and player has:paper >= 1 and player has:inkpot >= 1 and player has:quill >= 4: (He sharpens a quill at once, dips it, and writes a line to try it.) Good. And the change is yours: if you were cheated, you were cheated of your own money, and that is the best lesson in buying there is. Now it is late. You will not walk back to La Chapelle in the dark: go to the *Pomme de Pin*, outside the Porte Saint-Denis, and tell Crenet I sent you. Supper and a bed, on my account, tonight. Tomorrow morning, come back to me. {player add has:paper -1} {player add has:inkpot -1} {player add has:quill -4} {player set stationer-done} {player set account:paris:crenet=Father_Mersenne} {player set knows:paris:crenet}
+    paper,ink,quills,quill,stationer,done,errand,back,yes,give:paper,give:inkpot,give:quill if player courier-stationer and not player stationer-done: A quire of paper, a pot of ink and four quills, from a *stationer*: Le Gras, by les Halles, at the sign of the Book. {player set knows:paris:stationer}
+    pomme,inn,tavern,supper,bed if player stationer-done and not player slept-on-account: The Pomme de Pin, outside the Porte Saint-Denis. Tell Crenet I sent you; supper and a bed, on my account, tonight. {player set knows:paris:crenet}
+    hello if player slept-on-account and not player day2-home: Good morning! Slept well? Crenet tells me nothing, and charges me everything. {player set knows:paris:crenet}
+    # days two and three (errands 5-12), one errand at a time, each when the last is done
+    hello if player saw-coat-mother and not player courier-dutch: (He waves a letter at you.) The post from Holland is in at last! And your mother has seen you alive: two good things in one morning. (You tell him about the curé, and Saint Mark.) Saint Mark? God does not kill cows to punish carpentry. Cows die of the murrain, of bad water, of old age: ask a farrier, and leave Saint Mark to his lion. There is a man in Florence who says we must look at the world itself, and not only at the books about it. I write to him. Now: I have an *errand* for you.
+    hello if player grey-took and not player mersenne-knows: (He does not get up, and he does not smile.) Crenet sees everything that happens in his tavern, and Crenet is my friend. (A long silence.) I will not ask you how much he paid. You may carry my letters still, in Paris; the ones that matter I shall carry myself. Well. There is an *errand*. {player set mersenne-knows} {player set knows:paris:crenet}
+    hello if player gave-galileo-mersenne and not player ch1-commission: (He looks up, and his face falls.) What are you doing in Paris? I gave you to Galileo, not to the post road. Go back to him: he needs you more than I do.
+    hello if player courier-florence and not player gave-galileo-mersenne: Still in Paris? *Florence*, my friend: Galileo is not getting any younger, and neither am I.
+    hello if player courier-coat: Ah, $me. The coat suits you.
+    errand,work,courier,next,today,more if player slept-on-account and not player day2-home: Today I have nothing for you until the post comes in from Holland. Go home to La Chapelle and show your mother that you are alive and fed: she will have been watching the road since dawn. Then come back to me. {player set day2-home}
+    errand,work,courier,next,today,more,holland if player day2-home and not player saw-coat-mother: Not yet: the post from Holland is late. Go and see your mother first, at La Chapelle; then come back to me.
+    # errand 5: foreign coin, changed on the Pont au Change (the changer's {change}, three in the hundred: 1440 becomes 1397)
+    errand,work,courier,next,today,more,holland if player saw-coat-mother and not player courier-dutch: A bookseller of Amsterdam owes me for my books, and here it is at last: six livres, in guilders and stuivers, which no shop in Paris will take at their worth. Take them to the changers on the *Pont au Change*, the bridge from the Grand Châtelet to the island, and bring me French money. The changers set out their tables on the bridge at nine. The changer keeps three in the hundred; that is honest, and do not let him keep more. {player add money 1440} {player add coin:dutch 1440} {player set courier-dutch}
+    change,changed,changer,money,coin,coins,guilders,dutch,french,done,back,errand,work,courier,next,today,more if player courier-dutch and not player dutch-done and not player coin:dutch and player money >= 1397: (He counts it out on the table, twice.) Five livres, sixteen sous and five deniers: the changer kept his three in the hundred, and not a denier more. (He pushes two sous back across the table.) Those are yours. A courier must know what money is worth in every town he passes through, or he is robbed in all of them. {player add money -1397} {player add money 24} {player set dutch-done}
+    change,changed,changer,money,coin,coins,guilders,dutch,french,done,back,errand,work,courier,next,today,more if player courier-dutch and not player dutch-done and not player coin:dutch: (He counts it, and frowns.) This is short. Five livres, sixteen sous and five deniers, my friend: the changer keeps three in the hundred, and you may keep none. Bring me the rest when you have it.
+    change,changed,changer,money,coin,coins,guilders,dutch,french,pont,bridge,done,back,errand,work,courier,next,today,more if player courier-dutch and not player dutch-done: Still in guilders? The changers sit on the *Pont au Change*, the bridge between the Grand Châtelet and the island. Nobody else in Paris will give you their worth.
+    # errand 6: the beadle's parchment, from the Lendit at Saint-Denis (paris:beadle, saint_denis.txt)
+    errand,work,courier,next,today,more if player dutch-done and not player courier-lendit and player gave-parchment: Bedeau tells me you have been to the Lendit for him already: then you know the road to Saint-Denis. So: the *post*. This packet is for my friends in the south, Peiresc at Aix and Gassendi at Digne, and on to Rome. Any inn on a post road is a post house: take it to Crenet, at the Pomme de Pin. Whoever receives it pays the postage, as always, so it costs me nothing and costs Peiresc a fortune, and he never complains. {player set courier-lendit} {player set lendit-done} {player add has:mersenne-packet 1} {player set courier-packet} {player set knows:paris:beadle} {player set knows:paris:crenet}
+    errand,work,courier,next,today,more if player dutch-done and not player courier-lendit: Now a favour for a friend. Old Bedeau, the University's beadle, has the gout, and the University must have its parchment from the *Lendit* fair at Saint-Denis, as it has every June since Saint Louis. I told him my courier would go. Ask him at the Sorbonne what he wants. Saint-Denis is on your own road, a little beyond La Chapelle. {player set courier-lendit} {player set knows:paris:beadle}
+    lendit,fair,parchment,bedeau,beadle,saint-denis,done,back,errand,work,courier,next,today,more if player courier-lendit and not player lendit-done and player gave-parchment: Bedeau has his parchment, and you have seen the Lendit! It was the greatest fair in France once: now it is sheep and parchment and pickpockets, and when the University goes in procession it ends in a fight. (He counts three sous into your hand.) And now the *post*. {player add money 36} {player set lendit-done} {player set knows:paris:beadle}
+    lendit,fair,parchment,bedeau,beadle,saint-denis,done,back,errand,work,courier,next,today,more if player courier-lendit and not player lendit-done: The *Lendit*, at Saint-Denis, for Bedeau the beadle. Ask him at the Sorbonne what he wants. {player set knows:paris:beadle}
+    # errand 8: a packet by the post (Crenet, the innkeeper's {postjob} and {hire})
+    errand,work,courier,next,today,more,post if player lendit-done and not player courier-packet: Now the *post*. This packet is for my friends in the south, Peiresc at Aix and Gassendi at Digne, and on to Rome. Any inn on a post road is a post house: take it to Crenet, at the Pomme de Pin. Whoever receives it pays the postage, as always, so it costs me nothing and costs Peiresc a fortune, and he never complains. {player add has:mersenne-packet 1} {player set courier-packet} {player set knows:paris:crenet}
+    post,packet,crenet,pomme,done,back,errand,work,courier,next,today,more if player courier-packet and not player packet-done and player posted-packet: Crenet has it? Then it is in God's hands, and the King's: in Rome in three weeks, if the Alps are kind. (He counts three sous into your hand.) And now you know where to find work when I have none: Crenet always has a *packet* for somebody, going somewhere. {player add money 36} {player set packet-done} {player set knows:paris:crenet}
+    post,packet,crenet,pomme,done,back,errand,work,courier,next,today,more if player courier-packet and not player packet-done: The packet, to Crenet at the Pomme de Pin, outside the Porte Saint-Denis. {player set knows:paris:crenet}
+    # errand 9: three letters for the post, and the gentleman in grey at the Pomme de Pin (paris:grey)
+    errand,work,courier,next,today,more if player packet-done and not player courier-letters: Three letters today, for the post: to Pastor Rivet at Leiden, to Gassendi at Digne, and to a Capuchin in Rome who thinks the Earth is hollow. Take them to Crenet, as before. {player add has:mersenne-letters 1} {player set courier-letters} {player set knows:paris:crenet}
+    letters,post,crenet,pomme,done,back,errand,work,courier,next,today,more,grey,gentleman,cardinal if player courier-letters and not player letters-done and player posted-letters and player grey-refused: (You tell him about the gentleman in grey, and the livre on the table.) (He is quiet for a while.) Clean hands, and a quiet voice. Yes. The Cardinal has men at the post who open letters, and now he sends one to a poor friar's courier. And you said no, with a livre in front of your nose. (He takes your hand in both of his.) Then you are my courier for good, and my friend. Never be afraid to tell me such things. (Three sous.) {player add money 36} {player set letters-done} {player set mersenne-friend}
+    letters,post,crenet,pomme,done,back,errand,work,courier,next,today,more if player courier-letters and not player letters-done and player posted-letters and player grey-took: (He does not ask whether they went safely.) Three sous. {player add money 36} {player set letters-done}
+    letters,post,crenet,pomme,done,back,errand,work,courier,next,today,more if player courier-letters and not player letters-done and player posted-letters: Crenet has them? Good. (Three sous.) {player add money 36} {player set letters-done} {player set knows:paris:crenet}
+    letters,post,crenet,pomme,done,back,errand,work,courier,next,today,more if player courier-letters and not player letters-done: The three letters, to Crenet at the Pomme de Pin. {player set knows:paris:crenet}
+    grey,gentleman,cardinal,richelieu,spy if player grey-refused: The gentleman in grey. You did well; I shall not forget it.
+    grey,gentleman,cardinal,richelieu,spy if player grey-took: (Coldly.) I know about the gentleman in grey. Do not make me speak of it.
+    grey,gentleman,cardinal,richelieu,spy: The Cardinal? He has men everywhere, and some of them are at the post. That is why my letters go sealed, and by a courier who does not open them.
+    # errand 10: the letter lost at les Halles (paris:sergeant, by the pillory)
+    errand,work,courier,next,today,more if player letters-done and not player courier-thief: Something less pleasant. Brother Jean, our lay brother, went to *les Halles* this morning for fish, and had his purse cut at the fish stalls, with my letter to Monsieur Peiresc in it. The watch ran the thief down at once; but Brother Jean came home without the letter, and without the fish. The *sergeant* of the watch at les Halles has the purse: ask him for my letter. {player set courier-thief}
+    give:peiresc-letter: (He wipes it on his sleeve, and sniffs it, and laughs in spite of himself.) Peiresc will think I have taken up fishing. And the thief? (You tell him about the pillory.) Nineteen. God have mercy on him, since the Châtelet will not. (Three sous.) {take} {player add money 36} {player set thief-done}
+    letter,peiresc,thief,halles,sergeant,purse,done,back,errand,work,courier,next,today,more if player courier-thief and not player thief-done: My letter to Peiresc, from the *sergeant* of the watch at les Halles: he has the purse.
+    # errand 12: a book and a picture (read-physics: the Physics at the Sorbonne, books/physics.txt; saw:the-may: Notre-Dame)
+    errand,work,courier,next,today,more if player thief-done and not player courier-reading: Two things for my correspondents, and both are a kind of reading. A friend in Rome asks what the students of Paris are taught about motion: go to the library of the Sorbonne, and read what Aristotle says in the seventh book of his *Physics*, and read the margins, which are always better. And Peiresc wants to know what the goldsmiths' *May* shows this year, the great painting they gave to Notre-Dame: go and look at it, and tell me. If you have no Latin, Martin Lebrun at the Sorbonne teaches it to anyone for five sous, and they are the best five sous you will ever spend. {player set courier-reading} {player set knows:paris:martin}
+    physics,aristotle,book,margin,may,painting,picture,done,back,errand,work,courier,next,today,more if player courier-reading and not player reading-done and player read-physics and player saw:the-may: (You tell him about the arrow, and "the air, you fool", and the May.) Ha! The air, you fool! There is the University of Paris in five words. The air pushes the arrow along, says Aristotle, and holds it back too: he had to have it both ways, poor man. Galileo says nothing pushes it: it goes on by itself until something stops it. (He writes it all down.) And a scene from the Acts of the Apostles: Peiresc will want to know which, and I shall tell him to come and see. Four sous. {player add money 48} {player set reading-done}
+    physics,aristotle,book,margin,may,painting,picture,done,back,errand,work,courier,next,today,more if player courier-reading and not player reading-done and player read-physics: The book, yes, and its margin. And the *May*, at Notre-Dame?
+    physics,aristotle,book,margin,may,painting,picture,done,back,errand,work,courier,next,today,more if player courier-reading and not player reading-done and player saw:the-may: The May, yes. And the book: the seventh book of the *Physics*, in the Sorbonne's library, and its margins?
+    physics,aristotle,book,margin,may,painting,picture,done,back,errand,work,courier,next,today,more if player courier-reading and not player reading-done: The seventh book of Aristotle's *Physics*, in the Sorbonne's library, and its margins; and the goldsmiths' *May*, at Notre-Dame.
+    latin,lesson if player courier-reading and not player skill:latin: Martin Lebrun, at the Sorbonne: five sous, and an afternoon. {player set knows:paris:martin}
+    # errand 12a, the censor: his Questions, for Doctor Grosbois's approbation
+    errand,work,courier,next,today,more if player reading-done and not player courier-censor: (He lifts a thick bundle of paper from his table, tied with tape.) My book of Questions: theological, physical, moral and mathematical, and two years' work. No printer in Paris will touch a book of religion until two doctors of the Sorbonne have written their approbation in it, and this one must go to Doctor *Grosbois* first. Take it to him at the Sorbonne, and wait while he reads. He likes to be waited for. {player add has:questions-ms 1} {player set courier-censor} {player set knows:paris:grosbois}
+    give:questions-struck: (He turns the pages slowly, one by one.) So. In Paris one may print that the Earth moves, provided one says that it does not. (He laughs, not happily.) I shall write it twice: this for Paris, and something milder for Rome. (He looks at the window.) And Galileo printed his book in Florence, with the licence of the Pope's own censor. If they strike a friar's questions in red ink, what will they do to the man who answered them? (He counts four sous into your hand, and takes a letter from his sleeve; his hand is not quite steady.) This came this morning, from Diodati. Sit down. I have one more *errand* for you, and it is the last. {take} {player add money 48} {player set censor-done} {player set knows:paris:diodati}
+    questions,book,manuscript,grosbois,doctor,sorbonne,approbation,red,ink,done,back,errand,work,courier,next,today,more if player censor-struck and not player censor-done and player has:questions-struck >= 1: (He turns the pages slowly, one by one.) So. In Paris one may print that the Earth moves, provided one says that it does not. (He laughs, not happily.) I shall write it twice: this for Paris, and something milder for Rome. (He looks at the window.) And Galileo printed his book in Florence, with the licence of the Pope's own censor. If they strike a friar's questions in red ink, what will they do to the man who answered them? (He counts four sous into your hand, and takes a letter from his sleeve; his hand is not quite steady.) This came this morning, from Diodati. Sit down. I have one more *errand* for you, and it is the last. {player add has:questions-struck -1} {player add money 48} {player set censor-done} {player set knows:paris:diodati}
+    questions,book,manuscript,grosbois,doctor,sorbonne,approbation,errand,work,courier,next,today,more if player courier-censor and not player censor-struck: My Questions, to Doctor Grosbois at the Sorbonne. Into his hands, and wait while he reads. {player set knows:paris:grosbois}
+    grosbois,doctor,censor,approbation if player censor-done: Doctor Grosbois is not a wicked man. He is a frightened one, which in a censor comes to the same thing. {player set knows:paris:grosbois}
+    # errand 13, the news: to Florence, with a letter for Galileo, money for two copies at Landini's and for the road
+    errand,work,courier,next,today,more,news,galileo,dialogue,florence if player censor-done and not player courier-florence and player grey-took: (He has a letter in his hand.) News, from Diodati, who has it from Florence: Galileo's *Dialogue* is printed, these four months, and not one copy has crossed the Alps: the plague, the quarantines, and the booksellers afraid of Rome. (He looks at you for a long time.) I would rather send somebody else, after the gentleman in grey; but there is nobody else, and I am too old for the Alps. (He shuts the door of his cell, and lowers his voice.) This is not an errand like the others. Sixteen years ago the Church said that the Earth's motion may be taught only as a supposition; you have seen this week what our doctors do to a mere question. Galileo has printed it as the truth, in Italian, for any shopkeeper to read, and Rome will not let that pass. He is sixty-eight, and his friends in Italy are watched. He will need someone nobody knows, who can carry things quietly and keep a rule. Keep mine for him, if you would not keep it for me. You shall go to *Florence*. Here is my letter for Galileo, at Arcetri, outside the walls: into his own hands, and nobody else's. Then stay with him, and do whatever he asks of you, as if I had asked it. Three livres for two copies of his book, from Landini the printer, one for me and one for Diodati; but do not bring them yet. Wait until he sends you north, and you can bring us our books then. And ten livres for the road: Crenet will put you on the post, or you can walk it and keep the rest. From the day he reads my letter, you are his courier, not mine. {player add has:mersenne-to-galileo 1} {player add money 3120} {player set courier-florence=now} {player set heard-dialogue} {player set heard-mersenne-wants} {player set knows:arcetri:galileo} {player set knows:florence:landini} {player set knows:paris:diodati} {player set knows:rome:galileo}
+    errand,work,courier,next,today,more,news,galileo,dialogue,florence if player censor-done and not player courier-florence: (He has a letter in his hand, and he is pale with excitement.) News, from Diodati, who has it from Florence: Galileo's *Dialogue* is printed, these four months, and not one copy has crossed the Alps: the plague, the quarantines, and the booksellers afraid of Rome. (He gets up, and shuts the door of his cell, and lowers his voice.) Listen to me, $me. This is not an errand like the others. Sixteen years ago the Church said that the Earth's motion may be taught only as a supposition; you have seen this week what our doctors do to a mere question. Galileo has printed it as the truth, in Italian, for any shopkeeper to read, and Rome will not let that pass. He is sixty-eight, and his friends in Italy are watched. He will need someone nobody knows, who can carry things quietly and keep a rule. You shall go to *Florence*. Here is my letter for Galileo, at Arcetri, outside the walls: into his own hands. Then stay with him, and do whatever he asks of you, as if I had asked it. Here are three livres for two copies of his book, from Landini the printer, one for me and one for Diodati; but do not bring them yet. Wait until he sends you north, and you can bring us our books then. And ten livres for the road: Crenet will put you on the post, or you can walk it and keep the rest. From the day he reads my letter, you are his courier, not mine. God go with you. {player add has:mersenne-to-galileo 1} {player add money 3120} {player set courier-florence=now} {player set heard-dialogue} {player set heard-mersenne-wants} {player set knows:arcetri:galileo} {player set knows:florence:landini} {player set knows:paris:diodati} {player set knows:rome:galileo}
+    errand,work,courier,next,today,more,florence,galileo,landini,road if player courier-florence and not player gave-galileo-mersenne: My letter to Galileo, at Arcetri, by Florence, into his own hands; and then whatever he asks of you. South by the post road.
+    errand,work,courier,next,today,more,florence,galileo,landini if player gave-galileo-mersenne and not player ch1-commission: He has my letter? God be thanked. Then I have no errand for you: you are his now. Go back to Arcetri, and do what he asks.
+    # (answered in the person's own words rather than with "I know nothing about that")
+    packet,packets if player packet-done: Crenet's packets? Merchants' letters, monks' parcels, a lawyer's papers: the Pomme de Pin is where the south road begins. He pays a courier who is quick and honest, and he will pay you.
+    florence if not player ch2-open: Florence? The Grand Duke's city, and Galileo's: he lives outside it now, at Arcetri, to be near his daughter's convent. Everything I hear of him comes to me through Monsieur Diodati, who writes to him.
+    errand,work,courier,next,today,more if player stationer-done and not player slept-on-account: Nothing more today. Supper and a bed at the Pomme de Pin tonight, outside the Porte Saint-Denis, on my account: tell Crenet I sent you, and take the bed he gives you. In the morning, come back to me. {player set knows:paris:crenet}
+    errand,work,courier,next if player courier-coat and not player carried-mersenne-letter: Not now: I have a great deal of writing to do. Go and learn your way about Paris; you will need it.
+    courier if player courier-coat: You are my courier: you carry my letters, and nobody reads them, and nobody knows what is in them, not even you.
+    give:dialogue if has:dialogue >= 1: I have one already, God be thanked. Give it to someone who has none: there are a great many of them in France.
+    letter,post,descartes if player descartes-trusts and not player has:descartes-letter and not player postman: You found him! Then he trusts you. Has he sent me an answer? Bring it, when you have it.
+    # his letters to Descartes: once the prologue's errands are done (or in a game begun before it)
+    letter,letters,post,descartes,holland if player me:age and not player courier-florence: Letters are the work, my friend, and you shall carry plenty of them. Ask me for an *errand*: one thing at a time.
+    letter,post if not player carried-mersenne-letter: A letter? I write a hundred a month. If you are going to Holland, would you carry one to Monsieur *Descartes*, in Amsterdam? He trusts nobody with his address. Here; it is sealed. {player add has:mersenne-letter 1} {player set carried-mersenne-letter} {player set knows:amsterdam:descartes}
+    give:descartes-letter: From Descartes! (He breaks the seal and unfolds a drawing: the rainbow, ray by ray, through drops of water.) He has worked out the rainbow, the rogue, and he will not publish it until the world is ready, which is to say never. Thank you, my friend. Here, for your trouble, and keep his secret. {take} {player add money 240} {player set postman} {player set knows:amsterdam:descartes}
+    descartes if not player carried-mersenne-letter: Monsieur Descartes lives in Holland, where no one disturbs him. If you go there, ask me for a *letter*: I always have one for him. {player set knows:amsterdam:descartes}
+    give:fish: (His face lights up.) A fish! We Minims keep Lent the whole year round, by our rule: no meat, no eggs, no butter, ever. Brother Cook will bless your name. (He presses two sous into your hand.) {take} {player add money 24} {player add fish-given 1}
+    fish,fasting,lent,meat,rule,minims,eat,diet: We Minims keep a perpetual Lent: our founder, Saint Francis of Paola, would have no meat, no eggs and no milk at our tables, ever. So the fishwives of les Halles love us, and so would you, if you brought us a fish.
+    name: Father Marin Mersenne, of the Minims. {name}
+    job: I am a friar of the Minims, and I write letters: to Monsieur *Descartes* in Holland, to Gassendi, to *Fermat* in Toulouse, to anyone who thinks. {player set knows:amsterdam:descartes}
+    give:dialogue if player courier-florence and not player ch1-commission: (He takes it as if it were made of glass.) God bless you. But I said, when he sends you north! Go back to him, today: I did not send you to Florence to be my bookseller. {take} {set has-dialogue} {player set gave-mersenne-dialogue}
+    give:dialogue: The Dialogue! From Florence! My friend, you have no idea... I shall read it tonight, and write to Descartes in the morning. {take} {set has-dialogue} {player set gave-mersenne-dialogue} {player set knows:amsterdam:descartes}
+    galileo,dialogue if from-martin: Martin brought me the Dialogue from London, the good fellow. I have read it twice. Salviati is Galileo, of course, and Sagredo his friend; and Simplicio... is not a kind portrait. Someone in Rome will think it is of him.
+    galileo,dialogue if has-dialogue: I have read it twice, thanks to you. Salviati is Galileo, and Simplicio... is not a kind portrait. Someone in Rome will think it is of him.
+    galileo if player heard-dialogue: So the *Dialogue* is printed! Martin at the Sorbonne told you? I would give a great deal for a copy. {player set heard-mersenne-wants}
+    galileo: Galileo! I have read everything of his I can find. They say he has a great new book this year; if you hear of it, tell me.
+    descartes: Monsieur Descartes lives in Holland, where no one disturbs him. He is writing a book on the whole world, he tells me. He will not like this news from Italy. {player set knows:amsterdam:descartes}
+    fermat: A councillor of the Parlement of Toulouse, and the cleverest man in France at numbers, though he never publishes anything.
+    music: I am writing a book on music, too. Everything is number, even harmony.
+  end
+end
+
+person fermat
+  name Pierre Fermat
+  known A magistrate from Toulouse, here about some lawsuit. Polite and quiet, and always scribbling sums in the margins of his books.
+  role mathematician
+  near Louvre
+  schedule
+    7:00 home
+    9:00 wander
+    12:00 go inn
+    14:00 wander
+    18:00 home
+    22:00 sleep
+  talk
+    give:diophantus: You have read my note? (He smiles.) The proof is quite short. I shall write it out properly one day, when I have a wider margin. {take} {player set returned-diophantus}
+    proof,theorem,margin if player read-margin: (He taps his forehead.) It is all in here. I shall write it down one day, and then you will see. It is quite marvellous.
+    note,margin,remarkable,discovery,diophantus if not player borrowed-diophantus: My Diophantus, Bachet's edition. I write in its margins; there is no paper so convenient. Here, borrow it, but give it back: I have no other. {player add has:diophantus 1} {player set borrowed-diophantus}
+    note,margin,remarkable,discovery,diophantus: You have it. The note is at the second book, the eighth question. Read it, and give it back.
+    name: Pierre Fermat. {name}
+    job: I am a councillor of the Parlement of Toulouse, in Paris on business. Numbers are my pleasure.
+    math: I have made a remarkable discovery. I made a *note* about it in one of my books.
+    read: I read many books.
+    book: I hear there is a new book by an Italian called Galileo.
+    galileo: Never met him myself, but I believe he is in Venice.
+  end
+end
+
+person richelieu
+  name Cardinal Richelieu
+  known His Eminence. Say nothing against him in the street: he hears everything. They say he sleeps four hours a night and governs the other twenty.
+  title a cardinal
+  role cardinal
+  near Luxembourg
+  work landmark Luxembourg
+  schedule
+    7:00 home
+    8:00 work
+    13:00 eat
+    14:00 work
+    20:00 home
+    23:00 sleep
+  talk
+    galileo,rome,trial,ambassador if player ch3-open and not player ch3-over and not player richelieu-wrote: (He does not look up from his letter.) The Florentine philosopher? The Pope is frightened of Spain, and so he is cruel to Florentines. I will tell my ambassador to say that France would think kindly of mercy. It costs me nothing, and it annoys Madrid. {player set richelieu-wrote} {player add favour 1}
+    hello: Who are you again?
+    name: Cardinal Richelieu, but you may call me "*eminence*". {name}
+    eminence: Yes?
+    job: "Advisor" to the King.
+    cathedral: Not as nice as the palace at Versailles, alas.
+    god: As there is one God in heaven, we must have one church on earth.
+    religion: These Huguenots must be dealt with.
+    galileo: You could ask one of the scholars.
+    pope: Urban? A complicated man.
+    complicated: He has some naive views about politics.
+    inquisition: If you give me six lines written by the hand of the most honest of men, I will find something in them which will hang him. {bye}
+    bye: So you say.
+  end
+end
+
+person francis
+  name Brother Francis
+  known A good old monk of Saint-Germain-des-Prés. He gives bread at the abbey gate and never asks your business.
+  role monk
+  near Saint-Germain-des-Prés
+  work landmark Saint-Germain-des
+  talk
+    name: Brother Francis. {name}
+  end
+end
+
+person pierre
+  name Pierre Boulanger
+  known The best bread in les Halles, and the worst temper before sunrise. After noon he is a lamb.
+  role cook
+  near les Halles
+  talk
+    name: Pierre. Pierre Boulanger, and a baker, as you see: the name came first. {name}
+  end
+end
+
+person thierry
+  name Thierry Raisin
+  known He tastes his own wine rather too often, and tells the same joke about his name.
+  title a wine merchant
+  role merchant
+  look coat #5A1E2E legs #2E1E22 hat hat #2A1018
+  near Hôtel de Ville
+  says hic!
+  sells bottle 10
+  talk
+    name: Thierry Raisin. A good name for my trade! {name}
+    job: I sell wine. Burgundy, Champagne, and the thin stuff from the hills round Paris.
+    wine: In vino veritas.
+  end
+end
+
+person crenet
+  name Robert Crenet
+  known He keeps the Pomme de Pin, outside the Porte Saint-Denis. The poets drink there, and pay him in verses, which he does not like.
+  role innkeeper
+  near Pomme de Pin
+  talk
+    # the courier's first night (errand 4): supper and a bed on Mersenne's account
+    hello if player account:paris:crenet and not player supper-on-account: (A big man in an apron looks you up and down.) A yellow hat. You will be Father Mersenne's new courier: he sent word you might come. Sit down; there is soup.
+    supper,soup,eat,food,mersenne,account,courier,sent if player account:paris:crenet and not player supper-on-account: (He sets before you a bowl of soup, a heel of bread and a cup of his worst wine.) On the good Father's account. Eat while it is hot. When you want your bed, say so. {player add has:soup 1} {player add has:loaf 1} {player set supper-on-account}
+    # (answered in the person's own words rather than with "I know nothing about that")
+    supper,soup,eat,food,hungry if player supper-on-account: The Father pays for one supper, not for a courier's whole life. Bread and cheese and wine I sell to anyone, Father's courier or not.
+    take,yes if recent:0.05 offered-bed and player account:paris:crenet: (You climb to a bed under the roof, the second on the left.) {sleep}
+    bed,room,sleep,night,rest if player account:paris:crenet and evening: Your bed is paid for tonight, by the Father: under the roof, the second on the left. Will you *take* it? {set offered-bed=now}
+    bed,room,sleep,night,rest if player account:paris:crenet and night: Your bed is paid for tonight, by the Father: under the roof, the second on the left. Will you *take* it? {set offered-bed=now}
+    bed,room,sleep,night,rest if player account:paris:crenet: The Father pays for a night's bed, not a nap. Come back this evening, and it is yours.
+    # Mersenne's errand to Florence: "Crenet will put you on the post": the post, or Florence, is the ride
+    # (not once the fare is quoted, or the "ride" that takes it brings this line back)
+    post,ride,florence,south,italy if player courier-florence and not player gave-galileo-mersenne and not player been:florence and not recent:0.05 offered-ride-at: (He nods.) The Father told me you would come. South, to *Florence*: the post goes from my door. Name the town, and I will tell you the fare. {set offered-ride=now} {unset offered-ride-at} {unset offered-bed} {unset offered-post} {unset offered-own} {unset offered-horse} {unset offered-escort}
+    # the courier's second and third days: Mersenne's packet and letters go by the post from here
+    # Mersenne's packet in hand: any word of it, of the post or of the south, and he asks for it; "yes" gives it (as de
+    # Noailles does the manuscript); the words include post, south, Peiresc and Aix
+    packet,post,mersenne,father,south,peiresc,aix,gassendi,digne,rome,letters,minims if player has:mersenne-packet >= 1 and not player posted-packet: (He looks at the packet in your hand, and holds out his own.) Is that the Father's, for the south? Will you *give* it here? It goes with the ordinary on Thursday. {set offered-packet=now}
+    yes,give,here,take,=i do,=here it is if recent:0.05 offered-packet and player has:mersenne-packet >= 1: (He weighs it in his hand, and reads the addresses.) Aix, Digne, Rome. It goes south with the ordinary on Thursday, in the mail bag, and Rome pays for it, God help them. (He drops it into a sack behind the counter.) And you are a courier now. When the Father has nothing for you, I always have a *packet* for somebody: carry it to the next post house on its road, and the innkeeper there pays you. And if you are in a hurry, I hire *horses*. {player add has:mersenne-packet -1} {add has:mersenne-packet 1} {player set posted-packet} {unset offered-packet}
+    no,keep,=not yet if recent:0.05 offered-packet: (He shrugs.) As you like. The ordinary goes on Thursday, with it or without it. {unset offered-packet}
+    give:mersenne-packet: (He weighs it in his hand, and reads the addresses.) Aix, Digne, Rome. It goes south with the ordinary on Thursday, in the mail bag, and Rome pays for it, God help them. (He drops it into a sack behind the counter.) And you are a courier now. When the Father has nothing for you, I always have a *packet* for somebody: carry it to the next post house on its road, and the innkeeper there pays you. And if you are in a hurry, I hire *horses*. {take} {player set posted-packet}
+    give:mersenne-letters if player grey-took: (He turns them over, and runs a thumb along one of the seals: it has been lifted with a warm knife, and set down again.) Hm. (He looks at the bench by the door, and at you, and drops them into the sack without a word.) {take} {player set posted-letters}
+    give:mersenne-letters if not player grey-asked: (He drops them into the sack for the south.) Your master writes more letters than the Cardinal. (Lower.) And there is a gentleman in grey on the bench by the door, who has been asking for Father Mersenne's courier since the morning. He pays in new silver. I would not drink with him. {take} {player set posted-letters}
+    give:mersenne-letters: (He drops them into the sack for the south.) Your master writes more letters than the Cardinal. {take} {player set posted-letters}
+    # chapter I: a far packet for Stockholm, said aloud the first time you ask for the post
+    letters,letter,packet,courier,errand,work,stockholm,sweden,north if player ch1-commission and not player ch2-open and not player heard-degeer-packet: (He pulls a fat packet from under the counter, and blows the dust off it.) There is this one, that nobody will carry: for Monsieur Louis De Geer, the copper merchant, on the quay at Stockholm. By the post to Danzig, and over the sea by the Swedish post ship. Six livres at the other end, his factor writes, and the factor is good for it. Will you *carry* it? {player set heard-degeer-packet} {set offered-degeer=now}
+    carry,take,yes,deal,=i will if recent:0.05 offered-degeer: (He puts it in your hands.) De Geer, on the quay at Stockholm, into his own hands. God send you a west wind. {player add has:degeer-packet 1} {player set degeer-packet-taken} {unset offered-degeer}
+    no,=not now,=not yet if recent:0.05 offered-degeer: (He puts it back under the counter.) It has waited a month; it can wait. {unset offered-degeer}
+    stockholm,sweden,north,de geer,degeer if player heard-degeer-packet and not player degeer-packet-taken and not player ch2-open: The packet for De Geer, at Stockholm? Still under my counter, and still six livres at the other end. Will you *carry* it? {set offered-degeer=now}
+    grey,gentleman,cardinal if player courier-letters: The one on the bench by the door? He drinks one cup all day, and watches who brings letters. I keep the post; I do not choose who drinks in my tavern.
+    name: Robert Crenet, master of the Pomme de Pin. {name}
+    lydia,music if player helped-lydia: Lydia plays here in the evenings now, with a new string. Good for trade!
+    lydia,music,lute: Lydia Morel played here of an evening, the best lute in Paris, until she broke a string. There is not a good string to be had in Paris, she says, and she will not play on a bad one.
+  end
+end
+
+person curate
+  name Father Antoine
+  known A hard man. He preaches against cards, the theatre and the new philosophy, all three in one sermon, and he knows who was not at Mass.
+  role priest
+  near Notre-Dame
+  work landmark Notre-Dame
+  talk
+    name: Father Antoine, canon of Notre-Dame. {name}
+    notre-dame,cathedral: Four hundred years in the building, and still not finished. Every May the goldsmiths give us a great painting.
+    # (answered in the person's own words rather than with "I know nothing about that")
+    may,mays,painting,picture,goldsmiths,goldsmith: Every first of May the goldsmiths' confraternity gives Our Lady a great picture of the Acts of the Apostles, as they have these three years. Go in and look: it is the size of a barn door, and the goldsmiths' wives come to see which of them the painter has put in it.
+  end
+end
+
+person beadle
+  name Jacques Bedeau
+  known The University's old beadle. He complains of his gout, of the students and of the price of parchment, in that order.
+  title the beadle of the University
+  role scholar
+  near Sorbonne
+  work landmark Sorbonne
+  talk
+    hello if player gave-parchment: Ah, my friend of the parchment! The Rector has written three letters on it already, all of them complaining.
+    hello if player courier-lendit and not player heard-beadle: (An old man sits with one foot on a stool, wrapped in flannel.) You are Father Mersenne's courier? He said you would come. Do not tread on my foot. It is about the *Lendit*.
+    name: Jacques Bedeau, beadle of the University of Paris these thirty years. {name}
+    job: I carry the mace before the Rector, and I keep the keys, and I buy the parchment. Every June the University buys its parchment at the *Lendit* fair at Saint-Denis; it has done so since Saint Louis.
+    lendit,fair,parchment if not player heard-beadle: The Lendit fair, at Saint-Denis, in June. In my youth the whole University went in procession, and the students fought the shopkeepers. This year I have the gout. Would you go for me? Three skins of parchment, from the parchment-maker by the market. (He counts ten sous into your hand.) For the skins: they are three sous each, and he will ask four. Bring them, and I will pay you the rest, and well. {player set heard-beadle} {player add money 120}
+    lendit,fair,parchment if not player gave-parchment: Three skins of parchment, from the Lendit at Saint-Denis. The parchment-maker is by the market there.
+    give:parchment if player has:parchment >= 3: (He counts them, holds each to the light, and sniffs it.) Good parchment, from good calves. Here is the rest of your money, and a little more for the walk. {player add has:parchment -2} {take} {player add money 60} {player set gave-parchment}
+    give:parchment: One skin? I said three. The Rector writes a great deal.
+    gout: My great toe is on fire, sir. Do not tread on it.
+  end
+end
+
+# The censor: an invented doctor of the
+# Faculty of Theology, who approves books for printing. Father Mersenne's Questions come back from him
+# struck in red (questions-ms, then questions-struck; flags courier-censor, censor-struck, censor-done).
+person grosbois
+  name Doctor Claude Grosbois
+  known A doctor of the Faculty of Theology, who reads every book the Faculty is asked to approve, with a pen in his hand. The booksellers cross the street when they see him coming.
+  title a doctor of the Sorbonne
+  role scholar
+  near Sorbonne
+  work landmark Sorbonne
+  schedule
+    6:00 go church
+    7:00 work if player courier-censor and not player censor-done
+    8:00 work
+    12:00 eat
+    13:00 work
+    18:00 home
+    21:00 sleep
+  talk
+    hello if player has:questions-ms and not player censor-struck: (A doctor in a square cap finishes his page before he looks up.) Father Mersenne's courier, by the coat. He has sent me his *Questions* at last? Give them here, and wait.
+    hello if not met: (A doctor in a square cap finishes his page before he looks up.) Yes?
+    give:questions-ms: (He unties the tape, and reads with a pen in his hand, and the pen moves often.) Here the good Father asks whether the Earth may turn: struck. The Church answered that in the year sixteen. Here he praises a Florentine who has seen spots on the Sun: struck. The heavens are incorruptible: Aristotle says so, and the Fathers, and the Faculty. Here he asks whether there may be other worlds: struck, and he knows better. (He sands the pages and hands them back to you, bleeding red ink.) The rest is sound. Tell him he may print it, with the King's privilege, when it is clean. {take} {player add has:questions-struck 1} {player set censor-struck}
+    questions,book,manuscript,mersenne,approbation if player has:questions-ms and not player censor-struck: Father Mersenne's book? Then give it to me, and wait while I read.
+    questions,book,manuscript,mersenne,approbation if player censor-struck: I have written in it what may stand and what may not. Tell the good Father that the rest is sound.
+    earth,copernicus,motion,moves,galileo,sun,heavens: The Earth stands still. Scripture says so, Aristotle says so, and the Congregation of the Index said so in the year sixteen. A question that has been answered is not a question.
+    aristotle,philosopher: The Philosopher. The Faculty has taught him for four hundred years, and has not yet found a reason to stop.
+    approbation,censor,censure,print,printed,printing,printer: A book is a sermon that never stops preaching. Before it preaches, somebody must listen to it, and that is me. No book of religion is printed in Paris without two of us, and the King's privilege.
+    name: Claude Grosbois, doctor of the Faculty of Theology of Paris. {name}
+    job: I read the books that ask for the Faculty's approbation, and I approve what may be approved.
+  end
+end
+
+# the courier's second and third days: the changer of the Pont au Change,
+# the Cardinal's man at the Pomme de Pin, and the sergeant of the watch at les Halles
+
+person changer
+  name Simon Lhuillier
+  known A money-changer of the Pont au Change, where the changers have had their tables since Saint Louis. He weighs every coin twice and trusts none of them.
+  title a money-changer
+  role changer
+  work bridge Grand Châtelet
+  talk
+    name: Simon Lhuillier, changer, of the Pont au Change. {name}
+    guilders,dutch,mersenne,minims if player courier-dutch and not player dutch-done: Guilders, for the Minim father? His booksellers in Holland pay him every summer, and every summer he sends them to me. Give me your purse and I will make French money of them: *change*, you say, and I change.
+  end
+end
+
+person grey
+  name the gentleman in grey
+  known Nobody knows his name. He sits all day over one cup on the bench by the door of the Pomme de Pin, and watches who brings letters to the post, and he pays in new silver.
+  title a gentleman in grey
+  role knight
+  sex m
+  look coat #6E6E74 legs #4A4A50 hat hat #58585E sword
+  near Pomme de Pin
+  work inn
+  says Courier! A word.
+  schedule
+    7:00 work
+    12:00 eat
+    13:00 work
+    20:00 home
+    22:00 sleep
+  talk
+    hello if player has:mersenne-letters >= 1 and not player grey-asked: (A gentleman in grey, with a quiet voice and very clean hands, makes room for you on his bench.) Father Mersenne's new courier, I think, in his last courier's coat. Sit down. I serve His Eminence the Cardinal, as every good Frenchman does. Your Father writes to Protestants in Holland and to friars in Rome, and to Englishmen, and His Eminence likes to know what is said to them. (A livre appears on the table between you.) Let me read those, here, before Crenet has them. I have a warm knife for the wax: sealed again, nobody will know, not even the Father. A livre, each time. Will you *let* me? {player set grey-asked} {player set knows:paris:crenet}
+    hello if player courier-letters and not player grey-asked: (A gentleman in grey, with a quiet voice and very clean hands, makes room for you on his bench.) Father Mersenne's new courier, I think. You have given his letters to Crenet already? Never mind: there will be others. I serve His Eminence the Cardinal, as every good Frenchman does, and His Eminence likes to know what the Father writes, and to whom. (A livre appears on the table between you.) Let me read them before the post has them, next time and every time. A livre, each time. Will you *let* me? {player set grey-asked} {player set knows:paris:crenet}
+    hello if player grey-took: (He nods to you, and goes back to his cup.) Courier.
+    hello if player grey-refused: (He looks through you, as if you were a window.)
+    hello: (A gentleman in grey looks up from his cup, and down again.)
+    let,yes,agree,deal,take,livre,read,=you may if player grey-asked and not player grey-took and not player grey-refused and player has:mersenne-letters >= 1: (He reads them quickly behind his hat, copies a line here and there into a little book, and seals them again with the warm blade, so that you cannot see where they were opened.) There. Nobody will know. (The livre is yours.) Until the next time, courier. {player add money 240} {player set grey-took}
+    let,yes,agree,deal,take,livre,read,=you may if player grey-asked and not player grey-took and not player grey-refused: (He pushes the livre across the table.) On account, then. I am here most days. {player add money 240} {player set grey-took}
+    no,never,refuse,promise,rule,=i will not,=i promised if player grey-asked and not player grey-took and not player grey-refused: (He smiles, as if he had expected it, and the livre goes back into his purse.) Loyal. His Eminence values loyalty too, in its place. Good day, courier. We shall meet again. {player set grey-refused}
+    # (answered in the person's own words rather than with "I know nothing about that")
+    courier,letters,letter if player grey-asked and not player grey-took and not player grey-refused: (Patiently, as to a child.) The Father's letters: to Holland, to Rome, to England. I read them, I seal them again, Crenet sends them, and His Eminence knows a little more than he did. Nobody is the worse. A livre.
+    queen,portrait,candle,smoke,louvre,bahuche,gallery,picture if player saw-bq-damage: (He looks at his clean hands.) Old pictures are delicate things, courier, and candles are dangerous. His Eminence was most distressed to hear of it. (He smiles.) A pity the old woman is so ill.
+    cardinal,richelieu,eminence: His Eminence the Cardinal de Richelieu, who keeps France safe while the King hunts. He has a great many friends, and he likes to know what they are saying.
+    name: (He smiles.) My name would be no use to you. Call me a friend of the Cardinal's.
+    job: I serve His Eminence, as every good Frenchman does.
+    mersenne,friar,father: A learned man, and a holy one, and he writes to the whole of Europe. His Eminence admires him very much.
+  end
+end
+
+person sergeant
+  name Guillaume Michau
+  known A sergeant of the watch at les Halles: fat, slow, and never wrong about a thief. He stands by the pillory, where the market can see him.
+  title a sergeant of the watch
+  role watchman
+  sex m
+  near Halles
+  work landmark Halles
+  schedule
+    7:00 work
+    12:00 eat
+    13:00 work
+    19:00 home
+    22:00 sleep
+  talk
+    hello if player courier-thief and not player got-peiresc-letter: (A stout sergeant of the watch stands by the pillory of les Halles, the old stone tower in the middle of the market, where a thin young man is locked in by the neck and wrists, under a placard: CUTPURSE. The fishwives are throwing their worst herrings at him.) You want something, courier?
+    letter,purse,mersenne,minims,friar,brother,jean,peiresc if player courier-thief and not player got-peiresc-letter: The friar's purse? (He pulls it out of his coat.) We had the fellow before he had gone ten steps: Margot tripped him with her basket, and the porters sat on him. The money is the King's evidence until the Châtelet has done with him, but the letter is no use to the King. (He hands you a letter, a little stained with fish.) {player add has:peiresc-letter 1} {player set got-peiresc-letter} {player set knows:paris:margot}
+    thief,cutpurse,pillory,punish,punishment,happens,him,galleys: That one? Three hours in the pillory today, and the fishwives' herrings, which is the kindest part. Tomorrow the whip, at the cart's tail, from the Châtelet to here, and the fleur-de-lys burnt into his shoulder, so that the next judge knows him. The second time, the galleys at Marseille. The third time, Montfaucon, and the crows. (He spits.) He is nineteen. They all are.
+    margot,salt,grise: Margot la Grise? She sells herrings, and salts them with salt the King never saw. I do not ask: I am of the watch, not of the gabelle. But if the searchers at the gate find salt in your satchel, courier, it is the galleys for you too, coat or no coat. {player set knows:paris:margot}
+    job: I keep the peace of les Halles, which is like keeping the peace of a sack of cats.
+    name: Guillaume Michau, sergeant of the watch. {name}
+  end
+end
+
+# the art lover of the Louvre: Marguerite Bahuche, keeper of
+# the King's pictures, and her portrait of the Queen Mother in the gallery of the kings, smoked by a
+# candle; the boy Charles Le Brun; the King's joiner under the Grande Galerie. Flags: bq-asked (the
+# errand, and her month: events.txt), bq-blue bq-gold bq-varnish bq-gesso (the materials), bq-all,
+# bq-working, bq-done, queen-restored; bq-leda-asked, leda-keyed, leda-restored; bahuche-dead.
+
+person bahuche
+  name Marguerite Bahuche
+  known The keeper of the King's pictures at the Louvre, and a painter herself: with her first husband, Jacob Bunel, she painted the gallery of the kings. She is old and ill now, and of the Religion, and she spends her days in the gallery she made.
+  title an old woman in black
+  role painter
+  sex f
+  look coat #2A2626 legs #2A2626 hat coif #E8E4DA dress
+  near Grande Galerie
+  work landmark Louvre
+  says Mind the pictures!
+  schedule
+    8:00 work if not player bahuche-dead
+    12:00 eat if not player bahuche-dead
+    13:00 work if not player bahuche-dead
+    17:00 home if not player bahuche-dead
+    21:00 sleep if not player bahuche-dead
+    0:00 away if player bahuche-dead
+  talk
+    hello if player bq-working and not player recent:0.6 bq-working and not player bq-done: (The queen looks down at you again from under her crown, her face whole, her mantle blue as the sky over Venice, the lilies bright.) There. Marie de' Medici, Queen of France, as I painted her when my hand was good. Let them burn her again if they dare. (She sits down heavily.) Now sit there, on that stool, in your yellow hat, and do not move. I promised you. (An hour passes. She paints quickly, a small panel on her knee, and will not let you look until it is done.) There: that is you, for your mother. And one thing more, since you carry papers for a living. Iron-gall *ink* goes on black, and in a few years it turns brown, and in twenty it is the colour of rust. A paper that says it is sixteen years old, whose ink is as black as this morning's, is a liar. Remember it. {player set bq-done=now} {player set queen-restored} {player learn connoisseur} {paintportrait} {player add has:your-portrait 1} {player set bq-leda-asked}
+    hello if player bq-all and not player bq-working and not player bq-done: (She has the colours laid out on a cloth: the blue, the gold, the glue and chalk, the varnish.) Everything. Everything! Leave me alone with her, my dear, and come back tomorrow. {player set bq-working=now}
+    hello if player bq-working and not player bq-done: (She does not look round from the picture.) Tomorrow, I said. Go away, and let an old woman work.
+    hello if player bq-done and not player leda-restored and player leda-keyed: (She has the Leda down from the wall, face up on two trestles. Dupuis's walnut keys hold the split boards together at the back.) Dupuis has done his part. Now mine. (All afternoon she takes the old yellow varnish off with spirits and a swab, a thumb's breadth at a time, fills the losses with chalk and glue, and lays on what is left of the varnish.) There. She has not looked like that since Fontainebleau. {player set leda-restored}
+    hello if player bq-done: (She smiles at you from her stool before the queen.) My courier. Your portrait has not run away, I hope.
+    hello if player bq-asked: (She does not take her eyes from the picture.) You again. Have you brought me anything?
+    hello: (An old woman in black sits on a stool before one of the queens of the gallery, a stick across her knees. The queen's face is a brown blister of smoke.) Look at her. Look at what they have done to her. (She does not take her eyes from the picture.) Marie de' Medici, Queen of France, by my own hand. Someone held a candle to her *face*, and stood there while it burned. {player set saw-bq-damage}
+    queen,face,portrait,picture,damage,smoke,candle,marie,medici if not player bq-asked: The Queen Mother fled to Brussels last year, after the Day of the Dupes, and now her picture is an embarrassment to certain people. The Cardinal's people say a servant was careless with a candle. (She laughs, without pleasure.) Servants are not careless for an hour together. I could mend her, if I had the means, and the time. I still have the skill. Will you *help* me?
+    help,yes,mend,restore,=i will if not player bq-asked and player saw-bq-damage: Then listen, and remember, for I shall not be here long: a month, the physician says, and physicians are kind. For her mantle, *ultramarine*, the true blue, from the colour-sellers of Venice: Zorzi Bon, under the Rialto, if he still lives. For the lilies and the crown, *gold* leaf, from the goldbeaters on the Ponte Vecchio at Florence. A *varnish* to keep it all: mastic of Chios, from the Bazaar at Constantinople, or Baltic amber, from Danzig, which I can melt in oil. And *glue* and chalk for the ground, where the paint has burned away: any stationer in Paris. Bring me those, and I will give her back her face. (She looks at you for the first time.) And I will paint yours. {player set bq-asked=now}
+    queen,face,portrait,picture,mend,restore,errand,colours,materials if player bq-asked and not player bq-all and not player bahuche-dead: Ultramarine from Venice, gold leaf from Florence, a varnish (mastic from Constantinople, or amber from Danzig), and glue and chalk from a stationer. Within the month, my dear; I shall not have longer.
+    ultramarine,blue,lapis: The blue of Our Lady's mantle and of the Queen's. Lapis lazuli, from mountains beyond Persia, ground and washed: it costs more than gold, and it never fades. Zorzi Bon, at Venice, under the Rialto.
+    gold,leaf,lilies,crown: Gold beaten so thin you could read through it, laid on with a breath and a brush. The goldbeaters of Florence, on the Ponte Vecchio, are the best.
+    varnish,mastic,amber: Mastic is the tears of a little tree on Chios: the Sultan keeps it all, for the ladies of his household to chew, and sells the rest at the Bazaar in Constantinople. Amber comes from the Baltic: they sell it at Danzig, and I melt it in hot oil. Either will do; mastic is clearer.
+    glue,chalk,gesso,ground: Rabbit-skin glue and chalk, warmed together: any stationer in Paris sells it to the bookbinders.
+    ink,old,paper,papers if player skill:connoisseur: Black when it is new, brown when it is old. Ink cannot lie about its age, whatever the hand that wrote it.
+    who,cardinal,servant,did,grey,gentleman,culprit: Ask the boy. Charles saw him; I did not. I am old, and I sleep in the afternoons.
+    charles,boy,lebrun,le brun: Charles Le Brun, thirteen years old, apprenticed to Monsieur Vouet, and the best hand I have seen at his age. He carries my colours, and he will be a greater painter than any of us.
+    bunel,jacob,husband,gallery,kings: Jacob Bunel, my first husband, God rest him. We painted the gallery together for King Henri: the kings of France from Saint Louis, and their queens. He did the kings, and I did the queens. He did the men's faces too long, and I told him so.
+    religion,protestant,church,charenton,temple,mass,sunday: I am of the Religion, my dear, as Jacob was. On Sundays I go out to the temple at Charenton, and the King's peace lets me. They will bury me there.
+    leda,leonardo,swan if player bq-done and not player leda-restored and not player leda-keyed: Leonardo's Leda, up from Fontainebleau: the boards have split, and the varnish has gone the colour of tea. Fetch me *Dupuis*, the King's joiner, under the Grande Galerie, to key the boards together, and I will do the rest with what is left of the varnish.
+    leda,leonardo,swan if player leda-restored: She has come back. Leonardo painted her for the King's grandfather's grandfather. Look at her hands.
+    leda,leonardo,swan: The Leda? Leonardo's, up from Fontainebleau. She needs a joiner as much as a painter, and I have no strength for her now.
+    dupuis,joiner: Nicolas Dupuis, the King's joiner, under the Grande Galerie, with the other craftsmen the King lodges there. He makes picture-frames as if they were altars.
+    name: Marguerite Bahuche, widow of Jacob Bunel, wife of Paul Galland, painter to the King, and keeper of his pictures. {name}
+    job: I keep the King's pictures: I clean them, I mend them, and I tell the King's servants where not to put their candles.
+    give:ultramarine if player bq-asked and not player bq-blue: (She opens the pouch, and the blue lights her face from below.) Real lapis. Zorzi still grinds it as his father did. {take} {player set bq-blue}
+    give:gold-leaf if player bq-asked and not player bq-gold: (She lifts a leaf on the tip of a squirrel brush, and it trembles in her breath.) Florentine. Good. {take} {player set bq-gold}
+    give:mastic if player bq-asked and not player bq-varnish: (She crushes a tear of it between her fingers and smells it.) Chios. The Sultan's own. It will dry as clear as glass. {take} {player set bq-varnish} {player set bq-mastic}
+    give:amber if player bq-asked and not player bq-varnish: (She holds it to the window.) Baltic amber. A day in hot linseed oil, and it is the hardest varnish there is. {take} {player set bq-varnish} {player set bq-amber}
+    give:gesso if player bq-asked and not player bq-gesso: Glue and chalk. The least of them, and nothing holds without it. {take} {player set bq-gesso}
+    give:ultramarine,give:gold-leaf,give:mastic,give:amber,give:gesso if player bq-asked: I have that already, my dear. Keep it for someone else who needs it.
+  end
+end
+
+person lebrun
+  name Charles Le Brun
+  known A boy of thirteen, apprenticed to Monsieur Vouet, who carries Madame Bahuche's colours and draws everything he sees.
+  title a boy with paint on his sleeves
+  role painter
+  sex m
+  look coat #5A3A2A legs #3A2A20 hat cap #2A2018 child
+  near Grande Galerie
+  work landmark Louvre
+  says Look at the hands!
+  schedule
+    8:00 work
+    12:00 eat
+    13:00 work
+    18:00 home
+    21:00 sleep
+  talk
+    hello if player bahuche-dead and not player bq-done and player bq-all: (The boy has the colours laid out where she used to lay them, and his face is set.) She showed me how, every step, while she could still hold a brush. Let me do it. (All that day and the next he works, and you hold the candle, well away.) There. As she showed me. (He wipes his eyes on his sleeve, angrily.) And she told me to tell you this, because you carry papers. Iron-gall *ink* goes on black and turns brown with the years: a paper that says it is sixteen years old, whose ink is as black as this morning's, is a liar. {player set bq-done=now} {player set queen-restored} {player learn connoisseur}
+    hello if player bahuche-dead and not player bq-done: (The boy is alone in the gallery, with a black band on his sleeve, grinding colour on her stone.) She is dead. She died in her sleep, and they buried her at Charenton, with the Protestants. She told me what to do if you came. Have you the colours?
+    hello if player bahuche-dead: (The boy is in the gallery, drawing the queen she painted.) She would have liked to see what you have done since. So would I.
+    hello: (A boy of thirteen with paint on his sleeves is grinding colour on a stone for the old woman, and drawing on the back of his hand with the other.) Mind the pictures.
+    name: Charles Le Brun. I am apprenticed to Monsieur Vouet, the King's painter, but Madame lets me carry her colours. {name}
+    job: I grind colours, and carry them, and draw. One day I shall paint a gallery for the King myself, a greater one than this.
+    who,did,grey,gentleman,candle,smoke,cardinal,culprit,face,queen if player saw-bq-damage: A gentleman in grey, with very clean hands. He came on a Tuesday, when the gallery was empty, and stood before her a long while with a candle, as if he were reading her. I thought he was looking at the brushwork. When he had gone, her face was black. {player set heard-grey-candle}
+    give:ultramarine if player bahuche-dead and not player bq-blue: (He opens the pouch and holds his breath.) She said you would. {take} {player set bq-blue}
+    give:gold-leaf if player bahuche-dead and not player bq-gold: (He lifts a leaf on a brush as she did, and it does not tear.) {take} {player set bq-gold}
+    give:mastic if player bahuche-dead and not player bq-varnish: Mastic. She said it dries clearer. {take} {player set bq-varnish} {player set bq-mastic}
+    give:amber if player bahuche-dead and not player bq-varnish: Amber, in hot oil: she showed me. {take} {player set bq-varnish} {player set bq-amber}
+    give:gesso if player bahuche-dead and not player bq-gesso: Glue and chalk. {take} {player set bq-gesso}
+    give:ultramarine,give:gold-leaf,give:mastic,give:amber,give:gesso if not player bahuche-dead: Give it to Madame, not to me. I only carry them.
+    ink,old,paper,papers: Black when it is new, brown when it is old: she said ink cannot lie about its age, whatever the hand that wrote it.
+    vouet,simon,master: Monsieur Vouet came back from Rome five years ago, and now everybody wants to be painted by him. He paints quickly, and he lets me watch.
+    bahuche,madame,marguerite if player bahuche-dead: They buried her at Charenton. I went. I was the only one who could not stop crying, and the only one who was not of the Religion.
+    bahuche,madame,marguerite: Madame Bahuche painted the queens in this gallery. She is the best painter in Paris, and nobody knows it because she is a woman and a Protestant.
+  end
+end
+
+person dupuis
+  name Nicolas Dupuis
+  known The King's joiner, who lodges under the Grande Galerie with the other craftsmen the King protects. He makes picture-frames as if they were altars.
+  title a joiner of the King's
+  role labourer
+  sex m
+  look coat #6A5238 legs #3A3020 hat cap #4A3A28 apron #C8B48E
+  near Grande Galerie
+  work landmark Grande Galerie
+  talk
+    leda,boards,keys,bahuche,madame,louvre,joiner,leonardo if player bq-leda-asked and not player leda-keyed and not player bahuche-dead: Madame Bahuche wants me? For the Leda? (He is already picking up his saw and a handful of little walnut keys, shaped like butterflies.) Split boards: you let a key into the back across each split, so, and the board cannot open again. I will go up this afternoon. Tell her. {player set leda-keyed}
+    leda,boards,keys if player bahuche-dead and not player leda-restored: The Leda? Madame is dead, God rest her, Huguenot or no. Without her nobody will touch the paint, and I will not touch the boards without her.
+    name: Nicolas Dupuis, joiner to the King, under the Grande Galerie. {name}
+    job: I make frames for the King's pictures, and stretchers, and cabinets for his medals, and I mend what the King's servants break.
+    gallery,grande,lodgings,craftsmen: King Henri gave us lodgings under the gallery: painters, goldsmiths, clockmakers, a man who makes globes. We are the King's, and the guilds of Paris cannot touch us, which they hate.
+  end
+end
+
+crowd 20 labourer
+crowd 12 washerwoman
+crowd 20 goodwife
+crowd 12 apprentice
+crowd 16 student
+crowd 6 beggar
+crowd 20 guard
+crowd 3 watchman
+crowd 2 priest
+crowd 4 monk
+crowd 1 herdsman
+
+# The King's architect, at work on the Louvre (the Pavillon de l'Horloge, begun 1624)
+person lemercier
+  name Jacques Lemercier
+  known The King's architect, and the Cardinal's. A careful man with plans under his arm, who never stops measuring things, including you.
+  title the King's architect
+  role scholar
+  look coat #2A2A30 legs #222228 hat hat #1A1A1E
+  near Louvre
+  work landmark Louvre
+  talk
+    name: Jacques Lemercier, architect to the King. {name}
+    job: I am building the King a Louvre four times the size of the old one. Lescot's wing I am doubling to the north, with a great pavilion in the middle of it for a clock. When it is done the court will be square. I shall not see it done.
+    architect: An architect draws what the masons build, and is blamed for what they build wrong. The King pays me to imagine his house; the Cardinal pays me to imagine his.
+    pavilion,clock,horloge: The Pavillon de l'Horloge: a dome over the passage, a clock in it, and figures of women holding up the roof, four pairs of them, as Goujon made inside for the musicians' gallery. There is a young sculptor back from Rome, Sarazin, who could carve them.
+    goujon,lescot,archimedes,euclid,relief,reliefs,figures: Look up, on Lescot's wing: Archimedes with his sphere, Euclid with his compasses, by Jean Goujon, eighty years ago. Mathematicians on the house of a king. I wish I could carve as well as he could, or count as well as they did.
+    cardinal,richelieu,eminence: I build for His Eminence too: his palace by the Louvre, the Sorbonne, and a whole new town in Poitou with his name on it. He pays better than the King, and he pays on time.
+    rome: I was in Rome as a young man, drawing everything. The Romans build as if they would live for ever; the French, as if the King might change his mind.
+    stone,block,blocks,quarry,quarries,mason,masons: Stone from the quarries under the Faubourg Saint-Jacques, the best in France. Every block is marked by the man who cut it, so that I know whom to fine.
+  end
+end
+
+# A stationer by les Halles (errand 3: Mersenne's paper, ink and quills)
+person stationer
+  name Nicolas Le Gras
+  known A careful man who counts every sheet twice. The clerks of the Palais come all the way to les Halles for his paper, and his gossip.
+  title a stationer
+  role merchant
+  near les Halles
+  work shop
+  sign book
+  shopname the sign of the Book
+  sells paper 12 inkpot 6 quill 30 gesso 6
+  money 600
+  talk
+    hello if player courier-stationer and not player stationer-done: Good day. Paper, ink, quills? You have the look of a clerk's boy, or a priest's.
+    job: I sell paper, ink, quills, sand and sealing wax: everything a man needs to get himself into trouble in writing.
+    stationer: A stationer sells what writing is done with, and the clerks of the Palais need a great deal of it. The booksellers sell what comes of it.
+    mersenne,father,minims,courier if player courier-stationer: Father Mersenne's? Then a quire, a pot of ink and quills, as always. He buys more paper than the whole Sorbonne, and writes on both sides.
+    mersenne,father,minims: Father Mersenne buys more paper than the whole Sorbonne, and writes on both sides of it.
+    paper: Good rag paper from the mills of Troyes, two sous the quire. The Dutch paper is whiter, and dearer, and the Dutch know it.
+    ink,inkpot: Oak-gall ink, three sous the pot: black when you write it, brown in twenty years, and there for ever.
+    glue,chalk,gesso,ground,pot: Rabbit-skin glue and chalk, by the pot, for the bookbinders: they warm it and lay it on the boards. The painters buy it too, for their grounds. I keep a few pots.
+    quill,quills,pen: Goose quills, a sou apiece. Cut them sharp and they will write a hundred letters each. Father Mersenne writes a hundred letters a week.
+    name: Nicolas Le Gras, stationer, at the sign of the Book. {name}
+  end
+end
+
+# ---------------------------------------------------------------- the plot, chapter I
+# Elia Diodati, Galileo's friend at Paris, who found Bernegger to put the Dialogue into Latin
+# (printed at Strasbourg for the Elzevirs, 1635).
+
+person diodati
+  name Elia Diodati
+  known A Genevan, and a great friend of the learned: letters come to him from Italy and Holland by every post.
+  title an advocate in the Parlement
+  role scholar
+  near Palais de la Cité
+  work landmark Palais de la Cité
+  talk
+    # the prologue, day one: Father Mersenne's new courier brings him a letter
+    hello if player has:mersenne-to-diodati: (A tall man in an advocate's black gown looks up from his papers.) Good day to you. Are you looking for someone?
+    letter,mersenne,courier,diodati if player has:mersenne-to-diodati: I am Diodati. A letter from Father Mersenne, for me? Then give it here, my friend. {name}
+    give:mersenne-to-diodati: (He breaks the seal, reads, and laughs aloud.) The good Father wants to know whether a cannonball fired straight up into the air would ever come down again, and where. Tell him I shall ask the gunners at the Arsenal, and answer him by Friday. And here, a sou, for your legs. {take} {player add money 12} {player set delivered-diodati}
+    latin,translation,bernegger,strasbourg if player diodati-translation and player ch4-open: The Latin is printed: Systema cosmicum, at Strasbourg, for the Elzevirs, with a preface swearing that Galileo knew nothing of it. It is in every university from Leiden to Uppsala. (He smiles.) They may condemn the Tuscan. The Latin is out of their reach.
+    manuscript,dedication,noailles,leiden if player ch5-open: The new book must go to Leiden, and appear to have arrived there by itself. I have suggested dedicating it to Monsieur de Noailles, who will be very surprised. {player set knows:rome:noailles}
+    name: Elia Diodati, advocate in the Parlement of Paris. Of Geneva by my family, and of Paris by my clients. {name}
+    job: I plead in the courts of the Palais, and I write letters: to Galileo, to Gassendi, to Grotius, to anyone who thinks. Letters are a kind of friendship that survives distance, and Popes.
+    # (answered in the person's own words rather than with "I know nothing about that")
+    gassendi,pierre: Pierre Gassendi, a priest of Digne, in Provence, and a better astronomer than any professor. Last November he watched Mercury cross the face of the Sun, here in Paris, on the day Kepler foretold: a black spot so small he took it at first for a spot on the Sun.
+    grotius,hugo: Hugo Grotius, the greatest lawyer in Holland, and Holland put him in prison for life. His wife carried him out of Loevestein in a chest of books, and he lived here in Paris ten years. Last autumn he went home; this spring they drove him out again, to Hamburg. Holland has the most learned man in Europe, and does not want him.
+    give:diodati-letter if has:dialogue >= 1: (He breaks the seal and reads it standing, twice.) He wants it in Latin, so that the whole of Europe can read it, and Rome cannot take it back. (He looks at the book you brought him.) Then that copy goes to Strasbourg tomorrow, to Matthias *Bernegger*, who put his little book on the compass into Latin years ago, with my letter, by the carrier of the Rue Saint-Jacques. In two years all Europe will read it in Latin, and the preface will say it was done without Galileo's knowledge. (He smiles.) Which will be a lie, but a useful one. (He looks up.) And if you go north, go as far as Stockholm. The King of Sweden's little daughter is at Tre Kronor; she reads everything she is given, they say, and she sends her father a letter by every ship. A copy in her hands is out of every Pope's reach. Crenet, at the Pomme de Pin, has a packet for Stockholm that nobody will carry. {take} {set read-letter} {player set gave-diodati-letter} {player set heard-stockholm} {player set knows:stockholm:christina} {player set knows:paris:crenet}
+    give:diodati-letter: (He breaks the seal and reads it standing, twice.) He wants it in Latin. So that the whole of Europe can read it, and Rome cannot take it back. (He looks up.) There is a man at Strasbourg, Matthias *Bernegger*, who put his little book on the compass into Latin, years ago. Have you a copy of the Dialogue for me? It must go to Strasbourg. {take} {set read-letter} {player set gave-diodati-letter}
+    give:dialogue if has:dialogue >= 1: I have one, thank you. Keep it for someone who has none.
+    keepers,keep,friends,readers,more,list,stockholm,constantinople if player ch1-commission: Seven, his list says? Then do not stop at his list. Any honest reader who will keep the book counts, and some of the best readers in the world are far from Florence: the King of Sweden's little daughter at Stockholm reads everything she is given, they say, and at Constantinople the Patriarch, and a clerk of the Sultan's who collects the books and maps of the Franks. For Stockholm, go by Danzig: the King of Sweden's post ship sails from there.
+    give:dialogue if read-letter: Then it goes to Strasbourg tomorrow, with my letter, by the carrier of the Rue Saint-Jacques. In two years all Europe will read it in Latin, and the preface will say it was done without Galileo's knowledge. (He smiles.) Which will be a lie, but a useful one. (He looks up.) And if you go north, go as far as Stockholm. The King of Sweden's little daughter is at Tre Kronor; she reads everything she is given, they say, and she sends her father a letter by every ship. A copy in her hands is out of every Pope's reach. Crenet, at the Pomme de Pin, has a packet for Stockholm that nobody will carry. {take} {player set heard-stockholm} {player set knows:stockholm:christina} {player set knows:paris:crenet}
+    give:dialogue: A copy! I will keep it safe. But has he not written to me? He always writes. {take}
+    letter if not read-letter: A letter from Galileo? Then give it to me, my friend.
+    bernegger,strasbourg,latin,translation: Matthias Bernegger, professor at Strasbourg: a Protestant, a scholar, and a good Latinist. A book in Tuscan is read in Tuscany; a book in Latin is read from Lisbon to Uppsala.
+    galileo: My friend for many years, though I have met him only once, at Florence. He writes better letters than anyone alive, and worse ones about money.
+    rome,pope: In Rome they think a book is a man, and that if they frighten the man they have stopped the book. Here in Paris we know better. We have printers.
+  end
+end

@@ -1,0 +1,188 @@
+# Amsterdam in 1632.  One character is one tile; north is at the top.
+# Drawn first by tools/draft_towns.py; this file is now the master copy.
+# Characters as in paris.map; the capital letters are landmarks.
+
+style amsterdam
+ground 1.0
+towerroof cone
+
+legend N church    "the Nieuwe Kerk"              brick roof=slate
+legend T hall      "the Town Hall"                nocampanile brick roof=slate
+legend B palace    "the Exchange"                 depth=4 storeys=2 roof=slate brick clock
+legend K church    "the Oude Kerk"                brick roof=slate
+legend S tower     "the Schreierstoren"           round height=5 top=pyramid brick roof=4A4440
+legend A fortress  "the Waag"                     height=5 roofs roofed brick
+legend M tower     "the Munttoren"                height=11 top=bulb brick roof=4A4440
+legend Z church    "the Zuiderkerk"               brick roof=slate
+legend u tower     "the tower of the Zuiderkerk"  height=15 top=spire brick roof=4A4440
+legend E palace    "the East India House"         depth=2 storeys=3 roof=slate brick
+legend P mansion   "the printing house of Willem Blaeu, at the Sign of the Gilded Sundial"  sign=book
+legend U mansion   "the house of Hendrick Uylenburgh"  sign=palette
+legend R mansion   "the house of Menasseh ben Israel"  sign=book
+legend W church    "the Westerkerk"               brick roof=slate
+legend J church    "the Noorderkerk"              brick roof=slate
+legend I inn       "the Arms of Amsterdam"
+
+gate 1 "the Haarlemmerpoort"
+gate 2 "the Leidsepoort"
+gate 3 "the Regulierspoort"
+gate 4 "the Sint Antoniespoort"
+
+map
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~g~~~~~~~~~g~~~~~~~~~g~~~~~~~~~g~~~~~~~~~~~~~~~~~~~g~~~~~~~~~g~~~~~~~~~g~~~~~~~~~g~~~~~~~~~g~~~~~~~~~g~~~~~~~~~g~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      ##....t,..t,....~~~~........~~~~..........==......t,..~~..........................................t,......~~~~~~......~~..............................t,..........t,....t,......................##
+      ##....,,..,,....~~~~........~~~~..........==......,,..~~..........................................,,......~~~~~~......~~..............................,,..........,,....,,......................##
+      ##..............~~~~........~~~~..........~~..........~~..hhhhhhhhhhhh..hhhhhh..hhhhhhhh..hhhhhhhhhhhh....~~~~~~......~~PPPPPPPPPP..hhhh........................hhhhhh..SSSS~~..hhhhhhhh..hhhh..##
+      ##..............~~~~........~~~~..........~~..........~~..hhhhhhhhhhhh..hhhhhh..hhhhhhhh..hhhhhhhhhhhh....~~~~~~......~~PPPPPPPPPP..hhhh........................hhhhhh..SSSS~~..hhhhhhhh..hhhh..##
+      ##==~~~~~~~~~~~~~~~~==~~~~~~~~~~==~~~~~~~~~~~~~~~~~~~~~~~~..hhhhhhhhhh..hhhhhh..hhhhhhhh..hhhhhhhhhhhh....~~~~~~......~~PPPPPPPPPP..hhhhhhhhhhhhhh..hhhhhh..hhhh........SSSS~~..hhhhhhhh..hh....##
+      ##==~~~~~~~~~~~~~~~~==~~~~~~~~~~==~~~~~~~~~~~~~~~~~~~~~~~~..hhhhhhhhhh..hhhhhh..hhhhhhhh..hhhhhhhhhhhh....~~~~~~......~~PPPPPPPPPP..hhhhhhhhhhhhhh..hhhhhh..hhhh........SSSS~~..hhhhhhhh..hh....##
+______11..............~~~~........~~~~....t,....~~..........~~..hhhhhhhhhhhh..hhhhhh..hhhhhhhh..hhhhhhhhhhhh....~~~~~~......~~PPPPPPPPPP~~..hhhhhhhhhhhh..hhhhhh..hhhhhhhhhh....~~..hhhhhhhhhh..hh..##
+______11..............~~~~........~~~~....,,....~~..........~~..hhhhhhhhhhhh..hhhhhh..hhhhhhhh..hhhhhhhhhhhh....~~~~~~......~~PPPPPPPPPP~~..hhhhhhhhhhhh..hhhhhh..hhhhhhhhhh....~~..hhhhhhhhhh..hh..##
+______11..hhhhhhhhhh..~~~~..hhhh..~~~~..hhhhhh..~~..hhhhhh..~~..hhhhhhhhhhhh..hhhhhh..hhhhhhhh..hhhhhhhhhhhh....~~~~~~......~~PPPPPPPPPP~~..hhhhhhhhhhhh..hhhhhh..hhhhhhhhhhhh..~~..hhhhhhhhhh..hh..##
+______11..hhhhhhhhhh..~~~~..hhhh..~~~~..hhhhhh..~~..hhhhhh..~~..hhhhhhhhhhhh..hhhhhh..hhhhhhhh..hhhhhhhhhhhh....~~~~~~......~~PPPPPPPPPP~~..hhhhhhhhhhhh..hhhhhh..hhhhhhhhhhhh..~~..hhhhhhhhhh..hh..##
+____  ##..hhhhhhhhhh..~~~~..hhhh..~~~~..hhhhhh..~~..hhhh....==..hhhhhhhhhhhh..........hhhhhhhh..hhhhhhhhhhhh....~~~~~~......==..........~~..hhhhhhhhhhhh..hhhhhh..hhhhhhhhhhhh..~~..hhhhhhhhhh..hh..##
+____  ##..hhhhhhhhhh..~~~~..hhhh..~~~~..hhhhhh..~~..hhhh....==..hhhhhhhhhhhh..........hhhhhhhh..hhhhhhhhhhhh....~~~~~~......==..........~~..hhhhhhhhhhhh..hhhhhh..hhhhhhhhhhhh..~~..hhhhhhhhhh..hh..##
+      ##..............~~~~..hhhh..~~~~..hh......==..........~~................hhhhhh..hhhhhhhh..................g~~~~~......~~KKKKKKKKKK~~..hhhhhhhhhhhh..hhhhhh..hhhhhhhhhhhh..~~..hhhhhhhhhh..hh..##
+      ##..............~~~~..hhhh..~~~~..hh......==..........~~................hhhhhh..hhhhhhhh..................~~~~~~......~~KKKKKKKKKK~~..hhhhhhhhhhhh..hhhhhh..hhhhhhhhhhhh..~~..hhhhhhhhhh..hh..##
+      ##....JJJJJJJJJJ~~~~........====......hh..~~..hhhhhh..~~t,hhhhhhhhhhhh..hhhhhh............hhhhhhhhhhhh....~~~~~~......~~KKKKKKKKKK~~................hhhhhh..hhhhhhhhhh..~~~~..................##
+      ##....JJJJJJJJJJ~~~~........====......hh..~~..hhhhhh..~~,,hhhhhhhhhhhh..hhhhhh............hhhhhhhhhhhh....~~~~~~......~~KKKKKKKKKK~~................hhhhhh..hhhhhhhhhh..~~~~..................##
+      OO....JJJJJJJJJJ====....hhhh..~~..hhhhhh..~~..hhhhhh..~~~~t,hhhhhhhhhh..hhhhhh..hhhhhhhh..hhhhhhhhhhhh....~~~~~~......~~KKKKKKKKKK~~..hhhhhhhhhhhh..hhhhhh..hhhhhhhhhh..~~~~..hhhhhhhh..hhhh..##
+      OO....JJJJJJJJJJ====....hhhh..~~..hhhhhh..~~..hhhhhh..~~~~,,hhhhhhhhhh..hhhhhh..hhhhhhhh..hhhhhhhhhhhh....~~~~~~......~~KKKKKKKKKK~~..hhhhhhhhhhhh..hhhhhh..hhhhhhhhhh..~~~~..hhhhhhhh..hhhh..##
+      ##....JJJJJJJJJJ~~~~..hhhhhh..~~..hhhhhh..~~t,hhhhhh..~~~~......................hhhhhhhh..hhhh............~~~~~~......~~KKKKKKKKKK~~....................................~~..hhhhhhhhhh..hh....##
+      ##....JJJJJJJJJJ~~~~..hhhhhh..~~..hhhhhh..~~,,hhhhhh..~~~~......................hhhhhhhh..hhhh............~~~~~~......~~KKKKKKKKKK~~....................................~~..hhhhhhhhhh..hh....##
+      ##....JJJJJJJJJJ~~~~..hhhhhh..~~..........~~~~..hhhhhh..~~..hhhhhhhhhhhh..hhhh..hhhhhhhh..hhhh..IIIIIIIIII~~~~~~......~~KKKKKKKKKK~~..hhhhhhhhhh..hhhhhhhh..hhhhhhhh..~~~~..hhhhhhhhhh..hh..##
+      ##....JJJJJJJJJJ~~~~..hhhhhh..~~..........~~~~..hhhhhh..~~..hhhhhhhhhhhh..hhhh..hhhhhhhh..hhhh..IIIIIIIIII~~~~~~......~~KKKKKKKKKK~~..hhhhhhhhhh..hhhhhhhh..hhhhhhhh..~~~~..hhhhhhhhhh..hh..##
+        ##..............==..hhhhhh..~~....hhhh..~~~~..hhhhhht,~~..hhhhhhhhhhhh..hhhh..................IIIIIIIIII~~~~~~t,....~~KKKKKKKKKK~~..hhhhhhhhhh..hhhhhhhh..hhhhhhhh..~~~~..hhhhhhhhhh..hh..##
+        ##..............==..hhhhhh..~~....hhhh..~~~~..hhhhhh,,~~..hhhhhhhhhhhh..hhhh..................IIIIIIIIII~~~~~~,,....~~KKKKKKKKKK~~..hhhhhhhhhh..hhhhhhhh..hhhhhhhh..~~~~..hhhhhhhhhh..hh..##
+        ##..hhhhhhhhhh..~~..hhhhhh..~~~~..hhhhhh..~~..hhhhhh..====hhhhhhhhhhhh..hhhh..hhhhhhhhhhhhhh..IIIIIIIIII~~~~~~t,....~~..........~~..hhhhhhhhhh..hhhhhhhh..hhhhhhhh..~~....................OO
+        ##..hhhhhhhhhh..~~..hhhhhh..~~~~..hhhhhh..~~..hhhhhh..====hhhhhhhhhhhh..hhhh..hhhhhhhhhhhhhh..IIIIIIIIII~~~~~~,,....~~..........~~..hhhhhhhhhh..hhhhhhhh..hhhhhhhh..~~....................OO
+        ##..hhhhhhhhhh..~~..hhhhhh..~~~~..hhhhhh..~~............~~..hhhhhhhhhh..hhhh..hh..............IIIIIIIIII~~~~~~......~~..hhhhhh..~~..............hhhhhhhh..........~~~~..hh..hhhhhhhhhh..##
+        ##..hhhhhhhhhh..~~..hhhhhh..~~~~..hhhhhh..~~............~~..hhhhhhhhhh..hhhh..hh..............IIIIIIIIII~~~~~~......~~..hhhhhh..~~..............hhhhhhhh..........~~~~..hh..hhhhhhhhhh..##
+        ##..hhhhhhhh....~~~~..hhhh....~~..hhhhhh..~~~~......hh..~~~~..hhhhhhhh........hh..NNNNNNNNNNNN..........~~~~~~......~~..........~~..hhhhhh::m:::m:::::::m:hhhh....~~t,......hhhhhhhhhh..##
+        ##..hhhhhhhh....~~~~..hhhh....~~..hhhhhh..~~~~......hh..~~~~..hhhhhhhh........hh..NNNNNNNNNNNN..........~~~~~~......~~..........~~..hhhhhh::::::::::::::::hhhh....~~,,......hhhhhhhhhh..##
+        ##..........~~~~~~~~t,........~~..hhhhhh....==hh..hhhh..~~~~............hhhh..hh..NNNNNNNNNNNNm:::::::::~~~~~~m:::..~~..EEEEEEEE~~..hhhhhh::AAAAAAAAAAAA::hhhh..~~~~..hhhh..hhhhhhhh....##
+        ##..........~~~~~~~~,,........~~..hhhhhh....==hh..hhhh..~~~~............hhhh..hh..NNNNNNNNNNNN::::::::::~~~~~~::::..~~..EEEEEEEE~~..hhhhhh::AAAAAAAAAAAA::hhhh..~~~~..hhhh..hhhhhhhh....##
+        ##....~~~~~~~~....~~..hhhhhh..~~~~..........~~....hhhhhh..~~~~..hhhhhh..hhhh......NNNNNNNNNNNN::::::::::~~~~~~::::..~~..EEEEEEEE~~..hhhhhh::AAAAAAAAAAAAm:hhhh..~~..hhhhhh..hhhhhhhh..##
+        ##....~~~~~~~~....~~..hhhhhh..~~~~..........~~....hhhhhh..~~~~..hhhhhh..hhhh......NNNNNNNNNNNN::::::::::~~~~~~::::..~~..EEEEEEEE~~..hhhhhh::AAAAAAAAAAAA::hhhh..~~..hhhhhh..hhhhhhhh..##
+          ~~==~~..........~~..hhhhhhhh..==....hhhh..~~~~..hhhhhhhh..==..hhhhhh..hhhh..hh..NNNNNNNNNNNNm:::m:::::::::::m:::..~~..EEEEEEEE~~..hhhhhh::AAAAAAAAAAAA::hh..~~~~..hhhhhh............##
+          ~~==~~..........~~..hhhhhhhh..==....hhhh..~~~~..hhhhhhhh..==..hhhhhh..hhhh..hh..NNNNNNNNNNNN::::::::::::::::::::..~~..EEEEEEEE~~..hhhhhh::AAAAAAAAAAAA::hh..~~~~..hhhhhh............##
+          OO..t,hhhhhhhht,~~~~t,hhhh....==....hhhh....~~..hhhhhhhh..~~~~..............hh..NNNNNNNNNNNN::::::::o:::::::::::..~~..EEEEEEEE~~........::AAAAAAAAAAAA::..~~~~............hhhhhh..##
+          OO..,,hhhhhhhh,,~~~~,,hhhh....==....hhhh....~~..hhhhhhhh..~~~~..............hh..NNNNNNNNNNNN::::::::::::::::::::..~~..EEEEEEEE~~........::AAAAAAAAAAAA::..~~~~............hhhhhh..##
+          ##..hhhhhhhhhh..~~~~..........~~~~..hhhh....~~~~t,hhhhhh....~~..hhhhhhhhhh..hh..NNNNNNNNNNNN::::m:::m:::m:::::::..==..........==....hhhh::AAAAAAAAAAAA::~~~~..hhhhhhhhhh....hh..####
+          ##..hhhhhhhhhh..~~~~..........~~~~..hhhh....~~~~,,hhhhhh....~~..hhhhhhhhhh..hh..NNNNNNNNNNNN::::::::::::::::::::..==..........==....hhhh::AAAAAAAAAAAA::~~~~..hhhhhhhhhh....hh..####
+          ##....hhhhhhhh....==..WWWWWWWWWWWW..hhhh..hh..~~..........hh==~~..hhhhhhhh..hh......TTTTTTTTTT::::::::m:::::::::..~~..........~~..hhhhhh::::::::::m:::~~~~..hhhhhhhhhh....hhhh..44    ______
+          ##....hhhhhhhh....==..WWWWWWWWWWWW..hhhh..hh..~~..........hh==~~..hhhhhhhh..hh......TTTTTTTTTT::::::::::::::::::..~~..........~~..hhhhhh::::::::::::::~~~~..hhhhhhhhhh....hhhh..44    ______
+            ##..hhhhhh......~~~~WWWWWWWWWWWW~~..........~~~~..hhhh......~~~~..hhhhhh..........TTTTTTTTTT::m:::::::m:::::::BBBBBBBBBBBBt,~~..hhhhhhhhhh..hhhh..==~~........................44    __________
+            ##..hhhhhh......~~~~WWWWWWWWWWWW~~..........~~~~..hhhh......~~~~..hhhhhh..........TTTTTTTTTT::::::::::::::::::BBBBBBBBBBBB,,~~..hhhhhhhhhh..hhhh..==~~........................44    __________
+            ##..hh............~~WWWWWWWWWWWW~~t,..hhhhhht,~~~~......hhhh..~~==..........hhhh..TTTTTTTTTT..hhhh..hh..hhhh..BBBBBBBBBBBB..~~t,............hhhh====UUUUUUUUUU....hhhhhh....####      ______________
+            ##..hh............~~WWWWWWWWWWWW~~,,..hhhhhh,,~~~~......hhhh..~~==..........hhhh..TTTTTTTTTT..hhhh..hh..hhhh..BBBBBBBBBBBB..~~,,............hhhh====UUUUUUUUUU....hhhhhh....####      ______________
+            ##......hhhhhhhh..~~WWWWWWWWWWWW~~~~..hhhhhhhh..~~....hhhhhhhh..~~~~t,hhhh..hhhh..TTTTTTTTTT..hhhh....~~..hh..BBBBBBBBBBBBt,~~..ZZZZZZZZZZ....==~~..UUUUUUUUUU..hhhhhhhh..##                ________
+            ##......hhhhhhhh..~~WWWWWWWWWWWW~~~~..hhhhhhhh..~~....hhhhhhhh..~~~~,,hhhh..hhhh..TTTTTTTTTT..hhhh....~~..hh..BBBBBBBBBBBB,,~~..ZZZZZZZZZZ....==~~..UUUUUUUUUU..hhhhhhhh..##                ________
+              ##..hhhhhhhhhh..~~WWWWWWWWWWWW..~~..hhhhhhhhhh====..hhhhhh..hh..~~~~..hh..hhhh..............hhhh..~~~~~~....BBBBBBBBBBBB..~~..ZZZZZZZZZZ..==~~....UUUUUUUUUU..hhhhhh....##                      __
+              ##..hhhhhhhhhh..~~WWWWWWWWWWWW..~~..hhhhhhhhhh====..hhhhhh..hh..~~~~..hh..hhhh..............hhhh..~~~~~~....BBBBBBBBBBBB..~~..ZZZZZZZZZZ..==~~....UUUUUUUUUU..hhhhhh....##                      __
+              ##............~~~~~~t,..........~~~~..hhhh......~~~~..hh..hh..~~~~~~~~....hhhh..hhhhhh..hhhhhhhh..~~~~~~....BBBBBBBBBBBB..~~..ZZZZZZZZZZu;u;..hh..UUUUUUUUUU..hhhh....##
+              ##............~~~~~~,,..........~~~~..hhhh......~~~~..hh..hh..~~~~~~~~....hhhh..hhhhhh..hhhhhhhh..~~~~~~....BBBBBBBBBBBB..~~..ZZZZZZZZZZ;;;;..hh..UUUUUUUUUU..hhhh....##
+                OO..hh..~~~~~~..~~~~..hhhhhhhh..~~........hhhh..~~~~..hh..~~~~....~~~~==..hh..hhhhhh..hhhhhhhh..~~~~~~....BBBBBBBBBBBB..~~..ZZZZZZZZZZu;u;..hh..............hh....##
+                OO..hh..~~~~~~..~~~~..hhhhhhhh..~~........hhhh..~~~~..hh..~~~~....~~~~==..hh..hhhhhh..hhhhhhhh..~~~~~~....BBBBBBBBBBBB..~~..ZZZZZZZZZZ;;;;..hh..............hh....##
+                ##....~~~~........==..hhhhhhhh..~~~~....hhhhhhhh..====t,..==..hh......~~~~....hhhhhh..............~~~~................t,~~..ZZZZZZZZZZ......hhhhhhhh..hhhhhh....##
+                ##....~~~~........==..hhhhhhhh..~~~~....hhhhhhhh..====,,..==..hh......~~~~....hhhhhh..............~~~~................,,~~..ZZZZZZZZZZ......hhhhhhhh..hhhhhh....##
+                ##~~==....hhhh....~~~~..hhhhhh....==~~..hhhhhhhh....~~~~~~~~..hh..hh....~~~~~~........hhhhhhhh....~~~~........hhhh......~~====~~......................hhhh....##
+                ##~~==....hhhh....~~~~..hhhhhh....==~~..hhhhhhhh....~~~~~~~~..hh..hh....~~~~~~........hhhhhhhh....~~~~........hhhh......~~====~~......................hhhh....##
+                  ##..hhhhhhhh..hh..~~~~..hhhh......~~~~..hhhh....hht,~~~~....hh....hh....t,~~~~~~......hhhhhh....~~~~~~MMMM......~~~~======......hhhhhh..hhhhhhhhhh..hh....##
+                  ##..hhhhhhhh..hh..~~~~..hhhh......~~~~..hhhh....hh,,~~~~....hh....hh....,,~~~~~~......hhhhhh....~~~~~~MMMM......~~~~======......hhhhhh..hhhhhhhhhh..hh....##
+                  ##....hhhhhh..hhhh..~~........hhhh..~~........hh..~~~~..hh..hh....hh..hhhh....~~~~==~~..t,......~~~~~~MMMM~~~~======hhhhhh..hh..hhhhhh..hhhhhhhhhh......OO
+                  ##....hhhhhh..hhhh..~~........hhhh..~~........hh..~~~~..hh..hh....hh..hhhh....~~~~==~~..,,......~~~~~~MMMM~~~~======hhhhhh..hh..hhhhhh..hhhhhhhhhh......OO
+                    ##..hhhhhh..hhhh..~~~~....hhhhhh..~~~~....hh..~~~~..hhhh..hh..hhhh..hhhhhhhh....==~~~~~~~~==..~~~~~~~~::::..hhhhhhhhhhhh..hh..hhhhhh..hhhhhhhhhh....##
+                    ##..hhhhhh..hhhh..~~~~....hhhhhh..~~~~....hh..~~~~..hhhh..hh..hhhh..hhhhhhhh....==~~~~~~~~==..~~~~~~~~::::..hhhhhhhhhhhh..hh..hhhhhh..hhhhhhhhhh....##
+                    ##....hhhh..hhhhhh..====..hhhhhhhh..~~==..hh..~~..hhhhhh............hhhhhhhhhh..........~~==~~~~~~~~==::::..........hhhh..hh..hhhhhh..hhhhhh......##
+                    ##....hhhh..hhhhhh..====..hhhhhhhh..~~==..hh..~~..hhhhhh............hhhhhhhhhh..........~~==~~~~~~~~==::::..........hhhh..hh..hhhhhh..hhhhhh......##
+                      ##..................~~..hhhhhhhhhh..~~~~..~~~~..hhhhhh....hhhhhh..hhhhhhhhhh..hhhhhhhh......~~~~~~::::RRRRRRRRRR..hhhh..hh..hhhhhh..hhhh....####
+                      ##..................~~..hhhhhhhhhh..~~~~..~~~~..hhhhhh....hhhhhh..hhhhhhhhhh..hhhhhhhh......~~~~~~::::RRRRRRRRRR..hhhh..hh..hhhhhh..hhhh....####
+                        ##..hhhhhh....hh..~~~~..hhhhhh..hh..~~~~~~..hhhhhhhh..hhhhhhhh..hhhhhhhhhh..hhhhhhhhhhhh..~~~~~~....RRRRRRRRRR..hhhh..hh..hhhhhh........OO
+                        ##..hhhhhh....hh..~~~~..hhhhhh..hh..~~~~~~..hhhhhhhh..hhhhhhhh..hhhhhhhhhh..hhhhhhhhhhhh..~~~~~~....RRRRRRRRRR..hhhh..hh..hhhhhh........OO
+                        ##....hh....hhhhhh..~~~~..hh....hh..~~~~t,hhhhhhhhhh..hhhhhhhh..hhhhhhhhhh..hhhhhhhhhhhh..~~~~~~....RRRRRRRRRR............hhhh......####
+                        ##....hh....hhhhhh..~~~~..hh....hh..~~~~,,hhhhhhhhhh..hhhhhhhh..hhhhhhhhhh..hhhhhhhhhhhh..~~~~~~....RRRRRRRRRR............hhhh......####
+                          ##..................====....hh..~~~~..hhhhhhhhhh..hhhhhhhhhh..hhhhhhhh....hhhhhhhhhhhh..~~~~~~....RRRRRRRRRR..hhhhhhhh........####
+                          ##..................====....hh..~~~~..hhhhhhhhhh..hhhhhhhhhh..hhhhhhhh....hhhhhhhhhhhh..~~~~~~....RRRRRRRRRR..hhhhhhhh........####
+                            ##..hhhhhhhhhhhhhh..====..hh..~~................hhhhhhhhhh............hhhhhhhhhhhhhh..~~~~~~~~t,............hhhh........##OO
+                            ##..hhhhhhhhhhhhhh..====..hh..~~................hhhhhhhhhh............hhhhhhhhhhhhhh..~~~~~~~~,,............hhhh........##OO
+                            ##....hhhhhhhhhhhh....~~~~..~~~~..hh..hhhhhh..hhhhhhhh......########........hhhhhhhh..~~~~~~~~..hhhhhhhhhh........######
+                            ##....hhhhhhhhhhhh....~~~~..~~~~..hh..hhhhhh..hhhhhhhh......########........hhhhhhhh..~~~~~~~~..hhhhhhhhhh........######
+                              ##....hhhhhhhhhh......~~~~~~..hhhh..hhhh....hhhh......####        ####3333##........~~~~~~~~..............OO####
+                              ##....hhhhhhhhhh......~~~~~~..hhhh..hhhh....hhhh......####        ####3333##........~~~~~~~~..............OO####
+                                ##....hhhhhh....hh..~~~~..hhhhhh..hhhh..........####                  ..##########~~~~~~~~####OO########
+                                ##....hhhhhh....hh..~~~~..hhhhhh..hhhh..........####                  ..##########~~~~~~~~####OO########
+                                ##2222##hh..hh..hh..~~..hhhhhhhh..........######                                  ~~~~~~~~
+                                ##2222##hh..hh..hh..~~..hhhhhhhh..........######                                  ~~~~~~~~
+                                    ......hhhh....~~~~..hh..........##OO##                                        ~~~~~~~~
+                                    ......hhhh....~~~~..hh..........##OO##                                        ~~~~~~~~
+                                      ##........~~~~........########                                ____          ~~~~~~~~
+                                      ##........~~~~........########                                ____          ~~~~~~~~
+                                  ____########~~~~####OO####                                        ____          ~~~~~~~~
+                                  ____########~~~~####OO####                                        ____          ~~~~~~~~
+                                  ____      ~~~~                                                    ____            ~~~~~~
+                                  ____      ~~~~                                                    ____            ~~~~~~
+                                ______      ~~                                                      ____            ~~~~~~
+                                ______      ~~                                                      ____            ~~~~~~
+                                ____                                                                ____            ~~~~~~
+                                ____                                                                ____            ~~~~~~
+                                ____                                                                ____            ~~~~~~~~
+                                ____                                                                ____            ~~~~~~~~
+                                ____                                                                ____            ~~~~~~~~
+                                ____                                                                ____            ~~~~~~~~
+                              ______                                                                ____            ~~~~~~~~
+                              ______                                                                ____            ~~~~~~~~
+                              ____                                                                  ____            ~~~~~~~~
+                              ____                                                                  ____            ~~~~~~~~
+                              ____                                                                  ____            ~~~~~~~~
+                              ____                                                                  ____            ~~~~~~~~
+                            ______                                                                  ____            ~~~~~~~~
+                            ______                                                                  ____            ~~~~~~~~
+                            ______                                                                  ____            ~~~~~~~~
+                            ______                                                                  ____            ~~~~~~~~
+                            ____                                                                    ______          ~~~~~~~~
+                            ____                                                                    ______          ~~~~~~~~
+                            ____                                                                      ____          ~~~~~~~~
+                            ____                                                                      ____          ~~~~~~~~
+                          ______                                                                      ____          ~~~~~~~~
+                          ______                                                                      ____          ~~~~~~~~
+                          ______                                                                      ____          ~~~~~~~~
+                          ______                                                                      ____          ~~~~~~~~
+                          ____                                                                        ____          ~~~~~~~~
+                          ____                                                                        ____          ~~~~~~~~
+                          ____                                                                        ____          ~~~~~~~~
+                          ____                                                                        ____          ~~~~~~~~
+                        ______                                                                        ____          ~~~~~~~~
+                        ______                                                                        ____          ~~~~~~~~
+                        ____                                                                          ____          ~~~~~~~~
+                        ____                                                                          ____          ~~~~~~~~
+                        ____                                                                          ____          ~~~~~~~~
+                        ____                                                                          ____          ~~~~~~~~
+end

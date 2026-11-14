@@ -1,0 +1,105 @@
+# The people of Ragusa.
+# June 1632: the Republic of Ragusa pays the Sultan a tribute every year and trades with
+# everybody; its ships are on every sea. Its Rector serves for one month only. Ivan Gundulić,
+# senator and poet, is writing his epic "Osman".
+town Ragusa
+names italian
+prison Rector's palace | They lock you in the cells under the Rector's palace. A clerk reads out the law of the Republic to you, at length, in three languages. In the morning they let you go, and a guard walks you to the Pile gate to make sure you have understood.
+country Ragusa
+
+person rector
+  name Ser Luka Sorgo
+  title the Rector of the Republic
+  role mathematician
+  look coat #6A1414 legs #2A1A1A hat hat #141414 robe
+  near Rector's palace
+  work landmark Rector's palace
+  schedule
+    0:00 work
+  talk
+    give:money if player gift >= 9600 and player ch3-open and not player ch3-over and player asked-ragusa-copy and not player has-arellano-copy: (He rings, and a clerk brings a sheet in a fair hand.) The Chancery thanks you for its trouble. What you do with it is your affair; the Republic has never seen you. {take} {player add has:arellano-copy 1} {player set has-arellano-copy}
+    arellano,letter,naples,spanish,copy,viceroy if player ch3-open and not player ch3-over and not player has-arellano-copy: (He does not smile.) The Republic keeps a copy of whatever passes between Naples and the Porte through our hands; it is how a small city stays free between two great ones. A Spanish secretary's letter to the Viceroy? Forty livres, to the Chancery, for its trouble. {player set asked-ragusa-copy}
+    name: Luka Sorgo, Rector of the Republic of Ragusa, for the month of June. {name}
+    job: I am the Rector for one month. I may not leave the palace without the Senate's leave, I may not receive anybody alone, and on the first of July I go home and somebody else is Rector. That is how a republic keeps its liberty: nobody holds the keys long enough to copy them.
+    sultan,tribute,turks: Twelve thousand ducats a year to the Sultan, and he leaves us alone, and our ships fly his flag in his seas and our own everywhere else. The Venetians say we are the Turk's lap dog. The Venetians have never forgiven us for being rich without them.
+    liberty,freedom,lovrijenac: Over the gate of Lovrijenac it is written: "Non bene pro toto libertas venditur auro". Liberty is not sold for all the gold in the world. We sell everything else.
+  end
+end
+
+person gundulic
+  name Ivan Gundulić
+  title a senator and poet
+  role scholar
+  near Franciscan
+  work landmark Rector's palace
+  talk
+    name: Ivan Gundulić, senator, and in the evenings a poet, which is a worse job and better paid in fame. {name}
+    job: I am writing an epic of the war of the Poles against Sultan Osman, eleven years ago, in our own tongue: twenty cantos. If it is not finished when I die, my sons will have to do it.
+    poem,osman,epic: Osman, the young Sultan, who lost his war at Khotyn and was strangled by his own janissaries. Fortune's wheel: the higher you go, the further you fall. A good subject for a republic.
+    liberty,freedom,dubravka: "O lijepa, o draga, o slatka slobodo": O beautiful, O dear, O sweet liberty. I wrote it for a play four years ago, and now the fishermen sing it. That is the only fame worth having.
+  end
+end
+
+person shipowner
+  name Ser Miho Pozza
+  title a shipowner
+  role merchant
+  near Sponza
+  work landmark Sponza
+  money 9600
+  talk
+    name: Miho Pozza, of a family of shipowners these three hundred years. {name}
+    job: I own a part of eleven ships, a third of this one, a quarter of that, so that no storm can ruin me. They carry salt from Ston, wool from the Balkans and grain from Apulia, to Venice, Alexandria and Cadiz.
+    ships,argosy,argosies: The English call our great ships argosies, after Ragusa. One of their poets wrote a play about a merchant of Venice, whose argosies were all lost at sea. A Venetian, of course. Ours come home.
+    salt,ston: The salt of Ston is the Republic's, and its price is the Republic's too. Buy it here; inland the Turks pay three times as much.
+  end
+end
+
+person apothecary
+  name Fra Bernardin
+  title the apothecary of the Franciscans
+  role friar
+  near Franciscan
+  work landmark Franciscan
+  talk
+    name: Brother Bernardin, apothecary of the Friars Minor. {name}
+    job: I keep the pharmacy of the monastery, which has been here since 1317, older than any in Christendom, they tell me, except perhaps one in Trier, which I do not believe in.
+    medicine,remedy,cure,pharmacy: Theriac for poisons, rose water for the eyes, a syrup of poppies for those who cannot sleep, and for the Senators who cannot stop talking, nothing at all.
+  end
+end
+
+person doctor
+  name Dr Nikola Gozze
+  title the doctor of the Lazaretto
+  role physician
+  near Lazaretto
+  lodges
+  work landmark Lazaretto
+  talk
+    name: Nikola Gozze, physician to the Lazaretto of the Republic. {name}
+    job: Every ship and every caravan from a place where there has been plague waits here forty days, men and goods, before it comes into the town. We were the first to do it, two hundred and fifty years ago. Venice copied us, and tells everyone it was her idea.
+    quarantine,plague,forty: Forty days: quaranta giorni. We began with thirty, the trentino, in 1377; the Venetians made it forty and gave the thing its name. The plague does not care what it is called.
+  end
+end
+
+person caravan
+  name Hasan Ağa of Sarajevo
+  title a caravan merchant
+  role merchant
+  look coat #4A3A22 legs #3A3020 hat coif #E8E2D2
+  near Lazaretto
+  lodges
+  work landmark Lazaretto
+  money 7200
+  talk
+    name: Hasan, of Sarajevo, merchant. {name} {player set met-hasan}
+    job: I bring wax, hides, wool and silver from the mines of Bosnia down the mountain roads, forty horses, and I take back salt, cloth and the things the Franks make. The Ragusans make us wait forty days at the Lazaretto. We wait. The prices are good.
+    sarajevo,bosnia: Sarajevo has a hundred mosques and a covered bazaar like a little Constantinople, five days over the mountains from here.
+    wife,hatidza,home,house: My wife Hatidža keeps the house and the books in Sarajevo, by the Morića Han. If you go up there, tell her I am alive, and bored, and that the prices are good.
+  end
+end
+
+crowd 2 guard
+crowd 1 innkeeper
+crowd 1 changer
+crowd 1 herdsman

@@ -1,0 +1,105 @@
+# Zurich in 1632.  One character is one tile; north is at the top.
+# Drawn first by tools/draft_towns.py (zurich); the script is the master copy for now.
+# Characters as in paris.map ('g' a mooring post with a boat); the capital letters are landmarks.
+
+style german
+ground 1.1
+towerroof cone
+
+legend G church    "the Grossmünster"             towers roof=tile stone=D8CDB4
+legend F church    "the Fraumünster"              roof=tile stone=D6CAAE
+legend P church    "St Peter"                     roof=tile stone=D8CDB4
+legend R hall      "the Rathaus of Zurich"        nocampanile roof=tile stone=E2D6BC floors=1
+legend W tower     "the Wellenberg"               height=8 top=pyramid stone=B8A888
+legend C college   "the Carolinum"                depth=4 storeys=2 roof=tile stone=E2D8C0 floors=1
+legend I inn       "the Storchen"
+
+gate 1 "the Rennweg gate"
+gate 2 "the Niederdorf gate"
+
+map
+                              t,            ~~~~~~
+                              ,,            ~~~~~~
+  ##########OO##########OO##########OO######..~~~~####OO##########OO############2222##########OO
+  ##########OO##########OO##########OO######..~~~~####OO##########OO############2222##########OO
+  ##..........................................~~~~~~..........................................##
+  ##..........................................~~~~~~..........................................##
+  ##..hhhh..hhhhhhhhhhhh....hhhhhhhhhhhh..hh..~~~~~~..hhhhhhhhhhhhhh..hhhh....................##t,
+  ##..hhhh..hhhhhhhhhhhh....hhhhhhhhhhhh..hh..~~~~~~..hhhhhhhhhhhhhh..hhhh....................##,,
+  ##..hhhh..hhhhhhhhhhhh....hhhhhhhhhhhh..hh..~~~~~~..hhhhhhhhhhhhhh..hhhh......CCCCCCCCCCCC..OO
+  ##..hhhh..hhhhhhhhhhhh....hhhhhhhhhhhh..hh..~~~~~~..hhhhhhhhhhhhhh..hhhh......CCCCCCCCCCCC..OO
+  ##..hhhh....................t,,,,,t,,,,,hh..~~~~~~..hhhhhh....................CCCCCCCCCCCC....##
+  ##..hhhh....................,,,,,,,,,,,,hh..~~~~~~..hhhhhh....................CCCCCCCCCCCC....##
+  ##..hhhh..hhhhhhhhhhhh....hh,,,,,,,,,,t,hhhh..~~~~..hhhhhh..GGGGGGGGGGGG......CCCCCCCCCCCC....##    t,
+  ##..hhhh..hhhhhhhhhhhh....hh,,,,,,,,,,,,hhhh..~~~~..hhhhhh..GGGGGGGGGGGG......CCCCCCCCCCCC....##    ,,
+  ##..hhhh..hhhhhhhhhhhh....hh,,t,,,,,,,,,hhhh..~~~~~~..hhhh..GGGGGGGGGGGG......CCCCCCCCCCCC....OO
+  ##..hhhh..hhhhhhhhhhhh....hh,,,,,,,,,,,,hhhh..~~~~~~..hhhh..GGGGGGGGGGGG......CCCCCCCCCCCC....OO
+  ##..hhhh..hhhhhhhhhhhh....hh,,,,,,,,t,,,hhhh..~~~~~~..hhhh..GGGGGGGGGGGG......CCCCCCCCCCCC....##
+  ##..hhhh..hhhhhhhhhhhh....hh,,,,,,,,,,,,hhhh..~~~~~~..hhhh..GGGGGGGGGGGG......CCCCCCCCCCCC....##
+  ##................hhhh....hhhhhhhhhh..........======........GGGGGGGGGGGG......CCCCCCCCCCCC......##..
+  ##................hhhh....hhhhhhhhhh..........======........GGGGGGGGGGGG......CCCCCCCCCCCC......##..
+  ##....PPPPPPPPPP..hhhh....hhhhhhhh............======........GGGGGGGGGGGG........................OO..
+  ##....PPPPPPPPPP..hhhh....hhhhhhhh............======........GGGGGGGGGGGG........................OO..
+  ##....PPPPPPPPPP....................IIIIIIIIII::~~~~~~..hh..GGGGGGGGGGGG........................##
+  ##....PPPPPPPPPP....................IIIIIIIIII::~~~~~~..hh..GGGGGGGGGGGG........................##
+  ##....PPPPPPPPPP..hhhh....hhhhhhhh..IIIIIIIIII::~~~~~~..hh............................hhhhhhhh..##
+  ##....PPPPPPPPPP..hhhh....hhhhhhhh..IIIIIIIIII::~~~~~~..hh............................hhhhhhhh..##
+  ##....PPPPPPPPPP..hhhh....hhhhhhhh..IIIIIIIIII::~~~~~~......................hhhhhhhh..hhhhhhhh....##
+  ##....PPPPPPPPPP..hhhh....hhhhhhhh..IIIIIIIIII::~~~~~~......................hhhhhhhh..hhhhhhhh....##
+  ##....PPPPPPPPPP..hhhh....hhhhhhhh..IIIIIIIIII::~~~~~~..........hhhhhhhh....hhhhhhhh..hhhhhh....OO
+  ##....PPPPPPPPPP..hhhh....hhhhhhhh..IIIIIIIIII::~~~~~~..........hhhhhhhh....hhhhhhhh..hhhhhh....OO
+  ##................hhhh....hhhhhhhh............::~~~~~~..hhhhhh..hhhhhhhh....hhhhhhhh..hhhh....##
+  ##................hhhh....hhhhhhhh............::~~~~~~..hhhhhh..hhhhhhhh....hhhhhhhh..hhhh....##
+  11................................................======............hhhh....hhhhhhhh..hh....##
+  11................................................======............hhhh....hhhhhhhh..hh....##
+  11................................................======............hhhh....hhhhhhhh......##
+  11................................................======............hhhh....hhhhhhhh......##
+  ##..hhhhhhhh..hhhhhhhh....hh::m:::m:::m:::::::hh..~~~~RRRRRRRRRR..hhhhhh....hhhhhhhh....##
+  ##..hhhhhhhh..hhhhhhhh....hh::::::::::::::::::hh..~~~~RRRRRRRRRR..hhhhhh....hhhhhhhh....##
+##....hhhhhhhh..hhhhhhhh....hhm:::::::m:::m:::::hh..~~~~RRRRRRRRRR..hhhhhh..............##
+##....hhhhhhhh..hhhhhhhh....hh::::::::::::::::::hh..~~~~RRRRRRRRRR..hhhhhh..............##
+  ##..hhhhhhhh..hhhhhhhh....hh::::::::::m:::::::..hh..~~RRRRRRRRRR..hhhh........OO....##    ~~~~~~~~~~~~
+  ##..hhhhhhhh..hhhhhhhh....hh::::::::::::::::::..hh..~~RRRRRRRRRR..hhhh........OO....##    ~~~~~~~~~~~~
+  ##........................hhhhhh..FFFFFFFFFFFF..hh..~~RRRRRRRRRR........##..##  ~~~~~~~~~~~~~~~~~~~~~~
+  ##........................hhhhhh..FFFFFFFFFFFF..hh..~~RRRRRRRRRR........##..##  ~~~~~~~~~~~~~~~~~~~~~~
+  ##..hhhhhhhh..hhhhhhhh....hhhhhh..FFFFFFFFFFFF..hh..~~~~~~........OO####..==~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ##..hhhhhhhh..hhhhhhhh....hhhhhh..FFFFFFFFFFFF..hh..~~~~~~........OO####..==~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ##..hhhhhhhh..hhhhhhhh....hhhhhh..FFFFFFFFFFFF......~~~~~~..hh..##    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ##..hhhhhhhh..hhhhhhhh....hhhhhh..FFFFFFFFFFFF......~~~~~~..hh..##    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ##..hhhhhhhh..hhhhhhhh............FFFFFFFFFFFF..hhhh..~~~~g~....g~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ##..hhhhhhhh..hhhhhhhh............FFFFFFFFFFFF..hhhh..~~~~~~....~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  OO..hhhhhhhh..hhhhhhhh....hhhhhh..FFFFFFFFFFFF..hhhh..~~~~~~..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  OO..hhhhhhhh..hhhhhhhh....hhhhhh..FFFFFFFFFFFF..hhhh..~~~~~~..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ##..hhhhhhhh..hhhhhhhh....hhhhhh................hhhh..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ##..hhhhhhhh..hhhhhhhh....hhhhhh................hhhh..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ##........................hhhhhhhhhhhh..hh..hhhhhhhh..======WWWW~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ##........................hhhhhhhhhhhh..hh..hhhhhhhh..======WWWW~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  t,##..hhhhhhhhhh..hhhh................................~~~~~~WWWW~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ,,##..hhhhhhhhhh..hhhh................................~~~~~~WWWW~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ##..hhhhhhhhhh..hhhh....hhhhhhhhhh..hhhhhhhhhhhhhh....~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ##..hhhhhhhhhh..hhhh....hhhhhhhhhh..hhhhhhhhhhhhhh....~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ##..hhhhhhhhhh..hhhh....hhhhhhhhhh..hhhhhhhhhhhh....OO~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ##..hhhhhhhhhh..hhhh....hhhhhhhhhh..hhhhhhhhhhhh....OO~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ##..hhhhhhhhhh..hhhh....hhhhhhhhhh..hhhhhhhhhh....##  t,    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ##..hhhhhhhhhh..hhhh....hhhhhhhhhh..hhhhhhhhhh....##  ,,    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ##..hhhhhhhhhh..hhhh....hhhhhhhhhh..hhhhhhhh....##              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ##..hhhhhhhhhh..hhhh....hhhhhhhhhh..hhhhhhhh....##              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ##..hhhhhhhhhh..hhhh....hhhhhhhhhh..hhhhhh....OO                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ##..hhhhhhhhhh..hhhh....hhhhhhhhhh..hhhhhh....OO                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ##..hhhhhhhhhh..hhhh....hhhhhhhhhh..hhhh....##                            ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ##..hhhhhhhhhh..hhhh....hhhhhhhhhh..hhhh....##                            ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ##........................................##                                    ~~~~~~~~~~      t,t,
+    ##........................................##                                    ~~~~~~~~~~      ,,,,
+      ##OO##########OO##########OO##########OO
+      ##OO##########OO##########OO##########OO
+  t,                    ....
+  ,,                    ....
+              t,        ....                                                                          t,
+              ,,        ....                                                                          ,,
+
+
+                                                                    t,                  t,
+                                                                    ,,                  ,,
+
+
+end

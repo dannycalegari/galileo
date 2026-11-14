@@ -1,0 +1,251 @@
+# The people of Venice.
+# June 1632: the plague ended last November, after taking a third of the city; the church of
+# the Salute, vowed to the Virgin, was begun last year. Galileo's Dialogue has just come.
+town Venice
+names venetian
+prison Doge's Palace | They row you to the Doge's Palace and lock you under the leaden roof, in the Piombi, where you roast all night. In the morning a clerk writes your name in a large book and lets you go, across the Bridge of Sighs.
+country Italy
+
+person doge
+  name Francesco Erizzo
+  title the Doge of Venice
+  role prince
+  look coat #C8A030 legs #8A1A1A hat cap #C8A030 robe
+  near Doge
+  work landmark Doge
+  schedule
+    7:00 home
+    8:00 work
+    12:30 eat
+    14:00 work
+    19:00 home
+    22:00 sleep
+  talk
+    give:spyglass: (He puts it to his eye at the window and looks out over the lagoon a long while.) A sail, beyond the Lido; I can count its oars. Twenty-three years ago a Florentine showed the Senate such a glass from the top of the Campanile, and we doubled his salary. We are less easily astonished now; but the Arsenale will want it. Take this, from the Republic. {take} {player add money 2400} {player set sold-spyglass}
+    spyglass,telescope if player has:spyglass: A spyglass? Show it me. If you mean to part with it, the Republic will make it worth your while.
+    hello if not met: You are before the Most Serene Prince, the Doge of Venice. Bow, and be brief.
+    name: Francesco Erizzo, by the grace of God Doge of Venice. {name}
+    job: The Doge reigns, and the Senate governs. I preside, I sign, I wed the sea on Ascension Day. And I am watched, as every Doge is watched, lest he forget he is a servant.
+    sea,wedding,ascension: Every Ascension Day we row out in the Bucintoro to the Lido, and I throw a gold ring into the waves: "We wed thee, O sea, in sign of true and perpetual dominion."
+    plague: It took a third of us: forty-six thousand souls in the city. Doge Contarini died in the worst of it, and they made me Doge. We have vowed a church to the Virgin of Health, at the mouth of the Grand Canal. Longhena is building it.
+    salute,longhena: Baldassare Longhena, a young man. Eight sides, and a great dome. It will take him the rest of his life.
+    galileo: He taught at Padua for eighteen years, in our pay. We doubled his salary for the spyglass, and he left us for Florence. Venice does not forget, and does not hold a grudge; we have use for both.
+    pope,rome: Rome is welcome to its opinions. We had an Interdict on us twenty-six years ago, and Fra Paolo told the Pope that Venice was a prince in its own house. We are still here.
+    sarpi,paolo: Fra Paolo Sarpi, our theologian. They tried to murder him in the street, with stilettos; he said he knew the style of the Roman Curia. He died nine years ago. Fra Fulgenzio has his place.
+  end
+end
+
+person micanzio
+  name Fulgenzio Micanzio
+  title a Servite friar
+  role friar
+  look coat #1A1A1E legs #1A1A1E hat hood #1A1A1E robe
+  near Servi
+  work landmark Servi
+  talk
+    senate,galileo,rome,trial if player ch3-open and not player ch3-over and not player venice-wrote: The Senate has already written, at my asking: that the Most Serene Republic would be grateful for clemency to a man who taught at Padua for eighteen years. They will not be grateful for long, but they wrote it. {player set venice-wrote} {player add favour 1}
+    copies,more,east,north if player ch2-open and not player micanzio-copies: (He goes to a chest under the window.) The booksellers of the Merceria hid six copies when Rome's letter came; I have two of them. Take them where they are needed: north and east, away from Rome. {player add has:dialogue 2} {player set micanzio-copies}
+    galileo,rome,summons if player ch2-open and not player ch2-over: They have summoned him. If he were a Venetian he would not go; but he is a Florentine, and the Grand Duke will not quarrel with the Pope for one philosopher. I will write to the Senate, for what it is worth. Ask me for *copies*, if you are going north.
+    give:dialogue if has:dialogue >= 1: I have mine, thank you, and I sleep with it under the pillow.
+    give:dialogue: For me? I have read it twice already, at the Servi, in a borrowed copy. (He smiles.) Now I can read it a third time in my own. I shall ask the Inquisitor of Venice for leave to reprint it here. He will refuse, of course; but he will have to refuse in writing, and the Senate will want to know why. {take}
+    name: Fra Fulgenzio Micanzio, of the Servants of Mary. {name}
+    job: I am theologian and adviser to the Most Serene Republic, as my master Fra Paolo was before me. When Rome sends us its opinions, I tell the Senate what they are worth.
+    galileo,dialogue: I have read it. Twice. Four days of conversation, and not one dull page; Sagredo was a Venetian, you know, and Galileo has made him speak like one. They will not forgive him in Rome for writing so well. {player set heard-micanzio}
+    sarpi,paolo: Fra Paolo Sarpi. He knew more than any man in Italy: anatomy, optics, magnetism, the history of the Council of Trent, which he wrote and they burned. Galileo called him his father and master.
+    rome,pope if player heard-micanzio: If they make trouble for him in Rome, tell him to come back to us. Venice has been an asylum for honest men for a thousand years, and the Inquisition here sits with three of our senators beside it.
+    print,printers,books: Half the books of Europe were printed in Venice, once. If Galileo wants a book printed that Rome will not license, there are printers in Holland now who ask fewer questions.
+  end
+end
+
+person monteverdi
+  name Claudio Monteverdi
+  title the master of music of San Marco
+  role priest
+  near Basilica
+  work landmark Basilica
+  schedule
+    6:00 home
+    8:00 work
+    12:00 eat
+    14:00 home
+    17:00 work
+    20:00 home
+    22:00 sleep
+  talk
+    name: Don Claudio Monteverdi, of Cremona, master of music at San Marco these nineteen years. {name}
+    job: I direct the music of the Basilica: two choirs, one in each gallery, and the instruments between, so that the sound comes at you from both sides like weather.
+    priest,orders: I was ordained this spring, at sixty-five. My wife has been dead these twenty-five years, and the plague taught me to think about my soul.
+    plague: We sang a Mass of thanksgiving when it ended, in November, here in San Marco, with trumpets. I wrote a Gloria for it, with seven voices and two violins.
+    orfeo,opera: Orfeo, at Mantua, twenty-five years ago. A fable in music: the whole story sung, as the ancients did. They say it is the first of its kind. Arianna made the ladies weep; all of it is lost now but her lament.
+    music,piece: This year I have printed a book of little pieces, Scherzi musicali, in the new style: the words first, and the music their servant.
+    galileo: His father, Vincenzio, wrote against the old counterpoint and for the singing of a single voice. A clever man. The son is cleverer, but less musical, I am told.
+  end
+end
+
+person modena
+  name Leon Modena
+  money 720
+  know gambler 1
+  title a rabbi
+  role scholar
+  look coat #2A2420 legs #1E1A16 hat hat #C83A2A
+  near synagogue
+  work landmark synagogue
+  schedule
+    6:00 home
+    8:00 work
+    12:00 eat
+    14:00 wander
+    18:00 work
+    20:00 home
+    23:00 sleep
+  talk
+    cards,bet,game,play,dice,primiera: (Brightening, then sighing.) A hand of primiera? A sou, or more if you are brave. I wrote a book against gambling when I was thirteen, you know. It was very good.
+    lesson,teach,count if not player skill:cards >= 3: Teach you the cards? It is the only thing I teach that anyone wants. Two sous a lesson.
+    give:money if player gift >= 24 and not player skill:cards >= 3: (He shows you how to count the cards that have gone, and how to read a face across a table.) Now you will lose less. Not to me, I hope. {take} {player learn cards}
+    name: Leon Modena, rabbi of the Ghetto, and preacher, and cantor, and teacher of anyone who will pay. {name}
+    job: I preach in the synagogue on the Sabbath, and Christian gentlemen come to hear me, and priests, and once a brother of the King of France. I have had twenty-six trades, and all of them poor ones.
+    ghetto: The Ghetto Nuovo: an island with two gates, locked at sunset and opened at dawn, and Christian guards whom we must pay ourselves. The houses go up and up, seven storeys, because they cannot go out.
+    hat,red: The Republic says we must wear a red hat, or a yellow one, so that nobody can mistake us for gentlemen.
+    plague: It came into the Ghetto too. We lost many. God does not ask which gate a man lives behind.
+    book,rites: I wrote a book of our rites and customs, for the English ambassador, Sir Henry Wotton, so that Christians might see what we do and not what they imagine. It is not yet printed.
+    galileo: The Florentine says the Earth moves? Our sages said many things too, and the Earth went on doing as it pleased. But I have looked through a spyglass, and the Moon has mountains.
+    cards,gambling: (He winces.) You have heard about the cards. I wrote a dialogue against gambling when I was thirteen, and I have gambled ever since. Both are true.
+  end
+end
+
+person barovier
+  name Zuane Barovier
+  title a master glassblower
+  role glassblower
+  near glassworks
+  work landmark glassworks
+  sells bottle 4 cup 6 glass-blank 3
+  talk
+    glass,cristallo,disc,blank,lens: For a lens you want a disc of cristallo, without a bubble or a thread in it: one livre. What you do with it is your affair; I only blow it.
+    name: Zuane Barovier. My family have blown glass on Murano for three hundred years. {name}
+    job: Cristallo: glass as clear as rock crystal, the only such glass in the world. And mirrors, and beads, and lenses, if a gentleman asks.
+    lens,lenses,spyglass: Signor Galileo had his first lenses ground in Venice, from our glass. He ground his own in the end; he said ours had bubbles. Ours do not have bubbles.
+    secret,leave: We may not leave the Republic. A glassblower who goes abroad is told to come home; if he does not, his family goes to prison; and if he still does not, someone is sent to find him.
+  end
+end
+
+person bortolo
+  name Bortolo Zennaro
+  title a gondolier
+  role gondolier
+  near Library
+  talk
+    row,rowing,oar,lesson if player skill:rowing >= 2: You row like a Castellano now. Do not tell the Nicolotti I taught you.
+    row,rowing,oar,lesson: Learn to row? For a sou I will take you out and shout at you until you can.
+    give:money if player gift >= 12 and not player skill:rowing >= 2: (An hour on the Bacino, him shouting "Premi! Stali!" and you nearly in the water twice.) Better. You will row faster now, and straighter. {take} {player learn rowing}
+    name: Bortolo Zennaro, at your service, the best oar on the Molo. {name}
+    job: I row gondolas. At the traghetto of the Molo, mostly: across to San Giorgio, or up the Canal, or out to the Lido when the gentlemen go bathing.
+    murano,glass,glassworks,barovier,island: Murano? Not in a gondola: that is a mile of open lagoon. The boat goes from the Fondamenta Nuove, on the north shore, and the boatman will take you over.
+    sing,song,tasso: (He sings.) "Canto l'arme pietose e 'l capitano / che 'l gran sepolcro liberò di Cristo..." Tasso. We sing it verse and verse about, one gondola to another, across the water at night.
+    row,rowing: Stand at the back, face forward, one oar on the right, in the forcola. Push, and twist at the end of the stroke, or you go round in circles like a Florentine.
+    plague: I rowed the dead to the islands, in the plague. Every night, for months. Don't ask me about the plague.
+  end
+end
+
+person mehmed
+  name Mehmed Çelebi
+  title a merchant of Constantinople
+  role merchant
+  look coat #2E4A6A legs #E8E2D2 hat coif #F2EEE6
+  near Turchi
+  work landmark Turchi
+  sells coffee-beans 3
+  talk
+    coffee,kahve,beans: Kahve! We drink it from Cairo to Constantinople: black, hot, bitter, and it keeps a man awake through his prayers and his accounts. The beans leave Mocha parched, so that no one else can grow them; but I have a few handfuls green, for friends.
+    haggle,haggling,bargain,lesson,price if player skill:haggling >= 3: You bargain like a Turk now. No one in the Rialto will get the better of you; well, almost no one.
+    haggle,haggling,bargain,lesson,price: You pay what they ask? (He laughs.) For a sou I will teach you to bargain: never want a thing, always be leaving, and praise the goods of the shop next door.
+    give:money if player gift >= 12 and not player skill:haggling >= 3: (He sells you a carpet, and buys it back, and sells it you again, each time cheaper, and explains.) There: one lesson. Every shopkeeper will now come down a tenth for you, and pay a tenth more. {take} {player learn haggling}
+    crate,glass,errand,carry,yakub,partner if player delivered-glass: Yakub writes that the crate came whole, every goblet. You have the hands of a Venetian.
+    crate,glass,errand,carry,yakub,partner if player carrying-glass: To Yakub Ağa, in the Bedesten of the Grand Bazaar. And do not sit on it.
+    crate,glass,errand,carry,yakub,partner,constantinople: My partner Yakub Ağa, in the Bedesten of the Grand Bazaar at Constantinople, waits for a crate of Murano glass: goblets, lamps for a mosque, and a mirror for a pasha's wife. If you are sailing east, take it to him, and he will pay you the carriage, eight livres, when he has counted every piece. It is heavy, and it is glass. {player add has:glass-crate 1} {player set carrying-glass}
+    name: Mehmed Çelebi, merchant, of Constantinople. {name}
+    job: Silk from Bursa, mohair, wax, carpets. I sell them to the Venetians, and they sell them to the rest of you at twice the price.
+    fondaco,turchi: The Republic has given us this palace, these ten years, so that we Turks may live together and trade under one roof. It is a good roof. They lock the door at night, as they lock the Ghetto.
+    war,sultan: Sultan Murad is young and fierce, and he has just taken back the government from his mother. Venice and the Sultan are at peace this year. Next year, God knows.
+  end
+end
+
+person luna
+  name Iseppo Scarpa
+  role innkeeper
+  near Luna
+  talk
+    name: Iseppo Scarpa, at the Luna. The oldest inn in Venice: the pilgrims to the Holy Land slept here before they took ship. {name}
+    wine: Wine of Friuli, or a Malvasia from Crete, sweet and strong.
+  end
+end
+
+person fusina
+  name Domenego Busetto
+  role innkeeper
+  near Fusina
+  talk
+    name: Domenego Busetto, host of the inn at Fusina. {name}
+    job: Travellers come down the Brenta from Padua in the barge, and wait here for the boat to Venice. Some wait a long time, and drink.
+    padua: Padua is up the road, a day's walk: the University, and Saint Anthony, and the gentlemen's villas all along the Brenta.
+    boat,ferry,venice: The boat goes from the landing, there. Or take a boat yourself, if you can row; it is an hour across the lagoon.
+  end
+end
+
+person zorzi
+  name Zorzi Bon
+  title a colour-seller
+  role merchant
+  near Rialto
+  sells ultramarine 1
+  talk
+    name: Zorzi Bon, vendecolori, at the sign of the Moor, under the Rialto. {name}
+    job: I sell colours to painters: vermilion, lead white, verdigris, lake, and the most precious of all, *ultramarine*. Titian bought his blues from my grandfather.
+    ultramarine,blue,lapis: Lapis lazuli from the mountains beyond Persia, by way of Aleppo, ground and washed and ground again: six livres the pouch, and worth more than gold. The painters of the north have none; they paint with blue ash and smalt and weep.
+    bahuche,paris,louvre,queen,marguerite if player bq-asked: Madame Bahuche of Paris? She bought her blues from my father when she painted the kings of France. If she wants blue for a queen, she shall have the best I grind. One pouch a day, mind: I do not grind faster for queens.
+    painters,painter,titian,tintoretto: Tintoretto was a dyer's son, and used cheap blues and made them sing. Titian used mine. Look at the sky in the Assumption at the Frari, and tell me it was not worth the money.
+  end
+end
+
+crowd 8 gondolier
+crowd 8 labourer work landmark Arsenale
+crowd 3 sailor
+crowd 5 merchant
+crowd 1 changer
+crowd 7 goodwife
+crowd 3 washerwoman
+crowd 3 apprentice
+crowd 2 priest
+crowd 2 friar
+crowd 1 nun
+crowd 3 beggar
+crowd 2 musician
+crowd 3 guard
+crowd 1 cook
+crowd 1 painter
+
+person louis
+  name Louis Elzevir
+  title a printer of Leiden, travelling
+  role printer
+  look coat #2E2E36 legs #1E1E24 hat hat #141418
+  near Luna
+  work landmark Luna
+  schedule
+    8:00 work if player ch5-open
+    12:00 eat if player ch5-open
+    13:00 work if player ch5-open
+    21:00 sleep if player ch5-open
+    0:00 away if not player ch5-open
+  talk
+    name: Louis Elzevir, of the Elzevirs of Leiden, buying books in Italy and selling Dutch ones, which the Venetians pretend not to read. {name}
+    job: I print what is true and what sells, and do not ask too many questions about which is which. My uncle Abraham says that, and I believe him.
+    # the manuscript in hand (chapter V): any word of it, or of Galileo, and he asks for it; "yes" gives it
+    manuscript,book,books,sciences,discorsi,galileo,carry,leiden,print,printed if player has:manuscript >= 1 and not player manuscript-sent: (His eyes go to your pack.) Signor Galileo's new book? If it is what I think it is, the Elzevirs will print it at Leiden, where the Inquisition is a word in a history book. Do you have a manuscript to *give* me? I sail for Amsterdam within the week, and it would go with my own books, by sea. {set offered-ms=now}
+    yes,give,here,take,=i do,=here it is if recent:0.05 offered-ms and player has:manuscript >= 1: (He looks at the first page for a long time.) Two new sciences. (He wraps it in oilcloth, and then in a Dutch Bible, as a joke, or not.) It sails with me on Friday, and it will be in type by the spring. {player add has:manuscript -1} {add has:manuscript 1} {add given:manuscript 1} {player set manuscript-sent=now} {player set via-louis} {unset offered-ms}
+    no,keep,=not yet if recent:0.05 offered-ms: Keep it, then; but not long. I sail within the week. {unset offered-ms}
+    galileo,book,manuscript: Signor Galileo has a new book? Tell him the Elzevirs would print it at Leiden, where the Inquisition is a word in a history book. I sail from Venice for Amsterdam within the week.
+    give:manuscript: (He looks at the first page for a long time.) Two new sciences. (He wraps it in oilcloth, and then in a Dutch Bible, as a joke, or not.) It sails with me on Friday, and it will be in type by the spring. {take} {player set manuscript-sent=now} {player set via-louis}
+  end
+end

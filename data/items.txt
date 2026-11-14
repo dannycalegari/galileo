@@ -1,0 +1,2651 @@
+# Things: what lies about, what you can carry, and works of art.
+#
+#   item ID
+#     name SINGULAR | PLURAL     "a loaf of bread | loaves of bread"
+#     also WORD WORD ...         other words a player may call it by ("give paper": the document of 1616)
+#     shape KIND #colour [#colour2]
+#                                loaf jug cup plate candle book knife apples cabbage
+#                                cheese fish horseshoe nails hammer tongs coil purse bottle
+#                                firewood pot inkpot quill onions; for works of art:
+#                                painting tomb canopy statue reliquary window none; larger than life:
+#                                giant group pieta; baldacchino; urn fountain shrine lamp lectern
+#     weight POUNDS
+#     price DENIERS              12 deniers to the sou, 20 sous to the livre
+#     money DENIERS              taking it gives you this much money (a purse)
+#     fixed                      cannot be taken
+#     chained                    fixed, and with a "book" line read where it lies by looking at it (L)
+#                                (the chained books of the Bodleian)
+#     title TEXT                 works of art: the heading of what you read
+#     image FILE                 works of art: a picture shown with it (in data/, see art/CREDITS.txt)
+#     credit TEXT                where the picture comes from, shown under it (required by its licence)
+#     look TEXT                  what you see when you look at it
+#     use eat|drink TEXT {EFFECTS}   using it (U): one is gone, and you read TEXT
+#     heals N                    eating it mends N health points when you are hurt (a player has 20, plus
+#                                4 for each point of fencing; a point mends by itself in twenty minutes);
+#                                the text then ends "(It does you good.)"
+#     use read TITLE | TEXT      a page to read     use say TEXT   just the TEXT
+#     book ID                    it opens as a book you leaf through (data/books/ID.txt: pages in
+#                                its own language, in English once you can read that language)
+#     use make RESULT [N] | TEXT this (and what goes "with" it) becomes RESULT; with ITEM N; takes MINUTES
+#     use play PIECE | TEXT      you play a piece of data/music.txt yourself
+#     needs SKILL TEXT           without the skill (learnt from people: {player learn SKILL}) you read TEXT
+#     night TEXT {EFFECTS}       what happens instead if you use it at night
+#     near ITEM TEXT             it can be used only within two tiles of such a thing (else TEXT)
+#     image, credit              (also for things you carry: shown when you read them)
+#                                (effects as in roles.txt, on what you know: set KEY, add KEY N)
+#   end
+#
+# Where things lie (each line is tried on every piece of furniture of that kind):
+#   on FEATURE [in KIND | in "NAME"]: ITEM CHANCE ITEM CHANCE ...
+#   beside FEATURE [in KIND | in "NAME"]: ITEM CHANCE ...     on the floor next to it
+#       FEATURE: table counter stall chest bench altar barrel anvil oven hearth bed
+#       KIND: the kind of building (house inn college church palace ...); "NAME": part
+#       of a building's name. A CHANCE of 1 or less is a chance; more is a number of them.
+#   art "NAME" wall: ITEM ITEM ...     works of art hung on the walls inside a building
+#   art "NAME" floor: ITEM ...         standing on the floor inside it, spread out
+#   art "NAME" row: ITEM ...           standing in a row, two tiles apart
+#   art "NAME" upstairs: ITEM ...      along the outer walls of its upper floors, evenly spaced, clear of the
+#                                      stairs (a college with library=NAME in its map legend)
+#   art "NAME" court: ITEM ...         on the open floor of its courtyard; "court wall:" against the courtyard's walls
+#   art "NAME" on FEATURE: ITEM ...    on a piece of furniture (an altar)
+#   art statue in "TOWN": ITEM         at the statue of that town
+#   art statue near "NAME": ITEM ...   each on the free statue nearest that building: shapes giant,
+#                                      group and pieta on a pedestal ('y'), shape none as the rider ('s')
+#   art "NAME" over FEATURE: ITEM      standing on the floor over it (the baldacchino over an altar)
+#   art "NAME" behind altar: ITEM     high in the wall behind the altar (shape window: an east window)
+#   art "NAME" left of altar: ITEM   beside the altar, on its left as you face it, against the side wall
+#   moored [in "TOWN"]: ITEM          a boat at each mooring post of the towns ('g' in the maps)
+
+# ---------------------------------------------------------------- food and drink
+
+item loaf
+  name a loaf of bread | loaves of bread
+  shape loaf #B07A3E
+  weight 1
+  price 12
+  look A round loaf of wheat bread, a day old.
+  heals 4
+  use eat You eat the bread. A day old, but good, and it fills you.
+end
+
+item cheese
+  name a cheese | cheeses
+  shape cheese #E2C25A
+  weight 6
+  price 72
+  look A whole cheese from Brie, soft under its rind.
+  heals 4
+  use eat You cut yourself a fair piece of the cheese and eat it, rind and all.
+end
+
+item apples
+  name some apples | baskets of apples
+  shape apples #B8322A
+  weight 1
+  price 4
+  look Small red apples, a little wrinkled from the winter store.
+  heals 2
+  use eat You eat the apples, wrinkles and all.
+end
+
+item cabbage
+  name a cabbage | cabbages
+  shape cabbage #6E9A48
+  weight 2
+  price 6
+  look A green cabbage from the market gardens outside the walls.
+  heals 1
+  use eat You chew some raw cabbage. It is not much of a meal.
+end
+
+item onions
+  name some onions | strings of onions
+  shape onions #C89A5A
+  weight 1
+  price 4
+  look Onions, brown and papery.
+  heals 1
+  use eat You eat a raw onion. Your eyes water.
+end
+
+item fish
+  name a fish | fish
+  shape fish #A8B0B4
+  weight 1
+  price 12
+  look A carp from the ponds, for a Friday.
+  use say A raw carp is no meal. You would need a fire and a pot.
+end
+
+item bottle
+  name a bottle of wine | bottles of wine
+  shape bottle #2E4A2A
+  weight 3
+  price 48
+  look Red wine from the hills round Paris, thin and sour, as Thierry would tell you.
+  use drink You drink the wine. Thin and sour, but it warms you.
+end
+
+# ---------------------------------------------------------------- the household
+
+item jug
+  name a jug | jugs
+  shape jug #9C6A44
+  weight 3
+  price 24
+  look An earthenware jug, glazed brown.
+end
+
+item cup
+  name a cup | cups
+  shape cup #B8B4AC
+  weight 0.5
+  price 6
+  look A pewter cup, dented.
+end
+
+item plate
+  name a plate | plates
+  shape plate #C8C4BA
+  weight 1
+  price 12
+  look A pewter plate.
+end
+
+item candle
+  name a candle | candles
+  shape candle #EEE6D0
+  weight 0.2
+  price 6
+  look A tallow candle. It smells of mutton.
+  use say You light the candle. Its small flame trembles, and shows you little more than your lantern does.
+end
+
+item knife
+  name a knife | knives
+  shape knife #9A9CA0 #5A3A22
+  weight 0.5
+  price 60
+  look A knife with a wooden handle, for bread and meat.
+end
+
+item pot
+  name a pot | pots
+  shape pot #3A3836
+  weight 6
+  price 480
+  look A black iron cooking pot on three short legs.
+end
+
+item firewood
+  name an armful of firewood | armfuls of firewood
+  shape firewood #7A5432
+  weight 10
+  price 24
+  look Split oak, from the woods along the Seine.
+end
+
+item purse
+  name a purse | purses
+  shape purse #6A4428
+  weight 0.5
+  money 66
+  look A leather purse with a few coins in it.
+end
+
+# ---------------------------------------------------------------- trades
+
+item hammer
+  name a hammer | hammers
+  shape hammer #6E6E72 #6A4428
+  weight 3
+  price 240
+  look A smith's hammer, the face worn bright.
+end
+
+item tongs
+  name a pair of tongs | pairs of tongs
+  shape tongs #55555A
+  weight 3
+  price 240
+  look Long iron tongs, for holding hot metal.
+end
+
+item pail
+  name a wooden pail | wooden pails
+  shape pot #8A6A40
+  weight 3
+  price 24
+  look A wooden pail hooped with iron, for milk or for water.
+end
+
+item shears
+  name a pair of sheep shears | pairs of sheep shears
+  shape tongs #707074
+  weight 1
+  price 30
+  look Sheep shears: two blades on a bow of spring steel. It is shearing time, this June.
+end
+
+item milk
+  name a measure of milk | measures of milk
+  shape jug #F4F2EA
+  weight 2
+  price 4
+  look Milk, still warm from the animal, with the cream rising.
+  use drink You drink the milk. It is warm, and thick, and tastes of grass.
+end
+
+item egg
+  name an egg | eggs
+  shape apples #F0EADC
+  weight 0.1
+  price 1
+  look A brown egg, still warm.
+  heals 2
+  use eat You crack the egg and swallow it raw. Not a feast, but something.
+end
+
+item wool
+  name a fleece | fleeces
+  shape cabbage #E2DAC6
+  weight 4
+  price 60
+  look A fleece, greasy and grey-white, rolled up with the cut side in: worth something to a weaver.
+end
+
+item horseshoe
+  name a horseshoe | horseshoes
+  shape horseshoe #6A6A70
+  weight 1
+  price 36
+  look A new horseshoe, with its eight nail holes.
+end
+
+item nails
+  name a handful of nails | handfuls of nails
+  shape nails #5A5A60
+  weight 1
+  price 12
+  look Square iron nails.
+end
+
+item strings
+  name a coil of gut strings | coils of gut strings
+  shape coil #D8C8A0
+  weight 0.1
+  price 60
+  look Gut strings for a lute or a viol, twisted and dried.
+  use say You have no lute to string. A musician would be glad of them.
+end
+
+# ---------------------------------------------------------------- learning
+
+item book
+  name a book | books
+  also blank plain empty
+  shape book #6A2E22 #E8DFC8
+  weight 2
+  price 720
+  look A book bound in calf, the title rubbed off its spine.
+  book book
+  use read A book of hours | The title page is gone, but it is a book of hours, in French and Latin: the prayers to the Virgin for each hour of the day, a calendar of the saints and their feasts, and for June a little woodcut of men mowing hay.
+end
+
+item physics
+  name Aristotle's Physics | copies of Aristotle's Physics
+  shape book #2E3A5A #E8DFC8
+  weight 3
+  price 1200
+  look The Physics of Aristotle, in Latin, with a commentary, much annotated by students: "the heavens are unchanging", underlined twice.
+  needs latin It is all in Latin, close-printed, with Latin notes in the margins. You make out "Aristoteles" and "motus" and nothing more. A master of arts could teach you to read it.
+  book physics
+  use read Aristotle, Physics, Book VII | "Everything that is in motion must be moved by something." In the margin a student has written, in Latin: "And the arrow, once it has left the bow? What moves it then? Ask Master Lebrun." And below, in another hand: "The air, you fool." {player set read-physics}
+end
+
+# the Sorbonne's own copy, chained to its desk in the library: read where it lies (L), in Latin
+item sorbonne-physics
+  name the Sorbonne's Aristotle | the Sorbonne's Aristotles
+  shape bookdesk #2E3A5A #E8DFC8
+  chained
+  book physics
+  look The Physics of Aristotle, in Latin, with a commentary, chained to its desk in the library of the Sorbonne, and much annotated by students: "the heavens are unchanging", underlined twice.
+end
+
+item inkpot
+  name a pot of ink | pots of ink
+  shape inkpot #1A1A1E
+  weight 0.5
+  price 36
+  look Oak-gall ink, black and a little rusty.
+  use say You have nothing to write on.
+end
+
+item soup
+  name a bowl of soup | bowls of soup
+  shape cup #9A6A3A
+  weight 1
+  price 12
+  look Cabbage and bacon soup, hot, with a skin of fat on top.
+  heals 6
+  use eat You eat the soup, every drop, and wipe the bowl with your finger. It is the best soup in Paris, or you were very hungry.
+end
+
+item paper
+  name a quire of paper | quires of paper
+  shape book #F2ECDC #E8E0CC
+  weight 0.5
+  price 24
+  look Twenty-four sheets of good rag paper from the mills of Troyes, folded once, the watermark a little pot.
+  use say You have nothing to write, and nobody to write to.
+end
+
+item quill
+  name a quill | quills
+  shape quill #EEEAE0
+  weight 0.05
+  price 12
+  look A goose quill, freshly cut.
+  use say You have nothing to write on.
+end
+
+item dialogue
+  name Galileo's Dialogue | copies of Galileo's Dialogue
+  also book dialogo copy
+  shape book #6A3A22 #EDE4CC
+  weight 2
+  price 300
+  look A quarto in limp vellum: "Dialogo di Galileo Galilei Linceo... sopra i due massimi sistemi del mondo, tolemaico e copernicano", Florence, Giovanni Battista Landini, 1632. On the frontispiece Aristotle, Ptolemy and Copernicus talk together under a portico.
+  needs italian It is in Italian, the Tuscan of the best Florentine, and you cannot read a word of it but "Copernico" and "Simplicio". Someone in Florence could teach you.
+  book dialogue
+  use read Dialogue on the Two Chief World Systems, the Second Day | SALVIATI: "Shut yourself up with a friend in the largest cabin below decks of some great ship, and have with you flies, butterflies and other little flying creatures, and a bowl of water with fish in it... Then make the ship go as fast as you please, so long as the motion is even. You will not see the least change in any of these things, nor could you tell from any of them whether the ship moves or stands still." SAGREDO: "I have often wondered at this, sitting in my cabin." {player set read-dialogue}
+end
+
+item bainbridge-letter
+  name a letter to Bodley's Librarian | letters to Bodley's Librarian
+  shape book #E8DFC8 #E8DFC8
+  weight 0.05
+  look A letter sealed with Dr Bainbridge's seal, addressed in a small mathematical hand: "To my worthy friend Mr John Rouse, Bodley's Librarian, these."
+  use say It is sealed, and it is for Master Rouse.
+end
+
+item castelli-letter
+  name a letter to Galileo | letters to Galileo
+  shape book #E8DFC8 #E8DFC8
+  weight 0.05
+  look A letter folded small and sealed in red wax, addressed in a neat hand: "To the Most Illustrious and Excellent Signor Galileo Galilei, at Arcetri. Into his own hands."
+  use say It is sealed, and it is not yours to open.
+end
+
+item rosa-ursina
+  name the Rosa Ursina | copies of the Rosa Ursina
+  shape book #4A2A1E #E8DFC8
+  weight 6
+  price 2400
+  look A fat folio: "Rosa Ursina, sive Sol", by Christoph Scheiner of the Society of Jesus, Bracciano, 1630. Hundreds of engraved Suns, every one freckled with spots.
+  needs latin Four hundred pages of Latin, and plates of the Sun with its spots. You can look at the pictures.
+  use read Scheiner, Rosa Ursina, Book IV | Plate after plate of the Sun's disc, day by day, the spots drifting across it from east to west and changing as they go. In the preface the author defends his priority against "a certain Italian" at great length, and with feeling. {player set read-rosa-ursina}
+end
+
+# ---------------------------------------------------------------- boats
+
+item boat
+  name a rowing boat | rowing boats
+  shape boat #6E4A2C #9A7A52
+  weight 300
+  fixed
+  look A rowing boat, tied to a post, with a pair of oars shipped inside. Walk into it to get in, and onto land to get out again.
+end
+
+item gondola
+  name a gondola | gondolas
+  shape gondola #18161A #9A2A24
+  weight 600
+  fixed
+  look A gondola, long and black, with its little cabin, the felze, and the iron at the bow. Walk into it to get in, and onto land to get out again.
+end
+
+# Ships, for the open sea (shape ship: you go aboard and sail anywhere there is water, but not
+# under bridges; "harbour X,Y: ITEM" below puts one by the shore near X,Y on the old map). The
+# colours are the hull and the sails.
+
+item fluyt
+  name a fluyt | fluyts
+  shape ship #6A4A2E #EAE2CE
+  weight 400000
+  fixed
+  look A Dutch fluyt: round-bellied, with a deck so narrow that she pays little at the Danish Sound, where the toll goes by the width of the deck. Three masts, square sails, and room for four hundred tons of grain with a crew of twelve. Walk into her to go aboard, and onto land to go ashore.
+end
+
+item pinnace
+  name an English pinnace | English pinnaces
+  shape ship #5A3A26 #F0EADC
+  weight 200000
+  fixed
+  look A pinnace of London: small, fast, and well armed, for the Channel and the Bay of Biscay, with a lion carved under the bowsprit. Walk into her to go aboard, and onto land to go ashore.
+end
+
+item patache
+  name a Spanish patache | Spanish pataches
+  shape ship #4A3020 #E8DCC0
+  weight 200000
+  fixed
+  look A patache of Seville, the Santa Clara: a small two-master, once a dispatch boat of the Indies fleets, quick in a river and handy along a coast, with the arms of Castile on her stern. Walk into her to go aboard, and onto land to go ashore.
+end
+
+item galleon
+  name a Venetian galleon | Venetian galleons
+  shape ship #4A3426 #E4D6BC
+  weight 600000
+  fixed
+  look A merchant galleon of the Republic, high in the stern, for the long voyages to Alexandria and Aleppo for cotton, pepper and silk. The lion of Saint Mark is painted on her transom. Walk into her to go aboard, and onto land to go ashore.
+end
+
+item galleon-indies
+  name a galleon of the Indies | galleons of the Indies
+  shape ship #3A2A1E #E8DCC2
+  weight 700000
+  fixed
+  look A galleon of the Carrera de Indias, high and heavy, with forty guns: she guards the silver fleet from Havana to Sanlucar, and waits here at the Arenal to be careened. Walk into her to go aboard, and onto land to go ashore.
+end
+
+item argosy
+  name a Ragusan argosy | Ragusan argosies
+  shape ship #6A4A30 #F0E8D6
+  weight 500000
+  fixed
+  look A great merchant ship of Ragusa, an argosy as the English say, with Saint Blaise painted on her stern, bound for Alexandria with salt and for Cadiz with wool. Walk into her to go aboard, and onto land to go ashore.
+end
+
+item caramusal
+  name a Turkish caramusal | Turkish caramusals
+  shape ship #5A3A22 #E6DCC4
+  weight 300000
+  fixed
+  look A caramusal, the round merchant ship of the Ottomans, high in the stern, that carries grain from the Black Sea and cotton from Egypt. Walk into her to go aboard, and onto land to go ashore.
+end
+
+item tartane
+  name a tartane | tartanes
+  shape ship #7A5A3A #EEE6D4
+  weight 60000
+  fixed
+  look A Tuscan tartane, a little coasting ship that carries wine and marble from Livorno and the Arno's mouth to Genoa and Naples. Walk into her to go aboard, and onto land to go ashore.
+end
+
+# ---------------------------------------------------------------- trade goods
+# What the towns make and want (data/market.txt): bought cheap where they are made, sold dear
+# where they are wanted, with customs at the town's edge. Prices here are the middling price.
+
+item silk
+  name a bolt of silk | bolts of silk
+  shape coil #C8343C
+  weight 4
+  price 1440
+  look A bolt of silk damask, crimson, heavy and cool, the pattern of pomegranates woven in.
+end
+
+item pepper
+  name a bag of pepper | bags of pepper
+  shape purse #3A2E26
+  weight 2
+  price 480
+  look A linen bag of black pepper from Malabar, a pound of it: the Dutch bring it round the Cape now, and the Venetians weep.
+end
+
+item sugar
+  name a loaf of sugar | loaves of sugar
+  shape candle #F2F0EA
+  weight 3
+  price 240
+  look A sugar loaf in blue paper, as tall as your forearm, from the cane of Brazil and the islands: hard as stone, and you break it with a hammer.
+end
+
+item tobacco
+  name a roll of tobacco | rolls of tobacco
+  shape coil #6A4426
+  weight 1
+  price 144
+  look A twisted roll of dark tobacco leaf, from Spanish America by way of Seville. Physicians argue whether it cures or kills; sailors do not argue.
+end
+
+item cochineal
+  name a pouch of cochineal | pouches of cochineal
+  shape purse #9A1830
+  weight 0.5
+  price 960
+  look A pouch of cochineal: tiny dried insects from the cactus of New Spain, that give the finest scarlet in the world. The dyers of Florence and Venice pay for it in silver.
+end
+
+item broadcloth
+  name a bolt of broadcloth | bolts of broadcloth
+  shape coil #3A4A6A
+  weight 8
+  price 960
+  look English broadcloth, of Suffolk wool, fulled and dyed blue: warm, close, and wanted from Danzig to Constantinople.
+end
+
+item olive-oil
+  name a jar of olive oil | jars of olive oil
+  shape jug #8A8A3A
+  weight 6
+  price 96
+  look A glazed jar of olive oil from Andalusia, sealed with wax: for lamps, for salads, for soap.
+end
+
+item carpet
+  name a carpet | carpets
+  shape coil #8A2A22
+  weight 20
+  price 2400
+  look A knotted carpet from Ushak, red, with a great medallion: the Dutch hang them on tables, the English on walls, and the Turks, very sensibly, on the floor.
+end
+
+item mohair
+  name a bale of mohair | bales of mohair
+  shape coil #E8E2D2
+  weight 6
+  price 720
+  look Mohair from the goats of Angora, spun: soft as silk and stronger, for camlets and buttons.
+end
+
+item murano-glass
+  name a Murano goblet | Murano goblets
+  shape cup #C8DCE4
+  weight 0.5
+  price 360
+  look A goblet of Murano cristallo, thin as a leaf, with a stem twisted like a rope. The Sultan's household buys them by the hundred, and breaks them by the hundred.
+end
+
+item false-pack
+  name a pack with a false bottom | packs with false bottoms
+  shape purse #6A5236
+  weight 2
+  price 480
+  look A pedlar's pack of good leather, with a second bottom sewn in under the first, two fingers deep: room for a sack of salt or a roll of tobacco, if the searchers do not weigh it in their hands.
+end
+
+item salt
+  name a sack of salt | sacks of salt
+  shape purse #E8E6E0
+  weight 10
+  price 36
+  look A sack of sea salt from the pans of Ston, by Ragusa, where the Republic keeps the price high and the quality higher.
+end
+
+item sundial
+  name a Nuremberg sundial | Nuremberg sundials
+  shape book #EEE6D2 #8A6A3A
+  weight 0.5
+  price 480
+  look A folding sundial of ivory, as small as a prayer book, from the compass makers of Nuremberg, stamped with their snake: open it and a string casts the shadow, a little compass in the bottom sets it to the north, and the latitudes of fifty cities are cut inside the lid.
+end
+
+item bohemian-glass
+  name a Bohemian beaker | Bohemian beakers
+  shape cup #E2ECEE
+  weight 0.5
+  price 300
+  look A tall beaker of Bohemian glass, thick and clear as rock crystal, engraved on the wheel with a stag hunt that goes all the way round it.
+end
+
+item amber
+  name a lump of amber | lumps of amber
+  shape ball #D8962A
+  weight 0.3
+  price 360
+  look Baltic amber, washed up on the Prussian shore after the autumn storms: golden, warm to the touch, with a fly caught in it a thousand years ago. The rosary makers of Danzig turn it into beads, and the Turks pay for them in gold.
+end
+
+item rye
+  name a sack of rye | sacks of rye
+  shape purse #A8945A
+  weight 10
+  price 48
+  look A sack of Polish rye, floated down the Vistula on rafts to Danzig, where the Dutch buy it to feed Amsterdam.
+end
+
+item furs
+  name a bundle of furs | bundles of furs
+  shape coil #4A3426
+  weight 3
+  price 1920
+  look Sable and marten skins from Muscovy, by way of Lwow and Cracow: the darkest go to line a cardinal's cape or a Venetian senator's robe.
+end
+
+item rock-salt
+  name a block of Wieliczka salt | blocks of Wieliczka salt
+  shape block #CFCAC0
+  weight 12
+  price 30
+  look A grey block of rock salt from the mines of Wieliczka, under the hills by Cracow, where the miners carve whole chapels out of the salt, altar, saints and all, a hundred fathoms down.
+end
+
+item wax
+  name a cake of beeswax | cakes of beeswax
+  shape cheese #D8B850
+  weight 4
+  price 120
+  look A cake of yellow beeswax from the forests of Bosnia, for the church candles of Ragusa and Venice. The Turks have no need of church candles, and sell it gladly.
+end
+
+# ---------------------------------------------------------------- things of Constantinople
+
+item atlas
+  name Blaeu's atlas | atlases
+  shape book #2A3A5A #C9A44A
+  weight 6
+  price 4800
+  look Willem Blaeu's Atlantis Appendix, of last year: sixty maps of the whole world, coloured by hand, bound in vellum with gold tooling. It weighs as much as a small child and costs as much as a horse.
+  use read Atlantis Appendix | Maps of the whole world, from the Arctic to the Strait of Magellan, the coasts drawn from the Dutch pilots' own charts. Europe is crowded with names; Africa is empty inside; and a great southern continent, unknown, sprawls under everything.
+end
+
+item kahve
+  name a cup of kahve | cups of kahve
+  shape cup #2A1A12
+  weight 0.3
+  price 6
+  look A little cup of kahve, black and bitter, with a skin of grounds at the bottom.
+  use drink You drink the kahve. Your heart thumps, your eyes open wide, and you feel you could talk politics till dawn.
+end
+
+item lucaris-letter
+  name the Patriarch's letter | letters
+  shape book #EEE6D6 #EEE6D6
+  weight 0.05
+  price 0
+  look A letter in Greek, sealed with the Patriarch's seal, for the Dutch ambassador at Pera.
+end
+
+# ---------------------------------------------------------------- things of the stories
+# (who wants them and why: data/people/*.txt; data/stories.txt has the list of the stories)
+
+item glass-blank
+  name a disc of cristallo | discs of cristallo
+  shape plate #DDE8EE
+  weight 0.5
+  price 240
+  look A disc of Barovier's cristallo, a finger thick, clear as spring water: glass for a lens, if you know how to grind one.
+  needs optics You turn the disc in the light. To make a lens of it you would have to know how to grind one, and you do not.
+  takes 180
+  use make lens | You fix the disc to a wooden block with pitch, grind it on a curved iron lap with emery and water all afternoon, finer and finer, and polish it with tripoli on felt. It comes out a lens: not perfect, but a lens.
+  also disc discs
+end
+
+item lens
+  name a lens | lenses
+  shape plate #CFE0EA
+  weight 0.1
+  price 360
+  look A lens of Murano glass, ground convex. Two of them in a tube, a long way apart, and far things come near.
+  needs optics A curved piece of glass. Someone who knew optics would know what to do with it.
+  with lens 1 tube 1
+  takes 30
+  use make spyglass | You set a lens in each end of the tube and slide them to and fro until a weathercock a mile away leaps into your eye: a spyglass, of your own making.
+end
+
+item tube
+  name a pasteboard tube | pasteboard tubes
+  shape candle #7A2A22
+  weight 0.4
+  price 24
+  look A tube of pasteboard covered in red leather, as long as your arm, the kind map-sellers roll their maps in.
+end
+
+item spyglass
+  name a spyglass | spyglasses
+  shape candle #5A2A1A
+  weight 1
+  price 2400
+  look A spyglass: a leather tube with a lens at each end. Through it a church a league off looks a stone's throw away.
+  use say You put the spyglass to your eye. A weathercock on a far steeple leaps close, every feather of it; a woman shaking a cloth from a window a mile off; a pigeon on a chimney, which looks back at you. (At night, try the sky.)
+  night You turn the spyglass on the sky. The Moon is rough with mountains, their shadows long at the edge of the light; and by Jupiter stand four little stars in a line, which will have moved by tomorrow night. Galileo was right. {player set saw-moons} {player learn astronomy}
+end
+
+item ultramarine
+  name a pouch of ultramarine | pouches of ultramarine
+  shape purse #2A3A9A
+  weight 0.2
+  price 1440
+  look Lapis lazuli from the mines of Badakhshan, brought by way of Aleppo to Venice and ground to a powder bluer than the sky: worth more than its weight in gold. It is the blue of the Virgin's robe in every altarpiece in Italy.
+end
+
+item rembrandt-sketch
+  name a drawing by Rembrandt | drawings by Rembrandt
+  shape book #E8D8B8 #A0502A
+  weight 0.05
+  price 240
+  image art/rembrandt-sketch.png
+  credit Rembrandt, Head of an Old Man, about 1631, National Gallery of Art, Washington. CC0, via Wikimedia Commons.
+  use read A drawing by Rembrandt | An old man's head in red chalk, his beard in a few quick lines and his eyes in shadow. Rembrandt drew it in less time than it takes to say so, and signed nothing. "Keep it," he said. "One day somebody will pay you for it."
+end
+
+item post-packet
+  name a packet of the post | packets of the post
+  shape book #8A6A3A #C8B48A
+  weight 1
+  look A packet of letters sewn up in oilcloth and sealed with the post's seal, for the innkeeper of another town: you may carry it, not open it.
+end
+
+item questions-ms
+  name Father Mersenne's book of Questions, in manuscript | manuscripts of Father Mersenne's book of Questions
+  shape book #EEE6D6 #8A6A3A
+  weight 1
+  look A thick bundle of paper in Father Mersenne's small hand, tied with tape: "Questions theological, physical, moral and mathematical". It is for Doctor Grosbois of the Sorbonne, who must approve it before any printer may set a line of it.
+  use say It is tied with tape, for the doctor. It is not yours to untie.
+end
+
+item questions-struck
+  name Father Mersenne's book of Questions, struck in red | manuscripts of Father Mersenne's book of Questions, struck in red
+  shape book #EEE6D6 #A01818
+  weight 1
+  look Father Mersenne's manuscript, untied now and bleeding red ink: whole pages struck through, and in the margins, in a square hand, "Deleatur".
+  use read Father Mersenne's Questions, with the doctor's red ink | Question 2: Whether the Earth moves. Struck through, in red: "The reasons of Copernicus, which the learned Galileo has lately made stronger with his glass, are such that I confess I cannot answer them." In the margin: "Deleatur. Decided by the Congregation of the Index, in the year 1616." Question 9: Whether the heavens can change. Struck through: "Galileo has seen spots on the face of the Sun, which come and go like clouds." In the margin: "Deleatur. The heavens are incorruptible: Aristotle, On the Heavens, book I." Question 14: Whether there may be other worlds. The whole question is struck through. In the margin: "Deleatur. He knows better." At the end, in the same square hand: "The rest contains nothing contrary to the faith or to good morals. C. Grosbois, doctor of the Faculty of Theology of Paris."
+end
+
+item mersenne-letter
+  name Father Mersenne's letter to Monsieur Descartes | Father Mersenne's letters to Monsieur Descartes
+  shape book #EEE6D6 #EEE6D6
+  weight 0.05
+  use say A thick letter, sealed, addressed in a small hand: "To Monsieur Descartes, at the house of ... in the Kalverstraat, by the Munttoren, Amsterdam. Not to be given to anyone else."
+end
+
+item mersenne-to-diodati
+  name Father Mersenne's letter to Monsieur Diodati | Father Mersenne's letters to Monsieur Diodati
+  shape book #EEE6D6 #EEE6D6
+  weight 0.05
+  use say A letter folded small and sealed with green wax, addressed: "To Monsieur Diodati, advocate in the Parlement, at the Palais. Into his own hands." You do not open it.
+end
+
+item degeer-packet
+  name a packet for Louis De Geer | packets for Louis De Geer
+  shape book #E2D8C2 #8A5A3A
+  weight 0.2
+  use say A fat packet in oilcloth, sealed by a merchant's factor at Paris: "To Monsieur Louis De Geer, at Stockholm. Into his own hands." Crenet says six livres at the other end.
+end
+
+item mersenne-packet
+  name Father Mersenne's packet for the south | Father Mersenne's packets for the south
+  shape book #E2D8C2 #E2D8C2
+  weight 0.2
+  use say A thick packet of letters, tied with string and sealed, addressed to Monsieur de Peiresc at Aix, Monsieur Gassendi at Digne, and three fathers in Rome. For the post: Crenet, at the Pomme de Pin.
+end
+
+item mersenne-letters
+  name Father Mersenne's three letters | Father Mersenne's letters
+  shape book #EEE6D6 #EEE6D6
+  weight 0.1
+  use say Three letters, sealed with green wax: to Monsieur Rivet, pastor, at Leiden; to Monsieur Gassendi, at Digne; and to a Capuchin father in Rome. For the post: Crenet, at the Pomme de Pin. You do not open them.
+end
+
+item peiresc-letter
+  name a letter that smells of fish | letters that smell of fish
+  shape book #E6DCC6 #E6DCC6
+  weight 0.05
+  use say Father Mersenne's letter to Monsieur de Peiresc, at Aix, still sealed, and stained with something from the fish stalls. It goes back to Father Mersenne.
+end
+
+item mersenne-to-galileo
+  name Father Mersenne's letter to Galileo | Father Mersenne's letters to Galileo
+  shape book #EEE6D6 #EEE6D6
+  weight 0.05
+  use say A letter sealed with green wax, in Father Mersenne's small hand: "To the most illustrious Signor Galileo Galilei, Philosopher and Mathematician to the Grand Duke of Tuscany, at Arcetri, by Florence. Into his own hands." You do not open it.
+end
+
+item descartes-letter
+  name a letter from Descartes | letters from Descartes
+  shape book #EEE6D6 #EEE6D6
+  weight 0.05
+  use say Sealed, for "the Reverend Father Mersenne, Minim, at the Place Royale, Paris". It is heavier than a letter should be: there is a diagram folded inside.
+end
+
+item de-motu-cordis
+  name Harvey's book on the heart | copies of Harvey's book on the heart
+  shape book #5A3A2A #E8DFC8
+  weight 1
+  price 600
+  image art/harvey-veins.png
+  credit Harvey's figure of the veins of the arm, from the edition of Rotterdam, 1648. Public domain, via Wikimedia Commons.
+  needs latin A small Latin book, printed in Frankfurt, with a picture of an arm tied with a band and its veins swollen. Without Latin, that is all you get from it.
+  book de-motu-cordis
+  use read William Harvey, On the Motion of the Heart and Blood, Frankfurt 1628 | "The blood goes round, in a circle, and is driven by the beat of the heart." Tie a band round the arm, and the veins swell below it, not above: so the blood in the veins flows towards the heart, and the little doors in them (press, and see) let it go no other way. Every hour the heart pumps out more blood than there is in the whole body; so it must be the same blood, going round.
+end
+
+item second-folio
+  name Shakespeare's Second Folio | copies of Shakespeare's Second Folio
+  shape book #3A2A20 #E8DFC8
+  weight 8
+  price 2400
+  image art/folio-macbeth.png
+  credit The Second Folio, 1632. Public domain, via Wikimedia Commons.
+  book second-folio
+  use read Mr. William Shakespeares Comedies, Histories, and Tragedies, the second impression, 1632 | Thirty-six plays in one great volume, newly printed this year by Thomas Cotes for Robert Allot and others, at the Black Bear in Paul's Churchyard. Among the verses at the front, a new one, unsigned, "An Epitaph on the admirable Dramaticke Poet, W. Shakespeare": "What needs my Shakespeare for his honoured bones / The labour of an age in pilèd stones, / Or that his hallowed relics should be hid / Under a star-y-pointing pyramid?" They say it is by a young man at Cambridge, a Mr. Milton.
+end
+
+item diophantus
+  name Fermat's Diophantus | copies of Diophantus
+  shape book #4A3020 #E8DFC8
+  weight 2
+  image art/fermat-margin.png
+  credit Diophantus, Arithmetica, the edition of 1670 with Fermat's notes. Public domain, via Wikimedia Commons.
+  needs latin Greek on the left-hand pages, Latin on the right, and numbers everywhere; and notes in the margins, in Latin, in a small hand. Without Latin, only the numbers make sense.
+  book diophantus
+  use read Diophantus, Arithmetica, Book II, Question VIII, in Bachet's edition | "To divide a given square into two squares." And in the margin, in Monsieur Fermat's small hand: "But it is impossible to divide a cube into two cubes, or a fourth power into two fourth powers, or in general any power beyond the square into two like powers. I have discovered a truly marvellous proof of this, which this margin is too narrow to contain." {player set read-margin}
+end
+
+item parchment
+  name a skin of parchment | skins of parchment
+  shape book #F0E6CC #F0E6CC
+  weight 0.5
+  price 36
+  look A skin of good parchment from the Lendit fair, scraped thin and pale, for writing that has to last.
+end
+
+item citron
+  name a box of candied citron | boxes of candied citron
+  shape loaf #E8C040
+  weight 0.5
+  look A little wooden box from the nuns of San Matteo. Inside, candied citron, and a folded note: "For my dearest lord father, who forgets to eat."
+  use say It is not for you: it is for Signor Galileo, from his daughter.
+end
+
+item verse
+  name a verse for Pasquino | verses for Pasquino
+  shape book #F0EADA #F0EADA
+  weight 0.02
+  look A slip of paper with four lines of Latin, unsigned: "Barberini apes, quae Pantheon spoliastis, / nunc Florentinum pungitis ob Terrae motum. / Apis, quid fugis? Terra movetur. Ecce! / Et vos cum illa." The bees, it says, that stripped the Pantheon now sting a Florentine for saying the Earth moves; but run, bees, the Earth moves, and you with it.
+  near pasquino You must paste it on Pasquino himself: the battered old statue at the corner by the Piazza Navona.
+  use say You look round for the sbirri, slap the verse on Pasquino's chest with a dab of paste, and walk away, not too fast. {player set pasted-verse=now} {take-one verse}
+end
+
+item lute
+  name a lute | lutes
+  shape coil #B07A3E
+  weight 3
+  price 960
+  look A lute of seven courses, with a rose carved in its belly, made in Padua by a German.
+  needs lute You pluck a string or two. It sounds like a cat in a cistern. Someone who plays could teach you.
+  use play flow-my-tears | You tune the lute, sit down where you are, and play Dowland's "Flow, my tears", nearly as Lydia taught you.
+end
+
+item old-map
+  name an old map of Europe | old maps of Europe
+  shape book #D8C8A0 #3A6A9A
+  weight 1
+  image art/old-map.png
+  credit The old map of Europe, a thousand squares by eight hundred, from the first Galileo (2013).
+  use read An old map of Europe, all in little squares | A curious old map: Europe drawn as a chequerboard of a thousand squares by eight hundred, every square land or sea, hill or wood. The coasts go in steps like a staircase. Holland is only a few little islands in the sea, and someone has written beside them, in a later hand: "Corrected, 1632. The land came up out of the sea in a single night." {player set read-old-map}
+end
+
+item tulip-bulb
+  name a tulip bulb | tulip bulbs
+  shape onions #C8A070
+  weight 0.1
+  price 2400
+  look A tulip bulb in a paper twist, labelled in a small hand: "Viceroy, broken, of Clusius". It looks exactly like an onion, and is worth as much as a horse.
+  use say You are not going to eat it. Are you?
+end
+
+item pappus
+  name Pappus's problem | copies of Pappus's problem
+  shape book #EEE6D6 #EEE6D6
+  weight 0.05
+  look A sheet in Golius's hand: "The problem of Pappus, of three and four lines: to find the place of the points..." and a figure of four lines crossing, with lettered points.
+  use say Four lines, and points whose distances to them stand in a given ratio. You stare at it until your head aches. It wants a Descartes.
+end
+
+item pappus-solution
+  name Descartes's answer to Pappus | answers to Pappus
+  shape book #EEE6D6 #EEE6D6
+  weight 0.05
+  use say Pages of letters and equations: x, y, a line called AB, and at the end "a conic section, Q.E.D.". The first page says, "For Golius. Tell no one."
+end
+
+item mother-letter
+  name a letter from Rembrandt's mother | letters
+  shape book #EEE6D6 #EEE6D6
+  weight 0.05
+  use say A letter, folded small and sealed with wax: "To my son Rembrandt Harmensz., painter, at the house of Hendrick Uylenburgh in the Breestraat, Amsterdam."
+end
+
+item pasquino
+  name the statue of Pasquino | statues
+  shape group #B8B0A0
+  fixed
+  image art/pasquino.png
+  credit Photo: Lalupa. Public domain, via Wikimedia Commons.
+  title Pasquino
+  look A battered old marble, Menelaus holding the body of Patroclus, they say, though you would never know it: no face, no arms, hardly a body. For a hundred years Romans have pasted verses on him at night, mocking popes and cardinals, and every morning the police tear them down. The verses are called pasquinades.
+end
+
+# ---------------------------------------------------------------- Stockholm
+# the Barbary coast (people/barbary.txt): red coral from the Bastion's fishers at Hippo (a trade
+# good: market.txt, wanted in Rome, Venice, Amsterdam and Paris), a gold coin of Hippo (Cassiano
+# dal Pozzo buys it, rome.txt), and Augustine's codex in the cisterns (invented; given to Cardinal
+# Francesco Barberini, rome.txt, and the story "augustine" in stories.txt)
+item coral
+  name a branch of red coral | branches of red coral
+  also branch red
+  shape coil #C8302A
+  weight 1
+  price 2400
+  look A branch of red coral from the banks off Bône, in Barbary, wrapped in a rag: red as a cardinal, and as brittle. The rosary-makers of Rome and Venice pay well for it, and the Dutch carry it to the Indies.
+end
+
+item hippo-coin
+  name a gold coin of Hippo | gold coins of Hippo
+  also coin gold solidus honorius
+  shape purse #D8B040
+  weight 0.1
+  price 2400
+  look A little gold coin, a solidus, worn smooth on one cheek: "D N HONORIUS P F AUG", the Emperor Honorius, struck while Augustine was bishop of Hippo. A shepherd's rain washed it out of the ruins. Collectors of antiquities pay for such things.
+end
+
+item barberini-bill
+  name a bill of exchange of Cardinal Barberini | bills of exchange of Cardinal Barberini
+  also bill exchange credit draft
+  shape book #E8DCC0
+  weight 0.05
+  price 0
+  look A bill of exchange on the Genoese bankers of Seville, drawn by Cardinal Francesco Barberini, with his arms and the three bees in red wax: two hundred livres, "for the purchase of a ship, and for no other purpose".
+end
+
+item augustine-codex
+  name a codex of Saint Augustine | codices of Saint Augustine
+  also codex augustine manuscript genesi parchment book
+  shape book #6A4A2A
+  weight 3
+  price 0
+  look A small codex of parchment in an old round hand, its boards eaten by worms and its edges by damp: "Aurelii Augustini de Genesi ad litteram". In the first book a passage is marked in the margin with a little red hand, perhaps by Augustine's own scribes.
+  use read De Genesi ad litteram, book I | (in your own rough Latin) Even a man who is not a Christian knows something of the earth and the sky and the other parts of this world: the motions of the stars, their sizes and distances, the eclipses of sun and moon, the turning of the years and seasons, the kinds of animals and plants and stones. He knows it by reason and by experience. It is a shameful and a dangerous thing for him to hear a Christian, who claims to speak from Holy Scripture, talk nonsense about such things. The harm is not that a man is laughed at; it is that those outside believe our authors taught such nonsense, and despise them. -- Galileo quoted these very lines to the Grand Duchess Christina.
+end
+
+# trade goods of Sweden (market.txt Stockholm), and the letters of a story (stockholm.txt christina,
+# nuremberg.txt gustavus; stories.txt "a letter for the King")
+
+item copper
+  name a plate of copper | plates of copper
+  shape block #B8703A #C88050
+  weight 5
+  price 480
+  look A plate of copper from the great mine at Falun, stamped with the crown: Sweden's copper pays for the King's war, and half the copper roofs and coins of Europe.
+end
+
+item bar-iron
+  name a bar of iron | bars of iron
+  shape block #5A5A5E #6A6A6E
+  weight 10
+  price 120
+  look A bar of Swedish iron, hammered at a forge in the Bergslagen and stamped with its mark: the best iron in Europe, the English say, for nails and guns.
+end
+
+item tar
+  name a keg of tar | kegs of tar
+  shape firewood #2A221A #1A1612
+  weight 8
+  price 96
+  look A small keg of Stockholm tar, boiled out of pine stumps in the forests of the north: every navy in Europe paints its ropes and hulls with it.
+end
+
+item christina-letter
+  name a letter for the King | letters for the King
+  shape book #E8DFC8 #E8DFC8
+  weight 0.05
+  look A sheet folded small and sealed by a grown-up's hand, addressed "To the King my father, in Germany." Inside, you can feel, is something stiff: a drawing, perhaps.
+  use say It is sealed, and it is the King's.
+end
+
+item king-letter
+  name a letter for the Princess | letters for the Princess
+  shape book #E8DFC8 #3A5A9A
+  weight 0.05
+  look A letter sealed with the King's own ring, a lion with a crown, addressed in a large hand: "To my dear daughter Christina, at Stockholm."
+  use say It is sealed, and it is the Princess's.
+end
+
+# ---------------------------------------------------------------- weapons and armour
+# "weapon N": the most a blow with it can do (with your fists, 2); you fight with the best you
+# carry. "armour N": taken from every blow that strikes you; you wear the best you carry.
+
+item rapier
+  name a rapier | rapiers
+  shape sword #B8BCC4 #4A3020
+  weight 2.5
+  price 1440
+  weapon 7
+  look A rapier of Solingen steel, long and narrow, with a swept hilt of iron wire to guard the hand: a gentleman's sword, for the thrust more than the cut.
+end
+
+item dagger
+  name a dagger | daggers
+  shape knife #B8BCC4 #4A3020
+  weight 0.6
+  price 240
+  weapon 4
+  look A left-hand dagger with a broad guard, for parrying and for the close work.
+end
+
+item cudgel
+  name a cudgel | cudgels
+  shape firewood #6A4A2A #4A3020
+  weight 2
+  price 24
+  weapon 4
+  look A stout stick of blackthorn, knotted at the end. The weapon of carters and bargemen.
+end
+
+item buff-coat
+  name a buff coat | buff coats
+  shape buffcoat #C8A060 #A88040
+  weight 8
+  price 1920
+  armour 1
+  look A long coat of thick ox-hide, oiled and yellow, that turns a glancing cut and a spent ball. Half the King of Sweden's officers wear one instead of armour.
+end
+
+item breastplate
+  name a breastplate | breastplates
+  shape cuirass #9AA0A8 #B8BCC4
+  weight 15
+  price 2880
+  armour 3
+  look A breastplate and backplate of Nuremberg steel, with the armourer's mark of the city struck on the neck: proof, he says, against a pistol ball.
+end
+
+# ---------------------------------------------------------------- things of the merchant stories
+# (people's files: Mehmed Celebi and Yakub Aga, Barbara Schultz and Battista Sforzini, Arent Groen;
+# stories.txt "merchant stories"). Consignments have no price: nobody will buy another man's goods.
+
+item glass-crate
+  name a crate of Murano glass | crates of Murano glass
+  shape box #8A6A42 #C8B48A
+  weight 20
+  look A crate of deal boards, nailed shut and corded, stencilled with a merchant's mark and "PER YAKUB AGA, BEDESTEN, COSTANTINOPOLI". Inside, packed in straw, is Murano glass: you can hear it, faintly, when you walk.
+  use say It is nailed shut, and it is not yours to open.
+end
+
+item amber-rosaries
+  name a box of amber rosaries | boxes of amber rosaries
+  shape box #5A3A22 #E0A040
+  weight 3
+  look A small box of oak, sealed with Barbara Schultz's seal, addressed to Battista Sforzini in the Via dei Coronari, Rome. Through a crack you can see beads the colour of honey, strung in fifties and tens.
+  use say It is sealed, and it is Battista Sforzini's.
+end
+
+item ship-share
+  name a part of the fluyt de Hoop | parts of the fluyt de Hoop
+  shape book #E8DFC8 #E8DFC8
+  weight 0.05
+  look A sheet with Arent Groen's seal: "The bearer owns one sixty-fourth part of the fluyt de Hoop of Amsterdam, skipper Jan Sijmonsz, sailing for Danzig with herring and salt, to come home with rye; in her profit and her loss alike, as God wills." Dutch ships are owned like this, in parts: sixteenths, thirty-seconds, sixty-fourths, by bakers, widows and ministers.
+  use say You read it again. You own a sixty-fourth part of a ship. It does not feel like much, and it feels like a great deal.
+end
+
+# ---------------------------------------------------------------- things of the stories (Padua and Pisa)
+
+item cannonball
+  name a cannonball | cannonballs
+  shape ball #3A3A3E
+  weight 6
+  price 96
+  look An iron ball for a falconet of the galleys, the size of a fist and the weight of a sin: six pounds.
+  with musket-ball 1
+  at "the top of the Leaning Tower" You heft the ball. From somewhere high, beside something light, it might prove something: from the top of the Leaning Tower, say.
+  use say You lean out over the low parapet on the side where the tower leans, the cannonball in one hand and a musket ball in the other, and let them go together. They fall a long way, side by side, and strike the grass at the same moment: two thumps so close together they make one. Below, a boy picks them up, looks up at you, and runs off with the little one. {player set dropped-balls=now} {take-one musket-ball}
+end
+
+item musket-ball
+  name a musket ball | musket balls
+  shape shot #6A6A70
+  weight 0.1
+  price 3
+  look A lead ball for a musket, the size of a hazelnut: one ounce. A ninety-sixth part of a six-pound cannonball, if anyone is counting.
+end
+
+# ---------------------------------------------------------------- the country: hunting, fishing, the roads
+# (main.cc, Game::wildStep and what follows it). Use the fowling piece (U, then a click on the beast,
+# or U twice and choose it) to shoot the nearest wild beast in sight, within sixteen tiles; each shot
+# takes a charge. Use the rod beside water to fish. A dead wolf, bear or deer is skinned or butchered
+# with a knife (U and a click on it). The bill of exchange is drawn and paid by money-changers.
+
+item fowling-piece
+  name a fowling piece | fowling pieces
+  shape sword #4A4A50 #6A4A2A
+  weight 6
+  price 2400
+  weapon 3
+  use shoot | You put the gun to your shoulder.
+  look A long fowling piece with a wheel-lock, its stock of walnut: a gentleman's gun for birds and game. Each shot takes a charge of powder and shot. As a club it is not much.
+end
+
+item shot
+  name a charge of powder and shot | charges of powder and shot
+  shape shot #8A8070
+  weight 0.1
+  price 6
+  look A twist of paper with a measure of powder and a lead ball in it, for the fowling piece.
+end
+
+item venison
+  name a haunch of venison | haunches of venison
+  shape cheese #7A3A2A
+  weight 8
+  price 600
+  look A haunch of red deer, heavy and dark. Any innkeeper will buy it, and ask no questions; near the King's towns a gamekeeper would ask a great many.
+  use say Raw venison is no meal. An innkeeper would roast it, and pay you for it first.
+end
+
+item wolf-pelt
+  name a wolf's pelt | wolves' pelts
+  shape coil #7A746A
+  weight 4
+  price 120
+  look A grey wolf's pelt, the head still on it. The parishes pay a bounty on every wolf: any herdsman will pay it.
+end
+
+item bear-pelt
+  name a bear's pelt | bears' pelts
+  shape coil #4A3424
+  weight 20
+  price 480
+  look The hide of a brown bear, heavy as a sack of corn. There is a bounty on bears as well as wolves: a herdsman pays it.
+end
+
+item rod
+  name a rod and line | rods and lines
+  shape coil #8A7A5A
+  weight 1.5
+  price 36
+  use fish | You cast the line.
+  look A long hazel rod with a line of plaited horsehair and a little iron hook. Fish bite best at dawn and towards evening. Use it standing at the water's edge.
+end
+
+item bill-of-exchange
+  name a bill of exchange | bills of exchange
+  shape book #E8E0CC
+  weight 0
+  price 0
+  use bill | You read the bill.
+  look A bill of exchange: a money-changer's letter to his correspondents, to pay the bearer so much in another town. A robber cannot spend it.
+end
+
+item coffee-beans
+  name a handful of coffee beans | handfuls of coffee beans
+  shape apples #7A8456
+  weight 0.2
+  price 120
+  look Green beans of kahve, not parched, in a twist of paper: from Mocha in Arabia, by Cairo and Constantinople. The Turks roast them, grind them, and drink them in black water, hot, to stay awake.
+  use say You chew a raw bean. It tastes of grass and regret, and you spit it out. They must be roasted first, surely.
+end
+
+item bologna-stone
+  name a Bologna stone | Bologna stones
+  shape cabbage #B4ACA0
+  weight 0.5
+  price 1440
+  look A grey lump of stone from Monte Paderno, by Bologna. A cobbler who dabbled in alchemy, Vincenzo Casciarolo, roasted it in his oven thirty years ago hoping for gold. It drinks the light of the Sun, they say, and gives it back in the dark.
+  use say In the daylight it is a grey stone, nothing more. Try it in the dark.
+  night You uncover the stone in the dark. It glows, faintly, the colour of embers seen through smoke, giving back the Sun it drank in the day, and slowly fades. Liceti says the Moon shines like this; Galileo says the Earth lights the Moon. Watching it, you are not sure who is right. {player set saw-stone-glow}
+end
+
+item galileo-compass
+  name Galileo's compass | geometric compasses
+  shape knife #B8902A #8A6A20
+  weight 0.6
+  price 1440
+  look A geometric and military compass: two brass arms on a hinge, a quadrant, and lines of numbers engraved along the arms, for metals, for powder, for squares and cubes. Galileo had them made in his house at Padua by his workman Marcantonio Mazzoleni, and sold them, with lessons, to the young gentlemen of the University. With it a gunner can find the charge for any ball, a surveyor the height of a tower, a merchant the exchange of any coin.
+  needs geometry You open the arms. The lines of numbers mean nothing to you: you would need geometry.
+  use say You set the arms to the line of metals, iron against lead, and find that a six-pound iron ball, cast in lead, would weigh eight and a half. You feel tremendously clever, and no richer.
+end
+
+# ---------------------------------------------------------------- works of art (Paris)
+
+item rubens-marseilles
+  name a great painting | great paintings
+  shape painting #C9A44A #3A6A8A
+  fixed
+  image art/rubens-marseilles.png
+  credit Rubens, Musée du Louvre. Public domain, via Wikimedia Commons.
+  title The Disembarkation at Marseilles, by Peter Paul Rubens
+  look One of the twenty-four great canvases of the life of Marie de' Medici that Rubens painted for this palace, hers, in 1622-25. The young queen steps ashore in 1600 to marry Henri IV, while sea gods and three nereids hold the ship fast. The Queen Mother herself fled France last year, after the Day of the Dupes; her pictures remain.
+end
+
+item rubens-portrait
+  name a great painting | great paintings
+  shape painting #C9A44A #A04A3A
+  fixed
+  image art/rubens-portrait.png
+  credit Rubens, Musée du Louvre. Public domain, via Wikimedia Commons.
+  title The Presentation of the Portrait, by Peter Paul Rubens
+  look Henri IV falls in love with a portrait of Marie de' Medici, held up to him by Cupid and Hymen, while Jupiter and Juno look down from the clouds. From the cycle of her life, 1622-25.
+end
+
+item rubens-coronation
+  name a great painting | great paintings
+  shape painting #C9A44A #6A3A6A
+  fixed
+  image art/rubens-coronation.png
+  credit Rubens, Musée du Louvre. Public domain, via Wikimedia Commons.
+  title The Coronation in Saint-Denis, by Peter Paul Rubens
+  look Marie de' Medici is crowned queen in the basilica of Saint-Denis on 13 May 1610. The next day Henri IV was stabbed to death in his coach in the rue de la Ferronnerie. From the cycle of her life, 1622-25.
+end
+
+item caryatid
+  name a caryatid | caryatids
+  shape statue #E8E0CC
+  fixed
+  image art/caryatid.png
+  credit Photo: Sharon Mollerus, CC BY 2.0, via Wikimedia Commons.
+  title The caryatids of Jean Goujon
+  look One of four stone women by Jean Goujon (1550) who hold up the musicians' gallery in the great hall of the Louvre. Goujon took them from Vitruvius, who says the Greeks carved the women of Caryae as slaves, to bear the weight of their betrayal for ever. Goujon, a Huguenot, died in exile in Bologna, they say.
+end
+
+item diana-louvre
+  name a marble goddess | marble goddesses
+  shape statue #ECE6D8
+  fixed
+  image art/diana-louvre.png
+  credit Photo: Shonagon, CC0, via Wikimedia Commons.
+  title Diana with a stag, an ancient marble
+  look Diana the huntress, reaching over her shoulder for an arrow, with a young stag leaping at her side: a Roman marble, copied from a Greek bronze. Pope Paul IV gave her to King Henri II in 1556, with a compliment in the gift to the King's mistress, Diane de Poitiers. She stood in a garden at Fontainebleau until Henri IV brought her here in 1602, to this hall of antiquities, and his sculptor Barthélemy Prieur mended her arms.
+end
+
+item goujon-ceiling
+  name a carved ceiling | carved ceilings
+  shape none #000000
+  fixed
+  image art/goujon-ceiling.png
+  credit Photo: Gary Todd, CC0, via Wikimedia Commons.
+  title The vault of Henri II's staircase
+  look Look up. The vault of the King's staircase is carved all over in stone, by Jean Goujon's workshop in the 1550s: garlands of fruit, oak and laurel, rosettes, and two children with a globe. Henri II's cipher is carved all over this part of the Louvre: an H, with two crescent moons that might also be two Ds, for Diane de Poitiers.
+end
+
+item mona-lisa
+  name a great painting | great paintings
+  shape painting #C9A44A #5A5A3A
+  fixed
+  image art/mona-lisa.png
+  credit Leonardo da Vinci, Musée du Louvre (C2RMF). Public domain, via Wikimedia Commons.
+  title Monna Lisa, by Leonardo da Vinci
+  look A Florentine lady, half smiling, her hands folded, before a country of rocks and winding water, all smoke and shadow. Leonardo painted her in Florence, kept her by him to the end and brought her to France, and King François had her after him. Cassiano dal Pozzo, who saw her at Fontainebleau seven years ago, wrote that nothing was lacking in her but speech, and complained of the varnish on her. They usually hang at Fontainebleau, in the King's cabinet of pictures; this summer the best of them have come up to the Louvre, for the keeper of the King's pictures to clean.
+end
+
+item virgin-rocks
+  name a great painting | great paintings
+  shape painting #C9A44A #3A4A3A
+  fixed
+  image art/virgin-rocks.png
+  credit Leonardo da Vinci, Musée du Louvre. Public domain, via Wikimedia Commons.
+  title The Virgin of the Rocks, by Leonardo da Vinci
+  look The Virgin in a grotto of strange rocks and small flowers, the little Saint John kneeling to the Christ Child, an angel pointing. Leonardo painted it at Milan, and the Kings of France have had it for a hundred years and more. They usually hang at Fontainebleau, in the King's cabinet of pictures; this summer the best of them have come up to the Louvre, for the keeper of the King's pictures to clean.
+end
+
+item leda-lost
+  name a great painting | great paintings
+  shape painting #C9A44A #7A6A4A
+  fixed
+  image art/leda-damaged.png
+  credit After the copy by Francesco Melzi (the Spiridon Leda), Uffizi; the damage is drawn for this game. Public domain, via Wikimedia Commons.
+  title Leda and the swan, by Leonardo da Vinci
+  look Leda stands almost naked, the swan's neck about her, and at her feet lie the broken eggs from which her children have hatched. It is painted on three long boards, and the boards have split apart: along the joins the paint is lifting, and flakes of it have fallen, down to the white ground and the bare wood. Old varnish has turned it yellow. Cassiano dal Pozzo saw it so at Fontainebleau in 1625. Of all the King's pictures, it is the one the keeper fears for most.
+  after leda-restored image art/leda-restored.png
+  after leda-restored credit The copy by Francesco Melzi (the Spiridon Leda), Uffizi. Public domain, via Wikimedia Commons.
+  after leda-restored look Leda stands almost naked, the swan's neck about her, and at her feet the broken eggs from which her children have hatched, in a meadow of small flowers before a far blue country. The three boards are drawn together again, the lifting paint laid down, the losses filled, and the yellow varnish taken off: the colours are as Leonardo left them, for the first time in a hundred years.
+end
+
+item raphael-michael
+  name a great painting | great paintings
+  shape painting #C9A44A #3A5A7A
+  fixed
+  image art/raphael-michael.png
+  credit Raphael, Musée du Louvre (C2RMF). Public domain, via Wikimedia Commons.
+  title Saint Michael and the devil, by Raphael
+  look Saint Michael, his wings bright and his spear raised, tramples the devil among the rocks. Raphael painted it at Rome in 1518, a present from the Pope's family to King François, who was the Grand Master of the order of Saint Michael. They usually hang at Fontainebleau, in the King's cabinet of pictures; this summer the best of them have come up to the Louvre, for the keeper of the King's pictures to clean.
+end
+
+item belle-jardiniere
+  name a great painting | great paintings
+  shape painting #C9A44A #4A6A8A
+  fixed
+  image art/belle-jardiniere.png
+  credit Raphael, Musée du Louvre. Public domain, via Wikimedia Commons.
+  title The Virgin and Child with Saint John, by Raphael
+  look The Virgin sits in a flowery meadow before a blue distance, the Child at her knee, the little Saint John kneeling with his cross of reeds. Raphael painted it at Florence, when he was young. They usually hang at Fontainebleau, in the King's cabinet of pictures; this summer the best of them have come up to the Louvre, for the keeper of the King's pictures to clean.
+end
+
+item raphael-holy-family
+  name a great painting | great paintings
+  shape painting #C9A44A #6A3A4A
+  fixed
+  image art/raphael-holy-family.png
+  credit Raphael, Musée du Louvre. Public domain, via Wikimedia Commons.
+  title The Holy Family, by Raphael
+  look The Child leaps from his cradle into his mother's arms; Saint Elizabeth brings the little Saint John to him, Joseph watches, and angels scatter flowers. Raphael painted it in 1518, for Lorenzo de' Medici to give to Queen Claude, with the Saint Michael for the King. They usually hang at Fontainebleau, in the King's cabinet of pictures; this summer the best of them have come up to the Louvre, for the keeper of the King's pictures to clean.
+end
+
+item titian-francis
+  name a great painting | great paintings
+  shape painting #C9A44A #3A2A2A
+  fixed
+  image art/titian-francis.png
+  credit Titian, Musée du Louvre. Public domain, via Wikimedia Commons.
+  title King François, by Titian
+  look King François in profile, as on a coin, in black and crimson. Titian never saw him: he painted him at Venice in 1539, from a medal, they say. They usually hang at Fontainebleau, in the King's cabinet of pictures; this summer the best of them have come up to the Louvre, for the keeper of the King's pictures to clean.
+end
+
+item clouet-francis
+  name a great painting | great paintings
+  shape painting #C9A44A #8A2A2A
+  fixed
+  image art/clouet-francis.png
+  credit Jean Clouet, Musée du Louvre. Public domain, via Wikimedia Commons.
+  title King François, by Jean Clouet
+  look King François, broad and splendid in white and black satin with gold, before a curtain of crimson damask: his own painter's likeness of him, a hundred years ago. They usually hang at Fontainebleau, in the King's cabinet of pictures; this summer the best of them have come up to the Louvre, for the keeper of the King's pictures to clean.
+end
+
+item sarto-charity
+  name a great painting | great paintings
+  shape painting #C9A44A #7A4A5A
+  fixed
+  image art/sarto-charity.png
+  credit Andrea del Sarto, Musée du Louvre. Public domain, via Wikimedia Commons.
+  title Charity, by Andrea del Sarto
+  look Charity, a young mother with three children at her breast and her feet. Andrea del Sarto painted it at Fontainebleau in 1518. King François then gave him money to buy pictures for him in Italy; he went home to Florence, spent it, and never came back. They usually hang at Fontainebleau, in the King's cabinet of pictures; this summer the best of them have come up to the Louvre, for the keeper of the King's pictures to clean.
+end
+
+item goujon-archimedes
+  name a carved figure | carved figures
+  shape painting #D8D0BC #CFC6B0
+  fixed
+  image art/goujon-archimedes.png
+  credit Photo: Marie-Lan Nguyen, public domain, via Wikimedia Commons.
+  title Archimedes, by Jean Goujon
+  look High on Lescot's wing of the courtyard, under the pediment: Archimedes, bearded, his chin in his hand, thinking, with a sphere at his feet and a wheel of his engines. Jean Goujon carved him eighty years ago, beside Euclid. A king's house with mathematicians on it. Nobody looks up.
+end
+
+item goujon-euclid
+  name a carved figure | carved figures
+  shape painting #D8D0BC #CFC6B0
+  fixed
+  image art/goujon-euclid.png
+  credit Photo: Marie-Lan Nguyen, public domain, via Wikimedia Commons.
+  title Euclid, by Jean Goujon
+  look Euclid, broad as a porter, holding up his compasses, a set square and a plumb line at his feet: Jean Goujon's, on the other side of the window from Archimedes. The masons working below say he is the patron of their trade.
+end
+
+item louvre-stone
+  name a block of dressed stone | blocks of dressed stone
+  shape block #DCD4C0
+  fixed
+  title A block of dressed stone
+  look A block of pale stone from the quarries under the Faubourg Saint-Jacques, squared and dressed, waiting for the Pavillon de l'Horloge. On one face is cut the mark of the man who cut it, so that the King's architect knows whom to fine.
+end
+
+item rois-henri-iv
+  name a portrait of a king | portraits of kings
+  shape painting #C9A44A #5A4A3A
+  fixed
+  image art/bunel-henri-iv.png
+  credit Thomas de Leu's engraving (1605) after Jacob Bunel's portrait. Bibliothèque nationale de France; public domain, via Wikimedia Commons.
+  title Henri IV, by Jacob Bunel
+  look The last of the kings of the gallery, and the man who had it made: Henri IV, the first of the Bourbons, laurelled and in armour, by his painter Jacob Bunel. Henri came to the throne by the sword and by the Mass, and he wanted the whole line of his predecessors on these walls, from Saint Louis down, to show that he belonged in it. He was stabbed in his coach in 1610, and Bunel died four years after him.
+end
+
+item rois-king
+  name a portrait of a king | portraits of kings
+  shape painting #C9A44A #3A4A7A
+  fixed
+  title The gallery of the kings
+  look A king of France, life size, crowned, in a mantle of blue sewn with golden lilies: one of the kings and queens of France, from Saint Louis to Henri IV, that Jacob Bunel and his wife Marguerite Bahuche painted for Henri IV's gallery in the Louvre. The faces were copied, they say, from the oldest likenesses that could be found: tombs, windows, books of hours.
+end
+
+item rois-queen
+  name a portrait of a queen | portraits of queens
+  shape painting #C9A44A #7A3A5A
+  fixed
+  title The gallery of the kings
+  look A queen of France, crowned, in ermine and blue velvet: one of the queens who hang beside their kings in Henri IV's gallery, painted by Jacob Bunel and his wife Marguerite Bahuche. Her name is painted below in gold, in Latin.
+end
+
+# the art subplot: Marguerite Bahuche's queen in the gallery of the kings, smoked
+# by a candle (no picture of it survives: the gallery burned in 1661), and what mends it
+item bahuche-queen
+  name a portrait of a queen | portraits of queens
+  shape painting #C9A44A #4A2A2A
+  fixed
+  title Marie de' Medici, by Marguerite Bahuche
+  look Marie de' Medici, Queen of France, the Queen Mother, crowned, in a mantle of blue velvet sewn with golden lilies, by Marguerite Bahuche: or what is left of her. Someone has held a candle to the picture for a long time. The face is a brown blister of smoke, the paint lifted and cracked across the cheek and the eyes; the blue of the mantle is scorched black at the shoulder, and the gold of the crown has run.
+  after queen-restored look Marie de' Medici, Queen of France, the Queen Mother, crowned, in a mantle of ultramarine sewn with golden lilies, by Marguerite Bahuche: whole again. The face is pale and a little sad, the eyes looking past you down the gallery towards the King her husband; the blue is the blue of Venice, and the new gold of the lilies catches the light from the windows. You would not know that anything had happened to her.
+end
+
+item gold-leaf
+  name a book of gold leaf | books of gold leaf
+  shape book #E8C04A #D8A830
+  weight 0.05
+  price 600
+  look Twenty-five leaves of gold beaten thinner than breath, each between two leaves of paper in a little book: hold one to the window and the light comes through it green. A goldbeater of the Ponte Vecchio, Florence.
+end
+
+item mastic
+  name a bag of mastic | bags of mastic
+  shape purse #E8E2B0
+  weight 0.2
+  price 720
+  look The tears of the mastic tree of Chios, pale yellow, clear as glass when you hold them up, and smelling of pine and something sweeter. The Sultan keeps the harvest for himself; this came out of the Bazaar all the same.
+end
+
+item gesso
+  name a pot of glue and chalk | pots of glue and chalk
+  shape jug #E8E4D8
+  weight 0.4
+  price 48
+  look Rabbit-skin glue and fine chalk, to be warmed together: the white ground that painters lay under their colours, and gilders under their gold.
+end
+
+# her thanks: your portrait, painted by her (by the game, from your own figure: main.cc paintPortrait);
+# the picture is made for each player, so its "image" is the one the game painted ($portrait)
+item your-portrait
+  name a little portrait of you | little portraits of you
+  shape painting #C9A44A #2A2018
+  weight 0.4
+  price 2400
+  image $portrait
+  use read A portrait of you, by Marguerite Bahuche | A small panel, oil on oak, in a plain black frame: you, head and shoulders, in your mother's yellow hat and Father Mersenne's coat, against a dark ground, turned a little aside as if someone had called you. The brushwork is quick and sure, and the yellow of the hat is laid on thick. On the back, in her hand: "M. B. 1632, for the courier who brought the blue."
+end
+
+item the-may
+  name a great painting | great paintings
+  shape painting #C9A44A #8A3A2A
+  fixed
+  image art/the-may.png
+  credit Shown: Laurent de La Hyre's May of 1635, a later one. Public domain, via Wikimedia Commons.
+  title The goldsmiths' May
+  look This year's May: a great canvas given to Notre-Dame on the first of May by the confraternity of the goldsmiths, as they have done every year since 1630. It shows a scene from the Acts of the Apostles.
+end
+
+item grande-chasse
+  name a reliquary | reliquaries
+  shape reliquary #D8B04A
+  fixed
+  image art/grande-chasse.png
+  credit The relic tribune today; the Grande Châsse itself was melted down in the Revolution. Photo: denfr, CC BY-SA 4.0, via Wikimedia Commons.
+  title The Grande Châsse
+  look A great reliquary of gilded copper behind the altar. It holds the Crown of Thorns, which Saint Louis bought from the Latin Emperor of Constantinople in 1239, and for which this chapel was built, all glass, like a reliquary itself.
+end
+
+item henri-iv
+  name the statue of Henri IV | statues
+  shape none #000000
+  fixed
+  image art/henri-iv.png
+  credit Stefano della Bella, the Pont Neuf, etching (Paris Musées). CC0, via Wikimedia Commons.
+  title Henri IV on the Pont Neuf
+  look The good king Henri on horseback, in bronze. The horse was cast in Florence by Giambologna and Pietro Tacca, a gift of the Grand Duke, and set up here in 1614, four years after the king's murder. He wished, they say, that every peasant in France might have a chicken in the pot on Sundays.
+end
+
+# ---------------------------------------------------------------- works of art (Saint-Denis)
+
+item tomb-louis-xii
+  name a royal tomb | royal tombs
+  shape canopy #EEEAE0
+  fixed
+  image art/tomb-louis-xii.png
+  credit Photo: Myrabella, CC BY-SA 3.0, via Wikimedia Commons.
+  title The tomb of Louis XII and Anne of Brittany
+  look Made in Tours by the brothers Giusti of Florence (1515-31). Above, among the twelve apostles, the king and queen kneel in prayer, alive; below, they lie dead and naked, as the embalmers left them.
+end
+
+item tomb-francois-i
+  name a royal tomb | royal tombs
+  shape canopy #E4E0D6
+  fixed
+  image art/tomb-francois-i.png
+  credit Photo: Bordeled, CC BY-SA 3.0, via Wikimedia Commons.
+  title The tomb of François I and Claude of France
+  look A triumphal arch of white marble by Philibert de l'Orme, begun in 1548, with Pierre Bontemps's reliefs of the battle of Marignano along its base.
+end
+
+item tomb-henri-ii
+  name a royal tomb | royal tombs
+  shape canopy #E8E4DA
+  fixed
+  image art/tomb-henri-ii.png
+  credit Photo: Roi Boshi (a derivative by Ecummenic), CC BY-SA 3.0, via Wikimedia Commons.
+  title The tomb of Henri II and Catherine de' Medici
+  look By Primaticcio and Germain Pilon (1560-73): above, the king and queen in bronze, at prayer; below, in marble, dead, as if asleep. Catherine, they say, was so frightened by a first effigy of her corpse that she had another made.
+end
+
+# ---------------------------------------------------------------- works of art (London)
+
+item donne
+  name a monument | monuments
+  shape statue #F0EEE8
+  fixed
+  image art/donne.png
+  credit Wenceslaus Hollar, etching of the monument. Public domain, via Wikimedia Commons.
+  title John Donne, by Nicholas Stone
+  look John Donne, Dean of St Paul's, who died last year, stands in his shroud on an urn, his eyes closed, rising at the Last Day. He posed for it in his shroud, on his deathbed, for a painter, and Nicholas Stone carved this from the picture. "Death, thou shalt die."
+end
+
+item tomb-elizabeth
+  name a royal tomb | royal tombs
+  shape tomb #EEEAE2
+  fixed
+  image art/tomb-elizabeth.png
+  credit Photo: Arcaist, CC BY-SA 4.0, via Wikimedia Commons.
+  title The tomb of Queen Elizabeth
+  look By Maximilian Colt (1605-06), set up by King James. Her half-sister Mary lies under her in the same vault: "Partners in throne and grave, here we sleep, Elizabeth and Mary, sisters, in hope of the resurrection."
+end
+
+item tomb-henry-vii
+  name a royal tomb | royal tombs
+  shape tomb #C9A44A
+  fixed
+  image art/tomb-henry-vii.png
+  credit Photo: Cornell University Library, no known restrictions, via Wikimedia Commons.
+  title The tomb of Henry VII and Elizabeth of York
+  look In gilt bronze, by Pietro Torrigiano of Florence (1512-18), the man who broke Michelangelo's nose.
+end
+
+item bare-ceiling
+  name a bare ceiling | bare ceilings
+  shape none #000000
+  fixed
+  image art/bare-ceiling.png
+  credit The ceiling as it has been since 1636. Photo: traveljunction, CC BY-SA 2.0, via Wikimedia Commons.
+  title The ceiling of the Banqueting House
+  look Nine great panels in the ceiling, still bare. The King has ordered paintings for them from Sir Peter Paul Rubens, of the glories of his father, King James. They are not expected for some years.
+end
+
+# ---------------------------------------------------------------- works of art (Rome)
+
+item school-athens
+  name a great painting | great paintings
+  shape painting #C9A44A #8A6A4A
+  fixed
+  image art/school-athens.png
+  credit Raphael, Stanza della Segnatura. Public domain, via Wikimedia Commons.
+  title The School of Athens, by Raphael
+  look Painted in 1509-11 on a wall of the Pope's own rooms. Under a great vault, Plato points up to the heavens and Aristotle holds his hand flat over the earth. Below, Euclid stoops with his compasses over a slate; Ptolemy, crowned, holds the globe of the Earth, and Zoroaster faces him with the globe of the stars. Raphael has put himself at the edge, looking out at you.
+end
+
+item laocoon
+  name a marble group | marble groups
+  shape group #EEEAE0
+  fixed
+  image art/laocoon.png
+  credit Shown as it is today, with the arm found in 1906 put back. Photo: Wilfredor, CC0, via Wikimedia Commons.
+  title The Laocoön
+  look The Trojan priest and his two sons, strangled by the serpents the gods sent against them, carved by three sculptors of Rhodes. Pliny wrote that it surpassed every other work of painting and sculpture. It was dug up in a vineyard on the Esquiline in 1506; Michelangelo was sent for at once, and Pope Julius bought it for the Belvedere. Laocoön's right arm was missing, and the one he raises to the sky is new.
+end
+
+item last-judgment
+  name a great painting | great paintings
+  shape painting #C9A44A #4A6A9A
+  fixed
+  image art/last-judgment.png
+  credit Michelangelo, Sistine Chapel. Public domain, via Wikimedia Commons.
+  title The Last Judgment, by Michelangelo
+  look Christ the Judge raises his arm, and the dead rise from their graves, the saved to his right and the damned to his left, where Charon ferries them to hell. Michelangelo painted the whole altar wall in 1536-41, when he was past sixty. The Master of Ceremonies, Biagio da Cesena, said it was fit for a bathhouse; Michelangelo put him in hell as Minos, with ass's ears and a serpent round him. After the Council of Trent, Daniele da Volterra was paid to paint breeches on the naked, and Rome has called him the Breeches-maker ever since.
+end
+
+item sistine-ceiling
+  name the painted vault | painted vaults
+  shape none #000000
+  fixed
+  image art/creation-adam.png
+  credit Shown: the Creation of Adam, from the middle of the vault. Public domain, via Wikimedia Commons.
+  title The ceiling of the Sistine Chapel, by Michelangelo
+  look Look up. Michelangelo painted the vault in 1508-12, for Pope Julius II: nine stories from Genesis, with prophets and sibyls round them. In the middle, God reaches across the sky to Adam, and their fingers do not quite touch. He wrote a sonnet about the work: his beard pointing at heaven, his loins driven up into his belly, and the brush dripping on his face.
+end
+
+item pieta
+  name a marble group | marble groups
+  shape pieta #F2EEE6
+  fixed
+  image art/pieta.png
+  credit Photo: Jebulon, CC0, via Wikimedia Commons.
+  title The Pietà, by Michelangelo
+  look The Virgin holds her dead son across her knees, young and calm, in marble polished like skin. Michelangelo carved it at twenty-four, in 1498-99, for the tomb of a French cardinal in the old basilica. It is the only work he ever signed: hearing it praised as another man's, he came back by night and cut his name on the band across her breast.
+end
+
+item baldacchino
+  name a bronze canopy | bronze canopies
+  shape baldacchino #4A3424 #C9A44A
+  fixed
+  image art/baldacchino.png
+  credit Shown finished, with Bernini's Chair of Peter (1666) beyond it. Photo: Jebulon, CC0, via Wikimedia Commons.
+  title The baldacchino, by Gian Lorenzo Bernini
+  look A canopy of bronze over the high altar and the tomb of Saint Peter, as high as a palace, on four twisted columns like the ones that came, they say, from Solomon's Temple; the Barberini bees climb up through the laurel leaves. Bernini began it in 1624. The scaffolding is still up, and it is to be unveiled next year, on the feast of Saints Peter and Paul. Rome says the bronze came from the beams of the Pantheon's porch, and Pasquino said: what the barbarians did not do, the Barberini did.
+end
+
+item st-peter-bronze
+  name a bronze statue | bronze statues
+  shape statue #3A3226
+  fixed
+  image art/st-peter-bronze.png
+  credit Photo: Antoine Taveneaux, CC BY-SA 3.0, via Wikimedia Commons.
+  title Saint Peter enthroned
+  look Saint Peter on his throne, blessing with one hand and holding the keys of heaven in the other: a bronze so old that nobody agrees who made it. Pilgrims kiss his right foot and touch it for luck as they pass.
+end
+
+item caravaggio-paul
+  name a great painting | great paintings
+  shape painting #C9A44A #6A4A2A
+  fixed
+  image art/caravaggio-paul.png
+  credit Caravaggio, Santa Maria del Popolo. Public domain, via Wikimedia Commons.
+  title The Conversion of Saint Paul, by Caravaggio
+  look Saul lies on his back in the road, thrown from his horse, his arms open to a light only he can see; the horse lifts its hoof carefully over him, and an old groom holds the bridle. Caravaggio painted it in 1601 for Tiberio Cerasi's chapel. Five years later he killed a man after a game of tennis and fled Rome; he died at Porto Ercole, at thirty-eight, on his way back to be pardoned.
+end
+
+item caravaggio-peter
+  name a great painting | great paintings
+  shape painting #C9A44A #5A3A2A
+  fixed
+  image art/caravaggio-peter.png
+  credit Caravaggio, Santa Maria del Popolo. Public domain, via Wikimedia Commons.
+  title The Crucifixion of Saint Peter, by Caravaggio
+  look Three labourers heave up the cross with Peter nailed to it head downwards, as he asked, not thinking himself worthy to die as his Lord did. One of them crouches under the weight, and you can see the dirt on the soles of his feet. It faces the Conversion of Saint Paul across the same chapel, 1601.
+end
+
+item cristo-minerva
+  name a marble statue | marble statues
+  shape statue #F0ECE4
+  fixed
+  image art/cristo-minerva.png
+  credit Photo: My Past, CC BY 2.0, via Wikimedia Commons.
+  title The Risen Christ, by Michelangelo
+  look Christ stands naked with his cross, the sponge and the reed, his body turning in a slow spiral. Michelangelo found a black vein in the face of his first block and abandoned it; this is the second, finished in 1521 by his assistants, which he never liked. Sebastiano del Piombo wrote that its knees alone were worth more than all Rome.
+end
+
+item raphael-tomb
+  name a tomb | tombs
+  shape tomb #EEEAE2
+  fixed
+  image art/raphael-tomb.png
+  credit Photo: Fallaner, CC BY-SA 4.0, via Wikimedia Commons.
+  title The tomb of Raphael
+  look Raphael of Urbino died on Good Friday 1520, aged thirty-seven, and asked to be buried here in the Pantheon; over him stands the Madonna he ordered for it. Cardinal Bembo wrote his epitaph: here lies Raphael, by whom Nature feared to be outdone while he lived, and, when he died, feared that she herself would die.
+end
+
+item marcus-aurelius
+  name the statue of Marcus Aurelius | statues
+  shape none #000000
+  fixed
+  image art/marcus-aurelius.png
+  credit The copy in the square today. Photo: Scott Denham, CC BY 2.0, via Wikimedia Commons.
+  title Marcus Aurelius on the Capitol
+  look The emperor rides out with his hand raised, in bronze that was once gilded: the only great bronze horseman of ancient Rome that was never melted down, because for a thousand years they took him for Constantine, the first Christian emperor. Pope Paul III had him brought up here from the Lateran in 1538, and Michelangelo designed the square around him.
+end
+
+# ---------------------------------------------------------------- works of art (Venice)
+
+item pala-doro
+  name a golden altarpiece | golden altarpieces
+  shape reliquary #D8B04A
+  fixed
+  image art/pala-doro.png
+  credit Photo: Zairon, CC BY-SA 4.0, via Wikimedia Commons.
+  title The Pala d'Oro
+  look The golden altarpiece of San Marco: silver gilt, set with nearly two thousand pearls and precious stones round some two hundred and fifty enamels of Christ, the Virgin, the prophets and the saints. It was ordered from Constantinople in 976, enlarged with enamels the Venetians carried home when they sacked that city in 1204, and set in its Gothic frame in 1345. On weekdays it is hidden behind a painted panel; on feast days it is opened.
+end
+
+item assunta
+  name a great painting | great paintings
+  shape painting #C9A44A #B0402A
+  fixed
+  image art/assunta.png
+  credit Titian, Santa Maria Gloriosa dei Frari. Public domain, via Wikimedia Commons.
+  title The Assumption of the Virgin, by Titian
+  look Over the high altar, the Virgin rises on a cloud into a blaze of gold, and the apostles below stretch their arms after her. Titian painted it in 1516-18, the largest altarpiece in Venice, and made his name with it. He was buried in this church himself in 1576, in the great plague, the one for which the Redentore was vowed.
+end
+
+item tintoretto-crucifixion
+  name a great painting | great paintings
+  shape painting #C9A44A #6A5A4A
+  fixed
+  image art/tintoretto-crucifixion.png
+  credit Photo: Richard Mortel, CC BY 2.0, via Wikimedia Commons.
+  title The Crucifixion, by Tintoretto
+  look The whole of Calvary along one wall of the brothers' meeting room: the crowd, the soldiers dicing for his robe, the ladders and ropes, the thieves being hauled up, and in the middle Christ on the cross over his fainting mother. Tintoretto painted it in 1565. To win the work here he sent no sketch, as the others did, but put a finished painting up in the ceiling and gave it to Saint Roch as a gift, which the rules of the brotherhood did not allow them to refuse.
+end
+
+item tintoretto-paradise
+  name a great painting | great paintings
+  shape painting #C9A44A #C8A050
+  fixed
+  image art/tintoretto-paradise.png
+  credit Photo: Didier Descouens. Public domain, via Wikimedia Commons.
+  title Paradise, by Tintoretto
+  look Behind the Doge's throne in the hall of the Great Council, upstairs: Christ and the Virgin in glory, and round them, ring upon ring, hundreds of saints and angels and blessed souls, one of the largest paintings in the world. The old fresco burned in the fire of 1577, and Tintoretto, at seventy, painted this in its place with his son Domenico, in 1588-92. The noblemen of Venice meet and vote under it, some two thousand of them.
+end
+
+item tintoretto-supper
+  name a great painting | great paintings
+  shape painting #C9A44A #4A3A3A
+  fixed
+  image art/tintoretto-supper.png
+  credit Tintoretto, San Giorgio Maggiore. Public domain, via Wikimedia Commons.
+  title The Last Supper, by Tintoretto
+  look A table running away into the dark across the picture, servants busy with the dishes, a cat at the basket, and a hanging lamp whose smoke turns into angels. Christ gives the bread to the apostles, and his halo is the brightest light in the room. Tintoretto painted it for the monks of San Giorgio in 1592-94, and died the year it was finished.
+end
+
+item veronese-levi
+  name a great painting | great paintings
+  shape painting #C9A44A #8AA0B0
+  fixed
+  image art/veronese-levi.png
+  credit Paolo Veronese, Gallerie dell'Accademia. Public domain, via Wikimedia Commons.
+  title The Feast in the House of Levi, by Paolo Veronese
+  look Christ at supper under three great arches, with a crowd of servants, soldiers, a dwarf with a parrot, dogs, and German halberdiers drinking on the stairs. Veronese painted it in 1573, as a Last Supper, for the refectory of the friars here. The Holy Office called him in: why the buffoons and drunken Germans? "We painters take the liberties that poets and madmen take," he said. He was ordered to correct it, and instead he changed its name, to a different supper in the Gospel.
+end
+
+item colleoni
+  name the statue of Colleoni | statues
+  shape none #000000
+  fixed
+  image art/colleoni.png
+  credit Photo: Didier Descouens, CC BY-SA 4.0, via Wikimedia Commons.
+  title Bartolomeo Colleoni, by Andrea del Verrocchio
+  look The soldier Colleoni rides out in armour, scowling, on a great striding horse. He left the Republic a fortune on condition that his statue stand before San Marco; the Senate set it up here, before the Scuola di San Marco, and kept the money. Verrocchio of Florence made the model and died before it was cast.
+end
+
+# ---------------------------------------------------------------- works of art (Amsterdam)
+
+item anatomy-lesson
+  name a great painting | great paintings
+  shape painting #C9A44A #3A3028
+  fixed
+  image art/anatomy-lesson.png
+  credit Rembrandt, Mauritshuis. Public domain, via Wikimedia Commons.
+  title The Anatomy Lesson of Dr Nicolaes Tulp, by Rembrandt
+  look Dr Tulp lifts the muscles of the dead man's forearm with his forceps and shows with his own left hand how they bend the fingers, while seven surgeons of the guild lean in to see. The dead man is Aris Kindt, a thief, hanged this January. Rembrandt is twenty-five and new in Amsterdam; the surgeons paid him for it, each to be in it, and it hangs in their chamber here.
+end
+
+item europa
+  name a painting | paintings
+  shape painting #C9A44A #C8A050
+  fixed
+  image art/europa.png
+  credit Rembrandt, J. Paul Getty Museum. Public domain, via Wikimedia Commons.
+  title The Abduction of Europa, by Rembrandt
+  look Jupiter, as a white bull, carries the princess Europa off into the water, her golden dress glittering; her companions cry out on the bank, a coach waits under the trees, and across the water a harbour city shines in the haze. Rembrandt painted it this year.
+end
+
+item blaeu-world
+  name a great map | great maps
+  shape painting #C9A44A #D8C8A0
+  fixed
+  image art/blaeu-world.png
+  credit Willem Blaeu. Public domain, via Wikimedia Commons.
+  title The whole world, by Willem Blaeu
+  look The world in two round hemispheres, with the seven planets riding across the top in their chariots, the four elements and the four seasons down the sides, and the seven wonders of the world along the bottom. Blaeu prints it for his atlas, and as a great wall map for merchants' houses.
+end
+
+item amsterdam-1538
+  name a great painting | great paintings
+  shape painting #C9A44A #7A8A6A
+  fixed
+  image art/amsterdam-1538.png
+  credit Cornelis Anthonisz, Amsterdam Museum. Public domain, via Wikimedia Commons.
+  title Amsterdam in 1538, by Cornelis Anthonisz
+  look The city as a bird would see it, ninety-four years ago: the Damrak full of ships, the Oude Kerk and the Nieuwe Kerk, the old wall along the Singel, and beyond it nothing but fields. Everything outside the Singel is new since then: the three great canals, the Westerkerk, and half the people.
+end
+
+# ---------------------------------------------------------------- works of art (Florence)
+
+item david
+  name a giant of marble | giants of marble
+  shape giant #F0ECE2
+  fixed
+  image art/david.png
+  credit Photo: Livioandronico2013, CC BY-SA 4.0, via Wikimedia Commons.
+  title David, by Michelangelo
+  look The young David with his sling over his shoulder, watching Goliath come. Michelangelo carved him out of a block that another sculptor had spoiled and left lying in the cathedral yard for nearly forty years; he was twenty-six when he began. They set him here before the Palazzo in 1504, to warn the city's enemies. In the riots of 1527 a bench thrown from a window broke his left arm in three pieces, and two boys, Vasari and Salviati, gathered them up.
+end
+
+item perseus
+  name a bronze statue | bronze statues
+  shape giant #4A4030
+  fixed
+  image art/perseus.png
+  credit Photo: Jebulon, CC0, via Wikimedia Commons.
+  title Perseus, by Benvenuto Cellini
+  look Perseus stands on the body of Medusa and holds up her head, blood pouring from her neck, in bronze. Cellini cast it for Duke Cosimo and unveiled it in 1554. He told how the metal began to set in the furnace and he had all his pewter thrown in, plates and bowls and pots, some two hundred pieces, and the bronze ran; and then he sat down and ate.
+end
+
+item sabines
+  name a marble group | marble groups
+  shape group #EEEAE0
+  fixed
+  image art/sabines.png
+  credit Photo: Yair Haklai, CC BY-SA 4.0, via Wikimedia Commons.
+  title The Rape of the Sabine Women, by Giambologna
+  look Three figures in one block of marble, twisting upwards: a young Roman lifts a Sabine woman over his head, and her father crouches beneath them. Giambologna, a Fleming, carved it in 1583 to show he could make a group you must walk all the way round to see, and the subject was found for it afterwards.
+end
+
+item cosimo
+  name the statue of Cosimo I | statues
+  shape none #000000
+  fixed
+  image art/cosimo.png
+  credit Photo: Jebulon, CC0, via Wikimedia Commons.
+  title Cosimo I on horseback, by Giambologna
+  look The first Grand Duke of Tuscany rides into his square in bronze, set up by his son Ferdinando in 1594; on the pedestal the Pope crowns him Grand Duke. Giambologna began a horse like it for Henri IV of France, the one on the Pont Neuf in Paris.
+end
+
+item tomb-michelangelo
+  name a tomb | tombs
+  shape tomb #EEEAE2
+  fixed
+  image art/tomb-michelangelo.png
+  credit Photo: Richard Mortel, CC BY 2.0, via Wikimedia Commons.
+  title The tomb of Michelangelo
+  look Michelangelo died in Rome in 1564, at eighty-eight. Duke Cosimo wanted him buried at home, and his nephew had the body carried out of Rome hidden in a bale of merchandise. Vasari designed this tomb, with Painting, Sculpture and Architecture mourning him. Signor Galileo was born that same February, three days before Michelangelo died.
+end
+
+item medici-tomb
+  name a tomb | tombs
+  shape tomb #EEEAE2
+  fixed
+  image art/medici-tomb.png
+  credit Photograph of 1912. Public domain, via Wikimedia Commons.
+  title The tomb of Giuliano de' Medici, by Michelangelo
+  look In the New Sacristy, which Michelangelo built for the Medici: the Duke of Nemours sits in armour, and on his tomb lie Night and Day, Night asleep with her owl and her mask, Day unfinished, his face still rough stone. A poet wrote that Night was so alive she would speak if you woke her, and Michelangelo answered for her: "Sleep is dear to me, and dearer to be stone, while harm and shame endure. Not to see, not to hear, is my good fortune; so do not wake me. Speak softly."
+end
+
+item tribute-money
+  name a great painting | great paintings
+  shape painting #C9A44A #8A7A5A
+  fixed
+  image art/tribute-money.png
+  credit Masaccio, Brancacci Chapel. Public domain, via Wikimedia Commons.
+  title The Tribute Money, by Masaccio
+  look Christ and the apostles stand in a ring as the tax-gatherer asks for his coin; Christ sends Peter to the lake, where he takes the coin from a fish's mouth, and on the right Peter pays the man. Masaccio painted the walls of the Brancacci chapel about 1425 and died at twenty-six, and every painter in Florence has come here to learn from him since. Michelangelo was drawing on these walls as a boy when Torrigiano, mocked once too often, broke his nose.
+end
+
+item hawkwood
+  name a great painting | great paintings
+  shape painting #C9A44A #6A7A5A
+  fixed
+  image art/hawkwood.png
+  credit Paolo Uccello, Santa Maria del Fiore. Public domain, via Wikimedia Commons.
+  title Sir John Hawkwood, by Paolo Uccello
+  look An English soldier of fortune, Giovanni Acuto to the Florentines, who led their armies until he died in 1394; King Richard asked for his bones, and they went home to England. Florence had promised him a marble tomb, and painted him instead, in 1436, on the wall of the cathedral: a bronze horseman on a stone tomb, all in green and gold. Uccello's first horse was judged not as it should be, and he had to paint it again.
+end
+
+# ---------------------------------------------------------------- works of art (Padua)
+
+item gattamelata
+  name the statue of Gattamelata | statues
+  shape none #000000
+  fixed
+  image art/gattamelata.png
+  credit Photo: Bentze, public domain, via Wikimedia Commons.
+  title Gattamelata, by Donatello
+  look Erasmo da Narni, called Gattamelata, the honeyed cat, captain-general of the armies of the Republic, rides out bareheaded in armour on a great war-horse, his baton held forward. Donatello cast him in bronze in 1453, ten years after he died, the first horseman as large as life since the Romans; his widow paid, by leave of the Senate. He lies in the Santo behind him.
+end
+
+item giotto-magi
+  name a fresco | frescoes
+  shape painting #3A5AA0 #C9A44A
+  fixed
+  image art/giotto-magi.png
+  credit Giotto, the Scrovegni chapel, Padua. Public domain, via Wikimedia Commons.
+  title The Adoration of the Magi, by Giotto
+  look Enrico Scrovegni built this chapel in 1305 to atone for his father's usury (Dante put the father in Hell), and Giotto painted it from end to end: the lives of the Virgin and of Christ in a ribbon of pictures under a blue vault full of stars. Here the kings kneel at the stable, and over it the star is not a star but a comet, with a tail of fire. Giotto saw one in the autumn of 1301. It is a comet that comes back, though nobody knows it yet: it came again in 1531, and in 1607, when Kepler watched it, and it will come in 1682.
+end
+
+item giotto-kiss
+  name a fresco | frescoes
+  shape painting #C9A44A #3A5AA0
+  fixed
+  image art/giotto-kiss.png
+  credit Giotto, the Scrovegni chapel, Padua. Public domain, via Wikimedia Commons.
+  title The Kiss of Judas, by Giotto
+  look Judas wraps Christ in his yellow cloak and leans in to kiss him. Their eyes meet, a hand's breadth apart, in a storm of torches, clubs and lances; at the side Peter cuts off the ear of the High Priest's servant. Nobody in the crowd is looking at anything but the two faces, and neither are you.
+end
+
+item cattedra
+  name Galileo's chair | chairs
+  shape lectern #8A6A48 #6A4A30
+  fixed
+  image art/cattedra.png
+  credit Photo: Threecharlie, CC BY-SA 4.0, via Wikimedia Commons.
+  title The chair of Galileo
+  look A tall wooden stand of rough planks, on steps, in a hall of the Bo. The students knocked it together, the beadles say, so that more of them could see Signor Galileo, whose lectures overflowed every hall; from a stand like it he spoke on the new star of 1604 to a crowd of a thousand. Professors still lecture from it, and look small.
+end
+
+item stone-of-shame
+  name the Stone of Shame | stones
+  shape block #2A2A2E
+  fixed
+  title The Stone of Shame
+  look A block of black stone in the great hall of the Palazzo della Ragione: the pietra del vituperio. A debtor who cannot pay is brought here in his shirt and made to sit on it three times before the crowd, saying "Cedo bonis", I give up my goods; then he is banished. Saint Anthony begged the city, four hundred years ago, that a debtor who gave up his goods should not be thrown in prison. This was the price.
+end
+
+# ---------------------------------------------------------------- works of art (Pisa)
+
+item galileo-lamp
+  name a bronze lamp | bronze lamps
+  shape lamp #8A6A2A
+  fixed
+  image art/galileo-lamp.png
+  credit Engraving by Giuseppe Barberis. Public domain, via Wikimedia Commons.
+  title The lamp of the Duomo
+  look A great bronze lamp hanging from the roof of the nave on a long chain, cast by Battista Lorenzi in 1587. When the sacristan lights it, it swings, slowly; the swings die away, but keep the same time. The story is that young Galileo saw that, at Mass, and timed it against his pulse. He left the University of Pisa in 1585.
+end
+
+item pulpit-giovanni
+  name a carved pulpit | pulpits
+  shape pulpit #E8E2D2 #D8D0BE
+  fixed
+  image art/pulpit-giovanni.png
+  credit Photo: Sailko, CC BY 3.0, via Wikimedia Commons.
+  title The pulpit of Giovanni Pisano
+  look Giovanni Pisano carved it between 1302 and 1311: a drum of marble crowded with the life of Christ, on columns and carved figures and lions, the people cut so deep they seem to shove one another out of the stone. After the fire of 1595 the canons took it down, and they have been arguing ever since about how it goes back together; what stands here is the drum, on a few of its columns.
+end
+
+item pulpit-nicola
+  name a carved pulpit | pulpits
+  shape pulpit #ECE6D8 #DCD4C2
+  fixed
+  image art/pulpit-nicola.png
+  credit Photo: Carlo Dell'Orto, CC BY-SA 4.0, via Wikimedia Commons.
+  title The pulpit of Nicola Pisano
+  look Nicola Pisano made it in 1260, for the Baptistery: six-sided, on columns standing on the backs of lions, its panels carved by a man who had looked hard at the Roman coffins in the Camposanto. His Virgin is a Roman matron, and his Fortitude is a naked Hercules. Here, the sculptors say, the sculpture of Italy woke up.
+end
+
+item triumph-death
+  name a great fresco | great frescoes
+  shape painting #6A6A4A #9A8A6A
+  fixed
+  image art/triumph-death.png
+  credit Fresco in the Camposanto of Pisa. Public domain, via Wikimedia Commons.
+  title The Triumph of Death
+  look A party of lords and ladies rides out hunting and comes upon three open coffins, in which three kings lie at three stages of rot; a lady holds her nose. Beyond them Death, a hag with a scythe, flies at a garden of young people making music, while angels and devils fight over the souls that come out of the dead like babies. The hermits on the hill above are the only ones not surprised. Vasari says Orcagna painted it; the Pisans say Buffalmacco, the practical joker of Boccaccio's tales.
+end
+
+item cosimo-pisa
+  name the statue of Cosimo I | statues
+  shape giant #E8E4DA
+  fixed
+  image art/cosimo-pisa.png
+  credit Photo: Sailko, CC BY 2.5, via Wikimedia Commons.
+  title Cosimo I, by Pietro Francavilla
+  look Grand Duke Cosimo I in armour, in marble, set up in 1596 before the palace of the Knights he founded, over a fountain fed by his new aqueduct: a stone Medici watering the city he had conquered. At his feet a woman stands for Pisa, grateful, as she has been told to be.
+end
+
+# ---------------------------------------------------------------- works of art of the new cities
+# (Constantinople, Ragusa, Seville, Granada, Oxford, Cambridge, Zurich, Nuremberg,
+# Prague, Vienna, Cracow, Danzig, Sarajevo; pictures and licences in data/art/CREDITS.txt)
+
+item pergamon-urn
+  name a marble urn | marble urns
+  shape urn #E6E0D2
+  fixed
+  image art/pergamon-urn.png
+  credit Photo: Ibrahim Husain Meraj, CC BY-SA 3.0, via Wikimedia Commons.
+  title An urn of Pergamon
+  look One of two great jars, each cut from a single block of marble, that Sultan Murad the Third had brought from the ruins of Pergamon half a century ago and set up in Ayasofya, one on each side of the nave. They hold water for the faithful to drink at prayer, and on the night of the Prophet's birthday, sherbet. The Greeks of the Fener say they are older than Christ, and older than the church.
+end
+
+item iznik-tiles
+  name a panel of tiles | panels of tiles
+  shape painting #E8F0F0 #2A5AA0
+  fixed
+  image art/iznik-tiles.png
+  credit Photo: R Prazeres, CC BY-SA 4.0, via Wikimedia Commons.
+  title The tiles of Sultan Ahmed's mosque
+  look Twenty thousand tiles from the kilns of Iznik line the galleries of the mosque that Sultan Ahmed finished fifteen years ago, the year before he died: tulips, carnations, roses, cypresses and vines, in blue, turquoise and green on white, in more than fifty patterns. The Sultan's architect took so many, at a price fixed by decree, that the potters could not keep up; the last tiles are not as fine as the first, and the kilns of Iznik are going out one by one.
+end
+
+item matrakci-istanbul
+  name an illuminated book | illuminated books
+  shape openbook #7A5A3A #E8DFC8
+  fixed
+  image art/matrakci-istanbul.png
+  credit Matrakçı Nasuh, Istanbul University Library. Public domain, via Wikimedia Commons.
+  title Matrakci Nasuh's Istanbul
+  look The book of the stages of Sultan Suleyman's march to Baghdad and back, ninety-five years ago, painted by Matrakci Nasuh: swordsman, mathematician, historian, and the inventor of a game with sticks. He drew every town the army passed, and never a single person in any of them. Here, across two pages, is Istanbul as a bird would see it if birds read maps: the walled city, the Golden Horn, Galata and its tower, every mosque, bath and garden of the Sultan's.
+end
+
+item orlando
+  name Orlando's column | columns
+  shape giant #DCD4C2
+  fixed
+  image art/orlando.png
+  credit Photo: Richard Mortel, CC BY 2.0, via Wikimedia Commons.
+  title Orlando's column
+  look Roland, Charlemagne's paladin, in stone armour, his sword held upright before him, stands against a column in front of the church of Saint Blaise, where Bonino of Milan carved him in 1418. From the top of the column flies the flag of Saint Blaise; from its foot the Senate's decrees are read out. The length of Orlando's forearm is the ell of Ragusa: a merchant suspected of selling short is measured against him, in front of everybody.
+end
+
+item blaise-head
+  name a reliquary | reliquaries
+  shape reliquary #D8B04A
+  fixed
+  image art/blaise-head.png
+  credit Photo: Marie-Lan Nguyen, public domain, via Wikimedia Commons.
+  title The head of Saint Blaise
+  look The head of Saint Blaise, patron of the Republic, in a reliquary of silver gilt made like a Byzantine crown, with enamelled saints set in its filigree. On his feast, the third of February, it is carried round the town, and the flags of the Republic dip to it. The Saint warned the town one night in the year 971 that a Venetian fleet lay off the island of Lokrum, pretending to take on water; the Ragusans have not trusted the Venetians since.
+end
+
+item virgin-navigators
+  name a painting | paintings
+  shape painting #C9A44A #2A3A6A
+  fixed
+  image art/virgin-navigators.png
+  credit Alejo Fernández, Alcázar of Seville. Public domain, via Wikimedia Commons.
+  title The Virgin of the Navigators
+  look Our Lady of the Navigators, painted by Alejo Fernandez a hundred years ago for the chapel where the pilots and masters of the Casa hear Mass before the fleets sail. Under her great cloak shelter the men of the Indies: a grey Genoese in black whom everyone calls Columbus, the Pinzon brothers, the Emperor Charles, and behind them, small and dark, the Indians. At her feet, on a blue sea, the ships, every kind that sails from Seville.
+end
+
+item retablo-seville
+  name an altarpiece | altarpieces
+  shape painting #C9A44A #8A5A22
+  fixed
+  image art/retablo-seville.png
+  credit Photo: Diego Delso, CC BY-SA 4.0, via Wikimedia Commons.
+  title The great altarpiece of Seville
+  look Behind the high altar, a wall of gilded and painted wood rising into the vault: forty-five scenes of the life of Christ and of the Virgin, carved in niches, with saints and prophets between them. Pieter Dancart, a Fleming, began it in 1482, and it was finished in 1564. The canons say it is the largest altarpiece in Christendom; in the taverns they say the gold is the first gold that came back from the Indies.
+end
+
+item lions
+  name a fountain | fountains
+  shape fountain #EEEAE2 #E2DCCE
+  fixed
+  image art/lions.png
+  credit Photo: Zarateman, CC0, via Wikimedia Commons.
+  title The fountain of the Lions
+  look Twelve lions of white marble, each a little different, stand in a ring with water running from their mouths, and carry on their backs a basin of twelve sides. Round the rim of the basin runs a band of Arabic verse: you can read it, slowly. It is by Ibn Zamrak, the vizier, and it praises the fountain itself: silver melting among jewels, the two so alike in beauty that you cannot tell which is flowing, the water or the marble; the lions are its guardians, and their fury is held back only out of respect for the Sultan.
+  needs arabic Twelve lions of white marble, each a little different, stand in a ring with water running from their mouths, and carry on their backs a basin of twelve sides. Round the rim of the basin runs a band of Arabic letters, too regular to be ornament: writing. You cannot read it. The Christians who keep the palace say it is a prayer to Mahomet; old Hernando in the Albaicin laughs when he hears that.
+end
+
+item tomb-catholic-kings
+  name a tomb | tombs
+  shape tomb #EEEAE0
+  fixed
+  image art/tomb-catholic-kings.png
+  credit Photo: Javi Guerra Hernando, CC BY-SA 4.0, via Wikimedia Commons.
+  title The tomb of the Catholic Kings
+  look Ferdinand and Isabella lie side by side in white marble, crowned, their hands folded, on a tomb carved in Genoa by the Florentine Domenico Fancelli, with griffins at the corners and the Apostles round the sides. Beside them, on a taller tomb, lie their daughter Juana and her husband Philip the Handsome. The canons say Isabella's head sinks deeper into her marble pillow than Ferdinand's, because there was more in it. The Kings themselves lie below, in plain lead coffins.
+end
+
+item alhambra-motto
+  name an inscription | inscriptions
+  shape painting #D8C4A0 #8A6A3A
+  fixed
+  image art/alhambra-motto.png
+  credit Photo: Jebulon, CC0, via Wikimedia Commons.
+  title The motto of the Nasrid kings
+  look Wa la ghaliba illa Allah: there is no conqueror but God. It is everywhere in the palace, hundreds of times, in the plaster, on the tiles, round the windows: the motto of the Nasrid kings. The first of them said it when he came home to Granada and the people hailed him as the conqueror, in the year that Seville fell to the Christians, whom he had helped.
+  needs arabic Bands of letters run round the walls among the patterns of the plaster, the same shapes over and over, in a script that joins like a vine. The Christians who keep the palace take it for decoration. You cannot read it.
+end
+
+item bodley-portrait
+  name a portrait | portraits
+  shape painting #3A2A22 #1E1A16
+  fixed
+  image art/bodley-portrait.png
+  credit Unknown artist, Bodleian Libraries. Public domain, via Wikimedia Commons.
+  title Sir Thomas Bodley
+  look Sir Thomas Bodley, in a painted roundel, in black with a white collar and a pointed beard, and crowded round him on the panel soldiers in armour, banners, drums, books and instruments: the old Queen's envoy to the Low Countries in the wars, who came home, married a rich widow, and spent her money refounding the University's library, opened in 1602. He wrote its statutes himself: no book to be lent, no candle to be lit, no plays to be admitted, those being riff-raff. He died in 1613 and lies in Merton chapel.
+end
+
+item first-folio
+  name Shakespeare's plays | copies of Shakespeare's plays
+  shape bookdesk #6A4A30 #4A3A2A
+  chained
+  book first-folio
+  image art/first-folio.png
+  credit Martin Droeshout's engraving, the British Library's copy. Public domain, via Wikimedia Commons.
+  title Mr William Shakespeare's Comedies, Histories and Tragedies
+  look The great book of Shakespeare's plays, printed in London in 1623, which came to the Library unbound from the Stationers' Company, under Sir Thomas Bodley's agreement that it should have a copy of every book they print. It is bound in calf and chained to the desk. On the title page is the author's portrait, engraved by Martin Droeshout, and opposite it Ben Jonson's verse telling you to look not on his picture but his book. Sir Thomas wanted no plays in his library; the scholars have read this one so much that the pages of Romeo and Juliet are worn through with their thumbs.
+end
+
+# the chained books of Duke Humfrey's Library, upstairs in the Bodleian (a reader may read them
+# where they lie: L; nobody may take them). Their pages are in data/books.
+item lily-grammar
+  name Lily's Latin grammar | copies of Lily's Latin grammar
+  shape bookdesk #5A3A24 #E8DFC8
+  chained
+  book lily-grammar
+end
+
+item erpenius
+  name Erpenius's Arabic grammar | copies of Erpenius's Arabic grammar
+  shape bookdesk #3A2A1E #E8DFC8
+  chained
+  book erpenius
+end
+
+item dioptrice
+  name Kepler's Dioptrice | copies of Kepler's Dioptrice
+  shape bookdesk #6A4A2A #E8DFC8
+  chained
+  book dioptrice
+end
+
+item harriot-papers
+  name a bundle of papers | bundles of papers
+  shape bookdesk #7A6A4A #EDE4CC
+  chained
+  book harriot-papers
+end
+
+item chained-folio
+  name a chained folio | chained folios
+  shape bookdesk #4A3424 #E0D6BE
+  chained
+  title A chained folio
+  look A great folio in calf, chained by a ring on its front board to an iron rod along the shelf, so that it can be read at the desk and carried nowhere: the Fathers of the Church, Augustine's City of God, Aquinas, a Hebrew Bible with Kimchi's commentary, Sir Henry Savile's own Greek Chrysostom in eight volumes from his press at Eton. The books stand on the shelves with their spines to the wall and their chains to the room, and the titles are written on the edges of their pages.
+end
+
+item kings-glass
+  name the east window | windows
+  shape window #D8CCB0 #2A3A8A
+  fixed
+  image art/kings-glass.png
+  credit Photo: DeFacto, CC BY-SA 4.0, via Wikimedia Commons.
+  title The windows of King's College Chapel
+  look The great east window, over the altar: the Passion of Christ, read from the lower left. Below, Christ shown to the people, Pilate washing his hands, the carrying of the Cross; above them the nailing to the Cross, the Crucifixion high in the middle, and the taking down. It is the one window that is all New Testament. In the twenty-four along the sides, made by Flemish and English glaziers in King Henry the Eighth's time, a story of the New Testament mostly stands below the story of the Old that foretold it, with messengers between them holding scrolls that explain the pair: Jonah cast up by the whale over the Resurrection, the Queen of Sheba before Solomon over the Magi. The west window is plain glass. Some of the Puritans in the University think the windows idolatrous. So far they have outlasted every opinion.
+end
+
+item murer-plan
+  name a great map | great maps
+  shape painting #E2D6B8 #3A3A3A
+  fixed
+  image art/murer-plan.png
+  credit Jos Murer, 1576. Public domain, via Wikimedia Commons.
+  title Zurich, by Jos Murer
+  look The great bird's-eye view of Zurich that Jos Murer, painter and glazier, cut in wood for the Council in 1576, on six sheets: every house, garden, well and tower, the Limmat with its mills and the Wellenberg standing in the water, the lake with its boats, the vineyards on the hills, and the people in the streets, even the washerwomen at the river.
+end
+
+item gessner-rhino
+  name a great book | great books
+  shape openbook #7A5A3A #E8DFC8
+  fixed
+  image art/gessner-rhino.png
+  credit Gessner, Historiae animalium, National Library of Medicine. No known restrictions, via Wikimedia Commons.
+  title Gessner's History of the Animals
+  look In the library of the chapter, where the Carolinum's students read, Conrad Gessner's History of the Animals, printed in Zurich by Froschauer eighty years ago in great volumes, open at the rhinoceros: armoured in plates like a knight's horse, with a little extra horn on its back. Gessner copied it from Albrecht Durer, who drew it from a sketch of the beast the King of Portugal sent as a present to the Pope, which drowned in a storm on the way.
+end
+
+item sebaldus-shrine
+  name a bronze shrine | bronze shrines
+  shape shrine #6A5A3A
+  fixed
+  image art/sebaldus-shrine.png
+  credit Photo: Uoaei1, CC BY-SA 4.0, via Wikimedia Commons.
+  title The shrine of Saint Sebaldus
+  look A Gothic chapel of bronze standing on snails, with the silver coffin of Saint Sebaldus inside: the Apostles on its pillars, prophets, mermaids, dolphins and children round its base, and at one end Master Peter Vischer himself, in his leather apron, with his chisel. He and his sons cast it in eleven years. The city became Lutheran soon after it was finished, and left the saint where he was.
+end
+
+item angelic-salutation
+  name a great carving | great carvings
+  shape lamp #C9A44A
+  fixed
+  image art/angelic-salutation.png
+  credit Photo: public domain, via Wikimedia Commons.
+  title The Angelic Salutation
+  look Above the choir, hanging from the vault on a chain, a great wreath of carved roses, painted and gilded, with the angel Gabriel greeting the Virgin inside it and the seven joys of Mary round them. Veit Stoss carved it in limewood for Anton Tucher in 1518. Since the city turned Lutheran it has been kept in a linen sack, and the sexton pulls the sack off only on the great feasts, so that most days you see a great grey bag hanging in the air.
+end
+
+item durer-self
+  name a portrait | portraits
+  shape painting #6A4A2A #3A2A1E
+  fixed
+  image art/durer-self.png
+  credit Albrecht Dürer, Alte Pinakothek, Munich. Public domain, via Wikimedia Commons.
+  title Albrecht Durer, by himself
+  look Albrecht Durer at twenty-eight, painted by himself in 1500: full face, as only Christ is painted, his hair falling in curls on his fur collar, his right hand at his breast. The inscription says: I, Albrecht Durer of Nuremberg, painted myself thus in undying colours at the age of twenty-eight. Five years ago the Elector of Bavaria wanted Durer's Four Apostles, which hung beside it, and the Council did not dare refuse; copies hang there now, with the old inscriptions sawn off the originals and put under them.
+end
+
+item imperial-crown
+  name a treasure chest | treasure chests
+  shape reliquary #D8B04A
+  fixed
+  image art/imperial-crown.png
+  credit Photo: C. Löser, CC BY 3.0 DE, via Wikimedia Commons (in the Schatzkammer, Vienna).
+  title The treasure of the Empire
+  look Here in the church of the hospital, in a silver-gilt chest that hangs from the vault, the Emperors' treasure is kept, as it has been since the Emperor Sigismund gave it to the city to keep for ever, two hundred years ago: the crown of eight gold plates set with pearls and stones, with which the Emperors have been crowned for six hundred years, the orb, the sceptre, the swords, and the Holy Lance that pierced Christ's side. It leaves Nuremberg only for a coronation, under guard. With two armies at the gates, the Council sleeps badly.
+end
+
+item tycho-tomb
+  name a tombstone | tombstones
+  shape painting #8A3A2A #5A2A1E
+  fixed
+  image art/tycho-tomb.png
+  credit Drawing by Nelly Erichsen, 1902. Public domain, via Wikimedia Commons.
+  title The tomb of Tycho Brahe
+  look On a pillar by the high altar, a slab of red marble: Tycho Brahe, the Emperor Rudolf's astronomer, in full armour, his left hand on his sword and his right on a globe, with his nose carved as finely as the real one would have been. Above him his motto: Non haberi sed esse, not to seem, but to be. He died in October 1601, eleven days after a banquet from whose table he would not rise.
+end
+
+item vertumnus
+  name a painting | paintings
+  shape painting #8A6A2A #A83A2A
+  fixed
+  image art/vertumnus.png
+  credit Giuseppe Arcimboldo, Skokloster Castle. Public domain, via Wikimedia Commons.
+  title The Emperor Rudolf as Vertumnus
+  look The Emperor Rudolf, God rest him, made entirely of fruit and flowers: a pear for a nose, cherries for lips, a gourd for a forehead, ears of wheat for eyebrows, peas in their pods for eyelids, and a pumpkin of a chest garlanded with roses. Arcimboldo of Milan painted him so, as Vertumnus, the god of the turning year, and the Emperor laughed and was pleased. It hangs in the rooms of his collection, among the unicorn horns and the clocks that nobody has wound since he died.
+end
+
+item habsburg-mausoleum
+  name a tomb | tombs
+  shape tomb #EEEAE0
+  fixed
+  image art/habsburg-mausoleum.png
+  credit Photo: Packare, CC0, via Wikimedia Commons.
+  title The tomb of the Habsburgs
+  look In the middle of the choir, inside an iron grille, a great tomb of white marble carved by Alexander Colin of Mechelen: the Emperor Ferdinand, his Queen Anna, and their son the Emperor Maximilian lie on top, side by side, and round the sides are the kings of Bohemia of their house, in medallions. Below, in the vault, lies the Emperor Rudolf, who lived and died in Prague and never married.
+end
+
+item pilgram-pulpit
+  name a stone pulpit | stone pulpits
+  shape pulpit #D8D0BE #C8C0AE
+  fixed
+  image art/pilgram-pulpit.png
+  credit Photo: C.Stadler/Bwag, CC BY-SA 4.0, via Wikimedia Commons.
+  title The pulpit of St Stephen's
+  look A pulpit of stone like a flower on its stem, with the four Fathers of the Church carved round the bowl, each one as one of the four temperaments. Up the rail of the stair crawl lizards and toads, the good and the bad, and at the top a little stone dog keeps them from reaching the preacher. Under the stair a man leans out of a stone window with a compass in his hand: the master who carved it, looking at his work.
+end
+
+item frederick-tomb
+  name a tomb | tombs
+  shape tomb #A85A4A
+  fixed
+  image art/frederick-tomb.png
+  credit Photo: C.Stadler/Bwag, CC BY-SA 4.0, via Wikimedia Commons.
+  title The tomb of the Emperor Frederick
+  look The tomb of the Emperor Frederick the Third, of red marble from Salzburg: the Emperor lies on top in his crown and robes, and more than two hundred figures crowd round him, saints, bishops and little monsters. It took forty-six years to make, longer than most emperors reign. On it, as on everything of his, are the five vowels A E I O U, which he never explained. All the Earth Is Under Austria, the Austrians say.
+end
+
+item dioscurides
+  name an illuminated book | illuminated books
+  shape openbook #7A5A3A #E8DFC8
+  fixed
+  image art/dioscurides.png
+  credit Photo: Gennadii Saus i Segura, CC BY 4.0, via Wikimedia Commons.
+  title The Herbal of Dioscorides
+  look The Herbal of Dioscorides, written and painted in Constantinople eleven hundred years ago for the princess Anicia Juliana: four hundred plants, each painted as if alive, with their names in Greek, and in Arabic, Turkish and Hebrew written in later by its owners. At the front the princess herself sits enthroned between Prudence and Magnanimity. The Emperor Maximilian bought it sixty years ago from the son of the Sultan's Jewish physician, for a hundred ducats.
+end
+
+item stoss-altar
+  name an altarpiece | altarpieces
+  shape painting #C9A44A #2A3A6A
+  fixed
+  image art/stoss-altar.png
+  credit Shown: Leon Wyczółkowski's painting of it. Public domain, via Wikimedia Commons.
+  title The altarpiece of Veit Stoss
+  look The altarpiece of the high altar, carved in limewood by Veit Stoss of Nuremberg in twelve years and finished in 1489: the Apostles, each twice as tall as a man, gathered round the Virgin as she sinks dying into the arms of one of them, every hair and vein carved; above, her Assumption and her crowning, and on the wings, the joys of Mary. The town paid him as much as it spends on itself in a year. He went home to Nuremberg, where they branded him through both cheeks for forging a bond.
+end
+
+item sigismund-tomb
+  name a tomb | tombs
+  shape tomb #A85A4A
+  fixed
+  image art/sigismund-tomb.png
+  credit Photo: Dennis G. Jarvis, CC BY-SA 2.0, via Wikimedia Commons.
+  title The tomb of King Sigismund the Old
+  look In the chapel that the Florentine Bartolomeo Berrecci built for King Sigismund the Old, under a golden dome, the King lies in red marble, propped on his elbow in his armour as if he had just woken from a nap; above him lies his son Sigismund Augustus, the last of the Jagiellons. King Sigismund the Third, who died in April in Warsaw, is to be brought here and buried in the crypt below.
+end
+
+item memling-judgment
+  name a painting | paintings
+  shape painting #C9A44A #8A2A22
+  fixed
+  image art/memling-judgment.png
+  credit Hans Memling, National Museum in Gdańsk. Public domain, via Wikimedia Commons.
+  title The Last Judgment
+  look The Last Judgment, a great triptych: Saint Michael in golden armour weighing the souls, the saved going up crystal stairs into a Gothic gate of heaven on the left, the damned falling into fire on the right. A Florentine banker in Bruges ordered it from Hans Memling, and in 1473 it was on its way to Florence in a galley when Paul Beneke, a captain of Danzig, took the galley at sea. The Pope threatened the city with excommunication and demanded the picture back. Danzig kept it, and Beneke became a hero.
+end
+
+item apotheosis-gdansk
+  name a painted ceiling | painted ceilings
+  shape painting #C9A44A #3A5A2A
+  fixed
+  image art/apotheosis-gdansk.png
+  credit Isaak van den Blocke, Main Town Hall, Gdańsk. Public domain, via Wikimedia Commons.
+  title The glory of Danzig
+  look In the middle of the ceiling of the Council's Red Room, painted by Isaak van den Blocke in 1608: a great triumphal arch, and through it, far off, the Vistula winding down from Poland; in front, the granaries and the crowd of the trade, Polish lords in fur hats, Dutch skippers, porters with sacks of grain; and above it all the city's arms, as if Danzig had been crowned by heaven for its commerce. The Council sits under it to remember where its money comes from.
+end
+
+item vakufnama
+  name a deed of foundation | deeds of foundation
+  shape openbook #7A5A3A #E8DFC8
+  fixed
+  image art/vakufnama.png
+  credit Gazi Husrev-beg Library, Sarajevo. Public domain, via Wikimedia Commons.
+  title The deed of Gazi Husrev-beg
+  look Gazi Husrev-beg's deed of 1537, which founded the medrese and its library, in Arabic, the heading in red: the steward of the foundation keeps it by him and shows it to anyone who asks. It names the shops and houses whose rents shall pay for them, what the teacher shall teach and be paid, how the books shall be kept and lent, and what every servant shall have, down to the man who lights the lamps. It ends with a curse on anyone who changes a word of it.
+  needs arabic Gazi Husrev-beg's deed of 1537, which the steward keeps by him: a page of Arabic in a clear black hand, the heading in red, with seals. You cannot read it. The steward will tell you what it says, at length.
+end
+
+# ---------------------------------------------------------------- where things lie
+#
+# Boats at the mooring posts ('g' in the town maps): "moored: ITEM" everywhere,
+# "moored in "TOWN": ITEM" in that town.
+moored: boat
+moored in "Venice": gondola
+# ships, by the shore near these points of the old map: the Pool of London below the Tower, the
+# IJ before Amsterdam, the Bacino of San Marco, the mouth of the Arno below Pisa
+harbour 289.6,438.3: pinnace
+harbour 340.5,449.4: fluyt
+harbour 336.0,449.2: fluyt
+harbour 418.6,295.6: galleon
+harbour 371.8,265.0: tartane
+harbour 643.6,219.2: caramusal
+harbour 494.6,237.3: argosy
+harbour 128.5,211.6: galleon-indies
+harbour 533.0,474.0: fluyt
+# the packets: the Channel's at Calais and Dover (posthouses.txt packet-calais, packet-dover), and the
+# King of Sweden's post ship at Danzig, below the Crane (danzig.txt swedeship); Stockholm's galleon
+# at the Skeppsbron is the post ship's other end
+harbour 300.6,421.4: pinnace
+harbour 294.0,434.6: pinnace
+harbour 533.4,474.6: pinnace
+harbour 499.6,559.2: galleon
+
+on table in house: loaf 0.3 jug 0.25 cup 0.35 candle 0.3 plate 0.3 knife 0.12 onions 0.1 purse 0.02
+on table in inn: jug 0.6 cup 0.7 plate 0.4 bottle 0.3 candle 0.3
+on counter in inn: jug 0.7 cup 0.6 bottle 0.5
+on counter in house: candle 0.3 nails 0.2 strings 0.05 book 0.05
+on stall: apples 0.5 cabbage 0.35 cheese 0.25 loaf 0.2 fish 0.25 onions 0.35
+on table in college: book 0.5 inkpot 0.4 quill 0.4 candle 0.4
+on table in "Sorbonne": sorbonne-physics 1
+on table in "Collegio Romano": rosa-ursina 1
+on table in "Blaeu": old-map 1
+art "Ambulacrum" wall: tulip-bulb tulip-bulb tulip-bulb
+on table in palace: candle 0.5 book 0.2 jug 0.2
+on table in mansion: candle 0.5 book 0.2 jug 0.2 bottle 0.2
+on altar: candle 0.9
+on bench in church: book 0.05
+on bench in cathedral: book 0.05
+beside anvil: hammer 0.9 tongs 0.8 horseshoe 0.6 nails 0.5
+beside oven: loaf 0.7 firewood 0.6
+beside hearth: firewood 0.5 pot 0.4
+beside bed: candle 0.15
+
+art "Palais du Luxembourg" wall: rubens-marseilles rubens-portrait rubens-coronation
+art "the Louvre" row: caryatid caryatid caryatid caryatid
+art "the Louvre" floor: diana-louvre goujon-ceiling
+art "the Louvre" wall: mona-lisa virgin-rocks leda-lost raphael-michael belle-jardiniere raphael-holy-family titian-francis clouet-francis sarto-charity rois-henri-iv rois-king rois-queen bahuche-queen
+art "the Louvre" court wall: goujon-archimedes goujon-euclid
+art "the Louvre" court: louvre-stone louvre-stone louvre-stone
+art "Notre-Dame" wall: the-may
+art "Sainte-Chapelle" on altar: grande-chasse
+art statue in "Paris": henri-iv
+art "Basilica of Saint-Denis" floor: tomb-louis-xii tomb-francois-i tomb-henri-ii
+art "Old St Paul's" wall: donne
+art "Westminster Abbey" floor: tomb-elizabeth tomb-henry-vii
+art "the cisterns of Hippo" floor: augustine-codex
+art "Banqueting House" floor: bare-ceiling
+# Rome
+art "Vatican Palace" wall: school-athens
+art "Vatican Palace" floor: laocoon
+art "Sistine Chapel" wall: last-judgment
+art "Sistine Chapel" wall: sistine-ceiling
+art "Basilica of St Peter" over altar: baldacchino
+art "Basilica of St Peter" floor: pieta st-peter-bronze
+art "Santa Maria del Popolo" wall: caravaggio-paul caravaggio-peter
+art "Santa Maria sopra Minerva" left of altar: cristo-minerva
+art "Pantheon" floor: raphael-tomb
+art statue near "Palazzo Senatorio": marcus-aurelius
+art statue near "the Sapienza": pasquino
+# Venice
+art "Basilica of San Marco" on altar: pala-doro
+art "Frari" wall: assunta
+art "Scuola Grande di San Rocco" wall: tintoretto-crucifixion
+art "Doge's Palace" wall: tintoretto-paradise
+art "San Giorgio Maggiore" wall: tintoretto-supper
+art "Santi Giovanni e Paolo" wall: veronese-levi
+art statue near "Santi Giovanni e Paolo": colleoni
+# Amsterdam
+art "the Waag" wall: anatomy-lesson
+art "Hendrick Uylenburgh" wall: europa
+art "Willem Blaeu" wall: blaeu-world
+art "the Town Hall" wall: amsterdam-1538
+# Florence (on statues: the nearest free pedestal or horseman to that building)
+art statue near "Palazzo Vecchio": david cosimo
+art statue near "Loggia dei Lanzi": sabines perseus
+art "Santa Croce" floor: tomb-michelangelo
+art "San Lorenzo" floor: medici-tomb
+art "Santa Maria del Carmine" wall: tribute-money
+art "Santa Maria del Fiore" wall: hawkwood
+
+# Padua
+art statue near "Basilica of the Santo": gattamelata
+art "Scrovegni" wall: giotto-magi giotto-kiss
+art "Palazzo del Bo" row: cattedra
+art "Palazzo della Ragione" floor: stone-of-shame
+# Pisa
+art "Duomo of Pisa" floor: galileo-lamp pulpit-giovanni
+art "Baptistery of Pisa" floor: pulpit-nicola
+art "Camposanto" wall: triumph-death
+art statue near "Palazzo della Carovana": cosimo-pisa
+# the cities of Constantinople, Ragusa, Seville, Granada, Oxford, Cambridge, Zurich,
+# Nuremberg, Prague, Vienna, Cracow, Danzig, Sarajevo
+art "Ayasofya" floor: pergamon-urn pergamon-urn
+art "mosque of Sultan Ahmed" wall: iznik-tiles
+art "Topkapi Palace" row: matrakci-istanbul
+art statue near "Sponza": orlando
+art "cathedral of Ragusa" on altar: blaise-head
+art "Casa de Contratacion" wall: virgin-navigators
+art "Cathedral of Seville" wall: retablo-seville
+art "Court of the Lions" court: lions
+art "Court of the Myrtles" court wall: alhambra-motto
+art "Capilla Real" row: tomb-catholic-kings
+art "Bodleian" wall: bodley-portrait
+art "Bodleian" upstairs: first-folio chained-folio lily-grammar chained-folio erpenius chained-folio dioptrice chained-folio harriot-papers chained-folio
+art "King's College Chapel" behind altar: kings-glass
+art "Rathaus of Zurich" wall: murer-plan
+art "Grossmünster" row: gessner-rhino
+art "St Sebaldus" floor: sebaldus-shrine
+art "St Lorenz" floor: angelic-salutation
+art "Rathaus of Nuremberg" wall: durer-self
+art "hospital of the Holy Ghost" row: imperial-crown
+art "Týn church" wall: tycho-tomb
+art "Prague Castle" wall: vertumnus
+art "St Vitus" floor: habsburg-mausoleum
+art "St Stephen's Cathedral" floor: pilgram-pulpit frederick-tomb
+art "Hofburg" row: dioscurides
+art "St Mary's Basilica" wall: stoss-altar
+art "Wawel cathedral" floor: sigismund-tomb
+art "St Mary's of Danzig" wall: memling-judgment
+art "Main Town hall" wall: apotheosis-gdansk
+art "Gazi Husrev-beg mosque" row: vakufnama
+
+# ---------------------------------------------------------------- the plot, chapter I: the book goes north
+# Galileo's commission, Landini's bale, and the Spanish secretary's letter.
+
+item galileo-list
+  name Galileo's list | lists of Galileo's
+  shape book #E8DFC8 #E8DFC8
+  weight 0.05
+  look A half sheet in Galileo's quick, sloping hand, the names in Latin so that a foreigner can read them.
+  use read Galileo's list | "Friends of mine and of the truth, who will keep the book and neither burn it nor give it up. AT PARIS: Signor Elia Diodati, advocate in the Parlement, at the Palais: to him my letter, and a copy, before all the others. Also at Paris, Father Marin Mersenne, of the Minims, at the Place Royale. AT OXFORD: the Library of Sir Thomas Bodley. AT LEIDEN: the Elzevirs, printers. AT AMSTERDAM: Monsieur Descartes, if he can be found. AT VENICE: Fra Fulgenzio Micanzio, at the Servi. AT PADUA: the German nation, whose students go home by the Frankfurt fair. AT NUREMBERG: the King of Sweden, in his camp before the city: Rome cannot reach into a king's baggage. And further, if you can: at Prague, Doctor Marci; at Vienna, the Emperor's Librarian; at Cracow, Copernicus's own university; at Danzig, Master Crüger. Seven of these, and Rome cannot unprint it. Burn this when you have it by heart. G.G."
+end
+
+item landini-order
+  name an order on Landini | orders on Landini
+  shape book #E8DFC8 #E8DFC8
+  weight 0.05
+  look A slip of paper in Galileo's hand: "Signor Landini will give the bearer what remains of the bale for the north, which is paid for. G.G."
+  use say It is for Landini, the printer, in Florence.
+end
+
+item diodati-letter
+  name a letter to Elia Diodati | letters to Elia Diodati
+  shape book #E8DFC8 #E8DFC8
+  weight 0.05
+  look A thick letter sealed with Galileo's seal, addressed: "To the Most Illustrious Signor Elia Diodati, advocate in the Parlement, at Paris. Into his own hands."
+  use say It is sealed, and it is for Diodati.
+end
+
+item arellano-letter
+  name a letter to Don Rodrigo | letters to Don Rodrigo
+  shape book #E8DFC8 #6A1A1A
+  weight 0.05
+  look A letter sealed in dark red wax with a coat of arms, a tower between two wolves, addressed in a secretary's quick hand: "Al Señor Don Rodrigo de Arellano, en la Lonja de Sevilla." It is not heavy. It feels like a dull letter.
+  use make arellano-letter-open | You warm the blade of a knife over a candle, and work it under the wax. The seal comes away cracked: there is no hiding that it has been opened. {player set opened-arellano-letter}
+  takes 10
+end
+
+item arellano-letter-open
+  name an opened letter to Don Rodrigo | opened letters to Don Rodrigo
+  shape book #E8DFC8 #6A1A1A
+  weight 0.05
+  look The Spanish secretary's letter to his brother at Seville, its seal cracked.
+  needs spanish It is in Spanish, in a quick secretary's hand: you make out "Granada", and "el muchacho", the boy, and nothing more.
+  use read A letter to Don Rodrigo de Arellano | "Brother, the matter of the scrivener of Granada goes forward, slowly, as such things do. Keep the boy by you, and kindly; let him want for nothing, and let him write to his father every month, for the father works better for the letters. Say nothing of it to anyone, and least of all to our cousin at the Casa. When the paper is done I will send for him. Money for the expenses by the Genoese, at the next fair. Rome is hot, and the Pope is afraid of everything. Your brother, Luis." {player set read-arellano-letter}
+end
+
+# ---------------------------------------------------------------- the plot, chapter II: the summons
+
+item certificate
+  name a physicians' certificate | physicians' certificates
+  shape book #E8DFC8 #E8DFC8
+  weight 0.05
+  look A sheet with three seals at its foot: three physicians of Florence certify that Signor Galileo Galilei, aged sixty-eight, suffers from a hernia, an irregular pulse, giddiness, melancholy and pains in his joints, and cannot travel to Rome in winter without danger to his life.
+  use say It is for Fra Clemente, the Inquisitor, at Santa Croce.
+end
+
+item duke-letter
+  name a letter to Ambassador Niccolini | letters to Ambassador Niccolini
+  shape book #E8DFC8 #B8902A
+  weight 0.05
+  look A letter sealed with the six balls of the Medici, addressed in a secretary's hand: "To our most faithful Francesco Niccolini, Our Ambassador at Rome."
+  use say It is sealed with the Grand Duke's arms, and it is for Niccolini, in Rome.
+end
+
+item king-offer
+  name a letter from the King of Sweden | letters from the King of Sweden
+  shape book #E8DFC8 #3A5A9A
+  weight 0.05
+  look A letter sealed with three crowns, addressed in a large hand: "To Signor Galileo Galilei, at Florence." Sweden's arms, on a letter to a man the Holy Office is watching.
+  use say It is sealed with three crowns, and it is for Galileo alone.
+end
+
+# ---------------------------------------------------------------- the plot, chapter III: the trial
+
+item bellarmine-cert
+  name Bellarmine's certificate | certificates of Bellarmine's
+  shape book #E8DFC8 #8A1A1A
+  weight 0.05
+  look A sheet signed by Cardinal Robert Bellarmine on 26 May 1616: that Galileo has not abjured, nor been given any penance, but only been told the declaration of the Index, that the doctrine of Copernicus may not be defended or held. Nothing about "in any way whatever", and nothing about teaching.
+  use read Cardinal Bellarmine's certificate, 26 May 1616 | "We, Robert Cardinal Bellarmine, having heard that it is calumniously reported that Signor Galileo Galilei has abjured in our hand, and has also been punished with salutary penance, declare that the said Signor Galileo has not abjured any opinion or doctrine of his, nor received any penance; but only that the declaration made by His Holiness and published by the Sacred Congregation of the Index has been notified to him, wherein it is declared that the doctrine attributed to Copernicus is contrary to Holy Scripture, and therefore cannot be defended or held."
+end
+
+item practice-sheet
+  name a sheet of wastepaper | sheets of wastepaper
+  shape book #E8DFC8 #E8DFC8
+  weight 0.05
+  look A sheet of good paper, spoiled: over and over, in a dozen slightly different hands, the same two words, "Galileo Galilei", and the date "26 Feb. 1616". Held to the light, it has a watermark: a crowned shield with a bend, and initials under it.
+  needs forgeries You turn it this way and that. Someone has been practising a signature. Whose hand is it really, and whose paper? An expert would know.
+  use read A practised signature | You know what to look for now. The strokes are slow where a true hand is quick; the pen has been lifted in the middle of the G, as nobody lifts it who writes his own name; and the ink of the date has been dulled with something, to look old. It is a forger's practice sheet. Beside the signatures, in a corner, the same hand has written, in its own way, quickly and without thinking: "A. M., Granada". {player set proof-hand}
+end
+
+item bart-purse
+  name a purse with Fra Bartolomeo's wages | purses with Fra Bartolomeo's wages
+  shape purse #6A5A3A
+  weight 0.2
+  look A little leather purse, heavy with a lay brother's wages, tied with a knot, for his mother, Mona Lisabetta, in Trastevere by Santa Maria.
+end
+
+item signed-injunction
+  name a document of 1616 | documents of 1616
+  also paper injunction minute forgery forged
+  shape book #E2D6B8 #6A1A1A
+  weight 0.05
+  look A minute of the Holy Office, of 26 February 1616: that Galileo was commanded by the Commissary, in Cardinal Bellarmine's presence, to abandon the opinion "and not to hold, teach or defend it in any way whatever", and that he acquiesced and promised to obey. At its foot, his signature: "Io Galileo Galilei ho ricevuto." It looks very old, and very convincing. Galileo swears he never signed any such thing.
+  use say It is not yours to keep; but it is in your hands.
+end
+
+item juanico-letter
+  name a letter from Juanico | letters from Juanico
+  shape book #E8DFC8 #E8DFC8
+  weight 0.05
+  look A note in a boy's careful hand, folded small: "Father, I am free, and going home to my mother. Do what is right now. Your son, Juan."
+  use say It is for his father, Andrés Morales, in Rome.
+end
+
+item pacheco-note
+  name a note from Francisco Pacheco | notes from Francisco Pacheco
+  shape book #E8DFC8 #E8DFC8
+  weight 0.05
+  look A note in a painter's elegant hand, signed by Francisco Pacheco, censor of paintings for the Holy Office of Seville: that the Holy Office takes an interest in a boy of Granada, Juan Morales, said to be kept in Seville against his father's will.
+  use say It is for Don Rodrigo de Arellano, at the Lonja.
+end
+
+item arellano-copy
+  name a copy of a letter to Naples | copies of a letter to Naples
+  shape book #E8DFC8 #E8DFC8
+  weight 0.05
+  look A copy, in the neat hand of the Chancery of Ragusa, of a letter of Don Luis de Arellano's to the Viceroy of Naples, which passed through the Republic's hands.
+  use read A letter of Don Luis de Arellano to the Viceroy of Naples (a copy) | "Excellency, the matter of the Florentine proceeds as I wrote. I have in my hands, or shall have before Easter, a paper of the year sixteen, signed by the man himself, which the Holy Office has somehow mislaid. When it is found, His Holiness will have no choice: he must burn the Florentine or pardon a relapsed heretic before all Christendom, and either will serve His Majesty. The scrivener costs little, and his boy less. Your Excellency's servant, Luis de Arellano." {player set proof-commission}
+end
+
+item galileo-papers
+  name a bundle of Galileo's papers | bundles of Galileo's papers
+  shape book #E8DFC8 #E8DFC8
+  weight 1
+  look Letters tied with tape, from Galileo's study at Il Gioiello: from Kepler, from Fra Paolo Sarpi, from friends in Germany and Holland. Nothing wicked; but a Lutheran's letters, in the house of a man on trial for heresy.
+  use say They are for Signor Geri Bocchineri, at the Palazzo Vecchio in Florence.
+end
+
+# ---------------------------------------------------------------- the plot, chapters IV and V
+
+item padua-notes
+  name Galileo's notes on motion | bundles of notes on motion
+  shape book #D8CCAE #8A6A3A
+  weight 1
+  look A bundle of old papers tied with string, from before 1610: inclined planes, falling bodies, a pendulum's swings counted, numbers in columns, and in a corner, "the spaces are as the squares of the times".
+  use say They are Galileo's, for his new book.
+end
+
+item galileo-letter
+  name Galileo's letter to his daughter | letters to Suor Maria Celeste
+  shape book #E8DFC8 #E8DFC8
+  weight 0.05
+  look A letter folded but not sealed, addressed in a hand grown large and shaky: "To Suor Maria Celeste, at San Matteo." He said you might read it, so that somebody else would know.
+  use read Galileo to his daughter, March 1634 | "My dearest Virginia, Geppo tells me the fever came back in the night, and that you would not let them send for me, because I am not allowed out of the gate. They may forbid my feet; they cannot forbid my thoughts, which are at San Matteo more than they are at my book. I have begun to write again: of motion, and of the strength of beams, and why a giant cannot be as big as a ship. It is the book I should have written twenty years ago, and would never have written if Rome had let me alone; so you see I owe them something. Eat what Ronconi tells you, and do not give it away to Sister Arcangela. The lemon tree has flowered early, out of turn, as if it knew. When you are well I shall come to the convent wall, guards or no guards, and talk to you through the grille as I used to. You were always the best of my works. Your most affectionate father, Galileo Galilei."
+end
+
+item manuscript
+  name the manuscript of the Two New Sciences | manuscripts
+  shape book #E8DFC8 #4A2A1A
+  weight 2
+  look A thick bundle in a fair copyist's hand, corrected in Galileo's, now very large and wandering: "Discorsi e dimostrazioni matematiche intorno a due nuove scienze". Four days of dialogue on the strength of materials and on motion. There is no other copy.
+  use say It is for the Elzevirs, at Leiden.
+end
+
+item longitude-tables
+  name the tables of Jupiter's moons | tables of Jupiter's moons
+  shape book #E8DFC8 #2A3A8A
+  weight 0.5
+  look Galileo's tables of the motions of the four Medicean stars, with his proposal to the States General of the United Provinces: to find the longitude at sea by timing the eclipses of Jupiter's moons.
+  use say They are for the States of Holland, at Amsterdam: Blaeu is one of their judges.
+end
+
+item two-new-sciences
+  name the Two New Sciences | copies of the Two New Sciences
+  also book copy discorsi
+  shape book #4A2A1A #E8DFC8
+  weight 1.5
+  look "Discorsi e dimostrazioni matematiche intorno a due nuove scienze", Leiden, Elzevir, 1638: the first copy off the press, smelling of ink.
+  use say It is for Galileo, at Arcetri.
+  also book sciences discorsi printed
+end
+
+# ---------------------------------------------------------------- the introduction: your family's farm
+
+item paquerette-bell
+  name Pâquerette's bell | cow bells
+  shape bell #B08A3A #5A3A22
+  weight 1
+  fixed
+  look Pâquerette's bell, on its nail by the hearth: a dented brass bell on a strap worn shiny, with a daisy burnt into the leather. Nobody has rung it since May.
+end
+
+art "the farmhouse" wall: paquerette-bell

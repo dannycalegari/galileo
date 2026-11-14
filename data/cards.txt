@@ -1,0 +1,102 @@
+# The cards: a full-screen card at the end of a chapter and the start of the next, and a smaller one
+# at a jump of the calendar inside a chapter. A card is dark, its words centred; a click or Space goes
+# on (main.cc: Game::showCard). An event shows one with "card ID" (events.txt), before its "jump": the
+# card comes after the clock has moved (so the date is the new one) and before the jump's letter or
+# scenes. The stand-in prints it as "  [card] LINE" lines, and goes on at once.
+#
+#   card ID
+#     small [if CONDS =>] TEXT     a line in small type (shown only if CONDS hold, as in events.txt
+#     large [if CONDS =>] TEXT     "if", atoms joined by "and"); a line in large type
+#     place [if CONDS =>] NAME     the place of the date line: the first that holds; if none does, the
+#                                  town you are in
+#     date                         the last line, in small type: "PLACE, Sunday 13 February 1633." and
+#                                  the interval since the clock stood before the jump (or since the
+#                                  last card, for a card that is not at a jump; none at the first
+#                                  card of a game): "The next day.", "N days later." (2-13 days),
+#                                  "N weeks later." (14-55 days), "N months later." (up to 23 months),
+#                                  "N years later."
+#   end
+
+# ---- the chapter cards
+card prologue
+  large Prologue
+  large Mersenne's courier
+  place La Chapelle, by Paris
+  date
+end
+
+card ch1
+  small if player not skipped-prologue => The end of the prologue: Mersenne's courier
+  large Chapter I
+  large The book goes north
+  date
+end
+
+card ch2
+  small The end of Chapter I: The book goes north
+  large Chapter II
+  large The summons
+  date
+end
+
+card ch3
+  small The end of Chapter II: The summons
+  large Chapter III
+  large The trial
+  date
+end
+
+card ch4-arcetri
+  small The end of Chapter III: The trial
+  large Chapter IV
+  large The prisoner of Arcetri
+  date
+end
+
+card ch4-rome
+  small The end of Chapter III: The trial
+  large Chapter IV
+  large The prisoner of the Holy Office
+  date
+end
+
+card ch5
+  small if player man-worse => The end of Chapter IV: The prisoner of the Holy Office
+  small if player not man-worse => The end of Chapter IV: The prisoner of Arcetri
+  large Chapter V
+  large Two New Sciences
+  date
+end
+
+card epilogue
+  small The end of Chapter V: Two New Sciences
+  large Epilogue
+  place if player man-worse => Rome
+  place Arcetri
+  date
+end
+
+# ---- the date cards, for the jumps inside a chapter
+card departure
+  date
+end
+
+card hearing
+  date
+end
+
+card sentence
+  date
+end
+
+card celeste
+  date
+end
+
+# ---- the march to the Alte Veste (events.txt the-march): at three in the
+# morning, if you fell in with Monro's Scots at the muster; you stand at the foot of the ridge at first light
+card the-march
+  small The drums wake you in the dark. The Scots fall in by files without a word, and Monro goes down the line with a lantern, looking into each face. Then out by the Spittlertor, past the King's lines, west across the dark fields to the river, and over it. Other columns are on the roads beside you, the King's brigades, and nobody speaks. Somewhere up on the ridge a dog barks in the Duke's camp. At first light you are standing in the wet grass under the hill, with the gabions black against the sky, and Murdo Ross at your elbow, blowing on his match.
+  place Zirndorf
+  day
+end

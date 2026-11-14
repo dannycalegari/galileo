@@ -1,0 +1,86 @@
+# The people of Cambridge.
+# June 1632: John Milton of Christ's, twenty-three, takes his Master's degree next month; his
+# unsigned epitaph on Shakespeare is in the new Second Folio. John Harvard of Emmanuel takes his
+# Bachelor's degree this year. Old Hobson the carrier died last year, and Milton wrote verses on him.
+town Cambridge
+names english
+prison Cambridge Castle | They lock you in the gaol of Cambridge Castle, on its green mound over the river. All night a scholar of Christ's in the next cell recites Latin verses he has made about the gaoler. In the morning they let you go.
+country England
+
+person milton
+  name John Milton
+  title a scholar of Christ's
+  role scholar
+  near Christ's
+  work landmark Christ's
+  talk
+    name: John Milton, of Christ's College, Bachelor of Arts. The Lady of Christ's, they call me, for my complexion. I have stopped minding. Almost. {name}
+    job: I take my Master's degree in July, and then I shall go home to my father's house at Hammersmith and read everything ever written. Then I shall write a poem the world will not willingly let die.
+    shakespeare,folio,epitaph,poem if player has:second-folio: (He turns to the front of your Folio, and goes red.) "What needs my Shakespeare for his honoured bones..." That is mine. They have printed it without my name. Well. Let them find out whose it is. {player set showed-milton}
+    shakespeare,folio,epitaph,poem: I wrote some verses on Shakespeare once. The printers took them. I have heard nothing since.
+    hobson,carrier: Old Hobson, the carrier, who drove to London every week for sixty years, and died when the plague stopped his journeys. I wrote two epitaphs on him: idleness killed him, not age. The scholars liked them better than anything else I have written.
+    poem,poems,allegro,penseroso: Two poems, a pair: the cheerful man and the thoughtful man, a day each. I am not sure yet which of them I am.
+  end
+end
+
+person harvard
+  name John Harvard
+  title a scholar of Emmanuel
+  role student
+  near Emmanuel
+  work landmark Emmanuel
+  talk
+    name: John Harvard, of Emmanuel College; my father was a butcher in Southwark. {name}
+    job: I take my Bachelor's degree this year, and then my Master's, and then perhaps the ministry. Many of our Emmanuel men are going to New England, where a man may preach as his conscience tells him.
+    new,england,america,colony: They say the colony at Massachusetts Bay has a church in every village and not one college. If I ever had money I should leave them my books, and they could found one.
+  end
+end
+
+person mede
+  name Joseph Mede
+  title a fellow of Christ's
+  role mathematician
+  near Christ's
+  talk
+    name: Joseph Mede, fellow of Christ's. {name}
+    job: I tutor the young men, I read the Book of Revelation, and I write a great many letters to everyone, with all the news, which my friends pass to their friends. I have worked out the order of the Apocalypse. It is quite soon.
+    news,letters,galileo: The news from Italy is that Galileo has printed a dialogue for the motion of the Earth, and that the Pope is not pleased. I have it from Sir Martin Stuteville, who had it from London, who had it from Venice.
+  end
+end
+
+person more
+  name Henry More
+  title a young scholar of Christ's
+  role student
+  near Christ's
+  talk
+    name: Henry More, of Christ's, these two years. {name}
+    job: I am reading philosophy, and I find I do not believe in Calvin's predestination, which distresses my uncle very much. I think the soul is a spirit, and spirit is extended, like the world. Nobody here agrees with me. Mr. Mede says I am young.
+  end
+end
+
+person ostler
+  name Will Ayre
+  title an ostler of Hobson's stables
+  role labourer
+  near Hobson's stables
+  work landmark Hobson's stables
+  talk
+    name: Will Ayre, ostler, as I was to old Hobson these twenty years. {name}
+    job: I let out the horses, as old Hobson did. Forty good horses, and you take the one nearest the stable door, or none at all. That was his rule, and it is still the rule. Hobson's choice, the scholars call it.
+    hire,yes,take,=i will if recent:0.05 offered-horse: (He brings out the one nearest the door.) {hire 36}
+    horse,horses,hire: A horse to London, or to the next inn on any road: three sous, and you hand him in at the other end. Will you *hire* one? Or buy one of your *own*, if you mean to keep him. {set offered-horse=now}
+    take,yes,deal,=i will if recent:0.05 offered-own: (He leads out the one nearest the door.) {buyhorse 2400}
+    own,keep,purchase: Ten livres for a horse of your own, from Hobson's stable, the best in Cambridge. You take the one nearest the door. Will you *take* him? {set offered-own=now}
+    hobson,choice: Old Thomas Hobson carried the post and the scholars to London every week for sixty years, and died of it a year and a half ago, when the plague stopped his going. A scholar of Christ's wrote verses on him. Two lots of verses.
+  end
+end
+
+crowd 3 student
+crowd 2 scholar
+crowd 2 goodwife
+crowd 2 labourer
+crowd 1 merchant
+crowd 1 guard work square
+crowd 1 innkeeper
+crowd 1 herdsman

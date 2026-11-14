@@ -1,0 +1,39 @@
+# THE SECRET OF THE BODLEIAN. A bundle among Sir Henry Savile's books: Thomas Harriot's drawings of the
+# Moon through a spyglass (26 July 1609, before Galileo's Starry Messenger, and the whole Moon of late
+# 1610; both drawings are at Petworth House) and his sunspots, which he first drew on 8 December 1610,
+# before Galileo or Scheiner published theirs. The drawings and the dates are Harriot's; that copies lay
+# in Oxford, Savile's label, the letter to Savile and its words are ours. Reading the letter sets
+# read-harriot (Galileo at Arcetri and Scheiner in Rome have lines for it; stories.txt "harriot").
+book harriot-papers
+language english
+title Papers of Mr Thomas Harriot
+
+page
+[A bundle of loose sheets tied with tape, kept among Sir Henry Savile's books, with a label in Savile's own hand:] //
+
+Mr Harriot's papers of the perspective glass, sent me from Syon, 1611. //
+Not to be shown, nor printed, while he lives: so he desires. //
+H. S.
+
+page image art/harriot-moon-1609.png | Thomas Harriot, his drawing at Petworth House. Public domain, via Wikimedia Commons.
+The Moon through the glass, a few days old, drawn by Harriot on the 26th of July 1609 at Syon House on the Thames: the bright crescent, and along the edge of the light a ragged line with spots of shadow. Galileo's Starry Messenger, with his drawings of the Moon, was printed at Venice the next March.
+
+page
+Sir, //
+
+I send you, as I promised at Eton, what I have seen with my trunks of glasses. The first of the Moon I drew in July of the year 1609, before ever I heard of the Italian's book; the whole face of her I drew this last winter, with the great spots in their places, and I think it truer than his.
+
+But this is the matter I would have you keep close. On the 8th of December last, in the morning, the Sun being newly up and so dimmed with a mist that I might look on him through the glass, I saw in his face black spots. I have watched him since on many mornings. The spots go over him from the east side to the west in some fourteen days, and change their shapes, and new ones come; so that, as I judge, the Sun turns upon himself, as the Earth does.
+
+I would not have this printed. My lord of Northumberland is in the Tower these six years, and I have been in prison once already for keeping his company; there are those who would call it atheism to say the Sun has spots. Let the Italians have the glory, and I the quiet. //
+
+Your loving friend, //
+Tho. Harriot. //
+Syon, the 20th of April 1611.
+{player set read-harriot}
+
+page image art/harriot-moon-map.png | Thomas Harriot, his map at Petworth House. Public domain, via Wikimedia Commons.
+The whole face of the Moon, drawn by Harriot late in 1610, with its seas and spots marked and numbered.
+
+page
+[Sheet after sheet of small circles, each the face of the Sun on one morning, with the black spots drawn in it and the day written beside, in Harriot's hand: the first "1610. Decemb. 8. mane", and then mornings all through the winter, and the next year, and the year after. Nobody has untied the tape for a long time.]

@@ -1,0 +1,19 @@
+# The Channel packet, Calais to Dover (posthouses.txt packet-calais; Game::takePassage plays
+# data/scenes/passage-FROM-TO.txt when it exists). The ships are items.txt's harbour pinnaces.
+
+scene
+  id passage-calais-dover-1
+  in the post house at Calais
+  time 07:00
+  look 16,-27 yaw 25 pitch 40 zoom 4
+  you 15,-25 facing to:cam
+  caption The packet for Dover lies at the quay, rocking. Five sous, and you are aboard; the master looks at the sky, sniffs, and says the tide will serve.
+end
+
+scene
+  id passage-calais-dover-2
+  in the post house at Dover
+  time 10:00
+  look 16,-1 yaw 205 pitch 36 zoom 4.5
+  caption Two hours and a half across, rolling, with half the passengers at the rail. Then the white cliffs come up out of the sea, and the packet runs in under them to the quay at Dover.
+end

@@ -1,0 +1,346 @@
+# The people of Nuremberg.
+# June 1632: Nuremberg, a free city of the Empire and Protestant, opened its gates to the King of
+# Sweden this spring; now his army is digging a camp round the city, and Wallenstein is coming
+# from Bohemia with a greater one. Franz Schmidt, its executioner for forty years, lives on in
+# retirement as a healer; the Imhoff family is selling its Dürer drawings, a sheet at a time.
+town Nuremberg
+names german
+prison Rathaus of Nuremberg | They lock you in the Lochgefängnis, the holes under the Rathaus: little cells of oak in the rock, with a bench, a bucket and no light. A guard tells you, kindly, where the old torture chamber is. In the morning they let you go.
+country Empire
+
+person monro
+  name Robert Monro
+  title a Scots officer of the King of Sweden
+  role knight
+  look coat #2A3A5A legs #3A3A3A hat hat #1E1E1E
+  near Rathaus of Nuremberg
+  lodges
+  work square
+  # he holds the town with what is left of his men after the King has gone, until 18 November 1632, as he did
+  schedule
+    6:00 work if date<1632-11-18
+    20:00 home if date<1632-11-18
+    21:00 sleep if date<1632-11-18
+    0:00 away if date>=1632-11-18
+    # the muster, the march and the storming: in the square from eight the
+    # evening after you told him until the march at three; on the hill by the ruin until the retreat at ten; then with his
+    # wounded in the hospital of the Holy Ghost, night and day, while Murdo Ross may still be brought in
+    always work if player muster-on
+    always away if player storming-set and player day:2 report-at and player hour>=3 and player not event:alte-veste and player not marched
+    always go landmark the Alte Veste if player marched and player storming-set and player not event:assault-over
+    always go landmark the Alte Veste if player event:alte-veste and player not event:assault-over
+    always go landmark hospital of the Holy Ghost if player event:assault-over and player recent:2.5 assault-at and player not scot-saved and player not event:siege-ends
+    always go landmark hospital of the Holy Ghost if player scot-following
+  talk
+    name: Robert Monro, of the house of Foulis in Ross, an officer of the Scots in the King of Sweden's service. {name}
+    job: I came over from Scotland six years ago with Mackay's regiment, eight hundred men; there are not two hundred of us left. Now the King has brought us here, and we are digging a camp all round the city, ramparts and ditches, because Wallenstein is coming from Bohemia with more men than we have.
+    king,sweden,gustavus,audience,majesty if player scouting and not player reported-wallenstein and not player event:siege-ends: Not until you have been up to Zirndorf and looked. Bring me word of Friedland, and he will see you.
+    king,sweden,gustavus,audience,majesty if not player reported-wallenstein and not player event:siege-ends: You want the King? So does every Nuremberger with a petition. He will see nobody until he knows where Friedland means to sit down: on the ridge at Zirndorf, is my guess, west of the city, by the old castle they call the Alte Veste. Ride out and look, and come back and tell me what you see, and he will see you. (He holds out his hand.) Robert Monro, of Foulis in Ross, at your service. {name} {player set scouting}
+    king,sweden,gustavus if player event:siege-ends: The King has gone south, and Friedland after him, and left me the town to hold, with what is left of us. We march when he sends for us.
+    king,sweden,gustavus: The King leads from the front, which is the worst place for a king and the best for an army. The broadsheets call him the Lion of the North. Last month he took Munich and would not let us plunder it. We have forgiven him.
+    # The siege's second half: after the report he asks you to find where the Duke's camp is weak;
+    # Senno's greeting is the lie (zirndorf.txt); he asks whether you saw it with your own eyes; the ruin shows the guns
+    # (events.txt north-guns-seen). Warned, he gives you a rapier and asks you to bring down whoever you can (Murdo Ross,
+    # zirndorf.txt); lied to, for nothing or for the Duke's thirty livres, he takes the lie to the King. Either way the King
+    # storms the Alte Veste (events.txt alte-veste: storming-set, two days on, in the morning), as in history; and the Scots
+    # muster in the square the evening before (events.txt the-muster).
+    # at the muster, where speaking to him puts you in Murdo Ross's file; and on the hill
+    hello if player muster-on and player mustered: (He nods to you, and goes on down the file.) Sleep near: the drums beat at three.
+    hello if player muster-on and player warned-monro: (He is going down the file from man to man, with a word for each, and a hand on a shoulder.) You came. Good. (He looks at your sword, and then at you.) You will march at the back of Murdo Ross's file, where a stranger is least in the way and most use: when a man goes down, you will be there. Murdo! Here is the stranger I told you of. (To you.) Sleep where you like, but sleep near: the drums beat at three. {player set mustered}
+    hello if player muster-on: (He is going down the file from man to man, with a word for each, and a hand on a shoulder; he is in high spirits.) You came! Good. By noon tomorrow we shall have the Duke's camp, and his guns, and his dinner, thanks to you and the astrologer. You will march at the back of Murdo Ross's file, where a stranger sees most and is least in the way. Murdo! Here is the stranger who found us the north end. (To you.) Sleep where you like, but sleep near: the drums beat at three. {player set mustered}
+    wallenstein,scout,ride,zirndorf,report,alte,veste,north,weak,guns,ruin,muster,drums,march,dawn,ridge,attack,storm,assault,when,tomorrow,tonight,wounded if player muster-on: We march at three. Sleep where you like, but sleep near.
+    hello if player event:alte-veste and not player event:assault-over: (He is bareheaded, with blood running into one eye, and does not stop.) Keep by Murdo! Up! Up!
+    # after the storming, on the roads of the lie: he names your lie, and the ruse;
+    # once he has said it at your straw in the hospital (events.txt monro-at-your-straw), only the ruse
+    hello if player event:assault-over and player gave-false-report and not player monro-blamed and player mustered: (His head is bound up. He looks at you for a long time before he speaks.) You told me you had seen it with your own eyes. There were guns behind every tree, and Croats in the ruin; we lost two thousand men on that hill, and the King his best colonels, and Murdo Ross, who marched beside you. The astrologer told it to you, and you told it to me, and I told it to the King. Somebody wanted us to attack. I wonder who. {player set monro-blamed} {player set heard-ruse}
+    hello if player event:assault-over and player gave-false-report and not player monro-blamed: (His head is bound up. He looks at you for a long time before he speaks.) You told me you had seen it with your own eyes. There were guns behind every tree, and Croats in the ruin; we lost two thousand men on that hill, and the King his best colonels. The astrologer told it to you, and you told it to me, and I told it to the King. Somebody wanted us to attack. I wonder who. {player set monro-blamed} {player set heard-ruse}
+    hello if player event:assault-over and player gave-false-report and not player heard-ruse and player mustered: (His head is bound up.) There were guns behind every tree, and Croats in the ruin; we lost two thousand men on that hill, and the King his best colonels, and Murdo Ross, who marched beside you. The astrologer told it to you, and you told it to me, and I told it to the King. Somebody wanted us to attack. I wonder who. {player set heard-ruse}
+    hello if player event:assault-over and player gave-false-report and not player heard-ruse: (His head is bound up.) There were guns behind every tree, and Croats in the ruin; we lost two thousand men on that hill, and the King his best colonels. The astrologer told it to you, and you told it to me, and I told it to the King. Somebody wanted us to attack. I wonder who. {player set heard-ruse}
+    wallenstein,scout,ride,zirndorf,report,alte,veste,north,weak,guns,ruin,muster,march,dawn,ridge,attack,storm,assault,wounded,murdo if player event:alte-veste and not player event:assault-over: (He does not stop.) Up! Up!
+    # after the storming, the words a player uses for it, among them "siege", "attack", "astrologer" and "war"
+    wallenstein,scout,ride,zirndorf,report,alte,veste,murdo,ross,wounded,siege,attack,assault,storm,battle,hill,war,astrologer,senno,north,weak,guns,ruin,dead,lost if player event:assault-over and player scot-saved: (His head is bound up.) Murdo Ross is walking up and down the yard of the Holy Ghost on a stick, cursing the hangman who set his leg. I go and look at him every morning, to remind myself that one thing went right on that hill; and it was not the King's doing, nor mine.
+    # warned: while Murdo may still be brought in, and after
+    wallenstein,scout,ride,zirndorf,report,alte,veste,murdo,ross,wounded,siege,attack,assault,storm,battle,hill,war,astrologer,senno,north,weak,guns,ruin,dead,lost if player event:assault-over and player warned-monro and player recent:2.5 assault-at and player mustered: (His head is bound up.) We went up all the same, as I told you we would. Murdo Ross, who marched beside you, is still up there under the ruin, if the Croats have left him anything; I have not a man left who can walk that far and fight at the end of it.
+    wallenstein,scout,ride,zirndorf,report,alte,veste,murdo,ross,wounded,siege,attack,assault,storm,battle,hill,war,astrologer,senno,north,weak,guns,ruin,dead,lost if player event:assault-over and player warned-monro and player recent:2.5 assault-at: (His head is bound up.) We went up all the same, as I told you we would. One of my lads, Murdo Ross, is still up there under the ruin, if the Croats have left him anything; I have not a man left who can walk that far and fight at the end of it.
+    wallenstein,scout,ride,zirndorf,report,alte,veste,murdo,ross,wounded,siege,attack,assault,storm,battle,hill,war,astrologer,senno,north,weak,guns,ruin,dead,lost if player event:assault-over and player warned-monro and player mustered: (His head is bound up.) We went up all the same, as I told you we would. Murdo Ross, who marched beside you, was down under the ruin when we came back; we did not find him after. The Croats had been there first.
+    wallenstein,scout,ride,zirndorf,report,alte,veste,murdo,ross,wounded,siege,attack,assault,storm,battle,hill,war,astrologer,senno,north,weak,guns,ruin,dead,lost if player event:assault-over and player warned-monro: (His head is bound up.) We went up all the same, as I told you we would. One of my lads, Murdo Ross, was under the ruin when we came down; we did not find him after. The Croats had been there first.
+    wallenstein,scout,ride,zirndorf,report,alte,veste,siege,attack,assault,storm,battle,hill,war,astrologer,senno,north,weak,guns,ruin,dead,lost,murdo,ross if player event:assault-over and player mustered: (His head is bound up.) The north end of the hill was weakly held, the astrologer said. There were guns behind every tree, and Croats in the ruin. We lost two thousand men on that hill, and the King his best colonels; and Murdo Ross, who marched beside you. Somebody wanted us to attack. I wonder who. {player set heard-ruse}
+    wallenstein,scout,ride,zirndorf,report,alte,veste,siege,attack,assault,storm,battle,hill,war,astrologer,senno,north,weak,guns,ruin,dead,lost if player event:assault-over: (His head is bound up.) The north end of the hill was weakly held, the astrologer said. There were guns behind every tree, and Croats in the ruin. We lost two thousand men on that hill, and the King his best colonels. Somebody wanted us to attack. I wonder who. {player set heard-ruse}
+    wallenstein,scout,ride,zirndorf,report,alte,veste,siege,attack,assault,storm,battle,hill,war,astrologer,senno,north,weak,guns,ruin,dead,lost if player event:siege-ends: (His head is bound up.) We went up the hill by the old castle on the third of September, and came down again with two thousand fewer men. Now Friedland has gone after the King, and we hold the town.
+    errand,work,useful,task,next if player event:siege-ends: Nothing, now. We hold the town until the King sends for us.
+    errand,work,useful,task,next if player event:assault-over: Nothing, now. We bury our dead, and the King sits in his tent and writes letters. When he marches, we march.
+    # until the muster: "tomorrow evening" on the day you told him, "tonight" on the next; the words include "dawn", "ridge" and "wounded"
+    wallenstein,scout,ride,zirndorf,report,alte,veste,north,weak,guns,ruin,muster,drums,march,dawn,ridge,attack,storm,assault,when,tomorrow,tonight,wounded if player warned-monro and player day:0 report-at: Tomorrow evening, at eight, in the square, when the drums beat. We march at three. Under the ruin is where it will be worst.
+    wallenstein,scout,ride,zirndorf,report,alte,veste,north,weak,guns,ruin,muster,drums,march,dawn,ridge,attack,storm,assault,when,tomorrow,tonight,wounded if player warned-monro: Tonight, at eight, in the square, when the drums beat. We march at three. Under the ruin is where it will be worst.
+    wallenstein,scout,ride,zirndorf,report,alte,veste,muster,drums,march,dawn,ridge,attack,storm,assault,when,tomorrow,tonight if player gave-false-report and player day:0 report-at: Tomorrow evening, at eight, in the square. By noon the next day we shall have the Duke's camp, and his guns, and his dinner.
+    wallenstein,scout,ride,zirndorf,report,alte,veste,muster,drums,march,dawn,ridge,attack,storm,assault,when,tomorrow,tonight if player gave-false-report: Tonight, at eight, in the square. By noon tomorrow we shall have the Duke's camp, and his guns, and his dinner.
+    alte,veste,north,weak,guns,senno,astrologer,report,ruin,saw,seen if player sold-north and player heard-weak-north and player reported-wallenstein and not player storming-set: (You tell him what the astrologer told you; and when he asks whether you saw it with your own eyes, you say that you did.) (He is already buckling on his sword.) Then I will take it to him myself. Two days, to bring the brigades round: the day after tomorrow, at first light. Tomorrow evening at eight the drums beat in the square, and we muster; we march at three. Come and watch, if you like. {player set gave-false-report} {player set sold-alte-veste} {player set report-at=now} {player set storming-set}
+    alte,veste,north,weak,guns,senno,astrologer,report,ruin,trap,lie,ruse,brushwood,saw,seen if player saw-north-guns and player reported-wallenstein and not player storming-set and player has:rapier: (You tell him what you saw in the ruin. He hears you out, and then he swears, slowly, in a language you do not know.) Guns under the brushwood, and the astrologer in his cups, telling it to the first stranger who will listen. The Duke wants us on that hill. (He is gone an hour. When he comes back his face is grey.) The King will not have it. Two deserters came in last night swearing the Duke is drawing off his guns to march away, and he would rather believe them than you or me. He goes up the day after tomorrow, at first light, whatever anyone says. (He looks at you.) You knew. Then come up with us. Tomorrow evening at eight the drums beat in the square, and the regiment musters there; we march at three, to be under the hill by first light. Stand with us, and when men go down, bring down whoever you can: the wounded lie where they fall till the fighting is done, and the Croats go round them with knives. You have a sword: good. Come before the drums, and for two sous I will show you which end to hold. {player set warned-monro} {player set report-at=now} {player set storming-set} {pass 60}
+    alte,veste,north,weak,guns,senno,astrologer,report,ruin,trap,lie,ruse,brushwood,saw,seen if player saw-north-guns and player reported-wallenstein and not player storming-set: (You tell him what you saw in the ruin. He hears you out, and then he swears, slowly, in a language you do not know.) Guns under the brushwood, and the astrologer in his cups, telling it to the first stranger who will listen. The Duke wants us on that hill. (He is gone an hour. When he comes back his face is grey.) The King will not have it. Two deserters came in last night swearing the Duke is drawing off his guns to march away, and he would rather believe them than you or me. He goes up the day after tomorrow, at first light, whatever anyone says. (He looks at you.) You knew. Then come up with us. Tomorrow evening at eight the drums beat in the square, and the regiment musters there; we march at three, to be under the hill by first light. Stand with us, and when men go down, bring down whoever you can: the wounded lie where they fall till the fighting is done, and the Croats go round them with knives. You have no sword? Take this one; its owner has no more use for it. Come before the drums, and for two sous I will show you the guard. {player add has:rapier 1} {player set warned-monro} {player set report-at=now} {player set storming-set} {pass 60}
+    alte,veste,north,weak,guns,senno,astrologer,report if player heard-weak-north and player reported-wallenstein and not player storming-set: (His eyes narrow.) The north end of the ridge weakly held? By the ruin? If that is true, the King can take the whole camp in a morning, and the war with it. (He looks at you hard.) Did you see it with your own eyes? {set offered-seen=now}
+    yes,=i did,=i saw,saw if recent:0.05 offered-seen and not player storming-set and not player saw-north-guns: (He is already buckling on his sword.) Then I will take it to him myself. Two days, to bring the brigades round: the day after tomorrow, at first light, up the ridge to the old castle. Tomorrow evening at eight the drums beat in the square, and we muster; we march at three. Come with us, if you like, and watch; or bring a sword. {unset offered-seen} {player set gave-false-report} {player set report-at=now} {player set storming-set}
+    no,=not,=i did not,=i have not if recent:0.05 offered-seen and not player storming-set: Then go and look, before I take it to the King. A stranger can walk into that ruin; a Scot cannot. The King has waited this long for Friedland; he can wait one more day for the truth. {unset offered-seen} {player set sent-to-look}
+    wallenstein,scout,ride,zirndorf,report,alte,veste,weak,camp,astrologer,senno,work,errand,useful,task if player reported-wallenstein and not player heard-weak-north and not player storming-set: Well? Where is he weak? Senno, at the farm under the old castle: go up and listen to him.
+    wallenstein,scout,ride,zirndorf,report,alte,veste if player event:wallenstein-comes and not player reported-wallenstein and not player event:siege-ends: (He listens to you without a word, and then for a long time says nothing.) So he has come, and he has chosen the ridge, and he will dig in and wait for us to starve. The King will want to hear it from me before supper; and he will see you now, on his lines outside the Spittlertor. Here: five livres, for your trouble. (He counts them out. Then he looks west, at the hills.) But the King will ask me the next thing, and I shall have no answer: where is Friedland weak? If we knew that, we could take his camp in a morning, and the siege would be over, and perhaps the war. And the King will not sit and look at that hill for ever; he will go up it, whether he knows or not. Go back to Zirndorf. The Duke keeps his household at the farm under the old castle, and his astrologer with it: Senno, a Genoese, who drinks with anyone who will praise his horoscopes, and cannot hold his wine. Listen to him, and come and tell me. {player add money 1200} {player set reported-wallenstein} {player set knows:zirndorf:senno}
+    wallenstein,scout,ride,zirndorf,report,alte,veste,work,errand,useful,task if player scouting and not player event:siege-ends: Well? Is he there? Ride out by the Spittlertor and up the road to Zirndorf, and look from the ridge by the old castle.
+    # the King's "Monro, in the square, has work for a stranger who wants to be useful": work, errand, useful
+    wallenstein,scout,ride,zirndorf,report,alte,veste,work,errand,useful,task if not player reported-wallenstein and not player event:siege-ends: The Duke of Friedland is coming from Bohemia, with more men than we have, and the King wants to know where he means to sit down. My guess is the ridge at Zirndorf, west of the city, by the old castle they call the Alte Veste: it looks down on the road and on our lines. Ride out and look, and come back and tell me what you see. A stranger on a horse is less trouble than a troop of my Scots. (He holds out his hand.) Robert Monro, of Foulis in Ross, at your service. {name} {player set scouting}
+    wallenstein: The Duke of Friedland is the Emperor's general again, with an army raised on his own credit. He will not fight us. He will sit in his camp and wait for Nuremberg to starve, with us in it. That is what I would do.
+    # (answered in the person's own words rather than with "I know nothing about that")
+    friedland,duke: Wallenstein. The Emperor made him Duke of Friedland, in Bohemia, for raising him an army; so the King calls him Friedland, and we call him worse.
+    journal,book,expedition: I keep a journal of every march, siege and skirmish, and I shall print it one day, for the instruction of young soldiers: what to do, and what not to do, mostly the second.
+    fencing,fence,sword,lesson,lessons,teach if player skill:fencing >= 3: You fence well enough to stay alive, which is all I teach. Mind the Croats: they do not fence.
+    # the three lessons he promises, the guard, the thrust and when to run, each its own (so that the lessons do not print the same words each time)
+    fencing,fence,sword,lesson,lessons,teach if player skill:fencing >= 2: The guard and the thrust. One left, for two sous: when to run.
+    fencing,fence,sword,lesson,lessons,teach if player skill:fencing >= 1: You have the guard. For two sous more, the thrust.
+    fencing,fence,sword,lesson,lessons,teach: You carry a sword like a man carrying a ladder. For two sous I will show you how a Scots soldier uses one: the guard, the thrust, and when to run. Three lessons, at most; after that only the Croats can teach you.
+    give:money if player gift >= 24 and player skill:fencing >= 2 and not player skill:fencing >= 3: (The cudgels again, for an hour this time, and at the end of it he knocks yours out of your hand and stands on it.) When to run. When there are two of them; when your arm is tired; when his friend is behind you; when you have done what you came for. There: that is all I teach. The rest only the Croats can teach you, and they charge more. {take} {player learn fencing}
+    give:money if player gift >= 24 and player skill:fencing >= 1 and not player skill:fencing >= 2: (Back in the square with the cudgels. This time he lets you hit him, once, and then shows you why it was a mistake.) The thrust. Not a swing: a sword is not a scythe. From the guard, the arm first, then the foot, and back before he knows you have gone. There: two lessons. You hit harder, and you are not where you were when he hits back. {take} {player learn fencing}
+    give:money if player gift >= 24 and not player skill:fencing >= 1: (He takes you out into the square, gives you a cudgel, and beats you black and blue with another for half an hour, explaining.) The guard. Point at his eyes, elbow in, your weight on the back foot, so that whatever he does, he does it on the end of your point. There: one lesson. You will hit more often, and be hit less. {take} {player learn fencing}
+    scots,scotland,home: There are more Scots in the King of Sweden's army than there are in some parts of Scotland. We fight for the Protestant religion, and for the Queen of Bohemia, who is our own King's sister, and for four rix-dollars a month, when they come.
+  end
+end
+
+person imhoff
+  name Hans Hieronymus Imhoff
+  title a patrician of Nuremberg
+  role scholar
+  look coat #1E1A1E legs #1E1A1E hat hat #141414
+  near Dürer
+  work landmark Rathaus of Nuremberg
+  talk
+    name: Hans Hieronymus Imhoff, of the Imhoff of Nuremberg, merchants and patricians these three hundred years. {name}
+    job: I look after my family's affairs, which are bad, and my family's collections, which are very good. Albrecht Dürer was the friend of my ancestor Pirckheimer; we have had his drawings and his prints ever since.
+    durer,drawings,hare,albrecht: Dürer's hare, his praying hands, his mother, old and thin, drawn in charcoal two months before she died. The Emperor Rudolf bought the best of them, years ago. The rest I am selling, a sheet at a time, to keep the house standing. An English lord's agent writes to me every year.
+    house,durer's: Dürer's house is up there under the castle, by the Tiergärtner gate. He painted in the top storey, for the light. Strangers come and stand in front of it and take off their hats.
+  end
+end
+
+person compass
+  name Endres Pfann
+  title a compass maker
+  role merchant
+  look coat #3A3028 legs #2E2A24 hat cap #2A241E apron #8A7A5A
+  near instrument maker
+  work landmark instrument maker
+  money 4800
+  talk
+    name: Endres Pfann, compass maker, master of the craft. {name}
+    job: I make folding sundials of ivory, with a compass in the bottom and the latitudes of fifty cities in the lid, for gentlemen who travel. The Nuremberg compass makers have their own ordinance from the Council: every dial is examined, and marked with the snake, our mark.
+    sundial,dial,compass,ivory: Open it, set the needle on the north, and the string casts the shadow on the hour. It works in Rome and in London, if you turn the little wheel to the right city. It will not work in a cloudy country, and the English complain.
+    # the spyglass's tube is Blaeu's, at Amsterdam, not this workshop's
+    tube,tubes,spyglass,telescope,lens,lenses: I make dials, not spyglasses. For a tube, ask the Dutch: Blaeu at Amsterdam rolls his maps in them. {player set knows:amsterdam:blaeu}
+    behaim,globe,apple: Herr Behaim has the oldest globe in the world, the Earth-apple, that Martin Behaim made in 1492, the year before anyone knew there was an America. It has no America on it. It is a beautiful thing, and quite wrong.
+  end
+end
+
+# Murdo Ross, a soldier of Monro's (invented), of Mackay's regiment. At the muster in the square, whole, the night before the storming; on the hill at the north end
+# in the battle (a named man yields: he cannot fall before ten); at the retreat at ten he lies wounded under the wall of
+# the Alte Veste if you warned Monro, for two days and a half (a fight lost wakes you in the hospital, and you can go back
+# the next night), or is killed there if you lied (events.txt the-volley). Got up, he walks behind you ({follow}:
+# Game::followerStep) until Meister Franz sets his leg ({unfollow}: schmidt); then he walks on a stick in the hospital of
+# the Holy Ghost until Monro marches, on 18 November 1632.
+person murdo
+  name Murdo Ross
+  title a wounded Scot
+  title if player not event:assault-over: a soldier of Mackay's
+  role scot
+  look coat #C8A060 legs #3A3A3A hat none
+  work landmark the Alte Veste
+  schedule
+    0:00 away
+    always go square if player muster-on
+    always work if player marched and player storming-set and player not event:assault-over
+    always work if player event:alte-veste and player not event:assault-over
+    always lie landmark the Alte Veste if player warned-monro and player event:assault-over and player recent:2.5 assault-at and player not scot-saved
+    always go landmark hospital of the Holy Ghost if player scot-saved and date<1632-11-18
+  talk
+    hello if player scot-saved: (He is walking up and down the hospital on a stick, and swearing at it.) Martinmas, the hangman says. He has hands like a blacksmith and the manners of one. (He grips your arm.) If ever you come to Alness, there is a bed for you, and a dram.
+    hello if player scot-following: Do not stop. If I stop, I will not start again.
+    hello if player under-attack and player event:assault-over: (He grips your ankle.) Behind you! See to them first; I am going nowhere.
+    # under the wall, after the retreat: his greeting ends with it done
+    hello if player event:assault-over and player mustered: (Murdo Ross lies in the nettles under the wall, with his leg twisted under him and his face the colour of tallow. He sees you, and laughs, or tries to.) You did not leave me for the Croats. Get me up, then. I will not walk; but I will hop. (You get him up. He puts an arm round your shoulders, stands on his good leg, and swears.) Down the hill, and do not stop. {name} {player set scot-following} {follow}
+    hello if player event:assault-over: (A young man in a torn buff coat lies in the nettles under the wall, with his leg twisted under him and his face the colour of tallow. He looks at your sword, and then at your face.) You are no Croat. (He laughs, or tries to.) Monro's stranger? He said you might come. Murdo Ross, of Mackay's, what is left of it. Get me up, then. I will not walk; but I will hop. (You get him up. He puts an arm round your shoulders, stands on his good leg, and swears.) Down the hill, and do not stop. {name} {player set scot-following} {follow}
+    up,lift,carry,help,=get up,stand if player event:assault-over and not player scot-following and not player scot-saved: (You get him up. He puts an arm round your shoulders, stands on his good leg, and swears.) Down the hill, and do not stop. {name} {player set scot-following} {follow}
+    # in the battle
+    hello if player event:alte-veste: (He is loading as fast as he can, his hands black with powder.) Stay by me, stranger!
+    # at the muster, the night before
+    hello if player warned-monro: (A young man in a buff coat sits on his pack with his musket across his knees, cleaning the lock with a rag.) So you are Monro's stranger, that went into the old castle. (He looks at your sword.) Murdo Ross, of Alness, in Ross. Sit, if you like. Nobody sleeps the night before. {name}
+    hello: (A young man in a buff coat sits on his pack with his musket across his knees, cleaning the lock with a rag.) So you are the one who found the north end empty. (He grins up at you.) Then I shall be home by Michaelmas. Murdo Ross, of Alness, in Ross. Sit, if you like. Nobody sleeps the night before. {name}
+    name: Murdo Ross, of Alness, in Ross; a soldier of Mackay's regiment, what is left of it. {name}
+    job if player event:assault-over: I was a soldier of Mackay's regiment. (He looks at his leg.) Now I am a man with one leg and a half.
+    job: Musketeer, of Mackay's regiment, what is left of it. I carry a musket, a sword I have never drawn, and twelve charges on a belt; and tomorrow I carry them up that hill.
+    leg,wound,wounded,hurt,bone if player event:assault-over: (He looks at it, and away.) It went under me on the hill, and something went over it. Do not look at it; I am not.
+    hill,tomorrow,battle,attack,assault,storm,castle,alte,veste,ruin,guns,north if player warned-monro and not player event:alte-veste: Monro says the Duke has guns in the old castle, under branches; the King says he has drawn them off, and it is a morning's work. One of them is wrong. (He spits.) We shall know by breakfast.
+    hill,tomorrow,battle,attack,assault,storm,castle,alte,veste,ruin,guns,north if not player event:alte-veste: The north end is empty, you say, and the Duke has drawn off his guns. Up the hill at first light, over the gabions, and into his camp before he is out of bed. The King says it is a morning's work. (He spits.) The King does not carry a musket.
+    home,alness,ross,mother,family,scotland: Alness, on the Cromarty Firth. My mother has a cow and a strip of oats, and thinks I am a sergeant. (He grins.) Do not tell her.
+    monro if not player event:alte-veste: He brought eight hundred of us from Scotland, and he knows every one of us by name, and our fathers. There are not two hundred of us now. (He looks down the file.) He will know who is left by tomorrow night.
+    monro: He brought eight hundred of us from Scotland, and he knows every one of us by name, and our fathers.
+    croat,croats,afraid,fear,scared if not player event:alte-veste: The Croats go round the fallen after a fight, with knives, for their boots and whatever else. They do not ask whether you are dead first.
+    bye if not player event:alte-veste: (He goes back to his musket.) If I go down tomorrow, do not leave me for the Croats.
+  end
+end
+
+# a Scot of Monro's with his arm in a sling, on the straw in the hospital of the Holy Ghost from the retreat until Monro
+# marches: he says where Murdo Ross lies, or how he died
+person gunn
+  name Donald Gunn
+  title a Scot with his arm in a sling
+  role labourer
+  look coat #B8945A legs #3A3A3A hat none
+  schedule
+    0:00 away
+    always lie landmark hospital of the Holy Ghost if player event:assault-over and date<1632-11-18
+  talk
+    hello if player scot-saved and player carried-down-at: (He nods at the yard, where Murdo is swearing at his stick.) He says a stranger carried him down off the hill. I told him we carried that stranger down ourselves, the day before; he did not believe me.
+    hello if player scot-saved: (He nods at the yard, where Murdo is swearing at his stick.) He says a stranger carried him down off the hill. He says it to everybody.
+    hello if player warned-monro and player not recent:2.5 assault-at: (A Scot with his arm in a sling, on the straw.) We went back up for Murdo Ross when the Croats had gone. There was nothing to bring down.
+    hello if player warned-monro and player mustered and player carried-down-at: (A Scot with his arm in a sling, on the straw.) You were in Murdo Ross's file. We carried you down; we could not get to Murdo, for the Croats. He was alive when we came down, under the old castle: I heard him cursing them in two languages. (He looks away.) They go round the fallen at night, with lanterns. Somebody should go up.
+    hello if player warned-monro and player mustered: (A Scot with his arm in a sling, on the straw.) You were in Murdo Ross's file. We could not get to Murdo, for the Croats. He was alive when we came down, under the old castle: I heard him cursing them in two languages. (He looks away.) They go round the fallen at night, with lanterns. Somebody should go up.
+    hello if player warned-monro: (A Scot with his arm in a sling.) We went up the hill by the old castle, and came down with half of us. Murdo Ross is still up there, under the wall, if the Croats have left him anything. Somebody should go up.
+    hello if player mustered and player carried-down-at: (A Scot with his arm in a sling, on the straw.) You were in Murdo Ross's file. We carried you down. Murdo we left under the old castle: the guns that were not there killed him. (He looks at you, and then away.)
+    hello if player mustered: (A Scot with his arm in a sling, on the straw.) You were in Murdo Ross's file. Murdo we left under the old castle: the guns that were not there killed him. (He looks at you, and then away.)
+    hello: (A Scot with his arm in a sling.) We went up the hill by the old castle, where the north end was empty, and came down with half of us. (He laughs, without any pleasure in it.) Empty.
+    name: Gunn, of Strathnaver. (He does not offer you his hand; it is in the sling.) {name}
+    job: Musketeer, of Mackay's, when I have two arms.
+  end
+end
+
+person schmidt
+  name Meister Franz Schmidt
+  title a healer
+  role physician
+  look coat #3A2A22 legs #2A221C hat hat #1E1A16
+  near hospital of the Holy Ghost
+  work landmark hospital of the Holy Ghost
+  # a physician's hours (roles.txt physician); and sent for by Monro, at any hour, when you bring Murdo Ross in and he is
+  # not there (events.txt franz-sent-for)
+  schedule
+    7:00 work
+    12:00 eat
+    13:00 work
+    18:00 home
+    22:30 sleep
+    always work if player scot-following and player recent:0.5 franz-sent-for
+  talk
+    # the wounded Scot brought down off the Alte Veste (murdo), and Monro's
+    # thanks at once (he shakes your hand)
+    hello if player scot-following and player recent:0.5 franz-sent-for: (He comes in with a lantern and a coat over his nightshirt, sent for by Monro, and has the leg out straight on the table before you have finished speaking, and his hands on it.) Broken, and made worse by the hill. Hold his shoulders. (There is a sound like green wood breaking, and the Scot says something in a language older than German.) There. It is the same trade: you must know where the bones are. He will walk on a stick by Martinmas, and go home on his own feet, if he does what I tell him, which soldiers never do. (Monro is there among his wounded, with his head bound up, going from straw to straw. He comes over while the hangman is still at the leg, and stands looking at Murdo, and then at you.) We lost two thousand men on that hill, and the King his best colonels; and here is Murdo Ross, swearing at the hangman, and that is your doing. (He shakes your hand.) When I print my book, I shall write that the King was misled. I shall not write who told us the truth: the King would not like it, and I think you would not either. {player set scot-saved} {player unset scot-following} {unfollow}
+    hello if player scot-following: (He has the leg out straight on the table before you have finished speaking, and his hands on it.) Broken, and made worse by the hill. Hold his shoulders. (There is a sound like green wood breaking, and the Scot says something in a language older than German.) There. It is the same trade: you must know where the bones are. He will walk on a stick by Martinmas, and go home on his own feet, if he does what I tell him, which soldiers never do. (Monro is there among his wounded, with his head bound up, going from straw to straw. He comes over while the hangman is still at the leg, and stands looking at Murdo, and then at you.) We lost two thousand men on that hill, and the King his best colonels; and here is Murdo Ross, swearing at the hangman, and that is your doing. (He shakes your hand.) When I print my book, I shall write that the King was misled. I shall not write who told us the truth: the King would not like it, and I think you would not either. {player set scot-saved} {player unset scot-following} {unfollow}
+    carry,stretcher,litter,bring,fetch if player event:assault-over and not player scot-saved: Bring him to me, then; I do not go up hills. If he can stand on one leg, he can lean on you.
+    name: Franz Schmidt. Meister Franz, they used to call me, and stepped off the pavement when I passed. {name}
+    job: I was the executioner of Nuremberg for forty years, as my father was before me. I hanged, I beheaded, I broke on the wheel, and I wrote every one of them down in a book, with their crimes, and how they died. Nearly four hundred. Now the Emperor has given me back my honour, and I heal the sick. It is the same trade: you must know where the bones are.
+    book,diary,list: In my book I wrote who they were and what they did, every one. I never wrote down what I thought of it. That is between God and me.
+    heal,medicine,cure,bones,wounds,wound,wounded: Broken bones, sprains, wounds, the falling sickness. The physicians of the Collegium send me the cases they cannot cure, by the back door.
+  end
+end
+
+person baker
+  name Barbara Kraus
+  title a gingerbread baker
+  role goodwife
+  sex f
+  near Golden Goose
+  talk
+    name: Barbara Kraus, widow of Lienhard Kraus, gingerbread baker. {name}
+    job: I bake the Lebkuchen of Nuremberg: honey, pepper, ginger, cloves and nutmeg, on a wafer. Every spice in the world comes through Nuremberg, and the best of it goes into my ovens.
+    lebkuchen,gingerbread,honey: The honey comes from the Imperial forest, the Reichswald, where the beekeepers have their own court and their own crossbows. The pepper comes from Venice. The Swedes eat it as fast as I can bake it.
+    german,lesson,learn,language if player skill:german: You speak German like a man of Nuremberg now. A little slow. That is how we like it.
+    german,lesson,learn,language: You want to speak German? Sit in my kitchen a day, stir the honey, and listen. A sou for the lessons, and the burnt ones for nothing.
+    give:money if player gift >= 12 and not player skill:german: (You stir honey and pepper all day, while she talks: about her husband, the Swedes, the price of everything, the neighbours.) There. Now you can buy and sell in any town of the Empire without being robbed for a foreigner. Only a little. {take} {player learn german}
+  end
+end
+
+# the King of Sweden himself, walking his lines; he marches away at the end of the siege
+person gustavus
+  name Gustavus Adolphus
+  title the King of Sweden
+  role prince
+  look coat #C8A060 legs #3A3A3A hat hat #2A2A2A
+  near Rathaus of Nuremberg
+  work earthwork
+  schedule
+    0:00 work
+    0:00 away if player event:siege-ends
+    0:01 away if player king-dead
+  talk
+    # he sees nobody until he knows where Wallenstein means to sit down: Monro's scouting is the price of an audience
+    hello if not player reported-wallenstein and not player event:siege-ends: (A big fair man in a buff coat, heavier than his portraits, peers at you as the short-sighted do, and then past you, west, at the hills.) Not now. Until I know where Friedland means to sit down, I have no time for anybody. Monro, in the square, has work for a stranger who wants to be useful.
+    give:dialogue if not player reported-wallenstein and not player event:siege-ends: (He does not take it.) Not now, I said. Monro, in the square.
+    give:christina-letter if not player reported-wallenstein and not player event:siege-ends: (He sees the hand it is addressed in, and stops; then he shakes his head.) From Stockholm? Then it can wait one day more, and so can I. Find me Friedland, and I will read it tonight. Monro, in the square.
+    # while the weak point is still to find, he repeats Monro's errand
+    hello if player reported-wallenstein and not player king-met and not player carried-christina-letter and not player gave-king-letter and not player heard-weak-north and not player storming-set and not player event:siege-ends: (A big fair man in a buff coat, heavier than his portraits, peers at you as the short-sighted do.) Monro's stranger, who went up the ridge to look at Friedland. Good. And Monro says you are going up again, to find me where he is weak. Do: my own eyes will not show me the way up that hill. (He looks at your boots.) You have come a long way. If your road ever goes north, my daughter is at Tre Kronor, in Stockholm: she draws me lions, and they come to me by the post ship from Danzig. Go and see her, and tell her her father is well and fat. Now: what do you want of me? {player set king-met} {player set knows:stockholm:christina}
+    hello if player reported-wallenstein and not player king-met and not player heard-weak-north and not player storming-set and not player event:siege-ends: (A big fair man in a buff coat, heavier than his portraits, peers at you as the short-sighted do.) Monro's stranger, who went up the ridge to look at Friedland. Good. And Monro says you are going up again, to find me where he is weak. Do: my own eyes will not show me the way up that hill. What do you want of me? {player set king-met}
+    hello if player reported-wallenstein and not player king-met and not player carried-christina-letter and not player gave-king-letter: (A big fair man in a buff coat, heavier than his portraits, peers at you as the short-sighted do.) Monro's stranger, who went up the ridge to look at Friedland. Good. (He looks at your boots.) You have come a long way. If your road ever goes north, my daughter is at Tre Kronor, in Stockholm: she draws me lions, and they come to me by the post ship from Danzig. Go and see her, and tell her her father is well and fat. Now: what do you want of me? {player set king-met} {player set knows:stockholm:christina}
+    hello if player reported-wallenstein and not player king-met: (A big fair man in a buff coat, heavier than his portraits, peers at you as the short-sighted do.) Monro's stranger, who went up the ridge to look at Friedland. Good. What do you want of me? {player set king-met}
+    # the refuge, in chapter I: with the copy, or when you speak of Galileo
+    give:dialogue if not player king-offer-taken: (He takes it, and holds the title page close to his eyes.) Galileo's new book, that the Pope is hunting all over Italy. (He opens it at the figure of the world, and laughs.) Then it shall travel in my own baggage, and the Pope may come and fetch it. (He is silent a while.) And when they have done hunting the book, they will hunt the man: an old man, for writing what every sailor knows. (He writes, fast, in a big hand, with a drum for a desk, and seals it with his ring.) Take him this, with the book's answer. A house at Stockholm, a pension, and the Swedish Crown between him and any Inquisitor in the world. He will not come; but he should know that he could. {take} {player add has:king-offer 1} {player set king-offer-taken}
+    give:dialogue: (He takes it, and holds the title page close to his eyes.) Galileo's new book, that the Pope is hunting all over Italy. (He opens it at the figure of the world, and laughs.) Then it shall travel in my own baggage, and the Pope may come and fetch it. Tell him so. {take}
+    galileo,offer,refuge,sweden,summons,rome,danger,inquisition,pope if player ch1-commission and player reported-wallenstein and not player king-offer-taken and not player event:siege-ends: (He is silent a while.) They are hunting his book all over Italy? Then when they have done with the book, they will hunt the man: an old man, for writing what every sailor knows. (He writes, fast, in a big hand, and seals it with his ring.) Take him this. A house at Stockholm, a pension, and the Swedish Crown between him and any Inquisitor in the world. He will not come; but he should know that he could. {player add has:king-offer 1} {player set king-offer-taken}
+    hello: (A big fair man in a buff coat, heavier than his portraits, peering at you as the short-sighted do.) Who are you, and who sent you?
+    name: Gustav Adolf, by the grace of God King of the Swedes, the Goths and the Wends. {name}
+    job: I am defending the Protestant religion and the liberties of Germany, and the city of Nuremberg, and my army's dinner, in that order. The last is the hardest.
+    give:christina-letter: (He breaks the seal, and unfolds a drawing, and for a while says nothing at all.) A lion. With a crown, and a sword, and a Croat running away. (He laughs, and wipes his eyes with the back of his glove.) Wait. (He writes, standing, with a drum for a desk, and seals it with his ring.) Take her this, into her own hands, and tell her her father is well and fat and thinks of her every day. {take} {player add has:king-letter 1} {player set carried-king-letter}
+    christina,daughter,princess: My daughter is five and cleverer than all my colonels together. When she was born they told me she was a boy, and then that she was not. I said: she will be clever, for she has deceived us all.
+    wallenstein,duke,friedland: He sits on his hill and will not come down, and I cannot go up. It is a game of patience, and he is the better player. I have never been good at waiting.
+    alte,veste,assault,attack if player warned-monro and player event:assault-over: (He does not look at you for a while.) Monro told me what you saw in the ruin. I went up anyway. A king should always go and look himself; and when he will not, he should listen to the one who did.
+    alte,veste,assault,attack if player event:assault-over: We went up the hill and came down again with two thousand fewer men. I was told the north end was weak. I should have gone to look myself. A king should always go and look himself.
+    galileo,padua: (He smiles, for the first time.) I heard him lecture once, in Padua, under another name, when I was young and travelling where kings should not. He will not remember me. Tell him the King of Sweden has read his book on the moons of Jupiter, and believes it.
+    bye: God keep you.
+  end
+end
+
+person plattner
+  name Jörg Plattner
+  title an armourer
+  role blacksmith
+  look coat #3A3A3A legs #2A2A2A hat cap #2A2A2A apron #5A4A3A
+  near Rathaus of Nuremberg
+  sells rapier 2 dagger 3 cudgel 4 buff-coat 2 breastplate 1
+  money 9600
+  talk
+    name: Jörg Plattner, armourer, master of the craft of Nuremberg, as my father was. {name}
+    job: Armour, swords and daggers for half the officers in the King's camp, and, God forgive me, for some of the Emperor's before the war came here. Nuremberg steel has been the best in Germany for three hundred years, and every piece is struck with the city's mark.
+    armour,breastplate,proof: A breastplate of proof: I set it on the post and fire a pistol at it from ten paces, and you see the dent. That dent is your life. Twelve livres.
+    rapier,sword,dagger: The blades come from Solingen and Passau; the hilts are mine. A sword is no use to a man who has not learned to use it; the Scots officer in the square gives lessons, they say, for the price of a beer.
+  end
+end
+
+# ---- merchant stories (stories.txt "siege"; events.txt wallenstein-comes, nuremberg-hunger,
+# alte-veste, siege-ends raise and lower what Nuremberg pays for rye and salt)
+person kornmesser
+  name Lienhard Kornmesser
+  title the city's grain master
+  role merchant
+  look coat #4A3A2A legs #2A2218 hat hat #2A2A2A
+  near Rathaus of Nuremberg
+  work landmark Rathaus of Nuremberg
+  money 24000
+  talk
+    name: Lienhard Kornmesser, grain master to the Council. I count every sack that comes through the gates, and every mouth inside them. {name} {player set heard-siege}
+    job: Fifty thousand mouths: the city, the peasants who have fled in from the villages, and the King of Sweden's army, all eating Nuremberg's bread. I buy rye wherever there is rye, and salt, and pay what I must. {player set heard-siege}
+    rye,grain,bread,salt,siege,price,wallenstein if player event:siege-ends: The King has marched away south, God be thanked, and Wallenstein after him. Rye comes in by the cartload, and the price falls like a stone. Too late for the ones in the churchyards.
+    rye,grain,bread,salt,siege,price if player event:nuremberg-hunger: (He is thinner than he was.) Bring me rye, any rye, and I will pay you in gold. There is typhus in the camps and in the town, and we bury forty a day.
+    rye,grain,bread,salt,siege,price if player event:wallenstein-comes: Wallenstein has dug himself in on the hills to the west, at the Alte Veste, and his horsemen take every cart on the roads. Rye costs three times what it did at Easter, and it will cost more. {player set heard-siege}
+    rye,grain,bread,salt,siege,price: The King's army is digging a camp round the whole city, and Wallenstein is coming from Bohemia with a greater one. Rye is dear already, and it will be dearer. Bring grain through the gates and I will buy it; so will any merchant of the city. {player set heard-siege}
+    wallenstein,sutlers,camp: Wallenstein's sutlers pay more than I do, outside the walls. A man caught selling to them will hang from the Hangman's Bridge, and I shall come to watch.
+  end
+end
+
+# soldiers (roles.txt "soldiers"): the King of Sweden's musketeers at the gates, and Croats,
+# Wallenstein's light horse, on the roads outside, who attack them and you
+crowd 6 musketeer work gate
+crowd 8 musketeer work earthwork
+crowd 6 pikeman work earthwork
+crowd 4 croat work road
+crowd 2 goodwife
+crowd 2 labourer
+crowd 3 guard work square
+# Monro's Scots at the muster in the square, the evening before the storming (roles.txt scot)
+crowd 12 scot
+crowd 1 merchant
+crowd 1 apprentice
+crowd 1 apprentice
+crowd 1 innkeeper
+crowd 1 changer
+crowd 1 herdsman

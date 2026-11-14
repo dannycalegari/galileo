@@ -1,0 +1,55 @@
+# Thomas Erpenius, Grammatica Arabica (Leiden, Raphelengius, 1613), the first good Arabic grammar printed
+# in Europe: its title and the beginning of Book I, on the letters. The Latin is Erpenius's, as kept in the
+# later editions (Leiden 1656 and 1748, the Internet Archive's scans); the English is ours. Reading it,
+# with Latin, teaches Arabic.
+book erpenius
+language latin
+title Thomae Erpenii Grammatica Arabica | The Arabic Grammar of Thomas Erpenius
+
+page
+THOMAE ERPENII //
+GRAMMATICA //
+ARABICA, //
+Quinque libris methodice explicata. //
+
+LEIDAE, //
+Ex Officina Raphelengiana, //
+MDCXIII.
+=
+THE ARABIC //
+GRAMMAR //
+OF THOMAS ERPENIUS, //
+set out in order in five books. //
+
+LEIDEN, //
+at the Raphelengius press, //
+1613. //
+
+[Erpenius taught Arabic at Leiden, and printed it with his own types. He died eight years ago, of the plague, at forty.]
+
+page
+LIBER PRIMUS, //
+DE ORTHOGRAPHIA. //
+CAPUT PRIMUM. //
+De literis. //
+
+Arabum literae consonantes sunt XXVIII: quarum nomina, ordinem, & figuras cum suis potestatibus sequens tabella exhibet.
+
+[Tabella: Elif, Be, Te, The, Gjim...]
+=
+BOOK ONE, //
+ON WRITING. //
+CHAPTER ONE. //
+On the letters. //
+
+The consonant letters of the Arabs are twenty-eight, whose names, order and shapes, with their sounds, the following table shows.
+
+[The table: each letter's number, its name (Elif, Be, Te, The, Gjim...), its sound in Latin letters, and its four shapes, standing alone, joined to the letter before, joined to the letter after, and joined on both sides.]
+
+page
+Caeterum, cum literae Arabicae omnes, praeter sex, sequenti in eadem dictione inter scribendum annectantur, & in fine liberiori ductu protrahantur, ejusdem literae, ratione connexionis & situs, plures ortae sunt figurae.
+=
+Moreover, since all the Arabic letters but six are joined, in writing, to the letter that follows in the same word, and at the end of a word are drawn out with a freer stroke, the same letter has come to have several shapes, according to how it is joined and where it stands.
+
+[You copy out the table, letter by letter and shape by shape, and then the words Erpenius gives to practise on, until the joined letters stop looking like a vine and start looking like words. You read Arabic now: slowly, with the book open beside you, but you read it.]
+{player learn arabic}

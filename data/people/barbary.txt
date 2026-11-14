@@ -1,0 +1,54 @@
+# The Barbary coast. The ruins of Hippo Regius beside Bône (Annaba), in the Regency of Algiers:
+# Saint Augustine was bishop here from 395 until his death in 430, while the Vandals besieged the
+# town. No road and no passage comes here; only a ship of your own. The French coral fishers of
+# the Bastion de France (re-established in 1628 by Sanson Napollon, who paid the Divan of Algiers
+# for the right) work the coast to the east. Augustine's codex in the cisterns is invented
+# (items.txt augustine-codex; Francesco Barberini in rome.txt; the story "augustine").
+
+town the ruins of Hippo
+names ottoman
+country Ottoman
+
+person moussa
+  name Moussa
+  title a shepherd
+  role herdsman
+  look coat #8A7A5A legs #6A5A40 hat coif #E8E0CC robe
+  near cisterns
+  talk
+    hello: (He leans on his staff and looks at your ship, and then at you.) Peace be on you. You speak the lingua franca of the ports? Good. So do the coral men.
+    name: Moussa. My sheep know me by it, and the Bey's man who counts them, once a year. {name}
+    job: Sheep. The grass is good among the old stones. The old ones built well, and nobody builds here now. Bône is over there, past the river: the Turks have the fort, and the Moors have the market.
+    ruins,stones,old,town,hippo,city,columns: The town of the Rumi: Hippo, the coral men call it. Columns lying in the grass like sleeping cows, the great church of the Christians, and under the hill the cisterns, where the old ones kept their water. The water is gone. Not everything else is.
+    church,basilica: That was the big church. The coral men say a holy man of theirs preached in it, Augustine, a son of this country, long before the Prophet. They take their caps off when they walk through it.
+    augustine,saint,bishop,holy: A wise man, they say, a marabout of the Christians. He died here when the Vandals were at the walls, and the town burned. I do not know these Vandals. They have not come back.
+    cistern,cisterns,water,under,books,box,writing: (He lowers his voice, though there is nobody to hear but the sheep.) Last winter a ewe fell into the cisterns, at the back, where the roof has come down. When I went down for her there was a niche in the wall, bricked up, and the bricks fallen, and in it a box like leather, full of skins with writing. I left it there. The writing of the dead is not for me. Go and look, if you like. {player set heard-cistern}
+    coin,coins,gold,money,antique,emperor,king if player bought-coin: That was the only one this winter. The rain will wash out more.
+    coin,coins,gold,money,antique,emperor,king: (He fishes in his sash.) The rain turns these up, and the plough. Gold, with the head of a Rumi king. The coral men buy them for the gentlemen of Marseille. For you, four livres. Will you *take* it? {set offered-coin=now}
+    take,yes,deal,=i will if recent:0.05 offered-coin and player money >= 960 and not player bought-coin: (He bites it, for your benefit, and gives it to you.) The king is yours. He has been dead a long time; he will not mind. {player add money -960} {player add has:hippo-coin 1} {player set bought-coin}
+    take,yes,deal,=i will if recent:0.05 offered-coin and not player bought-coin: Four livres. You have not got four livres. The king will wait; he is good at it.
+    sheep,flock,ewe: Forty, and a ram with a bad temper. Keep away from the ram.
+    bone,annaba,turks,fort: The Turks keep the fort and the customs, and the Divan in Algiers takes the coral men's money. Everybody here pays somebody.
+  end
+end
+
+person honorat
+  name Honorat Bonnet
+  title a coral fisher
+  role sailor
+  look coat #3A4A5A legs #2A3038 hat cap #8A2020
+  money 2400
+  talk
+    hello: (A man with sun-blackened arms is mending a net on the sand. He speaks the French of Provence.) A Christian sail in the gulf of Bône! I took you for a corsair, and I was counting my prayers.
+    name: Honorat Bonnet, of Martigues, coral fisher of the Bastion de France. {name}
+    job: Coral. We dive for it on the banks between here and La Calle, and drag it up with the engine: a cross of wood with nets on its arms. The Bastion is two days east. Monsieur Sanson Napollon built it up again four years ago, and pays the Divan of Algiers for our leave to fish.
+    bastion,napollon,calle,france: A fort, a chapel, a warehouse and three hundred Provencals who dream of their wives. Monsieur Napollon has his eye on Tabarka too, where the Genoese fish. I pray he leaves it alone.
+    coral,red,branch,branches if player coral-bought >= 8: That was all the red I can spare. The rest of the season's goes to the Bastion's warehouse and on to Marseille, or Monsieur Napollon will have my ears.
+    coral,red,branch,branches: The finest red in the world, from these banks. Marseille pays well for it, Rome and Venice better, for their rosaries, and the Dutch carry it to the Indies, where they want it more than gold. The Bastion buys every branch we bring up, but I can spare you eight, and since you came all this way, two livres a branch. Will you *take* one? {set offered-coral=now}
+    take,yes,deal,another,more,=i will if recent:0.05 offered-coral and player coral-bought >= 8: No more, friend. That was the eighth, and the Bastion counts.
+    take,yes,deal,another,more,=i will if recent:0.05 offered-coral and player money >= 480: (He picks out a branch, red as a cardinal, and wraps it in a rag.) There. Mind the tips; they break. Another? {player add money -480} {player add has:coral 1} {player add coral-bought 1} {set offered-coral=now}
+    take,yes,deal,another,more,=i will if recent:0.05 offered-coral: Two livres a branch, friend. Even for a Christian sail.
+    hippo,ruins,augustine,church,saint: The old town of Saint Augustine. We take our caps off in his church, among the columns; nobody else does. Moussa the shepherd knows every stone of it, and he will tell you, if you do not frighten his sheep.
+    corsairs,corsair,algiers,algerines,danger,turks: The Algerines leave us be, as long as the Divan is paid. A ship of your own on this coast, without the Divan's pass, is a prize, so do not stay long.
+  end
+end

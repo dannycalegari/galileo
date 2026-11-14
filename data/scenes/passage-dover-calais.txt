@@ -1,0 +1,17 @@
+# The Channel packet, Dover to Calais (posthouses.txt packet-dover; see passage-calais-dover.txt).
+
+scene
+  id passage-dover-calais-1
+  in the post house at Dover
+  time 07:00
+  look 16,-1 yaw 205 pitch 36 zoom 4.5
+  caption The packet for Calais lies at the quay below the Ship, with the cliffs white behind the town. Five sous, and you are aboard, among English merchants who complain about the French before the ropes are cast off.
+end
+
+scene
+  id passage-dover-calais-2
+  in the post house at Calais
+  time 10:00
+  look 16,-27 yaw 25 pitch 40 zoom 4
+  caption Two hours and a half across, with the cliffs going white and small behind you. Then the low shore of France, the dunes, and the quay at Calais.
+end

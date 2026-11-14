@@ -1,0 +1,114 @@
+# The people of Danzig.
+# June 1632: Danzig, Lutheran and German-speaking, under the Polish Crown, is the granary of
+# Europe: Polish rye floats down the Vistula and the Dutch carry it away. By the Truce of Altmark
+# (1629) Sweden takes a share of the tolls of the Prussian ports. Peter Cruger teaches mathematics
+# at the Academic Gymnasium; his best pupil, the brewer's son Johannes Hewelcke, is abroad.
+town Danzig
+names german
+prison Stockturm | They lock you in the Stockturm, the prison tower by the Long Lane gate, under the torture chamber. All night you hear the gulls and the bells of St Mary's. In the morning they let you go.
+country Poland
+
+person cruger
+  name Peter Crüger
+  title the professor of mathematics
+  role mathematician
+  near St Mary's of Danzig
+  work landmark St Mary's of Danzig
+  talk
+    give:dialogue if has:dialogue >= 1: I have one already, and I read it in my fur coat on the roof, between the clouds.
+    give:dialogue: (His hands shake a little as he takes it.) From Galileo, by way of you. Kepler would have given a year of his life for this. I will read it this winter, and teach it to the merchants' sons, and they will go to sea knowing that the Earth moves under them. (He looks out at the river.) Three days over the water is Stockholm, where the King of Sweden's little daughter is learning Latin at five, and sends her father a drawing by every ship. A copy at Tre Kronor would be beyond any Pope's reach. The Swedish post ship lies below the Crane. {take} {player set heard-stockholm} {player set knows:stockholm:christina} {player set knows:danzig:swedeship}
+    name: Peter Crüger, professor of mathematics and poetry at the Academic Gymnasium. {name}
+    job: I teach the sons of the merchants arithmetic, so that they can count their money, and astronomy, so that they will know there are things in the world bigger than money. I am making tables of logarithms, which will save the sailors a great deal of work and me a great deal of sleep.
+    kepler,letters if date<1633-06-01: I wrote to Kepler for twenty years, and he wrote back, when he had paper. He is dead now, nearly two years, and nobody writes to me about the stars any more.
+    kepler,letters: I wrote to Kepler for twenty years, and he wrote back, when he had paper. He died in the year thirty, and nobody writes to me about the stars any more.
+    hevelius,hewelcke,pupil,student: Young Johannes Hewelcke, the brewer's son, was the best pupil I ever had. His father has sent him to Leiden to study law, and then to London and Paris to see the world. He will come home, and brew beer, and sit on the roof of the brewery with a telescope. Mark my words.
+    eclipse,sky,stars: The sky over Danzig is clear in winter and cloudy in summer. The astronomer needs patience, and a fur coat.
+  end
+end
+
+person crane
+  name Hans Kolbe
+  title the crane master
+  role labourer
+  near Crane
+  work landmark Crane
+  talk
+    name: Hans Kolbe, master of the town's Crane. {name}
+    job: Inside the Crane are two great wheels, and men walk inside them like squirrels, and the wheels turn the drum, and the drum lifts four tons: masts into ships, wine casks out of them. The Crane is also a gate, and the town's best lookout. I am its master. I do not walk in the wheels any more.
+  end
+end
+
+person skipper
+  name Claes Jansz Kuyper
+  title a Dutch skipper
+  role sailor
+  near Crane
+  work quay
+  talk
+    name: Claes Jansz Kuyper, skipper of the fluyt Hope, of Hoorn. {name}
+    job: I bring salt from Portugal and wine from France and herring from home, and I take away rye, as much as she will float with. The Hollanders call it the mother trade: without the Polish rye, Amsterdam would starve in a month.
+    sound,toll,denmark,swedes: At the Sound the King of Denmark takes his toll, by the width of the deck, and since the truce the King of Sweden takes his toll here too. A man pays twice for being a Dutchman.
+    ship,passage,sail: The Hope is in the river, loading. If you want passage, buy a ship of your own: I am a merchant, not a ferryman. The Swede below the Crane carries passengers, for Stockholm.
+  end
+end
+
+# the way to Stockholm (no road reaches it): the King of Sweden's post ship, as the Calais packet
+# is to Dover (posthouses.txt); since the truce of 1629 the Swedes are at home in this harbour
+person swedeship
+  name Erik Larsson
+  title the master of the Swedish post ship
+  role sailor
+  near Crane
+  work quay
+  says Stockholm! Who sails for Stockholm?
+  talk
+    name: Erik Larsson, of Stockholm, master of the King's post ship. {name}
+    job: I carry the King of Sweden's letters and his money between Danzig and Stockholm, and anyone who can pay: two livres, and as much again for a horse. Three days, if the wind serves. The princess sends her father a drawing by every ship, and somebody has to carry them on from here to wherever he is: I only sail.
+    princess,christina,daughter,drawing,drawings,lion,lions: Princess Christina, at Tre Kronor: five years old, and she sends the King a drawing by every ship, lions mostly. I carry them as far as Danzig; from here they go by the post to wherever he is, and the post is slow. {player set knows:stockholm:christina}
+    take,yes,deal,aboard,sail,=i will if recent:0.05 offered-passage: Aboard, then. {passage 480 4320 Stockholm}
+    passage,ship,boat,sail,stockholm,sweden,swedish,=crossing,voyage: For Stockholm? Two livres, three days at sea if the wind serves, and we come in at the Skeppsbron, under the castle. Will you *sail*? {set offered-passage=now}
+  end
+end
+
+person distiller
+  name Jan Vermöllen
+  title the distiller at the Salmon
+  role innkeeper
+  near Salmon
+  work landmark Salmon
+  talk
+    name: Jan Vermöllen, distiller, at the sign of the Salmon. {name}
+    job: My family came from Holland, Mennonites, and we make the Goldwasser: brandy with anise and herbs and flakes of real gold in it. Drink it and you swallow gold. The physicians say it is good for the heart. It is certainly good for mine.
+    goldwasser,gold,brandy: Real gold leaf, beaten thinner than a leaf, floating in the bottle like snow. Shake it and it whirls. The Polish lords buy it by the barrel and drink their fortunes.
+  end
+end
+
+person amber
+  name Barbara Schultz
+  title an amber merchant
+  role merchant
+  sex f
+  look coat #6A4A2A legs #2A2218 hat coif #F0ECE2 dress
+  near Artus Court
+  work landmark Artus Court
+  money 7200
+  talk
+    rosaries,rome,box,sforzini,coronari,errand if player delivered-rosaries: Battista writes that his box came whole, and that you are honest. I may have more boxes for you.
+    rosaries,rome,box,sforzini,coronari,errand if player carrying-rosaries: To Battista Sforzini, in the Via dei Coronari, by the Ponte Sant'Angelo. Not over the Alps in winter, and not in your saddlebag in the rain.
+    rosaries,rome,box,sforzini,coronari,errand: (She fetches a little oak box, and seals it in front of you.) Battista Sforzini, a rosary-maker of Rome, has paid for these through the Fuggers' agents, and I have been waiting a month for an honest traveller going south. Take them to him in the Via dei Coronari, by the Ponte Sant'Angelo, and he will pay you the carriage, fifteen livres. Do not open it, do not sell it, and do not lose it. {player add has:amber-rosaries 1} {player set carrying-rosaries}
+    hoop,fluyt,amsterdam,dutch,sijmonsz if player event:hoop-sails and not player event:hoop-home: The Hoop of Amsterdam? She came in last week, and she is loading rye at the granaries on the island. Her skipper drinks in the cellar of the Artus Court, which is the one part of it a woman may enter, to fetch him out.
+    name: Barbara Schultz, widow, amber merchant, of the Long Market. {name}
+    job: Amber from the shore, the Prussian gold, rosaries from the turners, and rye from the barges, when my late husband's partners let me. They mostly let me.
+    amber,beads,rosaries: The sea throws it up after the autumn storms, and the fishermen's children run along the beach to gather it before the Duke's men come. It is the Duke's, by law. Nobody tells the children.
+    artus,court,merchants: The Artus Court is where the merchants meet, under the painted ceiling and the ships hanging from it, to drink and to deal, by brotherhoods: the Reinholds, the Saint George's men, the Mariners. Women may not go in. I send my clerk. My clerk is very clever.
+  end
+end
+
+crowd 3 goodwife
+crowd 2 labourer work quay
+crowd 2 sailor
+crowd 1 merchant
+crowd 1 guard
+crowd 1 apprentice
+crowd 1 herdsman
+crowd 1 changer

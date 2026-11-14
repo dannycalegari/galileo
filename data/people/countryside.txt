@@ -1,0 +1,201 @@
+# People who live outside the towns, at the hamlets of world.txt.
+names french
+
+town Watt's Farm
+person watt
+  name Watt
+  role farmer
+  talk
+    name: Watt. {name}
+    what: Wat ho!
+  end
+end
+person jane
+  name Jane
+  role milkmaid
+  schedule
+    4:30 work
+    11:00 eat
+    12:00 work
+    18:00 home
+    20:30 sleep
+    7:00 go landmark Halles if skill:cheesemaking
+    11:00 work if skill:cheesemaking
+  talk
+    name: Jane. {name}
+    job if skill:cheesemaking: I milk cows, and I make cheese the English way now. I sell it at les Halles of a morning.
+    cheese if skill:cheesemaking: Pressed in a cloth and kept: it is coming along nicely. Thank you!
+    cheese,cheddar if player heard-cheddar: Cheddar? Made the English way, pressed in a cloth and kept for a year? I'll try it! {learn cheesemaking}
+    cheese: Try a Stilton in London.
+  end
+end
+
+town the Cottage at La Chapelle
+# Your father and mother. "know family ..." makes them "your father"
+# and "your mother" once you have chosen who you are, with your skin and hair; to anyone else (an
+# older game, the typed commands) they are a farmer and his wife, and the lines without
+# "me:age" are theirs.
+person pierre
+  name Pierre
+  role farmer
+  know family father
+  look coat #5E5040 legs #3E3428 hat cap #4A3E30
+  talk
+    hello if player me:age and player courier-coat and not player saw-coat-father: (He looks at the blue coat for a long moment, and then at your face.) Well. Mersenne's courier. (He nods, twice.) Come in, $me. {player set saw-coat-father}
+    # the cow: brought home from Poissy (Game::cowHome sets cow-home)
+    hello if player me:age and player cow-home and not player pierre-saw-cow: (Your father stands in the door of the byre and looks at the cow for a long time.) Twenty livres. (He clears his throat.) You did not steal her? (You did not.) No. No, you would not. (He puts his hand on her neck, and then, quickly, on your shoulder, and goes back to the field.) {player set pierre-saw-cow}
+    hello if player me:age and player me:sex=f: (He looks up, and his face creases.) There's my girl.
+    hello if player me:age: (He looks up, and his face creases.) There's my boy.
+    hello: (A farmer looks you over.) Good day. If you are lost, the Saint-Denis road is just outside our gate.
+    name if player me:age: Pierre, the same as when you left. Have they knocked the sense out of you in Paris?
+    name: Pierre. This is my farm, what there is of it. {name}
+    job,work,help,hire,milking if player me:age: Work? Here? We have nothing to milk. *Watt*, at the big farm by the walls of Saint-Denis, takes on hands for his cows. Tell him whose you are.
+    job,work,help,hire,milking: The strip by the road, the hens, and a day's work at the big farm when they want me. If it is work you want, *Watt*, at the big farm by the walls of Saint-Denis, takes on hands for his cows.
+    watt,farm: Watt has the big farm by Saint-Denis: forty acres, and a barn you could put a church in. His grandfather came from England, they say. He pays on the nail.
+    cow,byre,stall,milk if player me:age and player cow-named: $cow? She is a Norman: she eats like a bishop and milks like a fountain. Your mother sings to her. I pretend not to hear.
+    cow,byre,stall if player me:age and player cow-home: Ask your mother. It is her cow; I only pay for the hay.
+    paquerette,pâquerette,cow,byre,stall if player me:age: (He looks over at the byre, and does not answer for a while.) Fifteen years. She knew the way to Paris better than your mother does. (He rubs his face.) There. That is enough about cows.
+    paquerette,pâquerette,cow,byre,stall: We had a cow. She died in May. That is all there is to say.
+    mersenne,friar,minims if player me:age: I stood at his door with my cap in my hand, and he asked me about you as if you were a scholar. Do what he tells you. And never open his letters.
+    mersenne,friar,minims: A friar? Paris is full of them. Ask at the Place Royale.
+    numbers,count,counting,sums,money if player me:age: You had the milk money counted before I had my boots off. Use it.
+    paris: Paris eats everything we grow, and pays when it pleases.
+    saint-denis,lendit,fair: The Lendit is at Saint-Denis in June. I sold a calf there once, when we had one to sell.
+    hat,yellow if player me:age: Your mother's idea. Nobody will lose you in a crowd, that is certain.
+    hat,yellow: I have had this cap since my wedding. It will see me buried.
+    mother,perrette,wife if player me:age: She is better than she was. She sings again in the mornings. Not every morning.
+    mother,perrette,wife: My wife, Perrette. She is in the house, or with the hens.
+    galileo if player me:age: The friar's letters go to an old man in Italy who looks at the moon through a pipe? (He looks up.) It is the same moon. Still, if they pay you for it.
+    church,priest,curé,cure,tithe: The curé tells us what we may sow on a feast day and what we may eat on a Friday, and the tithe-man takes every tenth sheaf. That is the Church. (He shrugs.) It was so for my father.
+  end
+end
+person perrette
+  name Perrette
+  role goodwife
+  household pierre
+  know family mother
+  look coat #6A4A3A legs #4A3A30 hat coif #E8E4DA apron #DDD8C8 dress
+  work yard
+  schedule
+    5:00 home
+    6:00 go road if player cow-named
+    6:30 work if not player cow-named
+    9:30 work if player cow-named
+    11:30 home
+    14:00 work
+    18:00 home
+    21:00 sleep
+  talk
+    hello if player me:age and player courier-coat and not player saw-coat-mother: (She holds you at arm's length.) Look at you! Blue as a bishop. Turn round. (You turn round.) Your father will not say it, so I will: he is proud enough to burst. (Her face changes.) The curé came by yesterday. He says Saint Mark is not mocked, and that we may think about another cow when the tithe is paid. Your father says Saint Mark never kept a cow in his life. (She crosses herself all the same.) {player set saw-coat-mother}
+    # the cow: home from Poissy, and named; then cheese, now and then
+    hello if player me:age and player cow-home and not player cow-named: (She has both arms round the cow's neck, and is crying, and laughing at herself for crying.) A cow! A real one, with a bell to hang on her! Oh, look at her. (She wipes her eyes on her apron.) She must have a name before she sleeps here. What shall we call her? Say it, and she is called it.
+    paquerette,pâquerette if player me:age and player cow-home and not player cow-named: (She shakes her head, smiling.) Not Pâquerette. There was only one Pâquerette. Another name.
+    cow,byre,stall,name,bell if player me:age and player cow-home and not player cow-named: She must have a name, first. What shall we call her?
+    ? if player me:age and player cow-home and not player cow-named: (She says it into the cow's ear, twice, so that she will know it, and hangs the old bell round her neck.) There. Now she is one of us. Tomorrow I take the milk into Paris again, two pails on a yoke, like before. {player set cow:name=$said} {player set cow-named} {player set cheese-given=now}
+    hello if player me:age and player cow-named and not player recent:1 cheese-given: (She has a cheese for you, wrapped in a cabbage leaf.) From $cow, God bless her. She gives more than old Pâquerette ever did, and she knows it. Take it for the road. {player add has:cheese 1} {player set cheese-given=now}
+    hello if player me:age and player cow-named: (She looks up from the churn.) $me! Come and see $cow: she is getting fat.
+    hello if player me:age and not player came-home: (She drops her basket and has you by both arms.) $me! Let me look at you. You are thinner. Are they feeding you in Paris? {player set came-home=now}
+    feeds,feeding,fed,feed,kind,good,yes,well,mersenne,friar,minims,soup if player me:age and player recent:0.05 came-home: (She does not look convinced.) Kind, is he? Friars are always kind to other people's children. (She pinches your arm.) Soup at the Pomme de Pin is not feeding. Have some *bread* before you go.
+    hello if player me:age: (She looks up and smiles.) $me. Come in; mind the hens.
+    hello: (A woman looks up.) Good day. If it is milk you are after, we have none to sell: our cow is dead.
+    name if player me:age: Perrette, as I was before you were born. Mother, to you.
+    name: Perrette. My husband is Pierre, and this is our farm, what is left of it. {name}
+    job if player me:age: The hens, the garden, the mending, and your father. For fifteen years I carried the milk into Paris every morning, two pails on a yoke, a league and a half each way. Now I have nothing to carry, and I wake before four all the same.
+    job: I keep the house and the hens. I used to carry our milk into Paris every morning, until our cow died.
+    eat,food,hungry,meal,bread,supper,dinner if player me:age and player not recent:1 fed-at-home: (She cuts you a heel of bread, and watches you eat it as if you were five.) Take the rest of the loaf for the road. No, take it. {player add has:loaf 1} {player set fed-at-home=now}
+    eat,food,hungry,meal,bread,supper,dinner if player me:age: You have had today's bread. Come back tomorrow, and I will find you something.
+    eat,food,hungry,meal,bread,supper,dinner: We have little enough for ourselves. There are inns at Saint-Denis.
+    bed,sleep,night,rest if player me:age: Your *bed* is where it always was, under the eaves. Nobody has slept in it. Lie down whenever you like.
+    bed,sleep,night,rest: There are inns at Saint-Denis, and in Paris.
+    cow,byre,stall,milk if player me:age and player cow-named: $cow gives twelve pints a day, and I carry them into Paris every morning, like before. Your father has started singing again when he thinks nobody can hear.
+    job if player me:age and player cow-named: The hens, the garden, the mending, your father, and $cow. And the milk into Paris every morning, two pails on a yoke, a league and a half each way, like before. I had forgotten how my shoulders ache. I had forgotten how much I liked it.
+    paquerette,pâquerette,cow,byre,stall if player me:age and player not heard-cow-wish: (Her face changes.) Fifteen years she gave us milk, and she knew it, the vain old thing. I keep thinking I hear her *bell*. (Then, lightly.) If you ever see a good cow going cheap, $me... (She laughs.) Twenty livres. Listen to me. {player set heard-cow-wish}
+    paquerette,pâquerette,cow,byre,stall if player me:age: Twenty livres for a good milch cow, at the market at Poissy. One day. (She looks at the byre.) Not this year.
+    paquerette,pâquerette,cow,byre,stall: Our cow. She died in May, in the straw, and that was the end of the milk.
+    poissy,market,cattle if player me:age: Poissy, on the Rouen road, west of Paris, past the Bois de Boulogne. The drovers bring their cows there from Normandy. Your father sold a calf there once. Or bought one: he tells it both ways.
+    montmartre,nuns,abbey,letters,read,reading,write,writing,school if player me:age: The Benedictine ladies of the Abbey of Montmartre, up on the hill. I carried their milk when I was your age, and the old sister at the gate taught me my letters for it, a few a day. I taught you. That is all the schooling there has ever been in this family, and it is more than most.
+    journal,book,pages,diary if player me:age: (She looks pleased.) You write in it? Every night? Good. Paper is dear: write small, and write the truth.
+    bell if player me:age: (She takes it down from its nail, and turns it over in her hands.) I could not bury it with her. It will go on the next one, when there is a next one. (She hangs it back.)
+    bell: Our cow's bell. I could not bring myself to sell it.
+    hat,yellow if player me:age: (She straightens it for you.) So that I can see you coming from the road, a league off. And so that you remember whose you are.
+    hat,yellow: A good hat is dear in Paris. My husband has had his since our wedding.
+    mersenne,friar,minims if player me:age: A friar who writes to the whole world, your father says, with ink to the elbows. Is he kind to you? Does he feed you?
+    paris if player me:age and player me:sex=f: Mind the carts on the bridges, and the young men at les Halles: they are all talk, and the talk is not for you.
+    paris if player me:age: Mind the carts on the bridges, and the girls at les Halles: they will have the sous out of your purse before you know you have been robbed.
+    paris: I sold milk in Paris for fifteen years. There is no street there I have not walked.
+    father,pierre,husband if player me:age: He walked to Paris with his cap in his hand, for you. He will not say so. Ask him about *Pâquerette*, if you want to see a grown man pretend he has something in his eye.
+    father,pierre,husband: My husband. He is in the field, or should be.
+    church,priest,curé,cure: The curé says Pâquerette died because your father mended the byre on the feast of Saint Mark. The curé says a great many things. (She crosses herself all the same.)
+    travels,travel,journey,where,been if player me:age and player been:constantinople: Constantinople! Among the Turks! And you came home with your head on. I shall light a candle.
+    travels,travel,journey,where,been if player me:age and player been:rome: Rome! Did you see the Holy Father? Did he see you?
+    travels,travel,journey,where,been if player me:age and player been:london: London! Across the sea, in a boat? (She crosses herself.)
+    travels,travel,journey,where,been if player me:age and player been:florence: Florence! Your father has been to Saint-Denis twice, and thought it a long way.
+    travels,travel,journey,where,been if player me:age and player been:amsterdam: Holland, among the Protestants? Mind you go to Mass.
+    travels,travel,journey,where,been if player me:age: Where have you been? Not far yet, by the look of your boots.
+    galileo if player me:age and player celeste-dead: Is it true, what they say in Paris, that his daughter the nun has died? A father should not bury his child. (She crosses herself.) Go to him, when you can.
+    galileo if player me:age: The old man in Italy who looks at the moon? Your father says the friar writes to him. What does he want with the moon? It comes up every night without his help.
+  end
+end
+
+town the Bois de Boulogne
+person lisa
+  name Lisa Leftinghorse
+  role woodcutter
+  sex f
+  look coat #3E4A2A legs #3A3020 hat coif #E8E4DA dress
+  talk
+    hello: Hello!
+    name: Lisa Leftinghorse. {name}
+  end
+end
+
+town Montmartre
+crowd 4 miner
+
+# the cattle market of Paris, on the road west: where your family's cow is bought
+town Poissy
+names french
+
+person drover
+  name Guillaume Hébert
+  title a drover
+  known A drover from the Pays d'Auge, in Normandy, who brings his cows to Poissy for the butchers and dairymen of Paris, and knows every one of them by her face.
+  role herdsman
+  sex m
+  look coat #6A5A44 legs #4A4034 hat hat #3A3226
+  near cattle market
+  work landmark cattle market
+  schedule
+    5:00 work
+    12:00 eat
+    13:00 work
+    19:00 home
+    21:00 sleep
+  talk
+    hello if player cow-home: (He knows you at once.) The courier with the yellow hat! How does she milk?
+    hello: (A big man in a smock leans on his stick among his cows.) Beef for the butchers, or a milker? I have both, and they are the best this side of Lisieux.
+    cow,cows,milker,milch,buy,price,beast,heifer if player cow-home: You have one of mine already. Look after her, and she will look after you.
+    take,yes,deal,agree,buy,=i will if recent:0.05 cow-offered and not player cow:bought: (He spits in his hand and holds it out, and you shake it.) {buycow 4800}
+    cow,cows,milker,milch,buy,price,beast,heifer if not player cow:bought: A good milch cow, a Norman, four years old, in calf by the spring: twenty livres, and not a sou less, because she is worth twenty-five. Will you *take* one? {set cow-offered=now}
+    cow,cows,milker,milch,beast,heifer: She is on her halter: lead her gently, at her own pace, and she will walk to the end of the world. Do not hurry her: she will not be hurried.
+    halter,lead,leading: You lead her by the halter, at her own pace. On the road she will go all day; through a doorway, never.
+    poissy,market: The butchers of Paris buy their beef here, by the thousand head, and the King takes his tax on every beast. The drovers bring them from Normandy and the Perche, on foot, a league an hour.
+    normandy,auge,lisieux: The Pays d'Auge, where the grass is so good the cows weep when they leave it. The cheese goes to Paris, and so do the cows.
+    name: Guillaume Hébert, drover, of the Pays d'Auge. {name}
+    job: I walk cows from Normandy to Poissy, forty leagues of road, and walk home again with the money, if God and the robbers allow.
+  end
+end
+
+person poissy-host
+  name Jean Lemoine
+  role innkeeper
+  near Lion
+  talk
+    name: Jean Lemoine, of the Lion d'Or. {name}
+    job: I feed the drovers and the butchers on market days, and they fight in my yard about the price of beef.
+  end
+end
+
+crowd 3 herdsman
+crowd 2 labourer
+crowd 2 goodwife

@@ -1,0 +1,123 @@
+# Galileo, Dialogo sopra i due massimi sistemi del mondo (Florence, Landini, February 1632).
+# The Italian is Galileo's own (Le opere di Galileo Galilei VII, ed. Favaro, 1897, as transcribed on
+# it.wikisource); the English is ours. "[...]" marks where pages of the book are left out.
+book dialogue
+language italian
+title Dialogo di Galileo Galilei sopra i due massimi sistemi del mondo | Galileo Galilei's Dialogue on the Two Chief World Systems
+
+page image art/dialogue-frontispiece.png | Stefano della Bella, The Metropolitan Museum of Art. CC0, via Wikimedia Commons.
+Aristotele, Tolomeo, Copernico.
+=
+The frontispiece, engraved by Stefano della Bella: Aristotle, Ptolemy and Copernicus, talking together by the sea.
+
+page
+DIALOGO //
+DI //
+GALILEO GALILEI LINCEO //
+MATEMATICO SOPRAORDINARIO DELLO STUDIO DI PISA. //
+E Filosofo, e Matematico primario del SERENISSIMO GR. DUCA DI TOSCANA. //
+
+Doue ne i congressi di quattro giornate si discorre sopra i due //
+MASSIMI SISTEMI DEL MONDO TOLEMAICO, E COPERNICANO; //
+Proponendo indeterminatamente le ragioni Filosofiche, e Naturali tanto per l'vna, quanto per l'altra parte. //
+
+CON PRIVILEGI. //
+IN FIORENZA, Per Gio: Batista Landini MDCXXXII. //
+CON LICENZA DE' SVPERIORI.
+=
+DIALOGUE //
+OF //
+GALILEO GALILEI, LYNCEAN, //
+EXTRAORDINARY MATHEMATICIAN OF THE UNIVERSITY OF PISA, //
+and Chief Philosopher and Mathematician of the MOST SERENE GRAND DUKE OF TUSCANY, //
+
+in which, in meetings over four days, are discussed the two //
+CHIEF SYSTEMS OF THE WORLD, THE PTOLEMAIC AND THE COPERNICAN, //
+setting out indeterminately the philosophical and natural reasons for the one side as much as for the other. //
+
+WITH PRIVILEGES. //
+IN FLORENCE, by Giovan Batista Landini, 1632. //
+WITH LICENCE OF THE SUPERIORS.
+
+page
+AL DISCRETO LETTORE. //
+
+Si promulgò a gli anni passati in Roma un salutifero editto, che, per ovviare a' pericolosi scandoli dell'età presente, imponeva opportuno silenzio all'opinione Pittagorica della mobilità della Terra. Non mancò chi temerariamente asserì, quel decreto essere stato parto non di giudizioso esame, ma di passione troppo poco informata, e si udirono querele che consultori totalmente inesperti delle osservazioni astronomiche non dovevano con proibizione repentina tarpar l'ale a gl'intelletti speculativi. Non potè tacer il mio zelo in udir la temerità di sì fatti lamenti. Giudicai, come pienamente instrutto di quella prudentissima determinazione, comparir publicamente nel teatro del mondo, come testimonio di sincera verità.
+=
+TO THE DISCERNING READER. //
+
+Some years ago there was published in Rome a salutary edict which, to meet the dangerous scandals of the present age, imposed a timely silence on the Pythagorean opinion that the Earth moves. There were those who rashly asserted that the decree had been born not of judicious examination but of passion too little informed, and complaints were heard that counsellors wholly unpractised in astronomical observation ought not to clip the wings of speculative minds with a sudden prohibition. My zeal could not keep silent on hearing the rashness of such laments. Being fully informed of that most prudent decision, I resolved to appear openly on the stage of the world as a witness of the sincere truth.
+
+page
+Mi trovai allora presente in Roma; ebbi non solo udienze, ma ancora applausi de i più eminenti prelati di quella Corte; nè senza qualche mia antecedente informazione seguì poi la publicazione di quel decreto. Per tanto è mio consiglio nella presente fatica mostrare alle nazioni forestiere, che di questa materia se ne sa tanto in Italia, e particolarmente in Roma, quanto possa mai averne imaginato la diligenza oltramontana; e raccogliendo insieme tutte le speculazioni proprie intorno al sistema Copernicano, far sapere che precedette la notizia di tutte alla censura romana, e che escono da questo clima non solo i dogmi per la salute dell'anima, ma ancora gl'ingegnosi trovati per delizie degl'ingegni.
+=
+I was in Rome at the time; I had not only audiences but also the applause of the most eminent prelates of that Court; nor did the decree come out without some information from me beforehand. It is therefore my purpose in the present work to show foreign nations that as much is known of this matter in Italy, and particularly in Rome, as transalpine diligence could ever have imagined; and, gathering together all my own speculations on the Copernican system, to make it known that the Roman censure came after knowledge of them all, and that from this climate come forth not only the dogmas for the salvation of the soul, but also ingenious discoveries for the delight of the mind.
+
+page
+A questo fine ho presa nel discorso la parte Copernicana, procedendo in pura ipotesi matematica, cercando per ogni strada artifiziosa di rappresentarla superiore, non a quella della fermezza della Terra assolutamente, ma secondo che si difende da alcuni che, di professione Peripatetici, ne ritengono solo il nome, contenti, senza passeggio, di adorar l'ombre, non filosofando con l'avvertenza propria, ma con solo la memoria di quattro principii mal intesi.
+
+[...]
+=
+To this end I have taken the Copernican side in the discussion, proceeding as a pure mathematical hypothesis, and seeking by every artful means to show it superior: not to the doctrine that the Earth stands still, absolutely, but to that doctrine as it is defended by some who, Peripatetics by profession, keep only the name of it, content to worship shadows without walking about, philosophizing not with attention of their own but with nothing but the memory of four ill-understood principles.
+
+[...]
+
+page
+Mi trovai, molt'anni sono, più volte nella maravigliosa città di Venezia in conversazione col signor Giovan Francesco Sagredo, illustrissimo di nascita, acutissimo d'ingegno. Venne là di Firenze il signor Filippo Salviati nel quale il minore splendore era la chiarezza del sangue e la magnificenza delle ricchezze; sublime intelletto, che di niuna delizia più avidamente si nutriva, che di specolazioni esquisite. Con questi due mi trovai spesso a discorrer di queste materie, con l'intervento di un filosofo peripatetico, al quale pareva che niuna cosa ostasse maggiormente per l'intelligenza del vero, che la fama acquistata nell'interpretazioni Aristoteliche.
+=
+Many years ago I was often in the marvellous city of Venice, in conversation with Signor Giovan Francesco Sagredo, most illustrious by birth and most acute of mind. There came there from Florence Signor Filippo Salviati, in whom the least of his splendours were the nobility of his blood and the magnificence of his riches: a sublime intellect, which fed on no delight more greedily than on exquisite speculations. With these two I often found myself discussing these matters, in the company of a Peripatetic philosopher, to whom nothing seemed to stand more in the way of understanding the truth than the fame he had won by his interpretations of Aristotle.
+
+page
+Ora, poiché morte acerbissima ha, nel piú bel sereno de gli anni loro, privato di quei due gran lumi Venezia e Firenze, ho risoluto prolungar, per quanto vagliono le mie debili forze, la vita alla fama loro sopra queste mie carte, introducendoli per interlocutori della presente controversia. Né mancherà il suo luogo al buon Peripatetico, al quale, pel soverchio affetto verso i comenti di Simplicio, è parso decente, senza esprimerne il nome, lasciarli quello del reverito scrittore.
+=
+Now, since a most bitter death has deprived Venice and Florence of those two great lights in the fairest prime of their years, I have resolved to prolong, as far as my feeble powers allow, the life of their fame upon these pages of mine, bringing them in as speakers in the present controversy. Nor shall the good Peripatetic lack his place: for his excessive affection for the commentaries of Simplicius, it has seemed fitting, without giving his own name, to leave him that of the revered author.
+{player set read-dialogue-preface}
+
+page
+GIORNATA PRIMA. //
+INTERLOCUTORI: SALVIATI, SAGREDO e SIMPLICIO. //
+
+SALV. Fu la conclusione e l'appuntamento di ieri, che noi dovessimo in questo giorno discorrere, quanto più distintamente e particolarmente per noi si potesse, intorno alle ragioni naturali e loro efficacia, che per l'una parte e per l'altra sin qui sono state prodotte da i fautori della posizione Aristotelica e Tolemaica e da i seguaci del sistema Copernicano.
+
+[...]
+=
+THE FIRST DAY. //
+SPEAKERS: SALVIATI, SAGREDO AND SIMPLICIO. //
+
+SALV. Our conclusion and appointment yesterday was that today we should discuss, as distinctly and particularly as we could, the natural reasons, and their force, that have so far been brought forward on the one side and the other by the defenders of the Aristotelian and Ptolemaic position and by the followers of the Copernican system.
+
+[...]
+
+page
+GIORNATA SECONDA. //
+
+[...] SALV. E qui, per ultimo sigillo della nullità di tutte le esperienze addotte, mi par tempo e luogo di mostrar il modo di sperimentarle tutte facilissimamente. Riserratevi con qualche amico nella maggiore stanza che sia sotto coverta di alcun gran navilio, e quivi fate d'aver mosche, farfalle e simili animaletti volanti; siavi anco un gran vaso d'acqua, e dentrovi de' pescetti; sospendasi anco in alto qualche secchiello, che a goccia a goccia vadia versando dell'acqua in un altro vaso di angusta bocca, che sia posto a basso: e stando ferma la nave, osservate diligentemente come quelli animaletti volanti con pari velocità vanno verso tutte le parti della stanza; i pesci si vedranno andar notando indifferentemente per tutti i versi; le stille cadenti entreranno tutte nel vaso sottoposto; e voi, gettando all'amico alcuna cosa, non più gagliardamente la dovrete gettare verso quella parte che verso questa, quando le lontananze sieno eguali; e saltando voi, come si dice, a piè giunti, eguali spazii passerete verso tutte le parti.
+=
+THE SECOND DAY. //
+
+[...] SALV. And here, as the last seal on the nullity of all the experiments brought forward, it seems to me time and place to show a way of testing them all very easily. Shut yourself up with some friend in the largest room below decks of some great ship, and have there flies, butterflies and such little flying creatures; let there also be a great vessel of water with little fishes in it; and hang up a bucket that lets water fall drop by drop into another vessel with a narrow mouth, set beneath it. Then, with the ship standing still, observe carefully how the little flying creatures go with equal speed towards every side of the room; the fishes will be seen swimming indifferently in every direction; the falling drops will all go into the vessel beneath; and you, throwing something to your friend, will need to throw it no harder one way than the other, the distances being equal; and jumping, as they say, with your feet together, you will cover equal spaces in every direction.
+
+page
+Osservate che avrete diligentemente tutte queste cose, benchè niun dubbio ci sia che mentre il vassello sta fermo non debbano succeder così, fate muover la nave con quanta si voglia velocità; chè (pur che il moto sia uniforme e non fluttuante in qua e in là) voi non riconoscerete una minima mutazione in tutti li nominati effetti, nè da alcuno di quelli potrete comprender se la nave cammina o pure sta ferma: voi saltando passerete nel tavolato i medesimi spazii che prima, nè, perchè la nave si muova velocissimamente, farete maggior salti verso la poppa che verso la prua, benchè, nel tempo che voi state in aria, il tavolato sottopostovi scorra verso la parte contraria al vostro salto;
+=
+When you have observed all these things carefully (though there is no doubt that while the vessel stands still they must happen so), make the ship move with any speed you please; for, so long as the motion is uniform and not fluctuating this way and that, you will not see the least change in any of the effects named, nor will you be able to tell from any of them whether the ship is moving or standing still. In jumping you will cover the same spaces on the floor as before, nor, because the ship is moving very fast, will you make longer jumps towards the stern than towards the prow, although, while you are in the air, the floor beneath you is running in the direction opposite to your jump;
+{player set read-dialogue}
+
+page
+e gettando alcuna cosa al compagno, non con più forza bisognerà tirarla, per arrivarlo, se egli sarà verso la prua e voi verso poppa, che se voi fuste situati per l'opposito; le gocciole cadranno come prima nel vaso inferiore, senza caderne pur una verso poppa, benchè, mentre la gocciola è per aria, la nave scorra molti palmi; i pesci nella lor acqua non con più fatica noteranno verso la precedente che verso la sussequente parte del vaso, ma con pari agevolezza verranno al cibo posto su qualsivoglia luogo dell'orlo del vaso; e finalmente le farfalle e le mosche continueranno i lor voli indifferentemente verso tutte le parti, nè mai accaderà che si riduchino verso la parete che riguarda la poppa, quasi che fussero stracche in tener dietro al veloce corso della nave, dalla quale per lungo tempo, trattenendosi per aria, saranno state separate;
+=
+and throwing something to your companion, you will need no more force to reach him if he is towards the prow and you towards the stern than if you stood the other way round; the drops will fall as before into the vessel below, without one falling towards the stern, although while the drop is in the air the ship runs on many spans; the fishes in their water will swim with no more labour towards the front of their vessel than towards the back, but will come with equal ease to food put anywhere on its rim; and lastly the butterflies and the flies will go on flying indifferently towards every side, nor will it ever happen that they gather against the wall towards the stern, as if they were tired of keeping up with the swift course of the ship, from which they will have been separated for a long time while they hung in the air;
+
+page
+e se abbruciando alcuna lagrima d'incenso si farà un poco di fumo, vedrassi ascender in alto ed a guisa di nugoletta trattenervisi, e indifferentemente muoversi non più verso questa che quella parte. E di tutta questa corrispondenza d'effetti ne è cagione l'esser il moto della nave comune a tutte le cose contenute in essa ed all'aria ancora, che per ciò dissi io che si stesse sotto coverta; [...]
+=
+and if you burn a little grain of incense and make a little smoke, it will be seen to rise on high and hang there like a little cloud, and move indifferently no more to this side than to that. And the cause of all this correspondence of effects is that the motion of the ship is common to all the things contained in it, and to the air as well, which is why I said that you should be below decks; [...]
+
+page
+SAGR. Queste osservazioni, ancorchè navigando non mi sia caduto in mente di farle a posta, tuttavia son più che sicuro che succederanno nella maniera raccontata: in confermazione di che mi ricordo essermi cento volte trovato, essendo nella mia camera, a domandar se la nave camminava o stava ferma, e tal volta, essendo sopra fantasia, ho creduto che ella andasse per un verso, mentre il moto era al contrario.
+
+[...]
+=
+SAGR. Although it never came into my head to make these observations on purpose when I was at sea, I am more than sure that they will turn out as you describe: in confirmation of which I remember finding myself a hundred times, sitting in my cabin, asking whether the ship was moving or standing still; and sometimes, lost in thought, I have believed she was going one way when she was moving the other.
+
+[...]

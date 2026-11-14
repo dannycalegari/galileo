@@ -1,0 +1,109 @@
+# Smugglers, and the men who catch them (market.txt "forbids"; main.cc Game::searchers).
+#
+# THE SALT OF THE SPANISH SIDE. In France salt pays the gabelle, the King's tax, and must be
+# bought at his granaries, at many times its price elsewhere; just over the border, in the
+# Spanish Netherlands, salt is the price of salt. The faux-sauniers carry it across, and when
+# they are caught they go to the galleys. At the post house at Cambrai the Saunier sells it
+# cheap, with a pack that has a false bottom; at les Halles in Paris Margot buys it dear; at the
+# Porte Saint-Denis the commis of the gabelle pays a reward to whoever tells him where the Saunier
+# is. Either way is open: carry the salt past the searchers (by night, in the false bottom), or
+# inform, and the Saunier is taken.
+
+names french
+
+town the post house at Cambrai
+person saunier
+  name Nicolas Ganot
+  title the Saunier
+  role labourer
+  sex m
+  look coat #4A4436 legs #3A342A hat hat #2E2A22
+  work inn
+  sells salt 8 false-pack 1
+  money 300
+  says Salt! Who wants salt?
+  schedule
+    8:00 work if not player informed-saunier
+    12:00 eat if not player informed-saunier
+    13:00 work if not player informed-saunier
+    20:00 home if not player informed-saunier
+    21:00 sleep if not player informed-saunier
+    0:00 away if player informed-saunier
+  talk
+    name: Nicolas Ganot. Everybody calls me the Saunier, and so may you. {name}
+    job: I sell salt to honest people who do not care to pay the King for it twice.
+    salt,gabelle,france,price: On this side of the border salt is the price of salt: three sous the sack, from me. Over there, in France, the King's gabelle makes it worth its weight in pepper, nearly. In Paris, at les Halles, a woman called Margot pays ten sous a sack and asks no questions. {player set met-saunier} {player set knows:paris:margot}
+    margot,halles,paris: Margot la Grise, at les Halles, by the fish. Tell her the Saunier sent you, or do not: she can count. {player set met-saunier} {player set knows:paris:margot}
+    searchers,customs,gate,gates,risk,caught: The searchers at the edge of Paris look into every pack by day, and they are good at it. At night they are fewer, and sleepier. A pack with a false bottom fools most of them by day, and all of them by night. I have one, if you have the money. {player set met-saunier}
+    galleys,danger: When they catch a faux-saunier they send him to the galleys at Marseille, to row for the King. They have not caught me. They do not catch the ones nobody informs on.
+    inform,informer,commis: (He looks at you for a long moment.) Men who sell their neighbours to the gabelle do not live long at this end of the road.
+  end
+end
+
+person carter
+  name Thibault Gosselin
+  title a carter
+  role labourer
+  sex m
+  look coat #6A5A42 legs #4A4234 hat cap #5A4E3C
+  work inn
+  says Hup!
+  talk
+    job: I carry what wants carrying, between here and Péronne. Wine, mostly. Some things that are not wine.
+    saunier,salt,ganot if player informed-saunier: They took the Saunier, three nights ago: the gabelle's archers, from over the border, with his cart and forty sacks. He goes to the galleys. Somebody talked. (He spits.)
+    saunier,salt,ganot: The Saunier? At his table by the window, as always, selling the King's salt for less than the King.
+  end
+end
+
+town Paris
+person margot
+  name Margot Leleu
+  title a fishwife of les Halles
+  role goodwife
+  sex f
+  look coat #6A6A72 legs #4A4A50 hat coif #E6E2D6 dress apron #D8D2C2
+  work landmark Halles
+  says Herrings! Fresh herrings!
+  schedule
+    5:00 work
+    12:00 eat
+    13:00 work
+    18:00 home
+    21:00 sleep
+  talk
+    # the courier's third day: salt from outside the walls, past the searchers
+    hello if player margot-sack and player seized:salt and not player sold-salt and not player met-saunier: (She has heard already.) They had it off you at the gate, by daylight, I suppose. Never mind the herring. (Lower.) If you want to try again: The salt comes from the Saunier, Nicolas Ganot, at the post house at Cambrai, over the border on the Spanish side: three sous a sack there. Bring me more, and I pay ten for every sack, six a week; I can salt no more herrings than that, nor sell them on without the commis hearing of it. The faux-sauniers carry it by night, in packs with false bottoms, and the Saunier sells those too. And come in after dark. {player set met-saunier}
+    hello if player courier-thief and not player margot-asked: (A fishwife with grey hair and arms like a bargeman's looks at your coat.) Mersenne's courier! I tripped your thief for you: you owe me a herring. (Lower.) Or a favour. Guillaume Tessier, at the Écu de France at Saint-Denis, has a little sack for me that never saw the King's granary. The searchers at the Porte Saint-Denis look in every pack by day, a courier's satchel too; after dark they are fewer, and sleepier. Bring it to me, and ten sous are yours. Will you *fetch* it? {player set margot-asked} {player set knows:saint-denis:ecu}
+    fetch,yes,sack,deal,agree,=i will if player margot-asked and not player margot-agreed and not player margot-refused: Good. Tessier, at the Écu de France, at Saint-Denis: say la Grise sent you. And walk in at the gate as if you owned it. {player set margot-agreed} {player set knows:saint-denis:ecu}
+    no,never,refuse,=i will not if player margot-asked and not player margot-agreed and not player margot-refused: (She shrugs.) Then you owe me a herring. {player set margot-refused}
+    name: Margot. They call me la Grise, for my hair, which went grey the year I married. {name}
+    job: I sell fish at les Halles, and salt the fish myself. With salt from where I like.
+    salt,saunier,gabelle,ganot,cambrai if player met-saunier: The Saunier, Nicolas Ganot, at the post house at Cambrai: three sous a sack. Ten from me, six a week. By night, and in a false bottom, if you want to keep your coat.
+    salt,saunier,gabelle,ganot: Salt? I buy it, if it comes to me quietly: ten sous the sack, five for a block of the Polish kind, and you never saw me. The King's granary charges twice that, and keeps the change.
+    give:salt if not player met-saunier: (She weighs the sack in both hands, and it vanishes under her apron.) Ten sous, and you never saw me. (Lower.) Tessier's sacks are small ones. The salt comes from the Saunier, Nicolas Ganot, at the post house at Cambrai, over the border on the Spanish side: three sous a sack there. Bring me more, and I pay ten for every sack, six a week; I can salt no more herrings than that, nor sell them on without the commis hearing of it. The faux-sauniers carry it by night, in packs with false bottoms, and the Saunier sells those too. {take} {player add money 120} {player set sold-salt} {player set met-saunier} {player set knows:paris:margot} {set salt-week=1} {set salt-week-at=now}
+    give:salt if salt-week >= 6 and recent:7 salt-week-at: (She shakes her head.) Six this week already. Keep it till next week: salt does not spoil.
+    give:salt if not recent:7 salt-week-at: (She weighs the sack in both hands, and it vanishes under her apron.) Ten sous, and you never saw me. {take} {player add money 120} {player set sold-salt} {set salt-week=1} {set salt-week-at=now}
+    give:salt: (She weighs the sack in both hands, and it vanishes under her apron.) Ten sous, and you never saw me. {take} {player add money 120} {player set sold-salt} {add salt-week 1}
+    give:rock-salt: (She turns the grey block over.) Mine salt, from Poland? It is all salt to a herring. Five sous. {take} {player add money 60} {player set sold-salt}
+    commis,gabelle,searchers: The commis at the Porte Saint-Denis? He would sell his mother to the farm of the gabelle, if she were worth a reward.
+  end
+end
+
+person commis
+  name Claude Royer
+  title the commis of the gabelle
+  role guard
+  sex m
+  look coat #2A3A5A legs #2A2A2E hat hat #1E1E24
+  work landmark Porte Saint-Denis
+  says In the name of the King!
+  talk
+    name: Claude Royer, commis of the farm of the gabelle at this gate. {name}
+    job: I see that the King's salt is the only salt that comes into Paris, and that it pays the King's tax. Our searchers look through every pack at the gates.
+    salt,gabelle,smuggler,smugglers,contraband,saunier if not player met-saunier: The faux-sauniers bring salt in from the Spanish side, past Péronne and Senlis, by night and in false bottoms. (He looks at your coat, and then at your shoes.) If you hear of one, tell me where he keeps his salt: the farm pays three livres, which is a man's life at the galleys, at the going rate. You would not be the first in this parish to sell a neighbour for less.
+    saunier,smuggler,smugglers,cambrai,ganot,salt,gabelle,reward if player met-saunier and not player informed-saunier: (His pen stops.) You have been over the border, by the look of you. If you know where the faux-sauniers buy their salt, the farm pays three livres for it, and asks no questions about how you know. Will you *tell* me? {set offered-inform=now}
+    tell,yes,=i will if recent:0.05 offered-inform and player met-saunier and not player informed-saunier: At the post house at Cambrai, you say? On the Spanish side: we cannot touch him there, but we have friends in Cambrai, and he must cross with his cart sooner or later. (He writes it down.) Here is the farm's reward, three livres. The King thanks you; the Saunier will not. {player add money 720} {player set informed-saunier} {unset offered-inform}
+    saunier,smuggler,ganot,cambrai,reward if player informed-saunier: Your Saunier was taken at the border with forty sacks in a cart. He is on his way to Marseille, to the galleys. You have done the King a service.
+    galleys: The galleys of Marseille need rowers, and the faux-sauniers row as well as anyone.
+  end
+end

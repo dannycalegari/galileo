@@ -1,0 +1,61 @@
+# The ending of the central plot: what became of the three fronts, the secret
+# successes, and what was done for the other side. Shown by an event's "ending" (events.txt, the
+# scoring events just before it decide book-history / book-latin / book-kept / book-worse /
+# book-worst). Each line is shown if its conditions hold (as in events.txt); "page TITLE" begins a page of the book.
+
+title What became of them
+
+page Galileo
+line if player man-history: On 22 June 1633 Galileo abjured, on his knees, at Santa Maria sopra Minerva, and was not burned, nor kept in a cell. He was sent to the Archbishop of Siena, and in December home to Arcetri, under house arrest for the rest of his life. He went blind in 1637 and 1638, and died at Arcetri on 8 January 1642, aged seventy-seven. This is what happened.
+line if player forgery-doubted: Galileo abjured at the Minerva. The forged paper was laid before the Congregation, and enough of them doubted it that he was not condemned as a relapsed heretic; but he was condemned all the same, and never let go home: he lived under guard in Rome, and never saw his daughter again. This is what nearly happened.
+line if player man-worse and not player forgery-doubted: Galileo abjured at the Minerva, but too few voices spoke for him, and he was never let go home: he lived under guard in Rome, and never saw his daughter again. This is what nearly happened.
+line if player man-worst: Galileo was condemned on a forged paper as a relapsed heretic. The Pope, who had once been his friend, spared him the fire; he died in a cell of the Holy Office in the winter of 1634. This is what nearly happened.
+line if player forgery-stopped: The forged injunction, signed "Galileo Galilei" in another man's hand, was burned, and nobody has ever seen it. In the Holy Office's file there is still the unsigned minute of 1616, which historians have argued over since 1870.
+line if player arellano-exposed: Don Luis de Arellano was recalled to Madrid that summer, and is not heard of again.
+
+page The Dialogue
+line if player book-history: The copies you put into safe hands were not burned. Elia Diodati sent his to Matthias Bernegger at Strasbourg, and in 1635 the Latin translation, the Systema cosmicum, went out from the Elzevirs to the whole of Protestant Europe, with a preface swearing that Galileo knew nothing of it. This is what happened.
+line if player book-latin: Fewer copies were kept than Galileo had hoped, and in Italy the book was soon hard to find. But Elia Diodati sent his to Matthias Bernegger at Strasbourg, and in 1635 the Latin translation, the Systema cosmicum, went out from the Elzevirs to the whole of Protestant Europe, with a preface swearing that Galileo knew nothing of it. This is close to what happened.
+line if player book-kept: The copies you put into safe hands were not burned, and were read in Italian by those who could read it; but there was no Latin translation, and beyond the Alps the book was known mostly by its condemnation. This is what nearly happened.
+line if player book-worse: Some copies survived, in a few libraries, read by a few; but there was no Latin translation, and the book was known for a century mostly by its condemnation. This is what nearly happened.
+line if player book-worst: The seizures succeeded. The Dialogue survived in the archive of the Holy Office, and in a handful of copies nobody dared to show. This is what nearly happened.
+line if player keepers >= 1: Copies kept, in the end, by $[keepers] keepers.
+
+page The new science
+line if player science-printed and not player man-worse: The Two New Sciences, on the strength of materials and on motion, was printed at Leiden by Louis Elzevir in 1638, the first book of modern physics. Galileo, blind, held it in his hands at Arcetri. This is what happened.
+line if player science-printed and player man-worse: The Two New Sciences, on the strength of materials and on motion, was printed at Leiden by Louis Elzevir in 1638, the first book of modern physics. Galileo, blind, held it in his hands in Rome, where he was still a prisoner. This is what nearly happened.
+line if player science-seized: The manuscript of the Two New Sciences was seized on the road and burned. Galileo, blind, could not write it again. This is what nearly happened.
+line if player man-worst: The Two New Sciences was never written. This is what nearly happened.
+line if player man-worse and not player science-printed and not player science-seized: The Two New Sciences was begun in a cell in Rome, and never finished.
+
+page Things nobody wrote down
+line if player scot-saved: Murdo Ross, of Mackay's regiment, carried down off the Alte Veste by a stranger, had his leg set by the old hangman of Nuremberg, and walked home to Ross.
+line if player mustered and player not warned-monro and player event:assault-over: Murdo Ross, of Mackay's regiment, who marched up the Alte Veste beside you, was killed there by guns that had never been drawn off.
+line if player keeper:gustavus: The King of Sweden's copy of the Dialogue was in his baggage at Lützen, where he fell in the fog that November, and went home to Stockholm with his body.
+line if player keeper:christina: Queen Christina kept her copy of the Dialogue all her life, and learnt Italian to read it.
+line if player codex-trial: Cardinal Francesco Barberini had Saint Augustine read to the cardinals of the Holy Office, from a codex that had lain twelve hundred years in a cistern at Hippo; he was one of the three who did not sign the sentence. The codex went to his library, and in 1902, with the library, to the Vatican, whose catalogue says only "provenance unknown".
+line if player codex-library: A codex of Saint Augustine that had lain twelve hundred years in a cistern at Hippo came to the Barberini library by a ship nobody else would have sent. In 1902 it went with the library to the Vatican, whose catalogue says only "provenance unknown".
+line if player keeper:katip: A copy of the Dialogue reached Katip Celebi in Constantinople.
+line if player queen-restored: Marguerite Bahuche was buried at Charenton, among the Protestants. The gallery of the kings burned in February 1661, and the queen she painted with it; the boy who had carried her colours, Charles Le Brun, painted the Galerie d'Apollon in its place.
+line if player told-scheiner-harriot: Father Scheiner learnt that an Englishman had drawn the sunspots before either of them, and spoke a little less bitterly at the trial.
+line if player forger-free: Andres Morales walked home to Granada, and his wife let him in.
+line if player juanico-free: Juanico Morales grew up a free man in the Albaicin.
+line if player celeste-eased: Suor Maria Celeste's last months were eased by a stranger's kindness, and her father's letter.
+line if player campanella-free: Tommaso Campanella got out of Rome in 1634, in disguise, with French help, and died in Paris five years later, on Richelieu's pension.
+line if player descartes-kept: Descartes put his Le Monde away in a drawer instead of burning it; it was printed after his death.
+line if player longitude-delivered: The States General of Holland received Galileo's method for finding the longitude by Jupiter's moons, and sent him a gold chain the Holy Office would not let him take.
+line if player king-offer-burned: Nobody ever knew that the King of Sweden had offered Galileo a refuge.
+line if player papers-cleared: When the Inquisitor searched Il Gioiello, he found accounts and lenses, and nothing else.
+
+page What you did for the other side
+line if player sold-to-inquisitor >= 1: You sold copies of the Dialogue to the Inquisitor of Florence, who burned them in the cloister of Santa Croce.
+line if player informed-inquisitor: You sold Landini's bale to the Holy Office.
+line if player sold-king-offer: You sold the King of Sweden's letter to Spain.
+line if player sold-bellarmine: You sold Bellarmine's certificate to Don Luis de Arellano.
+line if player delivered-forgery: You carried the forged paper to the Holy Office yourself.
+line if player sold-route: You sold the road of the manuscript.
+line if player sold-alte-veste: You sold the King of Sweden's men to the Duke of Friedland at the Alte Veste, for thirty livres.
+line if player not sold-to-inquisitor and not player informed-inquisitor and not player sold-king-offer and not player sold-bellarmine and not player delivered-forgery and not player sold-route and not player sold-alte-veste: Nothing. You never sold him, nor his friends, nor his papers, to anyone.
+
+page The end
+line: Here your part in Galileo's story ends. The roads are still open, and the world goes on: you may travel, trade and talk as you please, but the story is over. What became of them is kept at the top of your journal.

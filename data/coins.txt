@@ -1,0 +1,84 @@
+# Coins. Every country pays in its own: what you are paid is in the coin of the place, and what
+# you pay is taken from that coin first; anything more is paid in foreign coin, which is taken a
+# tenth below its worth. A money-changer (role changer, in the market towns) changes your foreign
+# coin for the coin of the place, for a fee of three in the hundred ({change}), or into another
+# coin ({change ID}). Amounts are reckoned, as everywhere in the game, in the money of account of
+# Paris (livres, sous and deniers): what a coin is worth is fixed in those, except where a coin is
+# DEAR, which a changer there pays more for (the silver of the Indies, wanted in the Levant).
+#
+#   coin ID
+#     name NAME               what you carry: "12 livres in French coin"
+#     look TEXT               in the purse (I)
+#     in PLACES               where it is the coin of the place: towns, or countries (the people's
+#                             files' "country"; France where none is given); a town before its country
+#     dear PLACES FACTOR      a changer in those places pays FACTOR times its worth (and asks it)
+#   end
+#   PLACES: names with commas between and _ for a space
+
+coin french
+  name French coin
+  look The King's silver quarts d'écu, the douzains and liards of every day, and the gold écu au soleil for large sums, all reckoned in livres, sous and deniers.
+  in France
+end
+
+coin english
+  name English coin
+  look King Charles's shillings and sixpences, and the gold unite and laurel: reckoned in pounds, shillings and pence, and heavier than a Frenchman expects.
+  in England
+end
+
+coin dutch
+  name Dutch guilders
+  look Guilders, stuivers and lion dollars of the States General. The bank of Amsterdam's money, written in its books, is worth more than its own coin.
+  in Netherlands
+end
+
+coin thaler
+  name thalers
+  look Thalers of the Emperor, of Saxony and of a dozen bishops, and their groschen and kreuzers: the coin of the Empire, which the war has clipped and debased until nobody quite trusts it.
+  in Empire,Bohemia,Switzerland
+end
+
+coin venetian
+  name Venetian ducats
+  look Silver ducats and lire of the Most Serene Republic, and her gold zecchini, taken from London to Aleppo.
+  in Venice,Padua
+  dear Constantinople,Ragusa,Sarajevo 1.05
+end
+
+coin scudo
+  name scudi
+  look Scudi and giuli of the Grand Duke and of the Pope, with saints on one side and their arms on the other.
+  in Italy
+end
+
+coin spanish
+  name Spanish reales
+  look Pieces of eight, reales de a ocho, from the silver mountain of Potosí: the coin the whole world takes, and the Levant above all.
+  in Spain
+  dear Constantinople,Ragusa,Sarajevo,Venice 1.15
+end
+
+coin akce
+  name akçe
+  look Little silver akçe of the Sultan, a great many to the ducat, and more of them to it every year.
+  in Ottoman
+end
+
+coin ragusan
+  name Ragusan coin
+  look Grossetti and ducats of the Republic of Saint Blaise, who is on every one of them.
+  in Ragusa
+end
+
+coin polish
+  name Polish złote
+  look Groszy, trojaki and the King's thalers, struck at Cracow and at Danzig, and reckoned in złote.
+  in Poland
+end
+
+coin swedish
+  name Swedish dalers
+  look Silver dalers and copper öre of the King of Sweden, who has more copper than silver, and pays his soldiers in it.
+  in Sweden
+end

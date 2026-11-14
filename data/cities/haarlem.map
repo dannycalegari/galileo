@@ -1,0 +1,90 @@
+# Haarlem in 1632.  One character is one tile; north is at the top.
+# Drawn first by tools/draft_towns.py (haarlem); the script is the master copy for now.
+# Characters as in paris.map; the capital letters are landmarks.
+
+style dutchtown
+ground 1.0
+towerroof cone
+
+legend K church    "the Grote Kerk"               brick roof=slate crossing=tower stone=C8B8A0
+legend T hall      "the Town Hall of Haarlem"     nocampanile brick roof=slate floors=1
+legend V hall      "the Vleeshal"                 nocampanile brick roof=slate
+legend M hall      "the Oudemannenhuis"           nocampanile brick roof=tile
+legend I inn       "the Golden Lion"
+legend H mansion   "the house of Frans Hals"  sign=palette
+legend L mansion   "the Leyster brewery"  sign=ale
+legend C church    "the Janskerk"                 brick roof=slate
+
+gate 1 "the Janspoort"
+gate 2 "the Zijlpoort"
+gate 3 "the Grote Houtpoort"
+gate 4 "the Amsterdamse Poort"
+
+map
+                                  ____        ~~~~
+                                  ____        ~~~~
+                                  ____        ~~~~
+                                  ____        ~~~~
+                            ######1111######  ~~~~
+                            ######1111######  ~~~~
+                      ######................##~~~~
+                      ######................##~~~~
+                  ####........hhhh..CCCCCCCCCC~~~~OO##
+                  ####........hhhh..CCCCCCCCCC~~~~OO##
+                ##..................CCCCCCCCCC~~~~....##
+                ##..................CCCCCCCCCC~~~~....##
+              ##......IIIIIIIIII....CCCCCCCCCC~~~~~~....##
+              ##......IIIIIIIIII....CCCCCCCCCC~~~~~~....##
+            ##....hh..IIIIIIIIII................~~~~......OO
+            ##....hh..IIIIIIIIII................~~~~......OO
+          ##....hh....IIIIIIIIII....hhhhhhhhhh..~~~~..hh....##
+          ##....hh....IIIIIIIIII....hhhhhhhhhh..~~~~..hh....##
+        ##....hhhhhh..IIIIIIIIII................~~~~..hhhh....##
+        ##....hhhhhh..IIIIIIIIII................~~~~..hhhh....##
+        ##........................hh..KKKKKKKKKKKK~~~~........##
+        ##........................hh..KKKKKKKKKKKK~~~~........##
+        OO..TTTTTTTTTT..::::::::::m:::KKKKKKKKKKKK~~~~..hhhh..##
+        OO..TTTTTTTTTT..::::::::::::::KKKKKKKKKKKK~~~~..hhhh..##
+      ##....TTTTTTTTTT..::::::::m:::::KKKKKKKKKKKK~~~~..hhhh....##
+      ##....TTTTTTTTTT..::::::::::::::KKKKKKKKKKKK~~~~..hhhh....##
+      ##....TTTTTTTTTT..::m:::m:::::::KKKKKKKKKKKK~~~~~~..hhhh..##
+      ##....TTTTTTTTTT..::::::::::::::KKKKKKKKKKKK~~~~~~..hhhh..##
+      ##....TTTTTTTTTT..::::m:::::::::KKKKKKKKKKKK..====........44____________
+      ##....TTTTTTTTTT..::::::::::::::KKKKKKKKKKKK..====........44____________
+______22....TTTTTTTTTT..::::::m:::m:::KKKKKKKKKKKKt,~~~~..hhhh..44______________
+______22....TTTTTTTTTT..::::::::::::::KKKKKKKKKKKK,,~~~~..hhhh..44______________
+______22................m:::::::::::::..............~~g~..hhhh..##        ______
+______22................::::::::::::::..............~~~~..hhhh..##        ______
+      ##..HHHHHHHHHH..VVVVVVVV....LLLLLLLLLL..hhhh..~~~~..hh....##
+      ##..HHHHHHHHHH..VVVVVVVV....LLLLLLLLLL..hhhh..~~~~..hh....##
+        ##HHHHHHHHHH..VVVVVVVV....LLLLLLLLLL..hhhh..~~~~..hh..##
+        ##HHHHHHHHHH..VVVVVVVV....LLLLLLLLLL..hhhh..~~~~..hh..##
+        ##HHHHHHHHHH..VVVVVVVV....LLLLLLLLLL..hhhh..~~~~..hh..##
+        ##HHHHHHHHHH..VVVVVVVV....LLLLLLLLLL..hhhh..~~~~..hh..##
+        ##HHHHHHHHHH..VVVVVVVV....LLLLLLLLLL..hhhh..~~g~......##
+        ##HHHHHHHHHH..VVVVVVVV....LLLLLLLLLL..hhhh..~~~~......##
+          ##..................................hhhh..~~~~~~..##
+          ##..................................hhhh..~~~~~~..##
+            ##....hhhhhhhhhhhh....MMMMMMMMMM..........~~~~OO
+            ##....hhhhhhhhhhhh....MMMMMMMMMM..........~~~~OO
+              ##....hhhhhhhh......MMMMMMMMMM..hhhhhh..~~~~
+              ##....hhhhhhhh......MMMMMMMMMM..hhhhhh..~~~~
+                ##......hhhh..hh..MMMMMMMMMM..hh....t,~~~~
+                ##......hhhh..hh..MMMMMMMMMM..hh....,,~~~~
+                  ####........hh..MMMMMMMMMM......####~~~~
+                  ####........hh..MMMMMMMMMM......####~~~~
+                      ######................OO####    ~~~~
+                      ######................OO####    ~~~~
+                          ##3333############          ~~~~
+                          ##3333############          ~~~~
+                            ____                    ~~~~~~~~~~
+                            ____                    ~~~~~~~~~~
+                            ____                  ~~~~~~~~~~~~~~~~~~
+                            ____                  ~~~~~~~~~~~~~~~~~~
+                          ______                ~~~~~~~~~~~~~~~~~~~~~~~~~~
+                          ______                ~~~~~~~~~~~~~~~~~~~~~~~~~~
+                          ____                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                          ____                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                          ____                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                          ____                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+end

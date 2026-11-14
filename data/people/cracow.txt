@@ -1,0 +1,95 @@
+# The people of Cracow.
+# June 1632: King Sigismund III died in Warsaw on 30 April; the court left Cracow for Warsaw
+# thirty years ago, but kings are still crowned and buried in the Wawel, and the Diet will elect
+# his son Wladyslaw in the autumn. Jan Brozek, mathematician, keeps the memory of Copernicus at
+# the University and quarrels with the Jesuits.
+town Cracow
+names polish
+prison Town Hall tower | They lock you in the cellar of the Town Hall tower, where the town keeps its drunkards, its thieves and its torture ladder. A clerk writes down your crime in Latin. In the morning they let you go.
+country Poland
+
+person brozek
+  name Jan Brożek
+  title a professor of the Academy
+  role mathematician
+  near Collegium Maius
+  work landmark Collegium Maius
+  talk
+    give:dialogue if has:dialogue >= 1: We have it already, beside our copy of Copernicus. They argue at night.
+    give:dialogue: (He opens it at the title, and reads aloud: "tolemaico e copernicano".) In Copernicus's own university, a hundred and forty years after him! I will put it with his letters, and the Jesuits may whistle. {take}
+    name: Jan Brożek, Broscius in Latin, doctor of medicine, professor of mathematics and astronomy in the Academy of Cracow. {name}
+    job: I teach the young men Euclid and Ptolemy and Copernicus, I have collected every letter and paper of Copernicus I could find, and I fight the Jesuits, who want to open their own school here and take ours away.
+    copernicus,frombork: Copernicus studied here, in this college, a hundred and forty years ago. I went to Frombork, where he was a canon, and bought his letters from the people who were using them to wrap fish. I have his notes on our copy of Euclid.
+    jesuits,gratis,pamphlet: I wrote a little book against the Jesuits, called "Gratis", because they teach for nothing and that is how they take the schools. The bishop had the executioner burn it in the market. Every copy was sold before he lit the fire.
+    bees,honeycomb,hexagon: I am studying why the bees build six-sided cells: of all the figures that fill a plane, the hexagon holds the most honey for the least wax. The bees are better geometers than the Jesuits.
+  end
+end
+
+person trumpeter
+  name Wojciech
+  title the trumpeter of St Mary's
+  role watchman
+  near St Mary's Basilica
+  work landmark St Mary's Basilica
+  talk
+    name: Wojciech, trumpeter of the town, on the high tower of Our Lady. {name}
+    job: Every hour, day and night, I climb to the top of the high tower and play the hejnał to the four winds. And every time I stop in the middle of the tune.
+    hejnal,trumpet,tune,stop,arrow: Because the trumpeter who first saw the Tatars coming, long ago, played the alarm until a Tatar arrow went through his throat, in the middle of the tune. So we stop there, every hour, for him.
+  end
+end
+
+person trevano
+  name Giovanni Trevano
+  title the King's architect
+  role scholar
+  look coat #3A2E22 legs #2A221C hat hat #1E1A16
+  near Wawel castle
+  work landmark Wawel castle
+  talk
+    name: Giovanni Trevano, of Lugano, architect to His late Majesty. {name}
+    job: When the Wawel burned I rebuilt it, the north wing, the halls, the stairs, all in the Roman manner. I built the Jesuits their church of Saint Peter and Paul, and the silver shrine of Saint Stanisław in the cathedral. Now I must make the cathedral ready for a funeral and a coronation, one after another.
+    king,sigismund,funeral,coronation: The King died in April, in Warsaw, where he took his court. His body will come back to Cracow to be buried in the Wawel, among his fathers, and his son will be crowned there the same week. I have one winter to get it all ready, and nobody has paid me for the last one.
+    zygmunt,bell: The great bell in the cathedral tower, Zygmunt, cast from captured cannon, a hundred years ago. It rings for kings, and it will ring for this one. Twelve men to swing it.
+  end
+end
+
+person armenian
+  name Krzysztof Bernatowicz
+  title an Armenian merchant
+  role merchant
+  look coat #5A2A1A legs #2A1E1A hat hat #3A2A1E robe
+  near Cloth Hall
+  work landmark Cloth Hall
+  money 9600
+  talk
+    name: Krzysztof Bernatowicz, of the Armenian nation of Lwów, a merchant of Cracow. {name}
+    job: Furs from Muscovy, by way of Lwów: sable, marten, fox. Silk and carpets from Persia and Turkey, the other way. And salt from Wieliczka, which the King's own mines sell to anyone who will carry it.
+    armenian,lwow,lemberg: We Armenians came to Lwów with the Tatars, three hundred years ago, and stayed, and kept our church and our law. We trade where the Christians and the Turks will not trade with each other, which is everywhere.
+    latin,lesson,learn,language if player skill:latin: Your Latin is good enough for any Polish gentleman. Better than most of them, between you and me.
+    latin,lesson,learn,language: Here every gentleman speaks Latin, the merchants too, and the Jews of Kazimierz, and the beggars at the church doors. You do not speak it? I will teach you enough to buy and sell, for a sou, over a cup of mead.
+    give:money if player gift >= 12 and not player skill:latin: (Over three cups of mead, he teaches you the Latin of the market: prices, weights, oaths, and how to say "too dear" twelve ways.) Now no Pole will cheat you. A Pole will not, anyway. The Scots are another matter. {take} {player learn latin}
+  end
+end
+
+person miner
+  name Maciej Nowak
+  title a salt miner of Wieliczka
+  role miner
+  near Cloth Hall
+  work landmark Cloth Hall
+  talk
+    name: Maciej Nowak, of Wieliczka, salt miner. {name}
+    job: I cut salt in the King's mine at Wieliczka, a hundred fathoms under the ground, and today I have brought a cart of it to the market, because the King has not paid us since he died.
+    salt,mine,chapel,wieliczka: Down there we carve chapels out of the salt itself, altars, saints, the Holy Family, all of salt, grey and shining in the lamp light. The horses that turn the winding wheels are born down there and never see the sun.
+  end
+end
+
+crowd 3 goodwife
+crowd 2 labourer work square
+crowd 2 student
+crowd 1 merchant
+crowd 1 guard
+crowd 1 priest
+crowd 1 innkeeper
+crowd 1 changer
+crowd 1 herdsman

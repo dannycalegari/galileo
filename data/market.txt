@@ -1,0 +1,170 @@
+# The market: what each town makes (bought cheap there) and wants (sold dear there), as factors
+# on a thing's price (items.txt "trade goods"); its customs, a part of the value of the goods you
+# carry in, taken at the town's edge; its language (a skill: without it, a foreigner pays a tenth
+# more and gets a tenth less).
+#
+#   market TOWN
+#     makes ITEM FACTOR ITEM FACTOR ...
+#     wants ITEM FACTOR ...
+#     customs RATE
+#     language SKILL
+#   end
+#
+# The merchants of a market town (role merchant) sell what it makes; they buy what it wants
+# (and shopkeepers buy back what they sell, at half price, as before). A town that has bought a
+# lot of something lately pays less for more of it (People::glut: each one sold counts, and the
+# count wears off by one a day). Coins and money-changers: data/coins.txt.
+#
+#     forbids ITEM ITEM ... | WHY     goods that may not come in at all: the searchers at the town's
+#                                     edge find them (most times by day, a third of the time at night,
+#                                     less often in a pack with a false bottom, never in one at night),
+#                                     seize them and fine you their worth (a night in prison if you
+#                                     cannot pay). They pay no customs, since nobody declares them. By
+#                                     day the searchers are seen: you step back unsearched, unless you
+#                                     come on again within the hour (Game::searchers).
+
+market Paris
+  wants silk 1.6 pepper 1.5 sugar 1.4 tobacco 1.3 carpet 1.5 cochineal 1.2 murano-glass 1.5 coral 1.4
+  customs 0.04
+  forbids salt rock-salt | Salt that has not passed through the King's granaries owes the gabelle, and the man who carries it owes the galleys.
+end
+
+market London
+  makes broadcloth 0.6
+  wants pepper 1.4 silk 1.5 sugar 1.4 olive-oil 1.6 mohair 1.3
+  customs 0.05
+  forbids tobacco | By the King's proclamation no tobacco comes in but Virginia's and the Bermudas', and Spanish tobacco least of all.
+end
+
+market Amsterdam
+  makes pepper 0.6
+  wants silk 1.3 olive-oil 1.5 broadcloth 1.2 tobacco 1.4 carpet 1.4 salt 1.4 coral 1.8
+  customs 0.02
+end
+
+market Venice
+  makes murano-glass 0.5
+  wants pepper 1.2 cochineal 1.5 broadcloth 1.3 mohair 1.3 sugar 1.2 coral 1.6
+  customs 0.08
+  forbids bohemian-glass | The Republic lets no foreign glass into Venice, to keep Murano's secrets and Murano's prices.
+  language italian
+end
+
+market Florence
+  makes silk 0.85
+  wants cochineal 1.6 broadcloth 1.4 pepper 1.3 sugar 1.3
+  customs 0.05
+  language italian
+end
+
+market Rome
+  wants silk 1.4 pepper 1.4 sugar 1.5 carpet 1.4 murano-glass 1.3 cochineal 1.2 coral 1.8
+  customs 0.06
+  language italian
+end
+
+market Pisa
+  makes olive-oil 0.7
+  wants broadcloth 1.3 pepper 1.3 salt 1.3
+  customs 0.04
+  language italian
+end
+
+market Padua
+  wants silk 1.2 pepper 1.3 sugar 1.3
+  customs 0.04
+  language italian
+end
+
+market Constantinople
+  makes silk 0.55 coffee-beans 0.4 carpet 0.6 mohair 0.6
+  wants broadcloth 1.7 murano-glass 1.6 tobacco 1.4 sugar 1.3 cochineal 1.3
+  customs 0.05
+  language turkish
+end
+
+market Ragusa
+  makes salt 0.5 olive-oil 0.8
+  wants broadcloth 1.4 silk 1.2 pepper 1.3 murano-glass 1.2
+  customs 0.03
+  language italian
+end
+
+market Seville
+  makes tobacco 0.5 sugar 0.6 cochineal 0.55 olive-oil 0.7
+  wants broadcloth 1.5 pepper 1.3 silk 1.2 murano-glass 1.4 mohair 1.2
+  customs 0.1
+  language spanish
+end
+
+market Granada
+  makes silk 0.6
+  wants pepper 1.3 sugar 1.2 broadcloth 1.3 tobacco 1.2
+  customs 0.06
+  language spanish
+end
+
+market Oxford
+  wants silk 1.3 pepper 1.4 sugar 1.3 tobacco 1.3 olive-oil 1.4
+  customs 0.02
+end
+
+market Cambridge
+  wants silk 1.3 pepper 1.4 sugar 1.3 tobacco 1.3 olive-oil 1.4
+  customs 0.02
+end
+
+market Zurich
+  makes silk 0.85
+  wants salt 1.8 pepper 1.3 sugar 1.3 rye 1.3
+  customs 0.03
+  language german
+end
+
+market Nuremberg
+  makes sundial 0.6
+  wants rye 1.8 pepper 1.2 sugar 1.3 silk 1.2 salt 1.5 wax 1.3
+  customs 0.05
+  language german
+end
+
+market Prague
+  makes bohemian-glass 0.55
+  wants salt 1.6 pepper 1.4 silk 1.3 sugar 1.3 broadcloth 1.3
+  customs 0.05
+  language german
+end
+
+market Vienna
+  wants pepper 1.4 silk 1.3 sugar 1.3 murano-glass 1.3 tobacco 1.3 carpet 1.3 salt 1.4
+  customs 0.05
+  language german
+end
+
+market Cracow
+  makes rock-salt 0.5 furs 0.7
+  wants broadcloth 1.4 silk 1.3 pepper 1.4 murano-glass 1.3 olive-oil 1.5 sugar 1.3
+  customs 0.04
+  language latin
+end
+
+market Danzig
+  makes rye 0.5 amber 0.55
+  wants broadcloth 1.3 salt 1.5 pepper 1.3 sugar 1.3 olive-oil 1.4 silk 1.3 tobacco 1.2
+  customs 0.05
+  language german
+end
+
+market Sarajevo
+  makes wax 0.5
+  wants salt 1.8 broadcloth 1.4 murano-glass 1.3 sugar 1.3 pepper 1.2 silk 1.2
+  customs 0.04
+  language turkish
+end
+
+market Stockholm
+  makes copper 0.6 bar-iron 0.6 tar 0.6
+  wants salt 1.6 broadcloth 1.3 pepper 1.4 sugar 1.4 olive-oil 1.4 silk 1.3 tobacco 1.3
+  customs 0.05
+  language swedish
+end

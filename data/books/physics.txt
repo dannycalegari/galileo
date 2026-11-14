@@ -1,0 +1,36 @@
+# Aristotle, the Physics, in Latin, a student's copy: the beginning of Book VII, and a student's
+# note in the margin (the note is the game's); the English is ours.
+book physics
+language latin
+title Aristotelis de physico auditu libri octo | Aristotle's Eight Books of the Physics
+
+page
+ARISTOTELIS //
+DE PHYSICO AVDITV //
+LIBRI OCTO. //
+
+On the flyleaf, in brown ink: Ex libris Collegii Sorbonici.
+=
+ARISTOTLE'S //
+EIGHT BOOKS OF LECTURES //
+ON NATURE. //
+
+On the flyleaf, in brown ink: From the books of the College of the Sorbonne.
+
+page
+LIBER SEPTIMVS. //
+Caput I. //
+
+Omne quod mouetur, necesse est ab aliquo moueri. Si enim in seipso non habet principium motus, manifestum est quod ab altero mouetur: aliud enim erit mouens.
+
+In margine, manu studiosi: Et sagitta, postquam ab arcu recessit? Quid tum eam mouet? Roga Magistrum Lebrun. //
+Et infra, alia manu: Aer, stulte.
+=
+BOOK SEVEN. //
+Chapter I. //
+
+Everything that is in motion must be moved by something. For if it does not have the source of its motion in itself, it is plain that it is moved by another: for the mover will be something else.
+
+In the margin, in a student's hand: And the arrow, once it has left the bow? What moves it then? Ask Master Lebrun. //
+And below, in another hand: The air, you fool.
+{player set read-physics}

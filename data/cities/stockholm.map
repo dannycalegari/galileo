@@ -1,0 +1,113 @@
+# Stockholm in 1632.  One character is one tile; north is at the top.
+# Drawn first by tools/draft_towns.py (stockholm); the script is the master copy for now.
+# Characters as in paris.map; the capital letters are landmarks.
+
+style stockholm
+ground 1.0
+towerroof cone
+
+legend T tower     "the tower of Tre Kronor"      height=16 top=belfry spire stone=D2C2A2 roof=5E7E6E
+legend K palace    "Tre Kronor, the King's castle"  depth=4 storeys=3 roof=slate stone=D8C8A8 floors=1
+legend S church    "Storkyrkan, the great church"  roof=tile stone=C8885A
+legend G church    "the German church"            roof=5E7E6E stone=C8805A
+legend R church    "the Riddarholm church"        roof=slate brick
+legend I inn       "the Golden Key"
+
+map
+,,,,,,,,,,,,t,t,t,,,,,t,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,t,,,,,,,____,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,t,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,____,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,hhhhhhhh..hhhhhhhhhhhhhh..hhhhhhhhhhhh..hhhhhh..hhhhhhhh..hhhhhhhhhhhh____hhhhhh..hhhhhhhhhhhhhh..hhhhhhhhhhhhhh,,,,
+,,,,hhhhhhhh..hhhhhhhhhhhhhh..hhhhhhhhhhhh..hhhhhh..hhhhhhhh..hhhhhhhhhhhh____hhhhhh..hhhhhhhhhhhhhh..hhhhhhhhhhhhhh,,,,
+,,,,hhhhhhhh..hhhhhhhhhhhhhh..hhhhhhhhhhhh..hhhhhh..hhhhhhhh..hhhhhhhhhhhh____hhhhhh..hhhhhhhhhhhhhh..hhhhhhhhhhhhhh,,,,
+,,,,hhhhhhhh..hhhhhhhhhhhhhh..hhhhhhhhhhhh..hhhhhh..hhhhhhhh..hhhhhhhhhhhh____hhhhhh..hhhhhhhhhhhhhh..hhhhhhhhhhhhhh,,,,
+,,,,hhhhhhhh..hhhhhhhhhhhhhh..hhhhhhhhhhhh..hhhhhh..hhhhhhhh..hhhhhhhhhhhh____hhhhhh..hhhhhhhhhhhhhh..hhhhhhhhhhhhhh,,,,
+,,,,hhhhhhhh..hhhhhhhhhhhhhh..hhhhhhhhhhhh..hhhhhh..hhhhhhhh..hhhhhhhhhhhh____hhhhhh..hhhhhhhhhhhhhh..hhhhhhhhhhhhhh,,,,
+,,,,hhhhhhhh..hhhhhhhhhhhhhh..hhhhhhhhhhhh..hhhhhh..hhhhhhhh..hhhhhhhhhhhh____hhhhhh..hhhhhhhhhhhhhh..hhhhhhhhhhhhhh,,,,
+,,,,hhhhhhhh..hhhhhhhhhhhhhh..hhhhhhhhhhhh..hhhhhh..hhhhhhhh..hhhhhhhhhhhh____hhhhhh..hhhhhhhhhhhhhh..hhhhhhhhhhhhhh,,,,
+,,,,hhhhhhhh..hhhhhhhhhhhhhh..hhhhhhhhhhhh..hhhhhh..hhhhhhhh..hhhhhhhhhhhh....hhhhhh..hhhhhhhhhhhhhh..hhhhhhhhhhhhhh,,,,
+,,,,hhhhhhhh..hhhhhhhhhhhhhh..hhhhhhhhhhhh..hhhhhh..hhhhhhhh..hhhhhhhhhhhh....hhhhhh..hhhhhhhhhhhhhh..hhhhhhhhhhhhhh,,,,
+,,,,hhhhhhhh........................................................................................................,,,,
+,,,,hhhhhhhh........................................................................................................,,,,
+,,,,hhhhhhhh..hhhhhhhhhhhhhh..hhhhhhhhhh..hhhh..hhhhhhhhhhhh..hhhhhhhhhhhh....hhhhhhhhhhhhhh..hhhhhhhh..hhhhhhhhhhhh,,,,
+,,,,hhhhhhhh..hhhhhhhhhhhhhh..hhhhhhhhhh..hhhh..hhhhhhhhhhhh..hhhhhhhhhhhh....hhhhhhhhhhhhhh..hhhhhhhh..hhhhhhhhhhhh,,,,
+~~~~~~~~~~~~~~~~~~hhhhhhhhhh..hhhhhhhhhh..hhhh..hhhhhhhhhhhh..hhhhhhhhhhhh....hhhhhhhhhhhhhh..hhhhhhhh..hh~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~hhhhhhhhhh..hhhhhhhhhh..hhhh..hhhhhhhhhhhh..hhhhhhhhhhhh....hhhhhhhhhhhhhh..hhhhhhhh..hh~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~hhhhhhhhhh..hhhhhhhhhh..hhhh..hhhhhhhhhhhh..hhhhhhhhhhhh....hhhhhhhhhhhhhh..hhhhhhhh..hh~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~hhhhhhhhhh..hhhhhhhhhh..hhhh..hhhhhhhhhhhh..hhhhhhhhhhhh....hhhhhhhhhhhhhh..hhhhhhhh..hh~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~hh..hhhh..hhhhhhhhhhhh..hhhhhhhhhhhh....hhhhhhhhhhhh~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~hh..hhhh..hhhhhhhhhhhh..hhhhhhhhhhhh....hhhhhhhhhhhh~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~hh..hhhh..hhhhhhhhhhhh..hhhhhhhhhhhh....hhhhhhhhhhhh~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~hh..hhhh..hhhhhhhhhhhh..hhhhhhhhhhhh....hhhhhhhhhhhh~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~....~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~....~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~,,,,....,,,,,,,,,,~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~,,,,....,,,,,,,,,,~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~,,,,....,,,,,,,,,,~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~,,,,....,,,,,,,,,,~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~KKKKKKKKKKKKKKKKKKKKKKKK~~====~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~KKKKKKKKKKKKKKKKKKKKKKKK~~====~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~KKKKKKKKKKKKKKKKKKKKKKKK~~====~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~KKKKKKKKKKKKKKKKKKKKKKKK~~====~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~KKKKKKKKKKKKKKKKKKKKKKKK....==~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~KKKKKKKKKKKKKKKKKKKKKKKK....==~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~TTTTKKKKKKKKKKKKKKKKKKKKKKKK........g~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~TTTTKKKKKKKKKKKKKKKKKKKKKKKK........~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~TTTTKKKKKKKKKKKKKKKKKKKKKKKK..hhhh..hh..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~TTTTKKKKKKKKKKKKKKKKKKKKKKKK..hhhh..hh..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~..KKKKKKKKKKKKKKKKKKKKKKKK..hhhh..hhhh..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~..KKKKKKKKKKKKKKKKKKKKKKKK..hhhh..hhhh..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~hh..................................hhhhhh..g~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~hh..................................hhhhhh..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~,,~~~~~~~~~~~~~~hh......................SSSSSSSSSS......hhhh..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~,,~~~~~~~~~~~~~~hh......................SSSSSSSSSS......hhhh..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~,,,,,,,,,,~~~~~~~~~~hhhh..hhhhhhhhhh..hhhh..SSSSSSSSSS..............~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~,,,,,,,,,,~~~~~~~~~~hhhh..hhhhhhhhhh..hhhh..SSSSSSSSSS..............~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~,,,,,,,,,,,,~~~~~~~~hhhh..hhhhhhhh::::o:::m:SSSSSSSSSS....hhhhhhhh..g~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~,,,,,,,,,,,,~~~~~~~~hhhh..hhhhhhhh::::::::::SSSSSSSSSS....hhhhhhhh..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~............,,~~~~~~hhhhhh..hhhhhhhh::::::m:::................hhhhhh..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~............,,~~~~~~hhhhhh..hhhhhhhh::::::::::................hhhhhh..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~RRRRRRRRRR..,,,,~~~~........hhhhhhhh::::m:::::hh..GGGGGGGGGG..........~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~RRRRRRRRRR..,,,,~~~~........hhhhhhhh::::::::::hh..GGGGGGGGGG..........~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~RRRRRRRRRR..,,,,======hh..........................GGGGGGGGGG..hhhhhh..g~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~RRRRRRRRRR..,,,,======hh..........................GGGGGGGGGG..hhhhhh..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~RRRRRRRRRR..,,,,~~~~~~hh......IIIIIIIIII..hhhhhh..GGGGGGGGGG..hhhhhh..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~RRRRRRRRRR..,,,,~~~~~~hh......IIIIIIIIII..hhhhhh..GGGGGGGGGG..hhhhhh..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~............,,~~~~~~~~hh..hh..IIIIIIIIII..hhhhhh..............hhhh..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~............,,~~~~~~~~hh..hh..IIIIIIIIII..hhhhhh..............hhhh..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~,,,,,,,,,,,,~~~~~~~~~~..hh..IIIIIIIIII..hhhhhhhhhh..hhhhhh..hhhh..g~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~,,,,,,,,,,,,~~~~~~~~~~..hh..IIIIIIIIII..hhhhhhhhhh..hhhhhh..hhhh..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~,,,,,,,,,,~~~~~~~~~~~~==....IIIIIIIIII......................hh..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~,,,,,,,,,,~~~~~~~~~~~~==....IIIIIIIIII......................hh..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~,,~~~~~~~~~~~~~~~~~~~~................hhhhhh..hhhhhhhhhh..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~,,~~~~~~~~~~~~~~~~~~~~................hhhhhh..hhhhhhhhhh..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~hhhhhhhhhhhh..hhhhhh..hhhhhh..g~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~hhhhhhhhhhhh..hhhhhh..hhhhhh..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~hhhhhhhh....hhhh..hh..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~hhhhhhhh....hhhh..hh..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~====~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~====~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~====~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~====~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~hhhh..hhhhhhhhhhhh....hhhhhhhh..hhhhhhhh~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~hhhh..hhhhhhhhhhhh....hhhhhhhh..hhhhhhhh~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~hhhh..hhhhhhhhhhhh....hhhhhhhh..hhhhhhhh~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~hhhh..hhhhhhhhhhhh....hhhhhhhh..hhhhhhhh~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~hhhhhhhhhhhhhh..hhhhhhhhhhhh..hhhhhh..hhhhhhhhhhhh....hhhhhhhh..hhhhhhhhhhhhhh..hhhhhhhh..hhhhhhhh~~~~~~~~~~
+~~~~~~~~~~~~hhhhhhhhhhhhhh..hhhhhhhhhhhh..hhhhhh..hhhhhhhhhhhh....hhhhhhhh..hhhhhhhhhhhhhh..hhhhhhhh..hhhhhhhh~~~~~~~~~~
+~~~~~~~~~~~~,,,,,,............................................................................................~~~~~~~~~~
+~~~~~~~~~~~~,,,,,,............................................................................................~~~~~~~~~~
+,,,,,,t,,,t,t,,,t,t,,,,,hhhhhhhhhhhhhh..hhhhhhhhhh..hhhhhhhhhh....hhhhhhhhhhhhhh..hhhh..hhhhhhhh..hhhhhh,,,,,,,,,,,,t,,,
+,,,,,,,,,,,,,,,,,,,,,,,,hhhhhhhhhhhhhh..hhhhhhhhhh..hhhhhhhhhh....hhhhhhhhhhhhhh..hhhh..hhhhhhhh..hhhhhh,,,,,,,,,,,,,,,,
+,,,,t,,,,,t,t,t,,,,,,,,,hhhhhhhhhhhhhh..hhhhhhhhhh..hhhhhhhhhh....hhhhhhhhhhhhhh..hhhh..hhhhhhhh..hhhhhh,,,,,,t,,,t,,,t,
+,,,,,,,,,,,,,,,,,,,,,,,,hhhhhhhhhhhhhh..hhhhhhhhhh..hhhhhhhhhh....hhhhhhhhhhhhhh..hhhh..hhhhhhhh..hhhhhh,,,,,,,,,,,,,,,,
+,,t,,,,,,,,,,,,,,,,,,,,,hhhhhhhhhhhhhh..hhhhhhhhhh..hhhhhhhhhh....hhhhhhhhhhhhhh..hhhh..hhhhhhhh..hhhhhh,,,,,,t,t,,,t,,,
+,,,,,,,,,,,,,,,,,,,,,,,,hhhhhhhhhhhhhh..hhhhhhhhhh..hhhhhhhhhh....hhhhhhhhhhhhhh..hhhh..hhhhhhhh..hhhhhh,,,,,,,,,,,,,,,,
+,,,,,,,,,,t,,,,,t,t,,,,,hhhhhhhhhhhhhh..hhhhhhhhhh..hhhhhhhhhh....hhhhhhhhhhhhhh..hhhh..hhhhhhhh..hhhhhh,,,,,,,,t,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,hhhhhhhhhhhhhh..hhhhhhhhhh..hhhhhhhhhh....hhhhhhhhhhhhhh..hhhh..hhhhhhhh..hhhhhh,,,,,,,,,,,,,,,,
+,,,,t,,,,,,,,,,,t,,,,,,,,,,,,,,,t,,,t,t,,,,,,,,,t,t,,,,,,,,,,,....t,,,,,,,,,,,,,,,,,,,,,t,,,,,t,t,,,,,,,t,,,,,,,,,t,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,....,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,t,,,,,,,t,,,,,,,t,t,,,,,t,t,,,,,t,,,,,,,,,t,t,t,,,,,t,t,....t,,,,,,,t,,,t,,,,,,,,,,,,,,,,,,,t,t,,,t,,,t,,,,,,,,,t,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,....,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,t,,,t,,,,,t,,,,,t,,,,,,,t,,,,,,,,,t,,,t,,,t,,,t,,,,,,,t,,,t,,,t,,,,,t,,,,,,,,,,,,,,,,,,,,,,,t,,,,,,,t,,,t,,,t,t,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+end

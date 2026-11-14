@@ -1,0 +1,48 @@
+# Sound effects: the files in data/sounds/ (all made by tools/make_sounds.py: synthesized, nothing
+# recorded or downloaded) and how loud each is (0..1, times the volume). When each is heard is
+# decided by the game (main.cc, Game::soundStep); K turns them off and on.
+#   sound ID FILE LOUDNESS     played once (each stroke of a bell, coins, a blow on the anvil)
+#   loop ID FILE LOUDNESS      played over and over while it is wanted, fading in and out
+#   bells every N              the church bells strike the hour every N hours (1: every hour)
+volume 0.8
+bells every 1
+
+sound bell-big    bell_big.wav    0.9     # a cathedral's great bell
+sound bell-small  bell_small.wav  0.75    # a parish church's
+sound coins       coins.wav       0.6     # money paid or taken
+sound anvil       anvil.wav       0.45    # a smith at his anvil
+sound sword       sword.wav       0.7     # a blow in a fight
+sound cannon      cannon.wav      1.0     # guns fired (the Duke's guns in the ruin of the Alte Veste: events.txt "volley")
+# the storming of the Alte Veste (events.txt "musketry"; People::soundsAt): a musket now and then, a rank's ragged
+# volley, and the blows of soldiers near you, steel (swords, sabres) or wood (pikes, muskets swung as clubs)
+sound musket-1    musket_1.wav    0.6
+sound musket-2    musket_2.wav    0.6
+sound musket-3    musket_3.wav    0.6
+sound musket-4    musket_4.wav    0.6
+sound musket-5    musket_5.wav    0.6
+sound musket-6    musket_6.wav    0.6
+sound volley-1    volley_1.wav    0.75
+sound volley-2    volley_2.wav    0.75
+sound volley-3    volley_3.wav    0.75
+sound volley-4    volley_4.wav    0.75
+sound clash-1     clash_1.wav     0.45
+sound clash-2     clash_2.wav     0.45
+sound clash-3     clash_3.wav     0.45
+sound clash-4     clash_4.wav     0.45
+sound knock-1     knock_1.wav     0.55
+sound knock-2     knock_2.wav     0.55
+sound knock-3     knock_3.wav     0.55
+sound knock-4     knock_4.wav     0.55
+
+loop hooves       hooves.wav      0.55    # your horse on the move (faster at a run, a gallop)
+loop river        river.wav       0.08    # by a river or a canal: a faint, smooth bed
+
+#   ambient ID STEM COUNT LOUDNESS MIN MAX
+#                              one of STEM_1.wav .. STEM_COUNT.wav now and then, at random (and at a
+#                              random loudness, side and pitch, never the same twice running), every
+#                              MIN to MAX seconds while it is wanted
+ambient birds     birds     12  0.35  4 22    # the country by day
+ambient crickets  crickets   8  0.2   3 14    # the night
+ambient town      town      12  0.22  5 20    # people talking in a town by day
+ambient waves     waves      7  0.4   5 13    # by the sea: a wave, now and then
+ambient wind      wind       7  0.3   6 28    # high in the mountains: a gust

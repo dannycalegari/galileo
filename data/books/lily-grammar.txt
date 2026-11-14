@@ -1,0 +1,60 @@
+# William Lily's grammar, "A Short Introduction of Grammar", the only Latin grammar allowed in English
+# schools since Henry VIII: its title, the English introduction to the parts of speech, the verses on
+# genders ("Propria quae maribus") and Lily's verses on a schoolboy's manners. In English and Latin, as
+# printed (the wording as in the editions of the 1600s; spelling lightly modernised). Reading it to
+# the end teaches Latin.
+book lily-grammar
+language english
+title A Short Introduction of Grammar
+
+page
+A SHORT //
+INTRODUCTION //
+OF //
+GRAMMAR, //
+generally to be used: //
+
+Compiled and set forth for the bringing up of all those that intend to attain to the knowledge of the Latin tongue. //
+
+[A small worn quarto, chained like everything else in the room. Every English schoolboy learns from it, from the age of seven, by heart; this copy has been beaten into shape by a whole school before it came here.]
+
+page
+AN INTRODUCTION OF THE EIGHT PARTS OF LATIN SPEECH. //
+
+In Speech be these eight Parts following: //
+Noun, Pronoun, Verb, Participle, declined; //
+Adverb, Conjunction, Preposition, Interjection, undeclined. //
+
+OF A NOUN. //
+
+A Noun is the name of a thing that is, and may be seen, felt, heard, or understood: as the name of my hand in Latin is manus; the name of an house is domus; the name of goodness is bonitas.
+
+page
+Of Nouns, some be Substantives, and some be Adjectives.
+
+A Noun Substantive is that standeth by himself, and requireth not another word to be joined with him to shew his signification: as homo, a man.
+
+A Noun Substantive either is Proper to the thing that it betokeneth, as Edwardus is my proper name; or else is Common to more, as homo is a common name to all men.
+
+A Noun Adjective is that cannot stand by himself, but requireth to be joined with another word: as bonus, good; pulcher, fair.
+
+page
+PROPRIA QUAE MARIBUS. //
+
+Propria quae maribus tribuuntur, mascula dicas: //
+Ut sunt divorum; Mars, Bacchus, Apollo: virorum; //
+Ut Cato, Virgilius: fluviorum; ut Tibris, Orontes: //
+Mensium; ut October: ventorum; ut Libs, Notus, Auster. //
+
+[The verses go on for pages: which nouns are masculine, which feminine, which neither, and every exception, to be chanted aloud. In the margin a boy has written "Thomas Kyte his book, 1601", and under it "and a vile book it is".]
+
+page
+CARMEN DE MORIBUS. //
+
+Qui mihi discipulus, puer, es, cupis atque doceri, //
+Huc ades, haec animo concipe dicta tuo. //
+Mane citus lectum fuge, mollem discute somnum; //
+Templa petas supplex, et venerare Deum. //
+
+[You sit over the grammar through the afternoon, declining and conjugating under your breath, as English boys do for seven years. At the end you can make out a page of Latin, slowly, with your finger under the words.]
+{player learn latin}

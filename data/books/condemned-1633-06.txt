@@ -1,0 +1,12 @@
+# What nearly happened: the sentence on a relapsed heretic, had the forged and signed injunction
+# been believed. Written for the game.
+book condemned-1633-06
+language english
+title The sentence, Santa Maria sopra Minerva, 22 June 1633
+
+page
+[The church is full, and very quiet. The notary reads for a long time. The words you hear are "relapsed", and "a signed acknowledgement of the year sixteen", and "contumacious". There is no abjuration to save him: a man who swore in 1616 to obey, and signed it, and then wrote the book, is not suspected of heresy. He is a heretic who has relapsed.]
+
+[The Pope, they say afterwards, remembered that they had once been friends, and would not give him to the secular arm and the fire. The sentence is perpetual prison, in the Holy Office's own cells, at His Holiness's pleasure. Galileo does not kneel quickly enough, and two lay brothers help him down.]
+
+[The paper that did it is signed "Galileo Galilei", in a hand very like his own.]

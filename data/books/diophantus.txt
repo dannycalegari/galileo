@@ -1,0 +1,53 @@
+# Diophantus, Arithmetica, in Bachet's Greek and Latin edition (Paris, 1621): its title page,
+# Question VIII of Book II, and Fermat's note in its margin; the English is ours.
+book diophantus
+language latin
+title Diophanti Alexandrini Arithmeticorum libri sex | The Six Books of Arithmetic of Diophantus of Alexandria
+
+page
+DIOPHANTI //
+ALEXANDRINI //
+ARITHMETICORVM LIBRI SEX, //
+ET DE NVMERIS MVLTANGVLIS LIBER VNVS. //
+
+Nunc primùm Græcè & Latinè editi, atque absolutissimis Commentariis illustrati. //
+
+Auctore CLAVDIO GASPARE BACHETO MEZIRIACO Sebusiano, V. C. //
+
+LVTETIÆ PARISIORVM, //
+M. DC. XXI.
+=
+THE SIX BOOKS OF ARITHMETIC //
+OF DIOPHANTUS OF ALEXANDRIA, //
+AND ONE BOOK ON POLYGONAL NUMBERS, //
+
+now first published in Greek and Latin, and illustrated with the most complete commentaries, //
+
+by CLAUDE GASPARD BACHET DE MÉZIRIAC, of Bourg-en-Bresse. //
+
+PARIS, //
+1621.
+
+page
+QVÆSTIO VIII. //
+
+Propositum quadratum diuidere in duos quadratos. //
+
+[...]
+
+In margine, manu Domini de Fermat: //
+Cubum autem in duos cubos, aut quadratoquadratum in duos quadratoquadratos, & generaliter nullam in infinitum vltra quadratum potestatem in duos eiusdem nominis fas est diuidere: cuius rei demonstrationem mirabilem sane detexi. Hanc marginis exiguitas non caperet.
+=
+QUESTION VIII. //
+
+To divide a given square into two squares. //
+
+[...]
+
+In the margin, in Monsieur de Fermat's hand: //
+But it is impossible to divide a cube into two cubes, or a fourth power into two fourth powers, or in general any power beyond the square into two powers of the same kind; of which I have found a truly marvellous proof. This margin is too narrow to hold it.
+{player set read-margin}
+
+page image art/fermat-margin.png | Diophantus, Arithmetica, the edition of 1670 with Fermat's notes. Public domain, via Wikimedia Commons.
+=
+The page, in the edition his son printed in 1670 with the notes set in among the text.

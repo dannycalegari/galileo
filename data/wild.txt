@@ -1,0 +1,54 @@
+# The open country (main.cc, Game::wildStep): brigands on the roads, wolves and bears, deer to
+# hunt. Every 25 tiles you travel outside the towns and post houses, the game weighs what you
+# might meet. The chances are per hundred tiles travelled; a meeting needs you some way from any
+# town (brigands 30 tiles, wolves 25, bears 40, deer 15), and there is a pause after each (four
+# hours for brigands, three for wolves, ten for a bear).
+#
+#   brigands DAY NIGHT       a band of two to four on the road (half as often off the roads; more
+#                            in woods and hills)
+#   wolves NIGHT DUSK        a pack of two to four (five in winter), in woods or hills, at night,
+#                            and at dusk and dawn from November to February (less on horseback)
+#   bears CHANCE             one, in the hills or mountains
+#   deer DAY DUSK            a herd of two to five, in woods, by day; more at dusk and dawn
+#   escort F                 with a hired sword beside you, brigands come F as often (wolves half)
+#   land NAME brigands F wolves F bears F
+#                            the country's factor on each (the "country" of its nearest town's
+#                            people file; France where none is given)
+# In the prologue (a game begun as Mersenne's courier, until he has his Dialogue) there are no
+# brigands, wolves or bears: its errands need the money you carry. Deer and fish, yes.
+#
+#   royal TOWN RADIUS OWNER | NAME
+#                            the woods within RADIUS tiles of TOWN are OWNER's: a shot there may
+#                            bring a gamekeeper, and a deer is poaching (ten livres, or prison)
+
+# The default rates of brigands, wolves and bears.
+brigands 0.75 3
+wolves 2.5 1.25
+bears 0.6
+deer 12 24
+escort 0.15
+
+land France brigands 1 wolves 1.2 bears 0.3
+land Spain brigands 2 wolves 1.2 bears 0.8
+land Italy brigands 2 wolves 1 bears 0.5
+land Empire brigands 1.6 wolves 1 bears 0.8
+land Bohemia brigands 1.6 wolves 1.2 bears 0.6
+land Switzerland brigands 0.6 wolves 1 bears 1.2
+land Poland brigands 1 wolves 1.6 bears 1
+land Ottoman brigands 2 wolves 1.4 bears 1.2
+land Ragusa brigands 1.5 wolves 1 bears 1
+land England brigands 0.7 wolves 0 bears 0
+land Netherlands brigands 0.4 wolves 0.2 bears 0
+land Sweden brigands 0.3 wolves 1.5 bears 1.5
+
+# England's last wolves were gone long before 1632, and its bears long before that.
+
+royal Paris 140 the King's | the King's hunting grounds round Paris
+royal London 110 the King's | the royal forests
+royal Florence 80 the Grand Duke's | the Grand Duke's bandita
+royal Vienna 90 the Emperor's | the Emperor's hunting grounds
+royal Prague 80 the Emperor's | the Emperor's game park
+royal Nuremberg 70 the Emperor's | the Reichswald
+royal Cracow 70 the King's | the royal forest of Niepołomice
+royal Stockholm 70 the King's | the King's woods
+royal Seville 80 the Duke's | the Duke of Medina Sidonia's coto

@@ -1,0 +1,16 @@
+# A woodcutter's hut at the edge of the woods.
+style village
+ground 0.9
+margin 10
+map
+  t   t     t    t
+ t ;;;;;;;;;;;;;  t
+   ;hhhhhhhhhh;x;
+ t ;hhhhhhhhhh;;;  t
+   ;hhhhhhhhhh;x;
+   ;hhhhhhhhhh;;;
+ t ;hhhhhhhhhh;x;  t
+   ;hhhhhhhhhh;;;
+   ;;;;;;;;;;;;;;
+  t    t    t    t
+end

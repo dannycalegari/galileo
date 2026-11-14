@@ -1,0 +1,120 @@
+# The people of Leiden.
+# June 1632: Golius teaches Arabic and mathematics; the Elzevirs print their little books for all
+# Europe; Rembrandt's mother lives on by the Weddesteeg, two years a widow.
+town Leiden
+names dutch
+prison Town Hall of Leiden | They lock you in the cells under the Town Hall. A student in the next cell, there for fighting the watch, recites Horace through the wall all night. In the morning they let you both go.
+country Netherlands
+
+person golius
+  name Jacobus Golius
+  title a professor of Arabic and mathematics
+  role scholar
+  near Academy
+  work landmark Academy
+  talk
+    hello if player has:pappus-solution: You have Descartes's answer? Give it to me! {player set knows:amsterdam:descartes}
+    name: Jacobus Golius, professor of Arabic, and of mathematics since Snellius died. {name}
+    job: I teach Arabic, and the stars, and geometry; I have been to Morocco and to Aleppo, and come back with more manuscripts than I can read.
+    pappus,problem,geometry if not player carried-pappus: Pappus of Alexandria left a problem nobody has solved: given four lines, find all the points whose distances to them stand in a given ratio. I sent it to Monsieur Descartes in Amsterdam; he has not answered. Take him this copy, and stand over him until he does. {player add has:pappus 1} {player set carried-pappus} {player set knows:amsterdam:descartes}
+    give:pappus-solution: (He reads it, reads it again, and sits down.) He has done it. He gives each line a letter, and the distances become an equation, and the place of the points is a conic. With letters for lines, and x and y... This is not a solution; it is a new geometry. Here: take this, and my thanks, and come to my lectures. {take} {player add money 480} {player learn geometry}
+    arabic,manuscripts: Here is Apollonius on conics, in Arabic: three books that are lost in Greek. And here, Ibn al-Haytham on light, which Descartes ought to read before he writes any more on the rainbow. {player set knows:amsterdam:descartes}
+  end
+end
+
+person heinsius
+  name Daniel Heinsius
+  title the Librarian of the University
+  role scholar
+  near Academy
+  work landmark Academy
+  talk
+    name: Daniel Heinsius, professor of Greek and of politics, poet, and Librarian. {name}
+    job: I keep the Library: Scaliger's books, and Lipsius's, and the globes, and the students out of the cupboards.
+    galileo: Galileo? A great man for the heavens. In poetry he is a Florentine, which is to say he thinks Ariosto is better than Tasso. He is wrong.
+  end
+end
+
+person elzevir
+  name Abraham Elzevir
+  title a printer of Leiden
+  role printer
+  near Elzevirs
+  work landmark Elzevirs
+  sells book 3
+  talk
+    give:manuscript: (He weighs it in his hands, then opens it, and reads standing for a while.) Galileo's new book. (He shuts it.) It will be in type within the month, in Latin and Tuscan characters, on our best paper. Come back for your copy. {take} {player set manuscript-sent=now} {player set via-leiden}
+    book,printed,copy,discorsi,sciences if player science-printed and not player has-printed-copy: (He hands you a book still smelling of the press.) The first one off it. Take it to him. {player add has:two-new-sciences 1} {player set has-printed-copy}
+    book,printed,copy,discorsi,sciences if player manuscript-sent and not player science-printed: In the press now. Come back in a few days.
+    give:dialogue if has:dialogue >= 1: We have one, in the back. One is enough to print from.
+    give:dialogue: (He turns it over: the paper, the type, the woodcut, like a man buying a horse.) Landini prints well, for an Italian. I will keep it in the shop's own library, not for sale. If Rome bans it, as you say, then one day somebody will want it printed again, a long way from Rome; and when that day comes the Elzevirs will have the copy. {take} {player set knows:florence:landini}
+    name: Abraham Elzevir, printer to the University. {name}
+    job: We print small books, in Latin, cheaply and well: the Republics of every country in the world, one to a little volume, that a man can carry in his coat. All Europe buys them.
+    galileo,dialogue: If Signor Galileo ever needs a printer a long way from Rome, tell him the Elzevirs print what is true, and what sells, and do not ask too many questions about which is which.
+  end
+end
+
+person heurnius
+  name Otto Heurnius
+  title the keeper of the anatomy theatre
+  role physician
+  near anatomy theatre
+  work landmark anatomy theatre
+  talk
+    name: Otto Heurnius, professor of anatomy, and keeper of the theatre and its curiosities. {name}
+    job: In winter, when the bodies keep, we dissect, here in the theatre, and the town comes to watch. In summer I show the curiosities, for two sous.
+    give:money if player gift >= 24 and not player saw-theatre: (He leads you round the tiers.) Skeletons, as you see, of men and beasts, holding banners: "Pulvis et umbra sumus", we are dust and shadow; a skeleton riding a skeleton horse; an Egyptian mummy, a crocodile, a Laplander's sledge, a Chinese paper, and the skin of a thief, tanned. A lesson to us all. {take} {player set saw-theatre}
+    give:money: Thank you. The dead thank you too. {take}
+    thief,skin: A thief, hanged, and dissected, and his skin tanned like leather. You did not touch anything in the town, I hope?
+  end
+end
+
+person gardener
+  name Dirck Outgersz
+  title the gardener of the Hortus
+  role farmer
+  near Ambulacrum
+  work landmark Ambulacrum
+  talk
+    name: Dirck Outgersz, gardener of the Hortus of the University. {name}
+    job: I keep the beds: a thousand plants in squares, each with its name, for the students of medicine. And the bulbs.
+    tulip,tulips,bulb,bulbs,clusius: Old Clusius brought the first tulips here from Vienna, forty years ago, and would not sell them for any price; so they were stolen, by night, out of this very garden, and now every merchant in Holland grows them. We keep the best in the Ambulacrum now, and I sleep with one eye open.
+    hortus,garden,plants: Potatoes from Peru, the tomato that is a poison, the passion flower that shows the nails of the Cross; and a dragon tree, which bleeds red.
+  end
+end
+
+person neeltgen
+  name Neeltgen van Zuytbrouck
+  title a widow
+  role goodwife
+  sex f
+  near van Rijn
+  work none
+  talk
+    hello if player gave-mother-letter: You gave him my letter? Did he look thin? He always looks thin.
+    hello if player carried-mother-letter and not player gave-mother-letter: Have you been to Amsterdam yet, with my letter? You saw my son? Did he look thin? He always looks thin.
+    name: Neeltgen Willemsdochter van Zuytbrouck, the widow of the miller Harmen. {name}
+    job: I was a miller's wife; the mill is on the wall there, the Rijn mill, my eldest son works it. Now I keep house, and pray for my children.
+    son,sons,rembrandt,letter if not player carried-mother-letter: My Rembrandt has gone to Amsterdam, to be rich and famous, and he never writes. If you go there, take him this letter, and tell him to eat. {player add has:mother-letter 1} {player set carried-mother-letter}
+    son,sons,rembrandt,letter: He painted me reading my Bible, last year, with my nose in it. He made me look a hundred. I am sixty-four.
+  end
+end
+
+person fleecehost
+  name Gerrit van Dam
+  title the host of the Golden Fleece
+  role innkeeper
+  near Golden Fleece
+  talk
+    name: Gerrit van Dam, host of the Golden Fleece. {name}
+    students: Students! They drink, they fight the watch, they sing in Latin under the windows of the professors' daughters. And they pay, eventually.
+  end
+end
+
+crowd 4 student
+crowd 1 scholar
+crowd 2 goodwife
+crowd 2 labourer
+crowd 1 merchant
+crowd 2 guard
+crowd 1 herdsman

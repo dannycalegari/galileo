@@ -1,0 +1,121 @@
+# Galileo's first examination, 12 April 1633, seen from Fra Bartolomeo's closet (data/people/rome.txt,
+# hide-ok), played by the beat of that day (events.txt beat-hearing-seen). The words are our English,
+# shortened, of the record (Le opere di Galileo Galilei, ed. naz. XIX, pp. 336-342; the Italian in
+# sources/trial/). After it, if the forgery is not yet stopped, Arellano comes to the notary (our
+# invention): what you overhear is the plot of the next days (overheard-plot: Morales).
+# Format as data/scenes.txt, with "date YYYY-MM-DD" and "if CONDITIONS" (as in stories.txt).
+
+scene
+  id hearing-1633-04-12-1
+  in Rome
+  date 1633-04-12
+  time 10:00
+  look table:the_palace_of_the_Holy_Office+4,-0.8 yaw 22 pitch 58 zoom 3.6 roofs
+  rome:maculano table:the_palace_of_the_Holy_Office+1,-0.65 seated facing S
+  rome:sinceri table:the_palace_of_the_Holy_Office+3,-0.65 seated facing S
+  rome:notary table:the_palace_of_the_Holy_Office+4.75,0 seated facing W
+  rome:galileo table:the_palace_of_the_Holy_Office+-1,0 facing E
+  you table:the_palace_of_the_Holy_Office+7,-2 youth hat kneeling facing W
+  caption Tuesday, 12 April 1633. Through the grille of Fra Bartolomeo's closet you can see the Commissary's room: Father Vincenzo *Maculano* at the table, the Fiscal Carlo Sinceri beside him, a notary writing. Galileo, seventy years old, swears on the Gospels to tell the truth.
+end
+
+scene
+  id hearing-1633-04-12-2
+  in Rome
+  date 1633-04-12
+  time 10:15
+  look table:the_palace_of_the_Holy_Office+2.5,0.4 yaw 30 pitch 50 zoom 2.7 roofs
+  rome:maculano table:the_palace_of_the_Holy_Office+1,-0.65 seated facing S
+  rome:sinceri table:the_palace_of_the_Holy_Office+3,-0.65 seated facing S
+  rome:notary table:the_palace_of_the_Holy_Office+4.75,0 seated facing W
+  rome:galileo table:the_palace_of_the_Holy_Office+-1,0 facing E
+  caption "How, and since when, is he in Rome?" "I arrived in Rome on the first Sunday of Lent, and I came in a litter." "Does he know why he was ordered to come?" "I imagine it was to give an account of my book, lately printed." They show him the *Dialogue*. "I know this book very well. I acknowledge it as mine, and composed by me."
+end
+
+scene
+  id hearing-1633-04-12-3
+  in Rome
+  date 1633-04-12
+  time 10:40
+  look table:the_palace_of_the_Holy_Office+2.5,0.4 yaw 30 pitch 50 zoom 2.7 roofs
+  rome:maculano table:the_palace_of_the_Holy_Office+1,-0.65 seated facing S
+  rome:sinceri table:the_palace_of_the_Holy_Office+3,-0.65 seated facing S
+  rome:notary table:the_palace_of_the_Holy_Office+4.75,0 seated facing W
+  rome:galileo table:the_palace_of_the_Holy_Office+-1,0 facing E
+  caption "In February of 1616 Cardinal *Bellarmine* told me that the opinion of Copernicus, taken absolutely, is contrary to the Holy Scriptures, and may be neither held nor defended; but that it might be taken as a supposition, and made use of." He lays a copy of the Cardinal's certificate on the table.
+end
+
+scene
+  id hearing-1633-04-12-4
+  in Rome
+  date 1633-04-12
+  time 11:00
+  look table:the_palace_of_the_Holy_Office+2.5,0.4 yaw 30 pitch 50 zoom 2.7 roofs
+  rome:maculano table:the_palace_of_the_Holy_Office+1,-0.65 seated facing S
+  rome:sinceri table:the_palace_of_the_Holy_Office+3,-0.65 seated facing S
+  rome:notary table:the_palace_of_the_Holy_Office+4.75,0 seated facing W
+  rome:galileo table:the_palace_of_the_Holy_Office+-1,0 facing E
+  caption Maculano reads from a paper of that February: that he was commanded "not to hold, defend or teach it in any way whatever". Galileo is silent a moment. "I do not remember the words 'teach' and 'in any way whatever'. It may be that they were there."
+end
+
+scene
+  id hearing-1633-04-12-5
+  in Rome
+  date 1633-04-12
+  time 11:30
+  look table:the_palace_of_the_Holy_Office+2.5,0.4 yaw 30 pitch 50 zoom 2.7 roofs
+  rome:maculano table:the_palace_of_the_Holy_Office+1,-0.65 seated facing S
+  rome:sinceri table:the_palace_of_the_Holy_Office+3,-0.65 seated facing S
+  rome:notary table:the_palace_of_the_Holy_Office+4.75,0 seated facing W
+  rome:galileo table:the_palace_of_the_Holy_Office+-1,0 facing E
+  caption "When he asked leave to print the book, did he tell the Master of the Sacred Palace of this command?" "I said nothing, because I did not think it necessary. In that book I have neither held nor defended the opinion that the Earth moves: I show the contrary, that the reasons of Copernicus are invalid and not conclusive."
+end
+
+scene
+  id hearing-1633-04-12-6
+  in Rome
+  date 1633-04-12
+  time 12:00
+  leave door:the_palace_of_the_Holy_Office
+  look table:the_palace_of_the_Holy_Office+4,-0.8 yaw 22 pitch 58 zoom 3.6 roofs
+  rome:notary table:the_palace_of_the_Holy_Office+4.75,0 seated facing W
+  you table:the_palace_of_the_Holy_Office+7,-2 youth hat kneeling facing W
+  caption They give him a room in the officials' quarters of the palace, for his prison, and swear him to silence, and he is led away. The notary stays behind at his end of the table, sanding his pages.
+end
+
+scene
+  id hearing-1633-04-12-7
+  if player overheard-plot
+  in Rome
+  date 1633-04-12
+  time 12:10
+  look table:the_palace_of_the_Holy_Office+5,0 yaw 30 pitch 52 zoom 2.0 roofs
+  rome:notary table:the_palace_of_the_Holy_Office+4.75,0 seated facing W
+  rome:arellano table:the_palace_of_the_Holy_Office+6,-1 facing SW
+  caption Then the other door opens without a knock, and a man in black with a gold chain comes in: Don Luis de *Arellano*. "Well?" "He remembers nothing of 'teach', nor of 'in any way whatever'." "Good. Let him not remember. In ten days the Congregation will have a paper that remembers for him."
+end
+
+scene
+  id hearing-1633-04-12-8
+  if player overheard-plot
+  in Rome
+  date 1633-04-12
+  time 12:15
+  look table:the_palace_of_the_Holy_Office+5,0 yaw 30 pitch 52 zoom 2.0 roofs
+  rome:notary table:the_palace_of_the_Holy_Office+4.75,0 seated facing W
+  rome:arellano table:the_palace_of_the_Holy_Office+6,-1 facing SW
+  caption A purse lies on the record. "One thing more. The Granadino, *Morales*, at the Orso: he drinks, and when he drinks he talks about his son. Tomorrow night, when the Orso shuts, two of my people will walk him down to the river. A drowned scrivener is no news in Rome."
+end
+
+scene
+  id hearing-1633-04-12-9
+  if player overheard-plot
+  in Rome
+  date 1633-04-12
+  time 17:30
+  leave door:the_palace_of_the_Holy_Office
+  look table:the_palace_of_the_Holy_Office+4,-0.8 yaw 22 pitch 58 zoom 3.6 roofs
+  rome:notary table:the_palace_of_the_Holy_Office+4.75,0 seated facing W
+  you table:the_palace_of_the_Holy_Office+7,-2 youth hat kneeling facing W
+  caption "I did not hear that." "No. Nobody heard it." The door closes behind him. You wait in the dark among the brooms until the bell rings for Vespers, and Fra Bartolomeo lets you out by the kitchen door. Tomorrow night, when the Orso shuts: that is ten o'clock tomorrow.
+end

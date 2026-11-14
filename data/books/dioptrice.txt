@@ -1,0 +1,57 @@
+# Johannes Kepler, Dioptrice (Augsburg, David Franck, 1611): the theory of the spyglass. Its title page,
+# Galileo's letters printed in the preface (Saturn threefold, "oOo", and the solution of his anagram on
+# Venus), the first definition and axiom, and Problem 86, the telescope of two convex lenses. The
+# Latin is Kepler's (the Internet Archive's scan of the Toronto copy); the English is ours. Reading it,
+# with Latin, teaches optics.
+book dioptrice
+language latin
+title Ioannis Kepleri Dioptrice | The Dioptrice of Johannes Kepler
+
+page image art/dioptrice-title.png | The Strahov Library's copy, photographed by chlup.net. Public domain, via Wikimedia Commons.
+IOANNIS KEPLERI Sae. Cae. Mtis. MATHEMATICI DIOPTRICE SEU Demonstratio eorum quae visui & visibilibus propter Conspicilla non ita pridem inventa accidunt. Augustae Vindelicorum, typis Davidis Franci. M.DCXI.
+=
+The title page: the Dioptrice of Johannes Kepler, Mathematician to His Imperial Majesty, or a demonstration of what happens to sight and to things seen because of the spyglasses lately invented; with Galileo's letters on the new things seen in the sky since the Starry Messenger. Augsburg, printed by David Franck, 1611.
+
+page
+Literae itaque inter se connexae, ut oportet, hoc dictant: //
+ALTISSIMUM PLANETAM TERGEMINUM OBSERVAVI. //
+
+Nimirum Saturnum summa cum admiratione deprehendi non unam solam esse stellam, sed tres inter se proximas, adeo ut sese mutuo quasi contingant. Immobiles sunt inter se prorsus, & compositae in hunc modum oOo. Earum media multo est major extremis.
+
+[...] Haec immatura a me iam frustra leguntur, o. y. ordinate: Cynthiae figuras aemulatur mater amorum.
+=
+The letters, then, joined together as they should be, say this: //
+I HAVE OBSERVED THE HIGHEST PLANET THREEFOLD. //
+
+That is, to my great wonder I have found that Saturn is not one single star but three, so close together that they almost touch one another. They do not move among themselves at all, and they stand like this: oOo. The middle one is much larger than the two at the ends.
+
+[...] "These unripe things are read by me now in vain", put in order: The mother of loves imitates the shapes of Cynthia.
+
+[Galileo's letters, which Kepler printed at the front of his book. He hid each discovery in a jumble of letters, so that nobody could claim it before him; the second means that Venus has phases, like the Moon.]
+
+page
+I. DEFINITIO. //
+Inclinatio super superficiem, sumitur de angulo inter perpendicularem superficiei, & quemcunque alium radium, qui perpendicularem secat in puncto superficiei. //
+
+II. AXIOMA OPTICUM. //
+Radii in medium densius ingressi cum inclinatione refringuntur, & refracti intra corpus accedunt versus perpendicularem erectam super densi superficiem in puncto incidentis radii. Iidem egressi ex medio densiori refringuntur, & refracti extra corpus densum discedunt ab hac perpendiculari.
+=
+I. DEFINITION. //
+The inclination to a surface is taken from the angle between the perpendicular to the surface and any other ray that cuts the perpendicular at a point of the surface. //
+
+II. OPTICAL AXIOM. //
+Rays that enter a denser medium slantwise are refracted, and once refracted, inside the body, they come nearer to the perpendicular raised on the surface of the denser body at the point where the ray falls. The same rays, going out of the denser medium, are refracted, and once refracted, outside the dense body, they go away from that perpendicular.
+
+page
+LXXXVI. PROBLEMA. //
+Duobus convexis majora & distincta praestare visibilia, sed everso situ. //
+
+Duo convexa sint sic disposita ad oculum, ut remotius solitarie ad oculum mittat imaginem eversam, non tamen distinctam [...] Interponatur deinde lens propinquior inter lentem illam priorem & oculum [...] Ergo quia a remotiore lente divergentia nimis est magna, hic jam a propiore convergentia contraria illi nimiae divergentiae medebitur, ut ita correcta & emendata accedat ad oculum ad distinctam visionem praestandam.
+=
+86. PROBLEM. //
+With two convex lenses, to show visible things larger and distinct, but upside down. //
+
+Let two convex lenses be so placed before the eye that the farther one, by itself, sends the eye an image upside down, but not distinct [...] Then put the nearer lens between that first lens and the eye [...] So, since the rays from the farther lens spread too much, the contrary convergence of the nearer lens will cure that excess, so that they come to the eye corrected and amended, and give it distinct sight.
+
+[Not Galileo's glass, with a hollow lens at the eye, but a new one: two round lenses, and the world upside down and larger. You work through Kepler's figures with a pencil until you can see, without the book, where each ray of light must go through a lens.]
+{player learn optics}

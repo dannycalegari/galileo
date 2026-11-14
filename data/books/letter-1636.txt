@@ -1,0 +1,18 @@
+# Written for the game in the manner of the letters of the time, not a translation: our own
+# words, with the facts of the day.
+book letter-1636
+language english
+title Galileo to Elia Diodati, October 1636
+
+page
+Most Illustrious Signor Elia, //
+
+The book is finished, or as nearly finished as anything of mine will ever be: two new sciences, of the strength of materials and of local motion, in four days of dialogue, with my old Salviati, Sagredo and Simplicio, who have learnt manners. It is the best thing I have done. I may print nothing, anywhere, by order; so it must be printed somewhere where orders do not reach, and appear to have been printed without me.
+
+Louis Elzevir is in Italy, and has been at Venice; the comte de Noailles, my old pupil at Padua and now France's ambassador at Rome, will pass by on his way home. Either of them, or a messenger I trust, may carry it north. My eyes are going: there is one fair copy, and if it is lost I cannot make another.
+
+I am writing also to the States of Holland, about the longitude. //
+
+Your most affectionate servant, //
+Galileo Galilei //
+Arcetri, the first of October 1636

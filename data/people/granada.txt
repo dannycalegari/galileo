@@ -1,0 +1,120 @@
+# The people of Granada.
+# June 1632: Granada fell to the Catholic Kings in 1492; the Moriscos, the Moors made Christian,
+# were driven out of Spain twenty years ago. The Alhambra is the King's, kept by an alcaide; the
+# Archbishop fights Rome over the lead books found in the caves of the Sacromonte, written in an
+# Arabic that nobody can read.
+town Granada
+names spanish
+prison Royal Chancery | They lock you in the cells of the Royal Chancery. A notary writes down your name, your father's name, your grandfather's, and whether any of them was a Moor or a Jew. In the morning they let you go.
+country Spain
+
+person morisco
+  name Old Hernando
+  title an old man
+  role beggar
+  near San Salvador
+  talk
+    name: Hernando. That is my Christian name. My grandfather's name you do not need. {name}
+    job: I sit in the Albaicin and look at the Alhambra. When the Moriscos were driven out I was hidden by a priest, God reward him, and I have been a good Christian ever since, and an old one.
+    alhambra,walls,writing,inscription: The walls of the Alhambra are covered with writing, in plaster, and nobody in Granada can read it any more but me. Do you know what it says, everywhere, over and over? "There is no conqueror but God." The Christians walk past it every day.
+    arabic,lesson,learn,read if player skill:arabic: Read the walls, then. Slowly. They are poems, most of them, praising the rooms you stand in.
+    arabic,lesson,learn,read: You want to read the old letters? Nobody has asked me that in twenty years. Sit, then. For a sou of bread I will show you how they join, and how the poems go.
+    give:money if player gift >= 12 and not player skill:arabic: (Day after day, in the dust, he draws the letters with a stick, and you begin to see words in the patterns.) Now go up to the palace and read. {take} {player learn arabic}
+    lead,books,sacromonte: The lead books of the Sacromonte! Found in the caves forty years ago, in an Arabic that is not Arabic, saying that Saint James preached here and the Virgin spoke Arabic. The Archbishop believes them. I could tell him who made them. I will not.
+    traveller,tales,future: One day, they say, a traveller will come from a land that has not been founded yet, and sleep in the palace, and write down our stories. Let him. Somebody should.
+  end
+end
+
+person alcaide
+  name Don Luis de Mendoza
+  title the alcaide's lieutenant
+  role knight
+  near Court of the Myrtles
+  work landmark Torre de la Vela
+  talk
+    name: Luis de Mendoza, lieutenant of the alcaide of the Alhambra, for the Marquis of Mondejar, whose family has kept it for the King since the Conquest. {name}
+    job: I keep the keys of the Alhambra, its towers and its cisterns, and a garrison of forty old soldiers who sleep in the sun. The Emperor Charles built his palace here, round as a wheel inside, and never finished it. Nobody has the money.
+    lions,court,fountain: The Court of the Lions: twelve lions of stone holding up a fountain. They say a clock was made of it once, that each lion spouted at its hour. Now they all spout together, when the water comes.
+  end
+end
+
+person silk
+  name Doña Leonor de Baeza
+  title a silk merchant of the Alcaiceria
+  role merchant
+  sex f
+  look coat #6A1A2A legs #2A1A1A hat coif #F2EEE6 dress
+  near Alcaiceria
+  work landmark Alcaiceria
+  money 9600
+  talk
+    name: Leonor de Baeza, widow, and silk merchant, as my husband was. {name}
+    job: Granada silk, from the mulberries of the Alpujarras: the Moors brought the worms, and when the Moriscos went, half the looms went with them. What is left is the best in Spain.
+    silk,alpujarras: The Alcaiceria was the Moors' silk market, and it is ours now, with the same little shops and the same gates shut at night. The silk is cheaper here than in Toledo, and better.
+  end
+end
+
+person gitano
+  name Juan Heredia
+  title a gypsy of the Sacromonte
+  role musician
+  near San Salvador
+  talk
+    name: Juan Heredia, of the caves of the Sacromonte. {name}
+    job: I shoe horses, I trade horses, and at night I play and my sisters dance, in the caves, for any Christian who will pay. The magistrates say we are idlers. They come to watch.
+    caves,sacromonte: The caves are cool in summer and warm in winter, and the walls are white, and the copper pots shine. The lead books were found in a cave up the hill. We knew they were there. Nobody asked us.
+  end
+end
+
+person canon
+  name Don Pedro de Castro
+  title a canon of the Capilla Real
+  role priest
+  near Capilla Real
+  work landmark Capilla Real
+  talk
+    morales,andres,granadino,lead,books if player ch3-open and not player ch3-over: Andrés Morales? He worked on the lead books of the Sacromonte when he was a boy, cutting the letters, for the men who made them. The old Archbishop believed in them to his death. Andrés's wife lives in the Albaicín still, by San Salvador. {player set knows:rome:morales}
+    name: Pedro de Castro, canon of the Royal Chapel. {name}
+    job: I say masses for the souls of the Catholic Kings, Ferdinand and Isabella, who lie here as they asked, in the city they took from the Moors, with their daughter Juana and her husband Philip beside them.
+    kings,tombs,ferdinand,isabella: Their marble effigies lie on the tomb, side by side, carved by a Florentine; the Kings themselves lie below in lead coffins. Isabella's crown and Ferdinand's sword are in the sacristy. Every second of January we carry the banner of the Conquest through the city.
+  end
+end
+
+person waterman
+  name Antonio el Aguador
+  title a water-carrier
+  role labourer
+  look coat #6A5A42 legs #4A4234 hat cap #5A4E3C
+  near Corral del Carbon
+  work square
+  talk
+    name: Antonio, water-seller. {name}
+    job: I fill my jars at the springs of the Alhambra, where the Moors brought the water down from the Sierra in channels, and I sell it in the city by the cup. The best water in Spain, from snow.
+    water,snow,sierra: The Sierra Nevada keeps its snow all summer. In August the snow-men bring it down by night on mules, wrapped in straw, for the gentlemen's sherbets.
+  end
+end
+
+crowd 3 goodwife
+crowd 3 labourer work square
+crowd 2 merchant
+crowd 2 guard
+crowd 1 student
+crowd 1 beggar
+crowd 1 innkeeper
+crowd 1 changer
+crowd 1 herdsman
+
+person leonor
+  name Leonor Morales
+  title a weaver's widow, or nearly
+  role goodwife
+  near San Salvador
+  work landmark San Salvador
+  talk
+    hello if player juanico-free: (A small woman in a black shawl, with her son beside her, holding her sleeve as if he were six.) You are the one who brought my Juan home. (She takes your hands.) God and the Prophet and all the saints keep you. I do not mind which.
+    name: Leonor, Andrés Morales's wife, in the Albaicín. {name}
+    job: I weave, and wait. My husband is in Rome, and my son was taken to Seville. Men come and tell me it is for their good.
+    andres,husband,morales: He was the best letter-cutter in Granada, once, and he used it to lie for good causes. Now he lies for bad ones, because they pay. He is not a wicked man. He is a frightened one.
+    juanico,son,juan,boy if not player juanico-free: In Seville, in a rich man's house, as a page. They say he is happy. He writes that he is happy. He does not write like a happy boy.
+  end
+end

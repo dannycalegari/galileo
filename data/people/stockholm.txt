@@ -1,0 +1,154 @@
+# The people of Stockholm.
+# June 1632: the King is in Germany, at Nuremberg, and the Queen, Maria Eleonora, has gone to join
+# him; their daughter Christina, five and a half, is at Tre Kronor in the care of the King's
+# half-sister, Princess Catherine, Countess Palatine; the council governs at home; Louis De Geer,
+# of Liege and Amsterdam, casts the King's guns and sells his copper. Every parish gives one man
+# in ten, and the recruits sail from here for Stralsund to fill the King's regiments.
+town Stockholm
+names swedish
+prison Tre Kronor | They lock you in a cellar of Tre Kronor, under the castle, where the water of the Norrstrom comes through the stones. In the morning they let you go, with a warning in Swedish that you do not understand.
+country Sweden
+
+person catherine
+  name Princess Catherine
+  title the King's sister, Countess Palatine
+  role prince
+  sex f
+  look coat #2A2A3E legs #2A2A3E hat coif #F0ECE2 dress
+  near Tre Kronor
+  work landmark Tre Kronor, the King's castle
+  talk
+    name: Catherine, daughter of King Charles, sister of the King, wife of the Count Palatine John Casimir. {name}
+    job: I keep the King's daughter while her mother is in Germany with him, and my own children with her, and the castle, and my temper.
+    christina,princess,daughter: She is five, and she will be Queen. Her father has her taught as if she were a prince: Latin, history, riding, and the Bible. She learns faster than my son did, and he is nine. She asks every day for news of her father.
+    queen,mother,maria,eleonora: The Queen has gone to Germany to be near the King. She did not take the child. She cried when she left; the child did not.
+    king,brother,gustavus: My brother writes when he can. He is at Nuremberg, behind his ramparts, and the Emperor's general sits on a hill in front of him. That is all he tells me; the rest I read in the broadsheets from Hamburg.
+  end
+end
+
+person christina
+  name Princess Christina
+  title the King's daughter
+  role prince
+  sex f
+  look coat #3A5A9A legs #2A2A3E hat none dress child
+  near Tre Kronor
+  work landmark Tre Kronor, the King's castle
+  talk
+    # she asks a traveller herself to carry her letter to her father, while he is at Nuremberg
+    hello if not player carried-christina-letter and not player gave-king-letter and not player event:siege-ends and not player king-dead: (A small girl in a blue dress looks up at you, very straight, as if she were the one deciding whether you may speak.) You have mud on your boots: you are a traveller. Are you going to Germany? My father is in Germany, at Nuremberg, fighting for God. I have drawn him a lion. Will you *take* it to him? {set offered-letter=now}
+    yes,take,=i will,deal,germany,nuremberg if recent:0.05 offered-letter and not player carried-christina-letter: (She runs off, and comes back with a folded paper.) It is a lion. He is the Lion of the North; everybody says so. My aunt sealed it. You must give it to him yourself, into his hands, not to a soldier. {player add has:christina-letter 1} {player set carried-christina-letter} {player set knows:nuremberg:gustavus} {unset offered-letter}
+    no,=not now,=not yet if recent:0.05 offered-letter: (She looks at you a long moment.) Then I shall wait for somebody who is. {unset offered-letter}
+    # her letter, if the King has gone from Nuremberg before it reached him (or is dead)
+    give:christina-letter if not player event:siege-ends and not player king-dead: (She puts her hands behind her back.) No. It is for Papa, into his own hands. At Nuremberg.
+    give:christina-letter if player king-dead: (She takes it, and looks at the lion for a long time.) He never saw it. (She folds it very small.) I shall keep it in my Bible. {take} {player set christina-letter-back}
+    give:christina-letter: (She takes it back, frowning.) You did not find him? Then the ship shall take it, and the letters will go round after him until they find him. {take} {player set christina-letter-back}
+    give:king-letter if player king-dead: (She breaks the seal herself, and reads it, slowly, moving her lips, and then reads it again.) He says I am to be good and learn my Latin, and that he will come home when the war is over, and bring me a horse. (She folds it very small, and does not cry.) I shall keep it in my Bible. {take} {player set gave-king-letter}
+    give:dialogue if has:dialogue >= 1: I have one already. I am learning the Italian to read it.
+    give:dialogue: (She opens it on the floor and turns the pages, frowning at the Italian.) I shall learn this language, and read it all. Papa says I may read anything I can understand. {take}
+    father,papa,king if player king-dead: (She stands very straight.) My father was killed at Lützen, in the fog. I am the Queen now. I am six. The Chancellor says I must not cry in front of the ambassadors, so I do it afterwards.
+    hello: (A small girl in a blue dress looks up at you, very straight, as if she were the one deciding whether you may speak.)
+    name: I am Christina. My father is the King. {name}
+    job: I learn Latin. Amo, amas, amat. And I learn to ride; I have a pony called Peder. When I am big I shall have a real horse and go to Germany too.
+    give:king-letter: (She breaks the seal herself, and reads it, slowly, moving her lips, and then reads it again.) He says I am to be good and learn my Latin, and that he will come home when the war is over, and bring me a horse. (She folds it very small.) I shall keep it in my Bible. {take} {player set gave-king-letter}
+    father,papa,king,germany,letter if player carried-christina-letter and player has:christina-letter and player event:siege-ends: (She looks at the letter in your hand.) You did not find him. He has gone on, further into Germany. Give it back to me, and I shall send it by the ship.
+    father,papa,king,germany,letter if player event:siege-ends and not player carried-christina-letter: Papa has gone on, further into Germany, with all his army. Aunt says the letters go round and round after him, and find him in the end.
+    father,papa,king,germany,letter if player gave-king-letter: Papa is coming home when the war is over. He said so. In writing.
+    father,papa,king,germany,letter if player carried-christina-letter: Have you given it to him? You must give it to him yourself, into his hands, not to a soldier.
+    father,papa,king,germany,letter: Papa is in Germany, fighting for God. Are you going to Germany? (She runs off, and comes back with a folded paper.) Then take him this. It is a lion. He is the Lion of the North; everybody says so. My aunt sealed it. {player add has:christina-letter 1} {player set carried-christina-letter}
+    lion,drawing: It is a lion with a crown, and a sword, and that is a Croat running away.
+    latin,lesson: Amo, amas, amat, amamus, amatis, amant. Now you.
+  end
+end
+
+person oxenstierna
+  name Gabriel Gustafsson Oxenstierna
+  title of the King's council
+  role scholar
+  look coat #1E1E22 legs #1E1E22 hat hat #1A1A1E
+  near Tre Kronor
+  work landmark Tre Kronor, the King's castle
+  talk
+    name: Gabriel Gustafsson Oxenstierna, of the council of the realm; my brother is the Chancellor, with the King in Germany. {name}
+    job: While the King fights, the council finds him the money and the men. The copper of Falun pays for the regiments, and the parishes give the men, one in ten. Some parishes have no men left to give.
+    war,cost,money,copper: Copper, iron, tar, and the tolls of the Prussian ports: that is how a kingdom of a million peasants pays for an army in the middle of Germany. And the French pay a subsidy, for the pleasure of seeing the Emperor beaten by Lutherans.
+    recruits,conscription,soldiers,men: One man in ten, chosen by the parish. They sail from here to Stralsund, and walk from there to wherever the King is. Most of them do not come back; the sickness takes more than the Croats.
+  end
+end
+
+person degeer
+  name Louis De Geer
+  title a merchant of Liege and Amsterdam
+  role merchant
+  look coat #2A2A2E legs #1E1E22 hat hat #1A1A1E
+  near German church
+  work quay
+  sells copper 3 bar-iron 4 tar 4
+  money 48000
+  talk
+    name: Louis De Geer, of Liege, of Amsterdam, and now, God help me, of Stockholm. {name}
+    job: I cast the King's guns at my foundries in Ostergotland, and I sell his copper in Amsterdam, and I lend him money against the copper, and he pays me with the copper I have already sold. It is a circle, and I am in the middle of it.
+    guns,cannon,foundry,iron: Cast iron guns, light enough for a regiment to drag along, and cheap enough to lose. The King's little guns won him Breitenfeld. I brought Walloon smiths from Liege to make them; the Swedes thought they were sorcerers.
+    give:degeer-packet: (He breaks the seal on the quay, reads, and laughs.) My factor at Paris has sold the King's copper to the French, and the French have paid for it with the King's own subsidy. It is a circle. (He counts coins into your hand.) Six livres, as he promised you. And if you are going on to the King in Germany, the princess at the castle sends him a letter by every ship. {take} {player add money 1440} {player set degeer-delivered} {player set knows:stockholm:christina}
+    copper,falun: The great mine at Falun: a hole in the ground so large you can lose a church in it. Copper is Sweden's silver. Buy it here; sell it in Amsterdam, if you can carry it.
+  end
+end
+
+person recruiter
+  name Lieutenant Anders Månsson
+  title an officer of the recruits for Germany
+  role guard
+  look coat #3A5A9A legs #2A2A3A hat hat #2A2A2A
+  near Tre Kronor
+  work quay
+  talk
+    name: Anders Månsson, lieutenant, of the recruits. {name}
+    job: I take the men the parishes send, a hundred at a time, and put them on the ships for Stralsund, and teach them which end of a pike to hold on the voyage. In Germany they will fill the places of the dead.
+    recruits,ship,stralsund,germany: The next ship sails when the wind is in the west. Six days to Stralsund, if God is kind, and then they walk south to wherever the King is: Nuremberg, this summer. Half of them have never seen a town.
+    vasa: Do not talk to the sailors about the Vasa.
+  end
+end
+
+# the way back to Danzig: the post ship (danzig.txt swedeship goes the other way)
+person danzigship
+  name Mats Andersson
+  title the master of the Danzig post ship
+  role sailor
+  near Storkyrkan
+  work quay
+  says Danzig! Who sails for Danzig?
+  talk
+    name: Mats Andersson, master of the King's post ship. {name}
+    job: I carry the King's letters and his money between Stockholm and Danzig, and anyone who can pay: two livres, and as much again for a horse. Three days, if the wind serves.
+    take,yes,deal,aboard,sail,=i will if recent:0.05 offered-passage and player money >= 480: Aboard, then. {passage 480 4320 Danzig}
+    passage,ship,boat,sail,danzig,gdansk,poland,=crossing,voyage,home if player money >= 480: For Danzig? Two livres, three days at sea if the wind serves. From Danzig the roads go everywhere. Will you *sail*? {set offered-passage=now}
+    # no road leaves Stockholm: a traveller without the fare works the passage instead
+    passage,ship,boat,sail,danzig,gdansk,poland,=crossing,voyage,home: For Danzig? Two livres, three days at sea if the wind serves. (He looks at your purse, and then at your hands.) No money? Then work your passage: hauling, pumping and scrubbing, and you eat what the crew eats. Will you *work* it? {set offered-work=now}
+    work,yes,deal,take,=i will if recent:0.05 offered-work: Good. You will be sorry by the second day. Aboard, then. {passage 0 4320 Danzig}
+  end
+end
+
+person ferryman
+  name Olof Persson
+  title a waterman of the Skeppsbron
+  role waterman
+  near Storkyrkan
+  talk
+    name: Olof Persson, waterman, of the Skeppsbron, these thirty years. {name}
+    job: I row people across to Sodermalm and out to the ships, and back, and I know every rock in this harbour. For Danzig, there is the King's post ship at the quay.
+    vasa,ship,wreck,sank: The Vasa. (He points out across the water.) There, off Beckholmen, not a mile from the quay. Four years ago, in August, on her first voyage, with all her flags flying and the whole town watching. A puff of wind, and she lay over, and the water came in at the gunports, and she went down like a stone with thirty men. Too tall, too narrow, and too many guns; the King wanted two decks of them. Nobody says so aloud.
+    malaren,lake,saltsjon,sea: West of the town is the lake, sweet water, a hundred miles of it; east is the Saltsjon, salt, and the sea. The town sits in the gap, and the water runs through it under the bridges, east, always east.
+  end
+end
+
+crowd 10 recruit work quay
+crowd 4 sailor
+crowd 2 merchant
+crowd 3 goodwife
+crowd 4 labourer
+crowd 2 washerwoman
+crowd 3 guard work landmark Tre Kronor, the King's castle
+crowd 2 apprentice
+crowd 1 innkeeper
+crowd 1 changer
+crowd 1 herdsman

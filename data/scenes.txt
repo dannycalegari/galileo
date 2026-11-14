@@ -1,0 +1,116 @@
+# The still scenes at the start of a new game, after you choose who you are.
+# Each is a view of the world held still, with a few lines; a click (or Space) goes on, Esc skips
+# them all (main.cc, Game::startScenes).
+#
+#   scene ... end
+#     id NAME                        its name (stable: never reuse one); a picture data/art/scenes/NAME.png, made by
+#                                    galileo --still NAME, is shown in place of the world (main.cc Game::stillFor)
+#     in TOWN                        positions are in this town (or hamlet)
+#     time HH:MM                     the light of that hour
+#     look PLACE yaw D pitch D zoom Z [roofs]   what the camera looks at, and from where
+#     caption TEXT                   the words (*word*: lit, as in people's lines)
+#     you PLACE [child|youth] [facing F] [kneeling] [hat]     you, as you chose to be
+#     cow PLACE [facing F] [lying]   Pâquerette (animals.txt "paquerette")
+#     coins PLACE                    the week's milk money, in piles on a table
+#     ID PLACE [facing F] [carries baby|pails|cap|book] [bareheaded]   a person (town:id, _ for a space)
+#                                    (any figure may also be "kneeling", or "seated" on a chair)
+#   PLACE: COL,ROW of the town's map (row 0 at the top), or door:NAME, outside:NAME, table:NAME,
+#   hearth:NAME, bed:NAME, well:NAME, bench:NAME (in that building), then +DCOL,DROW
+#   F: N NE E SE S SW W NW, cam (towards the camera), or to:WHO (you, cow, coins or an ID)
+#   (a baby is not a figure of its own: its mother "carries baby", with your skin)
+#
+#   arrive TOWN PLACE facing F      where you stand when the scenes are over
+
+scene
+  id opening-1
+  in the Cottage at La Chapelle
+  time 09:30
+  look 17,7.2 yaw 22 pitch 30 zoom 4
+  the_cottage_at_la_chapelle:perrette 19,7.6 facing cam carries baby
+  cow 15,8.6 facing E
+  caption You were born here, at La Chapelle, on a farm of one cow, between Paris and Saint-Denis. The cow was called *Pâquerette*.
+end
+
+scene
+  id opening-2
+  in the Cottage at La Chapelle
+  time 05:20
+  look 20.6,8.7 yaw 292 pitch 30 zoom 2.8
+  the_cottage_at_la_chapelle:perrette 21.1,9.2 facing E carries pails
+  you 20,8.2 child facing to:the_cottage_at_la_chapelle:perrette
+  caption Every morning before light your mother carried Pâquerette's milk into Paris, through the Porte Saint-Denis, and sold it in the streets. You held the gate.
+end
+
+scene
+  id opening-3
+  in the Cottage at La Chapelle
+  time 19:30
+  look table:the_farmhouse+0,-0.3 yaw 22 pitch 66 zoom 2.3 roofs
+  coins table:the_farmhouse
+  you table:the_farmhouse+-1,0 child facing to:coins
+  the_cottage_at_la_chapelle:pierre table:the_farmhouse+1.2,-0.8 facing to:you
+  caption You could count the week's sous faster than the priest could say a Paternoster.
+end
+
+scene
+  id opening-4
+  in the Cottage at La Chapelle
+  time 20:30
+  look hearth:the_farmhouse+1.3,0.6 yaw 22 pitch 56 zoom 1.9 roofs
+  the_cottage_at_la_chapelle:perrette hearth:the_farmhouse+1,0.2 facing to:you carries book
+  you hearth:the_farmhouse+1.55,0.75 child facing to:the_cottage_at_la_chapelle:perrette kneeling
+  caption In the winter evenings your mother taught you your letters by the fire, as the nuns of *Montmartre* had taught her when she was a girl: first with a stick in the ashes, then with a quill, one precious sheet at a time.
+end
+
+scene
+  id opening-5
+  in the Cottage at La Chapelle
+  time 06:30
+  look 5,4 yaw 22 pitch 40 zoom 3.2 roofs
+  cow 4.3,3.6 facing E lying
+  you 4.9,4.7 youth facing to:cow kneeling
+  caption Then, one morning this May, Pâquerette would not get up. The curé said it was because your father had mended the byre on the feast of Saint Mark; and the tithe-man came for his tenth all the same.
+end
+
+scene
+  id opening-6
+  in the Cottage at La Chapelle
+  time 07:00
+  look 21,15 yaw 202 pitch 24 zoom 6
+  the_cottage_at_la_chapelle:pierre 21,13 facing S bareheaded
+  caption Your father went to Paris, to beg alms from the Church.
+end
+
+scene
+  id opening-7
+  in Paris
+  time 10:00
+  # in the street before the Pavillon du Roi, on the south side of the Place Royale (the Minims are near)
+  look 153,51 yaw 22 pitch 60 zoom 3.6 roofs
+  paris:mersenne 153,50 facing to:the_cottage_at_la_chapelle:pierre
+  the_cottage_at_la_chapelle:pierre 153,52 facing to:paris:mersenne bareheaded
+  caption On the Place Royale, under the Pavillon du Roi, a friar of the Minims asked him what was wrong, and listened. He was Father Marin *Mersenne*, who writes to every learned man in Europe; and his letters keep going astray.
+end
+
+scene
+  id opening-8
+  in Paris
+  time 10:05
+  look 153,51 yaw 60 pitch 62 zoom 2.4 roofs
+  paris:mersenne 153,50 facing to:the_cottage_at_la_chapelle:pierre
+  the_cottage_at_la_chapelle:pierre 153,52 facing to:paris:mersenne bareheaded
+  caption "Quick with numbers, you say? Can the child read? Can the child keep a secret?" Your father said yes to all three. Two of them he knew to be true.
+end
+
+scene
+  id opening-9
+  in the Cottage at La Chapelle
+  time 05:45
+  look 19.8,8.8 yaw 22 pitch 30 zoom 2.4
+  you 19.6,8.8 youth facing cam hat
+  the_cottage_at_la_chapelle:perrette 18.6,8.3 facing to:you carries book
+  the_cottage_at_la_chapelle:pierre 21,9.3 facing to:you
+  caption On the morning of the 15th of June, 1632, your mother tied a yellow hat on your head, and gave you a little book of blank pages that she had sewn herself. "Write down everything that matters," she said; and you do. It is your *journal* (J). Your father gave you three sous. And so you went to Paris, to be a courier.
+end
+
+arrive Paris outside:the_Porte_Saint-Denis+0,-3 facing S
