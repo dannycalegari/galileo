@@ -26,8 +26,15 @@ track music/ave_regina.m4a Victoria, "Ave Regina caelorum" for five voices, on r
 track music/bransle_royne.m4a Praetorius, "Bransle de la Royne" (Terpsichore, 1612), three branles for the Queen's wedding, on recorders and a bassoon
 # Monteverdi was maestro di cappella of San Marco, and his Scherzi musicali were printed in Venice in 1632
 track in Venice music/zefiro_torna.m4a Monteverdi, "Zefiro torna" (Scherzi musicali, Venice 1632), for two tenors and continuo, on recorders and a bassoon
+# Florentine carnival songs of Lorenzo de' Medici's time, for the Italian towns
+track in Italy music/minerva.m4a Anonymous, "Trionfo della dea Minerva", a Florentine carnival song (c. 1500), on recorders and a bassoon
+track in Italy music/rivenditore.m4a Lorenzo de' Medici's "Canto delle rivenditore", a Florentine carnival song (c. 1490), on shawms and a sackbut
+track in Italy music/canto_della_morte.m4a Maestro Alexander, "Canto della Morte", a Florentine carnival song (c. 1511), on sackbuts
+track in Italy music/canto_della_pace.m4a Anonymous, "Canto della pace", a Florentine carnival song (early 16th century), on recorders and a bassoon
 # Galileo's brother Michelagnolo, lutenist to the Duke of Bavaria; his book of 1620 was printed in Munich
 track in Florence,Arcetri music/galilei_suite1.m4a Michelagnolo Galilei, a toccata, gagliarda, corrente and volta (Il primo libro d'intavolatura di liuto, 1620), on the lute
+# the canario, danced in Spain from the 1580s; Sanz's setting for the guitar was printed in 1674, after the game's time
+track in Spain music/canarios.m4a Gaspar Sanz, "Canarios" (printed 1674), on the guitar
 # a Latin motet for the Catholic (and Lutheran) churches; an English anthem for the English ones
 church except London,Oxford,Cambridge music/sicut_cervus.m4a Palestrina, "Sicut cervus" for four voices
 church in London,Oxford,Cambridge music/if_ye_love_me.m4a Tallis, "If ye love me" for four voices

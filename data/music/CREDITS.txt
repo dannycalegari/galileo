@@ -1,7 +1,7 @@
 # The recordings the game plays, where their notes come from, and their licences. Each was transcribed for this
 # game, written as a score and played through the sounds of GeneralUser GS (below). They are not covered by the
-# game's licence (LICENSE). The nine transcribed from public-domain or CC0 editions are licensed Creative Commons
-# Attribution 4.0 (CC BY 4.0), to be credited to the game Galileo; the three that come from modern editions under
+# game's licence (LICENSE). The thirteen transcribed from public-domain or CC0 editions are licensed Creative Commons
+# Attribution 4.0 (CC BY 4.0), to be credited to the game Galileo; the four that come from modern editions under
 # Creative Commons Attribution-ShareAlike are under the same licence as their editions, as marked.
 flow_my_tears.m4a     Dowland, "Flow, my tears" (1600). Transcribed from the 1600 print (its tune and bass); the
                       lute chords were made for this game. GeneralUser GS. This recording: CC BY 4.0.
@@ -47,4 +47,34 @@ sleep_cue.m4a         Dowland, "Flow, my tears" (1600): its last cadence, from t
 english_march.m4a     "The English March", as set down in the warrant of Charles I of 7 February 1632. Read from the
                       print in The Grand Magazine of Magazines (1758, public domain), the strokes after Thomas Fisher,
                       Warlike Directions (1634). Two side drums, GeneralUser GS. This recording: CC BY 4.0.
+minerva.m4a           "Trionfo della dea Minerva" (Florence, c. 1500), a carnival song for four voices, the music
+                      anonymous, the words by Agnolo Divizio da Bibbiena. Transcribed from Paul-Marie Masson's
+                      edition, Chants de carnaval florentins (Paris: Senart, 1913, pp. 69-72; public domain), with
+                      his editorial accidentals, the values halved; the held fermatas and a rest of one beat at each
+                      change of time were made for this game. Three recorders and a bassoon, GeneralUser GS.
+                      This recording: CC BY 4.0.
+rivenditore.m4a       "Canto delle rivenditore" (Florence, c. 1490), a carnival song for three voices, the words by
+                      Lorenzo de' Medici, the music anonymous. Transcribed from Paul-Marie Masson's edition, Chants de
+                      carnaval florentins (Paris: Senart, 1913, pp. 7-10; public domain), with his editorial
+                      accidentals, the values halved; the held fermatas and a rest of one beat at each change of time
+                      were made for this game. Two shawms and a sackbut (GeneralUser GS's oboe, English horn and
+                      trombone). This recording: CC BY 4.0.
+canto_della_morte.m4a "Canto della Morte" (Florence, c. 1511), a carnival song for four voices, "Perch'ogni cosa el
+                      suo proprio fin brama", the words by Battista dell'Ottonaio, the music by "Maestro Alexander".
+                      Transcribed from Paul-Marie Masson's edition, Chants de carnaval florentins (Paris: Senart,
+                      1913, pp. 29-32; public domain), with his editorial accidentals, the values halved; the held
+                      fermatas were made for this game. Four sackbuts (GeneralUser GS's trombone).
+                      This recording: CC BY 4.0.
+canto_della_pace.m4a  "Canto della pace" (Florence, early 16th century), a carnival song for four voices, "La gran
+                      memoria dell'eta passata", the words attributed to Battista dell'Ottonaio, the music anonymous.
+                      Transcribed from Paul-Marie Masson's edition, Chants de carnaval florentins (Paris: Senart,
+                      1913, pp. 64-67; public domain), with his editorial accidentals, the values halved; the held
+                      fermata and a rest of one beat at each change of time were made for this game. Three recorders
+                      and a bassoon, GeneralUser GS. This recording: CC BY 4.0.
+canarios.m4a          Gaspar Sanz, "Canarios", from his Instruccion de musica sobre la guitarra espanola (Zaragoza,
+                      1674). Printed some forty years after the time of the game; the canario itself was danced in
+                      Spain and across Europe from the 1580s. Played from Stefan Apke's arrangement for classical
+                      guitar (1996/2019; IMSLP, Creative Commons Attribution-ShareAlike 4.0), from the MIDI file he
+                      provides with it, its written-out trills slowed a little, and its bass notes and the strummed
+                      chords before its two rests let ring. Nylon guitar, GeneralUser GS. This recording: CC BY-SA 4.0.
 The sounds: GeneralUser GS 2.0 by S. Christian Collins, whose licence allows any use of music made with it.
