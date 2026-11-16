@@ -12,6 +12,7 @@ person cruger
   name Peter Crüger
   title the professor of mathematics
   role mathematician
+  look beard tuft
   near St Mary's of Danzig
   work landmark St Mary's of Danzig
   talk

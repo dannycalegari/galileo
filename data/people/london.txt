@@ -31,6 +31,7 @@ end
 person taylor
   name Joseph Taylor
   role actor
+  look beard tuft
   near Globe
   talk
     folio,book,shakespeare: Heminges and Condell put the first Folio together, God rest them both; we lent them the prompt-books. Now there is a second. My Hamlet is in it, though they did not ask me.
@@ -62,6 +63,7 @@ end
 person harvey
   name William Harvey
   role physician
+  look beard tuft
   near Bartholomew
   talk
     descartes if player carried-harvey-book: You gave Monsieur Descartes my book? Tell me what he says, when he writes. I expect he will say I am wrong about something. {player set knows:amsterdam:descartes}

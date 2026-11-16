@@ -14,7 +14,7 @@ person catherine
   title the King's sister, Countess Palatine
   role prince
   sex f
-  look coat #2A2A3E legs #2A2A3E hat coif #F0ECE2 dress
+  look coat #2A2A3E legs #2A2A3E hat coif #F0ECE2 dress plain
   near Tre Kronor
   work landmark Tre Kronor, the King's castle
   talk
@@ -31,7 +31,7 @@ person christina
   title the King's daughter
   role prince
   sex f
-  look coat #3A5A9A legs #2A2A3E hat none dress child
+  look coat #3A5A9A legs #2A2A3E hat none dress child plain
   near Tre Kronor
   work landmark Tre Kronor, the King's castle
   talk
@@ -65,7 +65,7 @@ person oxenstierna
   name Gabriel Gustafsson Oxenstierna
   title of the King's council
   role scholar
-  look coat #1E1E22 legs #1E1E22 hat hat #1A1A1E
+  look coat #1E1E22 legs #1E1E22 hat hat #1A1A1E beard tuft
   near Tre Kronor
   work landmark Tre Kronor, the King's castle
   talk
@@ -80,7 +80,7 @@ person degeer
   name Louis De Geer
   title a merchant of Liege and Amsterdam
   role merchant
-  look coat #2A2A2E legs #1E1E22 hat hat #1A1A1E
+  look coat #2A2A2E legs #1E1E22 hat hat #1A1A1E beard tuft
   near German church
   work quay
   sells copper 3 bar-iron 4 tar 4

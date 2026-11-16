@@ -72,6 +72,10 @@ static void parseLook(Costume &c, std::istringstream &ss) {
         else if (k == "sabre") c.weapon = 4;
         else if (k == "child") c.size = 0.62f;
         else if (k == "lute") c.lute = true;
+        else if (k == "old") c.age = 1;
+        else if (k == "beard") { ss >> v; c.beard = v == "tuft" ? 1 : v == "full" ? 2 : v == "moustache" ? 3 : 0; }
+        else if (k == "stout") c.stout = 1;
+        else if (k == "plain") c.plain = true;
     }
 }
 
@@ -374,7 +378,9 @@ bool People::loadTown(World &w, const std::string &fn) {
             float k = 0.8f + 0.4f * rng.uni();
             p.look.coat = p.look.coat * k;
             static const vec3 hairs[4] = {{0.30f, 0.20f, 0.12f}, {0.12f, 0.09f, 0.07f}, {0.55f, 0.40f, 0.22f}, {0.45f, 0.42f, 0.40f}};
-            p.look.hair = hairs[rng.next() % 4];
+            int hk = (int)(rng.next() % 4);   // the fourth, grey, comes with age (drawLook), not by chance: another colour
+            if (hk == 3) hk = (int)(Rng(hash32((uint32_t)std::hash<std::string>()(p.id + "#hair"))).next() % 3);
+            p.look.hair = hairs[hk];
             p.look.skin = p.look.skin * (0.85f + 0.15f * rng.uni());
             auto &first = names[pool + " " + (p.sex == 'f' ? "female" : "male")];
             auto &last = names[pool + " surname"];
@@ -395,6 +401,7 @@ bool People::loadTown(World &w, const std::string &fn) {
         }
         first += c.n;
     }
+    for (auto &p : people) p.look.woman = p.sex == 'f';   // a woman's gown is cut differently (buildFigureFine)
     (void)w;
     return true;
 }
@@ -666,6 +673,24 @@ void People::assign(World &w) {
     }
 }
 
+// Who someone is, for everyone whose look does not say (the crowds, the road's people, and named people without "old",
+// "beard", "stout" or "plain"): drawn from a sequence of their own, so that names and colours stay as they were. Old 1 in
+// 8 (never children, students, apprentices, or your father and mother); a man's beard: a tuft 1 in 3, a moustache 1 in
+// 6, full 1 in 6 (never the clergy who shave); stout 1 in 8 (never children); the height within 4% either way.
+static void drawLook(Person &p) {
+    Costume &c = p.look;
+    if (c.plain || c.age > 0 || c.beard > 0 || c.stout > 0) return;
+    c.plain = true;   // drawn once
+    Rng r(hash32((uint32_t)std::hash<std::string>()(p.id + "#look")));
+    float uo = r.uni(), ub = r.uni(), us = r.uni(), uh = r.uni();
+    bool child = c.size < 0.9f, young = p.role == "student" || p.role == "apprentice";
+    bool shaven = p.role == "priest" || p.role == "friar" || p.role == "monk" || p.role == "dominican" || p.role == "jesuit" || p.role == "cardinal";
+    if (!child && !young && !p.mem.count("family") && uo < 1.0f / 8) c.age = 1;
+    if (!child && !shaven && p.sex == 'm') c.beard = ub < 1.0f / 3 ? 1 : ub < 0.5f ? 3 : ub < 2.0f / 3 ? 2 : 0;
+    if (!child && us < 1.0f / 8) c.stout = 1;
+    c.size *= 1 + 0.08f * (uh - 0.5f);
+}
+
 bool People::load(World &w, const std::string &dir) {
     static const std::set<std::string> common = {"post", "house", "saint", "sankt", "santa", "venta", "ruins", "farm", "cottage"};
     for (const auto &s : w.settlements) {   // townWords: the distinctive words of the places' names
@@ -684,6 +709,7 @@ bool People::load(World &w, const std::string &dir) {
         loadTown(w, dir + "/people/" + fn);
     }
     for (auto &p : people) if (!p.mem.count("town")) p.mem["town"] = p.town;
+    for (auto &p : people) drawLook(p);
     loadChats(dir + "/people/chats.txt");
     loadTrades(dir + "/people/trades.txt");
     loadEvents(dir + "/events.txt");
@@ -734,9 +760,12 @@ int People::makeWild(const std::string &role, int n, const std::string &id) {
         p.role = role;
         p.sex = r.sex;
         p.look = r.look;
+        p.look.woman = p.sex == 'f';
         p.look.coat = p.look.coat * (0.8f + 0.4f * rng.uni());
         static const vec3 hairs[4] = {{0.30f, 0.20f, 0.12f}, {0.12f, 0.09f, 0.07f}, {0.55f, 0.40f, 0.22f}, {0.45f, 0.42f, 0.40f}};
-        p.look.hair = hairs[rng.next() % 4];
+        int hk = (int)(rng.next() % 4);   // grey comes with age, as in a town's crowd
+        if (hk == 3) hk = (int)(Rng(hash32((uint32_t)std::hash<std::string>()(p.id + "#hair"))).next() % 3);
+        p.look.hair = hairs[hk];
         p.name = "";   // nobody you will ever know by name (and the talk's heading is only "A brigand")
         p.title = r.title;
         p.says = r.says;
@@ -748,6 +777,7 @@ int People::makeWild(const std::string &role, int n, const std::string &id) {
         p.placed = true;
         p.stepDur = p.strollDur = 0.5f;
         p.mem["town"] = "";
+        drawLook(p);
         people.push_back(p);
     }
     return first;

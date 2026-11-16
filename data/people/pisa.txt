@@ -12,6 +12,7 @@ person aggiunti
   name Niccolò Aggiunti
   title a professor of mathematics
   role scholar
+  look beard tuft
   near Palazzo della Sapienza
   work landmark Palazzo della Sapienza
   schedule
@@ -41,6 +42,7 @@ person chiaramonti
   name Scipione Chiaramonti
   title a professor of philosophy
   role scholar
+  look old
   near Palazzo della Sapienza
   work landmark Palazzo della Sapienza
   money 1440

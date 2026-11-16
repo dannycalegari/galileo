@@ -1295,6 +1295,11 @@ static mat4 rotX(float a) {
 static bool gFine = false;
 void setFineFigures(bool on) { gFine = on; }
 bool fineFigures() { return gFine; }
+// the middle level: the finer figure's code with about half the sides (gLo, while it is built) and without its small
+// features (eyes, brows, nose, mouth, ears, buttons, the walking knee, the elbow, the hat's band)
+static bool gMid = false, gLo = false;
+void setMidFigures(bool on) { gMid = on; }
+static int fewer(int n, int least) { return std::min(n, std::max(least, (n + 1) / 2)); }
 
 static vec3 xf(const mat4 &M, vec3 p) { vec4 r = M * vec4(p.x, p.y, p.z, 1); return vec3(r.x, r.y, r.z); }
 
@@ -1302,6 +1307,7 @@ static vec3 xf(const mat4 &M, vec3 p) { vec4 r = M * vec4(p.x, p.y, p.z, 1); ret
 // (cx,cy); caps closed. Flat facets, as everything else in the game.
 static void ofrustum(MeshBuf &m, const mat4 &M, float z0, float z1, float rx0, float ry0, float rx1, float ry1, int n, vec3 col,
                      float cx = 0, float cy = 0, bool cap0 = true, bool cap1 = true) {
+    if (gLo) n = fewer(n, 5);
     vec3 c0 = xf(M, vec3(cx, cy, z0)), c1 = xf(M, vec3(cx, cy, z1)), mid = (c0 + c1) * 0.5f;
     for (int i = 0; i < n; i++) {
         float a0 = 2 * PI_F * i / n, a1 = 2 * PI_F * (i + 1) / n;
@@ -1319,10 +1325,33 @@ static void ofrustum(MeshBuf &m, const mat4 &M, float z0, float z1, float rx0, f
 // latitudes from lat0 to lat1 (radians, -pi/2..pi/2) if given (a cap of hair, a hood)
 static void oellip(MeshBuf &m, const mat4 &M, vec3 c, vec3 r, int nLon, int nLat, vec3 col,
                    float lat0 = -PI_F / 2, float lat1 = PI_F / 2, float lon0 = 0, float lon1 = 2 * PI_F) {
+    if (gLo) { nLon = fewer(nLon, 5); nLat = fewer(nLat, 2); }
     vec3 cw = xf(M, c);
     auto P = [&](int i, int j) {
         float lat = lat0 + (lat1 - lat0) * j / nLat, lon = lon0 + (lon1 - lon0) * i / nLon;
         return xf(M, vec3(c.x + r.x * std::cos(lat) * std::cos(lon), c.y + r.y * std::cos(lat) * std::sin(lon), c.z + r.z * std::sin(lat)));
+    };
+    for (int j = 0; j < nLat; j++)
+        for (int i = 0; i < nLon; i++) {
+            vec3 a = P(i, j), b = P(i + 1, j), d = P(i, j + 1), e = P(i + 1, j + 1);
+            vec3 o = (a + b + d + e) * 0.25f - cw;
+            if (j == 0 && lat0 <= -PI_F / 2 + 1e-4f) m.tri(a, e, d, col, o);
+            else if (j == nLat - 1 && lat1 >= PI_F / 2 - 1e-4f) m.tri(a, b, d, col, o);
+            else m.quad(a, b, e, d, col, o);
+        }
+}
+
+// a superellipsoid: an ellipsoid whose cosines and sines are raised to the power p (p < 1: fuller, a rounded
+// barrel; p = 1: the ellipsoid), with the same arguments as oellip
+static float spow(float x, float p) { return x < 0 ? -std::pow(-x, p) : std::pow(x, p); }
+static void osuper(MeshBuf &m, const mat4 &M, vec3 c, vec3 r, int nLon, int nLat, vec3 col, float p,
+                   float lat0 = -PI_F / 2, float lat1 = PI_F / 2, float lon0 = 0, float lon1 = 2 * PI_F) {
+    if (gLo) { nLon = fewer(nLon, 5); nLat = fewer(nLat, 2); }
+    vec3 cw = xf(M, c);
+    auto P = [&](int i, int j) {
+        float lat = lat0 + (lat1 - lat0) * j / nLat, lon = lon0 + (lon1 - lon0) * i / nLon;
+        float cl = spow(std::cos(lat), p);
+        return xf(M, vec3(c.x + r.x * cl * spow(std::cos(lon), p), c.y + r.y * cl * spow(std::sin(lon), p), c.z + r.z * spow(std::sin(lat), p)));
     };
     for (int j = 0; j < nLat; j++)
         for (int i = 0; i < nLon; i++) {
@@ -1377,7 +1406,7 @@ void buildFigure(MeshBuf &m, vec3 pos, float facing, float phase, const FigureLo
     if (kneeling) base = base * translate(vec3(0, 0, -kKneelSink));   // the body down to the height of the knees
     if (sitting) { buildChair(m, base); base = base * translate(vec3(0, 0, -kSitSink)); }
     float swing = lying || kneeling || sitting ? 0.0f : std::sin(phase * 2 * PI_F) * 0.55f;
-    if (gFine) { buildFigureFine(m, base, swing, f, lying); return; }
+    if (gFine || gMid) { gLo = !gFine; buildFigureFine(m, base, swing, f, lying); gLo = false; return; }
     vec3 boots(0.30f, 0.20f, 0.12f), white(0.95f, 0.94f, 0.9f);
     if (f.statue) { boots = f.legs; white = f.coat; }
     bool longGown = f.dress || f.robe;
@@ -1559,13 +1588,73 @@ void buildFigure(MeshBuf &m, vec3 pos, float facing, float phase, const FigureLo
 }
 
 // ------------------------------------------------------------------ the finer figure
-// The same figure as buildFigure, part for part and at the same places (so that weapons, the
-// yoke, the baby and the hats sit where they did), only rounder: drawn when the camera is close.
+// A frame with axes X, Y, Z and origin O.
+static mat4 frameM(vec3 X, vec3 Y, vec3 Z, vec3 O) {
+    mat4 r = translate(O);
+    r.m[0] = X.x; r.m[1] = X.y; r.m[2] = X.z;
+    r.m[4] = Y.x; r.m[5] = Y.y; r.m[6] = Y.z;
+    r.m[8] = Z.x; r.m[9] = Z.y; r.m[10] = Z.z;
+    return r;
+}
+// The frame of a limb's bone from O along `bone` (unit): its -z runs along the bone, its y forward where it can.
+static mat4 boneFrame(vec3 bone, vec3 O) {
+    vec3 Z = bone * -1.0f, ref = std::fabs(Z.x) > 0.95f ? vec3(0, 1, 0) : vec3(1, 0, 0);
+    vec3 Y = normalize(cross(Z, ref)), X = cross(Y, Z);
+    if (Y.y < 0 && ref.x > 0) { Y = Y * -1.0f; X = X * -1.0f; }
+    return frameM(X, Y, Z, O);
+}
+// A two-bone reach: the arm from the shoulder P puts the hand's centre at T (both in the body's frame), the upper
+// arm L1 long and the forearm L2, the elbow bent towards `pole` but never in front of the line from the shoulder to
+// the hand (an elbow bends backwards). Gives the frames of the upper arm and of the forearm.
+static void armReach(vec3 P, vec3 T, vec3 pole, float L1, float L2, mat4 &A, mat4 &F) {
+    vec3 d = T - P;
+    float dl = std::max(1e-4f, length(d));
+    vec3 dn = d * (1.0f / dl);
+    float dc = std::min(dl, L1 + L2 - 1e-4f);
+    float ca = std::max(-1.0f, std::min(1.0f, (L1 * L1 + dc * dc - L2 * L2) / (2 * L1 * dc)));
+    float al = std::acos(ca);
+    vec3 pp = pole - dn * dot(pole, dn);
+    if (pp.y > 0) {   // the elbow would come forward: the nearest direction level with the line instead
+        vec3 w = cross(dn, vec3(0, 1, 0));
+        if (length(w) > 1e-4f) { w = normalize(w); pp = dot(w, pp) >= 0 ? w : w * -1.0f; }
+        else pp = vec3(0, 0, -1);
+    }
+    pp = normalize(pp);
+    vec3 u = dn * std::cos(al) + pp * std::sin(al);
+    vec3 E = P + u * L1;
+    A = boneFrame(u, P);
+    F = boneFrame(normalize(T - E), E);
+}
+// Where the hands go when they hold something (in the body's frame; s: +1 the right hand, -1 the left).
+static bool reachTarget(const FigureLook &f, int s, bool sitting, bool holding, vec3 &T) {
+    if (f.carry == 4) { T = vec3(s * 0.088f, 0.235f, 0.55f); return true; }   // the book, by its two edges
+    if (f.carry == 1) { T = s > 0 ? vec3(0.10f, 0.24f, 0.60f) : vec3(-0.11f, 0.24f, 0.61f); return true; }   // under the baby's head and feet
+    if (f.carry == 2) { T = vec3(s * 0.24f, 0.16f, 0.62f); return true; }   // the ropes of the yoke, drawn forward
+    if (sitting && !holding) { T = vec3(s * 0.08f, 0.16f, 0.545f); return true; }   // on the thighs
+    if (f.halberd && s > 0) { T = vec3(0.2f, 0.07f, 0.8f); return true; }   // round the staff
+    if (f.lute) { T = s > 0 ? vec3(0.19f, 0.21f, 0.6f) : vec3(-0.06f, 0.2f, 0.62f); return true; }   // the neck; the strings at the rose
+    return false;
+}
+
+// The same figure as buildFigure, part for part and at the same places, only rounder, with jointed
+// limbs: drawn when the camera is close. The hands reach to what they hold.
 static void buildFigureFine(MeshBuf &m, const mat4 &base, float swing, const FigureLook &f, bool lying) {
     vec3 boots(0.30f, 0.20f, 0.12f), white(0.95f, 0.94f, 0.9f), dark(0.10f, 0.08f, 0.08f);
     if (f.statue) { boots = f.legs; white = f.coat; dark = f.skin * 0.8f; }
     bool longGown = f.dress || f.robe;
     bool kneeling = f.kneel > 0 && !lying, sitting = f.sit && !lying && !kneeling;
+    bool wm = f.woman && f.dress;   // a woman's gown: a bodice, the skirt from a higher waist, a broad collar
+    float st = wm ? 0.0f : f.stout;   // a man's paunch: the coat's skirts, a gown, a sash, an apron and the buttons follow it
+    // the paunch: an ellipsoid in front of the body, low, a little wider at the sides; pf(z): how far forward it reaches
+    vec3 pc(0, 0.035f * st, 0.56f), pr(0.13f + 0.015f * st, 0.082f + 0.023f * st, 0.13f);
+    auto pf = [&](float z) { float t = (z - pc.z) / pr.z; return st > 0 && std::fabs(t) < 1 ? pc.y + pr.y * std::sqrt(1 - t * t) : 0.0f; };
+    // what hangs from it reaches forward to it with its back unmoved: half the reach added to its depth, half to its centre
+    float ca = std::max(0.0f, (pf(0.535f) - 0.093f) * 0.5f), ga = wm ? 0.0f : std::max(0.0f, (pf(0.53f) - 0.104f) * 0.5f);
+    // ub: the frame of everything above the hips; it leans forward about them with age (a stoop), and a little
+    // when kneeling in a gown
+    float lean = (kneeling && longGown ? 0.12f : 0.0f) + (lying ? 0.0f : 0.2f * f.age);
+    mat4 ub = lean > 0 ? base * translate(vec3(0, 0, 0.5f)) * rotX(-lean) * translate(vec3(0, 0, -0.5f)) : base;
+    vec3 hair = f.age > 0 ? f.hair * (1 - 0.85f * f.age) + vec3(0.80f, 0.79f, 0.76f) * (0.85f * f.age) : f.hair;   // greying
     if (sitting) {   // on a chair (buildFigure drew it, and lowered the body): thighs forward, shins down
         mat4 fb = base * translate(vec3(0, 0, kSitSink));   // the floor
         if (longGown) {   // the gown over the lap, and falling from the knees to the floor
@@ -1586,7 +1675,7 @@ static void buildFigureFine(MeshBuf &m, const mat4 &base, float swing, const Fig
                 ofrustum(m, K, -0.228f, -0.105f, 0.047f, 0.05f, 0.052f, 0.055f, 8, boots);                 // the boot
                 oellip(m, K, vec3(0, 0.03f, -0.214f), vec3(0.047f, 0.085f, 0.03f), 8, 4, boots * 0.85f);   // the foot
             }
-            ofrustum(m, base, 0.38f, 0.535f, 0.168f, 0.108f, 0.148f, 0.093f, 12, f.coat * 0.9f);   // the coat's skirts
+            ofrustum(m, base, 0.38f, 0.535f, 0.168f, 0.108f + ca, 0.148f, 0.093f + ca, 12, f.coat * 0.9f, 0, ca);   // the coat's skirts
         }
     } else if (kneeling) {   // on both knees (buildFigure has lowered the body): thighs upright, shins along the floor
         mat4 fb = base * translate(vec3(0, 0, kKneelSink));   // the floor
@@ -1594,9 +1683,7 @@ static void buildFigureFine(MeshBuf &m, const mat4 &base, float swing, const Fig
             vec3 skirt = f.robe ? f.coat : f.legs;
             ofrustum(m, fb, 0.0f, 0.32f, 0.215f, 0.19f, 0.15f, 0.104f, 14, skirt * 0.96f);
             ofrustum(m, fb, 0.0f, 0.05f, 0.222f, 0.197f, 0.217f, 0.192f, 14, skirt * 0.8f, 0, 0, false, false);   // the hem
-            oellip(m, fb, vec3(0, -0.12f, 0.0f), vec3(0.2f, 0.27f, 0.085f), 14, 3, skirt * 0.93f, 0.0f, PI_F / 2);   // over the shins
-            for (int s = -1; s <= 1; s += 2)   // the soles of the feet, at the back
-                oellip(m, fb, vec3(s * 0.065f, -0.41f, 0.035f), vec3(0.042f, 0.03f, 0.035f), 8, 4, boots * 0.85f);
+            oellip(m, fb, vec3(0, -0.13f, 0.0f), vec3(0.205f, 0.29f, 0.13f), 14, 3, skirt * 0.93f, 0.0f, PI_F / 2);   // over the shins and the heels
         } else {
             for (int s = -1; s <= 1; s += 2) {
                 mat4 T = base * translate(vec3(s * 0.07f, 0, 0.46f));
@@ -1608,12 +1695,14 @@ static void buildFigureFine(MeshBuf &m, const mat4 &base, float swing, const Fig
                 ofrustum(m, S, 0.19f, 0.3f, 0.05f, 0.045f, 0.05f, 0.042f, 8, boots);                           // the boot
                 oellip(m, S, vec3(0, -0.01f, 0.31f), vec3(0.047f, 0.034f, 0.05f), 8, 4, boots * 0.85f);       // the foot
             }
-            ofrustum(m, base, 0.38f, 0.535f, 0.168f, 0.108f, 0.148f, 0.093f, 12, f.coat * 0.9f);   // the coat's skirts
+            ofrustum(m, base, 0.38f, 0.535f, 0.168f, 0.108f + ca, 0.148f, 0.093f + ca, 12, f.coat * 0.9f, 0, ca);   // the coat's skirts
         }
     } else if (longGown) {
         vec3 skirt = f.robe ? f.coat : f.legs;
-        ofrustum(m, base, 0.02f, 0.53f, 0.205f, 0.165f, 0.15f, 0.104f, 14, skirt * 0.96f);
-        ofrustum(m, base, 0.015f, 0.065f, 0.212f, 0.172f, 0.207f, 0.167f, 14, skirt * 0.8f, 0, 0, false, false);   // the hem
+        if (wm) ofrustum(m, base, 0.02f, 0.60f, 0.215f, 0.175f, 0.125f, 0.09f, 14, skirt * 0.96f);   // from a higher waist
+        else ofrustum(m, base, 0.02f, 0.53f, 0.205f, 0.165f, 0.15f, 0.104f + ga, 14, skirt * 0.96f, 0, ga);   // out in front to a paunch
+        float hk = wm ? 0.01f : 0.0f;
+        ofrustum(m, base, 0.015f, 0.065f, 0.212f + hk, 0.172f + hk, 0.207f + hk, 0.167f + hk, 14, skirt * 0.8f, 0, ga, false, false);   // the hem
         for (int s = -1; s <= 1; s += 2)   // the toes of the shoes, peeping out
             oellip(m, base, vec3(s * 0.07f, 0.12f + 0.05f * s * swing, 0.026f), vec3(0.042f, 0.055f, 0.026f), 8, 4, boots);
     } else {
@@ -1622,34 +1711,70 @@ static void buildFigureFine(MeshBuf &m, const mat4 &base, float swing, const Fig
             ofrustum(m, T, -0.225f, 0.0f, 0.045f, 0.047f, 0.058f, 0.061f, 8, f.legs);                 // the thigh
             float kb = lying ? 0.0f : -0.7f * std::max(0.0f, -s * swing);                           // the knee bends behind
             mat4 K = T * translate(vec3(0, 0, -0.225f)) * rotX(kb);
-            oellip(m, K, vec3(0, 0, 0), vec3(0.046f, 0.048f, 0.04f), 8, 4, f.legs);                 // the knee
+            if (!gLo) oellip(m, K, vec3(0, 0, 0), vec3(0.046f, 0.048f, 0.04f), 8, 4, f.legs);       // the knee
             ofrustum(m, K, -0.12f, 0.0f, 0.039f, 0.041f, 0.045f, 0.047f, 8, f.legs);                // the calf
             ofrustum(m, K, -0.228f, -0.105f, 0.047f, 0.05f, 0.052f, 0.055f, 8, boots);              // the boot
             oellip(m, K, vec3(0, 0.03f, -0.214f), vec3(0.047f, 0.085f, 0.03f), 8, 4, boots * 0.85f);  // the foot
         }
-        ofrustum(m, base, 0.38f, 0.535f, 0.168f, 0.108f, 0.148f, 0.093f, 12, f.coat * 0.9f);       // the coat's skirts
+        ofrustum(m, base, 0.38f, 0.535f, 0.168f, 0.108f + ca, 0.148f, 0.093f + ca, 12, f.coat * 0.9f, 0, ca);       // the coat's skirts
     }
-    // the body: a waist, a chest, shoulders sloping to the neck
-    ofrustum(m, base, 0.50f, 0.80f, 0.13f, 0.082f, 0.152f, 0.093f, 12, f.coat);
-    ofrustum(m, base, 0.80f, 0.86f, 0.152f, 0.093f, 0.075f, 0.062f, 12, f.coat, 0, 0, false, true);
+    // the body: a waist, a chest, and shoulders sloping from over the tops of the arms to the neck
+    if (wm) {   // a bodice, narrow at the waist and fuller at the chest (from lower down when the gown is over the lap or the knees)
+        ofrustum(m, ub, sitting || kneeling ? 0.50f : 0.56f, 0.71f, 0.11f, 0.076f, 0.14f, 0.097f, 12, f.coat, 0, 0, true, false);
+        ofrustum(m, ub, 0.71f, 0.80f, 0.14f, 0.097f, 0.145f, 0.09f, 12, f.coat, 0, 0, false, false);
+    } else {
+        ofrustum(m, ub, 0.50f, 0.80f, 0.13f, 0.082f, 0.152f, 0.093f, 12, f.coat);
+        if (st > 0) oellip(m, ub, pc, pr, 12, 6, f.coat);   // a paunch in front
+    }
+    ofrustum(m, ub, 0.77f, 0.86f, 0.215f * (wm ? 0.92f : 1.0f), 0.097f, 0.075f, 0.062f, 12, f.coat);   // a woman's a little narrower
     if (!f.robe && !f.dress) {
-        ofrustum(m, base, 0.68f, 0.84f, 0.16f, 0.1f, 0.135f, 0.085f, 12, f.coat * 0.75f, 0, 0.004f, false, false);   // the doublet
-        if (!f.statue)
-            for (int k = 0; k < 4; k++)   // buttons down the front
-                oellip(m, base, vec3(0, 0.094f, 0.56f + k * 0.065f), vec3(0.011f, 0.008f, 0.011f), 6, 3, vec3(0.72f, 0.62f, 0.34f));
+        ofrustum(m, ub, 0.68f, 0.84f, 0.16f, std::max(0.1f, pf(0.68f) + 0.004f), 0.135f, 0.085f, 12, f.coat * 0.75f, 0, 0.004f, false, false);   // the doublet
+        if (!f.statue && !gLo)
+            for (int k = 0; k < 4; k++) {   // buttons down the front, on a paunch's curve
+                float z = 0.56f + k * 0.065f;
+                if (f.apronOn && z < 0.74f) continue;   // under the apron
+                oellip(m, ub, vec3(0, std::max(0.094f, pf(z) + 0.004f), z), vec3(0.011f, 0.008f, 0.011f), 6, 3, vec3(0.72f, 0.62f, 0.34f));
+            }
     }
-    if (f.apronOn) {
+    // a piece of an apron: a thin flat tube from (z0, y0) to (z1, y1) in front of the body, 4 mm out, w0 to w1 wide
+    auto panel = [&](const mat4 &M, float z0, float z1, float y0, float y1, float w0, float w1) {
+        float ang = std::atan2(y0 - y1, z1 - z0), half = 0.5f * std::sqrt((z1 - z0) * (z1 - z0) + (y1 - y0) * (y1 - y0));
+        ofrustum(m, M * translate(vec3(0, 0.5f * (y0 + y1) + 0.004f, 0.5f * (z0 + z1))) * rotX(ang), -half, half, w0, 0.006f, w1, 0.005f, 6, f.apron);
+    };
+    if (f.apronOn && longGown && !kneeling && !sitting) {   // on a gown: lying on the skirt's slope from the waist down, a bib on the bodice
+        if (wm) {   // a woman's skirt (0.02-0.60) and bodice (from 0.56)
+            auto skirtY = [](float z) { return 0.175f + (0.09f - 0.175f) * (z - 0.02f) / 0.58f; };
+            auto bodyY = [](float z) { return 0.076f + (0.097f - 0.076f) * (z - 0.56f) / 0.15f; };
+            panel(base, 0.10f, 0.60f, skirtY(0.10f), skirtY(0.60f), 0.135f, 0.105f);
+            panel(ub, 0.60f, 0.71f, bodyY(0.60f), bodyY(0.71f), 0.08f, 0.075f);
+        } else {
+            auto skirtY = [](float z) { return 0.165f + (0.104f - 0.165f) * (z - 0.02f) / 0.51f; };
+            auto bodyY = [](float z) { return 0.082f + (0.093f - 0.082f) * (z - 0.5f) / 0.3f; };
+            panel(base, 0.12f, 0.53f, skirtY(0.12f), skirtY(0.53f), 0.135f, 0.105f);
+            panel(ub, 0.53f, 0.72f, bodyY(0.53f), bodyY(0.72f), 0.08f, 0.075f);
+        }
+    } else if (f.apronOn) {   // a board in front, from the thighs (a gown's knees) to the chest
         float a0 = longGown ? 0.12f : 0.3f;
-        ofrustum(m, base, a0, 0.74f, 0.15f, 0.012f, 0.12f, 0.01f, 6, f.apron, 0, 0.095f);
+        if (st > 0) {   // over a paunch: hanging straight down in front of it and of the coat's skirts, and lying on it above
+            float yb = std::max(pf(0.56f), 0.108f + 2 * ca) + 0.006f, w = 0.15f - 0.03f * (0.56f - a0) / (0.74f - a0);
+            panel(base, a0, 0.56f, yb, yb, 0.15f, w);
+            panel(ub, 0.56f, 0.74f, yb, 0.093f, w, 0.12f);
+        } else if (lean > 0) {   // above the waist it leans with the body
+            float k = (0.5f - a0) / (0.74f - a0), rw = 0.15f - 0.03f * k, rd = 0.012f - 0.002f * k;
+            ofrustum(m, base, a0, 0.5f, 0.15f, 0.012f, rw, rd, 6, f.apron, 0, 0.095f, true, false);
+            ofrustum(m, ub, 0.5f, 0.74f, rw, rd, 0.12f, 0.01f, 6, f.apron, 0, 0.095f, false, true);
+        } else ofrustum(m, base, a0, 0.74f, 0.15f, 0.012f, 0.12f, 0.01f, 6, f.apron, 0, 0.095f);
     }
-    if (f.sashOn) {   // round the waist, over the coat, and its ends hanging at the left hip
-        ofrustum(m, base, 0.52f, 0.6f, 0.142f, 0.092f, 0.147f, 0.094f, 12, f.sash, 0, 0, false, false);
-        ofrustum(m, base, 0.36f, 0.55f, 0.016f, 0.03f, 0.02f, 0.034f, 6, f.sash * 0.85f, -0.15f, 0.0f);
+    if (f.sashOn) {   // round the waist, over the coat (and out over a paunch), and its ends hanging at the left hip
+        float sa = std::max(0.0f, (pf(0.56f) + 0.006f - 0.092f) * 0.5f);
+        ofrustum(m, base, 0.52f, 0.6f, 0.142f + 0.009f * st, 0.092f + sa, 0.147f + 0.009f * st, 0.094f + sa, 12, f.sash, 0, sa, false, false);
+        ofrustum(m, base, 0.36f, 0.55f, 0.016f, 0.03f, 0.02f, 0.034f, 6, f.sash * 0.85f, -0.15f - 0.01f * st, 0.0f);
     }
-    // the falling collar, white (a monk's or a woman's dark), and the neck
-    ofrustum(m, base, 0.80f, 0.865f, 0.135f, 0.098f, 0.072f, 0.062f, 14, f.robe ? f.coat * 0.6f : white);
-    ofrustum(m, base, 0.84f, 0.89f, 0.036f, 0.036f, 0.034f, 0.034f, 8, f.skin);
-    // the arms: shoulder, upper arm, elbow, forearm, cuff, hand
+    // the falling collar (a monk's dark; a woman's broad, over the shoulders), and the neck
+    if (wm) ofrustum(m, ub, 0.785f, 0.865f, 0.17f, 0.11f, 0.072f, 0.062f, 14, white);
+    else ofrustum(m, ub, 0.80f, 0.865f, 0.135f, 0.098f, 0.072f, 0.062f, 14, f.robe ? f.coat * 0.6f : white);
+    ofrustum(m, ub, 0.84f, 0.89f, 0.036f, 0.036f, 0.034f, 0.034f, 8, f.skin);
+    // the arms: shoulder, upper arm, elbow, forearm, cuff, hand; the shoulder tucked under the slope of the body
     float raise = f.strike > 0 ? std::sin(std::min(1.0f, f.strike) * PI_F) * 2.0f : 0.0f;
     vec3 wood(0.40f, 0.27f, 0.15f), steel(0.72f, 0.74f, 0.78f), iron(0.25f, 0.25f, 0.27f);
     for (int s = -1; s <= 1; s += 2) {
@@ -1662,13 +1787,21 @@ static void buildFigureFine(MeshBuf &m, const mat4 &base, float swing, const Fig
         if (f.carry == 4) a = 0.7f;
         if (sitting && !holding) a = 0.3f;   // seated: the hands in the lap
         if (s > 0) a -= raise;
-        mat4 A = base * translate(vec3(s * 0.185f, 0, 0.80f)) * rotX(a);
-        oellip(m, A, vec3(0, 0, -0.025f), vec3(0.05f, 0.052f, 0.045f), 8, 4, f.coat * 0.95f);
-        ofrustum(m, A, -0.17f, 0.0f, 0.042f, 0.044f, 0.05f, 0.052f, 8, f.coat * 0.95f);
+        a += lean;   // leaning, the arms still hang plumb
+        vec3 P(s * 0.165f * (wm ? 0.93f : 1.0f), 0, 0.785f);   // the shoulder
+        mat4 A = ub * translate(P) * rotX(a);
         float eb = holding || lying ? 0.0f : 0.22f + 0.35f * std::max(0.0f, a);   // the elbow, a little bent
         mat4 F = A * translate(vec3(0, 0, -0.17f)) * rotX(eb);
-        oellip(m, F, vec3(0, 0, 0), vec3(0.044f, 0.046f, 0.04f), 8, 3, f.coat * 0.95f);
-        ofrustum(m, F, -0.165f, 0.0f, 0.036f, 0.038f, 0.043f, 0.045f, 8, f.coat * 0.95f);
+        vec3 T;
+        if (!lying && reachTarget(f, s, sitting, holding, T)) {   // the hand goes to what it holds
+            mat4 Al, Fl;
+            armReach(P, T, vec3(s * 0.7f, -0.3f, -1.0f), 0.17f, 0.205f, Al, Fl);
+            A = ub * Al; F = ub * Fl;
+        }
+        oellip(m, A, vec3(0, 0, -0.015f), vec3(0.05f, 0.053f, 0.042f), 8, 4, f.coat);
+        ofrustum(m, A, -0.17f, 0.0f, 0.042f, 0.044f, 0.05f, 0.052f, 8, f.coat);
+        if (!gLo) oellip(m, F, vec3(0, 0, 0), vec3(0.044f, 0.046f, 0.04f), 8, 3, f.coat);   // the elbow
+        ofrustum(m, F, -0.165f, 0.0f, 0.036f, 0.038f, 0.043f, 0.045f, 8, f.coat);
         ofrustum(m, F, -0.175f, -0.15f, 0.044f, 0.046f, 0.043f, 0.045f, 8, f.robe ? f.coat * 0.85f : white, 0, 0, false, false);   // the cuff
         oellip(m, F, vec3(0, 0.006f, -0.205f), vec3(0.03f, 0.034f, 0.04f), 8, 4, f.skin);   // the hand
         if (f.carry == 3 && s > 0) {   // the cap, held by its brim, hanging from the hand (it was a ball: "a lump")
@@ -1700,76 +1833,99 @@ static void buildFigureFine(MeshBuf &m, const mat4 &base, float swing, const Fig
                 break;
         }
     }
-    if (f.halberd) {
-        mat4 A = base * translate(vec3(0.24f, 0.05f, 0));
+    if (f.halberd) {   // its staff through the right hand
+        mat4 A = ub * translate(vec3(0.2f, 0.07f, 0));
         ofrustum(m, A, 0.0f, 1.7f, 0.02f, 0.02f, 0.018f, 0.018f, 6, vec3(0.4f, 0.28f, 0.16f));
         obox(m, A, vec3(-0.012f, -0.13f, 1.45f), vec3(0.012f, 0.04f, 1.62f), vec3(0.7f, 0.72f, 0.75f));
         ofrustum(m, A, 1.62f, 1.86f, 0.012f, 0.012f, 0.001f, 0.001f, 4, vec3(0.7f, 0.72f, 0.75f));
     }
     if (f.lute) {
-        mat4 A = base * translate(vec3(-0.05f, 0.12f, 0.62f)) * rotateZ(0.3f);
+        mat4 A = ub * translate(vec3(-0.05f, 0.12f, 0.62f)) * rotateZ(0.3f);
         oellip(m, A, vec3(-0.01f, 0, -0.01f), vec3(0.12f, 0.045f, 0.11f), 10, 5, vec3(0.62f, 0.4f, 0.2f), -PI_F / 2, PI_F / 2);
         oellip(m, A, vec3(-0.01f, 0.044f, -0.01f), vec3(0.025f, 0.002f, 0.025f), 8, 2, vec3(0.2f, 0.12f, 0.06f));   // the rose
         obox(m, A, vec3(0.1f, -0.02f, -0.02f), vec3(0.36f, 0.02f, 0.02f), vec3(0.35f, 0.22f, 0.12f));
         obox(m, A, vec3(0.34f, -0.025f, -0.03f), vec3(0.42f, 0.025f, 0.03f), vec3(0.3f, 0.18f, 0.1f));   // the pegbox
     }
-    if (f.carry == 4) {   // a little book of sewn pages, held out in both hands
-        obox(m, base, vec3(-0.075f, 0.2f, 0.49f), vec3(0.075f, 0.3f, 0.525f), vec3(0.45f, 0.3f, 0.17f));
-        obox(m, base, vec3(-0.068f, 0.205f, 0.525f), vec3(0.068f, 0.295f, 0.535f), vec3(0.93f, 0.9f, 0.8f));
+    if (f.carry == 4) {   // a little book of sewn pages, held out in both hands by its edges
+        obox(m, ub, vec3(-0.075f, 0.19f, 0.53f), vec3(0.075f, 0.29f, 0.565f), vec3(0.45f, 0.3f, 0.17f));
+        obox(m, ub, vec3(-0.068f, 0.195f, 0.565f), vec3(0.068f, 0.285f, 0.575f), vec3(0.93f, 0.9f, 0.8f));
     }
-    if (f.carry == 1) {
-        oellip(m, base, vec3(-0.02f, 0.23f, 0.655f), vec3(0.11f, 0.07f, 0.055f), 10, 5, vec3(0.92f, 0.9f, 0.84f));
-        oellip(m, base, vec3(0.12f, 0.23f, 0.665f), vec3(0.045f, 0.045f, 0.045f), 8, 5, f.babySkin);
-        oellip(m, base, vec3(0.125f, 0.225f, 0.685f), vec3(0.048f, 0.048f, 0.035f), 8, 3, vec3(0.92f, 0.9f, 0.84f), 0, PI_F / 2);
+    if (f.carry == 1) {   // a swaddled baby across the arms
+        oellip(m, ub, vec3(-0.02f, 0.23f, 0.655f), vec3(0.11f, 0.07f, 0.055f), 10, 5, vec3(0.92f, 0.9f, 0.84f));
+        oellip(m, ub, vec3(0.12f, 0.23f, 0.665f), vec3(0.045f, 0.045f, 0.045f), 8, 5, f.babySkin);
+        oellip(m, ub, vec3(0.125f, 0.225f, 0.685f), vec3(0.048f, 0.048f, 0.035f), 8, 3, vec3(0.92f, 0.9f, 0.84f), 0, PI_F / 2);
     }
-    if (f.carry == 2) {
+    if (f.carry == 2) {   // a yoke across the shoulders behind the neck; its ropes drawn forward by the hands, the pails hanging from them
         vec3 wood(0.45f, 0.32f, 0.18f), pail(0.62f, 0.5f, 0.34f), rope(0.55f, 0.48f, 0.36f);
-        ofrustum(m, base * translate(vec3(0, 0, 0.86f)) * rotateZ(PI_F / 2) * rotX(PI_F / 2), -0.5f, 0.5f, 0.022f, 0.02f, 0.022f, 0.02f, 6, wood);
+        ofrustum(m, ub * translate(vec3(0, -0.075f, 0.855f)) * rotateZ(PI_F / 2) * rotX(PI_F / 2), -0.34f, 0.34f, 0.022f, 0.02f, 0.022f, 0.02f, 6, wood);
         for (int s = -1; s <= 1; s += 2) {
-            obox(m, base, vec3(s * 0.46f - 0.008f, -0.008f, 0.56f), vec3(s * 0.46f + 0.008f, 0.008f, 0.85f), rope);
-            ofrustum(m, base * translate(vec3(s * 0.46f, 0, 0)), 0.36f, 0.56f, 0.065f, 0.065f, 0.08f, 0.08f, 10, pail);
-            ofrustum(m, base * translate(vec3(s * 0.46f, 0, 0)), 0.40f, 0.42f, 0.071f, 0.071f, 0.072f, 0.072f, 10, pail * 0.6f, 0, 0, false, false);
+            vec3 top(s * 0.30f, -0.075f, 0.845f), hand(s * 0.24f, 0.16f, 0.62f), d = hand - top;
+            ofrustum(m, ub * boneFrame(normalize(d), top), -length(d), 0.0f, 0.008f, 0.008f, 0.008f, 0.008f, 4, rope);
+            ofrustum(m, ub * translate(vec3(hand.x, hand.y, 0)), 0.55f, 0.62f, 0.008f, 0.008f, 0.008f, 0.008f, 4, rope);
+            ofrustum(m, ub * translate(vec3(hand.x, hand.y, 0)), 0.36f, 0.56f, 0.065f, 0.065f, 0.08f, 0.08f, 10, pail);
+            ofrustum(m, ub * translate(vec3(hand.x, hand.y, 0)), 0.40f, 0.42f, 0.071f, 0.071f, 0.072f, 0.072f, 10, pail * 0.6f, 0, 0, false, false);
         }
     }
-    // the head (larger for a small child's size, about the neck), the face, the hair
-    mat4 hb = f.headK != 1 ? base * translate(vec3(0, 0, 0.86f)) * scaleM(f.headK) * translate(vec3(0, 0, -0.86f)) : base;
+    // the head (larger for a small child's size, about the neck; lifted again when the body leans), the face, the hair
+    mat4 hb = ub * translate(vec3(0, 0, 0.86f)) * rotX(0.6f * lean) * scaleM(f.headK) * translate(vec3(0, 0, -0.86f));
     oellip(m, hb, vec3(0, 0.004f, 0.945f), vec3(0.07f, 0.077f, 0.086f), 12, 8, f.skin);
-    for (int s = -1; s <= 1; s += 2) {
+    for (int s = -1; s <= 1 && !gLo; s += 2) {
         oellip(m, hb, vec3(s * 0.069f, -0.004f, 0.94f), vec3(0.012f, 0.021f, 0.028f), 6, 3, f.skin * 0.94f);   // the ears
         // the eyes and the brows: flattened, half sunk in the face where it curves (flat boxes stood out
         // from the round head at their outer ends, like the rims of goggles)
         oellip(m, hb, vec3(s * 0.026f, 0.0735f, 0.955f), vec3(0.0085f, 0.004f, 0.0065f), 6, 3, dark);   // the eyes
-        oellip(m, hb, vec3(s * 0.027f, 0.0705f, 0.97f), vec3(0.014f, 0.004f, 0.0032f), 6, 3, f.statue ? dark : f.hair * 0.8f);   // the brows
+        oellip(m, hb, vec3(s * 0.027f, 0.0705f, 0.97f), vec3(0.014f, 0.004f, 0.0032f), 6, 3, f.statue ? dark : hair * 0.8f);   // the brows
     }
-    obox(m, hb, vec3(-0.01f, 0.074f, 0.918f), vec3(0.01f, 0.094f, 0.952f), f.skin * 0.96f);   // the nose
-    obox(m, hb, vec3(-0.021f, 0.069f, 0.894f), vec3(0.021f, 0.078f, 0.902f), f.statue ? dark : vec3(0.62f, 0.32f, 0.3f) * (0.4f + 0.6f * f.skin.x));   // the mouth
-    // hair: a cap over the top and the back of the head
-    oellip(m, hb, vec3(0, -0.012f, 0.962f), vec3(0.077f, 0.083f, 0.074f), 12, 4, f.hair, -0.05f, PI_F / 2);
-    oellip(m, hb, vec3(0, -0.03f, 0.93f), vec3(0.074f, 0.062f, 0.062f), 10, 5, f.hair, -0.9f, 0.9f);   // down the back of the head
-    if (f.longHair) oellip(m, hb, vec3(0, -0.058f, 0.86f), vec3(0.08f, 0.04f, 0.115f), 10, 5, f.hair);
-    if (f.fringe) {
-        obox(m, hb, vec3(-0.07f, 0.06f, 0.965f), vec3(0.07f, 0.083f, 1.018f), f.hair);
-        float low = f.longHair ? 0.74f : 0.90f;
+    if (!gLo) obox(m, hb, vec3(-0.01f, 0.074f, 0.918f), vec3(0.01f, 0.094f, 0.952f), f.skin * 0.96f);   // the nose
+    if (!gLo) obox(m, hb, vec3(-0.021f, 0.069f, 0.894f), vec3(0.021f, 0.078f, 0.902f), f.statue ? dark : vec3(0.62f, 0.32f, 0.3f) * (0.4f + 0.6f * f.skin.x));   // the mouth
+    // hair: a cap over the top and the back of the head, full enough on top that the scalp does not show through
+    // (old and bareheaded, a man is thin on top)
+    bool bald = f.age > 0.6f && !f.woman && f.hatKind == 0;
+    oellip(m, hb, vec3(0, -0.009f, 0.962f), vec3(0.077f, 0.086f, 0.078f), 12, bald ? 2 : 4, hair, -0.05f, bald ? 0.6f : PI_F / 2);
+    oellip(m, hb, vec3(0, -0.03f, 0.93f), vec3(0.074f, 0.062f, 0.062f), 10, 5, hair, -0.9f, 0.9f);   // down the back of the head
+    if (f.longHair) oellip(m, hb, vec3(0, -0.058f, 0.86f), vec3(0.08f, 0.04f, 0.115f), 10, 5, hair);
+    vec3 beardc = hair * 0.85f;
+    if (f.beard >= 1 && !gLo)   // a moustache: two wings over the mouth
         for (int s = -1; s <= 1; s += 2)
-            ofrustum(m, hb, low, 1.01f, 0.02f, 0.06f, 0.024f, 0.07f, 6, f.hair, s * 0.068f, -0.01f);
+            oellip(m, hb * translate(vec3(s * 0.016f, 0.079f, 0.907f)) * rotateZ(-s * 0.15f), vec3(0, 0, 0), vec3(0.018f, 0.0065f, 0.006f), 6, 3, beardc);
+    if (f.beard == 1)   // a pointed tuft from under the lip
+        ofrustum(m, hb * translate(vec3(0, 0.066f, 0.888f)) * rotX(0.35f), -0.045f, 0.0f, 0.003f, 0.003f, 0.017f, 0.012f, 6, beardc);
+    if (f.beard == 2)   // a full beard round the jaw and the chin
+        oellip(m, hb, vec3(0, 0.032f, 0.866f), vec3(0.066f, 0.054f, 0.045f), 10, 5, beardc, -PI_F / 2, 0.55f);
+    if (f.fringe) {   // the fringe a band of the head's own curve over the forehead; the locks at the sides tapering to
+                      // the jaw (short hair) or the shoulders (long)
+        oellip(m, hb, vec3(0, 0.0f, 0.952f), vec3(0.079f, 0.087f, 0.088f), 10, 3, hair, 0.18f, 0.95f, PI_F / 2 - 1.05f, PI_F / 2 + 1.05f);
+        float low = f.longHair ? 0.76f : 0.885f;
+        for (int s = -1; s <= 1; s += 2)
+            ofrustum(m, hb, low, 1.0f, 0.012f, 0.03f, 0.022f, 0.06f, 8, hair, s * 0.07f, -0.012f, true, false);
     }
+    mat4 hl = hb * translate(vec3(0, 0, -0.025f));   // a brimmed hat or a helmet sits down on the head
     switch (f.hatKind) {
         case 1:   // a broad-brimmed hat, a round crown and a band
-            ofrustum(m, hb, 1.02f, 1.042f, 0.178f, 0.178f, 0.175f, 0.175f, 16, f.hat);
-            ofrustum(m, hb, 1.04f, 1.16f, 0.084f, 0.084f, 0.072f, 0.072f, 12, f.hat);
-            ofrustum(m, hb, 1.05f, 1.076f, 0.087f, 0.087f, 0.085f, 0.085f, 12, vec3(0.7f, 0.6f, 0.3f), 0, 0, false, false);
+            ofrustum(m, hl, 1.02f, 1.042f, 0.178f, 0.178f, 0.175f, 0.175f, 16, f.hat);
+            ofrustum(m, hl, 1.04f, 1.16f, 0.084f, 0.084f, 0.072f, 0.072f, 12, f.hat);
+            if (!gLo) ofrustum(m, hl, 1.05f, 1.076f, 0.087f, 0.087f, 0.085f, 0.085f, 12, vec3(0.7f, 0.6f, 0.3f), 0, 0, false, false);
             break;
         case 2:   // a knitted cap
             oellip(m, hb, vec3(0, 0.0f, 0.995f), vec3(0.083f, 0.089f, 0.07f), 12, 4, f.hat, 0.0f, PI_F / 2);
             ofrustum(m, hb, 0.985f, 1.01f, 0.085f, 0.091f, 0.085f, 0.091f, 12, f.hat * 0.85f, 0, 0, false, false);
             break;
-        case 3:   // a white coif, round the head and over the ears
-            oellip(m, hb, vec3(0, -0.012f, 0.955f), vec3(0.082f, 0.087f, 0.095f), 12, 6, f.hat, -0.45f, PI_F / 2);
+        case 3: {   // a white coif, worn back on the head and over the ears: open at the face, a band of her own hair
+                    // showing under its front edge; a little fuller than the hair under it, so that its edge is clean.
+                    // On a man it is a turban, round the whole head
+            if (!f.woman) { oellip(m, hb, vec3(0, -0.012f, 0.955f), vec3(0.082f, 0.087f, 0.095f), 12, 6, f.hat, -0.45f, PI_F / 2); break; }
+            mat4 hc = hb * translate(vec3(0, -0.012f, 0.955f)) * rotX(0.5f) * translate(vec3(0, 0.012f, -0.955f));
+            const float w = 0.9f, lt = 0.3f;
+            vec3 cr = vec3(0.082f, 0.087f, 0.095f) * 1.1f;
+            oellip(m, hc, vec3(0, -0.012f, 0.955f), cr, 12, 3, f.hat, lt, PI_F / 2);
+            oellip(m, hc, vec3(0, -0.012f, 0.955f), cr, 10, 3, f.hat, -0.45f, lt, PI_F / 2 + w, PI_F / 2 - w + 2 * PI_F);
+            oellip(m, hc, vec3(0, 0.004f, 0.952f), vec3(0.075f, 0.082f, 0.09f), 8, 2, hair, 0.12f, lt + 0.08f, PI_F / 2 - w - 0.05f, PI_F / 2 + w + 0.05f);
             break;
+        }
         case 4:   // a morion: a brim turned up front and back, a round crown, a comb
-            ofrustum(m, hb, 1.01f, 1.035f, 0.15f, 0.12f, 0.145f, 0.115f, 16, f.hat);
-            oellip(m, hb, vec3(0, 0, 1.03f), vec3(0.082f, 0.085f, 0.09f), 12, 4, f.hat, 0.0f, PI_F / 2);
-            obox(m, hb, vec3(-0.01f, -0.085f, 1.07f), vec3(0.01f, 0.085f, 1.18f), f.hat * 0.9f);
+            ofrustum(m, hl, 1.01f, 1.035f, 0.15f, 0.12f, 0.145f, 0.115f, 16, f.hat);
+            oellip(m, hl, vec3(0, 0, 1.03f), vec3(0.082f, 0.085f, 0.09f), 12, 4, f.hat, 0.0f, PI_F / 2);
+            obox(m, hl, vec3(-0.01f, -0.085f, 1.07f), vec3(0.01f, 0.085f, 1.18f), f.hat * 0.9f);
             break;
         case 5:   // a square scholar's cap
             obox(m, hb, vec3(-0.08f, -0.08f, 1.01f), vec3(0.08f, 0.08f, 1.06f), f.hat);
@@ -1792,7 +1948,7 @@ static void buildFigureFine(MeshBuf &m, const mat4 &base, float swing, const Fig
 // an animal, facing +y before it is turned to `facing`; phase: the walk; headDown 0..1: grazing,
 // or pecking; lying: asleep (a bird sits)
 void buildAnimal(MeshBuf &m, const AnimalLook &a, vec3 pos, float facing, float phase, float headDown, bool lying) {
-    if (gFine) { buildAnimalFine(m, a, pos, facing, phase, headDown, lying); return; }
+    if (gFine || gMid) { gLo = !gFine; buildAnimalFine(m, a, pos, facing, phase, headDown, lying); gLo = false; return; }
     mat4 base = translate(pos) * rotateZ(facing);
     vec3 col = a.col, headc = a.head.x >= 0 ? a.head : col, dark = col * 0.55f;
     float sw = std::sin(phase * 2 * PI_F) * 0.45f;
@@ -1911,16 +2067,16 @@ static void buildAnimalFine(MeshBuf &m, const AnimalLook &a, vec3 pos, float fac
             oellip(m, base, vec3(x, y, bz + bodyH * (0.8f + 0.08f * (k % 3))), vec3(W * 0.42f, L * 0.16f, bodyH * 0.38f), 8, 4, col * (0.95f + 0.05f * (k % 2)));
         }
     } else {
-        oellip(m, base, vec3(0, -L * 0.03f, bz + bodyH * 0.52f), vec3(W * 0.53f, L * 0.54f, bodyH * 0.58f), 14, 7, col);
+        osuper(m, base, vec3(0, -L * 0.03f, bz + bodyH * 0.52f), vec3(W * 0.53f, L * 0.486f, bodyH * 0.58f), 14, 7, col, 0.7f);   // a full barrel, round at the chest and rump
     }
     if (a.patch.x >= 0 && !a.wool) {   // patches: pieces of the body's own surface, a hair outside it
         uint32_t h = hash32((uint32_t)(col.x * 1000 + col.y * 100));
         float o = (h % 7) * 0.06f;
-        vec3 c(0, -L * 0.03f, bz + bodyH * 0.52f), r(W * 0.53f * 1.012f, L * 0.54f * 1.012f, bodyH * 0.58f * 1.012f);
+        vec3 c(0, -L * 0.03f, bz + bodyH * 0.52f), r(W * 0.53f * 1.012f, L * 0.486f * 1.012f, bodyH * 0.58f * 1.012f);
         for (int sd = 0; sd < 2; sd++) {
             float mid = sd ? PI_F : 0, dir = sd ? -1.0f : 1.0f;   // lon 0: the right flank, pi: the left
-            oellip(m, base, c, r, 5, 4, a.patch, -0.15f, 0.95f, mid - dir * (0.55f + o), mid + dir * 0.15f);
-            oellip(m, base, c, r, 3, 3, a.patch, -0.6f, 0.25f, mid + dir * 0.75f, mid + dir * (1.15f - o * 0.5f));
+            osuper(m, base, c, r, 5, 4, a.patch, 0.7f, -0.15f, 0.95f, mid - dir * (0.55f + o), mid + dir * 0.15f);
+            osuper(m, base, c, r, 3, 3, a.patch, 0.7f, -0.6f, 0.25f, mid + dir * 0.75f, mid + dir * (1.15f - o * 0.5f));
         }
     }
     if (a.saddle) {
@@ -1966,8 +2122,10 @@ static void buildAnimalFine(MeshBuf &m, const AnimalLook &a, vec3 pos, float fac
     float up = a.mane ? 0.8f : a.snout ? 0.05f : a.ears ? 0.6f : 0.3f;
     float th = lying ? up * 0.4f : up - headDown * (up + 0.85f);
     float nl = a.mane ? L * 0.42f : a.snout ? L * 0.08f : a.wool ? L * 0.18f : L * 0.24f, nw = W * (a.mane ? 0.32f : 0.4f);
-    mat4 N = base * translate(vec3(0, L * 0.38f, bz + bodyH * (a.snout ? 0.45f : 0.7f))) * rotX(th);
-    ofrustum(m, N * rotX(-HALF), -0.1f, nl + 0.05f, nw * 1.05f, bodyH * 0.42f, nw * 0.68f, bodyH * 0.27f, 12, a.wool ? headc : col, 0, 0, false, false);
+    mat4 N = base * translate(vec3(0, L * 0.38f, bz + bodyH * (a.snout ? 0.45f : 0.6f))) * rotX(th);
+    if (a.snout) ofrustum(m, N * rotX(-HALF), -0.1f, nl + 0.05f, nw * 1.05f, bodyH * 0.42f, nw * 0.68f, bodyH * 0.27f, 12, col, 0, 0, false, false);
+    else   // from well inside the body, no wider than the body where it comes out, and closed at its back end
+        ofrustum(m, N * rotX(-HALF), -0.3f, nl + 0.05f, nw * 0.8f, bodyH * 0.32f, nw * 0.68f, bodyH * 0.27f, 12, a.wool ? headc : col, 0, 0, true, false);
     if (!a.wool && !a.snout && !a.mane && !a.ears)   // a cow's dewlap, under the neck
         oellip(m, N, vec3(0, nl * 0.45f, -bodyH * 0.28f), vec3(nw * 0.5f, nl * 0.55f, bodyH * 0.22f), 8, 4, col * 0.95f);
     if (a.mane) obox(m, N, vec3(-nw * 0.25f, -0.02f, bodyH * 0.26f), vec3(nw * 0.25f, nl, bodyH * 0.44f), dark * 0.7f);

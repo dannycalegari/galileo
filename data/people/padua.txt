@@ -11,6 +11,7 @@ person liceti
   name Fortunio Liceti
   title a professor of philosophy
   role scholar
+  look beard tuft
   near Palazzo del Bo
   work landmark Palazzo del Bo
   schedule
@@ -39,6 +40,7 @@ person vesling
   name Johann Vesling
   title a physician
   role physician
+  look beard tuft
   near anatomy theatre
   work landmark anatomy theatre
   schedule
@@ -65,6 +67,7 @@ person alpini
   name Alpino Alpini
   title the prefect of the Orto botanico
   role scholar
+  look plain
   near prefect of the Orto
   work landmark prefect of the Orto
   schedule

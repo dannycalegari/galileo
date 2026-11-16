@@ -10,6 +10,7 @@ person golius
   name Jacobus Golius
   title a professor of Arabic and mathematics
   role scholar
+  look beard tuft
   near Academy
   work landmark Academy
   talk
@@ -26,6 +27,7 @@ person heinsius
   name Daniel Heinsius
   title the Librarian of the University
   role scholar
+  look beard tuft
   near Academy
   work landmark Academy
   talk
@@ -39,6 +41,7 @@ person elzevir
   name Abraham Elzevir
   title a printer of Leiden
   role printer
+  look beard tuft
   near Elzevirs
   work landmark Elzevirs
   sells book 3
@@ -58,6 +61,7 @@ person heurnius
   name Otto Heurnius
   title the keeper of the anatomy theatre
   role physician
+  look beard tuft
   near anatomy theatre
   work landmark anatomy theatre
   talk

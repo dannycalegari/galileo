@@ -11,6 +11,7 @@ person lamormaini
   name Father William Lamormaini
   title the Emperor's confessor
   role jesuit
+  look old
   near University of Vienna
   work landmark University of Vienna
   talk
@@ -25,7 +26,7 @@ person valentini
   name Giovanni Valentini
   title the Emperor's Kapellmeister
   role musician
-  look coat #3A1E2A legs #2A1E22 hat hat #1E1A1E
+  look coat #3A1E2A legs #2A1E22 hat hat #1E1A1E beard tuft
   near Hofburg
   work landmark Hofburg
   talk
@@ -40,6 +41,7 @@ person tengnagel
   name Sebastian Tengnagel
   title the Imperial Librarian
   role scholar
+  look beard tuft
   near Hofburg
   talk
     give:dialogue if has:dialogue >= 1: The Library has one already. One is all a library needs; that is the whole idea of a library.

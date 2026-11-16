@@ -30,6 +30,7 @@ person gundulic
   name Ivan Gundulić
   title a senator and poet
   role scholar
+  look beard tuft
   near Franciscan
   work landmark Rector's palace
   talk

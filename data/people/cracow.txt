@@ -12,6 +12,7 @@ person brozek
   name Jan Brożek
   title a professor of the Academy
   role mathematician
+  look beard tuft
   near Collegium Maius
   work landmark Collegium Maius
   talk
@@ -42,7 +43,7 @@ person trevano
   name Giovanni Trevano
   title the King's architect
   role scholar
-  look coat #3A2E22 legs #2A221C hat hat #1E1A16
+  look coat #3A2E22 legs #2A221C hat hat #1E1A16 beard tuft
   near Wawel castle
   work landmark Wawel castle
   talk

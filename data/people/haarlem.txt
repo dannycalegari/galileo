@@ -10,6 +10,7 @@ person hals
   name Frans Hals
   title a painter
   role painter
+  look beard tuft
   near Frans Hals
   work landmark Frans Hals
   schedule
@@ -35,7 +36,7 @@ person leyster
   title a painter
   role painter
   sex f
-  look coat #4A2A3A legs #3A2A30 hat coif #F2EEE6 dress
+  look coat #4A2A3A legs #3A2A30 hat coif #F2EEE6 dress plain
   near Leyster
   work landmark Leyster
   talk
@@ -51,6 +52,7 @@ person saenredam
   name Pieter Saenredam
   title a painter of churches
   role painter
+  look plain
   near Grote Kerk
   work landmark Grote Kerk
   talk

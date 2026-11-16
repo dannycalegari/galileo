@@ -29,7 +29,7 @@ person wallenstein
   name Albrecht von Wallenstein
   title the Duke of Friedland, the Emperor's general
   role prince
-  look coat #1A1A1E legs #1A1A1E hat hat #8A1A1A
+  look coat #1A1A1E legs #1A1A1E hat hat #8A1A1A beard tuft
   near farm by the Alte Veste
   work landmark farm by the Alte Veste
   schedule
@@ -59,7 +59,7 @@ person senno
   name Giovanni Battista Senno
   title the Duke's astrologer
   role scholar
-  look coat #2A2A4A legs #2A2A3A hat hat #1E1E3A
+  look coat #2A2A4A legs #2A2A3A hat hat #1E1E3A beard tuft
   near farm by the Alte Veste
   work landmark farm by the Alte Veste
   schedule

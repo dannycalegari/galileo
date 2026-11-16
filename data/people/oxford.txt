@@ -23,6 +23,7 @@ person rouse
   name John Rouse
   title Bodley's Librarian
   role scholar
+  look beard tuft
   near Bodleian
   work landmark Bodleian
   schedule
@@ -53,6 +54,7 @@ person burton
   name Robert Burton
   title a student of Christ Church
   role scholar
+  look beard tuft
   near Christ Church
   work landmark Christ Church
   schedule
@@ -75,6 +77,7 @@ person bainbridge
   name John Bainbridge
   title the Savilian Professor of Astronomy
   role mathematician
+  look beard tuft
   near Merton
   work landmark Merton
   talk
@@ -94,6 +97,7 @@ person wilkins
   name John Wilkins
   title a student of Magdalen Hall
   role student
+  look plain
   near Magdalen
   talk
     name: John Wilkins, of Magdalen Hall. My grandfather was John Dod, the preacher; I am not a preacher yet. {name}

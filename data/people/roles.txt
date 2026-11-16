@@ -5,6 +5,8 @@
 #   sex m | f | x        (x: either; women then wear a dress and a coif)
 #   look coat #hex legs #hex hat KIND #hex apron #hex dress robe halberd lute
 #        (hat kinds: none hat cap coif helmet squarecap hood biretta)
+#        old, beard tuft|full|moustache, stout: who they are (age, a beard, a paunch). Anyone whose look gives
+#        none of these, and not "plain", has them drawn at random, and a height within 4% either way
 #   work KIND            where they work: forge shop bakery inn church altar college
 #                        theatre fortress gate market square quay field woods road mine
 #                        landmark NAME (a building whose name contains NAME), none

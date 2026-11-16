@@ -118,6 +118,7 @@ person mersenne
   known A kind man, and terribly curious. He writes to every learned man in Europe, and he will ask you how fast you walk, and write it down.
   title a Minim friar
   role friar
+  look plain
   near Minims
   work landmark Minims
   schedule
@@ -244,6 +245,7 @@ person fermat
   name Pierre Fermat
   known A magistrate from Toulouse, here about some lawsuit. Polite and quiet, and always scribbling sums in the margins of his books.
   role mathematician
+  look beard moustache
   near Louvre
   schedule
     7:00 home
@@ -271,6 +273,7 @@ person richelieu
   known His Eminence. Say nothing against him in the street: he hears everything. They say he sleeps four hours a night and governs the other twenty.
   title a cardinal
   role cardinal
+  look beard tuft
   near Luxembourg
   work landmark Luxembourg
   schedule
@@ -529,7 +532,7 @@ person bahuche
   title an old woman in black
   role painter
   sex f
-  look coat #2A2626 legs #2A2626 hat coif #E8E4DA dress
+  look coat #2A2626 legs #2A2626 hat coif #E8E4DA dress plain
   near Grande Galerie
   work landmark Louvre
   says Mind the pictures!
@@ -581,7 +584,7 @@ person lebrun
   title a boy with paint on his sleeves
   role painter
   sex m
-  look coat #5A3A2A legs #3A2A20 hat cap #2A2018 child
+  look coat #5A3A2A legs #3A2A20 hat cap #2A2018 child plain
   near Grande Galerie
   work landmark Louvre
   says Look at the hands!
@@ -648,7 +651,7 @@ person lemercier
   known The King's architect, and the Cardinal's. A careful man with plans under his arm, who never stops measuring things, including you.
   title the King's architect
   role scholar
-  look coat #2A2A30 legs #222228 hat hat #1A1A1E
+  look coat #2A2A30 legs #222228 hat hat #1A1A1E beard tuft
   near Louvre
   work landmark Louvre
   talk
@@ -698,6 +701,7 @@ person diodati
   known A Genevan, and a great friend of the learned: letters come to him from Italy and Holland by every post.
   title an advocate in the Parlement
   role scholar
+  look beard tuft
   near Palais de la Cité
   work landmark Palais de la Cité
   talk

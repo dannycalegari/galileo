@@ -11,6 +11,7 @@ person milton
   name John Milton
   title a scholar of Christ's
   role scholar
+  look plain
   near Christ's
   work landmark Christ's
   talk
@@ -27,6 +28,7 @@ person harvard
   name John Harvard
   title a scholar of Emmanuel
   role student
+  look plain
   near Emmanuel
   work landmark Emmanuel
   talk
@@ -40,6 +42,7 @@ person mede
   name Joseph Mede
   title a fellow of Christ's
   role mathematician
+  look beard tuft
   near Christ's
   talk
     name: Joseph Mede, fellow of Christ's. {name}
@@ -52,6 +55,7 @@ person more
   name Henry More
   title a young scholar of Christ's
   role student
+  look plain
   near Christ's
   talk
     name: Henry More, of Christ's, these two years. {name}

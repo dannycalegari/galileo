@@ -11,7 +11,7 @@ person breitinger
   name Johann Jakob Breitinger
   title the Antistes of Zurich
   role priest
-  look coat #141414 legs #141414 hat cap #141414 robe
+  look coat #141414 legs #141414 hat cap #141414 robe beard full
   near Grossmünster
   work landmark Grossmünster
   talk

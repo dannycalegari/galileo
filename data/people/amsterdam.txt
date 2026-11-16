@@ -10,7 +10,7 @@ person descartes
   name René Descartes
   title a French gentleman
   role mathematician
-  look coat #1E1E24 legs #1E1E24 hat hat #141418
+  look coat #1E1E24 legs #1E1E24 hat hat #141418 beard tuft
   known He lodges in the Kalverstraat, by the Munttoren, and keeps to his room until eleven; towards evening he walks at the Exchange, among the merchants.
   near Munttoren
   work none
@@ -52,6 +52,7 @@ person rembrandt
   name Rembrandt Harmensz van Rijn
   title a painter
   role painter
+  look beard moustache
   near Uylenburgh
   work landmark Uylenburgh
   talk
@@ -72,6 +73,7 @@ person uylenburgh
   name Hendrick Uylenburgh
   title a dealer in pictures
   role merchant
+  look beard tuft
   near Uylenburgh
   work landmark Uylenburgh
   talk
@@ -86,6 +88,7 @@ person tulp
   name Nicolaes Tulp
   title a physician
   role physician
+  look beard tuft
   near Waag
   work landmark Waag
   talk
@@ -101,6 +104,7 @@ person blaeu
   name Willem Jansz Blaeu
   title a printer and maker of maps
   role printer
+  look old beard tuft
   near Blaeu
   work landmark Blaeu
   sells book 2 tube 4 atlas 1
@@ -124,6 +128,7 @@ person vondel
   name Joost van den Vondel
   title a poet
   role merchant
+  look beard tuft
   near Oude Kerk
   sells strings 2
   talk
@@ -139,6 +144,7 @@ person menasseh
   name Menasseh ben Israel
   title a rabbi and printer
   role printer
+  look beard full
   near Menasseh
   work landmark Menasseh
   talk
@@ -153,6 +159,7 @@ person barlaeus
   name Caspar Barlaeus
   title a professor
   role scholar
+  look beard tuft
   near Athenaeum
   work none
   schedule

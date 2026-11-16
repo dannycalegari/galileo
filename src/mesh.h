@@ -65,12 +65,21 @@ struct FigureLook {
     vec3 babySkin{0.90f, 0.74f, 0.60f};
     float kneel = 0;       // above 0: kneeling on both knees (the body lowered to the knees, shins along the floor)
     bool sit = false;      // seated on a chair (drawn with the figure): thighs forward, shins down
+    // who the person is (the look's words "old", "beard KIND", "stout"; woman from the person's sex)
+    float age = 0;         // 0 in the prime of life .. 1 old: a stoop, grey hair, a bareheaded man thin on top
+    int beard = 0;         // 0 none, 1 a moustache and a pointed tuft, 2 a full beard, 3 a moustache
+    float stout = 0;       // 0..1 a belly, the coat and its buttons following it
+    bool woman = false;    // in a gown (dress): a bodice, the skirt from a higher waist, a broad collar, narrower shoulders
+    bool plain = false;    // "plain": no age, beard, stoutness or height drawn at random (People's drawLook)
 };
 
 // close up (the camera near: main.cc sets it each frame), people and animals are drawn finer:
 // rounded heads with faces, tapered limbs bent at the knee and elbow, hands, shoes, round hats
 void setFineFigures(bool on);
 bool fineFigures();
+// a little further out, the same figures with fewer sides and without the small features (main.cc sets it only
+// while the people and animals about are built)
+void setMidFigures(bool on);
 // close up, furniture (tables, beds, barrels...) is drawn finer too: blocks of ground and upper
 // floors are rebuilt when this changes (main.cc ensureChunk, the levels)
 void setFineFeatures(bool on);

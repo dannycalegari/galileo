@@ -12,6 +12,7 @@ person marci
   name Jan Marek Marci
   title a physician and professor
   role physician
+  look beard tuft
   near Carolinum
   work landmark Carolinum
   talk
@@ -29,7 +30,7 @@ person baresch
   name Georg Baresch
   title an alchemist
   role scholar
-  look coat #3A2A3A legs #2A222A hat hat #1E1A1E
+  look coat #3A2A3A legs #2A222A hat hat #1E1A1E plain
   near Týn
   talk
     name: Georg Baresch. I study the art of chemistry, and other arts. {name}
@@ -44,6 +45,7 @@ person arriaga
   name Father Rodrigo de Arriaga
   title a Jesuit of the Clementinum
   role jesuit
+  look plain
   near Clementinum
   work landmark Clementinum
   talk
@@ -59,7 +61,7 @@ person senno
   name Giovanni Battista Senno
   title the Duke of Friedland's astrologer
   role mathematician
-  look coat #2A2A4A legs #1E1E2A hat hat #1A1A2A robe
+  look coat #2A2A4A legs #1E1E2A hat hat #1A1A2A robe beard tuft
   near Wallenstein palace
   work landmark Wallenstein palace
   talk

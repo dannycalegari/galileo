@@ -12,6 +12,7 @@ person pacheco
   name Francisco Pacheco
   title a painter
   role painter
+  look old beard tuft
   near Cathedral of Seville
   talk
     sheet,hand,writing,forgery,paper,signature,wastepaper if player has:practice-sheet: (He studies it a long time with a glass.) I censor paintings for the Holy Office, and I know a forger's hand when I see one: slow where a true hand is quick, lifted where a true hand runs on. And I know whose hand this is. Andrés Morales, of Granada, who copied the inscriptions of the Sacromonte for the old Archbishop. (He puts the glass down.) They say his boy is a page in Don Rodrigo de Arellano's house here, and that the boy is not free to leave it. {player set proof-hand} {player set pacheco-knows} {player set knows:rome:morales} {player set knows:seville:rodrigo}
@@ -29,6 +30,7 @@ person zurbaran
   name Francisco de Zurbaran
   title a painter
   role painter
+  look beard tuft
   near Alcazar of Seville
   talk
     name: Francisco de Zurbaran, painter, of Fuente de Cantos. {name}
@@ -41,6 +43,7 @@ person murillo
   name Bartolome Esteban
   title a boy
   role apprentice
+  look plain
   near Lonja
   talk
     name: Bartolome. Murillo, after my mother's family. {name}

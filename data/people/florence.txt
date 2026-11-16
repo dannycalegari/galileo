@@ -7,6 +7,7 @@ country Italy
 person landini
   name Giovanni Battista Landini
   role printer
+  look plain
   near Landini
   work landmark Landini
   sells dialogue 3 book 4
@@ -37,7 +38,7 @@ person duke
   name Ferdinando II de' Medici
   title the Grand Duke of Tuscany
   role prince
-  look coat #4A1E3A legs #1E1A22 hat hat #141018
+  look coat #4A1E3A legs #1E1A22 hat hat #141018 beard moustache
   near Pitti
   work landmark Pitti
   talk
@@ -57,7 +58,7 @@ person buonarroti
   name Michelangelo Buonarroti
   title a poet
   role scholar
-  look coat #3A2E26 legs #2A221C hat hat #1E1814
+  look coat #3A2E26 legs #2A221C hat hat #1E1814 old beard full
   near Croce
   work none
   schedule
@@ -128,7 +129,7 @@ country Italy
 person galileo
   name Galileo Galilei
   role philosopher
-  look coat #2A2420 legs #2A2420 hat cap #1A1614 robe hair #C9C4BA
+  look coat #2A2420 legs #2A2420 hat cap #1A1614 robe hair #C9C4BA old beard full
   near Gioiello
   schedule
     7:00 home if not player galileo-away
@@ -237,6 +238,7 @@ person celeste
   name Suor Maria Celeste
   died if player celeste-dead | Suor Maria Celeste? She died at San Matteo on the second of April, 1634, and the nuns buried her in their own chapel.
   role nun
+  look plain
   near Matteo
   work landmark Matteo
   schedule
@@ -348,6 +350,7 @@ person ronconi
   name Dottor Giovanni Ronconi
   title a physician
   role physician
+  look plain
   near Annunziata
   work landmark Annunziata
   talk
@@ -363,6 +366,7 @@ person geri
   name Geri Bocchineri
   title a secretary of the Grand Duke
   role scholar
+  look plain
   near Palazzo Vecchio
   work landmark Palazzo Vecchio
   talk

@@ -3068,6 +3068,7 @@ struct Game {
         me.coat = c;
         me.legs = courier ? vec3(0.12f, 0.12f, 0.15f) : c * 0.7f;
         me.dress = woman;
+        me.woman = woman;
         me.apronOn = woman && !courier;   // a farm girl's apron
         me.apron = vec3(0.86f, 0.83f, 0.74f);
         me.hatKind = 1;                   // your mother's yellow hat: nobody else wears yellow
@@ -4801,7 +4802,8 @@ struct Game {
     // ---------------------------------------------------------- drawing
     // close up, furniture is drawn finer (mesh.cc featureFine): a block of ground built at the other
     // detail is built again (the one round you first, a few a frame)
-    bool detailFine = false;
+    bool detailFine = false, detailSet = false;   // detailSet: after the first frame
+    bool midFigures = false;   // people and animals at the middle level (mesh.cc setMidFigures)
     std::unordered_set<int64_t> fineBuilt;   // blocks of ground built with the finer furniture
     bool chunkWanted(int cx, int cy) const {
         int64_t k = World::key(cx, cy);
@@ -4869,9 +4871,17 @@ struct Game {
     }
 
     void render(int W, int H, float uiScale, bool synchronous) {
-        // close up, people and animals are drawn finer (mesh.cc buildFigureFine): zoom is the
-        // half-height of the view in tiles, 20 by default; the still scenes are 2.3 to 6
-        detailFine = zoom < 7.5f && !std::getenv("GALILEO_COARSE");   // GALILEO_COARSE: tests, the old figures and furniture
+        // close up, people and animals are drawn finer (mesh.cc buildFigureFine), and the furniture too: zoom is
+        // the half-height of the view in tiles, 20 by default; the still scenes are 1.5 to 6. Finer below 7, plain
+        // again above 8, so that zooming about the line does not rebuild the furniture each time; the first frame
+        // goes by 7.5. Out to 13, people and animals are drawn at the middle level; beyond, the plain figures.
+        bool coarse = std::getenv("GALILEO_COARSE") != nullptr;   // GALILEO_COARSE: tests, the old figures and furniture
+        if (coarse) detailFine = false;
+        else if (!detailSet) detailFine = zoom < 7.5f;
+        else if (zoom < 7.0f) detailFine = true;
+        else if (zoom > 8.0f) detailFine = false;
+        detailSet = true;
+        midFigures = !coarse && !detailFine && zoom < 13.0f;
         setFineFigures(detailFine);
         float aspect = (float)W / H;
         viewAspect = aspect;
@@ -4952,6 +4962,7 @@ struct Game {
         vec2 p = playerPos();
         float pz = playerZ(p);
         MeshBuf fig;
+        setMidFigures(midFigures);   // for you, your horse and the people and animals about; not for statues
         float phase = stepT < 1 ? walkPhase : 0;
         vec3 figAt(p.x, p.y, pz);
         if (boat >= 0) {   // in a boat: it rocks a little; in a gondola you stand at the stern
@@ -4987,6 +4998,7 @@ struct Game {
         std::vector<HudPuff> puffs;
         {
             MeshBuf cm;
+            cm.flags = 2;   // people and animals are not cut away by the see-through circle (nor is your horse)
             int playerBld = tz == 0 ? world.tile(tx, ty).bld : 0;
             for (auto &pp : people.people) {
                 if (sceneNow >= 0) break;   // a still scene has only its own figures
@@ -5048,6 +5060,7 @@ struct Game {
             }
             crowd.upload(cm);
         }
+        setMidFigures(false);
         // choosing with the mouse: name what is under it
         if (pick && mouseX >= 0) {
             if (pick == 3 || pick == 5) {

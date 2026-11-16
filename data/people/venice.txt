@@ -10,7 +10,7 @@ person doge
   name Francesco Erizzo
   title the Doge of Venice
   role prince
-  look coat #C8A030 legs #8A1A1A hat cap #C8A030 robe
+  look coat #C8A030 legs #8A1A1A hat cap #C8A030 robe old beard full
   near Doge
   work landmark Doge
   schedule
@@ -39,7 +39,7 @@ person micanzio
   name Fulgenzio Micanzio
   title a Servite friar
   role friar
-  look coat #1A1A1E legs #1A1A1E hat hood #1A1A1E robe
+  look coat #1A1A1E legs #1A1A1E hat hood #1A1A1E robe old
   near Servi
   work landmark Servi
   talk
@@ -61,6 +61,7 @@ person monteverdi
   name Claudio Monteverdi
   title the master of music of San Marco
   role priest
+  look old beard full
   near Basilica
   work landmark Basilica
   schedule
@@ -88,7 +89,7 @@ person modena
   know gambler 1
   title a rabbi
   role scholar
-  look coat #2A2420 legs #1E1A16 hat hat #C83A2A
+  look coat #2A2420 legs #1E1A16 hat hat #C83A2A old beard full
   near synagogue
   work landmark synagogue
   schedule
@@ -229,7 +230,7 @@ person louis
   name Louis Elzevir
   title a printer of Leiden, travelling
   role printer
-  look coat #2E2E36 legs #1E1E24 hat hat #141418
+  look coat #2E2E36 legs #1E1E24 hat hat #141418 beard tuft
   near Luna
   work landmark Luna
   schedule

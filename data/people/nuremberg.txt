@@ -12,7 +12,7 @@ person monro
   name Robert Monro
   title a Scots officer of the King of Sweden
   role knight
-  look coat #2A3A5A legs #3A3A3A hat hat #1E1E1E
+  look coat #2A3A5A legs #3A3A3A hat hat #1E1E1E beard tuft
   near Rathaus of Nuremberg
   lodges
   work square
@@ -105,7 +105,7 @@ person imhoff
   name Hans Hieronymus Imhoff
   title a patrician of Nuremberg
   role scholar
-  look coat #1E1A1E legs #1E1A1E hat hat #141414
+  look coat #1E1A1E legs #1E1A1E hat hat #141414 beard tuft
   near Dürer
   work landmark Rathaus of Nuremberg
   talk
@@ -210,7 +210,7 @@ person schmidt
   name Meister Franz Schmidt
   title a healer
   role physician
-  look coat #3A2A22 legs #2A221C hat hat #1E1A16
+  look coat #3A2A22 legs #2A221C hat hat #1E1A16 old
   near hospital of the Holy Ghost
   work landmark hospital of the Holy Ghost
   # a physician's hours (roles.txt physician); and sent for by Monro, at any hour, when you bring Murdo Ross in and he is
@@ -256,7 +256,7 @@ person gustavus
   name Gustavus Adolphus
   title the King of Sweden
   role prince
-  look coat #C8A060 legs #3A3A3A hat hat #2A2A2A
+  look coat #C8A060 legs #3A3A3A hat hat #2A2A2A beard tuft stout
   near Rathaus of Nuremberg
   work earthwork
   schedule

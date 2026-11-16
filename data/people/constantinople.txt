@@ -13,7 +13,7 @@ person evliya
   name Evliya Çelebi
   title a young man of the palace
   role scholar
-  look coat #6A2A2A legs #E8E2D2 hat coif #F2EEE6
+  look coat #6A2A2A legs #E8E2D2 hat coif #F2EEE6 beard moustache
   near Ayasofya
   work landmark Ayasofya
   schedule
@@ -39,6 +39,7 @@ person katip
   name Mustafa, called Katip Çelebi
   title a clerk of the army
   role scholar
+  look beard full
   near Suleymaniye
   work landmark Suleymaniye
   talk
@@ -57,7 +58,7 @@ person lucaris
   name Cyril Lucaris
   title the Patriarch of Constantinople
   role priest
-  look coat #141418 legs #141418 hat hat #141418 robe
+  look coat #141418 legs #141418 hat hat #141418 robe old beard full
   near Patriarchate
   work landmark Patriarchate
   talk
@@ -77,6 +78,7 @@ person haga
   name Cornelis Haga
   title the Dutch ambassador
   role mathematician
+  look beard tuft
   near Dutch ambassador
   work landmark Dutch ambassador
   talk
@@ -92,7 +94,7 @@ person marcheville
   name Henri de Gournay, comte de Marcheville
   title the ambassador of France
   role mathematician
-  look coat #2A3A6A legs #1E2434 hat hat #14141A
+  look coat #2A3A6A legs #1E2434 hat hat #14141A beard tuft
   near Palais de France
   work landmark Palais de France
   talk

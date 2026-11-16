@@ -10,7 +10,7 @@ person urban
   name Maffeo Barberini
   title His Holiness Pope Urban VIII
   role prince
-  look coat #A81818 legs #F2EEE6 hat cap #A81818 robe
+  look coat #A81818 legs #F2EEE6 hat cap #A81818 robe old beard tuft
   near Quirinal
   work landmark Quirinal
   schedule
@@ -51,6 +51,7 @@ person francesco
   name Francesco Barberini
   title a cardinal
   role cardinal
+  look beard tuft
   near Barberini
   work landmark Barberini
   schedule
@@ -91,7 +92,7 @@ person riccardi
   name Niccolò Riccardi
   title the Master of the Sacred Palace
   role dominican
-  look coat #F0ECE2 legs #F0ECE2 hat hood #1A1A1A robe
+  look coat #F0ECE2 legs #F0ECE2 hat hood #1A1A1A robe plain
   near Minerva
   work landmark Minerva
   talk
@@ -111,7 +112,7 @@ person niccolini
   name Francesco Niccolini
   title the Tuscan ambassador
   role mathematician
-  look coat #2A2A3A legs #1E1E26 hat hat #141418
+  look coat #2A2A3A legs #1E1E26 hat hat #141418 beard tuft
   near Villa Medici
   work landmark Villa Medici
   schedule
@@ -143,7 +144,7 @@ person caterina
   name Caterina Riccardi Niccolini
   title the ambassador's wife
   role goodwife
-  look coat #5A2A3A legs #3A1E2A hat coif #EDE6DA dress
+  look coat #5A2A3A legs #3A1E2A hat coif #EDE6DA dress plain
   sex f
   near Villa Medici
   work landmark Villa Medici
@@ -170,7 +171,7 @@ person castelli
   name Benedetto Castelli
   title a monk and mathematician
   role monk
-  look coat #1C1A1E legs #1C1A1E hat hood #1C1A1E robe
+  look coat #1C1A1E legs #1C1A1E hat hood #1C1A1E robe plain
   near Sapienza
   work landmark Sapienza
   schedule
@@ -201,6 +202,7 @@ person campanella
   name Tommaso Campanella
   title a Dominican friar
   role dominican
+  look old
   near Minerva
   work landmark Minerva
   schedule
@@ -230,6 +232,7 @@ person scheiner
   name Christoph Scheiner
   title a Jesuit astronomer
   role jesuit
+  look plain
   near Collegio Romano
   work landmark Collegio Romano
   talk
@@ -249,7 +252,7 @@ person bernini
   name Gian Lorenzo Bernini
   title a sculptor
   role painter
-  look coat #2E2620 legs #1E1814 hat cap #1E1814
+  look coat #2E2620 legs #1E1814 hat cap #1E1814 beard tuft
   near Peter
   work landmark Peter
   schedule
@@ -274,6 +277,7 @@ person poussin
   name Nicolas Poussin
   title a painter
   role painter
+  look beard tuft
   near Trinità
   work none
   schedule
@@ -298,7 +302,7 @@ person cassiano
   name Cassiano dal Pozzo
   title a gentleman
   role mathematician
-  look coat #2A2E3A legs #1E2026 hat hat #141418
+  look coat #2A2E3A legs #1E2026 hat hat #141418 beard tuft
   near Barberini
   work landmark Barberini
   talk
@@ -319,6 +323,7 @@ person allegri
   name Gregorio Allegri
   title a singer of the papal chapel
   role priest
+  look plain
   near Sistine
   work landmark Sistine
   talk
@@ -627,7 +632,7 @@ person galileo
   name Galileo Galilei
   title a philosopher, the Grand Duke's
   role philosopher
-  look coat #2A2420 legs #2A2420 hat cap #1A1614 robe hair #C9C4BA
+  look coat #2A2420 legs #2A2420 hat cap #1A1614 robe hair #C9C4BA old beard full
   near Villa Medici
   work landmark Villa Medici
   schedule
@@ -692,6 +697,7 @@ person maculano
   name Fra Vincenzo Maculano
   title the Commissary of the Holy Office
   role dominican
+  look plain
   near Minerva
   work landmark Holy Office
   talk
@@ -777,7 +783,7 @@ person noailles
   name François de Noailles
   title the ambassador of France
   role knight
-  look coat #2A3A6A legs #1E1E2A hat hat #14141E
+  look coat #2A3A6A legs #1E1E2A hat hat #14141E beard tuft
   near Trinità
   work landmark Trinità
   schedule
