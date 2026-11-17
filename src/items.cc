@@ -174,12 +174,14 @@ bool Items::load(const std::string &fn) {
             text = trim(text);
             size_t bar = text.find('|');
             if (cur->useVerb == "read" && bar != std::string::npos) { cur->useTitle = trim(text.substr(0, bar)); text = trim(text.substr(bar + 1)); }
+            if (cur->useVerb == "wear" && bar != std::string::npos) { cur->offText = trim(text.substr(bar + 1)); text = trim(text.substr(0, bar)); }
             if ((cur->useVerb == "make" || cur->useVerb == "play") && bar != std::string::npos) {
                 std::istringstream hs(text.substr(0, bar));
                 if (cur->useVerb == "make") { hs >> cur->makes; if (!(hs >> cur->makesN)) cur->makesN = 1; }
                 else hs >> cur->play;
                 text = trim(text.substr(bar + 1));
             }
+            for (size_t nl; (nl = text.find("\\n")) != std::string::npos;) text.replace(nl, 2, "\n");   // "\n": a new line (a poem)
             cur->useText = text;
         }
         else if (w == "book") { std::istringstream bs(rest); bs >> cur->book; }

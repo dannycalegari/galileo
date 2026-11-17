@@ -223,6 +223,13 @@ struct Game {
             people.changeBy = -1;
             changeMoney(k, people.changeTo);
         }
+        if (people.ferryBy >= 0) {   // a waterman rows you across the river
+            int k = people.ferryBy;
+            people.ferryBy = -1;
+            people.endTalk(minutes);
+            talking = false;
+            ferry(k);
+        }
         if (people.passageBy >= 0) {   // a boat across (the Dover packet)
             int k = people.passageBy;
             people.passageBy = -1;
@@ -736,6 +743,11 @@ struct Game {
                 eaten += " (It does you good.)";
             }
             say(eaten, 5.0);
+        } else if (k.useVerb == "wear") {   // clothes over your own, put on and taken off again (playerLook draws them)
+            bool on = people.player.count("wearing") && people.player.at("wearing") == k.id;
+            if (on) people.player.erase("wearing"); else people.player["wearing"] = k.id;
+            minutes += 2;
+            say(on ? k.offText : k.useText, 4.0);
         } else if (k.useVerb == "read") {
             panel = 2;
             readTitle = k.useTitle.empty() ? k.name : k.useTitle;
@@ -2310,6 +2322,38 @@ struct Game {
     }
     // a boat across the water to PLACE (the packet between Dover and Calais): your own horse
     // comes too, for as much again; a hired one is handed in here
+    // a waterman rows you straight across the river from where you stand ({ferry}, the London watermen): to the first
+    // dry ground on the far bank, the way across that is shortest; a penny, two if someone walks behind you
+    void ferry(int man) {
+        auto water = [&](int X, int Y) { const Tile &t = world.tile(X, Y); return (t.terrain == T_WATER || t.terrain == T_DEEP) && !t.bld; };
+        const int dx4[4] = {1, -1, 0, 0}, dy4[4] = {0, 0, 1, -1};
+        int best = -1, bx = 0, by = 0;
+        for (int d = 0; d < 4; d++) {
+            int x = tx, y = ty, k = 0;
+            while (k < 8 && !water(x, y)) { x += dx4[d]; y += dy4[d]; k++; }   // down the stairs to the water
+            if (!water(x, y)) continue;
+            int span = 0;
+            while (span < 90 && water(x, y)) { x += dx4[d]; y += dy4[d]; span++; }
+            if (span < 3 || span >= 90) continue;
+            int j = 0;
+            while (j < 6 && !(world.passable(x, y, 0) && !world.tile(x, y).bld)) { x += dx4[d]; y += dy4[d]; j++; }
+            if (!world.passable(x, y, 0) || world.tile(x, y).bld) continue;
+            if (best < 0 || span < best) { best = span; bx = x; by = y; }
+        }
+        if (best < 0) { say("\"Not from here: go down to the stairs.\"", 3.5); return; }
+        long fare = follower() ? 2 : 1;
+        if (money() < fare) { say("You have not the penny.", 3.0); return; }
+        people.player["money"] = std::to_string(money() - fare);
+        Person &mp = people.people[man];
+        mp.mem["money"] = std::to_string(std::atol(mp.mem["money"].c_str()) + fare);
+        tx = bx; ty = by; tz = 0;
+        minutes += 4 + best / 6;
+        updatePlace(true);
+        vec2 pc = playerPos();
+        camTarget = vec3(pc.x, pc.y, playerZ(pc));
+        say(follower() ? "The waterman looks at the one behind you, and holds out his hand for two pennies instead of one. He rows you both across." :
+            "The waterman rows you across, and sets you down on the stairs on the far bank. A penny.", 5.0);
+    }
     void takePassage(int master, long price, int mins, const std::string &place) {
         int dest = -1;
         for (size_t i = 0; i < world.settlements.size(); i++) if (world.settlements[i].name == place) dest = (int)i;
@@ -3053,7 +3097,9 @@ struct Game {
     std::string wearing() const {   // what you have on (the inventory): the coat is worn, not carried
         if (!chosen()) return "";
         bool courier = people.player.count("courier-coat") > 0;
-        return std::string("your mother's yellow hat, and ") + (courier ? "Father Mersenne's blue courier's coat" : "your homespun farm clothes");
+        std::string coat = courier ? "Father Mersenne's blue courier's coat" : "your homespun farm clothes";
+        if (wearingHabit()) return "a friar's habit, the hood up, over " + coat + " (your mother's yellow hat in your hand)";
+        return "your mother's yellow hat, and " + coat;
     }
     FigureLook playerLook() const {
         FigureLook me;   // the old look, for a game begun before you could choose
@@ -3073,7 +3119,25 @@ struct Game {
         me.apron = vec3(0.86f, 0.83f, 0.74f);
         me.hatKind = 1;                   // your mother's yellow hat: nobody else wears yellow
         me.hat = vec3(0.95f, 0.78f, 0.14f);
+        if (wearingHabit()) habitLook(me);
         return me;
+    }
+    // the friar's habit of the King's Men (items.txt friars-habit, "use wear"), worn over your clothes: a grey robe, the
+    // hood up; a person a story dresses so ("worn": habit) the same
+    bool wearingHabit() const {
+        auto w = people.player.find("wearing");
+        return w != people.player.end() && w->second == "friars-habit" && numMem(people.player, "has:friars-habit") > 0;
+    }
+    static void habitLook(FigureLook &f) {
+        f.robe = true; f.dress = false; f.apronOn = false; f.sashOn = false; f.longHair = false;
+        f.coat = f.legs = vec3(0.42f, 0.40f, 0.37f);
+        f.hatKind = 6; f.hat = f.coat * 0.92f;
+    }
+    // what a story has someone wearing now (their memory "worn": "asshead", "habit", or both): Robin Oddbellow in the
+    // ass's head, and in the friar's habit over it
+    static void wornLook(FigureLook &f, const std::string &worn) {
+        if (worn.find("habit") != std::string::npos) habitLook(f);
+        if (worn.find("asshead") != std::string::npos) { f.asshead = true; if (f.hatKind != 6) f.hatKind = 0; f.beard = 0; }
     }
     void beginCreating() {
         creating = true;
@@ -3178,6 +3242,10 @@ struct Game {
         bool seated = false;         // "seated": on a chair (the cardinals at the Minerva)
         bool robeSet = false;        // "robe #RRGGBB": dressed in a long robe of that colour (a penitent's white)
         vec3 robe{1, 1, 1};
+        bool gownSet = false;        // "gown #RRGGBB": in a woman's gown of that colour, bareheaded (a player in a queen's part)
+        vec3 gown{1, 1, 1};
+        bool asshead = false;        // "asshead": in the stage's ass's head (Bottom)
+        bool habit = false;          // "habit": in a grey friar's habit, the hood up (a disguise)
     };
     struct Scene {
         std::string id;                   // "id NAME": names its stored picture, data/art/scenes/NAME.png (else FILE-N)
@@ -3359,6 +3427,13 @@ struct Game {
                         break;
                     }
                 }
+        } else if (what == "stage") {   // the middle of a theatre's stage (the Globe)
+            float sx = 0, sy = 0;
+            int ns = 0;
+            for (int Y = B->y0; Y <= B->y1; Y++)
+                for (int X = B->x0; X <= B->x1; X++)
+                    if (world.tile(X, Y).bld == bid && world.tile(X, Y).feature == F_STAGE) { sx += X + 0.5f; sy += Y + 0.5f; ns++; }
+            if (ns) { out = vec2(sx / ns, sy / ns); found = true; }
         } else {
             static const std::map<std::string, int> feats = {{"table", F_TABLE}, {"hearth", F_HEARTH}, {"bed", F_BED}, {"well", F_WELL}, {"bench", F_BENCH}, {"altar", F_ALTAR}};
             auto f = feats.find(what);
@@ -3435,6 +3510,9 @@ struct Game {
                     else if (k == "lying") f.lying = true;
                     else if (k == "robe") { std::string c; ss >> c; unsigned v = 0; std::sscanf(c.c_str() + (c[0] == '#'), "%x", &v); f.robe = vec3(((v >> 16) & 255) / 255.0f, ((v >> 8) & 255) / 255.0f, (v & 255) / 255.0f); f.robeSet = true; }
                     else if (k == "bareheaded") f.bareheaded = true;
+                    else if (k == "asshead") f.asshead = true;
+                    else if (k == "habit") f.habit = true;
+                    else if (k == "gown") { std::string c; ss >> c; unsigned v = 0; std::sscanf(c.c_str() + (c[0] == '#'), "%x", &v); f.gown = vec3(((v >> 16) & 255) / 255.0f, ((v >> 8) & 255) / 255.0f, (v & 255) / 255.0f); f.gownSet = true; }
                     else if (k == "carries") { std::string c; ss >> c; f.carry = c == "baby" ? 1 : c == "pails" ? 2 : c == "cap" ? 3 : c == "book" ? 4 : 0; }
                 }
                 if (w.rfind("role:", 0) == 0) {   // somebody of that trade, nobody in particular (the cardinals)
@@ -3630,6 +3708,9 @@ struct Game {
             if (f.carry == 3 || f.bareheaded) lk.hatKind = 0;   // bareheaded (or the cap in his hand)
         }
         if (f.robeSet) { lk.coat = lk.legs = f.robe; lk.robe = true; lk.hatKind = 0; }
+        if (f.gownSet) { lk.coat = f.gown; lk.legs = f.gown * 0.8f; lk.dress = lk.woman = true; lk.robe = false; lk.hatKind = 0; lk.longHair = true; lk.apronOn = false; lk.beard = 0; }
+        if (f.habit) wornLook(lk, "habit");
+        if (f.asshead) wornLook(lk, "asshead");
         lk.carry = f.carry;
         lk.babySkin = skinCol(meNum("me:skin", 1, kSkins));
         lk.kneel = f.kneel;
@@ -3987,6 +4068,11 @@ struct Game {
     std::map<std::string, int> heardCount;            // the stand-in's HEARD: the fighting's sounds heard since the last
     std::vector<FilmCue> filmCues;                    // and the music an event began (events.txt "cue")
     void takeRequests() {
+        if (!people.scenesRequest.empty()) {   // an event's still scenes, seen now (events.txt "scenes ID"): the clock kept
+            std::string id = people.scenesRequest;
+            people.scenesRequest.clear();
+            if (sceneNow < 0 && !cardUp) { startSequence(id); seqKeepClock = seqMode; }
+        }
         if (people.viewYaw > -999) {   // an event turns the camera (events.txt "view"): at once, so that it is so when a card closes
             yaw = yawT = people.viewYaw;
             if (testMode && std::fabs(people.viewYaw - 22) < 0.5f) std::fprintf(stderr, "  [the view turns back to the usual one, 22 degrees]\n");
@@ -4303,6 +4389,7 @@ struct Game {
         float chance = night ? 0.35f : 0.85f;
         bool hidden = numMem(people.player, "has:false-pack") > 0;
         if (hidden) chance = night ? 0.0f : chance * 0.3f;   // a false bottom at night is foolproof
+        if (wearingHabit()) chance *= 0.6f;   // a friar is searched less often (never surely passed: a false bottom by day still may be found)
         if (const char *e = std::getenv("GALILEO_SEARCH")) chance = (float)std::atof(e);   // tests: 1 always found, 0 never
         std::string what;
         long value = 0;
@@ -4710,6 +4797,9 @@ struct Game {
             // inside an inn (a tavern, a post house): its music, where there is some
             bool inn = inside > 0 && inside <= (int)world.buildings.size() && world.buildings[inside - 1].kind == "inn";
             music.setInn(inn, curTown, countryOf(curTown), now);
+            // inside a theatre (the Globe): its music, where there is some
+            bool theatre = inside > 0 && inside <= (int)world.buildings.size() && world.buildings[inside - 1].kind == "theatre";
+            music.setTheatre(theatre, curTown, countryOf(curTown), now);
             static const bool mlog = std::getenv("GALILEO_SOUNDLOG") != nullptr;
             static int lastInside = -2;
             if (mlog && inside != lastInside) { lastInside = inside; std::fprintf(stderr, "  [inside %d: %s]\n", inside, inside > 0 && inside <= (int)world.buildings.size() ? (world.buildings[inside - 1].name + " (" + world.buildings[inside - 1].kind + ")").c_str() : "outdoors"); }
@@ -5014,6 +5104,7 @@ struct Game {
                     lk.skin = skinCol(meNum("me:skin", 1, kSkins));
                     lk.hair = hairCol(meNum("me:hair", 2, kHairs)) * 0.75f + vec3(0.55f, 0.53f, 0.5f) * 0.25f;
                 }
+                if (pp.mem.count("worn")) wornLook(lk, pp.mem.at("worn"));   // the ass's head; the habit
                 if (pp.strikeAnim > 0) lk.strike = 1.0f - pp.strikeAnim / 0.35f;   // a blow
                 if (pp.dead) lk.weapon = 0;
                 buildFigure(cm, vec3(q.x, q.y, qz), pp.lying && !pp.dead ? 0.0f : pp.facing, pp.stepT < 1 ? pp.walkPhase : 0, lk, pp.lying);   // in bed: head on the pillow

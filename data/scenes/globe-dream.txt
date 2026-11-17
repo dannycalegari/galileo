@@ -1,0 +1,32 @@
+# The next afternoon's performance at the Globe, seen when you are there between two and five, once the head is off
+# (events.txt the-dream-at-the-globe; people/london.txt, the ass's head). Format as data/scenes.txt, with "if".
+
+scene
+  id globe-dream-whole
+  if player head-whole
+  in London
+  time 15:00
+  look stage:the_Globe+0.3,-1.2 yaw 172 pitch 38 zoom 2.3 roofs
+  london:nick stage:the_Globe+0.5,0 seated facing cam asshead
+  london:kit stage:the_Globe+0.05,-0.1 kneeling facing to:london:nick gown #D8CCE6
+  london:hobday stage:the_Globe+-0.6,-3 facing to:london:nick
+  role:apprentice stage:the_Globe+-1.8,-2.6 facing to:london:kit
+  role:goodwife stage:the_Globe+1.2,-3.1 facing to:london:kit
+  role:waterman stage:the_Globe+2.3,-2.5 facing to:london:nick
+  caption Act Four. "Come, sit thee down upon this flowery bed..." Titania lays her cheek against the ass's head, and says "O, how I love thee! How I dote on thee!", and for a moment the whole yard is quiet, as though it had heard something the words do not say. Then Bottom asks for a peck of provender, and they laugh. In the yard, Faint-not Hobday writes down that the Fairy Queen kissed a beast.
+end
+
+scene
+  id globe-dream-sawn
+  if player head-sawn
+  in London
+  time 15:00
+  look stage:the_Globe+0.3,-1.2 yaw 172 pitch 38 zoom 2.3 roofs
+  london:nick stage:the_Globe+0.5,0 seated facing cam bareheaded
+  london:kit stage:the_Globe+0.05,-0.1 kneeling facing to:london:nick gown #D8CCE6
+  london:hobday stage:the_Globe+-0.6,-3 facing to:london:nick
+  role:apprentice stage:the_Globe+-1.8,-2.6 facing to:london:kit
+  role:goodwife stage:the_Globe+1.2,-3.1 facing to:london:kit
+  role:waterman stage:the_Globe+2.3,-2.5 facing to:london:nick
+  caption Act Four, with no ass's head: Bottom has a painted face, grey with long black ears drawn up his forehead, and the groundlings laugh at him before he says a word. "Come, sit thee down upon this flowery bed..." Titania takes his painted face in her hands and says "O, how I love thee! How I dote on thee!", and for a moment the whole yard is quiet, as though it had heard something the words do not say. In the yard, Faint-not Hobday writes down that the Fairy Queen kissed a painted beast.
+end

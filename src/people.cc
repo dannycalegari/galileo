@@ -1060,6 +1060,27 @@ bool People::placeFor(World &w, Person &p, const std::string &activity, const st
         int b = nearestBuilding([](const Building &b) { return b.kind == "church" || b.kind == "cathedral" || b.kind == "chapel"; });
         return b && (inBuilding(b, 0, kind == "altar", false) || inBuilding(b, 0, false, false));
     }
+    if (kind == "tiring") {   // "go tiring [NAME]": behind the stage of the nearest theatre (named so), in its tiring-house
+                              // (city.cc theatre); the Bear Garden is built as a theatre too, so the Globe's is named
+        std::string want = lower(arg);
+        int b = nearestBuilding([&](const Building &b) { return b.kind == "theatre" && (want.empty() || lower(b.name).find(want) != std::string::npos); });
+        if (!b) return false;
+        const Building &bd = w.buildings[b - 1];
+        float cx = (bd.x0 + bd.x1 + 1) * 0.5f, cy = (bd.y0 + bd.y1 + 1) * 0.5f, sx = 0, sy = 0;
+        int ns = 0;
+        for (int Y = bd.y0; Y <= bd.y1; Y++)
+            for (int X = bd.x0; X <= bd.x1; X++)
+                if (w.tile(X, Y).feature == F_STAGE) { sx += X + 0.5f; sy += Y + 0.5f; ns++; }
+        if (!ns) return false;
+        float dx = sx / ns - cx, dy = sy / ns - cy, dl = std::sqrt(dx * dx + dy * dy);
+        if (dl < 1e-3f) return false;
+        dx /= dl; dy /= dl;   // from the middle of the yard towards the stage, and on behind it
+        return tilesWhere((int)cx, (int)cy, std::max(bd.x1 - bd.x0, bd.y1 - bd.y0) / 2 + 1, [&](int X, int Y) {
+            const Tile &t = w.tile(X, Y);
+            float qx = X + 0.5f - cx, qy = Y + 0.5f - cy, along = qx * dx + qy * dy, across = std::fabs(qx * dy - qy * dx);
+            return t.bld == b && t.wall == W_NONE && t.feature == F_NONE && t.terrain == T_FLOOR_WOOD && along > dl + 1.6f && across < 2.6f;
+        });
+    }
     if (kind == "college" || kind == "theatre" || kind == "fortress" || kind == "palace" || kind == "hall") {
         int b = nearestBuilding([&](const Building &b) { return b.kind == kind; });
         if (!b) return false;
@@ -1732,7 +1753,7 @@ bool People::loadEvents(const std::string &fn) {
         for (auto &f : e.effects) {
             std::istringstream fs(f); std::string verb, a, b; fs >> verb >> a >> b;
             if (verb == "news" || verb == "wants" || verb == "makes" || verb == "forbid" || verb == "allow" || verb == "jump" || verb == "ending" || verb == "card" ||
-                verb == "pass" || verb == "wake" || verb == "volley" || verb == "cue" || verb == "view") continue;
+                verb == "pass" || verb == "wake" || verb == "volley" || verb == "cue" || verb == "view" || verb == "scenes") continue;
             if (verb == "carry") {   // carry X Y [beside WHO]
                 std::string w4, who2; fs >> w4 >> who2;
                 if (w4 == "beside") check(who2);
@@ -2123,6 +2144,8 @@ void People::runEvents(World &w, double minutes, int ptx, int pty) {
                 jumpPage = c;
             } else if (verb == "card") {   // card ID: a card of data/cards.txt, shown with (before) a jump's letter or scenes
                 cardRequest = a;
+            } else if (verb == "scenes") {   // scenes ID: the still scenes of data/scenes/ID.txt, seen now (Game::takeRequests)
+                scenesRequest = a;
             } else if (verb == "ending") {
                 endingRequest = true;
             } else if (verb == "news") {   // news TOWN|anywhere TEXT: told you if you are there
@@ -2951,6 +2974,9 @@ void People::apply(Person &p, const std::vector<std::string> &effects) {
         } else if (verb == "change") {   // a money-changer: your coin for the coin of this place, or for COIN
             changeBy = (int)(&p - people.data());
             changeTo = arg;
+        } else if (verb == "ferry") {   // a waterman rows you across the river, to the far bank (Game::ferry)
+            ferryBy = (int)(&p - people.data());
+            talk.over = true;
         } else if (verb == "passage") {   // a boat across the water (Game::takePassage)
             passageBy = (int)(&p - people.data());
             passagePrice = std::atol(arg.c_str());
@@ -2977,8 +3003,12 @@ void People::apply(Person &p, const std::vector<std::string> &effects) {
         } else if (verb == "robbed" || verb == "bandfight" || verb == "escort" || verb == "billdraw" || verb == "billcash") {
             roadRequests.push_back({verb + (arg.empty() ? "" : " " + arg), (int)(&p - people.data())});   // Game::roadRequest
             if (verb != "billdraw" && verb != "billcash") talk.over = true;
-        } else if (verb == "follow") {   // this person walks behind you from now on (Game::followerStep): a wounded man, helped down
-            notice = p.name + " is leaning on you: he goes where you go.";
+        } else if (verb == "follow") {   // this person walks behind you from now on (Game::followerStep): a wounded man, helped down;
+                                         // "follow TEXT": what the game says of it, else that he leans on you
+            std::string rest;
+            std::getline(ss, rest);
+            rest = trim(arg + (n.empty() ? "" : " " + n) + rest);   // ss has already given up two words
+            notice = rest.empty() ? p.name + " is leaning on you: he goes where you go." : rest;
             player["follower"] = p.id;
             p.lying = false;
             talk.over = true;

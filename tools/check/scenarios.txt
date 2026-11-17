@@ -1909,3 +1909,76 @@ scenario walkto-tre-kronor-is-the-castle
   run OUT WALKTO:tower
   expect [you are in the tower of Tre Kronor]
 end
+
+# ---------------------------------------------------------------- the Globe: the ass's head (people/london.txt)
+scenario globe-the-grease-road
+  about the Globe: Taylor asks you after the play; Robin in the ass's head and Kit's sonnet; the habit walks him past Hobday; a waterman across; the Mermaid's grease; the sonnet to Nick; the Dream the next afternoon; Taylor gives you the habit, and it is worn
+  fixture london_street.txt
+  run ROAD:none KNOW:knows:london:taylor=1 WAIT:430 WALKTO:Globe WALKTO:Taylor TALK:Taylor
+  expect a noise in there like a donkey in a well
+  run BYE WAIT:25 WALKTO:ass TALK:ass
+  expect That was not meant for me.
+  file-expect ^player has:kits-sonnet 1
+  run SAY:disguise BYE OUT WAIT:1
+  expect Robin Oddbellow walks behind you in the friar's habit
+  expect A friar! On Bankside, in broad day!
+  file-expect ^player follower london:robin
+  run WALKTO:waterman TALK:waterman SAY:across
+  expect holds out his hand for two pennies instead of one
+  run BYE WALKTO:Mermaid WALKTO:innkeeper TALK:innkeeper
+  expect the head comes off with a sound like a boot out of mud
+  file-absent ^player follower
+  run BYE WALKTO:Nick TALK:Nick SAY:give_sonnet
+  expect Then the head had better answer.
+  run BYE WAIT:1180 WALKTO:Globe WAIT:60
+  expect Titania lays her cheek against the ass's head
+  run WAIT:90 WALKTO:Taylor TALK:Taylor
+  expect Whole! And played!
+  file-expect ^player has:friars-habit 1
+  run BYE USE:habit INV
+  expect wearing a friar's habit, the hood up
+end
+
+scenario globe-the-saw
+  about the carpenter's saw: the head in two halves; Taylor short with you, but the habit is yours; the Dream with a painted face
+  fixture london_street.txt
+  run ROAD:none KNOW:knows:london:taylor=1 WAIT:430 WALKTO:Globe WALKTO:Taylor TALK:Taylor BYE WAIT:25 WALKTO:ass TALK:ass SAY:disguise BYE OUT WALKTO:carpenter TALK:carpenter
+  expect the head falls in two halves
+  run BYE WALKTO:Globe WALKTO:Taylor TALK:Taylor
+  expect Two halves. Two halves of four pounds.
+  file-expect ^player has:friars-habit 1
+  run BYE WAIT:1200 WALKTO:Globe WAIT:30
+  expect Act Four, with no ass's head
+end
+
+scenario globe-doctor-harvey
+  about Doctor Harvey takes the head off whole, at St Bartholomew's
+  fixture london_street.txt
+  run ROAD:none KNOW:knows:london:taylor=1 WAIT:430 WALKTO:Globe WALKTO:Taylor TALK:Taylor BYE WAIT:25 WALKTO:ass TALK:ass SAY:disguise BYE OUT WALKTO:waterman TALK:waterman SAY:across BYE WALKTO:Bartholomew WALKTO:physician TALK:physician
+  expect I have never been asked to open an ass.
+  file-expect ^player head-whole
+end
+
+scenario globe-robin-saws-himself
+  about if the head is still on at two the next day, Robin has gone to the carpenter himself; Humphrey Draper has heard the story
+  fixture london_street.txt
+  run ROAD:none KNOW:knows:london:taylor=1 WAIT:430 WALKTO:Globe WALKTO:Taylor TALK:Taylor BYE WAIT:25 WALKTO:ass TALK:ass BYE WAIT:1250 STORIES
+  expect The head came off in two halves.
+  file-expect ^player robin-sawed-himself
+  file-absent ^player head-stuck
+  run WALKTO:waterman TALK:waterman SAY:across BYE WALKTO:Mermaid WALKTO:innkeeper TALK:innkeeper
+  expect You heard? One of the King's Men got his head stuck in a donkey
+end
+
+scenario globe-hobday
+  about Faint-not Hobday: sent off to the Bear Garden he walks there, and comes back an hour later; given Kit's sonnet, he reads it to the yard the next day before the play, and Nick hears it
+  fixture london_street.txt
+  run ROAD:none KNOW:knows:london:taylor=1 WAIT:430 WALKTO:Globe WALKTO:Taylor TALK:Taylor BYE WAIT:25 WALKTO:ass TALK:ass BYE WALKTO:Puritan TALK:Puritan SAY:ass BYE WAIT:3 WHERE:london:hobday
+  expect The ass went to the Bear Garden? Of course it did
+  expect go landmark Bear Garden
+  run WAIT:70 WALKTO:Puritan TALK:Puritan
+  expect No ass at the Bear Garden.
+  run SAY:give_sonnet BYE WAIT:1150 WALKTO:Globe WAIT:20
+  expect Faint-not Hobday is reading something aloud, loudly and very badly
+  file-expect ^player sonnet-reached
+end

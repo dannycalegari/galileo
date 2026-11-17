@@ -28,7 +28,7 @@ bool Music::load(const std::string &playlist) {
             pieces.push_back(p);
         }
         else if (w == "nochoir") { std::string t; while (ss >> t) noChoir.push_back(t); }
-        else if (w == "track" || w == "church" || w == "battle" || w == "inn") {
+        else if (w == "track" || w == "church" || w == "battle" || w == "inn" || w == "theatre") {
             Track t;
             ss >> t.file;
             while (t.file == "in" || t.file == "except") {   // church [in|except TOWN,TOWN] FILE TITLE
@@ -42,10 +42,10 @@ bool Music::load(const std::string &playlist) {
             size_t a = t.title.find_first_not_of(" \t");
             t.title = a == std::string::npos ? "" : t.title.substr(a);
             t.file = dir + t.file;
-            (w == "church" ? churchTracks : w == "battle" ? battleTracks : w == "inn" ? innTracks : tracks).push_back(t);
+            (w == "church" ? churchTracks : w == "battle" ? battleTracks : w == "inn" ? innTracks : w == "theatre" ? theatreTracks : tracks).push_back(t);
         }
     }
-    return !tracks.empty() || !pieces.empty() || !churchTracks.empty() || !battleTracks.empty() || !innTracks.empty();
+    return !tracks.empty() || !pieces.empty() || !churchTracks.empty() || !battleTracks.empty() || !innTracks.empty() || !theatreTracks.empty();
 }
 
 bool Music::playPiece(const std::string &id, double now, double *seconds) {
@@ -107,12 +107,21 @@ void Music::start(const Track &t) {
 }
 
 // which music is wanted: 2 a fight near you ("battle"), 1 inside a church ("church"), 3 inside
-// an inn ("inn"), 0 the ordinary
+// an inn ("inn"), 4 inside a theatre ("theatre"), 0 the ordinary
 int Music::mode() const {
     if (inBattle && !battleTracks.empty()) return 2;
     if (inChurch && !churchTracks.empty()) return 1;
     if (inInn) for (auto &t : innTracks) if (t.playsIn(innTown, innCountry)) return 3;
+    if (inTheatre) for (auto &t : theatreTracks) if (t.playsIn(theatreTown, theatreCountry)) return 4;
     return 0;
+}
+
+void Music::setTheatre(bool in, const std::string &town, const std::string &country, double now) {
+    if (in) { theatreTown = town; theatreCountry = country; }
+    if (in == inTheatre) return;
+    int was = mode();
+    inTheatre = in;
+    if (mode() != was) switchTo(mode(), now);
 }
 
 void Music::setInn(bool in, const std::string &town, const std::string &country, double now) {
@@ -127,7 +136,7 @@ void Music::setInn(bool in, const std::string &town, const std::string &country,
 // (a fight's music at once; a church's after a breath; the ordinary after a longer pause)
 void Music::switchTo(int to, double now) {
     if (piece || !on_) return;   // someone is playing (or music is off): the change waits for the next piece
-    double secs = to == 2 ? 0.8 : to == 1 || to == 3 ? 2.0 : 3.0, after = to == 2 ? 0.2 : to == 1 || to == 3 ? 1.0 : 8.0;
+    double secs = to == 2 ? 0.8 : to == 1 || to >= 3 ? 2.0 : 3.0, after = to == 2 ? 0.2 : to == 1 || to >= 3 ? 1.0 : 8.0;
     if (player) {
         if (fading) { AVAudioPlayer *f = (__bridge_transfer AVAudioPlayer *)fading; [f stop]; fading = nullptr; }
         AVAudioPlayer *p = (__bridge AVAudioPlayer *)player;
@@ -173,7 +182,7 @@ void Music::update(double now) {
     }
     int m = mode();
     bool church = m == 1;
-    const std::vector<Track> &list = m == 2 ? battleTracks : church ? churchTracks : m == 3 ? innTracks : tracks;
+    const std::vector<Track> &list = m == 2 ? battleTracks : church ? churchTracks : m == 3 ? innTracks : m == 4 ? theatreTracks : tracks;
     if (!on_ || list.empty()) return;
     if (player) {
         AVAudioPlayer *p = (__bridge AVAudioPlayer *)player;
@@ -183,12 +192,12 @@ void Music::update(double now) {
         return;
     }
     if (now < nextStart) return;
-    int &n = m == 2 ? nextBattle : church ? nextChurch : m == 3 ? nextInn : next;
+    int &n = m == 2 ? nextBattle : church ? nextChurch : m == 3 ? nextInn : m == 4 ? nextTheatre : next;
     n %= (int)list.size();
     // the next piece heard here: a church's sung in this town, an inn's played in this country,
     // an ordinary one for this place (a track without places is heard everywhere)
-    const std::string &town = church ? churchTown : m == 3 ? innTown : placeTown;
-    const std::string &country = church ? std::string() : m == 3 ? innCountry : placeCountry;
+    const std::string &town = church ? churchTown : m == 3 ? innTown : m == 4 ? theatreTown : placeTown;
+    const std::string &country = church ? std::string() : m == 3 ? innCountry : m == 4 ? theatreCountry : placeCountry;
     size_t k = 0;
     for (; k < list.size() && !list[n].playsIn(town, country); k++) n = (n + 1) % (int)list.size();
     if (k == list.size()) return;   // nothing for this place

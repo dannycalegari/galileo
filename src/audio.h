@@ -27,6 +27,9 @@ public:
     // ordinary tracks can be given places too ("track in England FILE TITLE")
     std::vector<Track> innTracks;
     void setInn(bool in, const std::string &town, const std::string &country, double now);
+    // music inside a theatre ("theatre [in|except PLACES] FILE TITLE": a consort at the Globe)
+    std::vector<Track> theatreTracks;
+    void setTheatre(bool in, const std::string &town, const std::string &country, double now);
     void setPlace(const std::string &town, const std::string &country) { placeTown = town; placeCountry = country; }
     std::vector<std::string> noChoir;
     bool choirIn(const std::string &town) const {
@@ -71,9 +74,9 @@ private:
     void *piece = nullptr;    // the AVAudioPlayer of a piece someone is playing
     void *fading = nullptr;   // one fading away (going into or out of a church)
     double fadeEnd = 0;
-    bool inChurch = false, inBattle = false, inInn = false;
-    int nextBattle = 0, nextInn = 0;
-    std::string innTown, innCountry, placeTown, placeCountry;
+    bool inChurch = false, inBattle = false, inInn = false, inTheatre = false;
+    int nextBattle = 0, nextInn = 0, nextTheatre = 0;
+    std::string innTown, innCountry, placeTown, placeCountry, theatreTown, theatreCountry;
     int mode() const;
     void switchTo(int to, double now);
     std::string churchTown;

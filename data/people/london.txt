@@ -16,6 +16,10 @@ person mermaid
     cheese,stilton: Stilton? Never heard of it. Now, a good *Cheddar*, from Somerset, pressed in a cloth and kept a twelvemonth: there's a cheese. {player set heard-cheddar}
     cheddar: Milk, rennet, salt, a press and patience. Every farmer's wife in Somerset knows how. {player set heard-cheddar}
     jonson,ben: Old Ben Jonson used to hold court here, with Shakespeare and the rest. He is sick abed now, poor man, but still writing for the stage.
+    hello if player follower=london:robin and player head-stuck: (He looks at the friar a long while.) I have had a bishop drunk in that corner, and a Spanish spy, and Ben Jonson every night for twenty years; I never had an ass in holy orders. Into the kitchen with him. (A crock of dripping, two potboys, a great deal of noise; the head comes off with a sound like a boot out of mud.) There. Tell Ben, when he is well; he will want to put it in a play. (Robin, red-eared and greasy, wraps the head in his shirt.) "I can hear! I can hear with both ears! Back before two, and Mr Taylor need never know. And *Nick* is here, look: in the corner, with his feet up. You have the paper." {player set head-off} {player set head-whole} {player unset head-stuck} {unfollow}
+    hello if player robin-sawed-himself and not player heard-saw: You heard? One of the King's Men got his head stuck in a donkey and had it sawn off, the donkey, not the head. They played the Dream with a painted face. Nobody asked for their money back; they had all heard the story. {player set heard-saw}
+    grease,dripping,kitchen: Dripping? A crock of it, from every joint since Lady Day. What do you want it for? No: do not tell me.
+    nick,weaver: Nick Weaver, of the King's Men? In the corner, of an evening, with his feet up and a pot of my best. He plays Bottom; he says it is the only part in London where nobody can see his face.
   end
 end
 
@@ -33,10 +37,25 @@ person taylor
   role actor
   look beard tuft
   near Globe
+  schedule
+    9:00 home
+    11:00 go inn
+    13:00 work
+    20:30 go inn
+    23:00 home
+    23:30 sleep
   talk
+    hello if player inside=the-globe and player hour>=17 and player hour<21 and not player globe-hook: (He is at the door of the tiring-house, wringing his hands.) You, friend: you are not of the company, so you will not gossip in it. One of my hired men went in there after the play and has not come out, and there is a noise in there like a donkey in a well. Mr *Lowin* will not go in; he says it is the Devil, come for him at last. Would you look? {player set globe-hook=now} {player set head-stuck} {player set knows:london:lowin}
+    hello if player head-stuck: Is he out? We play the *Dream* tomorrow at two, and that head is the only one we have. It cost four pounds, from the Revels Office, when the old Queen was alive.
+    hello if player head-whole and player robin-habited and not player habit-given and player dream-seen: Whole! And played! And not a word of it in the town, which is the greatest marvel of the three. (He gives you the folded habit.) Keep it. The Duke has two, and a friar can go where a courier cannot. Do not, I beg you, go into a real monastery in it. {player add has:friars-habit 1} {player set habit-given}
+    hello if player head-whole and player robin-habited and not player habit-given: Whole! And not a word of it in the town, which is the greater marvel. (He gives you the folded habit.) Keep it. The Duke has two, and a friar can go where a courier cannot. Do not, I beg you, go into a real monastery in it. {player add has:friars-habit 1} {player set habit-given}
+    hello if player head-sawn and player robin-habited and not player habit-given: Two halves. Two halves of four pounds. We play the *Dream* with Nick in a painted face, and the groundlings will want their money back. (He breathes.) Still: he is out, and nobody is the wiser but the carpenter, and the carpenter cannot read. Keep the habit. I do not want to see it again. {player add has:friars-habit 1} {player set habit-given}
+    dream,midsummer,bottom,titania: A Midsummer Night's Dream, Master Shakespeare's, with the fairies and the mechanicals and Bottom in his ass's head. It still fills the yard, thirty years on.
+    head,ass if player head-stuck: Canvas and glue and horsehair, made by the Revels Office for the old Queen's Christmas. There is not another in London.
+    lowin: John Lowin, my fellow sharer: Falstaff, and Volpone. Twenty stone of him, and frightened of a noise in a cupboard.
     folio,book,shakespeare: Heminges and Condell put the first Folio together, God rest them both; we lent them the prompt-books. Now there is a second. My Hamlet is in it, though they did not ask me.
     milton: Never heard of him. A poet? Does he write for the stage? Then I never shall.
-    globe: The Globe, on Bankside, where you see me in summer; in winter we play at the Blackfriars, indoors, by candlelight, for the gentlemen.
+    globe: The Globe, on Bankside, where you will find us summer and winter. The gentlemen want us indoors at the Blackfriars when it rains; the groundlings want us here; the groundlings are more of them.
     name: Joseph Taylor, of the King's Men. I play Hamlet. {name}
     hamlet: "What a piece of work is a man!" They still weep at the end.
   end
@@ -73,6 +92,141 @@ person harvey
     job: I am a physician. I have shown that the *blood* goes round the body.
     blood,circulation: It goes round, sir. Around and around, as the Earth goes round the Sun, if your Italian is right.
     heart: The heart is a pump, no more and no less. I have proved it on a hundred animals, and a few of the King's deer.
+    hello if player follower=london:robin and player head-stuck: (He takes the hood back and looks for a long time, with interest.) I have opened a hundred bodies, and a few of the King's deer; I have never been asked to open an ass. Canvas, glue and horsehair; the trouble is at the neck, where the lining has rucked under the jaw. (He works two fingers in, with a surgeon's patience, and turns the head a quarter, and it comes off.) There. You may tell your company that the blood goes round, and the head comes off, both by the same science. (Robin, when you are outside again: "He did not even laugh. I think he wanted to keep it.") {player set head-off} {player set head-whole} {player unset head-stuck} {unfollow}
+  end
+end
+
+
+# ---------------------------------------------------------------- the Globe: the ass's head (a comedy)
+# Robin Oddbellow has Bottom's ass's head stuck on his own; Kit Ashby, who plays Titania, takes him for Nick Weaver, who
+# plays Bottom, and gives him a sonnet; Faint-not Hobday, an informer gathering instances for Prynne's book against the
+# stage, watches the door. The head comes off at the Mermaid (grease), at St Bartholomew's (Harvey), or under Hugh
+# Joyner's saw; "tomorrow at two" counts from Taylor's asking (events.txt robin-saws-himself). The friar's habit that
+# walks Robin out past Hobday is yours afterwards (items.txt friars-habit).
+
+person robin
+  name Robin Oddbellow
+  role actor
+  title if player head-stuck and player robin-habited: a friar with a very long face
+  title if player head-stuck: a man in an ass's head
+  look coat #6A5A4A legs #4A3E34 hat none
+  near Globe
+  schedule
+    9:00 home if not player head-stuck
+    11:00 go inn if not player head-stuck
+    13:00 work if not player head-stuck
+    17:30 go inn if not player head-stuck
+    23:00 home if not player head-stuck
+    23:30 sleep if not player head-stuck
+    0:00 go tiring Globe if player head-stuck
+  talk
+    hello if player head-stuck and not player robin-met: (A figure in a shirt and a donkey's head is pulling at its own ears.) Mmf! Who is that? Is it Mr Taylor? Don't let him in! (The head turns towards you, slowly; the eyes are painted on.) It was a jest. Only a jest. I put it on to make the boys laugh, and it went on easy, and now it will not come off. My ears are folded up inside it like a letter. (The door from the stage opens. A young man comes in, still in Titania's gown, the paint half off his face, and does not see you in the shadow by the costumes. He stops at the sight of the head.) "Nick? You are still in it." (He laughs, and then does not.) "No; leave it on. It is easier to say to the head than to you. Every afternoon at two I say 'I love thee' to that face, and the yard laughs, and I do not mind, because I mean it, and nobody knows. This is my last season; next year my voice will be gone and I will be playing messengers. So I wrote it down." (He pushes a folded paper into the donkey's hand.) "Don't answer. Read it after." (He runs out.) (Silence. Then a small voice inside the head.) That was not meant for me. That was Kit Ashby, who plays Titania, and it was meant for Nick *Weaver*, who plays Bottom, and who is at the *Mermaid* this minute with his feet up. And I cannot even tell Kit he got the wrong ass. You take it. Give it to Nick, and say nothing to anybody, and I will say nothing either, if I live to say anything. {player set robin-met} {player add has:kits-sonnet 1} {player set knows:london:kit} {player set knows:london:nick}
+    hello if player head-stuck and player robin-habited: (From under the hood.) Is he looking? Keep walking. The Mermaid's *grease*, or Doctor *Harvey*, or the *saw*: you choose. I can only see my own feet.
+    hello if player head-stuck: (The head turns.) Still here. Still in it. Something wants *greasing*, or *cutting*.
+    hello if player head-whole: I can hear with both ears! I owe you a pot at the Mermaid, and a part in the next jig.
+    hello if player head-sawn: (He touches his ears, which are pink.) Mr Taylor has not killed me yet. I think he is saving it.
+    name: Oddbellow. Robin Oddbellow. (A pause.) It is an old Suffolk name. Don't laugh; I can hear you laughing. {name}
+    suffolk: Oddbellows have been in Suffolk since the Conqueror. Ask anyone in Suffolk. Not here: in Suffolk.
+    head,off,ears,stuck if player head-stuck: I have pulled, and twisted, and Dickon pulled while I held the door; it only goes tighter. Something wants *greasing*, or *cutting*. If Mr Taylor sees it he will turn me off, and if the Puritans see it... (He shudders, the whole head nodding.) You heard what they did at *Buckden*?
+    buckden: At the Bishop of Lincoln's house, last September: they played the Dream on a Sunday, and the Puritans had them up before the court for it. The man who played Bottom sat twelve hours in the porter's lodge with the head on, a bundle of hay before him, and a paper on his breast: "Good people, I have played the beast." (A muffled groan.)
+    grease,greasing,dripping,mermaid if player head-stuck: Grease! The Mermaid's kitchen has a crock of dripping a man could swim in. But it is over the river, and how do I cross the river looking like this?
+    cut,cutting,saw,carpenter,joyner if player head-stuck: There is a carpenter on Bankside, Hugh *Joyner*, by the Bear Garden. He would have it off in a minute. And the head would be in two halves, and Mr Taylor would have me in four.
+    doctor,physician,harvey if player head-stuck: A doctor? For a donkey? (A thought.) There is Doctor *Harvey*, at St Bartholomew's, the King's physician. They say he cuts up anything. He might cut this up without cutting me.
+    out,door,leave,come,hobday,puritan if player head-stuck and not player robin-habited: Not by the door: *Hobday* is out there. The Puritan with the little book. He has been at us all week, writing us down. If he sees an ass walk out of the Globe, it goes in Prynne's book, with my name, and the Buckden man's. If only I could go out as somebody else. (He looks at the costumes on their pegs.)
+    disguise,wardrobe,costume,costumes,habit,friar,pegs if player head-stuck and not player robin-habited: The wardrobe! There is a friar's habit on the third peg: the Duke's, from Measure for Measure, who goes about in disguise and nobody knows him. The hood is deep. (He gets into it; the hood comes up over the ears, and the long grey nose comes out of it, a little.) Well? Do I look like a friar? Go on: I will walk behind you, and keep my nose down. {set worn=asshead+habit} {player set robin-habited} {follow Robin Oddbellow walks behind you in the friar's habit, the hood well down: where you go, he goes.}
+    kit,titania,ashby: Kit Ashby. He plays the women. He will not play them long; listen to him on the high notes.
+    nick,weaver,bottom: Nick Weaver plays Bottom. Of an evening he is at the Mermaid, over the river, with his feet up.
+  end
+end
+
+person kit
+  name Kit Ashby
+  role actor
+  look coat #4A5A7A legs #2A3040 hat none plain
+  near Globe
+  talk
+    hello if player dream-seen and player sonnet-reached: (His paint is off, and he is smiling and pretending not to.) He answered. Not on paper; he is too careful for paper. (He looks at you.) You carried it? Then you know, and you will say nothing. Good. (He laughs.) Next year I will be playing messengers, and I do not mind at all.
+    hello if player robin-met and not player sonnet-reached: (He looks at you sharply, and then away, and goes red to the ears.) You were in the tiring-house. You heard nothing, I hope.
+    name: Kit Ashby. I play the women, for one more season. {name}
+    job: I play the women. Not for long.
+    titania,queen,women: Titania, and Desdemona, and the Duchess when Mr Lowin lets me. My voice cracked on "I love thee" last week; nobody laughed, which was worse.
+    nick,weaver,bottom if player sonnet-reached: (He does not answer, but he smiles.)
+    nick,weaver,bottom: Nick? He plays Bottom. (Too quickly.) He plays it very well.
+  end
+end
+
+person nick
+  name Nick Weaver
+  role actor
+  look coat #6A4A2A legs #3A2E24 hat hat #2A2018
+  near Globe
+  schedule
+    9:00 home
+    11:00 go inn
+    13:00 work
+    17:30 go landmark Mermaid
+    23:00 home
+    23:30 sleep
+  talk
+    give:kits-sonnet: (He reads it twice, and then folds it very small, and puts it inside his shirt.) Kit wrote this. (He is quiet.) He gave it to the head, did he? Then the head had better answer. (He gets up.) Thank you. Say nothing; you understand why. {take} {player set sonnet-reached} {player set sonnet-given}
+    hello if player sonnet-reached: (A nod, and a finger to his lips.)
+    name: Nick Weaver. Bottom the weaver, they call me, and I have stopped minding. {name}
+    job: I play the clowns, and Bottom, and whatever is left over. Mr Lowin has the fat parts.
+    bottom,head,ass,dream if player head-stuck: The head? It is in the tiring-house, on its peg. (He frowns.) Is it not?
+    bottom,head,ass,dream: "I have had a most rare vision." Every afternoon at two, in a donkey's head, with a queen asleep on my shoulder. There are worse trades.
+    kit,titania,ashby: (He looks into his cup.) Kit plays Titania. He is very good. He will not play her next year.
+  end
+end
+
+person lowin
+  name John Lowin
+  role actor
+  look coat #5A2A1A legs #3A2418 hat hat #2A1A14 beard tuft stout
+  near Globe
+  talk
+    hello if player head-stuck: (He will not go near the tiring-house door.) There is something in there with ears. I have played the Devil, friend, and I know him when I hear him.
+    name: John Lowin, of the King's Men: Falstaff, and Volpone, and Bosola when they let me be wicked. {name}
+    falstaff: "Banish plump Jack, and banish all the world." They will not banish me; I am too heavy to lift.
+    volpone,jonson,ben: Old Ben wrote Volpone for us. He is abed now, poor man, and writing still.
+  end
+end
+
+person hobday
+  name Faint-not Hobday
+  role labourer
+  sex m
+  title a Puritan with a notebook
+  look coat #1E1E22 legs #1E1E22 hat hat #141418
+  near Globe
+  schedule
+    0:00 go landmark Bear Garden if player recent:0.04 hobday-sent
+    7:00 go landmark Globe if not player recent:0.04 hobday-sent
+    21:00 home if not player recent:0.04 hobday-sent
+    21:30 sleep if not player recent:0.04 hobday-sent
+  talk
+    hello if not met: (A narrow man in black, with a notebook and a pencil, looks you up and down.) Hast thou been in there, at the play? Then thou hast stood in the Devil's own parlour. I am Faint-not Hobday, and I gather *instances* for Master *Prynne*, who is writing a book against stage-plays that will be the end of them. A thousand pages, and every one with a margin, and every margin wants instances. (He licks the pencil.) Thy name? {name}
+    hello if player hobday-sent and not player hobday-back: No ass at the Bear Garden. Bears, and a bull, and a great deal of swearing, which I have noted. (He licks the pencil.) {player set hobday-back}
+    hello if player follower=london:robin and player head-stuck: (He peers at the one behind you.) Brother, thou hast a cold? Thy nose is very long.
+    hello if met: (He writes something down.) Thou again.
+    instances,prynne,book,margin,margins: Instances of the beastliness of players. I have men in women's clothes, I have kissing, I have a Jew of Malta and a devil with a squib in his tail; but Master Prynne says what the margin wants is a player turned into a beast outright, as Scripture warns. I am told they keep an ass's head in there. (He looks at the door.) I can wait.
+    bear,ass,donkey,beast if player head-stuck and not player robin-habited and not player recent:0.04 hobday-sent: The ass went to the Bear Garden? Of course it did; beasts to beasts. (He goes off, writing as he walks.) {player set hobday-sent=now} {bye}
+    give:kits-sonnet: (He unfolds it, and his eyebrows go up, and up.) "To N. W." Amorous verses to some lady of quality, a queen no less: an instance of the corruption of youth by stage-plays. Master Prynne shall have it, and the yard shall hear it first. {take} {player set sonnet-hobday=now}
+    name: Faint-not Hobday. My father was Fight-the-good-fight Hobday; my brother, Sorry-for-sin. {name}
+    job: I gather instances. It is the Lord's work, and Master Prynne pays a penny a page.
+  end
+end
+
+person joyner
+  name Hugh Joyner
+  role labourer
+  sex m
+  title a carpenter
+  look coat #7A5A3A legs #4A3A2A hat cap #5A4A3A
+  near Bear Garden
+  talk
+    hello if player follower=london:robin and player head-stuck: (He looks at the friar's nose.) Hold still. Hold STILL. (Sawdust; a long rasp; the head falls in two halves, and Robin's own head is in the middle, unharmed and very pink.) That will be twopence, and the halves are yours. (Robin pays him, from inside the habit: "Mr Taylor will kill me. But slowly, I think, and I will be able to hear him do it.") {player set head-off} {player set head-sawn} {player unset head-stuck} {unfollow}
+    name: Hugh Joyner, carpenter. Stages, galleries, coffins, cradles. {name}
+    job: I made half the Globe after the fire, and the Bear Garden's pit, and I mend both when the crowd breaks them.
   end
 end
 

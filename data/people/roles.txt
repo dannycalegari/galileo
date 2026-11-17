@@ -878,6 +878,7 @@ role waterman "a waterman"
     row,rowing,oars,lesson: Pull with your back, not your arms; feather the blade; and never fight the tide. For sixpence I will show you, out on the river.
     give:money if player gift >= 6 and not player skill:rowing >= 2: (He takes you out in his wherry for an hour, and shouts at you.) Better. Your arms will ache tomorrow. {take} {player learn rowing}
     job: I row people across the river, or up to Westminster. Faster than the bridge, and cleaner.
+    cross,across,ferry,over,other,bankside,southwark,boat if town=London: Across? Sit you down in the middle, and keep your feet still. {ferry}
     bridge: Shooting the bridge at ebb tide? Only fools and watermen. Wise men walk round.
   end
 end

@@ -71,6 +71,7 @@ struct FigureLook {
     float stout = 0;       // 0..1 a belly, the coat and its buttons following it
     bool woman = false;    // in a gown (dress): a bodice, the skirt from a higher waist, a broad collar, narrower shoulders
     bool plain = false;    // "plain": no age, beard, stoutness or height drawn at random (People's drawLook)
+    bool asshead = false;  // the stage's ass's head, worn in place of a face (under a hood, hatKind 6, its ears folded away)
 };
 
 // close up (the camera near: main.cc sets it each frame), people and animals are drawn finer:

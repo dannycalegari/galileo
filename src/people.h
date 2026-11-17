@@ -310,6 +310,7 @@ public:
     int changeBy = -1;                  // "change [COIN]": a money-changer changes your coin (Game::changeMoney)
     std::string changeTo;
     int passageBy = -1;
+    int ferryBy = -1;   // a waterman rows you across the river ({ferry}: Game::ferry)
     long passagePrice = 0;
     int passageMinutes = 0;
     std::string passageTo;
@@ -334,6 +335,7 @@ public:
     // made from data/ending.txt: pages of lines, each shown if its conditions hold
     long jumpTo = -1;
     std::string jumpPage;
+    std::string scenesRequest;   // events.txt "scenes ID": still scenes (data/scenes/ID.txt) seen now, the clock kept
     std::string cardRequest;   // events.txt "card ID": a chapter or date card (data/cards.txt) is to be shown
     bool endingRequest = false;
     // events.txt "pass MINUTES" (the clock moves on), "carry X Y [beside WHO]" (you are taken to the world tile X,Y, and

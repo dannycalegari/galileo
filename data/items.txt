@@ -2649,3 +2649,22 @@ item paquerette-bell
 end
 
 art "the farmhouse" wall: paquerette-bell
+
+# ---------------------------------------------------------------- the Globe (london.txt, the ass's head)
+item kits-sonnet
+  name Kit Ashby's sonnet | Kit Ashby's sonnets
+  also sonnet verses poem paper
+  shape book #F2EAD8 #F2EAD8
+  weight 0.02
+  use read To N. W. | Each afternoon at two I am a queen\nThat wakes, and dotes upon a weaver's ass;\nThe yard believes the flower's juice, I ween,\nIs all the cause, and laughs, and lets it pass.\nBut when the play is done, and crown and gown\nHang on their pegs, and all my paint is gone,\nI am no queen, and walk the common town,\nAnd still the spell that held me holds me on.\nNo herb was squeezed upon my sleeping eyes;\nI saw you, waking, and I loved you so;\nAnd this my voice, that cracks and will not rise,\nMust speak it now, before I have to go.\nThen take the queen's "I love thee" for my own,\nAnd hear it, when the head is off, alone.
+end
+
+item friars-habit
+  name a friar's habit | friars' habits
+  also habit friar cowl hood robe
+  shape coil #6B6660
+  weight 4
+  price 240
+  look A grey friar's habit with a deep hood and a rope girdle, from the wardrobe of the King's Men: the Duke's, in Measure for Measure.
+  use wear You put on the friar's habit over your clothes, and draw up the hood. | You take off the friar's habit, and fold it away.
+end

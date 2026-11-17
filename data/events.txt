@@ -1127,3 +1127,51 @@ event senno-known-at-prague
   if player knows:zirndorf:senno and player not knows:prague:senno
   set player knows:prague:senno
 end
+
+# ---------------------------------------------------------------- the Globe: the ass's head (people/london.txt)
+# Taylor's asking sets head-stuck and globe-hook (the time). Robin wears the head (memory "worn", drawn by main.cc
+# wornLook), and the habit over it once he has put it on (his own line). Hobday, at the door unless sent off to the
+# Bear Garden within the hour, sees the friar come out. If the head is still on at two the next day, Robin has gone to
+# the carpenter himself. The next performance is seen as still scenes (data/scenes/globe-dream.txt) at the Globe, from
+# two to five, any day after the asking once the head is off.
+event robin-stuck
+  if player head-stuck
+  set london:robin worn=asshead
+end
+
+event robin-unmasked
+  if player head-off
+  unset london:robin worn
+end
+
+event hobday-sees-the-friar
+  if player robin-habited and player follower=london:robin and player not inside=the-globe and player not recent:0.04 hobday-sent
+  set player hobday-friar
+  news London (At the Globe's door, Faint-not Hobday steps back as if from a fire.) "A friar! On Bankside, in broad day!" (He writes, fast.) "A Papist in a cowl, with a face as long as Lent, coming out of a playhouse. Master Prynne will have a whole page of this."
+end
+
+event hobday-at-the-mermaid
+  if player follower=london:robin and player inside=the-mermaid-tavern and player hobday-friar
+  news London (Through the window, a narrow man in black is writing in a little book: Faint-not Hobday has followed the friar across the river.)
+end
+
+event robin-saws-himself
+  if player head-stuck and player day:1+ globe-hook and player hour>=14
+  set player head-off
+  set player head-sawn
+  set player robin-sawed-himself
+  unset player head-stuck
+  unset player follower
+end
+
+event hobday-reads-the-sonnet
+  if player sonnet-hobday and player not sonnet-reached and player inside=the-globe and player day:1+ sonnet-hobday and player hour>=13 and player hour<16
+  set player sonnet-reached
+  news London (In the yard, before the play, Faint-not Hobday is reading something aloud, loudly and very badly: "To N. W. Each afternoon at two I am a queen..." In the gallery above, Nick Weaver hears every word, and stops laughing.)
+end
+
+event the-dream-at-the-globe
+  if player head-off and player inside=the-globe and player day:1+ globe-hook and player hour>=14 and player hour<17 and player not dream-seen
+  set player dream-seen
+  scenes globe-dream
+end

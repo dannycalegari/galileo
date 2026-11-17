@@ -14,6 +14,8 @@
 #     coins PLACE                    the week's milk money, in piles on a table
 #     ID PLACE [facing F] [carries baby|pails|cap|book] [bareheaded]   a person (town:id, _ for a space)
 #                                    (any figure may also be "kneeling", or "seated" on a chair)
+#                                    (or "robe #hex", "gown #hex": a woman's gown; "habit": a friar's,
+#                                    the hood up; "asshead": the stage's ass's head)
 #   PLACE: COL,ROW of the town's map (row 0 at the top), or door:NAME, outside:NAME, table:NAME,
 #   hearth:NAME, bed:NAME, well:NAME, bench:NAME (in that building), then +DCOL,DROW
 #   F: N NE E SE S SW W NW, cam (towards the camera), or to:WHO (you, cow, coins or an ID)

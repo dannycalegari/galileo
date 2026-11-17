@@ -652,3 +652,16 @@ story wild
   step if player fish-caught: Fish bite best at dawn and towards evening. Fridays and Lent are fish days; the friars and nuns pay for a fish, and the Minims, who keep Lent all year, most gladly of all.
 end
 
+story globe
+  title The ass's head
+  step if player head-stuck and not player robin-met: Joseph Taylor of the King's Men has asked you to look into the tiring-house of the Globe, where something is braying.
+  step if player robin-met and player head-stuck and not player robin-habited: Robin Oddbellow, a hired man of the King's Men, has Bottom's ass's head stuck fast on his own, and the Dream plays tomorrow at two. Faint-not Hobday, a Puritan informer, is watching the Globe.
+  step if player robin-habited and player head-stuck: Robin walks behind you in a friar's habit, the hood over the ears: to the Mermaid's kitchen for grease, to Doctor Harvey at St Bartholomew's, or to Hugh Joyner the carpenter, by the Bear Garden.
+  step if player has:kits-sonnet: Kit Ashby's sonnet was meant for Nick Weaver, who plays Bottom; he drinks at the Mermaid of an evening.
+  step well if player sonnet-reached: Kit's sonnet reached Nick Weaver.
+  step well if player head-whole: The head came off whole.
+  step badly if player head-sawn: The head came off in two halves.
+  step if player habit-given: Joseph Taylor let you keep the friar's habit.
+  done well if player head-whole and player dream-seen: The Dream played with the head whole, and Titania's "I love thee" meant more than the yard knew.
+  done if player head-sawn and player dream-seen: The Dream played with Bottom in a painted face.
+end

@@ -1541,6 +1541,15 @@ void buildFigure(MeshBuf &m, vec3 pos, float facing, float phase, const FigureLo
     }
     // head and hair (a small child's head is larger for its size: about the neck)
     mat4 hb = f.headK != 1 ? base * translate(vec3(0, 0, 0.86f)) * scaleM(f.headK) * translate(vec3(0, 0, -0.86f)) : base;
+    if (f.asshead) {   // the stage's ass's head: a block with a muzzle and two ears, or a hood with the muzzle out of it
+        vec3 ash(0.52f, 0.47f, 0.42f);
+        obox(m, hb, vec3(-0.085f, -0.09f, 0.86f), vec3(0.085f, 0.08f, 1.06f), ash);
+        obox(m, hb, vec3(-0.05f, 0.06f, 0.85f), vec3(0.05f, 0.2f, 0.95f), vec3(0.8f, 0.76f, 0.7f));
+        if (f.hatKind == 6) obox(m, hb, vec3(-0.105f, -0.13f, 0.84f), vec3(0.105f, 0.09f, 1.1f), f.hat);
+        else
+            for (int s = -1; s <= 1; s += 2) obox(m, hb, vec3(s * 0.045f - 0.015f, -0.035f, 1.05f), vec3(s * 0.045f + 0.015f, -0.01f, 1.2f), ash);
+        return;
+    }
     obox(m, hb, vec3(-0.075f, -0.075f, 0.86f), vec3(0.075f, 0.075f, 1.02f), f.skin);
     obox(m, hb, vec3(-0.08f, -0.08f, 0.94f), vec3(0.08f, 0.02f, 1.03f), f.hair);
     if (f.longHair) obox(m, hb, vec3(-0.082f, -0.092f, 0.76f), vec3(0.082f, -0.035f, 0.97f), f.hair);
@@ -1638,6 +1647,41 @@ static bool reachTarget(const FigureLook &f, int s, bool sitting, bool holding, 
 
 // The same figure as buildFigure, part for part and at the same places, only rounder, with jointed
 // limbs: drawn when the camera is close. The hands reach to what they hold.
+// tilted sideways: +z leans towards +x for a > 0
+static mat4 rotY(float a) {
+    mat4 M;
+    float c = std::cos(a), s = std::sin(a);
+    M.at(0, 0) = c; M.at(0, 2) = s;
+    M.at(2, 0) = -s; M.at(2, 2) = c;
+    return M;
+}
+
+// the stage's ass's head, of painted canvas, worn over the whole head (hb: the head's frame): a round skull, a long
+// muzzle forward and down with a pale nose, painted eyes, a dark mane down the back and two tall ears; under a hood
+// (hooded) the ears are folded away and the muzzle sticks out of it
+static void assHead(MeshBuf &m, const mat4 &hb, bool hooded, vec3 hood) {
+    vec3 ash(0.52f, 0.47f, 0.42f), pale(0.80f, 0.76f, 0.70f), dark(0.18f, 0.15f, 0.13f);
+    oellip(m, hb, vec3(0, -0.01f, 0.975f), vec3(0.092f, 0.1f, 0.105f), 12, 7, ash);   // the skull
+    mat4 M = hb * translate(vec3(0, 0.03f, 0.95f)) * rotX(-(PI_F / 2 + 0.45f));      // along the muzzle, forward and down
+    ofrustum(m, M, 0.0f, 0.17f, 0.062f, 0.07f, 0.048f, 0.052f, 10, ash, 0, 0, false, false);
+    oellip(m, M, vec3(0, 0, 0.17f), vec3(0.05f, 0.055f, 0.036f), 10, 4, pale);       // the nose
+    if (!gLo)
+        for (int s = -1; s <= 1; s += 2) {
+            oellip(m, M, vec3(s * 0.02f, 0.012f, 0.2f), vec3(0.008f, 0.01f, 0.006f), 6, 3, dark);   // the nostrils
+            oellip(m, hb, vec3(s * 0.076f, 0.04f, 0.995f), vec3(0.012f, 0.017f, 0.013f), 6, 3, dark);   // the painted eyes
+        }
+    if (hooded) {
+        oellip(m, hb, vec3(0, -0.035f, 0.97f), vec3(0.112f, 0.118f, 0.135f), 12, 6, hood, -0.7f, PI_F / 2);
+        return;
+    }
+    oellip(m, hb, vec3(0, -0.075f, 1.0f), vec3(0.022f, 0.05f, 0.09f), 8, 4, dark);   // the mane
+    for (int s = -1; s <= 1; s += 2) {   // the ears, tall, leaning out a little and back
+        mat4 E = hb * translate(vec3(s * 0.05f, -0.025f, 1.06f)) * rotY(s * 0.3f) * rotX(0.2f);
+        oellip(m, E, vec3(0, 0, 0.07f), vec3(0.024f, 0.014f, 0.085f), 8, 4, ash);
+        if (!gLo) oellip(m, E, vec3(0, 0.008f, 0.07f), vec3(0.013f, 0.008f, 0.06f), 6, 3, dark);   // inside the ear
+    }
+}
+
 static void buildFigureFine(MeshBuf &m, const mat4 &base, float swing, const FigureLook &f, bool lying) {
     vec3 boots(0.30f, 0.20f, 0.12f), white(0.95f, 0.94f, 0.9f), dark(0.10f, 0.08f, 0.08f);
     if (f.statue) { boots = f.legs; white = f.coat; dark = f.skin * 0.8f; }
@@ -1868,6 +1912,7 @@ static void buildFigureFine(MeshBuf &m, const mat4 &base, float swing, const Fig
     }
     // the head (larger for a small child's size, about the neck; lifted again when the body leans), the face, the hair
     mat4 hb = ub * translate(vec3(0, 0, 0.86f)) * rotX(0.6f * lean) * scaleM(f.headK) * translate(vec3(0, 0, -0.86f));
+    if (f.asshead) { assHead(m, hb, f.hatKind == 6, f.hat); return; }   // the ass's head over all of it (the hats come last)
     oellip(m, hb, vec3(0, 0.004f, 0.945f), vec3(0.07f, 0.077f, 0.086f), 12, 8, f.skin);
     for (int s = -1; s <= 1 && !gLo; s += 2) {
         oellip(m, hb, vec3(s * 0.069f, -0.004f, 0.94f), vec3(0.012f, 0.021f, 0.028f), 6, 3, f.skin * 0.94f);   // the ears

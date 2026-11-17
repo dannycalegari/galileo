@@ -21,6 +21,7 @@ struct ItemKind {
     std::string afterKey, afterImage, afterLook, afterCredit;
     // using it (U): eat, drink (one is gone), read (a page to read), say (just the text)
     std::string useVerb, useTitle, useText;
+    std::string offText;               // "use wear ON | OFF": what you read when you take it off again
     std::vector<std::string> useEffects;
     // skills and making things: "needs SKILL TEXT" (without it you read TEXT instead),
     // "night TEXT" (used at night), "use make RESULT [N] | TEXT" with "with ITEM N" and

@@ -2041,6 +2041,22 @@ struct TownBuilder {
                     T(X, Y).var = (uint8_t)(X + Y);
                 }
             }
+        // the tiring-house behind the stage, where the players dress: the galleries there walled off from the yard, with
+        // the stage's two doors into it, and walled at its two ends
+        {
+            vec2 side(-dir.y, dir.x);
+            for (int X = x0; X <= x1; X++)
+                for (int Y = y0; Y <= y1; Y++) {
+                    Tile &t = T(X, Y);
+                    vec2 q(X + 0.5f - cx, Y + 0.5f - cy);
+                    float d = length(q), along = -dot(q, dir), across = std::fabs(dot(q, side));   // along: towards the stage
+                    if (t.bld != (uint16_t)id || t.wall == W_TOWER || t.wall == W_DOOR || along <= 0) continue;
+                    if (d <= Ri || d > R - 1.0f || across > 3.2f) continue;   // the galleries' ring behind the stage only
+                    t.feature = F_NONE;   // no benches in it
+                    if (across > 2.2f) t.wall = W_WALL;
+                    else if (d < Ri + 1.0f) t.wall = std::fabs(across - 1.5f) < 0.6f ? W_DOOR : W_WALL;
+                }
+        }
         float zw = g + GF_H + 2.6f;
         for (auto pr : {prism(cx, cy, g - 0.4f, g + GF_H, R, 20, plaster, false), prism(cx, cy, g + GF_H, zw, R, 20, plaster),
                         prism(cx, cy, g + GF_H - 0.12f, g + GF_H + 0.08f, R + 0.06f, 20, timber)}) {

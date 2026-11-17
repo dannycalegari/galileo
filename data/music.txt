@@ -11,6 +11,8 @@
 #                         you, or soldiers at it close by), and eight seconds after it
 #   inn [in PLACES] [except PLACES] FILE TITLE
 #                         played instead while you are inside an inn (a tavern, a post house)
+#   theatre [in PLACES] [except PLACES] FILE TITLE
+#                         played instead while you are inside a theatre (the Globe, the Bear Garden)
 #   track [in PLACES] [except PLACES] FILE TITLE
 #                         a background piece heard only in (or not in) those places
 #   PLACES: towns or countries (the people's files' "country"; France where none is given),
@@ -33,6 +35,8 @@ track in Italy music/canto_della_morte.m4a Maestro Alexander, "Canto della Morte
 track in Italy music/canto_della_pace.m4a Anonymous, "Canto della pace", a Florentine carnival song (early 16th century), on recorders and a bassoon
 # Galileo's brother Michelagnolo, lutenist to the Duke of Bavaria; his book of 1620 was printed in Munich
 track in Florence,Arcetri music/galilei_suite1.m4a Michelagnolo Galilei, a toccata, gagliarda, corrente and volta (Il primo libro d'intavolatura di liuto, 1620), on the lute
+# a ballett, an English dance-song after the Italian balletto; also played in the theatres (below)
+track in England music/maying.m4a Morley, "Now is the month of maying" (The First Booke of Balletts to Five Voyces, 1595), on recorders and bassoons
 # the canario, danced in Spain from the 1580s; Sanz's setting for the guitar was printed in 1674, after the game's time
 track in Spain music/canarios.m4a Gaspar Sanz, "Canarios" (printed 1674), on the guitar
 # a Latin motet for the Catholic (and Lutheran) churches; an English anthem for the English ones
@@ -40,6 +44,7 @@ church except London,Oxford,Cambridge music/sicut_cervus.m4a Palestrina, "Sicut 
 church in London,Oxford,Cambridge music/if_ye_love_me.m4a Tallis, "If ye love me" for four voices
 # a lute in the taverns, but not in the Ottoman lands, where the inns are coffeehouses
 inn except Ottoman music/flow_my_tears.m4a Dowland, "Flow, my tears", on a lute in the corner
+theatre in England music/maying.m4a Morley, "Now is the month of maying" (1595), on recorders and bassoons
 battle music/scheidt_battaglia.m4a Scheidt, "Galliard Battaglia", on trumpets and trombones (arranged by Michel Rondeau)
 # the Reformed churches sing only the psalms, in unison, and Zurich's has no organ; in the Ottoman
 # towns the buildings of the kind church are mosques

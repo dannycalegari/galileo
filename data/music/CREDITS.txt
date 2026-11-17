@@ -77,4 +77,9 @@ canarios.m4a          Gaspar Sanz, "Canarios", from his Instruccion de musica so
                       guitar (1996/2019; IMSLP, Creative Commons Attribution-ShareAlike 4.0), from the MIDI file he
                       provides with it, its written-out trills slowed a little, and its bass notes and the strummed
                       chords before its two rests let ring. Nylon guitar, GeneralUser GS. This recording: CC BY-SA 4.0.
+maying.m4a            Thomas Morley, "Now is the month of maying" (The First Booke of Balletts to Five Voyces, London
+                      1595). Transcribed from the Radio Times (1933), which sets the five voices on two staves for
+                      piano (public domain, IMSLP #860297): its notes and accidentals, at its pitch; which voice sings
+                      which inner note is ours where the page gives only the chord, and the last chord is held longer.
+                      Four recorders and two bassoons, GeneralUser GS. This recording: CC BY 4.0.
 The sounds: GeneralUser GS 2.0 by S. Christian Collins, whose licence allows any use of music made with it.
