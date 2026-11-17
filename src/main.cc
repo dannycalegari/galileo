@@ -438,6 +438,8 @@ struct Game {
     float viewAspect = 1.6f;
     GLFWcursor *crossCursor = nullptr;
     bool talking = false;
+    mutable int talkScroll = 0;      // the conversation scrolled (Up/Down), in rows of text from where its box first stands
+    mutable size_t talkSeen = 0;     // its lines when last drawn: a new line brings it back to the latest
     bool swallowChar = false;   // the T that began a conversation is not the first letter typed
     std::string savePath = "saves/autosave.txt";
     GLFWwindow *win = nullptr;
@@ -4068,6 +4070,24 @@ struct Game {
     std::map<std::string, int> heardCount;            // the stand-in's HEARD: the fighting's sounds heard since the last
     std::vector<FilmCue> filmCues;                    // and the music an event began (events.txt "cue")
     void takeRequests() {
+        if (talking && people.talk.who < 0) talking = false;   // a scene broke the conversation off (People::tryChat)
+        if (!people.interrupted.empty()) { say(people.interrupted, 6.0); people.interrupted.clear(); }
+        if (people.approachReq >= 0) {   // someone has come up to you ("approach if"): the conversation opens with their greeting
+            int who = people.approachReq;
+            people.approachReq = -1;
+            Person &pp = people.people[who];
+            if (talking || people.talk.who >= 0 || cardUp || sceneNow >= 0 || panel || journal || showMap || fadeT >= 0 || creating)
+                pp.mem.erase("approached");   // not now: again when you are free
+            else {
+                people.startTalk(world, who, minutes);
+                talking = true;
+                swallowChar = false;
+                if (testMode) {
+                    std::fprintf(stderr, "  [%s comes up to you]\n  [talking to %s]\n", people.label(pp).c_str(), people.label(pp).c_str());
+                    for (auto &l : people.talk.lines) std::fprintf(stderr, "    %s\n", l.second.c_str());
+                }
+            }
+        }
         if (!people.scenesRequest.empty()) {   // an event's still scenes, seen now (events.txt "scenes ID"): the clock kept
             std::string id = people.scenesRequest;
             people.scenesRequest.clear();
@@ -4819,7 +4839,7 @@ struct Game {
             if (!piece.empty() && message.empty()) say("Music: " + piece + ".", 5.0);
         }
         if (!people.notice.empty()) { say(people.notice, 5.0); people.notice.clear(); }
-        if (win && stepT >= 1 && !talking && panel != 3 && !(journal && journalTab == 0)) {   // not while a book or the journal is open: the arrows turn their pages
+        if (win && stepT >= 1 && !talking && panel != 3 && !(journal && journalTab == 0) && !people.sceneNow()) {   // not while a book or the journal is open (the arrows turn their pages), nor during a scene
             auto K = [&](int k) { return glfwGetKey(win, k) == GLFW_PRESS; };
             float sx = 0, sy = 0;
             if (K(GLFW_KEY_UP) || K(GLFW_KEY_W) || K(GLFW_KEY_KP_8)) sy += 1;
@@ -5293,6 +5313,8 @@ struct Game {
             std::string l = people.label(pp);
             hs.talkTitle = l == pp.name ? pp.name + ", " + pp.title : (std::string(1, (char)std::toupper((unsigned char)l[0])) + l.substr(1));
             hs.talkLines = people.talk.lines;
+            if (people.talk.lines.size() != talkSeen) { talkSeen = people.talk.lines.size(); talkScroll = 0; }
+            hs.talkScroll = talkScroll;
             hs.talkInput = people.talk.over ? "(press Return)" : people.talk.input;
         }
         hs.help = help;
@@ -5647,6 +5669,7 @@ static void endConversation(Game &g) {
 
 static void onChar(GLFWwindow *, unsigned int cp) {
     Game &g = *G;
+    if (g.people.sceneNow()) return;   // a scene between two people: what you type waits for its end
     if (g.creating) {   // your name, on the first line
         if (g.createRow != 0 || cp < 32) return;
         std::string &n = g.people.player["me:name"];
@@ -5669,6 +5692,8 @@ static void onKey(GLFWwindow *w, int key, int, int action, int mods) {
     if (action != GLFW_PRESS && action != GLFW_REPEAT) return;
     Game &g = *G;
     if (g.fadeT >= 0) return;   // asleep: the keys wait for the morning
+    if (g.people.sceneNow()) return;   // a scene between two people (chats.txt "at once"): no key acts until it ends,
+                                       // so that letters typed into a conversation it broke off do nothing (M: the map)
     if (g.creating) {   // choosing who you are
         int rows = (int)g.createRows().size();
         if (key == GLFW_KEY_UP) g.createRow = (g.createRow + rows - 1) % rows;
@@ -5698,6 +5723,12 @@ static void onKey(GLFWwindow *w, int key, int, int action, int mods) {
         else if (key == GLFW_KEY_ENTER || key == GLFW_KEY_KP_ENTER) {
             if (g.people.talk.over) endConversation(g);
             else if (!in.empty()) { std::string q = in; in.clear(); g.minutes += 1; g.people.ask(g.world, q, g.minutes, g.tx, g.ty); }   // a minute a thing said (the clock stands while you talk)
+        } else if (key == GLFW_KEY_UP || key == GLFW_KEY_PAGE_UP) {   // look back: a row of text, or a boxful
+            g.talkScroll = std::min(hudTalkScrollMax, g.talkScroll + (key == GLFW_KEY_UP ? 1 : hudTalkPageRows));
+            g.talkSeen = g.people.talk.lines.size();
+        } else if (key == GLFW_KEY_DOWN || key == GLFW_KEY_PAGE_DOWN) {   // and forward again, to the latest
+            g.talkScroll = std::max(hudTalkScrollMin, g.talkScroll - (key == GLFW_KEY_DOWN ? 1 : hudTalkPageRows));
+            g.talkSeen = g.people.talk.lines.size();
         } else if (key == GLFW_KEY_BACKSPACE && !in.empty()) {
             while (!in.empty() && (in.back() & 0xC0) == 0x80) in.pop_back();
             if (!in.empty()) in.pop_back();
@@ -5764,7 +5795,7 @@ static void onKey(GLFWwindow *w, int key, int, int action, int mods) {
         case GLFW_KEY_E: g.yawT += 15; break;
         case GLFW_KEY_R: g.pitchT = std::min(80.0f, g.pitchT + 5); break;
         case GLFW_KEY_F: g.pitchT = std::max(25.0f, g.pitchT - 5); break;
-        case GLFW_KEY_EQUAL: case GLFW_KEY_KP_ADD: g.zoomT = std::max(5.0f, g.zoomT / 1.2f); break;
+        case GLFW_KEY_EQUAL: case GLFW_KEY_KP_ADD: g.zoomT = std::max(2.5f, g.zoomT / 1.2f); break;   // in to 2.5 tiles half-height (a conversation close up)
         case GLFW_KEY_MINUS: case GLFW_KEY_KP_SUBTRACT: g.zoomT = std::min(150.0f, g.zoomT * 1.2f); break;
         case GLFW_KEY_Z: g.yawT = 22; g.pitchT = 52; g.zoomT = 20; break;
         case GLFW_KEY_V: g.roofsOff = !g.roofsOff; g.say(g.roofsOff ? "Roofs lifted." : "Roofs back on."); break;
@@ -5877,6 +5908,7 @@ static void onMouse(GLFWwindow *w, int button, int action, int) {
     if (action != GLFW_PRESS) return;
     Game &g = *G;
     if (g.fadeT >= 0) return;
+    if (g.people.sceneNow()) return;   // a scene between two people: clicks wait for its end
     if (g.cardUp) { if (button == GLFW_MOUSE_BUTTON_LEFT) g.afterCard(); return; }
     if (g.sceneNow >= 0) { if (button == GLFW_MOUSE_BUTTON_LEFT) g.nextScene(); return; }   // a click: the next scene
     if (!g.pick) return;
@@ -5890,7 +5922,7 @@ static void onMouse(GLFWwindow *w, int button, int action, int) {
 }
 
 static void onScroll(GLFWwindow *, double, double dy) {
-    if (dy > 0) G->zoomT = std::max(5.0f, G->zoomT / 1.1f);
+    if (dy > 0) G->zoomT = std::max(2.5f, G->zoomT / 1.1f);
     if (dy < 0) G->zoomT = std::min(150.0f, G->zoomT * 1.1f);
 }
 
@@ -7841,14 +7873,14 @@ int main(int argc, char **argv) {
                 continue;
             }
             if (tok.rfind("PRESS:", 0) == 0 && g.cardUp) { g.afterCard(); continue; }
-            if (tok.rfind("PRESS:", 0) == 0 || tok.rfind("TYPE:", 0) == 0) {   // keys and letters on the choosing screen (tests)
-                if (!g.creating && g.sceneNow < 0) { std::fprintf(stderr, "  (PRESS and TYPE work only on the choosing screen and in the scenes)\n"); continue; }
+            if (tok.rfind("PRESS:", 0) == 0 || tok.rfind("TYPE:", 0) == 0) {   // keys and letters on the choosing screen (tests); keys in a conversation
+                if (!g.creating && g.sceneNow < 0 && !(g.talking && tok[0] == 'P')) { std::fprintf(stderr, "  (PRESS works only on the choosing screen, in the scenes and in a conversation; TYPE only on the choosing screen)\n"); continue; }
                 if (tok[0] == 'T') { for (unsigned char c : tok.substr(5)) if (c < 0x80) onChar(nullptr, c == '_' ? ' ' : c); continue; }
                 static const std::map<std::string, int> keys = {{"UP", GLFW_KEY_UP}, {"DOWN", GLFW_KEY_DOWN}, {"LEFT", GLFW_KEY_LEFT},
                     {"RIGHT", GLFW_KEY_RIGHT}, {"ENTER", GLFW_KEY_ENTER}, {"BACKSPACE", GLFW_KEY_BACKSPACE}, {"TAB", GLFW_KEY_TAB},
-                    {"SPACE", GLFW_KEY_SPACE}, {"ESCAPE", GLFW_KEY_ESCAPE}};
+                    {"SPACE", GLFW_KEY_SPACE}, {"ESCAPE", GLFW_KEY_ESCAPE}, {"PAGE_UP", GLFW_KEY_PAGE_UP}, {"PAGE_DOWN", GLFW_KEY_PAGE_DOWN}};
                 auto k = keys.find(tok.substr(6));
-                if (k == keys.end()) { std::fprintf(stderr, "  (PRESS takes UP DOWN LEFT RIGHT TAB ENTER BACKSPACE SPACE ESCAPE)\n"); continue; }
+                if (k == keys.end()) { std::fprintf(stderr, "  (PRESS takes UP DOWN LEFT RIGHT TAB ENTER BACKSPACE SPACE ESCAPE PAGE_UP PAGE_DOWN)\n"); continue; }
                 int before = g.sceneNow;
                 onKey(nullptr, k->second, 0, GLFW_PRESS, 0);
                 if (g.creating && !o.play.empty()) printChoosing();

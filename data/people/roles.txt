@@ -12,7 +12,11 @@
 #                        landmark NAME (a building whose name contains NAME), none
 #   sign EMBLEM          the sign hung over the door of their workshop (forge, shop, bakery):
 #                        anvil pretzel scales book goblet palette (inns get a tankard and a lantern)
-#   says TEXT            muttered now and then
+#   says TEXT            muttered now and then; "says A | B | C": one of them at random each time
+#   approach [within N] if COND   (a person) when COND holds and you are near (within N steps; 30), they walk up to
+#                        you and the conversation opens
+#                        with their greeting; once (they remember "approached", the time: "hello if recent:0.01
+#                        approached"); it waits while you talk, read, or watch a scene (People::approachStep)
 #   sells ITEM N ...     a shopkeeper: what they sell (items.txt) and how many a day; you
 #                        say "buy" (what they have, and the prices), "buy bread", "sell
 #                        horseshoe" (they buy what they sell, at half price). A person's own
@@ -24,7 +28,8 @@
 #                        spend the night in the town's prison (a town file's "prison" line)
 #   schedule             lines "HH:MM [sharp] ACTIVITY [PLACE] [if CONDITION]"; activities:
 #                        sleep home eat work wander patrol go PLACE travel TOWN
-#                        (go home-of ID: in that person's house, as one hidden there)
+#                        (go home-of ID: in that person's house, as one hidden there; go beside ID: next to
+#                        that person, where they stand)
 #                        Each person is up to 25 minutes early or late each day;
 #                        "sharp" means on the minute, for everyone (a crowd on purpose)
 #   talk ... end         lines "KEYWORDS [if CONDITION]: TEXT {EFFECTS}"
@@ -810,7 +815,7 @@ role actor "a player"
   sex m
   look coat #7A3A6A legs #3A2A4A hat hat #2A1A3A
   work theatre
-  says To be, or not to be...
+  says To be, or not to be... | Now is the winter of our discontent... | A horse! a horse! my kingdom for a horse! | Once more unto the breach, dear friends... | Friends, Romans, countrymen, lend me your ears... | Is this a dagger which I see before me? | Blow, winds, and crack your cheeks! | Put out the light, and then put out the light. | O Romeo, Romeo! wherefore art thou Romeo? | If music be the food of love, play on... | The quality of mercy is not strain'd... | All the world's a stage... | Lord, what fools these mortals be! | We are such stuff as dreams are made on...
   schedule
     9:00 home
     11:00 go inn

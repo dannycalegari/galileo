@@ -6,6 +6,12 @@
 #     if CONDITION     on A (with "player KEY" for what you know), as in roles.txt
 #     ifb CONDITION    on B
 #     again MINUTES    may be overheard again this long after; otherwise only once.
+#     at once          a scene: begins as soon as the two stand together near you, before any other
+#                      conversation and without waiting its turn; while you talk with someone else it waits
+#     interrupt TEXT   if you are talking with one of the two, your conversation ends, and the game says TEXT (once
+#                      its latest line has had time to be read: 4 seconds and one for every 25 letters)
+#     within N         the two may stand up to N tiles apart (else 2): in a scene one may walk in as the other speaks
+#                      (in a scene the two keep to their day: a line's effects can send one to the other)
 #                      Give plot points an "again", so that they come round until you act.
 #     A: TEXT {EFFECTS}
 #     B: TEXT {EFFECTS}
@@ -108,6 +114,23 @@ chat the-disputation
 end
 
 # ---------------------------------------------------------------- London
+# the Globe (people/london.txt, the ass's head): once you have met Robin (and read his greeting), Robin hears someone,
+# and Kit Ashby comes in from the stage and takes the head for Nick Weaver's; Robin then gives you the sonnet (his line
+# "hello if got-sonnet")
+chat kit-sonnet
+  between kit robin
+  if player head-stuck and player robin-met and not kit-came
+  at once
+  within 12
+  interrupt (The door from the stage opens.)
+  B: (The head turns towards the stage door.) Hold, someone approaches. {hearer set kit-coming}
+  A: (A young man comes in from the stage, still in Titania's gown, the paint half off his face. He does not see you in the shadow by the costumes.) Nick? You are still in it.
+  A: (He laughs, and then does not.) No; leave it on. It is easier to say to the head than to you.
+  A: Every afternoon at two I say "I love thee" to that face, and the yard laughs, and I do not mind, because I mean it, and nobody knows.
+  A: This is my last season; next year my voice will be gone and I will be playing messengers. So I wrote it down.
+  A: (He pushes a folded paper into the donkey's hand.) Don't answer. Read it after. (He runs out.) {set kit-came} {hearer set got-sonnet}
+end
+
 
 chat cheddar
   between goodwife,cook,innkeeper anyone

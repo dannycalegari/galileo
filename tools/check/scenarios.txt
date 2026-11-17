@@ -1912,11 +1912,19 @@ end
 
 # ---------------------------------------------------------------- the Globe: the ass's head (people/london.txt)
 scenario globe-the-grease-road
-  about the Globe: Taylor asks you after the play; Robin in the ass's head and Kit's sonnet; the habit walks him past Hobday; a waterman across; the Mermaid's grease; the sonnet to Nick; the Dream the next afternoon; Taylor gives you the habit, and it is worn
+  about the Globe: Taylor asks you after the play; Robin in the ass's head; Kit comes in, breaks off your talk and gives the head his sonnet, and Robin speaks to you again; the habit walks Robin past Hobday; a waterman across; the Mermaid's grease, and Robin hands you the habit for Taylor; the sonnet to Nick; the Dream the next afternoon; Taylor will not take the habit back, and it is worn
   fixture london_street.txt
   run ROAD:none KNOW:knows:london:taylor=1 WAIT:430 WALKTO:Globe WALKTO:Taylor TALK:Taylor
   expect a noise in there like a donkey in a well
-  run BYE WAIT:25 WALKTO:ass TALK:ass
+  run BYE WAIT:25 WALKTO:ass TALK:ass SAY:disguise SAY:name WAIT:30
+  expect My ears are folded up inside it like a letter.
+  expect Not yet. Wait.
+  expect Hold, someone approaches.
+  expect (The door from the stage opens.)
+  expect Don't answer. Read it after. (He runs out.)
+  file-absent ^player has:kits-sonnet
+  run WAIT:1
+  expect Robin Oddbellow comes up to you]
   expect That was not meant for me.
   file-expect ^player has:kits-sonnet 1
   run SAY:disguise BYE OUT WAIT:1
@@ -1926,37 +1934,58 @@ scenario globe-the-grease-road
   run WALKTO:waterman TALK:waterman SAY:across
   expect holds out his hand for two pennies instead of one
   run BYE WALKTO:Mermaid WALKTO:innkeeper TALK:innkeeper
+  expect I never had an ass in holy orders. What does he want of me?
+  file-expect ^player head-stuck
+  run SAY:grease
   expect the head comes off with a sound like a boot out of mud
+  expect Take it back to him for me, will you?
   file-absent ^player follower
-  run BYE WALKTO:Nick TALK:Nick SAY:give_sonnet
+  file-expect ^player has:friars-habit 1
+  run BYE WALKTO:Nick TALK:Nick SAY:sonnet SAY:give_sonnet
+  expect A sonnet? For me?
   expect Then the head had better answer.
   run BYE WAIT:1180 WALKTO:Globe WAIT:60
   expect Titania lays her cheek against the ass's head
-  run WAIT:90 WALKTO:Taylor TALK:Taylor
+  run WAIT:90 WALKTO:Taylor TALK:Taylor SAY:give_habit
   expect Whole! And played!
+  expect (He pushes it back at you.) Keep it. The Duke has two
   file-expect ^player has:friars-habit 1
+  file-expect ^player habit-given
   run BYE USE:habit INV
   expect wearing a friar's habit, the hood up
 end
 
 scenario globe-the-saw
-  about the carpenter's saw: the head in two halves; Taylor short with you, but the habit is yours; the Dream with a painted face
+  about the carpenter's saw: he offers, and cuts only when asked; the head in two halves; Taylor short with you, but the habit is yours; the Dream with a painted face
   fixture london_street.txt
-  run ROAD:none KNOW:knows:london:taylor=1 WAIT:430 WALKTO:Globe WALKTO:Taylor TALK:Taylor BYE WAIT:25 WALKTO:ass TALK:ass SAY:disguise BYE OUT WALKTO:carpenter TALK:carpenter
+  run ROAD:none KNOW:knows:london:taylor=1 WAIT:430 WALKTO:Globe WALKTO:Taylor TALK:Taylor BYE WAIT:25 WALKTO:ass TALK:ass SAY:name WAIT:30 TALK:ass SAY:disguise BYE OUT WALKTO:carpenter TALK:carpenter SAY:no
+  expect That is never a nose. Want it off?
+  expect Suit yourself.
+  absent the head falls in two halves
+  file-expect ^player head-stuck
+  run SAY:cut
   expect the head falls in two halves
-  run BYE WALKTO:Globe WALKTO:Taylor TALK:Taylor
-  expect Two halves. Two halves of four pounds.
+  expect Take it back to him for me, will you?
   file-expect ^player has:friars-habit 1
+  run BYE WALKTO:Globe WALKTO:Taylor TALK:Taylor SAY:give_habit
+  expect Two halves. Two halves of four pounds.
+  expect Keep it. I do not want to see it again.
+  file-expect ^player habit-given
   run BYE WAIT:1200 WALKTO:Globe WAIT:30
   expect Act Four, with no ass's head
 end
 
 scenario globe-doctor-harvey
-  about Doctor Harvey takes the head off whole, at St Bartholomew's
+  about Doctor Harvey takes the head off whole, at St Bartholomew's, when asked (the next morning: he sees patients until six)
   fixture london_street.txt
-  run ROAD:none KNOW:knows:london:taylor=1 WAIT:430 WALKTO:Globe WALKTO:Taylor TALK:Taylor BYE WAIT:25 WALKTO:ass TALK:ass SAY:disguise BYE OUT WALKTO:waterman TALK:waterman SAY:across BYE WALKTO:Bartholomew WALKTO:physician TALK:physician
-  expect I have never been asked to open an ass.
+  run ROAD:none KNOW:knows:london:taylor=1 WAIT:430 WALKTO:Globe WALKTO:Taylor TALK:Taylor BYE WAIT:25 WALKTO:ass TALK:ass SAY:name WAIT:30 TALK:ass BYE WAIT:800 TALK:ass SAY:disguise BYE OUT WALKTO:waterman TALK:waterman SAY:across BYE WALKTO:Bartholomew WALKTO:physician TALK:physician
+  expect I have never been asked to open an ass. Is that what I am asked?
+  file-absent ^player head-whole
+  run SAY:yes
+  expect the blood goes round, and the head comes off
+  expect Take it back to him for me, will you?
   file-expect ^player head-whole
+  file-expect ^player has:friars-habit 1
 end
 
 scenario globe-robin-saws-himself
@@ -1973,7 +2002,7 @@ end
 scenario globe-hobday
   about Faint-not Hobday: sent off to the Bear Garden he walks there, and comes back an hour later; given Kit's sonnet, he reads it to the yard the next day before the play, and Nick hears it
   fixture london_street.txt
-  run ROAD:none KNOW:knows:london:taylor=1 WAIT:430 WALKTO:Globe WALKTO:Taylor TALK:Taylor BYE WAIT:25 WALKTO:ass TALK:ass BYE WALKTO:Puritan TALK:Puritan SAY:ass BYE WAIT:3 WHERE:london:hobday
+  run ROAD:none KNOW:knows:london:taylor=1 WAIT:430 WALKTO:Globe WALKTO:Taylor TALK:Taylor BYE WAIT:25 WALKTO:ass TALK:ass SAY:name WAIT:30 TALK:ass BYE WALKTO:Puritan TALK:Puritan SAY:ass BYE WAIT:3 WHERE:london:hobday
   expect The ass went to the Bear Garden? Of course it did
   expect go landmark Bear Garden
   run WAIT:70 WALKTO:Puritan TALK:Puritan
@@ -1981,4 +2010,41 @@ scenario globe-hobday
   run SAY:give_sonnet BYE WAIT:1150 WALKTO:Globe WAIT:20
   expect Faint-not Hobday is reading something aloud, loudly and very badly
   file-expect ^player sonnet-reached
+end
+
+scenario globe-hobday-your-name
+  about Faint-not Hobday asks your name: "name" while he waits gets "thy name, not mine"; whatever you answer next he writes down; after that "name" is his own again
+  fixture london_street.txt
+  run ROAD:none WAIT:430 WALKTO:Globe WALKTO:Puritan TALK:Puritan SAY:name SAY:Jean SAY:name BYE
+  expect Thy name?
+  expect It is thy name the margin wants, not mine.
+  expect Thou art in the margin now, among the instances.
+  expect My father was Fight-the-good-fight Hobday
+  file-expect ^player hobday-named
+end
+
+scenario globe-will-not-ass
+  about everyday words are not names or titles: "I will look" to Taylor is a yes (not William Harvey); "not laughing" to Robin is about laughing (not Faint-not Hobday); "ass" to Robin is about the head (not his title's trade)
+  fixture london_street.txt
+  run ROAD:none KNOW:knows:london:taylor=1 WAIT:430 WALKTO:Globe WALKTO:Taylor TALK:Taylor SAY:I_will_look BYE WAIT:25 WALKTO:ass TALK:ass BYE TALK:ass SAY:not_laughing SAY:ass BYE
+  expect God reward you. Through that door, behind me
+  absent William Harvey?
+  expect I can hear it through the canvas.
+  absent Faint-not Hobday? He is
+  expect Dickon pulled while I held the door
+  absent I am a player, of the King's Men.
+end
+
+scenario globe-kit-asks-for-nick
+  about after the play Kit Ashby comes across the yard to you, the first time you are in the Globe, and asks whether you have seen Nick Weaver (who has gone to the Mermaid); only once
+  fixture london_street.txt
+  run ROAD:none WAIT:430 WALKTO:Globe WAIT:4 SAY:no SAY:mermaid BYE WHERE:london:nick
+  expect [Kit Ashby comes up to you]
+  expect Your pardon. Have you seen Nick *Weaver*?
+  expect No. Nobody has.
+  expect I cannot go across the river in this.
+  expect Nick Weaver is at
+  expect (the Mermaid Tavern, London)
+  run WAIT:10
+  absent comes up to you
 end

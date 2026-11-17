@@ -15,6 +15,10 @@ struct HudLabel {
 
 struct HudPuff { float x, y, r, a; int seed; };   // a puff of gun smoke: screen pixels, radius, opacity
 
+// how far the conversation's box can scroll, in rows (from its first place), and a boxful's rows: hud.cc sets them
+// each time it draws a conversation; the keys (main.cc) keep within them
+extern int hudTalkScrollMin, hudTalkScrollMax, hudTalkPageRows;
+
 struct HudState {
     std::vector<HudPuff> puffs;
     std::set<std::string> beenTowns;   // the towns you have been to ("paris", "the-post-house-at-cambrai"): the map names only these
@@ -30,6 +34,7 @@ struct HudState {
     bool talking = false;
     std::string talkTitle, talkInput;
     std::vector<std::pair<bool, std::string>> talkLines;   // (spoken by them?, text)
+    int talkScroll = 0;   // rows of text looked back (Up) or on (Down) from where a conversation's box first stands
     // a panel: 1 what you carry (lines, and the text of the one chosen), 2 reading (title, text)
     int panel = 0;
     std::string panelTitle, panelText, panelHint, panelImage, panelCredit;   // image: a PNG beside the text

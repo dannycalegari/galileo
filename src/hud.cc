@@ -43,6 +43,8 @@ static void text(cairo_t *cr, double x, double y, const std::string &s, double s
 }
 
 // text with *highlighted* words, wrapped to a width; returns the height used
+int hudTalkScrollMin = -100000, hudTalkScrollMax = 100000, hudTalkPageRows = 8;   // set as the conversation is drawn
+
 static double richText(cairo_t *cr, double x, double y, double width, const std::string &s, double size, double r, double g,
                        double b, bool draw = true) {
     cairo_select_font_face(cr, "Palatino", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
@@ -92,7 +94,7 @@ bool Hud::draw(const HudState &s, const World &world, int W, int H, float sc, do
     k << s.place << "|" << s.date << "|" << s.coords << "|" << s.message << "|" << s.help << s.map << "|" << W << "x" << H
       << "|" << s.showHealth << (int)(s.health * 100);
     if (s.map) k << "|" << (int)s.px << "," << (int)s.py << "|" << s.beenTowns.size();
-    k << "|" << s.talking << s.talkTitle << "|" << s.talkInput << "|" << s.talkLines.size();
+    k << "|" << s.talking << s.talkTitle << "|" << s.talkInput << "|" << s.talkLines.size() << "/" << s.talkScroll;
     k << "|" << s.journal << s.journalTab << s.journalDetailed << s.journalPage << s.journalLines.size() << s.storyLines.size();
     if (s.journal && s.journalTab == 0) for (auto &l : s.storyLines) k << l.first << l.second.size() << ",";   // the order changes, not only the count
     if (s.journal && s.journalTab == 0) for (auto &p : s.townPlans) k << p.town << p.marks.size() << (int)p.youX << (int)p.youY << ";";
@@ -432,30 +434,52 @@ bool Hud::draw(const HudState &s, const World &world, int W, int H, float sc, do
         cairo_rectangle(cr, bx + 0.5, by + 0.5, bw - 1, bh - 1);
         cairo_stroke(cr);
         text(cr, bx + 16 * u, by + 26 * u, s.talkTitle, 17 * u, true, 1, 0.85, 0.55);
-        // the latest lines, from the bottom up
+        // the conversation, scrolled by rows of text (Up/Down: a row; Page Up/Down: a boxful): it ends at the latest
+        // line, or, when the latest line is taller than the box, at that line's start, with the rest below
         double fs = 14.5 * u, tx = bx + 16 * u, tw = bw - 32 * u, top = by + 40 * u, bottom = by + bh - 44 * u;
-        std::vector<std::pair<double, size_t>> shown;
-        double used = 0;
-        for (size_t i = s.talkLines.size(); i-- > 0;) {
+        double avail = bottom - top, row = fs * 1.3;
+        std::vector<double> lh(s.talkLines.size());
+        double total = 0;
+        for (size_t i = 0; i < s.talkLines.size(); i++) {
             const auto &ln = s.talkLines[i];
-            std::string t = ln.first ? ln.second : "> " + ln.second;
-            double h = richText(cr, tx, 0, tw, t, fs, 1, 1, 1, false) + 4 * u;
-            if (used + h > bottom - top) break;
-            used += h;
-            shown.push_back({h, i});
+            lh[i] = richText(cr, tx, 0, tw, ln.first ? ln.second : "> " + ln.second, fs, 1, 1, 1, false) + 4 * u;
+            total += lh[i];
         }
-        double y = top + fs;
-        for (size_t k = shown.size(); k-- > 0;) {
-            const auto &ln = s.talkLines[shown[k].second];
+        double most = std::max(0.0, total - avail);                                            // the most hidden below
+        double first = lh.empty() ? 0 : std::min(most, std::max(0.0, lh.back() - avail));     // hidden below at first
+        double below = std::min(most, std::max(0.0, first + s.talkScroll * row));
+        hudTalkScrollMin = -(int)std::ceil(first / row);
+        hudTalkScrollMax = (int)std::ceil((most - first) / row);
+        hudTalkPageRows = std::max(1, (int)(avail / row) - 1);
+        double viewTop = std::max(0.0, total - below - avail);   // the box's top, measured from the first line's top
+        cairo_save(cr);
+        cairo_rectangle(cr, bx + 4 * u, top - 2 * u, bw - 8 * u, avail + 4 * u);
+        cairo_clip(cr);
+        double y0 = 0;
+        for (size_t i = 0; i < s.talkLines.size(); y0 += lh[i], i++) {
+            if (y0 + lh[i] < viewTop || y0 > viewTop + avail) continue;
+            const auto &ln = s.talkLines[i];
+            double y = top + fs + (y0 - viewTop);
             if (ln.first) richText(cr, tx, y, tw, ln.second, fs, 0.96, 0.93, 0.85);
             else richText(cr, tx, y, tw, "> " + ln.second, fs, 0.6, 0.8, 0.95);
-            y += shown[k].first;
         }
+        cairo_restore(cr);
         // what you are typing
         cairo_set_source_rgba(cr, 1, 1, 1, 0.08);
         cairo_rectangle(cr, bx + 10 * u, by + bh - 36 * u, bw - 20 * u, 26 * u);
         cairo_fill(cr);
         text(cr, bx + 16 * u, by + bh - 17 * u, "> " + s.talkInput + "_", 15 * u, false, 0.75, 0.9, 1.0);
+        // lines out of sight: below (looked back, or the rest of a long line), or above
+        std::string more = below > 0.5 ? "more below: Down" : viewTop > 0.5 ? "earlier lines: Up" : "";
+        if (!more.empty()) {
+            cairo_select_font_face(cr, "Palatino", CAIRO_FONT_SLANT_ITALIC, CAIRO_FONT_WEIGHT_NORMAL);
+            cairo_set_font_size(cr, 11 * u);
+            cairo_set_source_rgb(cr, 0.85, 0.7, 0.4);
+            cairo_text_extents_t mx;
+            cairo_text_extents(cr, more.c_str(), &mx);
+            cairo_move_to(cr, bx + bw - mx.width - 18 * u, by + bh - 19 * u);
+            cairo_show_text(cr, more.c_str());
+        }
         cairo_select_font_face(cr, "Palatino", CAIRO_FONT_SLANT_ITALIC, CAIRO_FONT_WEIGHT_NORMAL);
         cairo_set_font_size(cr, 11 * u);
         cairo_set_source_rgb(cr, 0.7, 0.65, 0.55);

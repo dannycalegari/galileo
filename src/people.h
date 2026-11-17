@@ -88,6 +88,8 @@ struct Person {
     char sex = 'm';
     Costume look;
     std::string says;
+    std::string approachIf;            // "approach [within N] if CONDITION": they come up to you and begin a conversation (once:
+    int approachWithin = 30;           // memory "approached"), if you are within N steps (30)
     std::vector<SchedEntry> schedule;
     std::vector<TalkLine> talk;        // their own lines; then the role's (roleTalk), then everyone's (everyoneTalk): talkLists()
     std::shared_ptr<const std::vector<TalkLine>> roleTalk, everyoneTalk;   // shared with the Role, never written
@@ -164,6 +166,10 @@ struct Chat {
     std::vector<std::string> a, b;     // who may have it: role or person ids, or "anyone"
     std::string where, condA, condB;   // where: part of the place's name
     double again = -1;                 // may be overheard again this many minutes later; < 0: once
+    bool atOnce = false;               // "at once": begins as soon as the two stand together near you (a scene)
+    std::string interrupt;             // "interrupt TEXT": your conversation with either of them ends, with TEXT (once its
+                                       // latest line has had time to be read)
+    int within = 2;                    // "within N": the two may stand this far apart (a scene: one may still come in)
     std::vector<ChatLine> lines;
 };
 struct HeardLine { int conv = 0; double minutes = 0; std::string where, who, text; };
@@ -219,6 +225,8 @@ struct Market {
 struct Conversation {
     int who = -1;
     std::vector<std::pair<bool, std::string>> lines;   // (spoken by the person?, text)
+    size_t seen = 0;            // People::update: the lines when it last looked, and how long since one was added (real seconds)
+    float quiet = 0;
     std::string input;
     bool over = false;
     bool pendingGive = false;   // the prompt asked "(Give what?)": your next words are the thing ("letter")
@@ -280,6 +288,9 @@ public:
     std::vector<Chat> chats;
     std::vector<HeardLine> heard;       // everything the player has overheard, to read again
     std::string notice;                 // for the status line ("You overhear ..."); the game clears it
+    bool sceneNow() const;              // a scene (chats.txt "at once") is playing: the game takes no keys till it ends
+    bool talkRead() const;              // the conversation's latest line has had time to be read (a scene may break in)
+    std::string interrupted;            // a chat broke off your conversation (Chat::interrupt): the game says it, ends the box, clears it
     std::string playRequest;            // "play ID" in a conversation: a piece to play; the game takes it
     int postBy = -1;                    // "postjob" / "postdeliver": a packet of the post given or taken in (Game::postJob)
     bool postDeliver = false;
@@ -319,6 +330,7 @@ public:
     // "give ITEM" to the keeper settles it
     struct Debt { std::string keeper; int kind = -1, count = 0; long price = 0; bool paid = false, returned = false; } debt;
     int caught = -1;                    // the one of the watch who has caught you (the game deals with it)
+    int approachReq = -1;               // someone who has come up to you ("approach if"): the game opens the conversation
     int lostBy = -1;                    // ... or who has given up the chase
     std::map<std::string, std::string> prisons;   // town -> "NAME | what happens" (a town file's "prison")
     // A place you may enter only with leave (a town file's "guarded NAME ... end", see roles.txt):
@@ -462,6 +474,7 @@ private:
     void lodge(World &w, Person &p);    // a bed at an inn of their (new) town
     void travelStep(World &w, Person &p, double minutes);
     void chaseStep(World &w, Person &p, int i, float dt, int ptx, int pty, int ptz);
+    void approachStep(World &w, Person &p, int i, float dt, double minutes, int ptx, int pty, int ptz);
     bool loadEvents(const std::string &fn);
     bool loadStories(const std::string &fn);
     void runEvents(World &w, double minutes, int ptx, int pty);

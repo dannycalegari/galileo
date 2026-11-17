@@ -349,6 +349,19 @@ bool People::loadTown(World &w, const std::string &fn) {
         else if (word == "sign") ss >> cur->sign;
         else if (word == "shopname") { std::getline(ss, cur->shopName); cur->shopName = trim(cur->shopName); }
         else if (word == "says") { std::getline(ss, cur->says); cur->says = trim(cur->says); }
+        else if (word == "approach") {   // "approach [within N] if CONDITION"
+            std::string rest;
+            std::getline(ss, rest);
+            rest = trim(rest);
+            if (rest.rfind("within ", 0) == 0) {
+                std::istringstream rs(rest.substr(7));
+                rs >> cur->approachWithin;
+                std::getline(rs, rest);
+                rest = trim(rest);
+            }
+            if (rest.rfind("if ", 0) == 0) cur->approachIf = trim(rest.substr(3));
+            else std::fprintf(stderr, "%s: \"approach\" wants \"if CONDITION\"\n", cur->id.c_str());
+        }
         else if (word == "know") { std::string k, v; ss >> k; std::getline(ss, v); v = trim(v); cur->mem[k] = v.empty() ? "1" : v; }
         else if (word == "sells") { std::string id; int n; while (ss >> id >> n) cur->sells.push_back({id, n}); }
         else if (word == "money") { long m = 0; ss >> m; cur->mem["money"] = std::to_string(m); }
@@ -1060,6 +1073,14 @@ bool People::placeFor(World &w, Person &p, const std::string &activity, const st
         int b = nearestBuilding([](const Building &b) { return b.kind == "church" || b.kind == "cathedral" || b.kind == "chapel"; });
         return b && (inBuilding(b, 0, kind == "altar", false) || inBuilding(b, 0, false, false));
     }
+    if (kind == "beside") {   // "go beside ID": next to that person, where they stand now (Kit Ashby comes up to Robin)
+        Person *q = byId(arg);
+        if (!q && p.id.find(':') != std::string::npos) q = byId(p.id.substr(0, p.id.find(':') + 1) + arg);
+        if (!q || q == &p || q->z != 0) return false;
+        int qx = q->x, qy = q->y, qb = w.tile(qx, qy).bld;
+        return tilesWhere(qx, qy, 1, [&](int X, int Y) { return !(X == qx && Y == qy) && w.tile(X, Y).bld == qb; }) ||
+               tilesWhere(qx, qy, 2, [&](int X, int Y) { return !(X == qx && Y == qy) && w.tile(X, Y).bld == qb; });
+    }
     if (kind == "tiring") {   // "go tiring [NAME]": behind the stage of the nearest theatre (named so), in its tiring-house
                               // (city.cc theatre); the Bear Garden is built as a theatre too, so the Globe's is named
         std::string want = lower(arg);
@@ -1448,6 +1469,9 @@ std::string People::squeezePast(int youX, int youY, int toX, int toY, int z) {
     return "";
 }
 
+// Chebyshev distance: steps on the grid, diagonals counting one
+static int cheb(const Person &p, int x, int y) { return std::max(std::abs(p.x - x), std::abs(p.y - y)); }
+
 void People::update(World &w, float dt, double minutes, int ptx, int pty, int ptz) {
     lastMinutes = minutes;
     occ.clear();
@@ -1475,6 +1499,10 @@ void People::update(World &w, float dt, double minutes, int ptx, int pty, int pt
             if (chatNow.line >= chats[chatNow.chat].lines.size()) endChat(minutes);
             else chatLine(w, minutes, ptx, pty, ptz);
         }
+    }
+    if (talk.who >= 0) {   // how long since the conversation's latest line came (a scene waits for it to be read)
+        if (talk.lines.size() != talk.seen) { talk.seen = talk.lines.size(); talk.quiet = 0; }
+        else talk.quiet += dt;
     }
     chatClock += dt;
     if (chatClock >= 1.0f) {   // once a second: might two people near you start talking?
@@ -1526,8 +1554,17 @@ void People::update(World &w, float dt, double minutes, int ptx, int pty, int pt
         if (!p.active) { p.active = true; p.placed = false; p.actIndex = -2; }
         if (p.dead) continue;   // lying where he fell
         if (p.away) { plan(w, p, minutes); if (p.away) continue; }   // not here (yet)
-        if (talk.who == (int)i || inChat((int)i)) continue;   // standing still while spoken to, or talking
+        if (talk.who == (int)i || (inChat((int)i) && !sceneNow())) continue;   // standing still while spoken to, or talking (in a scene they keep to their day)
+        if (sceneNow() && inChat((int)i) && p.pathPos < p.path.size()) {   // in a scene: walking up to the other, he stops two steps away
+            const Person &o = people[chatNow.a == (int)i ? chatNow.b : chatNow.a];   // (the way may be narrow, and you in it)
+            if (cheb(p, o.x, o.y) <= 2 && cheb(o, p.goalX, p.goalY) <= 2 && p.stepT >= 1) { p.path.clear(); p.pathPos = 0; p.goalX = p.x; p.goalY = p.y; p.goalZ = p.z; }
+        }
         if (p.chase > 0) { chaseStep(w, p, (int)i, dt, ptx, pty, ptz); continue; }   // after a thief
+        if (!p.approachIf.empty() && p.placed && !p.mem.count("approached") && p.target == -1 && p.z == ptz && talk.who < 0 &&
+            !sceneNow() && cheb(p, ptx, pty) <= p.approachWithin && holds(p, p.approachIf, minutes)) {   // coming up to you ("approach if")
+            approachStep(w, p, (int)i, dt, minutes, ptx, pty, ptz);
+            continue;
+        }
         if (p.fighter && p.placed) { plan(w, p, minutes); if (p.away) continue; }   // a soldier's orders come first (an army leaving)
         if (p.placed && fightStep(w, p, (int)i, dt, ptx, pty, ptz, minutes)) continue;   // fighting, or running away (once at their post)
         if (p.hold > 0) {   // staying put (playing a piece)
@@ -1611,7 +1648,16 @@ void People::update(World &w, float dt, double minutes, int ptx, int pty, int pt
         if (chatNow.chat < 0 && !p.lying && !p.says.empty() && std::abs(p.x - ptx) + std::abs(p.y - pty) < 14 && p.z == ptz) {
             p.nextSay -= dt;
             if (p.nextSay <= 0) {
-                p.bubble = p.says;
+                // "says A | B | C": one of them, at random each time (the players' speeches)
+                std::vector<std::string> alts;
+                for (size_t a = 0, bar; a <= p.says.size(); a = bar + 1) {
+                    bar = p.says.find('|', a);
+                    if (bar == std::string::npos) bar = p.says.size();
+                    std::string one = trim(p.says.substr(a, bar - a));
+                    if (!one.empty()) alts.push_back(one);
+                }
+                if (!alts.empty())
+                    p.bubble = alts[std::min(alts.size() - 1, (size_t)(alts.size() * hash01((int)i, (int)minutes, 7)))];
                 p.bubbleT = 3.0f;
                 p.nextSay = 20 + 40 * hash01((int)i, (int)minutes, 6);
             }
@@ -2348,6 +2394,48 @@ void People::chaseStep(World &w, Person &p, int i, float dt, int ptx, int pty, i
     if (climb) { p.px = p.x; p.py = p.y; p.pz = p.z; }
 }
 
+// coming up to you ("approach if"): walking, a path to where you are made again every few steps; beside you, they
+// remember "approached" (the time: their greeting may ask "recent:N approached") and the game opens the conversation
+void People::approachStep(World &w, Person &p, int i, float dt, double minutes, int ptx, int pty, int ptz) {
+    if (p.bubbleT > 0) p.bubbleT -= dt;
+    if (p.stepT < 1) {
+        bool diag = p.x != p.px && p.y != p.py;
+        p.stepT = std::min(1.0f, p.stepT + dt / (p.stepDur * (diag ? 1.4f : 1.0f)));
+        p.walkPhase += dt / (p.stepDur * 2);
+        return;
+    }
+    p.walkPhase = 0;
+    if (p.z == ptz && cheb(p, ptx, pty) <= 1) {
+        p.facing = std::atan2(-(float)(ptx - p.x), (float)(pty - p.y));
+        p.path.clear(); p.pathPos = 0; p.actIndex = -2;
+        p.mem["approached"] = std::to_string((long)minutes);
+        approachReq = i;
+        return;
+    }
+    p.stepDur = p.strollDur;
+    if (p.pathPos >= p.path.size() || p.chaseSteps >= 4) {
+        p.chaseSteps = 0;
+        std::vector<std::array<int, 3>> np;
+        if (findPath(w, p.x, p.y, p.z, ptx, pty, ptz, np, 20000)) { p.path = np; p.pathPos = 0; }
+        else p.path.clear();
+    }
+    if (p.pathPos >= p.path.size()) return;   // no way to you just now
+    auto nx = p.path[p.pathPos];
+    if (nx[0] == ptx && nx[1] == pty && nx[2] == ptz) return;   // beside you
+    const int *it = occ.find(World::key3(nx[0], nx[1], nx[2]));
+    if (it && *it != i) { p.chaseSteps = 99; return; }   // someone in the way
+    occ.erase(World::key3(p.x, p.y, p.z));
+    bool climb = nx[2] != p.z || std::abs(nx[0] - p.x) > 1 || std::abs(nx[1] - p.y) > 1;
+    p.px = p.x; p.py = p.y; p.pz = p.z;
+    if (!climb) p.facing = std::atan2(-(float)(nx[0] - p.x), (float)(nx[1] - p.y));
+    p.x = nx[0]; p.y = nx[1]; p.z = nx[2];
+    occ[World::key3(p.x, p.y, p.z)] = i;
+    p.pathPos++;
+    p.chaseSteps++;
+    p.stepT = climb ? 1.0f : 0.0f;
+    if (climb) { p.px = p.x; p.py = p.y; p.pz = p.z; }
+}
+
 // ------------------------------------------------------------------ fighting
 
 static std::mt19937 &fightRng() { static std::mt19937 r((unsigned)std::random_device{}()); return r; }
@@ -2567,7 +2655,6 @@ bool People::fightStep(World &w, Person &p, int i, float dt, int ptx, int pty, i
 
 // ------------------------------------------------------------------ people talking to each other
 
-static int cheb(const Person &p, int x, int y) { return std::max(std::abs(p.x - x), std::abs(p.y - y)); }
 
 bool People::loadChats(const std::string &fn) {
     std::ifstream in(fn);
@@ -2606,6 +2693,9 @@ bool People::loadChats(const std::string &fn) {
         if (w == "if") { cur->condA = rest; continue; }
         if (w == "ifb") { cur->condB = rest; continue; }
         if (w == "again") { cur->again = std::atof(rest.c_str()); continue; }
+        if (w == "at" && rest == "once") { cur->atOnce = true; continue; }
+        if (w == "interrupt") { cur->interrupt = rest; continue; }
+        if (w == "within") { cur->within = std::max(1, std::atoi(rest.c_str())); continue; }
         TalkLine tl;
         if (parseTalk(t, tl) && (tl.keys[0] == "a" || tl.keys[0] == "b")) {
             ChatLine cl;
@@ -2629,17 +2719,27 @@ bool People::fits(const Person &p, const std::vector<std::string> &who) const {
 
 // Two people standing together near you may start one of the conversations of chats.txt:
 // rarely (at most one every chatGap minutes, the same two at most once every pairGap
-// minutes), and each conversation once, unless it says "again".
+// minutes), and each conversation once, unless it says "again". A conversation "at once" (a
+// scene) begins as soon as it can, before any other, and even while you talk; if you are
+// talking with one of the two and it says "interrupt TEXT", your conversation ends (with TEXT),
+// else it waits for you to finish.
 void People::tryChat(World &w, double minutes, int ptx, int pty, int ptz) {
-    if (chats.empty() || talk.who >= 0) return;
+    if (chats.empty()) return;
     auto lastIt = player.find("chat:last");
-    if (lastIt != player.end() && minutes - num(lastIt->second) < chatGap) return;
+    bool onlyAtOnce = talk.who >= 0 || (lastIt != player.end() && minutes - num(lastIt->second) < chatGap);
+    // who stands near you; for a scene ("at once") also who is still on the way (stopped where they are when it begins:
+    // in a crowded room the tile they were making for may be yours)
+    bool anyAtOnce = false;
+    for (auto &ch : chats) if (ch.atOnce) anyAtOnce = true;
     std::vector<int> idle;
+    std::vector<char> moving;
     for (size_t i = 0; i < people.size(); i++) {
         const Person &p = people[i];
-        if (!p.active || p.onRoad || p.lying || p.z != ptz || !p.travelTo.empty()) continue;
-        if (p.pathPos < p.path.size() || p.stepT < 1 || cheb(p, ptx, pty) > earshot) continue;
+        if (!p.active || p.onRoad || p.lying || p.z != ptz || !p.travelTo.empty() || cheb(p, ptx, pty) > earshot) continue;
+        bool m = p.pathPos < p.path.size() || p.stepT < 1;
+        if (m && !anyAtOnce) continue;
         idle.push_back((int)i);
+        moving.push_back(m);
     }
     struct Cand { int chat, a, b; float wt; };
     std::vector<Cand> cands;
@@ -2651,12 +2751,13 @@ void People::tryChat(World &w, double minutes, int ptx, int pty, int ptz) {
     for (size_t u = 0; u < idle.size(); u++)
         for (size_t v = u + 1; v < idle.size(); v++) {
             const Person &P = people[idle[u]], &Q = people[idle[v]];
-            if (cheb(P, Q.x, Q.y) > 2) continue;
+            int apart = cheb(P, Q.x, Q.y);
+            if (apart > 2 && !anyAtOnce) continue;
             auto pg = P.mem.find("chatted:" + Q.id);
-            if (pg != P.mem.end() && minutes - num(pg->second) < pairGap) continue;
+            bool pairRest = pg != P.mem.end() && minutes - num(pg->second) < pairGap;
             for (size_t c = 0; c < chats.size(); c++) {
                 const Chat &ch = chats[c];
-                if (ch.lines.empty()) continue;
+                if (ch.lines.empty() || ((onlyAtOnce || pairRest || moving[u] || moving[v] || apart > 2) && !ch.atOnce) || apart > ch.within) continue;
                 auto hd = player.find("heard:" + ch.id);
                 if (hd != player.end() && (ch.again < 0 || minutes - num(hd->second) < ch.again)) continue;
                 for (int o = 0; o < 2; o++) {
@@ -2665,18 +2766,33 @@ void People::tryChat(World &w, double minutes, int ptx, int pty, int ptz) {
                     if (!fits(A, ch.a) || !fits(B, ch.b)) continue;
                     if (!holds(A, ch.condA, minutes) || !holds(B, ch.condB, minutes)) continue;
                     if (!ch.where.empty() && lower(w.floorName(A.x, A.y, A.z)).find(ch.where) == std::string::npos) continue;
+                    if (talk.who >= 0 && (talk.who == a || talk.who == b ? ch.interrupt.empty() || !talkRead() : true)) continue;   // it waits for you
                     cands.push_back({(int)c, a, b, spec(ch.a) * spec(ch.b)});
                 }
             }
         }
     if (cands.empty()) return;
-    if (hash01((int)cands.size() * 7919 + idle[0], (int)(minutes * 10), 21) > chatChance) return;
-    float total = 0;
-    for (auto &c : cands) total += c.wt;
-    float r = total * hash01((int)cands.size(), (int)(minutes * 10), 22);
     size_t k = 0;
-    while (k + 1 < cands.size() && r > cands[k].wt) { r -= cands[k].wt; k++; }
+    while (k < cands.size() && !chats[cands[k].chat].atOnce) k++;
+    if (k == cands.size()) {   // none at once: by chance, and by how particular each is
+        if (hash01((int)cands.size() * 7919 + idle[0], (int)(minutes * 10), 21) > chatChance) return;
+        float total = 0;
+        for (auto &c : cands) total += c.wt;
+        float r = total * hash01((int)cands.size(), (int)(minutes * 10), 22);
+        k = 0;
+        while (k + 1 < cands.size() && r > cands[k].wt) { r -= cands[k].wt; k++; }
+    }
     const Cand &c = cands[k];
+    if (cheb(people[c.a], people[c.b].x, people[c.b].y) <= 2)
+        for (int who : {c.a, c.b}) {   // anyone still on the way to the other, there already, stops where they are
+            Person &q = people[who];
+            if (q.pathPos < q.path.size()) { q.path.clear(); q.pathPos = 0; q.goalX = q.x; q.goalY = q.y; q.goalZ = q.z; }
+        }
+    if (talk.who >= 0) {   // you were talking with one of them: broken off
+        interrupted = chats[c.chat].interrupt;
+        if (echo) std::fprintf(stderr, "    (interrupted) %s\n", interrupted.c_str());
+        endTalk(minutes);
+    }
     chatNow = ChatNow();
     chatNow.chat = c.chat; chatNow.a = c.a; chatNow.b = c.b;
     chatNow.conv = heard.empty() ? 1 : heard.back().conv + 1;
@@ -2716,6 +2832,17 @@ void People::chatLine(World &w, double minutes, int ptx, int pty, int ptz) {
         if (echo) std::fprintf(stderr, "    (overheard) %s: %s\n", who.c_str(), text.c_str());
     }
 }
+
+// the conversation's latest line has been on the screen long enough to read: four seconds, and one for every 25
+// letters (Robin's first greeting, 480 letters: 23 seconds)
+bool People::talkRead() const {
+    if (talk.who < 0 || talk.lines.empty()) return true;
+    size_t n = 0;
+    for (char c : talk.lines.back().second) if (c != '*' && (c & 0xC0) != 0x80) n++;
+    return talk.quiet >= 4.0f + n / 25.0f;
+}
+
+bool People::sceneNow() const { return chatNow.chat >= 0 && chats[chatNow.chat].atOnce; }
 
 void People::endChat(double minutes) {
     if (chatNow.chat < 0) return;
@@ -3988,8 +4115,11 @@ bool People::knowAnswer(World &w, const Person &p, const std::string &words, boo
     const Settlement *s = nullptr;
     for (auto &st : w.settlements) if (lower(st.name) == lower(p.town)) { s = &st; break; }
     if (!s) return false;
-    std::vector<std::string> asked;
-    for (auto &x : wordsOf(words)) if (!minorWord(x)) asked.push_back(x);
+    // words of every sentence that are also parts of names ("will": William Harvey, Will Ayre; "not": Faint-not
+    // Hobday) count only when said alone: "I will look" and "not laughing" ask for nobody
+    static const std::unordered_set<std::string> aloneOnly = {"will", "not"};
+    std::vector<std::string> all = wordsOf(words), asked;
+    for (auto &x : all) if (!minorWord(x) && !(all.size() > 1 && aloneOnly.count(x))) asked.push_back(x);
     if (asked.empty() || (fullOnly && asked.size() < 2)) return false;
     struct Cand { std::string name; const Building *bld = nullptr; int person = -1, matched = 0, extra = 0; float dist = 0; };
     auto score = [&](Cand &c) {
