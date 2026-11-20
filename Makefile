@@ -11,10 +11,11 @@ $(error pkg-config cannot find glfw3 and cairo: brew install glfw cairo (then ma
 endif
 endif
 GUI_CFLAGS := $(shell pkg-config --cflags glfw3 cairo)
-GUI_LIBS   := $(shell pkg-config --libs glfw3 cairo) -framework OpenGL -framework AVFoundation -framework Foundation
+GUI_LIBS   := $(shell pkg-config --libs glfw3 cairo) -framework OpenGL -framework CoreAudio -framework AudioToolbox -framework CoreFoundation
 
-SRC := src/world.cc src/city.cc src/under.cc src/people.cc src/items.cc src/animals.cc src/mesh.cc src/render.cc src/hud.cc src/main.cc
-OBJ := $(SRC:src/%.cc=build/%.o) build/audio.o build/sound.o
+SRC := src/world.cc src/city.cc src/under.cc src/people.cc src/items.cc src/animals.cc src/mesh.cc src/render.cc src/hud.cc src/main.cc \
+       src/audio.cc src/sound.cc
+OBJ := $(SRC:src/%.cc=build/%.o) build/miniaudio.o
 HDR := $(wildcard src/*.h)
 
 all: galileo
@@ -23,14 +24,11 @@ build/%.o: src/%.cc $(HDR)
 	@mkdir -p build
 	$(CXX) $(CXXFLAGS) $(GUI_CFLAGS) -c $< -o $@
 
-# the music player is Objective-C++ (Apple's AVFoundation)
-build/audio.o: src/audio.mm src/audio.h
+# the music and the sounds play through miniaudio, with stb_vorbis for the Ogg files (src/ext: other people's code,
+# compiled once, as C, without our warnings)
+build/miniaudio.o: src/ext/miniaudio_impl.c src/ext/miniaudio.h src/ext/stb_vorbis.c
 	@mkdir -p build
-	$(CXX) -std=c++17 -O2 -fobjc-arc -c $< -o $@
-
-build/sound.o: src/sound.mm src/sound.h
-	@mkdir -p build
-	$(CXX) -std=c++17 -O2 -fobjc-arc -c $< -o $@
+	$(CC) -O2 -w -c $< -o $@
 
 galileo: $(OBJ)
 	$(CXX) $(OBJ) $(GUI_LIBS) -o $@

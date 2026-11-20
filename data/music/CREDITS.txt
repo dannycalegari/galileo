@@ -3,81 +3,81 @@
 # game's licence (LICENSE). The thirteen transcribed from public-domain or CC0 editions are licensed Creative Commons
 # Attribution 4.0 (CC BY 4.0), to be credited to the game Galileo; the four that come from modern editions under
 # Creative Commons Attribution-ShareAlike are under the same licence as their editions, as marked.
-flow_my_tears.m4a     Dowland, "Flow, my tears" (1600). Transcribed from the 1600 print (its tune and bass); the
+flow_my_tears.ogg     Dowland, "Flow, my tears" (1600). Transcribed from the 1600 print (its tune and bass); the
                       lute chords were made for this game. GeneralUser GS. This recording: CC BY 4.0.
-salisbury_pavan.m4a   Gibbons, "The Lord of Salisbury his Pavin" (Parthenia, 1612/13). Transcribed from M. H. Glyn's
+salisbury_pavan.ogg   Gibbons, "The Lord of Salisbury his Pavin" (Parthenia, 1612/13). Transcribed from M. H. Glyn's
                       edition (Stainer & Bell, 1925; public domain, IMSLP17608). GeneralUser GS.
                       This recording: CC BY 4.0.
-bach_prelude.m4a      J. S. Bach, Prelude from the Suite in E major for lute, BWV 1006a, from the Mutopia Project
+bach_prelude.ogg      J. S. Bach, Prelude from the Suite in E major for lute, BWV 1006a, from the Mutopia Project
                       edition by Hajo Dezelski (2008, of the Bach-Gesellschaft edition, vol. 42, 1879), licensed
                       Creative Commons Attribution-ShareAlike 3.0. Played an octave lower, 1.8 times as fast, on
                       GeneralUser GS's nylon guitar, its long bass notes held on until the next and the guitar made
                       to ring; four notes near the end corrected (D sharp to E) and one in bar 88 (D sharp to D, as
                       in another edition, IMSLP896254). This recording: CC BY-SA 3.0.
-sicut_cervus.m4a      Palestrina, "Sicut cervus" a 4, the prima pars. Transcribed from F. X. Haberl's complete
+sicut_cervus.ogg      Palestrina, "Sicut cervus" a 4, the prima pars. Transcribed from F. X. Haberl's complete
                       edition (Breitkopf & Haertel; public domain, IMSLP13606). Four choir voices, GeneralUser GS.
                       This recording: CC BY 4.0.
-if_ye_love_me.m4a     Tallis, "If ye love me, keep my commandments", the full anthem. Transcribed from The Musical
+if_ye_love_me.ogg     Tallis, "If ye love me, keep my commandments", the full anthem. Transcribed from The Musical
                       Times, 1 May 1862 (Novello; public domain, IMSLP543006). Four choir voices, GeneralUser GS.
                       This recording: CC BY 4.0.
-ave_regina.m4a        Victoria, "Ave Regina caelorum" a 5 (Motecta, Venice 1572), both partes. Transcribed from
+ave_regina.ogg        Victoria, "Ave Regina caelorum" a 5 (Motecta, Venice 1572), both partes. Transcribed from
                       Felipe Pedrell's edition (Opera omnia, vol. VII, Breitkopf & Haertel, 1911, pp. 81-84; public
                       domain, IMSLP PMLP43622), his notes and accidentals, the values halved. Four recorders and a
                       bassoon, GeneralUser GS. This recording: CC BY 4.0.
-scheidt_battaglia.m4a Samuel Scheidt, "Galliard Battaglia", arranged for brass quartet by Michel Rondeau ((c) 2007
+scheidt_battaglia.ogg Samuel Scheidt, "Galliard Battaglia", arranged for brass quartet by Michel Rondeau ((c) 2007
                       The Cathedral Brass; IMSLP WIMA.2819, Creative Commons Attribution-ShareAlike 4.0), transcribed
                       from his score; the held fermatas and the tremolos as semiquavers were made for this game. Two
                       trumpets, two trombones, GeneralUser GS. This recording: CC BY-SA 4.0.
-bransle_royne.m4a     Michael Praetorius, Terpsichore (1612), no. XVII "Bransle de la Royne", the first three of its
+bransle_royne.ogg     Michael Praetorius, Terpsichore (1612), no. XVII "Bransle de la Royne", the first three of its
                       ten branles. Transcribed from Alan Bonds's edition (2021, IMSLP864582, Creative Commons Zero 1.0,
                       after the Moeseler edition by Guenther Oberst). Three recorders and a bassoon, GeneralUser GS.
                       This recording: CC BY 4.0.
-zefiro_torna.m4a      Claudio Monteverdi, "Zefiro torna, e di soavi accenti" (SV 251, Scherzi musicali, Venice
+zefiro_torna.ogg      Claudio Monteverdi, "Zefiro torna, e di soavi accenti" (SV 251, Scherzi musicali, Venice
                       1632), the whole ciaccona. Transcribed from an older edition (public domain, IMSLP256174),
                       checked against Pierre Gouin's edition (Les Editions Outremontaises 2006, IMSLP131740, Creative
                       Commons Attribution-ShareAlike 4.0), from which the sharps of four quaver runs are taken where
                       the older edition's scan does not show them. The tenors on two recorders an octave up, the bass
                       on a bassoon, GeneralUser GS. This recording: CC BY-SA 4.0.
-galilei_suite1.m4a    Michelagnolo Galilei, Il primo libro d'intavolatura di liuto (Munich, 1620): the first suite
+galilei_suite1.ogg    Michelagnolo Galilei, Il primo libro d'intavolatura di liuto (Munich, 1620): the first suite
                       (Toccata, Gagliarda, Corrente, Volta). Transcribed from Joost Witte's transcription of the
                       tablature into staff notation (IMSLP478678, Creative Commons Zero). On GeneralUser GS's nylon
                       guitar, its samples and envelope changed so that held notes ring. This recording: CC BY 4.0.
-sleep_cue.m4a         Dowland, "Flow, my tears" (1600): its last cadence, from the transcription above, the final
+sleep_cue.ogg         Dowland, "Flow, my tears" (1600): its last cadence, from the transcription above, the final
                       chord held longer. On GeneralUser GS's nylon guitar made to ring. This recording: CC BY 4.0.
-english_march.m4a     "The English March", as set down in the warrant of Charles I of 7 February 1632. Read from the
+english_march.ogg     "The English March", as set down in the warrant of Charles I of 7 February 1632. Read from the
                       print in The Grand Magazine of Magazines (1758, public domain), the strokes after Thomas Fisher,
                       Warlike Directions (1634). Two side drums, GeneralUser GS. This recording: CC BY 4.0.
-minerva.m4a           "Trionfo della dea Minerva" (Florence, c. 1500), a carnival song for four voices, the music
+minerva.ogg           "Trionfo della dea Minerva" (Florence, c. 1500), a carnival song for four voices, the music
                       anonymous, the words by Agnolo Divizio da Bibbiena. Transcribed from Paul-Marie Masson's
                       edition, Chants de carnaval florentins (Paris: Senart, 1913, pp. 69-72; public domain), with
                       his editorial accidentals, the values halved; the held fermatas and a rest of one beat at each
                       change of time were made for this game. Three recorders and a bassoon, GeneralUser GS.
                       This recording: CC BY 4.0.
-rivenditore.m4a       "Canto delle rivenditore" (Florence, c. 1490), a carnival song for three voices, the words by
+rivenditore.ogg       "Canto delle rivenditore" (Florence, c. 1490), a carnival song for three voices, the words by
                       Lorenzo de' Medici, the music anonymous. Transcribed from Paul-Marie Masson's edition, Chants de
                       carnaval florentins (Paris: Senart, 1913, pp. 7-10; public domain), with his editorial
                       accidentals, the values halved; the held fermatas and a rest of one beat at each change of time
                       were made for this game. Two shawms and a sackbut (GeneralUser GS's oboe, English horn and
                       trombone). This recording: CC BY 4.0.
-canto_della_morte.m4a "Canto della Morte" (Florence, c. 1511), a carnival song for four voices, "Perch'ogni cosa el
+canto_della_morte.ogg "Canto della Morte" (Florence, c. 1511), a carnival song for four voices, "Perch'ogni cosa el
                       suo proprio fin brama", the words by Battista dell'Ottonaio, the music by "Maestro Alexander".
                       Transcribed from Paul-Marie Masson's edition, Chants de carnaval florentins (Paris: Senart,
                       1913, pp. 29-32; public domain), with his editorial accidentals, the values halved; the held
                       fermatas were made for this game. Four sackbuts (GeneralUser GS's trombone).
                       This recording: CC BY 4.0.
-canto_della_pace.m4a  "Canto della pace" (Florence, early 16th century), a carnival song for four voices, "La gran
+canto_della_pace.ogg  "Canto della pace" (Florence, early 16th century), a carnival song for four voices, "La gran
                       memoria dell'eta passata", the words attributed to Battista dell'Ottonaio, the music anonymous.
                       Transcribed from Paul-Marie Masson's edition, Chants de carnaval florentins (Paris: Senart,
                       1913, pp. 64-67; public domain), with his editorial accidentals, the values halved; the held
                       fermata and a rest of one beat at each change of time were made for this game. Three recorders
                       and a bassoon, GeneralUser GS. This recording: CC BY 4.0.
-canarios.m4a          Gaspar Sanz, "Canarios", from his Instruccion de musica sobre la guitarra espanola (Zaragoza,
+canarios.ogg          Gaspar Sanz, "Canarios", from his Instruccion de musica sobre la guitarra espanola (Zaragoza,
                       1674). Printed some forty years after the time of the game; the canario itself was danced in
                       Spain and across Europe from the 1580s. Played from Stefan Apke's arrangement for classical
                       guitar (1996/2019; IMSLP, Creative Commons Attribution-ShareAlike 4.0), from the MIDI file he
                       provides with it, its written-out trills slowed a little, and its bass notes and the strummed
                       chords before its two rests let ring. Nylon guitar, GeneralUser GS. This recording: CC BY-SA 4.0.
-maying.m4a            Thomas Morley, "Now is the month of maying" (The First Booke of Balletts to Five Voyces, London
+maying.ogg            Thomas Morley, "Now is the month of maying" (The First Booke of Balletts to Five Voyces, London
                       1595). Transcribed from the Radio Times (1933), which sets the five voices on two staves for
                       piano (public domain, IMSLP #860297): its notes and accidentals, at its pitch; which voice sings
                       which inner note is ours where the page gives only the chord, and the last chord is held longer.

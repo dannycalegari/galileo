@@ -1,9 +1,15 @@
-// audio.h: background music. A playlist (data/music.txt) of recordings, played one after
-// another with a pause between them, through Apple's AVFoundation. The game calls update()
+// audio.h: background music. A playlist (data/music.txt) of recordings (Ogg Vorbis), played one after
+// another with a pause between them, through miniaudio (src/ext). The game calls update()
 // every frame; nothing else needs to know how the sound is made.
 #pragma once
 #include <string>
 #include <vector>
+
+struct ma_engine;
+ma_engine *audioEngine();                          // the one sound device (audio.cc); nullptr if there is none
+double audioFileSeconds(const std::string &file);   // a recording's length (0: unreadable)
+int audioCheck(const std::string &dataDir);         // --soundcheck: every file opened and measured; 1 if any fails
+int audioPlayTest(const std::string &dataDir);      // --soundtest: the music and sounds run without a device, measured
 
 class Music {
 public:
@@ -70,8 +76,8 @@ public:
     ~Music();
 
 private:
-    void *player = nullptr;   // an AVAudioPlayer
-    void *piece = nullptr;    // the AVAudioPlayer of a piece someone is playing
+    void *player = nullptr;   // the piece playing now (a miniaudio ma_sound)
+    void *piece = nullptr;    // a piece someone is playing
     void *fading = nullptr;   // one fading away (going into or out of a church)
     double fadeEnd = 0;
     bool inChurch = false, inBattle = false, inInn = false, inTheatre = false;

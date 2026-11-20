@@ -62,7 +62,9 @@ static void usage() {
         "  --no-music        no background music\n"
         "  --testing         the keys for testing: N the next town, ] [ an hour later / earlier, Tab gallop\n"
         "  --autosave SECS   the window saves the game every SECS real seconds (default 300; 0 = off)\n"
-        "  --stats           build the world, check it and print a summary\n");
+        "  --stats           build the world, check it and print a summary\n"
+        "  --soundcheck      open and measure every music and sound file (nothing is played)\n"
+        "  --soundtest       run the music and sounds without a sound device and measure what they give\n");
 }
 
 // An autosave is due when the interval (seconds; 0 = off) has passed since the last one and the
@@ -74,7 +76,7 @@ static bool autosaveDue(double clockNow, double lastSave, double interval, bool 
 struct Options {
     std::string data = "data", shot, town, portraitOut;   // portraitOut: --portrait FILE (tests)
     int w = 1440, h = 900, scale = 10;
-    bool atSet = false, stats = false, help = false, map = false;
+    bool atSet = false, stats = false, help = false, map = false, soundcheck = false, soundtest = false;
     float ax = 0, ay = 0, dx = 0, dy = 0, hour = 10.0f;
     float yaw = 22, pitch = 52, zoom = 20;
     int bld = 0, floor = 0;
@@ -6366,6 +6368,8 @@ int main(int argc, char **argv) {
         else if (a == "--map") o.map = true;
         else if (a == "--roofs-off") o.roofsOff = true;
         else if (a == "--stats") o.stats = true;
+        else if (a == "--soundcheck") o.soundcheck = true;
+        else if (a == "--soundtest") o.soundtest = true;
         else if (a == "--new") o.fresh = true;
         else if (a == "--creator") o.creator = true;
         else if (a == "--scene") o.scene = std::atoi(next().c_str());
@@ -6381,6 +6385,12 @@ int main(int argc, char **argv) {
         else if (a == "--autosave") o.autosave = (float)std::atof(next().c_str());
         else if (a == "--quit-after") o.quitAfter = std::atof(next().c_str());
         else { usage(); return a == "--help" ? 0 : 2; }
+    }
+    if (o.soundtest) return audioPlayTest(o.data);
+    if (o.soundcheck) {   // before anything else: no world, no window, no sound device
+        Sounds s;
+        int bad = audioCheck(o.data) | s.check(o.data + "/sounds.txt");
+        return bad;
     }
 
     Game g;

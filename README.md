@@ -36,8 +36,9 @@ history). The design, the history and the story were worked out between them.
     make
     ./galileo
 
-It needs OpenGL 4.1. The sound uses Apple's AVFoundation (`src/audio.mm`, `src/sound.mm`) and the OpenGL header is
-Apple's (`src/render.h`), which is why it builds on macOS only.
+It needs OpenGL 4.1. The sound plays through miniaudio (`src/ext/`), which also runs on Linux and Windows; the OpenGL
+header is Apple's (`src/render.h`), which is why it builds on macOS only for now. `./galileo --soundcheck` opens and
+measures every music and sound file without playing anything.
 
 A new game begins with choosing who you are. The game saves itself when you quit (`saves/autosave.txt`) and continues
 from there; `./galileo --new` starts afresh.
@@ -113,7 +114,9 @@ world, checks that every street and building of each town can be reached on foot
 - `src/city.cc` reading a town map; cutting blocks into houses; building landmarks.
 - `src/mesh.*` turning tiles and buildings into triangles.
 - `src/render.*` OpenGL: shadows, light, water, the overlay.
-- `src/audio.*`, `src/sound.*` music and sound effects, through Apple's AVFoundation (the `.mm` files are Objective-C++).
+- `src/audio.*`, `src/sound.*` music and sound effects, through miniaudio.
+- `src/ext/` other people's code, unchanged: miniaudio (sound playback) and stb_vorbis (the Ogg Vorbis decoder), both
+  public domain or MIT; `src/ext/README.md` says where each comes from.
 - `src/items.*` things: the catalogue, placing them, drawing them, saving what you changed.
 - `src/animals.*` animals, wild and tame.
 - `src/hud.*` the status line, the journal, the help and the map, drawn with cairo.

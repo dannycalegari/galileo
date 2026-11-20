@@ -22,37 +22,37 @@
 #   volume 0..1
 gap 30
 volume 0.7
-track music/flow_my_tears.m4a Dowland, "Flow, my tears", on the lute
-track music/salisbury_pavan.m4a Gibbons, "The Lord of Salisbury his Pavin", on the harpsichord
-track music/ave_regina.m4a Victoria, "Ave Regina caelorum" for five voices, on recorders and a bassoon
-track music/bransle_royne.m4a Praetorius, "Bransle de la Royne" (Terpsichore, 1612), three branles for the Queen's wedding, on recorders and a bassoon
+track music/flow_my_tears.ogg Dowland, "Flow, my tears", on the lute
+track music/salisbury_pavan.ogg Gibbons, "The Lord of Salisbury his Pavin", on the harpsichord
+track music/ave_regina.ogg Victoria, "Ave Regina caelorum" for five voices, on recorders and a bassoon
+track music/bransle_royne.ogg Praetorius, "Bransle de la Royne" (Terpsichore, 1612), three branles for the Queen's wedding, on recorders and a bassoon
 # Monteverdi was maestro di cappella of San Marco, and his Scherzi musicali were printed in Venice in 1632
-track in Venice music/zefiro_torna.m4a Monteverdi, "Zefiro torna" (Scherzi musicali, Venice 1632), for two tenors and continuo, on recorders and a bassoon
+track in Venice music/zefiro_torna.ogg Monteverdi, "Zefiro torna" (Scherzi musicali, Venice 1632), for two tenors and continuo, on recorders and a bassoon
 # Florentine carnival songs of Lorenzo de' Medici's time, for the Italian towns
-track in Italy music/minerva.m4a Anonymous, "Trionfo della dea Minerva", a Florentine carnival song (c. 1500), on recorders and a bassoon
-track in Italy music/rivenditore.m4a Lorenzo de' Medici's "Canto delle rivenditore", a Florentine carnival song (c. 1490), on shawms and a sackbut
-track in Italy music/canto_della_morte.m4a Maestro Alexander, "Canto della Morte", a Florentine carnival song (c. 1511), on sackbuts
-track in Italy music/canto_della_pace.m4a Anonymous, "Canto della pace", a Florentine carnival song (early 16th century), on recorders and a bassoon
+track in Italy music/minerva.ogg Anonymous, "Trionfo della dea Minerva", a Florentine carnival song (c. 1500), on recorders and a bassoon
+track in Italy music/rivenditore.ogg Lorenzo de' Medici's "Canto delle rivenditore", a Florentine carnival song (c. 1490), on shawms and a sackbut
+track in Italy music/canto_della_morte.ogg Maestro Alexander, "Canto della Morte", a Florentine carnival song (c. 1511), on sackbuts
+track in Italy music/canto_della_pace.ogg Anonymous, "Canto della pace", a Florentine carnival song (early 16th century), on recorders and a bassoon
 # Galileo's brother Michelagnolo, lutenist to the Duke of Bavaria; his book of 1620 was printed in Munich
-track in Florence,Arcetri music/galilei_suite1.m4a Michelagnolo Galilei, a toccata, gagliarda, corrente and volta (Il primo libro d'intavolatura di liuto, 1620), on the lute
+track in Florence,Arcetri music/galilei_suite1.ogg Michelagnolo Galilei, a toccata, gagliarda, corrente and volta (Il primo libro d'intavolatura di liuto, 1620), on the lute
 # a ballett, an English dance-song after the Italian balletto; also played in the theatres (below)
-track in England music/maying.m4a Morley, "Now is the month of maying" (The First Booke of Balletts to Five Voyces, 1595), on recorders and bassoons
+track in England music/maying.ogg Morley, "Now is the month of maying" (The First Booke of Balletts to Five Voyces, 1595), on recorders and bassoons
 # the canario, danced in Spain from the 1580s; Sanz's setting for the guitar was printed in 1674, after the game's time
-track in Spain music/canarios.m4a Gaspar Sanz, "Canarios" (printed 1674), on the guitar
+track in Spain music/canarios.ogg Gaspar Sanz, "Canarios" (printed 1674), on the guitar
 # a Latin motet for the Catholic (and Lutheran) churches; an English anthem for the English ones
-church except London,Oxford,Cambridge music/sicut_cervus.m4a Palestrina, "Sicut cervus" for four voices
-church in London,Oxford,Cambridge music/if_ye_love_me.m4a Tallis, "If ye love me" for four voices
+church except London,Oxford,Cambridge music/sicut_cervus.ogg Palestrina, "Sicut cervus" for four voices
+church in London,Oxford,Cambridge music/if_ye_love_me.ogg Tallis, "If ye love me" for four voices
 # a lute in the taverns, but not in the Ottoman lands, where the inns are coffeehouses
-inn except Ottoman music/flow_my_tears.m4a Dowland, "Flow, my tears", on a lute in the corner
-theatre in England music/maying.m4a Morley, "Now is the month of maying" (1595), on recorders and bassoons
-battle music/scheidt_battaglia.m4a Scheidt, "Galliard Battaglia", on trumpets and trombones (arranged by Michel Rondeau)
+inn except Ottoman music/flow_my_tears.ogg Dowland, "Flow, my tears", on a lute in the corner
+theatre in England music/maying.ogg Morley, "Now is the month of maying" (1595), on recorders and bassoons
+battle music/scheidt_battaglia.ogg Scheidt, "Galliard Battaglia", on trumpets and trombones (arranged by Michel Rondeau)
 # the Reformed churches sing only the psalms, in unison, and Zurich's has no organ; in the Ottoman
 # towns the buildings of the kind church are mosques
 nochoir Amsterdam Haarlem Leiden Zurich Constantinople Sarajevo
-piece bach-prelude music/bach_prelude.m4a a prelude in E major by J. S. Bach (BWV 1006a), who will be born in fifty-three years
-piece flow-my-tears music/flow_my_tears.m4a Dowland, "Flow, my tears", on your own lute
+piece bach-prelude music/bach_prelude.ogg a prelude in E major by J. S. Bach (BWV 1006a), who will be born in fifty-three years
+piece flow-my-tears music/flow_my_tears.ogg Dowland, "Flow, my tears", on your own lute
 # the last cadence of the game's own Dowland ("...feel not the world's despite"), its A major chord as the morning comes
-cue sleep music/sleep_cue.m4a Dowland, the last cadence of "Flow, my tears", on the lute
+cue sleep music/sleep_cue.ogg Dowland, the last cadence of "Flow, my tears", on the lute
 # the drums of Monro's Scots at the muster in Nuremberg and at the march (events.txt the-muster, the-march): the Voluntary
 # and the seven lines of the English March, from the warrant of Charles I of 7 February 1632, on two side drums
-cue english-march music/english_march.m4a "The English March" (the warrant of Charles I, 1632), beaten on two side drums
+cue english-march music/english_march.ogg "The English March" (the warrant of Charles I, 1632), beaten on two side drums

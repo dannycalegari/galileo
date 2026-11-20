@@ -1,6 +1,8 @@
-// sound.mm: the sound effects through AVFoundation's AVAudioPlayer (see sound.h).
-#import <AVFoundation/AVFoundation.h>
+// sound.cc: the sound effects through miniaudio (src/ext; see sound.h). The files are decoded once into memory
+// (miniaudio's resource manager shares them between the players of one file).
 #include "sound.h"
+#include "audio.h"
+#include "ext/miniaudio.h"
 #include <algorithm>
 #include <cstdio>
 #include <cstdlib>
@@ -9,13 +11,23 @@
 #include <fstream>
 #include <sstream>
 
-static AVAudioPlayer *makePlayer(const std::string &file) {
-    NSURL *url = [NSURL fileURLWithPath:[NSString stringWithUTF8String:file.c_str()]];
-    NSError *err = nil;
-    AVAudioPlayer *p = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&err];
-    if (!p) return nil;
-    [p prepareToPlay];
-    return p;
+static ma_sound *makePlayer(const std::string &file) {
+    ma_engine *e = audioEngine();
+    if (!e) return nullptr;
+    ma_sound *s = new ma_sound;
+    if (ma_sound_init_from_file(e, file.c_str(), MA_SOUND_FLAG_DECODE | MA_SOUND_FLAG_NO_SPATIALIZATION, nullptr, nullptr, s) != MA_SUCCESS) {
+        delete s;
+        return nullptr;
+    }
+    return s;
+}
+
+static void freePlayer(void *p) {
+    if (!p) return;
+    ma_sound *s = (ma_sound *)p;
+    ma_sound_stop(s);
+    ma_sound_uninit(s);
+    delete s;
 }
 
 bool Sounds::load(const std::string &file) {
@@ -46,14 +58,13 @@ bool Sounds::load(const std::string &file) {
             ss >> id >> f >> g;
             files[id] = dir + f;
             gains[id] = g;
-            if (w == "loop") {
-                AVAudioPlayer *p = makePlayer(dir + f);
+            if (w == "loop" && !noPlayers) {
+                ma_sound *p = makePlayer(dir + f);
                 if (!p) continue;
-                p.numberOfLoops = -1;
-                p.enableRate = YES;
-                p.volume = 0;
+                ma_sound_set_looping(p, MA_TRUE);
+                ma_sound_set_volume(p, 0);
                 Loop L;
-                L.player = (__bridge_retained void *)p;
+                L.player = p;
                 L.gain = g;
                 loops[id] = L;
             }
@@ -71,26 +82,23 @@ void Sounds::play(const std::string &id, float volume, float pan) {
 
 void Sounds::playFile(const std::string &key, const std::string &file, float volume, float pan, float rate) {
     auto &v = pool[file];
-    AVAudioPlayer *use = nil;
-    for (void *q : v) {
-        AVAudioPlayer *p = (__bridge AVAudioPlayer *)q;
-        if (!p.playing) { use = p; break; }
-    }
-    if (!use && v.size() < 6) {
-        AVAudioPlayer *p = makePlayer(file);
-        if (p) p.enableRate = YES;
+    ma_sound *use = nullptr;
+    for (void *q : v)
+        if (!ma_sound_is_playing((ma_sound *)q)) { use = (ma_sound *)q; break; }
+    if (!use && v.size() < 6) {   // a few players a file, for overlaps
+        ma_sound *p = makePlayer(file);
         if (!p) return;
-        v.push_back((__bridge_retained void *)p);
+        v.push_back(p);
         use = p;
     }
     if (!use) return;
     static const bool log = std::getenv("GALILEO_SOUNDLOG") != nullptr;
     if (log) std::fprintf(stderr, "  sound %s at %.2f, pan %.2f, rate %.2f (%s)\n", key.c_str(), volume, pan, rate, file.substr(file.rfind('/') + 1).c_str());
-    use.volume = std::min(1.0f, volume * master);
-    use.pan = std::max(-1.0f, std::min(1.0f, pan));
-    use.rate = rate;
-    use.currentTime = 0;
-    [use play];
+    ma_sound_set_volume(use, std::min(1.0f, volume * master));
+    ma_sound_set_pan(use, std::max(-1.0f, std::min(1.0f, pan)));
+    ma_sound_set_pitch(use, rate);   // faster and higher together, as a recording played faster
+    ma_sound_seek_to_pcm_frame(use, 0);
+    ma_sound_start(use);
 }
 
 void Sounds::loop(const std::string &id, float level) {
@@ -103,7 +111,7 @@ void Sounds::loop(const std::string &id, float level) {
 
 void Sounds::setRate(const std::string &id, float rate) {
     auto it = loops.find(id);
-    if (it != loops.end()) ((__bridge AVAudioPlayer *)it->second.player).rate = std::max(0.5f, std::min(2.0f, rate));
+    if (it != loops.end()) ma_sound_set_pitch((ma_sound *)it->second.player, std::max(0.5f, std::min(2.0f, rate)));
 }
 
 void Sounds::update(float dt) {
@@ -131,18 +139,34 @@ void Sounds::update(float dt) {
         float k = std::min(1.0f, dt / 1.2f);   // over a second or so
         L.level += (want - L.level) * k;
         if (std::fabs(want - L.level) < 0.002f) L.level = want;
-        AVAudioPlayer *p = (__bridge AVAudioPlayer *)L.player;
-        p.volume = L.level * L.gain * master;
+        ma_sound *p = (ma_sound *)L.player;
+        ma_sound_set_volume(p, L.level * L.gain * master);
         static const bool log = std::getenv("GALILEO_SOUNDLOG") != nullptr;
-        if (L.level > 0.003f && !p.playing) { [p play]; if (log) std::fprintf(stderr, "  loop %s begins\n", kv.first.c_str()); }
-        else if (L.level <= 0.003f && p.playing) { [p pause]; if (log) std::fprintf(stderr, "  loop %s ends\n", kv.first.c_str()); }
+        bool playing = ma_sound_is_playing(p);
+        if (L.level > 0.003f && !playing) { ma_sound_start(p); if (log) std::fprintf(stderr, "  loop %s begins\n", kv.first.c_str()); }
+        else if (L.level <= 0.003f && playing) { ma_sound_stop(p); if (log) std::fprintf(stderr, "  loop %s ends\n", kv.first.c_str()); }   // stopped where it is: it goes on from there
     }
 }
 
 void Sounds::setOn(bool on) { on_ = on; }
 
+// --soundcheck: every file of data/sounds.txt opened and measured; how many cannot be read
+int Sounds::check(const std::string &file) {
+    noPlayers = true;
+    if (!load(file)) { std::printf("no data/sounds.txt\n"); return 1; }
+    std::vector<std::string> all;
+    for (auto &kv : files) all.push_back(kv.second);
+    for (auto &kv : ambients) for (auto &f : kv.second.files) all.push_back(f);
+    std::sort(all.begin(), all.end());
+    all.erase(std::unique(all.begin(), all.end()), all.end());
+    int bad = 0;
+    for (auto &f : all) if (audioFileSeconds(f) <= 0) { std::printf("!! cannot read %s\n", f.c_str()); bad++; }
+    std::printf("sounds: %zu files, %d unreadable\n", all.size(), bad);
+    return bad ? 1 : 0;
+}
+
 Sounds::~Sounds() {
-    for (auto &kv : loops) { AVAudioPlayer *p = (__bridge_transfer AVAudioPlayer *)kv.second.player; [p stop]; }
+    for (auto &kv : loops) freePlayer(kv.second.player);
     for (auto &kv : pool)
-        for (void *q : kv.second) { AVAudioPlayer *p = (__bridge_transfer AVAudioPlayer *)q; [p stop]; }
+        for (void *q : kv.second) freePlayer(q);
 }

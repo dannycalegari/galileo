@@ -1,5 +1,5 @@
 // sound.h: the sound effects (data/sounds.txt, the files in data/sounds/, made by
-// tools/make_sounds.py), through Apple's AVFoundation like the music. Two kinds: sounds played
+// tools/make_sounds.py), through miniaudio like the music (src/ext). Two kinds: sounds played
 // once (a bell's stroke, coins, the anvil), at a loudness and from a side; and loops (the
 // hooves, the river), whose loudness the game sets every frame and which fade to it.
 // The ambient sounds (birds, crickets, voices, waves, gusts) are sets of short variants, one
@@ -21,6 +21,7 @@ public:
     void setOn(bool on);
     bool on() const { return on_; }
     bool has(const std::string &id) const { return files.count(id) > 0; }
+    int check(const std::string &file);   // --soundcheck: every file opened and measured (none played); 1 if any fails
     float master = 0.8f;
     int bellEvery = 1;                    // hours between the bells (sounds.txt "bells every N")
     ~Sounds();
@@ -39,4 +40,5 @@ private:
     std::map<std::string, std::vector<void *>> pool;   // one-shots: a few players each, for overlaps
     std::map<std::string, Loop> loops;
     bool on_ = true;
+    bool noPlayers = false;   // check(): read the list only
 };
