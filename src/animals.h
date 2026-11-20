@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include "vmath.h"
+#include <cstdint>
 
 struct World;
 struct MeshBuf;
