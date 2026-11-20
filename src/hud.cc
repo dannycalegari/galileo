@@ -1,5 +1,6 @@
 // hud.cc
 #include "hud.h"
+#include <cstdio>
 #include <sstream>
 
 void Hud::makeMapImage(const World &world) {

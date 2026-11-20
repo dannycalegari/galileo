@@ -4,6 +4,7 @@
 // sits there a while, and lies down at night. What they look like, and where they live, is in
 // data/animals.txt. A town's animals are put out when you first come near it.
 #pragma once
+#include <cstdint>
 #include <map>
 #include <string>
 #include <vector>

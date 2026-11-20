@@ -32,6 +32,7 @@
 #include <set>
 #include <cctype>
 #include <array>
+#include <cstdlib>
 
 static void usage() {
     std::printf(

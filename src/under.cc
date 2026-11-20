@@ -3,6 +3,7 @@
 #include "noise.h"
 #include <iostream>
 #include <algorithm>
+#include <cstdlib>
 
 // A maze of galleries two tiles wide between pillars of rock, with a few larger chambers
 // whose roof is held up by stone pillars. Entrances: a shaft on the surface near (sx,sy),

@@ -5,6 +5,7 @@
 #include <sstream>
 #include <iostream>
 #include <cstdio>
+#include <cstdlib>
 #include <deque>
 #include <queue>
 #include <unordered_map>

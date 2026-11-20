@@ -26,6 +26,7 @@
 #include <functional>
 #include <cstdio>
 #include <cctype>
+#include <cstdlib>
 
 extern std::unordered_map<std::string, vec2> g_gates;
 

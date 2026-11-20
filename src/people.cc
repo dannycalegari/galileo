@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <cctype>
 #include <cmath>
+#include <cstdio>
 #include <fstream>
 #include <iostream>
 #include <queue>
