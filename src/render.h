@@ -1,7 +1,13 @@
 // render.h: OpenGL drawing: shadow map, lit flat-shaded meshes, water, and a 2D overlay.
 #pragma once
+#ifdef __APPLE__
 #define GL_SILENCE_DEPRECATION
 #include <OpenGL/gl3.h>
+#else   // Linux: the system's headers, with every function of OpenGL 4.1 declared (the Makefile defines
+        // GL_GLEXT_PROTOTYPES for all files, before GLFW includes GL/gl.h); libGL provides them
+#include <GL/gl.h>
+#include <GL/glext.h>
+#endif
 #include "vmath.h"
 #include "mesh.h"
 

@@ -23,22 +23,32 @@ Danzig, Sarajevo, Stockholm) and the country between them make one map, with no 
 interiors and the open road. The people keep their own hours, talk with you in typed words, trade, remember what you
 did, and talk to each other. You travel on foot, on horseback, by the post, by boat, ferry and ship.
 
-This is an alpha version: the whole story can be played from the beginning to its ending. It runs on macOS only for
-now.
+This is an alpha version: the whole story can be played from the beginning to its ending. It runs on macOS; a build
+for Linux is in the Makefile but has not been tried yet.
 
 Galileo is a game by Danny Calegari. The code of this version was written by Claude, an AI model made by Anthropic,
 working with Danny Calegari, and is based in part on his earlier game (the 2013 alpha version, in this repository's
 history). The design, the history and the story were worked out between them.
 
-## Build and run (macOS)
+## Build and run
+
+On macOS:
 
     brew install glfw cairo pkg-config
     make
     ./galileo
 
-It needs OpenGL 4.1. The sound plays through miniaudio (`src/ext/`), which also runs on Linux and Windows; the OpenGL
-header is Apple's (`src/render.h`), which is why it builds on macOS only for now. `./galileo --soundcheck` opens and
-measures every music and sound file without playing anything.
+On Linux (not yet tried), first the compiler, pkg-config, and glfw, cairo and OpenGL with their headers; for example
+on Debian or Ubuntu
+
+    sudo apt install build-essential pkg-config libglfw3-dev libcairo2-dev libgl-dev
+
+on Fedora `sudo dnf install gcc-c++ make pkgconf-pkg-config glfw-devel cairo-devel mesa-libGL-devel`, on Arch
+`sudo pacman -S base-devel glfw cairo`; then `make` and `./galileo` as above.
+
+It needs OpenGL 4.1. The Makefile picks the system's libraries (`uname -s`); the sound plays through miniaudio
+(`src/ext/`). `./galileo --soundcheck` opens and measures every music and sound file without playing anything, and
+`./galileo --soundtest` runs the music and the sounds without a sound device and checks what they give.
 
 A new game begins with choosing who you are. The game saves itself when you quit (`saves/autosave.txt`) and continues
 from there; `./galileo --new` starts afresh.
