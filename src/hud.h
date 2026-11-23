@@ -70,6 +70,9 @@ struct HudState {
 
 struct Hud {
     cairo_surface_t *surf = nullptr;
+    // the conversation's highlighted words as last drawn, where they stand (0..1 of the window): a click on one asks it
+    struct Word { float x0, y0, x1, y1; std::string text; };
+    std::vector<Word> talkWords;
     cairo_surface_t *mapImg = nullptr;
     int w = 0, h = 0;
     float scale = 1;

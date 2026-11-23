@@ -138,7 +138,8 @@ person mersenne
     numbers,number,yes,see,try,test,ready if player courier-met and not player courier-tested: Then listen. A letter to Rome costs me eleven sous, one to Amsterdam seven, and one to Toulouse five. Today I send two to Rome, three to Amsterdam and one to Toulouse. What do I owe the post, in sous? {player set courier-testing}
     48,=forty-eight,=fortyeight,=forty eight if player courier-testing and not player courier-tested: (He writes it in the margin of a letter, and checks it twice.) Forty-eight. Your father did not lie about that, at least. Now, my *terms*. {player set courier-tested}
     terms,wage,pay,money,yes,courier if player courier-tested and not player courier-ruled: I pay a courier's wage: a few sous for each errand in Paris, more on the roads. And there is one rule, the only one. You never open a letter. Never: not mine, not anyone's, whatever you are offered and whoever asks. Will you *promise* me that? {player set courier-ruled}
-    promise,yes,swear,agree,=i will,=i promise if player courier-ruled and not player courier-hired: (He looks at you for a long moment.) Good. Then here is your first errand: a letter for Monsieur Elia *Diodati*, an advocate in the Parlement, at the Palais de la Cité, on the island. Into his own hands, and come back and tell me. {player add has:mersenne-to-diodati 1} {player set courier-hired} {player set knows:paris:diodati}
+    promise,yes,swear,agree,=i will,=i promise if player courier-ruled and not player courier-hired: (He looks at you for a long moment.) Good. Then here is your first errand: a letter for Monsieur Elia *Diodati*, an advocate in the Parlement, at the Palais de la Cité, on the island. *Give* it into his own hands, and come back and tell me. {player add has:mersenne-to-diodati 1} {player set courier-hired} {player set knows:paris:diodati}
+    give:mersenne-to-diodati if player courier-hired and not player delivered-diodati: (He pushes it back into your hands.) Not to me: to Monsieur *Diodati*! Give it to him, into his own hands, and to nobody else.
     no,never,=i will not if player courier-ruled and not player courier-hired: (He frowns.) Then you are no use to me, and your father has walked here for nothing. Think about it. Will you *promise*?
     courier,courrier if player me:age and not player courier-tested: Yes, yes: my new courier, if you will do. But first your *numbers*: a courier who cannot count is robbed at every post house.
     courier,courrier if player me:age and not player courier-hired: My courier, if you will agree to my *terms*.
@@ -345,6 +346,10 @@ person crenet
   talk
     # the courier's first night (errand 4): supper and a bed on Mersenne's account
     hello if player account:paris:crenet and not player supper-on-account: (A big man in an apron looks you up and down.) A yellow hat. You will be Father Mersenne's new courier: he sent word you might come. Sit down; there is soup.
+    # after the courier's first night here: bread for La Ramée, who sleeps in the open behind the stable
+    hello if player slept-on-account and player supper-on-account and not player ramee-bread: (He pushes a heel of yesterday's bread and a lump of cheese across the counter.) Do me a kindness on your way. An old soldier sleeps in the ditch behind my stable, *La Ramée*: back from Casale with no pay and no roof, and he will not sleep under one. He will not take it from me; he says I water the wine. He might take it from you. {player add has:bread-for-ramee 1} {player set ramee-bread} {player set knows:paris:ramee}
+    ramee,ramée,la ramée,soldier,ditch if player ramee-bread and not player ramee-fed: La Ramée? By the Porte Saint-Denis all day, behind my stable all night. You cannot miss him: he is the one telling the gate how Casale was held.
+    ramee,ramée,la ramée,soldier if player ramee-fed: He ate it? Then he is alive another day. He will outlive us all, out of spite.
     supper,soup,eat,food,mersenne,account,courier,sent if player account:paris:crenet and not player supper-on-account: (He sets before you a bowl of soup, a heel of bread and a cup of his worst wine.) On the good Father's account. Eat while it is hot. When you want your bed, say so. {player add has:soup 1} {player add has:loaf 1} {player set supper-on-account}
     # (answered in the person's own words rather than with "I know nothing about that")
     supper,soup,eat,food,hungry if player supper-on-account: The Father pays for one supper, not for a courier's whole life. Bread and cheese and wine I sell to anyone, Father's courier or not.
@@ -495,6 +500,54 @@ person grey
     mersenne,friar,father: A learned man, and a holy one, and he writes to the whole of Europe. His Eminence admires him very much.
   end
 end
+
+# ---------------------------------------------------------------- La Ramée's bread: the bedroll (items.txt)
+# After your first night at the Pomme de Pin (on Mersenne's account), Crenet gives you bread for La Ramée, an old
+# soldier who sits by the Porte Saint-Denis by day and sleeps on a bedroll behind the Pomme de Pin by night; given it,
+# he tells you of the bedroll, and of Goujon at les Halles, who sells them.
+person ramee
+  name La Ramée
+  known An old soldier, back from the war in Italy and never paid. He sits by the Porte Saint-Denis by day, and sleeps in the open behind the Pomme de Pin.
+  title an old soldier
+  role beggar
+  sex m
+  look coat #8A3A30 legs #4A3E34 hat hat #3A3026 old beard full
+  near Porte Saint-Denis
+  says Alms, for a soldier of Casale!
+  schedule
+    7:00 go outside Porte Saint-Denis
+    20:30 lie outside Pomme de Pin
+  talk
+    hello if player ramee-fed: (He lifts a hand.) The courier with Crenet's bread. Still sleeping under roofs?
+    hello: (A grey man in what was once a red coat, sitting on a rolled blanket by the gate.) Spare a sou for a man who held the walls of Casale for the King? No? Then spare me your shadow; you are in my sun.
+    give:bread-for-ramee: (He takes it in both hands, and smells it before he eats.) Crenet's. He waters the wine and bakes like an angel. (Between mouthfuls.) Under a roof? Not since Casale: the Spanish guns brought one down on my company, a whole night long. A *bedroll* and the open sky, that is my house. With a bedroll a man can lie down anywhere the watch is not, and that is anywhere outside the walls. (He pats it.) Old *Goujon*, the fripier at les Halles, sells them: a blanket and a rush mat, rolled. A livre for a good one; do not let him tell you two. {take} {player set ramee-fed} {player set knows:paris:goujon}
+    bedroll,blanket,mat,roll,sky,sleep,roof: A blanket to lie in and a mat to keep the ground out of your bones. On the grass, in a field, by the road: never in a street, or the watch has you for a vagrant and you wake in the Hôpital.
+    goujon,fripier,halles: Goujon, under the arcades of les Halles: old coats, old cloaks, old soldiers' blankets. Everything he sells has been somebody's; so has everything in the world.
+    casale,italy,war,mantua,spanish,siege,guns: Casale, in the Montferrat, for the Duke of Mantua and the King: two sieges, and the Spaniards outside the walls the whole time. We ate the horses, and then the cats, and then our boots. The King made peace, and forgot to pay us.
+    crenet,pomme,inn,tavern: Crenet keeps the Pomme de Pin. He leaves the door of his stable open on cold nights, and pretends he forgot.
+    name: They call me La Ramée. I had another name before the war; the war kept it. {name}
+    job: I held the walls of Casale for the King, and the King owes me fourteen months' pay. Now I hold this stone.
+  end
+
+person goujon
+  name Martin Goujon
+  known A fripier, an old-clothes dealer, under the arcades of les Halles: coats, cloaks, blankets, and bedrolls for soldiers and carters.
+  title a fripier
+  role merchant
+  sex m
+  look coat #5A4A3A legs #3A3026 hat cap #4A3E30 old stout
+  near Halles
+  work landmark Halles
+  says Coats! Cloaks! Blankets!
+  sells bedroll 2
+  talk
+    hello: (A small man behind a heap of coats, sniffing at a sleeve.) Coats, cloaks, blankets! Nothing moth-eaten that you can see.
+    bedroll,blanket,mat,roll: A blanket and a mat of rushes, rolled and tied: the soldiers' bed, and the carters'. A livre, and it will outlast you.
+    ramee,ramée,la ramée,soldier: La Ramée? He bought his from me in the winter of the great frost, and paid me in stories of Casale. I am still owed.
+    coat,coats,cloak,cloaks,clothes: Every coat here has been somebody's. Some of them were sorry to part with it; most of them were dead.
+    name: Martin Goujon, fripier. {name}
+    job: I buy what the dead and the poor leave behind, and sell it to the poor and the living.
+  end
 
 person sergeant
   name Guillaume Michau

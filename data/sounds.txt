@@ -41,8 +41,7 @@ loop river        river.wav       0.08    # by a river or a canal: a faint, smoo
 #                              one of STEM_1.wav .. STEM_COUNT.wav now and then, at random (and at a
 #                              random loudness, side and pitch, never the same twice running), every
 #                              MIN to MAX seconds while it is wanted
-ambient birds     birds     12  0.35  4 22    # the country by day
+ambient birds     birds     12  0.25  4 22    # the country by day
 ambient crickets  crickets   8  0.2   3 14    # the night
-ambient town      town      12  0.22  5 20    # people talking in a town by day
 ambient waves     waves      7  0.4   5 13    # by the sea: a wave, now and then
 ambient wind      wind       7  0.3   6 28    # high in the mountains: a gust

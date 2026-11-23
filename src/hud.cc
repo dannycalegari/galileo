@@ -43,19 +43,21 @@ static void text(cairo_t *cr, double x, double y, const std::string &s, double s
     cairo_show_text(cr, s.c_str());
 }
 
-// text with *highlighted* words, wrapped to a width; returns the height used
 int hudTalkScrollMin = -100000, hudTalkScrollMax = 100000, hudTalkPageRows = 8;   // set as the conversation is drawn
 
+// text with *highlighted* words, wrapped to a width; returns the height used. LIT: where each highlighted word was
+// drawn (in pixels), with its whole phrase ("*La Ramée*": both words, "La Ramée")
 static double richText(cairo_t *cr, double x, double y, double width, const std::string &s, double size, double r, double g,
-                       double b, bool draw = true) {
+                       double b, bool draw = true, std::vector<Hud::Word> *lit = nullptr) {
     cairo_select_font_face(cr, "Palatino", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
     cairo_set_font_size(cr, size);
     double cx = x, cy = y, line = size * 1.3;
     bool hi = false;
-    std::string word;
+    std::string word, phrase;
+    size_t phraseFirst = 0;
     auto flush = [&](bool space) {
         if (word.empty() && !space) return;
-        cairo_text_extents_t ex;
+        cairo_text_extents_t ex, we;
         std::string piece = word + (space ? " " : "");
         cairo_text_extents(cr, piece.c_str(), &ex);
         if (cx + ex.x_advance > x + width && cx > x) { cx = x; cy += line; }
@@ -63,13 +65,35 @@ static double richText(cairo_t *cr, double x, double y, double width, const std:
             if (hi) cairo_set_source_rgb(cr, 1.0, 0.82, 0.35); else cairo_set_source_rgb(cr, r, g, b);
             cairo_move_to(cr, cx, cy);
             cairo_show_text(cr, piece.c_str());
+            if (hi && lit && !word.empty()) {
+                cairo_text_extents(cr, word.c_str(), &we);
+                lit->push_back({(float)cx, (float)(cy - size * 0.9), (float)(cx + we.x_advance), (float)(cy + size * 0.35), ""});
+            }
         }
         cx += ex.x_advance;
         word.clear();
     };
     for (char c : s) {
         if (c == '\n') { flush(false); cx = x; cy += line; continue; }   // a new line (a blank one between paragraphs)
-        if (c == '*') { flush(false); hi = !hi; continue; }
+        if (c == '*') {
+            flush(false);
+            if (!hi) { phraseFirst = lit ? lit->size() : 0; phrase.clear(); }
+            else if (lit) {   // the phrase ends: one target for it on each line it covers, asking all of it
+                while (!phrase.empty() && phrase.back() == ' ') phrase.pop_back();
+                std::vector<Hud::Word> joined;
+                for (size_t i = phraseFirst; i < lit->size(); i++) {
+                    Hud::Word wd = (*lit)[i];
+                    wd.text = phrase;
+                    if (!joined.empty() && joined.back().y0 == wd.y0) joined.back().x1 = wd.x1;   // the same line: the space between too
+                    else joined.push_back(wd);
+                }
+                lit->resize(phraseFirst);
+                lit->insert(lit->end(), joined.begin(), joined.end());
+            }
+            hi = !hi;
+            continue;
+        }
+        if (hi) phrase += c;
         if (c == ' ') { flush(true); continue; }
         word += c;
     }
@@ -114,6 +138,7 @@ bool Hud::draw(const HudState &s, const World &world, int W, int H, float sc, do
     // names move with their people: redraw for them at most thirty times a second
     if (surf && k.str() == lastStatic && now - lastDraw < 1.0 / 30) return false;
     lastKey = key;
+    talkWords.clear();   // drawn again below, if a conversation is open
     lastStatic = k.str();
     lastDraw = now;
     if (!surf || W != w || H != h) {
@@ -177,7 +202,7 @@ bool Hud::draw(const HudState &s, const World &world, int W, int H, float sc, do
         cairo_stroke(cr);
         richText(cr, bx + 35 * u, by + 36 * u, tw, s.caption, fs, 1, 0.96, 0.86);
         char buf[96];
-        std::snprintf(buf, sizeof buf, "%d of %d.   Click, or Space: on.%s   %s", s.sceneNo, s.sceneCount,
+        std::snprintf(buf, sizeof buf, "%d of %d.   Click or Space: next.%s   %s", s.sceneNo, s.sceneCount,
                       s.sceneNo > 1 ? "   Left: back." : "", s.sceneOpening ? "Esc: begin at once." : "Esc: skip the rest.");
         text(cr, bx + 35 * u, by + bh - 16 * u, buf, 12 * u, false, 0.7, 0.65, 0.55);
         cairo_destroy(cr);
@@ -251,6 +276,7 @@ bool Hud::draw(const HudState &s, const World &world, int W, int H, float sc, do
             "T                        talk to someone beside you",
             "  (in talk)              buy, buy bread, sell candle, give book,",
             "                         give 2 sous, pay, bet 2 sous, bye",
+            "                         a highlighted word: click it, or Tab, to ask",
             "G, then click            get something within reach",
             "L, then click            look at something (L twice: what is in front of you)",
             "C, then click            fight someone, or a wolf (C again: stop)",
@@ -457,14 +483,18 @@ bool Hud::draw(const HudState &s, const World &world, int W, int H, float sc, do
         cairo_rectangle(cr, bx + 4 * u, top - 2 * u, bw - 8 * u, avail + 4 * u);
         cairo_clip(cr);
         double y0 = 0;
+        std::vector<Word> lit;
         for (size_t i = 0; i < s.talkLines.size(); y0 += lh[i], i++) {
             if (y0 + lh[i] < viewTop || y0 > viewTop + avail) continue;
             const auto &ln = s.talkLines[i];
             double y = top + fs + (y0 - viewTop);
-            if (ln.first) richText(cr, tx, y, tw, ln.second, fs, 0.96, 0.93, 0.85);
+            if (ln.first) richText(cr, tx, y, tw, ln.second, fs, 0.96, 0.93, 0.85, true, &lit);
             else richText(cr, tx, y, tw, "> " + ln.second, fs, 0.6, 0.8, 0.95);
         }
         cairo_restore(cr);
+        for (Word &wd : lit)   // those in sight, in 0..1 of the window (a click on one asks it: main.cc onMouse)
+            if ((wd.y0 + wd.y1) * 0.5f > top && (wd.y0 + wd.y1) * 0.5f < top + avail && !wd.text.empty())
+                talkWords.push_back({wd.x0 / W, wd.y0 / H, wd.x1 / W, wd.y1 / H, wd.text});
         // what you are typing
         cairo_set_source_rgba(cr, 1, 1, 1, 0.08);
         cairo_rectangle(cr, bx + 10 * u, by + bh - 36 * u, bw - 20 * u, 26 * u);
@@ -484,9 +514,19 @@ bool Hud::draw(const HudState &s, const World &world, int W, int H, float sc, do
         cairo_select_font_face(cr, "Palatino", CAIRO_FONT_SLANT_ITALIC, CAIRO_FONT_WEIGHT_NORMAL);
         cairo_set_font_size(cr, 11 * u);
         cairo_set_source_rgb(cr, 0.7, 0.65, 0.55);
-        const char *hint = "type a word and press Return: name, job, bye ...   Esc to leave";
-        cairo_text_extents_t ex;
+        const char *hint = "type a word and press Return: name, job, give, bye ...   Esc to leave";
+        cairo_text_extents_t ex, te;
         cairo_text_extents(cr, hint, &ex);
+        // beside a long name and title, the shorter hint, so that the two do not run into each other
+        cairo_select_font_face(cr, "Palatino", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
+        cairo_set_font_size(cr, 17 * u);
+        cairo_text_extents(cr, s.talkTitle.c_str(), &te);
+        cairo_select_font_face(cr, "Palatino", CAIRO_FONT_SLANT_ITALIC, CAIRO_FONT_WEIGHT_NORMAL);
+        cairo_set_font_size(cr, 11 * u);
+        if (16 * u + te.x_advance + 24 * u > bw - ex.width - 14 * u) {
+            hint = "name, job, give, bye ...   Esc to leave";
+            cairo_text_extents(cr, hint, &ex);
+        }
         cairo_move_to(cr, bx + bw - ex.width - 14 * u, by + 26 * u);
         cairo_show_text(cr, hint);
     }

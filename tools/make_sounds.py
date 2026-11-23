@@ -345,49 +345,6 @@ def wind_variant(k, rate=22050):
     return fade_ends(out, rate, 0.2)
 
 
-VOWELS = [(730, 1090), (530, 1840), (270, 2290), (570, 840), (300, 870), (660, 1700), (440, 1020)]
-
-
-def town_variant(k, rate=22050):
-    """people talking a little way off: one or two voices, a phrase each, in syllables with
-    vowels and a rise and fall of pitch, heard through the air of a street"""
-    rnd = random.Random(500 + k)
-    out = []
-    for v in range(1 if rnd.random() < 0.5 else 2):
-        f0 = rnd.uniform(95, 140) if rnd.random() < 0.55 else rnd.uniform(180, 240)
-        nsyl = rnd.randint(4, 11)
-        b1 = Biquad("bp", 500, 4.0, rate); b2 = Biquad("bp", 1500, 6.0, rate)
-        ph = 0.0
-        phrase = []
-        for j in range(nsyl):
-            d = rnd.uniform(0.09, 0.26)
-            F1, F2 = rnd.choice(VOWELS)
-            for f, bq, q in ((F1, b1, 4.0), (F2, b2, 6.0)):
-                w = TAU * f / rate; al = math.sin(w) / (2 * q); a0 = 1 + al
-                bq.b = (al / a0, 0, -al / a0); bq.a = (-2 * math.cos(w) / a0, (1 - al) / a0)
-            ns = int(rate * d)
-            pitch = f0 * (1.12 - 0.25 * j / nsyl) * rnd.uniform(0.95, 1.05)
-            cons = rnd.random() < 0.5
-            for i in range(ns):
-                t = i / ns
-                ph += pitch * (1 + 0.01 * rnd.uniform(-1, 1)) / rate
-                buzz = 2 * (ph % 1.0) - 1
-                e = math.sin(math.pi * t) ** 0.7
-                x = e * (b1(buzz) + 0.6 * b2(buzz))
-                if cons and t < 0.15: x += 0.3 * rnd.uniform(-1, 1) * (1 - t / 0.15)
-                phrase.append(x)
-            phrase += [0.0] * int(rate * rnd.uniform(0.01, 0.07))
-        out += phrase + [0.0] * int(rate * rnd.uniform(0.25, 0.6))
-    # at a distance: duller, with the street's echo
-    lp = Biquad("lp", 1600, 0.7, rate)
-    out = [lp(x) for x in out] + [0.0] * int(rate * 0.3)
-    echo = out[:]
-    for dly, g in ((0.023, 0.35), (0.041, 0.25), (0.067, 0.15)):
-        m = int(rate * dly)
-        for i in range(m, len(out)): echo[i] += g * out[i - m]
-    return fade_ends(pad(echo, rate), rate)
-
-
 def variants(name, make, n):
     rate = 22050
     for k in range(n): write(f"{name}_{k + 1}", make(k), rate)
@@ -425,7 +382,6 @@ SOUNDS = {
     "birds": lambda: variants("birds", birds_variant, 12),
     "waves": lambda: variants("waves", waves_variant, 7),
     "wind": lambda: variants("wind", wind_variant, 7),
-    "town": lambda: variants("town", town_variant, 12),
     "river": lambda: noise_loop("river", 16.0, river_shape, 3),
 }
 

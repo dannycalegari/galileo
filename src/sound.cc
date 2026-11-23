@@ -127,7 +127,7 @@ void Sounds::update(float dt) {
         if (k == A.last && A.files.size() > 1) k = (k + 1) % (int)A.files.size();
         A.last = k;
         float vol = A.want * A.gain * (0.35f + 0.65f * rnd01());
-        float pan = (rnd01() * 2 - 1) * 0.7f;
+        float pan = (rnd01() * 2 - 1) * 0.3f;   // a little to one side or the other, never right in one ear (headphones)
         float rate = 0.92f + 0.16f * rnd01();
         playFile(kv.first, A.files[k], vol, pan, rate);
         float r = rnd01();

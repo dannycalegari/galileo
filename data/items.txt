@@ -2668,3 +2668,22 @@ item friars-habit
   look A grey friar's habit with a deep hood and a rope girdle, from the wardrobe of the King's Men: the Duke's, in Measure for Measure.
   use wear You put on the friar's habit over your clothes, and draw up the hood. | You take off the friar's habit, and fold it away.
 end
+
+# ---------------------------------------------------------------- La Ramée's bread, and the bedroll (people/paris.txt)
+item bread-for-ramee
+  name Crenet's bread and cheese for La Ramée | Crenet's breads and cheeses for La Ramée
+  also bread cheese
+  shape loaf #B07A3E
+  weight 1
+  look A heel of yesterday's bread and a lump of cheese, wrapped in a cloth: Robert Crenet's, for the old soldier La Ramée.
+end
+
+item bedroll
+  name a bedroll | bedrolls
+  also blanket mat roll
+  shape coil #7A6A50
+  weight 6
+  price 240
+  look A grey blanket and a mat of plaited rushes, rolled tight and tied with a cord.
+  use sleep You unroll the bedroll on the grass and sleep under the stars, until the birds wake you.
+end

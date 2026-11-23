@@ -350,7 +350,6 @@ struct Game {
         auto smooth = [](float a, float b, float x) { float t = std::max(0.0f, std::min(1.0f, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
         sounds.loop("birds", (day && !inTown ? 1.0f : 0.0f) * muffle * (1 - 0.6f * smooth(2.5f, 4.5f, elev)));
         sounds.loop("crickets", (night ? (inTown ? 0.45f : 1.0f) : 0.0f) * muffle);
-        sounds.loop("town", (inTown && h >= 7 && h < 21 ? 1.0f : 0.0f) * muffle);
         float waves = smooth(0.36f, 0.5f, seaWide) * smooth(0.04f, 0.2f, sea);
         sounds.loop("waves", waves * muffle);
         sounds.loop("river", (water && waves < 0.3f ? 1.0f : 0.0f) * muffle);
@@ -467,6 +466,7 @@ struct Game {
     double messageUntil = 0;
     bool messageMinor = false;   // the message is a passing remark (note), which the next one may replace
     int inside = 0;
+    float cutAmt = 0;   // the see-through circle, 0..1: fading in when something hides you, out when nothing does (render)
     std::string place;
     bool help = false, showMap = false, journal = false;   // journal (J): the stories you are in, and what you have overheard
     int journalTab = 0;
@@ -477,6 +477,9 @@ struct Game {
     int pushX = -1, pushY = -1;   // the tile of the one in your way, when you last bumped into them
     double pushAt = 0;
 
+    // something said in a conversation, typed and Return, or a highlighted word clicked: a minute a thing said (the
+    // clock stands while you talk)
+    void askTalk(const std::string &q) { minutes += 1; people.ask(world, q, minutes, tx, ty); }
     void say(const std::string &s, double secs = 3.0) {
         message = s; messageUntil = now + secs; messageMinor = false;
         if (testMode) std::fprintf(stderr, "  {%s}\n", s.c_str());   // --walk: what the status line would say
@@ -748,6 +751,21 @@ struct Game {
                 eaten += " (It does you good.)";
             }
             say(eaten, 5.0);
+        } else if (k.useVerb == "sleep") {   // a bedroll: on open ground, never in a street, nor indoors (La Ramée's)
+            if (fightWith >= 0 || fightBeast >= 0 || bandState == 3) { say("Not now: you have a fight on your hands.", 3.0); return; }
+            if (riding >= 0) { say("Not on horseback: get down first.", 2.5); return; }
+            if (tz != 0 || bldAt(tx, ty, tz)) { say("Indoors there is a floor, and somebody's bed; the bedroll is for out of doors.", 4.0); return; }
+            uint8_t g = world.tile(tx, ty).terrain;
+            if (g == T_STREET || g == T_SQUARE || g == T_BRIDGE) { say("Not in the street: the watch takes up anyone found sleeping in the street for a vagrant.", 4.5); return; }
+            if (g == T_GARDEN || g == T_YARD) { say("Not here: this ground is somebody's.", 3.0); return; }
+            if (!(g == T_GRASS || g == T_MEADOW || g == T_FIELD || g == T_ROAD || g == T_SCRUB || g == T_SAND)) { say("Not here: you want dry, open ground.", 3.0); return; }
+            panel = 0;
+            double h = std::fmod(minutes, 1440.0) / 60.0;
+            if (h >= 20 || h < 5) {   // a night under the sky, until dawn
+                double day = std::floor(minutes / 1440.0), until = day * 1440 + 5 * 60 + 30;
+                if (until <= minutes) until += 1440;
+                restFor(until - minutes, (float)maxHp(), k.useText);
+            } else restFor(120, 0.5f * (maxHp() - hpNow()), "You unroll the bedroll in the grass, and doze for a couple of hours in the sun.");
         } else if (k.useVerb == "wear") {   // clothes over your own, put on and taken off again (playerLook draws them)
             bool on = people.player.count("wearing") && people.player.at("wearing") == k.id;
             if (on) people.player.erase("wearing"); else people.player["wearing"] = k.id;
@@ -4074,6 +4092,15 @@ struct Game {
     std::vector<FilmCue> filmCues;                    // and the music an event began (events.txt "cue")
     void takeRequests() {
         if (talking && people.talk.who < 0) talking = false;   // a scene broke the conversation off (People::tryChat)
+        {   // the first night of the game: once, where a bed is to be had (People "told-night")
+            double h = std::fmod(minutes, 1440.0) / 60.0;
+            if ((h >= 21 || h < 4) && !people.player.count("told-night") && !creating && sceneNow < 0 && !cardUp && fadeT < 0) {
+                people.player["told-night"] = "1";
+                bool town = people.player.count("town") && !people.player.at("town").empty();
+                say(std::string(town ? "Night falls, and the town goes to bed." : "Night falls.") +
+                    " An inn will give you a bed for two sous: ask the innkeeper, or use a bed (U).", 9.0);
+            }
+        }
         if (!people.interrupted.empty()) { say(people.interrupted, 6.0); people.interrupted.clear(); }
         if (people.approachReq >= 0) {   // someone has come up to you ("approach if"): the conversation opens with their greeting
             int who = people.approachReq;
@@ -4983,6 +5010,78 @@ struct Game {
         for (size_t t = 0; t < bufs.size(); t++) townMesh[t].upload(bufs[t]);
     }
 
+    // Is something between you and the eye: a wall, a roof, a tower, a town wall, a tree? Two points of you (the knees
+    // and the head) looked at along the line to the eye, a quarter of a tile at a time: at each point, the wall of the
+    // tile below it, a tree there, and the parts of the building there, each as its own shape (a roof's slopes, a
+    // tower's cone or dome, a box). The see-through circle is drawn only then (render). Parts hidden already (the roof
+    // of the building you are in, all roofs with V) do not count. About a few microseconds a frame (GALILEO_CUTBENCH).
+    bool hiddenFromEye(vec2 p, float pz) {
+        float yr = yaw * PI_F / 180, pr = pitch * PI_F / 180;
+        vec3 e(-std::sin(yr) * std::cos(pr), -std::cos(yr) * std::cos(pr), std::sin(pr));   // from you towards the eye
+        auto inPart = [](const Part &q, const vec3 &P) {
+            switch (q.kind) {
+                case P_PRISM: case P_CONE: case P_RINGWALL: {   // round: a = centre (z0), b = (radius, -, z1)
+                    float dx = P.x - q.a.x, dy = P.y - q.a.y, r = q.b.x;
+                    if (P.z < q.a.z || P.z > q.b.z || dx * dx + dy * dy > r * r) return false;
+                    if (q.kind != P_CONE) return true;
+                    float f = 1 - (P.z - q.a.z) / std::max(1e-3f, q.b.z - q.a.z);
+                    return dx * dx + dy * dy < r * r * f * f;
+                }
+                case P_DOME: {
+                    float r = q.b.x, hz = q.p1 > 0 ? q.p1 : 1.0f;
+                    float dx = (P.x - q.a.x) / r, dy = (P.y - q.a.y) / r, dz = (P.z - q.a.z) / (r * hz);
+                    return P.z >= q.a.z && dx * dx + dy * dy + dz * dz < 1;
+                }
+                case P_RING: {   // a = centre (eaves z), b = (outer r, inner r, ridge z)
+                    float dx = P.x - q.a.x, dy = P.y - q.a.y, d = std::sqrt(dx * dx + dy * dy);
+                    if (d > q.b.x || d < q.b.y || P.z < q.a.z || P.z > q.b.z) return false;
+                    float rr = (q.b.x + q.b.y) * 0.5f, hw = std::max(1e-3f, (q.b.x - q.b.y) * 0.5f);
+                    return P.z < q.a.z + (q.b.z - q.a.z) * (1 - std::fabs(d - rr) / hw);
+                }
+                case P_GABLE: case P_HIP: case P_PYRAMID: case P_MANSARD: {   // a = (x0, y0, eaves), b = (x1, y1, ridge)
+                    float x0 = std::min(q.a.x, q.b.x), x1 = std::max(q.a.x, q.b.x), y0 = std::min(q.a.y, q.b.y), y1 = std::max(q.a.y, q.b.y);
+                    float ze = std::min(q.a.z, q.b.z), zr = std::max(q.a.z, q.b.z);
+                    if (P.x < x0 || P.x > x1 || P.y < y0 || P.y > y1 || P.z < ze || P.z > zr) return false;
+                    float hx = std::max(1e-3f, (x1 - x0) * 0.5f), hy = std::max(1e-3f, (y1 - y0) * 0.5f);
+                    float dx = std::fabs(P.x - (x0 + x1) * 0.5f), dy = std::fabs(P.y - (y0 + y1) * 0.5f), f;
+                    if (q.kind == P_GABLE) f = q.axis == 0 ? 1 - dy / hy : 1 - dx / hx;
+                    else if (q.kind == P_HIP) f = q.axis == 0 ? std::min(1 - dy / hy, (hx - dx) / hy) : std::min(1 - dx / hx, (hy - dy) / hx);
+                    else if (q.kind == P_PYRAMID) f = std::min(1 - dx / hx, 1 - dy / hy);
+                    else f = std::min(1.0f, std::min(hx - dx, hy - dy) / (0.5f * std::min(hx, hy)));   // mansard: steep, then flat
+                    return P.z < ze + (zr - ze) * std::max(0.0f, f);
+                }
+                default: {   // a box: a, b its corners
+                    return P.x >= std::min(q.a.x, q.b.x) && P.x <= std::max(q.a.x, q.b.x) && P.y >= std::min(q.a.y, q.b.y) &&
+                           P.y <= std::max(q.a.y, q.b.y) && P.z >= std::min(q.a.z, q.b.z) && P.z <= std::max(q.a.z, q.b.z);
+                }
+            }
+        };
+        for (float up : {0.5f, 1.5f}) {
+            vec3 o(p.x, p.y, pz + up);
+            for (float t = 0.35f; t < 40.0f; t += 0.25f) {
+                vec3 q = o + e * t;
+                if (q.z > pz + 30.0f) break;   // above anything built
+                int X = (int)std::floor(q.x), Y = (int)std::floor(q.y);
+                const Tile *tl = world.tileAt(X, Y, 0);
+                if (!tl) continue;
+                float g = tl->bld ? world.buildings[tl->bld - 1].ground : world.cornerH(X, Y);
+                float wallTopZ = tl->wall == W_WALL || tl->wall == W_WINDOW ? g + GF_H : tl->wall == W_CITYWALL ? g + TOWNWALL_H :
+                                 tl->wall == W_HEDGE || tl->wall == W_EARTHWORK ? g + 1.0f : -1e9f;
+                if (q.z < wallTopZ) return true;   // walls hide you indoors too (only roofs are lifted there)
+                if (tl->feature == F_OAK || tl->feature == F_PINE || tl->feature == F_FRUIT || tl->feature == F_POPLAR) {
+                    float dx = q.x - (X + 0.5f), dy = q.y - (Y + 0.5f);
+                    if (dx * dx + dy * dy < 0.8f && q.z < g + 4.5f) return true;
+                }
+                if (tl->bld)
+                    for (const Part &pt : world.buildings[tl->bld - 1].parts) {
+                        if (pt.upper && (roofsOff || tl->bld == inside)) continue;
+                        if (inPart(pt, q)) return true;
+                    }
+            }
+        }
+        return false;
+    }
+
     void render(int W, int H, float uiScale, bool synchronous) {
         // close up, people and animals are drawn finer (mesh.cc buildFigureFine), and the furniture too: zoom is
         // the half-height of the view in tiles, 20 by default; the still scenes are 1.5 to 6. Finer below 7, plain
@@ -5216,7 +5315,25 @@ struct Game {
         f.playerNdc = vec2(pc.x / pc.w, pc.y / pc.w);
         f.playerDepth = pc.z / pc.w;
         f.playerZ = pz;
-        f.cutRadius = sceneNow >= 0 ? 0.0f : 2.7f / zoom;   // no see-through circle in a still scene
+        // the see-through circle: only when something is between you and the eye, fading in and out (no circle in a
+        // still scene)
+        {
+            static double lastT = -1;
+            double nowT = glfwGetTime();
+            bool hidden = sceneNow < 0 && hiddenFromEye(p, pz);
+            if (lastT < 0 || !win) cutAmt = hidden ? 1.0f : 0.0f;   // the first frame, or a picture: at once
+            else cutAmt += ((hidden ? 1.0f : 0.0f) - cutAmt) * std::min(1.0f, (float)(nowT - lastT) / 0.15f);
+            lastT = nowT;
+            static const bool bench = std::getenv("GALILEO_CUTBENCH") != nullptr;
+            if (bench) {   // how long the test takes, here
+                auto t0 = std::chrono::steady_clock::now();
+                int n = 0;
+                for (int k = 0; k < 10000; k++) n += hiddenFromEye(p, pz);
+                double us = std::chrono::duration<double, std::micro>(std::chrono::steady_clock::now() - t0).count() / 10000;
+                std::fprintf(stderr, "  [see-through test: %s, %.2f microseconds a frame]\n", n ? "hidden" : "in view", us);
+            }
+        }
+        f.cutRadius = sceneNow >= 0 ? 0.0f : cutAmt * 2.7f / zoom;
         f.aspect = aspect;
         f.torch = vec3(p.x, p.y, pz + 1.3f);
         f.torchStrength = torch;
@@ -5415,6 +5532,8 @@ struct Game {
         }
         hs.px = p.x; hs.py = p.y;
         bool changed = hud.draw(hs, world, W, H, uiScale, now);
+        static const bool litLog = std::getenv("GALILEO_LITWORDS") != nullptr;   // where the clickable words are (tests)
+        if (litLog && changed) for (auto &wd : hud.talkWords) std::fprintf(stderr, "  [word %s at %.4f %.4f %.4f %.4f]\n", wd.text.c_str(), wd.x0, wd.y0, wd.x1, wd.y1);
         R.overlay(hud.data(), W, H, hud.stride(), changed);
     }
 
@@ -5725,7 +5844,14 @@ static void onKey(GLFWwindow *w, int key, int, int action, int mods) {
         if (key == GLFW_KEY_ESCAPE) endConversation(g);
         else if (key == GLFW_KEY_ENTER || key == GLFW_KEY_KP_ENTER) {
             if (g.people.talk.over) endConversation(g);
-            else if (!in.empty()) { std::string q = in; in.clear(); g.minutes += 1; g.people.ask(g.world, q, g.minutes, g.tx, g.ty); }   // a minute a thing said (the clock stands while you talk)
+            else if (!in.empty()) { std::string q = in; in.clear(); g.askTalk(q); }
+        } else if (key == GLFW_KEY_TAB && !g.people.talk.over) {   // the highlighted words of this conversation, newest first, one a press
+            std::vector<std::string> lit = g.people.litWords();
+            if (!lit.empty()) {
+                size_t at = 0;
+                for (size_t k = 0; k < lit.size(); k++) if (lit[k] == in) { at = k + 1; break; }
+                in = lit[at % lit.size()];
+            }
         } else if (key == GLFW_KEY_UP || key == GLFW_KEY_PAGE_UP) {   // look back: a row of text, or a boxful
             g.talkScroll = std::min(hudTalkScrollMax, g.talkScroll + (key == GLFW_KEY_UP ? 1 : hudTalkPageRows));
             g.talkSeen = g.people.talk.lines.size();
@@ -5913,6 +6039,19 @@ static void onMouse(GLFWwindow *w, int button, int action, int) {
     if (g.fadeT >= 0) return;
     if (g.people.sceneNow()) return;   // a scene between two people: clicks wait for its end
     if (g.cardUp) { if (button == GLFW_MOUSE_BUTTON_LEFT) g.afterCard(); return; }
+    if (g.talking && !g.people.talk.over && button == GLFW_MOUSE_BUTTON_LEFT) {   // a highlighted word clicked: asked, as if typed
+        double mx, my;
+        int ww, wh;
+        glfwGetCursorPos(w, &mx, &my);
+        glfwGetWindowSize(w, &ww, &wh);
+        float fx = (float)(mx / std::max(1, ww)), fy = (float)(my / std::max(1, wh));
+        for (const Hud::Word &wd : g.hud.talkWords)
+            if (fx >= wd.x0 && fx <= wd.x1 && fy >= wd.y0 && fy <= wd.y1) {
+                g.askTalk(wd.text);
+                return;
+            }
+        return;
+    }
     if (g.sceneNow >= 0) { if (button == GLFW_MOUSE_BUTTON_LEFT) g.nextScene(); return; }   // a click: the next scene
     if (!g.pick) return;
     if (button == GLFW_MOUSE_BUTTON_RIGHT) { g.endPick(); g.say("Never mind.", 1.5); return; }
@@ -7893,7 +8032,13 @@ int main(int argc, char **argv) {
                 auto k = keys.find(tok.substr(6));
                 if (k == keys.end()) { std::fprintf(stderr, "  (PRESS takes UP DOWN LEFT RIGHT TAB ENTER BACKSPACE SPACE ESCAPE PAGE_UP PAGE_DOWN)\n"); continue; }
                 int before = g.sceneNow;
+                size_t talkBefore = g.people.talk.lines.size();
                 onKey(nullptr, k->second, 0, GLFW_PRESS, 0);
+                if (g.talking && g.people.talk.who >= 0) {   // in a conversation: what the key said, as SAY prints it (Tab: what it typed)
+                    for (size_t kk = talkBefore; kk < g.people.talk.lines.size(); kk++)
+                        std::fprintf(stderr, "    %s%s\n", g.people.talk.lines[kk].first ? "" : "> ", g.people.talk.lines[kk].second.c_str());
+                    if (k->second == GLFW_KEY_TAB) std::fprintf(stderr, "  [typed: %s]\n", g.people.talk.input.c_str());
+                }
                 if (g.creating && !o.play.empty()) printChoosing();
                 if (g.sceneNow >= 0) std::fprintf(stderr, "  [%sscene %d of %zu] %s\n", g.sceneNow < before ? "back to " : "", g.sceneNow + 1, g.scenes.size(), g.scenes[g.sceneNow].caption.c_str());
                 continue;

@@ -126,6 +126,8 @@ struct Person {
     float wait = 0, idle = 0, nextSay = 10, facing = 0, walkPhase = 0, bubbleT = 0;
     float pause = 0;   // how long they have stood still because you came up beside them
     float hold = 0;    // seconds to stay where they are (playing a piece, say)
+    float waitT = 0;   // after a conversation you ended: seconds they wait while you stay within two steps
+    double waitTill = 0;   // and not past this game minute (a wait, a sleep or a journey moves the clock on, not the seconds)
     std::string bubble;
     bool watch = false;   // of the watch (the role's "watch")
     float chase = 0;      // > 0: running after the player, for this many seconds so far
@@ -231,6 +233,7 @@ struct Conversation {
     bool over = false;
     bool pendingGive = false;   // the prompt asked "(Give what?)": your next words are the thing ("letter")
     bool pendingBuy = false;    // a shop asked "How many?" or "Which will it be?": a number or a ware's name buys
+    bool theyLeft = false;      // they ended it ({bye}): they go on at once, not waiting for you
 };
 
 class People {
@@ -290,6 +293,7 @@ public:
     std::string notice;                 // for the status line ("You overhear ..."); the game clears it
     bool sceneNow() const;              // a scene (chats.txt "at once") is playing: the game takes no keys till it ends
     bool talkRead() const;              // the conversation's latest line has had time to be read (a scene may break in)
+    std::vector<std::string> litWords() const;   // the highlighted words of their lines in this conversation, newest first (Tab)
     std::string interrupted;            // a chat broke off your conversation (Chat::interrupt): the game says it, ends the box, clears it
     std::string playRequest;            // "play ID" in a conversation: a piece to play; the game takes it
     int postBy = -1;                    // "postjob" / "postdeliver": a packet of the post given or taken in (Game::postJob)
@@ -489,7 +493,7 @@ private:
     bool planCacheHolds(const Person &p, const PlanCache &c) const;   // nothing it read has changed
     void apply(Person &p, const std::vector<std::string> &effects);
     std::string fill(const Person &p, const std::string &text, const Person *other = nullptr) const;
-    const TalkLine *match(const Person &p, const std::string &word, double minutes) const;
+    const TalkLine *match(const Person &p, const std::string &word, double minutes, bool whole = false) const;
     // the words of the places' names, four letters or more (load): a talk key takes them only whole,
     // never by their first four letters ("venice" is not "venison", "cambrai" not "cambridge")
     std::set<std::string> townWords;

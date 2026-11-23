@@ -665,3 +665,10 @@ story globe
   done well if player head-whole and player dream-seen: The Dream played with the head whole, and Titania's "I love thee" meant more than the yard knew.
   done if player head-sawn and player dream-seen: The Dream played with Bottom in a painted face.
 end
+
+story ramee
+  title La Ramée's bread
+  step if player ramee-bread and not player ramee-fed: Robert Crenet of the Pomme de Pin has given you bread and cheese for La Ramée, an old soldier who sits by the Porte Saint-Denis by day and sleeps behind the Pomme de Pin.
+  step if player ramee-fed and not player has:bedroll: La Ramée sleeps on a bedroll under the open sky. Martin Goujon, the fripier at les Halles, sells them, for a livre.
+  done if player ramee-fed and player has:bedroll: You have a bedroll, like La Ramée's: on open ground, away from the streets, you can sleep under the sky.
+end

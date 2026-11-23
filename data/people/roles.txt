@@ -47,7 +47,8 @@
 # it (it goes into their memory as has:ITEM). Without such a line they decline.
 # Talk: the first line (own lines first, then the role's, then everyone's) whose
 # keyword matches and whose condition holds is the answer. Keywords match on their
-# first four letters, as in Ultima. Special keywords: hello (when you begin), bye,
+# first four letters, as in Ultima ("=word": that word only; "==words": only when it is all you
+# say, "==good" but not "a good inn"). Special keywords: hello (when you begin), bye,
 # and ? (anything else). *word* is shown highlighted. $name $first $role $town are
 # filled in.
 # Conditions: words joined by "and": KEY, not KEY, KEY >= 3, player KEY, met, asleep,
@@ -179,6 +180,7 @@ role everyone "someone"
     church,churches,clergy,religion,faith if country=Ottoman: Which church? Here the muezzins call five times a day; the Greeks have their Patriarch, the Armenians theirs, the Jews their rabbis, and no Christian may ring a bell. Each people keeps its own law, and pays the Sultan for the privilege.
     church,churches,clergy,religion,faith: The Church? The curé christens you, marries you and buries you, and takes the tithe from every sheaf in between. He knows who comes to Mass and who does not; so does the bishop; and so, they say, does the Cardinal.
     yes,no,yeah,aye,sure,certainly,indeed,nope,=of course: ($He waits for you to say more.)
+    ==thanks,==thank you,==many thanks,==ok,==okay,==good,==very good,==fine,==very well,==all right,==alright,==i will,==i will do it,==i shall,==i shall do it: ($He nods.)
     ?: I know nothing about that.
   end
 end

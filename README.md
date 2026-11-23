@@ -23,8 +23,8 @@ Danzig, Sarajevo, Stockholm) and the country between them make one map, with no 
 interiors and the open road. The people keep their own hours, talk with you in typed words, trade, remember what you
 did, and talk to each other. You travel on foot, on horseback, by the post, by boat, ferry and ship.
 
-This is an alpha version: the whole story can be played from the beginning to its ending. It runs on macOS; a build
-for Linux is in the Makefile but has not been tried yet.
+This is an alpha version: the whole story can be played from the beginning to its ending. It runs on macOS and on
+Linux.
 
 Galileo is a game by Danny Calegari. The code of this version was written by Claude, an AI model made by Anthropic,
 working with Danny Calegari, and is based in part on his earlier game (the 2013 alpha version, in this repository's
@@ -38,8 +38,8 @@ On macOS:
     make
     ./galileo
 
-On Linux (not yet tried), first the compiler, pkg-config, and glfw, cairo and OpenGL with their headers; for example
-on Debian or Ubuntu
+On Linux, first the compiler, pkg-config, and glfw, cairo and OpenGL with their headers; for example on Debian or
+Ubuntu
 
     sudo apt install build-essential pkg-config libglfw3-dev libcairo2-dev libgl-dev
 

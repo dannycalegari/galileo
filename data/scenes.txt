@@ -51,7 +51,7 @@ scene
   coins table:the_farmhouse
   you table:the_farmhouse+-1,0 child facing to:coins
   the_cottage_at_la_chapelle:pierre table:the_farmhouse+1.2,-0.8 facing to:you
-  caption You could count the week's sous faster than the priest could say a Paternoster.
+  caption You could count the week's copper sous faster than the priest could say his Paternoster.
 end
 
 scene
@@ -71,7 +71,7 @@ scene
   look 5,4 yaw 22 pitch 40 zoom 3.2 roofs
   cow 4.3,3.6 facing E lying
   you 4.9,4.7 youth facing to:cow kneeling
-  caption Then, one morning this May, Pâquerette would not get up. The curé said it was because your father had mended the byre on the feast of Saint Mark; and the tithe-man came for his tenth all the same.
+  caption Then, one morning this May, Pâquerette would not get up. The curé, the village priest, said it was because your father had mended her byre on a holy day, the feast of Saint Mark; and the Church's tithe-man came for his tenth of the harvest all the same.
 end
 
 scene

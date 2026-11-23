@@ -2048,3 +2048,93 @@ scenario globe-kit-asks-for-nick
   run WAIT:10
   absent comes up to you
 end
+
+scenario talk-everyday-words
+  about "good", "thanks", "i will do it" said on their own get a nod, not "I know nothing about that" and not the goodwife ("==" keys: the whole of what was said); "goodwife" still finds her
+  fixture london_street.txt
+  run ROAD:none KNOW:knows:london:taylor=1 WAIT:430 WALKTO:Globe WALKTO:Taylor TALK:Taylor SAY:good SAY:thanks SAY:I_will_do_it SAY:goodwife BYE
+  expect > good
+  expect (He nods.)
+  absent There is a goodwife. She lives by the Bastille.
+  absent I know nothing about that.
+  expect There is a goodwife. You will find her in the market
+end
+
+scenario mersenne-give-not-to-me
+  about the first errand's *give*: said to Mersenne, he pushes the letter back (to Diodati, into his own hands); said to Diodati, "give" alone hands it over
+  fixture paris_start.txt
+  run ROAD:none KNOW:courier-tested=1 KNOW:courier-ruled=1 KNOW:courier-hired=0 KNOW:delivered-diodati=0 KNOW:courier-coat=0 KNOW:has:mersenne-to-diodati=0 WALKTO:Minims WALKTO:Mersenne TALK:Mersenne SAY:yes SAY:give BYE
+  expect *Give* it into his own hands, and come back and tell me.
+  expect (He pushes it back into your hands.) Not to me: to Monsieur *Diodati*!
+  file-expect ^player has:mersenne-to-diodati 1
+  run WALKTO:Palais WALKTO:Diodati TALK:Diodati SAY:give BYE
+  expect (He breaks the seal, reads, and laughs aloud.)
+  file-absent ^player has:mersenne-to-diodati 1
+end
+
+scenario people-wait-after-talk
+  about after a conversation you end, the person waits up to 30 real seconds while you stay within two steps (Diodati, whose meal begins about noon), and goes on after it
+  fixture paris_start.txt
+  run ROAD:none KNOW:knows:paris:diodati=1 WALKTO:Palais WALKTO:Diodati WAIT:110 TALK:Diodati BYE WAIT:13 WHERE:paris:diodati
+  expect Elia Diodati is at 2928,3830,0 (the Palais de la Cité, Paris)
+  run WAIT:15 WHERE:paris:diodati
+  expect eat ,
+end
+
+scenario people-go-on-when-you-leave
+  about after a conversation, walking away lets the person go on with their day at once (Diodati to his meal at noon)
+  fixture paris_start.txt
+  run ROAD:none KNOW:knows:paris:diodati=1 WALKTO:Palais WALKTO:Diodati WAIT:110 TALK:Diodati BYE WALKTO:Sainte-Chapelle WAIT:12 WHERE:paris:diodati
+  expect eat , there
+end
+
+scenario where-after-a-name
+  about "where" on its own (or "where is he?") asks about the last name or place lit up in the conversation (Mersenne: "Monsieur *Diodati* has his letter?"), when no line of theirs answers "where"
+  fixture paris_start.txt
+  run ROAD:none KNOW:courier-tested=1 KNOW:courier-ruled=1 KNOW:courier-hired=0 KNOW:delivered-diodati=0 KNOW:courier-coat=0 KNOW:has:mersenne-to-diodati=0 WALKTO:Minims WALKTO:Mersenne TALK:Mersenne SAY:yes BYE TALK:Mersenne SAY:where SAY:where_is_he? BYE
+  expect Back already? Monsieur *Diodati* has his letter?
+  expect > where
+  expect Monsieur Diodati, the advocate: at the Palais de la Cité
+  absent I know nothing about that.
+end
+
+scenario nightfall-note
+  about the first night of the game, once: "Night falls ... An inn will give you a bed for two sous: ask the innkeeper, or use a bed (U)."; not on the next night
+  fixture paris_start.txt
+  run ROAD:none WAIT:600 WAIT:90
+  expect Night falls, and the town goes to bed. An inn will give you a bed for two sous
+  file-expect ^player told-night 1
+  run WAIT:1440
+  absent Night falls
+end
+
+scenario ramee-bread-and-bedroll
+  about after the night at the Pomme de Pin on Mersenne's account, Crenet gives you bread for La Ramée; given it, La Ramée tells you of the bedroll and of Goujon; Goujon sells one; it will not do in a street or indoors, it gives a nap by day and a night under the sky
+  fixture paris_start.txt
+  run ROAD:none MONEY:600 KNOW:slept-on-account=1 KNOW:supper-on-account=1 WALKTO:Pomme WALKTO:Crenet TALK:Crenet BYE
+  expect An old soldier sleeps in the ditch behind my stable, *La Ramée*
+  file-expect ^player has:bread-for-ramee 1
+  run WALKTO:soldier TALK:soldier SAY:give BYE
+  expect Old *Goujon*, the fripier at les Halles, sells them
+  file-absent ^player has:bread-for-ramee
+  file-expect ^player ramee-fed
+  run WALKTO:Halles WALKTO:Goujon TALK:Goujon SAY:buy_bedroll BYE USE:bedroll OUT USE:bedroll
+  expect Here you are: a bedroll, for 1 livre.
+  expect Indoors there is a floor, and somebody's bed
+  expect Not in the street: the watch takes up anyone found sleeping in the street for a vagrant.
+  file-expect ^player has:bedroll 1
+  run WALKTO:soldier USE:bedroll WAIT:480 USE:bedroll
+  expect You unroll the bedroll in the grass, and doze for a couple of hours in the sun.
+  expect You unroll the bedroll on the grass and sleep under the stars, until the birds wake you.
+  file-expect ^time 1770
+end
+
+scenario talk-tab-highlighted-words
+  about Tab in a conversation types its highlighted words, newest first, one a press (Mersenne's errand: *Give*, *Diodati*, then his earlier *terms*); Return asks
+  fixture paris_start.txt
+  run ROAD:none KNOW:courier-tested=1 KNOW:courier-ruled=1 KNOW:courier-hired=0 KNOW:delivered-diodati=0 KNOW:courier-coat=0 KNOW:has:mersenne-to-diodati=0 WALKTO:Minims WALKTO:Mersenne TALK:Mersenne SAY:yes PRESS:TAB PRESS:TAB PRESS:ENTER
+  expect [typed: Give]
+  expect [typed: Diodati]
+  expect > diodati
+  expect Monsieur Diodati, the advocate: at the Palais de la Cité
+end

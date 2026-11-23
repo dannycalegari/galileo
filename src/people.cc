@@ -1074,6 +1074,17 @@ bool People::placeFor(World &w, Person &p, const std::string &activity, const st
         int b = nearestBuilding([](const Building &b) { return b.kind == "church" || b.kind == "cathedral" || b.kind == "chapel"; });
         return b && (inBuilding(b, 0, kind == "altar", false) || inBuilding(b, 0, false, false));
     }
+    if (kind == "outside") {   // "go outside NAME", "lie outside NAME": on open ground (grass, a meadow, a field) near
+                               // that building (La Ramée by the Porte Saint-Denis, and asleep behind the Pomme de Pin)
+        int b = namedBuilding(lower(arg));
+        if (!b) return false;
+        const Building &bd = w.buildings[b - 1];
+        int cx = (bd.x0 + bd.x1) / 2, cy = (bd.y0 + bd.y1) / 2, r = std::max(bd.x1 - bd.x0, bd.y1 - bd.y0) / 2 + 6;
+        return tilesWhere(cx, cy, r, [&](int X, int Y) {
+            const Tile &t = w.tile(X, Y);
+            return t.bld == 0 && (t.terrain == T_GRASS || t.terrain == T_MEADOW || t.terrain == T_FIELD);
+        });
+    }
     if (kind == "beside") {   // "go beside ID": next to that person, where they stand now (Kit Ashby comes up to Robin)
         Person *q = byId(arg);
         if (!q && p.id.find(':') != std::string::npos) q = byId(p.id.substr(0, p.id.find(':') + 1) + arg);
@@ -1572,6 +1583,16 @@ void People::update(World &w, float dt, double minutes, int ptx, int pty, int pt
             p.hold -= dt;
             if (p.bubbleT > 0) p.bubbleT -= dt;
             continue;
+        }
+        if (p.waitT > 0) {   // after a conversation you ended: waiting while you stay within two steps (People::endTalk)
+            p.waitT -= dt;
+            bool near = p.z == ptz && std::max(std::abs(p.x - ptx), std::abs(p.y - pty)) <= 2;
+            if (!near || minutes > p.waitTill) p.waitT = 0;
+            else if (p.stepT >= 1) {
+                p.walkPhase = 0;
+                if (p.bubbleT > 0) p.bubbleT -= dt;
+                continue;
+            }
         }
         if (!p.travelTo.empty() || p.onRoad) { travelStep(w, p, minutes); if (p.onRoad) continue; }
         plan(w, p, minutes);
@@ -2836,6 +2857,24 @@ void People::chatLine(World &w, double minutes, int ptx, int pty, int ptz) {
 
 // the conversation's latest line has been on the screen long enough to read: four seconds, and one for every 25
 // letters (Robin's first greeting, 480 letters: 23 seconds)
+std::vector<std::string> People::litWords() const {
+    std::vector<std::string> out;
+    for (size_t i = talk.lines.size(); i-- > 0;) {
+        if (!talk.lines[i].first) continue;
+        const std::string &l = talk.lines[i].second;
+        std::vector<std::string> here;
+        for (size_t a = l.find('*'); a != std::string::npos; a = l.find('*', a + 1)) {
+            size_t b = l.find('*', a + 1);
+            if (b == std::string::npos) break;
+            here.push_back(l.substr(a + 1, b - a - 1));
+            a = b;
+        }
+        for (size_t k = here.size(); k-- > 0;)   // the last in a line first
+            if (std::find(out.begin(), out.end(), here[k]) == out.end()) out.push_back(here[k]);
+    }
+    return out;
+}
+
 bool People::talkRead() const {
     if (talk.who < 0 || talk.lines.empty()) return true;
     size_t n = 0;
@@ -3150,6 +3189,7 @@ void People::apply(Person &p, const std::vector<std::string> &effects) {
             player["knows:" + p.id] = "1";
         } else if (verb == "bye") {
             talk.over = true;
+            talk.theyLeft = true;
         }
     }
 }
@@ -3240,11 +3280,16 @@ static bool keyMatches(const std::string &word, const std::string &key, const st
     return false;
 }
 
-const TalkLine *People::match(const Person &p, const std::string &word, double minutes) const {
+// a key "==WORDS" answers only the whole of what was said ("==good": "good", not "a good inn"). WHOLE: WORD is all
+// that was said, and only those keys are tried; else only the others.
+const TalkLine *People::match(const Person &p, const std::string &word, double minutes, bool whole) const {
     for (const std::vector<TalkLine> *lines : p.talkLists())
         for (const TalkLine &t : *lines)
-            for (const std::string &k : t.keys)
-                if (keyMatches(word, k, &townWords) && holds(p, t.cond, minutes)) return &t;
+            for (const std::string &k : t.keys) {
+                bool wholeKey = k.size() > 2 && k[0] == '=' && k[1] == '=';
+                if (wholeKey != whole) continue;
+                if ((whole ? word == k.substr(2) : keyMatches(word, k, &townWords)) && holds(p, t.cond, minutes)) return &t;
+            }
     return nullptr;
 }
 
@@ -3786,6 +3831,54 @@ void People::startTalk(World &w, int who, double minutes) {
     (void)w;
 }
 
+// ------------------------------------------------------------------ the words of a conversation
+// Three lists of everyday words, kept together here. Where each is used is in the order of People::ask, below.
+//   minorWord: never part of the name of a person, a place or a trade (the little words, titles of address, and
+//     everyday words: "good" is not the goodwife). People::knowAnswer, steps 6 and 8.
+//   kAloneOnly: words of every sentence that are also parts of names ("will": William Harvey, Will Ayre; "not":
+//     Faint-not Hobday): a name only when said alone; "I will look" and "not laughing" ask for nobody. Steps 6, 8.
+//   kWhereOnly: "where", said alone or so: about the last name or place they lit up (*Diodati*). Step 0.
+// Keys of the people's lines have two exact forms besides the plain one (which matches on four letters):
+// "=word" (that word only: "=forty-eight", not "forty-seven") and "==words" (only the whole of what was said:
+// "==good", not "a good inn"; step 4).
+static bool minorWord(const std::string &w) {
+    static const std::unordered_set<std::string> m = {
+        "the", "and", "des", "del", "dei", "della", "dello", "delle", "degli", "dal", "van", "von",
+        "der", "den", "het", "ten", "zum", "zur", "saint", "sainte", "san", "santa", "santo", "sankt",
+        "where", "wheres", "what", "whats", "who", "whos", "how", "find", "way", "get", "going",
+        "can", "could", "would", "tell", "about", "please", "there", "here", "which", "this", "that",
+        "know", "heard", "hear", "show", "some", "any", "him", "her", "his", "them", "they", "you",
+        "your", "for", "from", "with", "are", "was", "does", "did", "one", "see", "want", "look",
+        "looking", "lives", "live", "father", "pere", "padre", "fra", "frate", "brother", "sister",
+        "suor", "suora", "mother", "signor", "signore", "signora", "sir", "lady", "lord", "don",
+        "dona", "master", "mistress", "monsieur", "madame", "mademoiselle", "herr", "frau", "mrs",
+        "doctor", "seigneur", "messer", "fray", "sor",
+        "good", "fine", "okay", "thanks", "thank", "sure"};   // everyday words: "good" is not the goodwife
+    return w.size() < 3 || m.count(w) > 0;
+}
+static const std::unordered_set<std::string> kAloneOnly = {"will", "not"};
+static const std::set<std::string> kWhereOnly = {"where", "where is he", "where is she", "where is it", "where is that",
+    "where is he now", "where is she now", "where does he live", "where does she live", "where can i find him",
+    "where can i find her", "where is that place", "where are they"};
+
+// What you say in a conversation, answered: the steps in order, the first that answers wins.
+//   0. what you said, reworded: "holy father" is the Pope ("holiness"); "where" alone (kWhereOnly) is the last
+//      word they lit up, when no line of theirs answers "where"
+//   1. a question the game asked: after "(Give what?)" the words are the thing; after "How many?" or "Which will it
+//      be?" a number or a ware buys
+//   2. the post ride: a town named to an innkeeper or an ostler
+//   3. trade: buy, sell, give, pay, bet (People::trade)
+//   4. their lines (their own, then their role's, then everyone's) against the whole of what you said: the "=="
+//      keys first, then the others
+//   5. a number in a sentence, for a question that waits for one (Mersenne's sum)
+//   6. a place or a person of the town named in full, in two words or more (People::knowAnswer)
+//   7. each word in turn against their lines: the first word that a line answers
+//   8. no line answers: what the word for their trade means, or what anyone knows of the town: its places, people,
+//      trades, and who sells what (People::tradeAnswer, People::knowAnswer, with minorWord and kAloneOnly)
+//   9. a word they have used to you in this conversation: "That is all I can tell you about it."
+//  10. their "?" line: everyone's is "I know nothing about that."
+// Then: a line said again begins "As I told you" (not a gesture alone, "(He nods.)"), its effects are applied, and
+// they remember that you asked.
 void People::ask(World &w, const std::string &input, double minutes, int youX, int youY) {
     if (talk.who < 0) return;
     Person &p = people[talk.who];
@@ -3794,6 +3887,24 @@ void People::ask(World &w, const std::string &input, double minutes, int youX, i
     lastSaid = trim(input);
     talk.lines.push_back({false, words});
     for (size_t at; (at = words.find("holy father")) != std::string::npos; ) words.replace(at, 11, "holiness");   // the Pope, not the Holy Office
+    // "where" on its own (or "where is he", ...), when no line of theirs answers it: the last name or place they lit up
+    // (*Diodati*) in this conversation, asked about by name
+    {
+        std::string bare;
+        for (char c : words) if (c != '?' && c != '.' && c != '!' && c != ',') bare += c;
+        bare = trim(bare);
+        if (kWhereOnly.count(bare) && !match(p, "where", minutes)) {
+            for (size_t i = talk.lines.size() - 1; i-- > 0;) {   // their lines, the latest first (not what you just said)
+                if (!talk.lines[i].first) continue;
+                const std::string &l = talk.lines[i].second;
+                size_t b = l.rfind('*');
+                size_t a = b == std::string::npos || b == 0 ? std::string::npos : l.rfind('*', b - 1);
+                if (a == std::string::npos) continue;
+                words = lower(l.substr(a + 1, b - a - 1));
+                break;
+            }
+        }
+    }
     if (talk.pendingGive) {   // after "(Give what?)", "letter" means "give letter"
         talk.pendingGive = false;
         std::string first = words.substr(0, words.find(' '));
@@ -3831,8 +3942,14 @@ void People::ask(World &w, const std::string &input, double minutes, int youX, i
     if (items && trade(p, words, minutes)) return;
     const TalkLine *t = nullptr;
     std::string asked;
-    // the whole phrase, then each word
-    t = match(p, words, minutes);
+    // the whole phrase (also as said, without its stops and commas: keys "==good"), then each word
+    {
+        std::string whole;
+        for (char c : words) if (c != '.' && c != '!' && c != '?' && c != ',') whole += c;
+        whole = trim(whole);
+        t = match(p, whole, minutes, true);
+        if (!t) t = match(p, words, minutes);
+    }
     if (t) asked = words;
     // a number in a sentence ("I owe the post 48 sous") answers a question before the other words do ("post"); keys
     // that are numbers match only whole. A number that no line answers, while a question waits for one (a "?" line
@@ -3906,7 +4023,8 @@ void People::ask(World &w, const std::string &input, double minutes, int youX, i
     std::string reply = fill(p, t->text);
     // people remember what they have told you already
     const std::string &k0 = t->keys[0];
-    if (t->cond.empty() && k0 != "hello" && k0 != "bye" && k0 != "?" && truthy(p.mem["asked:" + k0]) && !reply.empty()) {
+    bool gesture = !reply.empty() && reply.front() == '(' && reply.find(')') == reply.size() - 1;   // "(He nods.)": not told twice
+    if (t->cond.empty() && k0 != "hello" && k0 != "bye" && k0 != "?" && truthy(p.mem["asked:" + k0]) && !reply.empty() && !gesture) {
         static const char *again[] = {"As I told you: ", "I said so already. ", "Again? "};
         reply = again[hash32((uint32_t)std::hash<std::string>()(p.id + k0)) % 3] + reply;
     }
@@ -3921,6 +4039,10 @@ void People::endTalk(double minutes) {
         Person &p = people[talk.who];
         p.mem["met"] = "1";
         p.mem["last"] = std::to_string((long)minutes);
+        // a conversation you ended: they wait a little while you stay by them (to look in your bag, and talk again);
+        // not if they ended it, nor if they are setting out on a journey
+        p.waitT = !talk.theyLeft && p.travelTo.empty() && !p.onRoad ? 30.0f : 0.0f;
+        p.waitTill = minutes + 15;
     }
     talk = Conversation();
 }
@@ -3959,21 +4081,7 @@ static std::vector<std::string> wordsOf(const std::string &s) {
     return out;
 }
 std::vector<std::string> People::nameWords(const std::string &s) { return wordsOf(s); }
-// words that name nothing by themselves: articles, "saint", ways of asking, titles of address
-static bool minorWord(const std::string &w) {
-    static const std::unordered_set<std::string> m = {
-        "the", "and", "des", "del", "dei", "della", "dello", "delle", "degli", "dal", "van", "von",
-        "der", "den", "het", "ten", "zum", "zur", "saint", "sainte", "san", "santa", "santo", "sankt",
-        "where", "wheres", "what", "whats", "who", "whos", "how", "find", "way", "get", "going",
-        "can", "could", "would", "tell", "about", "please", "there", "here", "which", "this", "that",
-        "know", "heard", "hear", "show", "some", "any", "him", "her", "his", "them", "they", "you",
-        "your", "for", "from", "with", "are", "was", "does", "did", "one", "see", "want", "look",
-        "looking", "lives", "live", "father", "pere", "padre", "fra", "frate", "brother", "sister",
-        "suor", "suora", "mother", "signor", "signore", "signora", "sir", "lady", "lord", "don",
-        "dona", "master", "mistress", "monsieur", "madame", "mademoiselle", "herr", "frau", "mrs",
-        "doctor", "seigneur", "messer", "fray", "sor"};
-    return w.size() < 3 || m.count(w) > 0;
-}
+// a word you said fits a word of a name: the same, its beginning (four letters or more), or the plural
 static bool wordFits(const std::string &asked, const std::string &w) {
     if (asked == w) return true;
     if (asked.size() >= 4 && w.compare(0, asked.size(), asked) == 0) return true;   // "chapel": the Sainte-Chapelle
@@ -4116,11 +4224,8 @@ bool People::knowAnswer(World &w, const Person &p, const std::string &words, boo
     const Settlement *s = nullptr;
     for (auto &st : w.settlements) if (lower(st.name) == lower(p.town)) { s = &st; break; }
     if (!s) return false;
-    // words of every sentence that are also parts of names ("will": William Harvey, Will Ayre; "not": Faint-not
-    // Hobday) count only when said alone: "I will look" and "not laughing" ask for nobody
-    static const std::unordered_set<std::string> aloneOnly = {"will", "not"};
     std::vector<std::string> all = wordsOf(words), asked;
-    for (auto &x : all) if (!minorWord(x) && !(all.size() > 1 && aloneOnly.count(x))) asked.push_back(x);
+    for (auto &x : all) if (!minorWord(x) && !(all.size() > 1 && kAloneOnly.count(x))) asked.push_back(x);
     if (asked.empty() || (fullOnly && asked.size() < 2)) return false;
     struct Cand { std::string name; const Building *bld = nullptr; int person = -1, matched = 0, extra = 0; float dist = 0; };
     auto score = [&](Cand &c) {
